@@ -14,8 +14,6 @@
     __weak IBOutlet UILabel *indicatorText;
     
     BOOL animating;
-    
-    TradeItResult * result;
 }
 
 @end
@@ -38,17 +36,89 @@
 #pragma mark - Actions To Perform While Loading
 
 - (void) sendLoginReviewRequest {
-    //TODO check for error o/w do it up!
-    //result = [[self tradeSession] authenticateAndTrade];
+    [indicatorText setText:@"Authenticating and Reviewing Your Order"];
+    /*[[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
+        [self loginReviewRequestRecieved:result];
+    }];*/
+    TradeItResult * result = [[self tradeSession] authenticateAndReview];
+    TradeItStockOrEtfTradeReviewResult *reviewResult = (TradeItStockOrEtfTradeReviewResult *) result;
+    NSLog(@"%@",reviewResult.orderDetails.orderMessage);
+}
+
+- (void) loginReviewRequestRecieved: (TradeItResult *) result {
     
-    [self performSegueWithIdentifier: @"loadingToReviewSegue" sender: self];
+    if(result == nil){
+        //TODO
+        NSLog(@"Received nil result returning");
+    }
+    else if([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
+        //process review result
+        [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
+        TradeItStockOrEtfTradeReviewResult *reviewResult = (TradeItStockOrEtfTradeReviewResult *) result;
+        NSLog(@"%@",reviewResult.orderDetails.orderMessage);
+        [self performSegueWithIdentifier: @"loadingToReviewSegue" sender: self];
+    }
+    else if([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
+        //process security question
+        //TODO
+        TradeItSecurityQuestionResult *securityQuestionResult = (TradeItSecurityQuestionResult *) result;
+        NSLog(@"Received security result: %@", securityQuestionResult);
+        
+        /*
+        if(securityQuestionResult.securityQuestionOptions != nil && securityQuestionResult.securityQuestionOptions.count > 0 ){
+            result = [tradeSession answerSecurityQuestion:@"option 1" ];
+            return processResult(tradeSession, result);
+        }
+        else if(securityQuestionResult.challengeImage !=nil){
+            result = [tradeSession answerSecurityQuestion:@"tradingticket"];
+            return processResult(tradeSession, result);
+        }
+        else if(securityQuestionResult.securityQuestion != nil){
+            //answer security question
+            result = [tradeSession answerSecurityQuestion:@"tradingticket" ];
+            return processResult(tradeSession, result);
+        }
+         */
+    }
+    else if([result isKindOfClass:[TradeItMultipleAccountResult class]]){
+        //TODO
+        //process mutli account
+        //cast result
+        TradeItMultipleAccountResult * multiAccountResult = (TradeItMultipleAccountResult* ) result;
+        NSLog(@"Received TradeItMultipleAccountResult result: %@", multiAccountResult);
+        //result = [tradeSession selectAccount:multiAccountResult.accountList[0]];
+        //return processResult(tradeSession, result);
+        
+    }
+    else if([result isKindOfClass:[TradeItErrorResult class]]){
+        //Received an error
+        //TODO
+        NSLog(@"Bummer!!!!, Received Error result: %@", result);
+    }
+    //TODO - else - throw random error
 }
 
 - (void) sendTradeRequest {
-    //TODO check for error o/w do it up!
-    //result = [[self tradeSession] placeOrder];
-    
+    [indicatorText setText:@"Submitting Your Order"];
     [self performSegueWithIdentifier: @"loadingToSuccesSegue" sender: self];
+    
+    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
+        [self tradeRequestRecieved:result];
+    }];
+}
+
+- (void) tradeRequestRecieved: (TradeItResult *) result {
+    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
+        //process success result
+        NSLog(@"Great!!!!, Received Success result: %@", result);
+        [self performSegueWithIdentifier: @"loadingToSuccesSegue" sender: self];
+        
+    } else if([result isKindOfClass:[TradeItErrorResult class]]){
+        //Received an error
+        //TODO
+        NSLog(@"Bummer!!!!, Received Error result: %@", result);
+    }
+    //TODO - else - throw random error
 }
 
 #pragma mark - Loading Animations
@@ -98,16 +168,17 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    //if([segue.identifier isEqualToString:@"loadingToReviewSegue"]) {
-        //UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
-        //ReviewScreenViewController * rootController=(ReviewScreenViewController *)[dest.viewControllers objectAtIndex:0];
+    if([segue.identifier isEqualToString:@"loadingToReviewSegue"]) {
+        UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
+        ReviewScreenViewController * rootController=(ReviewScreenViewController *)[dest.viewControllers objectAtIndex:0];
         
-        //[rootController setTradeSession: self.tradeSession];
-        //[rootController setResult: result];
-    //} else {
-        //[[segue destinationViewController] setResult: result];
-        //[[segue destinationViewController] setTradeSession: self.tradeSession];
-    //}
+        [rootController setTradeSession: self.tradeSession];
+        [rootController setResult: self.reviewResult];
+    } else if([segue.identifier isEqualToString:@"loadingToSuccesSegue"]) {
+        SuccessViewController * successPage = (SuccessViewController *)[segue destinationViewController];
+        [successPage setResult: self.successResult];
+        [successPage setTradeSession: self.tradeSession];
+    }
     
 }
 

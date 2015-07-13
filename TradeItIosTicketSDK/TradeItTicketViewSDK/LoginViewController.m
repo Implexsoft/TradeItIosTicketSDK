@@ -14,6 +14,7 @@
     __weak IBOutlet UITextView *logoSubText;
     __weak IBOutlet UITextField *emailInput;
     __weak IBOutlet UITextField *passwordInput;
+    __weak IBOutlet UIButton *nextButton;
     
     NSArray * brokers;
 }
@@ -34,6 +35,8 @@
     passwordInput.layer.borderWidth = 1;
     
     [logoSubText setText:[NSString stringWithFormat:@"Welcome to Trade It. We help you quickly and easily trade stock through your own brokerage account. Select your broker below and buy %@ stock within seconds.", self.tradeSession.orderInfo.symbol]];
+    
+    [nextButton.layer setCornerRadius:5.0f];
     
     brokers = @[
         @[@"TD Ameritrade",@"TD"],

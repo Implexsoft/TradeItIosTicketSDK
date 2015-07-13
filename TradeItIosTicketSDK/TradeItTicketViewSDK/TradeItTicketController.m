@@ -19,7 +19,7 @@
 
 @implementation TradeItTicketController
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol viewController:(UIViewController *) view {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
     
     [TradeItTicketController forceClassesIntoLinker];
     
@@ -36,12 +36,13 @@
     CalculatorViewController * calcViewController= (CalculatorViewController *)[((UINavigationController *)nav).viewControllers objectAtIndex:0];
     calcViewController.tradeSession = [[TradeItStockOrEtfTradeSession alloc]initWithpublisherApp: publisherApp];
     calcViewController.tradeSession.orderInfo.symbol = [symbol uppercaseString];
+    calcViewController.lastPrice = lastPrice;
     
     //Display
     [view presentViewController:nav animated:YES completion:nil];
 }
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
 
     
 }
@@ -60,6 +61,7 @@
     [InitialNavigationViewController class];
     [EditViewController class];
     [LoginViewController class];
+    [LoadingScreenViewController class];
     [ReviewScreenViewController class];
     [SuccessViewController class];
 }

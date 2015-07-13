@@ -66,19 +66,94 @@
     [submitOrderButton.layer setBorderWidth:1.0f];
     [submitOrderButton.layer setCornerRadius:5.0f];
     
+    //used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
     
-    [self addReviewMessage:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend lorem at semper porttitor. Donec sit amet mollis tellus. Maecenas eu sagittis neque, quis ullamcorper ante. Fusce sed elit at quam auctor aliquam. In dolor libero, dapibus quis sapien quis, ultrices pretium nibh. Donec dictum ligula sit amet erat lacinia, eget imperdiet tortor aliquam. Nulla vestibulum tristique tempor."];
-
-    [self addAcknowledgeMessage:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend lorem at semper porttitor. Donec sit amet mollis tellus. Maecenas eu sagittis neque, quis ullamcorper ante. Fusce sed elit at quam auctor aliquam. In dolor libero, dapibus quis sapien quis, ultrices pretium nibh. Donec dictum ligula sit amet erat lacinia, eget imperdiet tortor aliquam. Nulla vestibulum tristique tempor."];
-
-    
+    [self updateUIWithReviewResult];
     [self setContentViewHeight];
+}
+
+-(void) updateUIWithReviewResult {
+
+    [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
+    [reviewLabel setText:self.result.orderDetails.orderMessage];
+    
+    
+    
+    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
+    [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
+    [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
+    
+    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[self result] orderDetails] valueForKey:@"longHoldings"] == [NSNumber numberWithInt:-1]) {
+        [self hideElement:sharesLongVL];
+        [self hideElement:sharesLongVV];
+    } else {
+        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
+    }
+    
+    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [[[self result] orderDetails] valueForKey:@"shortHoldings"] == [NSNumber numberWithInt:-1]) {
+        [self hideElement:sharesShortVL];
+        [self hideElement:sharesShortVV];
+    } else {
+        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"shortHoldings"]]];
+    }
+    
+    if(![[[self result] orderDetails] valueForKey:@"buyingPower"] && ![[[self result] orderDetails] valueForKey:@"availableCash"]) {
+        [self hideElement:buyingPowerVL];
+        [self hideElement:buyingPowerVV];
+    } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
+        [buyingPowerLabel setText:@"Buying Power"];
+        [buyingPowerValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
+    } else {
+        [buyingPowerLabel setText:@"Avail. Cash"];
+        [buyingPowerValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"availableCash"]]];
+    }
+    
+    if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
+        [estimatedFeesValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+    } else {
+        [self hideElement:estimatedFeesVL];
+        [self hideElement:estimatedFeesVV];
+    }
+    
+    if([[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
+        [estimateCostLabel setText:@"Estimated Proceeds"];
+    } else {
+        [estimateCostLabel setText:@"Estimated Cost"];
+    }
+    
+    if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
+        [estimatedCostValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+    } else {
+        [estimatedCostValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+    }
+    
+    for(NSString * warning in [[self result] warningsList]) {
+        [self addReviewMessage: warning];
+    }
+    
+    for(NSString * warning in [[self result] ackWarningsList]) {
+        [self addAcknowledgeMessage: warning];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) hideElement:(UIView *) element {
+    NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
+                                            constraintWithItem:element
+                                            attribute:NSLayoutAttributeHeight
+                                            relatedBy:NSLayoutRelationEqual
+                                            toItem:NSLayoutAttributeNotAnAttribute
+                                            attribute:NSLayoutAttributeNotAnAttribute
+                                            multiplier:1
+                                            constant:1];
+    heightConstraint.priority = 900;
+    
+    [self.view addConstraint:heightConstraint];
 }
 
 - (void) setBackgroundGradient {
@@ -308,8 +383,10 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    [[segue destinationViewController] setActionToPerform: @"sendTradeRequest"];
-    [[segue destinationViewController] setTradeSession: self.tradeSession];
+    if([segue.identifier isEqualToString:@"reviewToLoadingSegue"]) {
+        [[segue destinationViewController] setActionToPerform: @"sendTradeRequest"];
+        [[segue destinationViewController] setTradeSession: self.tradeSession];
+    }
 }
 
 @end

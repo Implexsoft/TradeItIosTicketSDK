@@ -10,6 +10,9 @@
 
 @interface SuccessViewController() {
 
+    __weak IBOutlet UILabel *successMessage;
+    __weak IBOutlet UILabel *tradeItLabel;
+    
 }
 
 @end
@@ -19,13 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /*
-    [successMessage setText:[NSString stringWithFormat:@"Congratulations.\rYour order message %@ to buy %@ shares of %@ at %@ has been successfully transmitted to your broker at %@", @"2d466185c40726050eb0cd", @"5", @"GE", @"market price", @"26/06/15 4:54 PM EDT."]];
-
+    [successMessage setText:[NSString stringWithFormat:@"Congratulations.\r%@", [[self result] confirmationMessage]]];
+    
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
     [poweredBy appendAttributedString:[TradeItTicket logoStringLite]];
     [tradeItLabel setAttributedText:poweredBy];
-     */
+    
+    //[[self tradeSession] reset];
 }
 
 - (void)didReceiveMemoryWarning {

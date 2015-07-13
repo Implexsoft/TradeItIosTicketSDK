@@ -59,8 +59,11 @@
     activeCalcRowItem = sharesRowItem;
     [sharesRowItem setActive];
     
+    lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", self.lastPrice];
+    
     [self uiTweaks];
     [self setTicketToMarketOrder];
+    [lastPriceRowItem setUIToStack];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -301,6 +304,12 @@
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+    NSString * symbol = [[[self tradeSession] orderInfo] symbol];
+    NSString * publisherApp = [[self tradeSession] publisherApp];
+
+    [[self tradeSession] reset];
+    [[[self tradeSession] orderInfo] setSymbol: symbol];
+    [[self tradeSession] setPublisherApp: publisherApp];
 }
 
 

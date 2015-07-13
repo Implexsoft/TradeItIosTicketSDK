@@ -11,6 +11,7 @@
 #import "TradeItTicket.h"
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItStockOrEtfOrderPrice.h"
+#import "TradeItTicketController.h"
 
 @interface CalculatorViewController : UIViewController
 
@@ -29,6 +30,7 @@
 
 @property TradeItStockOrEtfTradeSession * tradeSession;
 @property (copy) void (^callback)(void);
+@property double lastPrice;
 
 @end
 

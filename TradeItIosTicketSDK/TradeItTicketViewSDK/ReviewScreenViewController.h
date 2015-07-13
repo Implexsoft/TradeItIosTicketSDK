@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItStockOrEtfTradeSession.h"
+#import "TradeItStockOrEtfTradeReviewResult.h"
 #import "LoadingScreenViewController.h"
 
 @interface ReviewScreenViewController : UIViewController
 
 @property TradeItStockOrEtfTradeSession * tradeSession;
-@property TradeItResult * result;
+@property TradeItStockOrEtfTradeReviewResult * result;
 
 @end
