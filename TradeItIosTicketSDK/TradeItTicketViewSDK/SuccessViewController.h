@@ -10,10 +10,11 @@
 #import "TradeItTicket.h"
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"
+#import "TicketSession.h"
 
 @interface SuccessViewController : UIViewController
 
-@property TradeItStockOrEtfTradeSession * tradeSession;
+@property TicketSession * tradeSession;
 @property TradeItStockOrEtfTradeSuccessResult * result;
 
 @end

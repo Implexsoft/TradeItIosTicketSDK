@@ -549,6 +549,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Buy AAPL" id="TaT-0l-Po3">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="N0O-hx-ZoF">
+                            <connections>
+                                <action selector="CancelPressed:" destination="nq7-sb-bzx" id="KUP-sR-quv"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="3qd-0f-mRb">
                             <color key="tintColor" red="0.0" green="0.44705882352941179" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -562,6 +567,8 @@
                         <outlet property="backspaceButton" destination="LEb-dE-m3b" id="Ffz-eT-N0k"/>
                         <outlet property="calcRowView" destination="R16-U4-Pxw" id="qg8-KK-h4C"/>
                         <outlet property="estimatedCostLabel" destination="HdN-oz-2U9" id="g6Z-Tt-DrT"/>
+                        <outlet property="limitOrderButton" destination="0jI-nj-dqM" id="gI6-Z0-43K"/>
+                        <outlet property="marketOrderButton" destination="CWJ-H7-MTA" id="XBc-hZ-mVk"/>
                         <outlet property="priceLabelButton" destination="whm-J3-THO" id="e7d-Yy-EK5"/>
                         <outlet property="priceValueButton" destination="IAs-Kb-IUX" id="IU6-j4-Rhy"/>
                         <outlet property="refreshAndDecimalButton" destination="8YW-Bf-plP" id="3td-YX-xte"/>
@@ -792,10 +799,23 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <constraint firstAttribute="height" constant="60" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxD-Tc-Yoz">
+                                <rect key="frame" x="16" y="20" width="30" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" red="0.070588235294117646" green="0.54117647058823526" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="Iua-Xm-91C"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="oxD-Tc-Yoz" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" id="DA8-OB-OEE"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>
+                            <constraint firstItem="oxD-Tc-Yoz" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="Pzz-VV-SgH"/>
                             <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="45" id="gpl-De-Jxz"/>
                         </constraints>
                     </view>

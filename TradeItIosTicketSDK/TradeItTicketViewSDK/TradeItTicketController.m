@@ -7,6 +7,7 @@
 //
 
 #import "TradeItTicketController.h"
+#import "TicketSession.h"
 
 #import "CalculatorViewController.h"
 #import "InitialNavigationViewController.h"
@@ -20,7 +21,11 @@
 @implementation TradeItTicketController
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
-    
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view onCompletion:nil];
+}
+
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
+
     [TradeItTicketController forceClassesIntoLinker];
     
     //Get Resource Bundle
@@ -34,17 +39,14 @@
     
     //Create Trade Session
     CalculatorViewController * calcViewController= (CalculatorViewController *)[((UINavigationController *)nav).viewControllers objectAtIndex:0];
-    calcViewController.tradeSession = [[TradeItStockOrEtfTradeSession alloc]initWithpublisherApp: publisherApp];
+    calcViewController.tradeSession = [[TicketSession alloc]initWithpublisherApp: publisherApp];
     calcViewController.tradeSession.orderInfo.symbol = [symbol uppercaseString];
-    calcViewController.lastPrice = lastPrice;
+    calcViewController.tradeSession.lastPrice = lastPrice;
+    calcViewController.tradeSession.callback = callback;
+    calcViewController.tradeSession.parentView = view;
     
     //Display
     [view presentViewController:nav animated:YES completion:nil];
-}
-
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
-
-    
 }
 
 

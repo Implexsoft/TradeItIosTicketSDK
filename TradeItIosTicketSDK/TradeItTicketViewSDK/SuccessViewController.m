@@ -28,7 +28,7 @@
     [poweredBy appendAttributedString:[TradeItTicket logoStringLite]];
     [tradeItLabel setAttributedText:poweredBy];
     
-    //[[self tradeSession] reset];
+    [[self tradeSession] reset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,6 +45,10 @@
     // Pass the selected object to the new view controller.
     
     //[self.navigationController popToRootViewControllerAnimated:NO];
+}
+
+- (IBAction)closeButtonPressed:(id)sender {
+    [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
 }
 
 @end

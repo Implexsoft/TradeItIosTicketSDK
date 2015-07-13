@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C401B542C4B00373E1B /* TicketSession.h */; };
+		A93B3C431B542C4B00373E1B /* TicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C411B542C4B00373E1B /* TicketSession.m */; };
 		A9A8CF561B4EFACB000207B9 /* TradeItIosTicketSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF551B4EFACB000207B9 /* TradeItIosTicketSDK.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
 		A9A8CF6B1B4EFC86000207B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF6A1B4EFC86000207B9 /* UIKit.framework */; };
@@ -249,6 +251,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A93B3C401B542C4B00373E1B /* TicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSession.h; path = TradeItTicketViewSDK/TicketSession.h; sourceTree = "<group>"; };
+		A93B3C411B542C4B00373E1B /* TicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSession.m; path = TradeItTicketViewSDK/TicketSession.m; sourceTree = "<group>"; };
 		A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTradeItIosTicketSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItIosTicketSDK.h; sourceTree = "<group>"; };
 		A9A8CF551B4EFACB000207B9 /* TradeItIosTicketSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItIosTicketSDK.m; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 				A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */,
 				A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */,
 				A9A8CF551B4EFACB000207B9 /* TradeItIosTicketSDK.m */,
+				A93B3C401B542C4B00373E1B /* TicketSession.h */,
+				A93B3C411B542C4B00373E1B /* TicketSession.m */,
 			);
 			path = TradeItIosTicketSDK;
 			sourceTree = "<group>";
@@ -880,6 +886,7 @@
 				A9A8D0DC1B4F12B8000207B9 /* TradeItSecurityQuestionRequest.h in Headers */,
 				A9A8D0DD1B4F12B8000207B9 /* TradeItSecurityQuestionResult.h in Headers */,
 				A9A8D0DE1B4F12B8000207B9 /* TradeItSelectAccountRequest.h in Headers */,
+				A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */,
 				A9A8D0DF1B4F12B8000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */,
 				A9A8D0E01B4F12B8000207B9 /* TradeItStockOrEtfOrderInfo.h in Headers */,
 				A9A8D0E11B4F12B8000207B9 /* TradeitStockOrEtfOrderPrice.h in Headers */,
@@ -1161,6 +1168,7 @@
 				A9A8D1181B4F1A3E000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */,
 				A9A8D1191B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
 				A9A8D11A1B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewResult.m in Sources */,
+				A93B3C431B542C4B00373E1B /* TicketSession.m in Sources */,
 				A9A8D11B1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSession.m in Sources */,
 				A9A8D11C1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */,
 				A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */,

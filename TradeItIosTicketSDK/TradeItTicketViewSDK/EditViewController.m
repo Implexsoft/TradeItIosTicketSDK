@@ -28,12 +28,10 @@
     NSArray * actions = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
     return actions;
 }
-
 - (NSArray *) getOrderTypeValues {
     NSArray * types = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
     return types;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,17 +60,20 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //TODO: Update Transaction object
+    if(component == 1) {
+        [[self tradeSession] setOrderType:[self getOrderTypeValues][row]];
+    } else {
+        [[[self tradeSession] orderInfo] setAction: [self getOrderActionValues][row]];
+    }
 }
-
 
 - (IBAction)expirationToggled:(id)sender {
     UISegmentedControl * toggle = (UISegmentedControl *) sender;
     
     if(toggle.selectedSegmentIndex == 0) {
-        //TODO: Set Order to day
+        [[[self tradeSession] orderInfo] setExpiration: @"day"];
     } else {
-        //TODO: Set Order to gtc
+        [[[self tradeSession] orderInfo] setExpiration: @"gtc"];
     }
 }
 

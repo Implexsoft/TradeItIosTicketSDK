@@ -21,6 +21,8 @@
     __weak IBOutlet UIButton * sharesValueButton;
     __weak IBOutlet UIButton * sharesLabelButton;
 
+    __weak IBOutlet UIButton * marketOrderButton;
+    __weak IBOutlet UIButton * limitOrderButton;
     __weak IBOutlet UIButton * stopMarketOrderButton;
     __weak IBOutlet UIButton * stopLimitOrderButton;
     
@@ -39,6 +41,8 @@
     
     CalculatorRowLabel * activeCalcRowItem;
     CalculatorRowLabel * currentPriceCalcRowItem;
+    
+    NSString * currentOrderType;
 }
 
 
@@ -59,11 +63,34 @@
     activeCalcRowItem = sharesRowItem;
     [sharesRowItem setActive];
     
-    lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", self.lastPrice];
+    lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", self.tradeSession.lastPrice];
     
+    [self updateTradeLabels];
     [self uiTweaks];
-    [self setTicketToMarketOrder];
+    [self setTicketView];
     [lastPriceRowItem setUIToStack];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self updateTradeLabels];
+    [self setTicketView];
+}
+
+-(void) setTicketView {
+    if(!currentOrderType || ![currentOrderType isEqualToString:[[self tradeSession] orderType]]) {
+        currentOrderType = [[self tradeSession] orderType] ? [[self tradeSession] orderType] : @"market";
+        if([currentOrderType isEqualToString:@"market"]) {
+            [self setTicketToMarketOrder];
+        } else if([currentOrderType isEqualToString:@"limit"]) {
+            [self setTicketToLimitOrder];
+        } else if([currentOrderType isEqualToString:@"stopMarket"]) {
+            [self setTicketToStopMarketOrder];
+        } else {
+            [self setTicketToStopLimitOrder];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,7 +149,7 @@
     [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
 
-#pragma Order Type Changes
+#pragma mark - Order Type Changes
 
 - (void) setTicketToMarketOrder {
     [lastPriceRowItem setDefaultsToUI];
@@ -133,6 +160,7 @@
     [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initMarket]];
     
     [self updateEstimatedCost];
+    [self setOrderButtonActive: marketOrderButton];
 }
 - (void) setTicketToLimitOrder {
     [limitPriceRowItem setDefaultsToUI];
@@ -143,10 +171,10 @@
         [self changeCalcRowInput:sharesRowItem];
     }
     
-    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initLimit:0.0]];
-    //TODO set limit price
+    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initLimit:[[limitPriceRowItem currentValueStack] doubleValue]]];
     
     [self updateEstimatedCost];
+    [self setOrderButtonActive: limitOrderButton];
 }
 - (void) setTicketToStopMarketOrder {
     [stopPriceRowItem setDefaultsToUI];
@@ -157,10 +185,10 @@
         [self changeCalcRowInput:sharesRowItem];
     }
     
-    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initStopMarket:0.0]];
-    //TODO set limit price
+    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initStopMarket:[[stopPriceRowItem currentValueStack] doubleValue]]];
     
     [self updateEstimatedCost];
+    [self setOrderButtonActive: stopMarketOrderButton];
 }
 - (void) setTicketToStopLimitOrder {
     [stopLimitPriceRowItem setDefaultsToUI];
@@ -168,14 +196,22 @@
     currentPriceCalcRowItem = limitPriceRowItem;
     [self showStopPrice];
     
-    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initStopLimit:0.0 :0.0]];
-    //TODO set limit price
-    //TODO set stop limit price
+    [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initStopLimit:[[stopLimitPriceRowItem currentValueStack] doubleValue] :[[stopPriceRowItem currentValueStack] doubleValue]]];
     
     [self updateEstimatedCost];
+    [self setOrderButtonActive: stopLimitOrderButton];
 }
 
-#pragma UI Changes
+- (void) setOrderButtonActive:(UIButton *) activeButton {
+    marketOrderButton.backgroundColor = [UIColor whiteColor];
+    limitOrderButton.backgroundColor = [UIColor whiteColor];
+    stopMarketOrderButton.backgroundColor = [UIColor whiteColor];
+    stopLimitOrderButton.backgroundColor = [UIColor whiteColor];
+    
+    activeButton.backgroundColor = [UIColor colorWithRed:226.0f green:238.0f blue:246.0f alpha:1.0f];
+}
+
+#pragma mark - UI Changes
 
 //Things can't be done in IB
 - (void)uiTweaks {
@@ -189,7 +225,14 @@
     [self refreshButtonShowRefresh];
 }
 
-
+-(void) updateTradeLabels {
+    NSString * tradeString = [NSString stringWithFormat:@"%@ %@",
+                              [[[[self tradeSession] orderInfo] action] capitalizedString],
+                              [[[self tradeSession] orderInfo] symbol]];
+    
+    [[self navigationItem] setTitle: tradeString];
+    [tradeButton setTitle:tradeString forState:UIControlStateNormal];
+}
 
 -(void) refreshButtonShowRefresh {
     [refreshAndDecimalButton setTitle:@"" forState:UIControlStateNormal];
@@ -246,7 +289,7 @@
     stopPriceValueWidthConstraint.priority = 900;
 }
 
-#pragma Events
+#pragma mark - Events
 
 - (IBAction)calcPadButtonPressed:(id)sender {
     UIButton *button = (UIButton *) sender;
@@ -312,6 +355,9 @@
     [[self tradeSession] setPublisherApp: publisherApp];
 }
 
+- (IBAction)CancelPressed:(id)sender {
+    [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+}
 
 @end
 

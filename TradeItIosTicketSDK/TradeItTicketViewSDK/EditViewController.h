@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "TradeItStockOrEtfTradeSession.h"
+#import "TicketSession.h"
 
 @interface EditViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property TradeItStockOrEtfTradeSession * tradeSession;
+@property TicketSession * tradeSession;
 
 @end

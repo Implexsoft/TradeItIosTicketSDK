@@ -76,10 +76,6 @@
 -(void) updateUIWithReviewResult {
 
     [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
-    [reviewLabel setText:self.result.orderDetails.orderMessage];
-    
-    
-    
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];

@@ -24,8 +24,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //TODO - Artificial Delay Until Callbacks are in place
-    [self performSelector:NSSelectorFromString([self actionToPerform]) withObject:nil afterDelay:0.5];
+    if([[self actionToPerform] isEqualToString:@"sendTradeRequest"]) {
+        [indicatorText setText:@"Submitting Your Order"];
+    }
+    
+    //using a delay, o/w it complains about how perform selector might cause a leak
+    [self performSelector:NSSelectorFromString([self actionToPerform]) withObject:nil afterDelay:0.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -36,26 +40,26 @@
 #pragma mark - Actions To Perform While Loading
 
 - (void) sendLoginReviewRequest {
-    [indicatorText setText:@"Authenticating and Reviewing Your Order"];
-    /*[[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
+    [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
         [self loginReviewRequestRecieved:result];
-    }];*/
-    TradeItResult * result = [[self tradeSession] authenticateAndReview];
-    TradeItStockOrEtfTradeReviewResult *reviewResult = (TradeItStockOrEtfTradeReviewResult *) result;
-    NSLog(@"%@",reviewResult.orderDetails.orderMessage);
+    }];
 }
 
 - (void) loginReviewRequestRecieved: (TradeItResult *) result {
+    UIAlertView * error;
     
+    error = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [error show];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    return;
     if(result == nil){
-        //TODO
-        NSLog(@"Received nil result returning");
+        error = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     }
     else if([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
         //process review result
         [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
-        TradeItStockOrEtfTradeReviewResult *reviewResult = (TradeItStockOrEtfTradeReviewResult *) result;
-        NSLog(@"%@",reviewResult.orderDetails.orderMessage);
         [self performSegueWithIdentifier: @"loadingToReviewSegue" sender: self];
     }
     else if([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
@@ -99,21 +103,24 @@
 }
 
 - (void) sendTradeRequest {
-    [indicatorText setText:@"Submitting Your Order"];
-    [self performSegueWithIdentifier: @"loadingToSuccesSegue" sender: self];
+    //TODO - the async is breaking here for some reason.
     
-    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
+    /*[[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
         [self tradeRequestRecieved:result];
-    }];
+    }];*/
+    
+    TradeItResult * result = [[self tradeSession] placeOrder];
+    [self tradeRequestRecieved: result];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
+    //success
     if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
-        //process success result
-        NSLog(@"Great!!!!, Received Success result: %@", result);
+        [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
         [self performSegueWithIdentifier: @"loadingToSuccesSegue" sender: self];
-        
-    } else if([result isKindOfClass:[TradeItErrorResult class]]){
+    }
+    //error
+    else if([result isKindOfClass:[TradeItErrorResult class]]) {
         //Received an error
         //TODO
         NSLog(@"Bummer!!!!, Received Error result: %@", result);
