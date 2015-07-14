@@ -186,11 +186,12 @@
 - (UIView *)createAccountPickerView {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
     
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 270, 25)];
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 50)];
     [title setTextColor:[UIColor blackColor]];
     [title setTextAlignment:NSTextAlignmentCenter];
     [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [title setText: @"Please select an account:"];
+    [title setNumberOfLines:0];
+    [title setText: @"Select the account\ryou want to trade in"];
     [contentView addSubview:title];
     
     UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
@@ -199,8 +200,6 @@
     picker.showsSelectionIndicator = YES;
     [picker setTag: 502];
     [contentView addSubview:picker];
-    
-    [picker selectedRowInComponent:<#(NSInteger)#>]
     
     [contentView setNeedsDisplay];
     return contentView;
