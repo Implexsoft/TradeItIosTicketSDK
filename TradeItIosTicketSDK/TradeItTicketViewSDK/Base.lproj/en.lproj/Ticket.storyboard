@@ -760,9 +760,11 @@
                         <outlet property="loadingIcon" destination="TBd-Y5-dRG" id="7XS-Ze-FxL"/>
                         <segue destination="J4w-qr-In7" kind="show" identifier="loadingToReviewSegue" id="t4Z-OK-ZcN"/>
                         <segue destination="xhK-K9-cnI" kind="show" identifier="loadingToSuccesSegue" id="ILP-eC-VWh"/>
+                        <segue destination="31D-8a-egI" kind="unwind" identifier="exitToRootSegue" unwindAction="prepareForUnwind:" id="Lt8-X8-e06"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaX-aO-zmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="31D-8a-egI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1425" y="-275"/>
         </scene>
@@ -1295,6 +1297,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinner.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CFl-JG-lcg"/>
+        <segue reference="mdJ-6s-c4P"/>
     </inferredMetricsTieBreakers>
 </document>

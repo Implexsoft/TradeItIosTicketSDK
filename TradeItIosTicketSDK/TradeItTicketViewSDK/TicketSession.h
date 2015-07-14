@@ -15,5 +15,6 @@
 @property double lastPrice;
 @property UIViewController * parentView;
 @property NSString * orderType;
+@property BOOL popToRoot;
 
 @end

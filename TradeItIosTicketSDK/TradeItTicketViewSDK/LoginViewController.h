@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItTicket.h"
-#import "TradeItStockOrEtfTradeSession.h"
+#import "TicketSession.h"
 #import "TradeItAuthenticationInfo.h"
 #import "LoadingScreenViewController.h"
 
 @interface LoginViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
-@property TradeItStockOrEtfTradeSession * tradeSession;
+@property TicketSession * tradeSession;
 
 @end

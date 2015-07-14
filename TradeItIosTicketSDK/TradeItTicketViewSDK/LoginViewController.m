@@ -39,6 +39,7 @@
     [nextButton.layer setCornerRadius:5.0f];
     
     brokers = @[
+        @[@"Dummy",@"Dummy"],
         @[@"TD Ameritrade",@"TD"],
         @[@"Robinghood",@"Robinhood"],
         @[@"OptionsHouse",@"OptionsHouse"],
@@ -47,11 +48,21 @@
         @[@"E*Trade",@"Etrade"],
         @[@"Fidelity",@"Fidelity"],
         @[@"Scottrade",@"Scottrade"],
-        @[@"Interactive Brokers",@"IB"],
-        @[@"Dummy",@"Dummy"]
+        @[@"Interactive Brokers",@"IB"]
     ];
     
+    self.tradeSession.broker = brokers[0][1];
+    
     //TODO figure out how to toggle dummy by environment???
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if([[self tradeSession] popToRoot]) {
+        [[self tradeSession] setPopToRoot:NO];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

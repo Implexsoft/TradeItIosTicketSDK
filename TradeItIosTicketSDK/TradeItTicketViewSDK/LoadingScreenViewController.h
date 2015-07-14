@@ -7,21 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItStockOrEtfTradeSession.h"
+#import "TicketSession.h"
 #import "TradeItResult.h"
 #import "TradeItSecurityQuestionResult.h"
 #import "TradeItMultipleAccountResult.h"
 #import "TradeItStockOrEtfTradeReviewResult.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"
 #import "TradeItErrorResult.h"
+#import "CustomIOSAlertView.h"
 
 #import "ReviewScreenViewController.h"
 #import "SuccessViewController.h"
 
-@interface LoadingScreenViewController : UIViewController
+@interface LoadingScreenViewController : UIViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSString * actionToPerform;
-@property TradeItStockOrEtfTradeSession * tradeSession;
+@property TicketSession * tradeSession;
+@property TradeItResult * lastResult;
 @property TradeItStockOrEtfTradeReviewResult * reviewResult;
 @property TradeItStockOrEtfTradeSuccessResult * successResult;
 

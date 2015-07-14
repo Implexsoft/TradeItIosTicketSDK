@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItStockOrEtfTradeSession.h"
+#import "TicketSession.h"
 #import "TradeItStockOrEtfTradeReviewResult.h"
 #import "LoadingScreenViewController.h"
 
 @interface ReviewScreenViewController : UIViewController
 
-@property TradeItStockOrEtfTradeSession * tradeSession;
+@property TicketSession * tradeSession;
 @property TradeItStockOrEtfTradeReviewResult * result;
 
 @end
