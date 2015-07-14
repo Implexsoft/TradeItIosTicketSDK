@@ -74,7 +74,9 @@
 }
 
 -(void) updateUIWithReviewResult {
-
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
     [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
@@ -99,14 +101,14 @@
         [self hideElement:buyingPowerVV];
     } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
         [buyingPowerLabel setText:@"Buying Power"];
-        [buyingPowerValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
     } else {
         [buyingPowerLabel setText:@"Avail. Cash"];
-        [buyingPowerValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"availableCash"]]];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"availableCash"]]];
     }
     
     if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
-        [estimatedFeesValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
     } else {
         [self hideElement:estimatedFeesVL];
         [self hideElement:estimatedFeesVV];
@@ -119,9 +121,9 @@
     }
     
     if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
-        [estimatedCostValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
     } else {
-        [estimatedCostValue setText:[NSString stringWithFormat:@"$%@", [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
     }
     
     for(NSString * warning in [[self result] warningsList]) {
