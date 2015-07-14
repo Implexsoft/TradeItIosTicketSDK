@@ -72,7 +72,7 @@
             
             CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
             [alert setContainerView:[self createPickerView]];
-            [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SEND",nil]];
+            [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
             
             [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
                 if(buttonIndex == 0) {
@@ -96,7 +96,7 @@
         else if(securityQuestionResult.securityQuestion != nil){
         //SINGLE
             UIAlertView * alert;
-            alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:securityQuestionResult.securityQuestion delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SEND", nil];
+            alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:securityQuestionResult.securityQuestion delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             
             //not sure if we need the dispatch, without async calls??
@@ -113,7 +113,7 @@
         
         CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
         [alert setContainerView:[self createPickerView]];
-        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SEND",nil]];
+        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
         
         [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
             if(buttonIndex == 0) {
@@ -176,34 +176,79 @@
 #pragma mark - Review MultiSelects
 
 - (UIView *)createPickerView {
-    NSString * popupTitle;
-    int tag;
+    if([self.lastResult isKindOfClass:[TradeItSecurityQuestionResult class]]) {
+        return [self createSecurityPickerView];
+    } else {
+        return [self createAccountPickerView];
+    }
+}
+
+- (UIView *)createAccountPickerView {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
     
-    if([self.lastResult isKindOfClass:[TradeItSecurityQuestionResult class]]) {
-        TradeItSecurityQuestionResult * currentResult = (TradeItSecurityQuestionResult *) self.lastResult;
-        popupTitle = currentResult.securityQuestion;
-        tag = 501;
-    } else {
-        popupTitle = @"Please select an account:";
-        tag = 502;
-    }
-    
-    UILabel * question = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 270, 50)];
-    [question setTextColor:[UIColor blackColor]];
-    [question setTextAlignment:NSTextAlignmentCenter];
-    [question setFont:[UIFont systemFontOfSize:12]];
-    [question setText: popupTitle];
-    [contentView addSubview:question];
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 270, 25)];
+    [title setTextColor:[UIColor blackColor]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [title setText: @"Please select an account:"];
+    [contentView addSubview:title];
     
     UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
     [picker setDataSource: self];
     [picker setDelegate: self];
     picker.showsSelectionIndicator = YES;
-    [picker setTag: tag];
+    [picker setTag: 502];
+    [contentView addSubview:picker];
+    
+    [picker selectedRowInComponent:<#(NSInteger)#>]
+    
+    [contentView setNeedsDisplay];
+    return contentView;
+}
+
+- (UIView *)createSecurityPickerView {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    TradeItSecurityQuestionResult * currentResult = (TradeItSecurityQuestionResult *) self.lastResult;
+    
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
+    [title setTextColor:[UIColor blackColor]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [title setText: @"Verify Identity"];
+    [contentView addSubview:title];
+    
+    UILabel * question = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 270, 150)];
+    [question setTextColor:[UIColor blackColor]];
+    [question setTextAlignment:NSTextAlignmentCenter];
+    [question setFont:[UIFont systemFontOfSize:12]];
+    [question setNumberOfLines:0];
+    [question setText: currentResult.securityQuestion];
+    
+    //resize to fit text
+    CGSize requiredSize = [question sizeThatFits:CGSizeMake(270, 150)];
+    CGRect questionFrame = question.frame;
+    CGFloat questionHeight = questionFrame.size.height = requiredSize.height;
+    question.frame = questionFrame;
+    
+    [contentView addSubview:question];
+    
+    //If the question is more than two lines, stretch it!
+    if(questionHeight > 30) {
+        CGRect contentFrame = contentView.frame;
+        contentFrame.size.height = 250;
+        contentView.frame = contentFrame;
+    }
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, (20 + questionHeight), 270, (200 - 35 - questionHeight))];
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [picker setTag: 501];
     [contentView addSubview:picker];
     
     [contentView setNeedsDisplay];
+    
     return contentView;
 }
 

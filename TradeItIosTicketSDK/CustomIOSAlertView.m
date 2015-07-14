@@ -127,7 +127,7 @@ CGFloat buttonSpacerHeight = 0;
     
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f];
+                         //self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f];
                          dialogView.layer.opacity = 1.0f;
                          dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1);
                      }
@@ -250,13 +250,19 @@ CGFloat buttonSpacerHeight = 0;
 {
     if (buttonTitles==NULL) { return; }
     
-    CGFloat buttonWidth = container.bounds.size.width / [buttonTitles count];
+    //Modified by TradeIT
+    //CGFloat buttonWidth = container.bounds.size.width / [buttonTitles count];
+    CGFloat buttonWidth = (container.bounds.size.width / [buttonTitles count]) - 1;
+    /*********************/
     
     for (int i=0; i<[buttonTitles count]; i++) {
         
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        [closeButton setFrame:CGRectMake(i * buttonWidth, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
+        //Modified by TradeIT
+        //[closeButton setFrame:CGRectMake(i * buttonWidth, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
+        [closeButton setFrame:CGRectMake(i * buttonWidth + i, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
+        /*********************/
         
         [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTag:i];
@@ -268,6 +274,16 @@ CGFloat buttonSpacerHeight = 0;
         [closeButton.layer setCornerRadius:kCustomIOSAlertViewCornerRadius];
         
         [container addSubview:closeButton];
+        
+        //Modified by TradeIT
+        int j = i + 1;
+        if(j < buttonTitles.count) {
+            UIView * verticalLine = [[UIView alloc] initWithFrame:CGRectMake(j * buttonWidth + i, container.bounds.size.height - buttonHeight, 1.0f, buttonHeight)];
+            verticalLine.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
+            [container addSubview:verticalLine];
+        }
+        /*********************/
+        
     }
 }
 

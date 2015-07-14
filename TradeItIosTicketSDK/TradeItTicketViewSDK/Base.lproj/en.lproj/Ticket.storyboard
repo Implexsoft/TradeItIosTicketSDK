@@ -739,10 +739,10 @@
                                     <constraint firstAttribute="width" constant="185" id="Qfl-w1-psH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spinner.png" translatesAutoresizingMaskIntoConstraints="NO" id="TBd-Y5-dRG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spinnerWhite.png" translatesAutoresizingMaskIntoConstraints="NO" id="TBd-Y5-dRG">
                                 <rect key="frame" x="130" y="135" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="GyG-iL-QwI"/>
@@ -750,7 +750,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="FW4-Oz-TWU" firstAttribute="top" secondItem="TBd-Y5-dRG" secondAttribute="bottom" constant="20" id="2C0-X2-mR7"/>
                             <constraint firstAttribute="centerY" secondItem="FW4-Oz-TWU" secondAttribute="centerY" id="SgO-Pt-LNA"/>
@@ -1299,7 +1299,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="backspace.png" width="120" height="120"/>
         <image name="checkmark.png" width="120" height="119"/>
         <image name="refresh.png" width="120" height="120"/>
-        <image name="spinner.png" width="120" height="120"/>
+        <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mdJ-6s-c4P"/>

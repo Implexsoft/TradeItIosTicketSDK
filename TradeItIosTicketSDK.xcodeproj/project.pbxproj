@@ -164,7 +164,7 @@
 		A9A8D1341B504408000207B9 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1301B504408000207B9 /* backspace.png */; };
 		A9A8D1351B504408000207B9 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1311B504408000207B9 /* checkmark.png */; };
 		A9A8D1361B504408000207B9 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1321B504408000207B9 /* refresh.png */; };
-		A9A8D1371B504408000207B9 /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1331B504408000207B9 /* spinner.png */; };
+		A9C6802D1B5588360054361D /* spinnerWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C6802C1B5588360054361D /* spinnerWhite.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,7 +398,7 @@
 		A9A8D1301B504408000207B9 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		A9A8D1311B504408000207B9 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		A9A8D1321B504408000207B9 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
-		A9A8D1331B504408000207B9 /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinner.png; sourceTree = "<group>"; };
+		A9C6802C1B5588360054361D /* spinnerWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spinnerWhite.png; path = ../../../../Downloads/spinnerWhite.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -872,10 +872,10 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A9C6802C1B5588360054361D /* spinnerWhite.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
 				A9A8D1311B504408000207B9 /* checkmark.png */,
 				A9A8D1321B504408000207B9 /* refresh.png */,
-				A9A8D1331B504408000207B9 /* spinner.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1111,8 +1111,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8D1371B504408000207B9 /* spinner.png in Resources */,
 				A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */,
+				A9C6802D1B5588360054361D /* spinnerWhite.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
 				A9A8D1351B504408000207B9 /* checkmark.png in Resources */,
