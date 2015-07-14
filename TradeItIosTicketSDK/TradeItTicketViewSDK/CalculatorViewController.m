@@ -30,7 +30,8 @@
     __weak IBOutlet UIButton * backspaceButton;
 
     NSLayoutConstraint * priceValueToCalcRowViewConstraint;
-    NSLayoutConstraint * stopPriceLabelWidthConstraint;
+    NSLayoutConstraint * stopPriceLabelNoWidthConstraint;
+    NSLayoutConstraint * stopPriceLabelFullWidthConstraint;
     NSLayoutConstraint * stopPriceValueWidthConstraint;
     
     CalculatorRowLabel * sharesRowItem;
@@ -246,13 +247,15 @@
 }
 
 - (void) removeStopPrice {
-    [self.view addConstraint:stopPriceLabelWidthConstraint];
+    [self.view addConstraint:stopPriceLabelNoWidthConstraint];
+    [self.view removeConstraint:stopPriceLabelFullWidthConstraint];
     [self.view addConstraint:stopPriceValueWidthConstraint];
     [self.view addConstraint:priceValueToCalcRowViewConstraint];
 }
 
 - (void) showStopPrice {
-    [self.view removeConstraint:stopPriceLabelWidthConstraint];
+    [self.view removeConstraint:stopPriceLabelNoWidthConstraint];
+    [self.view addConstraint:stopPriceLabelFullWidthConstraint];
     [self.view removeConstraint:stopPriceValueWidthConstraint];
     [self.view removeConstraint:priceValueToCalcRowViewConstraint];
 }
@@ -268,7 +271,7 @@
                                          constant:0];
     priceValueToCalcRowViewConstraint.priority = 900;
     
-    stopPriceLabelWidthConstraint = [NSLayoutConstraint
+    stopPriceLabelNoWidthConstraint = [NSLayoutConstraint
                       constraintWithItem:stopPriceLabelButton
                       attribute:NSLayoutAttributeWidth
                       relatedBy:NSLayoutRelationEqual
@@ -276,7 +279,17 @@
                       attribute:NSLayoutAttributeNotAnAttribute
                       multiplier:1
                       constant:0];
-    stopPriceLabelWidthConstraint.priority = 900;
+    stopPriceLabelNoWidthConstraint.priority = 900;
+    
+    stopPriceLabelFullWidthConstraint = [NSLayoutConstraint
+                                     constraintWithItem:stopPriceLabelButton
+                                     attribute:NSLayoutAttributeWidth
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:nil
+                                     attribute:NSLayoutAttributeNotAnAttribute
+                                     multiplier:1
+                                     constant:55];
+    stopPriceLabelFullWidthConstraint.priority = 900;
     
     stopPriceValueWidthConstraint = [NSLayoutConstraint
                        constraintWithItem:stopPriceValueButton
