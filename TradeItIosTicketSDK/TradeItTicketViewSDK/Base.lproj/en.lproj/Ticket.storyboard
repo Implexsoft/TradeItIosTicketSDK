@@ -514,7 +514,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ufa-TB-Hkd" kind="show" id="fbo-T7-IiH"/>
+                                    <action selector="tradeButtonPressed:" destination="nq7-sb-bzx" eventType="touchUpInside" id="haO-qd-yHD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -584,6 +584,7 @@
                         <outlet property="stopPriceLabelButton" destination="yrZ-Fe-iJi" id="mky-99-pSD"/>
                         <outlet property="stopPriceValueButton" destination="lxp-er-g3x" id="T02-FC-iIS"/>
                         <outlet property="tradeButton" destination="6I9-m5-OWM" id="6ut-Zl-WgB"/>
+                        <segue destination="Ufa-TB-Hkd" kind="show" identifier="calcToLoginSegue" id="8qg-Xz-Jc3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NbK-IE-un3" userLabel="First Responder" sceneMemberID="firstResponder"/>

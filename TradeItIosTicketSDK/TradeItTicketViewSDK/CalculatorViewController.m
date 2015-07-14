@@ -44,6 +44,7 @@
     CalculatorRowLabel * currentPriceCalcRowItem;
     
     NSString * currentOrderType;
+    BOOL readyToTrade;
 }
 
 
@@ -54,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    readyToTrade = NO;
     
     sharesRowItem = [CalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
     lastPriceRowItem = [CalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
@@ -129,6 +131,7 @@
     [estimatedCostLabel setText:formattedString];
     [[[self tradeSession] orderInfo] setQuantity: [sharesRowItem.currentValueStack integerValue]];
     [self updateOrderPrice];
+    [self checkIfReadyToTrade];
 }
 
 -(void) updateOrderPrice {
@@ -138,6 +141,25 @@
     } else if(activeCalcRowItem == stopPriceRowItem || activeCalcRowItem == stopLimitPriceRowItem) {
         [[[[self tradeSession]orderInfo]price] setStopPrice: [NSNumber numberWithDouble: [[activeCalcRowItem currentValueStack] doubleValue]]];
     }
+}
+
+-(void) checkIfReadyToTrade {
+    NSInteger shares = [sharesRowItem.currentValueStack integerValue];
+    double price = [currentPriceCalcRowItem.currentValueStack doubleValue];
+    double stopLimitPrice = [stopLimitPriceRowItem.currentValueStack doubleValue];
+    BOOL isStopLimitOrder = [[[self tradeSession] orderType] isEqualToString:@"stopLimitOrder"];
+    
+    
+    if(price > 0 && shares > 0) {
+        if(!(isStopLimitOrder && stopLimitPrice <= 0)) {
+            readyToTrade = YES;
+            [tradeButton setBackgroundColor:[UIColor colorWithRed:20.0f/255.0f green:63.0f/255.0f blue:119.0f/255.0f alpha:1.0f]];
+            return;
+        }
+    }
+    
+    readyToTrade = NO;
+    [tradeButton setBackgroundColor:[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:236.0f/255.0f alpha:1.0f]];
 }
 
 #pragma mark - Navigation
@@ -370,6 +392,12 @@
 
 - (IBAction)CancelPressed:(id)sender {
     [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+}
+
+- (IBAction)tradeButtonPressed:(id)sender {
+    if(readyToTrade) {
+        [self performSegueWithIdentifier:@"calcToLoginSegue" sender:self];
+    }
 }
 
 @end

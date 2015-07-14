@@ -13,6 +13,7 @@
 
 +(UIColor *) activeColor;
 +(UIColor *) baseTextColor;
++(UIColor *) tradeItBlue;
 
 +(NSAttributedString *) logoString;
 +(NSAttributedString *) logoStringLite;
