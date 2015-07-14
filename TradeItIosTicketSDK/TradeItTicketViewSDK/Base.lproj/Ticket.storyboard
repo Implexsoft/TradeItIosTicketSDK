@@ -549,6 +549,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Buy AAPL" id="TaT-0l-Po3">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="t42-NG-OEZ"/>
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="aZQ-kY-Mmv">
                             <connections>
                                 <action selector="CancelPressed:" destination="nq7-sb-bzx" id="XbM-jb-Gxs"/>
