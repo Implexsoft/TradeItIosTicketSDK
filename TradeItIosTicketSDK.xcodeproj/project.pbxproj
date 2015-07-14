@@ -92,7 +92,7 @@
 		A9A8D0581B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D01C1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m */; };
 		A9A8D0591B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0201B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace */; };
 		A9A8D05A1B4EFF87000207B9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0221B4EFF87000207B9 /* Info.plist */; };
-		A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m_old in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m_old */; };
+		A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */; };
 		A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF6F1B4EFDBB000207B9 /* Ticket.storyboard */; };
 		A9A8D0D41B4F12B8000207B9 /* TradeItAuthenticationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFF91B4EFF87000207B9 /* TradeItAuthenticationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8D0D51B4F12B8000207B9 /* TradeItCloseSessionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFFB1B4EFF87000207B9 /* TradeItCloseSessionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -392,7 +392,7 @@
 		A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TradeItIosEmsApi.xcodeproj; sourceTree = "<group>"; };
 		A9A8D0201B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = TradeItIosEmsApi.xcworkspace; sourceTree = "<group>"; };
 		A9A8D0221B4EFF87000207B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m_old */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StockOrEtfTradeTest.m_old; sourceTree = "<group>"; };
+		A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockOrEtfTradeTest.m; sourceTree = "<group>"; };
 		A9A8D0C21B4F0F56000207B9 /* TradeItIosTicketSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8D0C51B4F0F56000207B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A8D1301B504408000207B9 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
@@ -790,7 +790,7 @@
 			isa = PBXGroup;
 			children = (
 				A9A8D0221B4EFF87000207B9 /* Info.plist */,
-				A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m_old */,
+				A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */,
 			);
 			path = TradeItIosEmsApiTests;
 			sourceTree = "<group>";
@@ -1103,7 +1103,7 @@
 				A9A8CF901B4EFDBB000207B9 /* Info 2.plist in Resources */,
 				A9A8D0371B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh in Resources */,
 				A9A8D0381B4EFF87000207B9 /* Pods-TradeItIosEmsApi.debug.xcconfig in Resources */,
-				A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m_old in Resources */,
+				A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

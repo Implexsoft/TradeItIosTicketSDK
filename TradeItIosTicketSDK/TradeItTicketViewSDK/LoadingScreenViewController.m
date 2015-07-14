@@ -45,8 +45,10 @@
 
 - (void) sendLoginReviewRequest {
     /*[[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
-        [self loginReviewRequestRecieved:result];
+        loginReviewResult = result;
+        [self loginReviewRequestRecieved: loginReviewResult];
     }];*/
+    
     TradeItResult * result = [[self tradeSession] authenticateAndReview];
     [self loginReviewRequestRecieved:result];
 }
@@ -62,7 +64,6 @@
     else if([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
     //SECURITY QUESTION
         TradeItSecurityQuestionResult *securityQuestionResult = (TradeItSecurityQuestionResult *) result;
-        NSLog(@"Received security result: %@", securityQuestionResult);
         
         if(securityQuestionResult.securityQuestionOptions != nil && securityQuestionResult.securityQuestionOptions.count > 0 ){
         //MULTI
@@ -132,8 +133,6 @@
         BOOL popToRoot = YES;
         TradeItErrorResult * error = (TradeItErrorResult *) result;
         
-        NSLog(@"Result: %@", result);
-        
         if(error.errorFields.count > 0) {
             NSString * errorField = (NSString *) error.errorFields[0];
             if([errorField isEqualToString:@"authenticationInfo"]) {
@@ -168,6 +167,8 @@
             [[self tradeSession] asyncAnswerSecurityQuestion: [[alertView textFieldAtIndex:0] text] andCompletionBlock:^(TradeItResult *result) {
                 [self loginReviewRequestRecieved:result];
             }];
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
 }
