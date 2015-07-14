@@ -25,7 +25,9 @@
     [successMessage setText:[NSString stringWithFormat:@"Congratulations.\r%@", [[self result] confirmationMessage]]];
     
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    [poweredBy appendAttributedString:[TradeItTicket logoStringLite]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TradeItTicket logoStringLite]];
+    [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
+    [poweredBy appendAttributedString:logoString];
     [tradeItLabel setAttributedText:poweredBy];
     
     [[self tradeSession] reset];
