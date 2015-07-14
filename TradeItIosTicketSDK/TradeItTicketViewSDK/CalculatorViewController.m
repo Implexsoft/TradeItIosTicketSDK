@@ -208,7 +208,7 @@
     stopMarketOrderButton.backgroundColor = [UIColor whiteColor];
     stopLimitOrderButton.backgroundColor = [UIColor whiteColor];
     
-    activeButton.backgroundColor = [UIColor colorWithRed:226.0f green:238.0f blue:246.0f alpha:1.0f];
+    activeButton.backgroundColor = [UIColor colorWithRed:226.0f/255.0f green:238.0f/255.0f blue:246.0f/255.0f alpha:1.0f];
 }
 
 #pragma mark - UI Changes
@@ -227,7 +227,7 @@
 
 -(void) updateTradeLabels {
     NSString * tradeString = [NSString stringWithFormat:@"%@ %@",
-                              [[[[self tradeSession] orderInfo] action] capitalizedString],
+                              [TradeItTicket splitCamelCase: [[[self tradeSession] orderInfo] action]],
                               [[[self tradeSession] orderInfo] symbol]];
     
     [[self navigationItem] setTitle: tradeString];

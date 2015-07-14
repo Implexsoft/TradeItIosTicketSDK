@@ -10,6 +10,8 @@
 
 @interface EditViewController () {
     
+    __weak IBOutlet UIPickerView *orderTypePicker;
+    __weak IBOutlet UISegmentedControl *expirationToggle;
 }
 
 @end
@@ -36,6 +38,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    NSArray * actions = [self getOrderActionValues];
+    int i;
+    for(i = actions.count - 1; i > 0; i--) {
+        if([actions[i] isEqualToString: [[[self tradeSession] orderInfo] action]]) {
+            break;
+        }
+    }
+    [orderTypePicker selectRow:i inComponent:0 animated:NO];
+    
+    NSArray * types = [self getOrderTypeValues];
+    for(i = types.count - 1; i > 0; i--) {
+        if([types[i] isEqualToString:[[self tradeSession] orderType]]) {
+            break;
+        }
+    }
+    [orderTypePicker selectRow:i inComponent:1 animated:NO];
+    
+    if([[[[self tradeSession] orderInfo] expiration] isEqualToString: @"day"]) {
+        expirationToggle.selectedSegmentIndex = 0;
+    } else {
+        expirationToggle.selectedSegmentIndex = 1;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

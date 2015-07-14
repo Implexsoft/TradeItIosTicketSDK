@@ -77,6 +77,20 @@
     return imagePath;
 }
 
++(NSString *) splitCamelCase:(NSString *) str {
+    NSMutableString * str2 = [NSMutableString string];
+    
+    for (NSInteger i=0; i < str.length; i++){
+        NSString *ch = [str substringWithRange:NSMakeRange(i, 1)];
+        if ([ch rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound) {
+            [str2 appendString:@" "];
+        }
+        [str2 appendString:ch];
+    }
+    
+    return str2.capitalizedString;
+}
+
 @end
 
 

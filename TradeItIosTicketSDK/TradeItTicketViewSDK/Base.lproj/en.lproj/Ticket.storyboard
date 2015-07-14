@@ -65,7 +65,7 @@
                                     <segment title="Good 'til Canceled"/>
                                 </segments>
                                 <connections>
-                                    <action selector="expirationToggled:" destination="Dgu-xe-4wU" eventType="touchUpInside" id="Mnn-Cv-gpj"/>
+                                    <action selector="expirationToggled:" destination="Dgu-xe-4wU" eventType="valueChanged" id="X6t-Sr-9lp"/>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTC-8B-TFb" userLabel="Line Break">
@@ -95,6 +95,10 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="expirationToggle" destination="KZC-ge-tKD" id="iKO-jc-7cv"/>
+                        <outlet property="orderTypePicker" destination="Eqg-Z9-nli" id="ibW-Bc-l3H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2T4-pH-aCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -269,7 +273,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Market">
                                             <color key="titleColor" red="0.0" green="0.44705882349999998" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="marketOrderPressed:" destination="nq7-sb-bzx" eventType="touchUpInside" id="uFf-9v-Ap0"/>

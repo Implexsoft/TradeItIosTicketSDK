@@ -19,4 +19,6 @@
 
 +(NSString *) getImagePathFromBundle: (NSString *) imageName;
 
++(NSString *) splitCamelCase:(NSString *) str;
+
 @end
