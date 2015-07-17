@@ -39,7 +39,6 @@
     [nextButton.layer setCornerRadius:5.0f];
     
     brokers = @[
-        @[@"Dummy",@"Dummy"],
         @[@"TD Ameritrade",@"TD"],
         @[@"Robinghood",@"Robinhood"],
         @[@"OptionsHouse",@"OptionsHouse"],
@@ -51,9 +50,12 @@
         @[@"Interactive Brokers",@"IB"]
     ];
     
-    self.tradeSession.broker = brokers[0][1];
+    if([[self tradeSession] debugMode]) {
+        NSArray * dummy  =  @[@[@"Dummy",@"Dummy"]];
+        brokers = [dummy arrayByAddingObjectsFromArray: brokers];
+    }
     
-    //TODO figure out how to toggle dummy by environment???
+    self.tradeSession.broker = brokers[0][1];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

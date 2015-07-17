@@ -25,6 +25,19 @@
 }
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:NO onCompletion:callback];
+}
+
++(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:YES onCompletion:nil];
+}
+
+
++(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:YES onCompletion:callback];
+}
+
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(void)) callback {
 
     [TradeItTicketController forceClassesIntoLinker];
     
@@ -44,11 +57,11 @@
     calcViewController.tradeSession.lastPrice = lastPrice;
     calcViewController.tradeSession.callback = callback;
     calcViewController.tradeSession.parentView = view;
+    calcViewController.tradeSession.debugMode = debug;
     
     //Display
     [view presentViewController:nav animated:YES completion:nil];
 }
-
 
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources

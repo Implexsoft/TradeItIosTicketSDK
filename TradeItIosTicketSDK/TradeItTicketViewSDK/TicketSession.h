@@ -16,5 +16,6 @@
 @property UIViewController * parentView;
 @property NSString * orderType;
 @property BOOL popToRoot;
+@property BOOL debugMode;
 
 @end
