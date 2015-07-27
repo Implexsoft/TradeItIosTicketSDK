@@ -50,7 +50,39 @@
 }
 
 - (IBAction)closeButtonPressed:(id)sender {
-    [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+    [TradeItTicket returnToParentApp:self.tradeSession];
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

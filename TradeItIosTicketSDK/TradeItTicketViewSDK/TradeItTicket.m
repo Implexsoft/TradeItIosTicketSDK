@@ -8,7 +8,11 @@
 
 #import "TradeItTicket.h"
 
-@implementation TradeItTicket
+@implementation TradeItTicket {
+
+}
+
+static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
 
 +(UIColor *) activeColor {
     return [UIColor colorWithRed:0.0f
@@ -61,20 +65,21 @@
 
 }
 
-+(NSString *) getImagePathFromBundle: (NSString *) imageName {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * bundle = [NSBundle bundleWithPath:bundlePath];
++ (UIImage *)imageWithImage:(UIImage *)image scaledToWidth: (float) i_width withInset: (float) inset {
+    //UIGraphicsBeginImageContext(newSize);
+    float oldWidth = image.size.width;
+    float scaleFactor = i_width / oldWidth;
     
-    NSString *imageExtension = @"";
-    NSArray *pngPaths = [bundle pathsForResourcesOfType:imageExtension inDirectory:nil];
-    for (NSString *filePath in pngPaths)
-    {
-        NSString *fileName = [filePath lastPathComponent];
-        NSLog(@"%@", fileName);
-    }
+    float newHeight = image.size.height * scaleFactor;
+    float newWidth = oldWidth * scaleFactor;
     
-    NSString * imagePath = [bundle pathForResource:imageName ofType:@"png"];
-    return imagePath;
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(newWidth + inset, newHeight), NO, 0.0);
+    [image drawInRect:CGRectMake(inset, 0, newWidth, newHeight)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 +(NSString *) splitCamelCase:(NSString *) str {
@@ -89,6 +94,115 @@
     }
     
     return str2.capitalizedString;
+}
+
++(NSArray *) getAvailableBrokers {
+    NSArray * brokers = @[
+                          @[@"TD Ameritrade",@"TD"],
+                          @[@"Robinhood",@"Robinhood"],
+                          @[@"OptionsHouse",@"OptionsHouse"],
+                          @[@"Schwab",@"Schwabs"],
+                          @[@"TradeStation",@"TradeStation"],
+                          @[@"E*Trade",@"Etrade"],
+                          @[@"Fidelity",@"Fidelity"],
+                          @[@"Scottrade",@"Scottrade"],
+                          @[@"Tradier",@"Tradier"],
+                          @[@"Interactive Brokers",@"IB"]
+                          ];
+    
+    return brokers;
+}
+
++(NSArray *) getAvailableBrokers:(TicketSession *) tradeSession {
+    NSArray * brokers = [TradeItTicket getAvailableBrokers];
+    
+    if([tradeSession debugMode]) {
+        NSArray * dummy  =  @[@[@"Dummy",@"Dummy"]];
+        brokers = [dummy arrayByAddingObjectsFromArray: brokers];
+    }
+    
+    return brokers;
+}
+
++(NSString *) getBrokerDisplayString:(NSString *) value {
+    NSArray * brokers = [TradeItTicket getAvailableBrokers];
+    
+    for(NSArray * broker in brokers) {
+        if([broker[1] isEqualToString:value]) {
+            return broker[0];
+        }
+    }
+    
+    return value;
+}
+
++(NSString *) getBrokerValueString:(NSString *) displayString {
+    NSArray * brokers = [TradeItTicket getAvailableBrokers];
+    
+    for(NSArray * broker in brokers) {
+        if([broker[0] isEqualToString:displayString]) {
+            return broker[1];
+        }
+    }
+    
+    return displayString;
+}
+
++(NSArray *) getLinkedBrokersList {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSArray * linkedBrokers = [defaults objectForKey:BROKER_LIST_KEY];
+    
+    return linkedBrokers;
+}
+
++(void) addLinkedBroker:(NSString *)broker {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray * linkedBrokers = [[defaults objectForKey:BROKER_LIST_KEY] mutableCopy];
+    
+    if(!linkedBrokers) {
+        linkedBrokers = [[NSMutableArray alloc] init];
+    }
+    
+    int i;
+    for(i = 0; i < linkedBrokers.count; i++) {
+        if([linkedBrokers[i] isEqualToString: broker]) {
+            break;
+        }
+    }
+    
+    if(i == linkedBrokers.count) {
+        [linkedBrokers addObject: broker];
+    }
+    
+    [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
+    [defaults synchronize];
+}
+
++(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker {
+    [Keychain saveString:username forKey:[NSString stringWithFormat:@"%@Username", broker]];
+    [Keychain saveString:password forKey:[NSString stringWithFormat:@"%@Passwrod", broker]];
+}
+
++(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker {
+    NSString * username = [Keychain getStringForKey:[NSString stringWithFormat:@"%@Username", broker]];
+    NSString * password = [Keychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
+    
+    return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
+}
+
++(BOOL) hasTouchId {
+    LAContext * myContext = [[LAContext alloc] init];
+    NSError * authError = nil;
+    
+    if([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
++(void) returnToParentApp:(TicketSession *)tradeSession {
+    [[tradeSession parentView] dismissViewControllerAnimated:YES completion:[tradeSession callback]];
 }
 
 @end

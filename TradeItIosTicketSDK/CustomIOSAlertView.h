@@ -37,6 +37,7 @@
 - (id)initWithParentView: (UIView *)_parentView __attribute__ ((deprecated));
 
 - (void)show;
+- (void)show:(BOOL) modal;
 - (void)close;
 
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender;

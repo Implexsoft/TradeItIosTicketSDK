@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <LocalAuthentication/LocalAuthentication.h>
+#import "TicketSession.h"
+#import "Keychain.h"
 
 @interface TradeItTicket : NSObject
 
@@ -18,8 +21,22 @@
 +(NSAttributedString *) logoString;
 +(NSAttributedString *) logoStringLite;
 
-+(NSString *) getImagePathFromBundle: (NSString *) imageName;
++(UIImage *)imageWithImage:(UIImage *)image scaledToWidth: (float) i_width withInset: (float) inset;
 
 +(NSString *) splitCamelCase:(NSString *) str;
+
++(NSArray *) getAvailableBrokers: (TicketSession *) tradeSession;
++(NSString *) getBrokerDisplayString:(NSString *) value;
++(NSString *) getBrokerValueString:(NSString *) displayString;
+
++(NSArray *) getLinkedBrokersList;
++(void) addLinkedBroker:(NSString *)broker;
+
++(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker;
++(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker;
+
++(BOOL) hasTouchId;
+
++(void) returnToParentApp: (TicketSession *) tradeSession;
 
 @end

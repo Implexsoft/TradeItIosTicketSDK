@@ -57,7 +57,12 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 // Create the dialog view, and animate opening the dialog
-- (void)show
+-(void)show {
+    [self show:NO];
+}
+
+//Modified by TradeIt
+- (void)show:(BOOL) modal
 {
     dialogView = [self createContainerView];
     
@@ -127,7 +132,9 @@ CGFloat buttonSpacerHeight = 0;
     
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         //self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f];
+                         if(modal) {
+                             self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4f];
+                         }
                          dialogView.layer.opacity = 1.0f;
                          dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1);
                      }

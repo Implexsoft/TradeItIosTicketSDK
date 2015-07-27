@@ -45,6 +45,8 @@
     
     NSString * currentOrderType;
     BOOL readyToTrade;
+    
+    NSArray * linkedBrokers;
 }
 
 
@@ -72,6 +74,8 @@
     [self uiTweaks];
     [self setTicketView];
     [lastPriceRowItem setUIToStack];
+    
+    linkedBrokers = [TradeItTicket getLinkedBrokersList];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -79,6 +83,17 @@
     
     [self updateTradeLabels];
     [self setTicketView];
+    
+    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TradeItTicket hasTouchId]) {
+        [self promptTouchId];
+    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
+        if([linkedBrokers count] > 1) {
+            [self showBrokerPickerAndSetPassword:NO onSelection:nil];
+        } else {
+            [self setAuthentication:linkedBrokers[0] withPassword:NO];
+            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+        }
+    }
 }
 
 -(void) setTicketView {
@@ -129,7 +144,7 @@
     NSString * formattedString = [NSString stringWithFormat:@"\u2248 %@", [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     [estimatedCostLabel setText:formattedString];
-    [[[self tradeSession] orderInfo] setQuantity: [sharesRowItem.currentValueStack integerValue]];
+    [[[self tradeSession] orderInfo] setQuantity: (int) [sharesRowItem.currentValueStack integerValue]];
     [self updateOrderPrice];
     [self checkIfReadyToTrade];
 }
@@ -168,6 +183,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"calculatorToLoading"]){
+        [[segue destinationViewController] setActionToPerform: @"sendLoginReviewRequest"];
+    } else if([segue.identifier isEqualToString:@"calculatorToBrokerSelectDetail"]) {
+        [[segue destinationViewController] setCancelToParent: YES];
+    }
     
     [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
@@ -232,6 +253,66 @@
     stopLimitOrderButton.backgroundColor = [UIColor whiteColor];
     
     activeButton.backgroundColor = [UIColor colorWithRed:226.0f/255.0f green:238.0f/255.0f blue:246.0f/255.0f alpha:1.0f];
+}
+
+#pragma mark - Broker Picker
+
+-(void) showBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView: @"Select Brokerage" andTag:101]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
+        [self setAuthentication:linkedBrokers[actionIndex] withPassword:setPassword];
+        
+        onSelection();
+    }];
+}
+
+- (UIView *)createPickerView: (NSString *) popupTitle andTag:(int) tag {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 50)];
+    [title setTextColor:[UIColor blackColor]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [title setNumberOfLines:0];
+    [title setText: popupTitle];
+    [contentView addSubview:title];
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [picker setTag: tag];
+    [contentView addSubview:picker];
+    
+    [contentView setNeedsDisplay];
+    return contentView;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return linkedBrokers.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [TradeItTicket getBrokerDisplayString:linkedBrokers[row]];
+}
+
+-(void) setAuthentication:(NSString *) broker withPassword:(BOOL) setPassword {
+    self.tradeSession.broker = broker;
+    TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: broker];
+    
+    if(setPassword) {
+        self.tradeSession.authenticationInfo = creds;
+    } else {
+        self.tradeSession.authenticationInfo.id = creds.id;
+    }
 }
 
 #pragma mark - UI Changes
@@ -329,7 +410,7 @@
 - (IBAction)calcPadButtonPressed:(id)sender {
     UIButton *button = (UIButton *) sender;
     
-    activeCalcRowItem.currentValueStack = [NSString stringWithFormat: @"%@%i", activeCalcRowItem.currentValueStack, button.tag];
+    activeCalcRowItem.currentValueStack = [NSString stringWithFormat: @"%@%i", activeCalcRowItem.currentValueStack, (int) button.tag];
 
     [activeCalcRowItem setUIToStack];
     [self updateEstimatedCost];
@@ -391,14 +472,63 @@
 }
 
 - (IBAction)CancelPressed:(id)sender {
-    [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+    [TradeItTicket returnToParentApp:self.tradeSession];
 }
 
 - (IBAction)tradeButtonPressed:(id)sender {
     if(readyToTrade) {
-        [self performSegueWithIdentifier:@"calcToLoginSegue" sender:self];
+        [self performSegueWithIdentifier:@"calculatorToLoading" sender:self];
     }
 }
+
+- (IBAction)editButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:@"calculatorToEdit" sender:self];
+}
+
+#pragma mark - TouchId
+
+-(void) promptTouchId {
+    LAContext * myContext = [[LAContext alloc] init];
+    NSString * myLocalizedReasonString = @"Touch ID Test to show Touch ID working in a custom app";
+    
+    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+    localizedReason:myLocalizedReasonString
+            reply:^(BOOL success, NSError *error) {
+                if (success) {
+                    if([[TradeItTicket getLinkedBrokersList] count] > 1) {
+                        [self showBrokerPickerAndSetPassword:YES onSelection:nil];
+                    } else {
+                        NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
+                        [self setAuthentication:broker withPassword:YES];
+                    }
+                } else {
+                    //too many tries, or cancelled by user
+                    if(error.code == -2 || error.code == -1) {
+                        [TradeItTicket returnToParentApp:self.tradeSession];
+                    } else if(error.code == -3) {
+                        //fallback mechanism selected
+                        //load username into creds
+                        //segue to login screen for the password
+                        
+                        if([[TradeItTicket getLinkedBrokersList] count] > 1) {
+                            [self showBrokerPickerAndSetPassword:NO onSelection:^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+                                });
+                            }];
+                        } else {
+                            NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
+                            [self setAuthentication:broker withPassword:NO];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+                            });
+                        }
+                        
+                    }
+                }
+            }];
+} //end promptTouchId
 
 @end
 

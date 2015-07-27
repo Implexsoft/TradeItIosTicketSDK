@@ -10,12 +10,13 @@
 #import "TicketSession.h"
 
 #import "CalculatorViewController.h"
-#import "InitialNavigationViewController.h"
-#import "EditViewController.h"
 #import "LoginViewController.h"
 #import "LoadingScreenViewController.h"
 #import "ReviewScreenViewController.h"
 #import "SuccessViewController.h"
+#import "BrokerSelectViewController.h"
+#import "BrokerSelectDetailViewController.h"
+#import "EditScreenViewController.h"
 
 
 @implementation TradeItTicketController
@@ -46,18 +47,30 @@
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
     
     //Setup ticket storyboard
+    NSString * startingView = @"brokerSelectController";
+    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        startingView = @"initalCalculatorController";
+    }
+    
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-    UIViewController * nav = (UIViewController *)[ticket instantiateInitialViewController];
+    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
     
     //Create Trade Session
-    CalculatorViewController * calcViewController= (CalculatorViewController *)[((UINavigationController *)nav).viewControllers objectAtIndex:0];
-    calcViewController.tradeSession = [[TicketSession alloc]initWithpublisherApp: publisherApp];
-    calcViewController.tradeSession.orderInfo.symbol = [symbol uppercaseString];
-    calcViewController.tradeSession.lastPrice = lastPrice;
-    calcViewController.tradeSession.callback = callback;
-    calcViewController.tradeSession.parentView = view;
-    calcViewController.tradeSession.debugMode = debug;
+    TicketSession * tradeSession = [[TicketSession alloc]initWithpublisherApp: publisherApp];
+    tradeSession.orderInfo.symbol = [symbol uppercaseString];
+    tradeSession.lastPrice = lastPrice;
+    tradeSession.callback = callback;
+    tradeSession.parentView = view;
+    tradeSession.debugMode = debug;
+    
+    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        initialViewController.tradeSession = tradeSession;
+    } else {
+        BrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        initialViewController.tradeSession = tradeSession;
+    }
     
     //Display
     [view presentViewController:nav animated:YES completion:nil];
@@ -73,12 +86,13 @@
 //the linker to load the classes :)
 +(void) forceClassesIntoLinker {
     [CalculatorViewController class];
-    [InitialNavigationViewController class];
-    [EditViewController class];
+    [EditScreenViewController class];
     [LoginViewController class];
     [LoadingScreenViewController class];
     [ReviewScreenViewController class];
     [SuccessViewController class];
+    [BrokerSelectViewController class];
+    [BrokerSelectDetailViewController class];
 }
 
 @end

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8WL-KA-Y25">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Initial Navigation View Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="laO-BL-h9v">
             <objects>
-                <navigationController id="8WL-KA-Y25" customClass="InitialNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="initalCalculatorController" id="8WL-KA-Y25" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rlb-4Q-uds">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -21,7 +21,146 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="feW-Lh-Sl9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-553" y="445"/>
+            <point key="canvasLocation" x="-761" y="-29"/>
+        </scene>
+        <!--Select Your Broker-->
+        <scene sceneID="EBz-QJ-jrf">
+            <objects>
+                <tableViewController id="V42-ok-rVA" customClass="BrokerSelectViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jcn-rP-Tf3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="0.0" reuseIdentifier="BrokerCell" textLabel="VD5-sn-X2q" style="IBUITableViewCellStyleDefault" id="cUq-xX-cQ5">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VD5-sn-X2q">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <segue destination="NtF-Vh-6FT" kind="show" identifier="brokerDetailSegue" id="wuc-R0-2HR"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V42-ok-rVA" id="MXr-Fm-avc"/>
+                            <outlet property="delegate" destination="V42-ok-rVA" id="YhA-q5-KcB"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Select Your Broker" id="qfr-Pn-H7b">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="uEO-UX-Xcf"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="FPY-Ig-tWq" kind="unwind" identifier="brokerSelectToEdit" unwindAction="unwindToEdit:" id="Fze-uK-edh"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="FPY-Ig-tWq" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="104" y="-793"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="sqE-ot-BFi">
+            <objects>
+                <viewController id="NtF-Vh-6FT" customClass="BrokerSelectDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rLg-5T-jsO"/>
+                        <viewControllerLayoutGuide type="bottom" id="lpI-ZS-Sic"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V6d-j5-olZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
+                                <rect key="frame" x="-1" y="241" width="322" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Xkg-Q1-EcE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
+                                <rect key="frame" x="-2" y="270" width="322" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="rbi-me-C7k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aGg-Au-i7X">
+                                <rect key="frame" x="69" y="96" width="182" height="123"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="123" id="lGu-7x-DOr"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
+                                <rect key="frame" x="115" y="332" width="90" height="30"/>
+                                <state key="normal" title="Link Account">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="linkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="o31-2A-GGh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="aGg-Au-i7X" secondAttribute="centerX" id="6Fo-DD-UhN"/>
+                            <constraint firstItem="Osa-Gx-5fR" firstAttribute="top" secondItem="wbf-cv-Dik" secondAttribute="bottom" constant="-1" id="7Of-Iz-jdx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wbf-cv-Dik" secondAttribute="trailing" constant="-17" id="8zV-bP-vfm"/>
+                            <constraint firstItem="tei-VX-tIR" firstAttribute="top" secondItem="Osa-Gx-5fR" secondAttribute="bottom" constant="32" id="BCu-e8-q2z"/>
+                            <constraint firstItem="wbf-cv-Dik" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-17" id="D6a-QQ-PxH"/>
+                            <constraint firstItem="Osa-Gx-5fR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-18" id="KRH-nc-y1g"/>
+                            <constraint firstItem="aGg-Au-i7X" firstAttribute="top" secondItem="rLg-5T-jsO" secondAttribute="bottom" constant="32" id="N5Q-JM-ldL"/>
+                            <constraint firstItem="wbf-cv-Dik" firstAttribute="top" secondItem="aGg-Au-i7X" secondAttribute="bottom" constant="22" id="Vbr-RZ-nhh"/>
+                            <constraint firstItem="aGg-Au-i7X" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="53" id="WRq-qW-5bf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aGg-Au-i7X" secondAttribute="trailing" constant="53" id="X5h-Z1-xVv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Osa-Gx-5fR" secondAttribute="trailing" constant="-16" id="chs-ti-2Ct"/>
+                            <constraint firstAttribute="centerX" secondItem="tei-VX-tIR" secondAttribute="centerX" id="xC3-Nb-m6u"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="SuV-y4-Vvz"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="emailInput" destination="wbf-cv-Dik" id="kGc-lE-g43"/>
+                        <outlet property="logo" destination="aGg-Au-i7X" id="DWb-to-NFU"/>
+                        <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
+                        <segue destination="QW8-1y-9oI" kind="presentation" identifier="loginToLoading" modalPresentationStyle="fullScreen" id="QtJ-Lx-E79"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="602" y="-793"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ghK-lA-voB">
+            <objects>
+                <navigationController storyboardIdentifier="brokerSelectController" id="3Iv-K7-0hh" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SXg-ap-0ac">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="V42-ok-rVA" kind="relationship" relationship="rootViewController" id="I3L-jI-b7x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5hy-zS-JoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-291" y="-793"/>
         </scene>
         <!--Edit-->
         <scene sceneID="HCE-j5-cJx">
@@ -102,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2T4-pH-aCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366" y="-141"/>
+            <point key="canvasLocation" x="2284" y="-823"/>
         </scene>
         <!--Calculator-->
         <scene sceneID="o7Q-3S-dku">
@@ -562,7 +701,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="3qd-0f-mRb">
                             <color key="tintColor" red="0.0" green="0.44705882352941179" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="Dgu-xe-4wU" kind="show" id="g8H-Ze-cNw"/>
+                                <action selector="editButtonPressed:" destination="nq7-sb-bzx" id="cjp-Yf-3Vd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -584,12 +723,14 @@
                         <outlet property="stopPriceLabelButton" destination="yrZ-Fe-iJi" id="mky-99-pSD"/>
                         <outlet property="stopPriceValueButton" destination="lxp-er-g3x" id="T02-FC-iIS"/>
                         <outlet property="tradeButton" destination="6I9-m5-OWM" id="6ut-Zl-WgB"/>
-                        <segue destination="Ufa-TB-Hkd" kind="show" identifier="calcToLoginSegue" id="8qg-Xz-Jc3"/>
+                        <segue destination="QW8-1y-9oI" kind="presentation" identifier="calculatorToLoading" id="J0h-b5-JgX"/>
+                        <segue destination="NtF-Vh-6FT" kind="show" identifier="calculatorToBrokerSelectDetail" id="gfX-l8-m5D"/>
+                        <segue destination="KOb-TP-yQo" kind="show" identifier="calculatorToEdit" id="5Hw-KR-Onr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NbK-IE-un3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-113" y="445"/>
+            <point key="canvasLocation" x="-367" y="323"/>
         </scene>
         <!--Login to Broker-->
         <scene sceneID="hJt-63-l3l">
@@ -610,11 +751,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="QW8-1y-9oI" kind="popoverPresentation" popoverAnchorView="31n-dP-yNr" id="mdJ-6s-c4P">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Trade It does not store your personal brokerage information. Read our Terms and Conditions and Privacy Policy" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bRp-Ef-lwx" userLabel="Disclaimer">
                                 <rect key="frame" x="16" y="385" width="288" height="49"/>
@@ -654,7 +790,7 @@
                                             <constraint firstAttribute="height" constant="30" id="6ww-8R-B40"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -719,7 +855,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fPF-Rh-Efh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366" y="445"/>
+            <point key="canvasLocation" x="1894" y="-839"/>
         </scene>
         <!--Loading Screen View Controller-->
         <scene sceneID="Vkw-vn-rU8">
@@ -767,12 +903,13 @@
                         <segue destination="J4w-qr-In7" kind="show" identifier="loadingToReviewSegue" id="t4Z-OK-ZcN"/>
                         <segue destination="xhK-K9-cnI" kind="show" identifier="loadingToSuccesSegue" id="ILP-eC-VWh"/>
                         <segue destination="31D-8a-egI" kind="unwind" identifier="exitToRootSegue" unwindAction="prepareForUnwind:" id="Lt8-X8-e06"/>
+                        <segue destination="8WL-KA-Y25" kind="show" identifier="loginToCalculator" id="fkX-hE-2ms"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaX-aO-zmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="31D-8a-egI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1425" y="-275"/>
+            <point key="canvasLocation" x="602" y="-167"/>
         </scene>
         <!--Success View Controller-->
         <scene sceneID="QCT-Ou-Vi2">
@@ -838,7 +975,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlv-uo-0tT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1883" y="445"/>
+            <point key="canvasLocation" x="1737" y="527"/>
         </scene>
         <!--Review-->
         <scene sceneID="IVY-4o-mGS">
@@ -1279,7 +1416,110 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-F4-2ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SQg-dc-6Nj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1397" y="445"/>
+            <point key="canvasLocation" x="1167" y="527"/>
+        </scene>
+        <!--Edit-->
+        <scene sceneID="RAn-Dp-5y4">
+            <objects>
+                <viewController id="KOb-TP-yQo" customClass="EditScreenViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S3l-1R-e2v"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ble-31-ihX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qpF-LY-PZm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1h-4c-vkp">
+                                <rect key="frame" x="16" y="84" width="49" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Broker:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bt2-gz-CVi">
+                                <rect key="frame" x="16" y="228" width="56" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppd-I3-wPq">
+                                <rect key="frame" x="16" y="107" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Buy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="orderActionPressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="RYH-2Q-bOP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIY-6G-O0W">
+                                <rect key="frame" x="16" y="136" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Market Order">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="orderTypePressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="Dfc-ey-20l"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rob-d1-rs9">
+                                <rect key="frame" x="16" y="165" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Good For The Day">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="orderExpirationPressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="a12-RS-kg2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1I-Rl-6HM">
+                                <rect key="frame" x="16" y="257" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Broker">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="brokerSelectPressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="peN-yF-YJO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="bIY-6G-O0W" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="4HL-dp-9dH"/>
+                            <constraint firstItem="bt2-gz-CVi" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="FAf-jq-GmT"/>
+                            <constraint firstItem="v1h-4c-vkp" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="KgP-tD-EQ7"/>
+                            <constraint firstItem="v1h-4c-vkp" firstAttribute="top" secondItem="S3l-1R-e2v" secondAttribute="bottom" constant="20" id="MPL-lb-Vv6"/>
+                            <constraint firstItem="Rob-d1-rs9" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="NZP-AS-bBY"/>
+                            <constraint firstItem="bIY-6G-O0W" firstAttribute="top" secondItem="Ppd-I3-wPq" secondAttribute="bottom" constant="-1" id="Pev-Vq-0rs"/>
+                            <constraint firstItem="j1I-Rl-6HM" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="QM3-hd-I5d"/>
+                            <constraint firstItem="Ppd-I3-wPq" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="TAe-7A-rNL"/>
+                            <constraint firstItem="j1I-Rl-6HM" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="Ty1-u8-bhh"/>
+                            <constraint firstItem="Ppd-I3-wPq" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="bVy-YC-nyi"/>
+                            <constraint firstItem="bt2-gz-CVi" firstAttribute="top" secondItem="Rob-d1-rs9" secondAttribute="bottom" constant="33" id="hlR-We-sqJ"/>
+                            <constraint firstItem="Rob-d1-rs9" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="jLI-QK-U44"/>
+                            <constraint firstItem="Rob-d1-rs9" firstAttribute="top" secondItem="bIY-6G-O0W" secondAttribute="bottom" constant="-1" id="oja-WC-9mq"/>
+                            <constraint firstItem="Ppd-I3-wPq" firstAttribute="top" secondItem="v1h-4c-vkp" secondAttribute="bottom" constant="3" id="qfW-R5-OrV"/>
+                            <constraint firstItem="bIY-6G-O0W" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="t3h-wO-32W"/>
+                            <constraint firstItem="j1I-Rl-6HM" firstAttribute="top" secondItem="bt2-gz-CVi" secondAttribute="bottom" constant="8" id="z1y-n1-6Nj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit" id="USt-Cu-Abp">
+                        <barButtonItem key="rightBarButtonItem" title="Add Broker" id="SkL-iL-31R">
+                            <connections>
+                                <segue destination="V42-ok-rVA" kind="show" identifier="editToBrokerSelectView" id="wbv-cP-RXh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="brokerButton" destination="j1I-Rl-6HM" id="hHK-j0-bju"/>
+                        <outlet property="orderActionButton" destination="Ppd-I3-wPq" id="oxX-Ox-0Fq"/>
+                        <outlet property="orderExpirationButton" destination="Rob-d1-rs9" id="jEX-ID-rOi"/>
+                        <outlet property="orderTypeButton" destination="bIY-6G-O0W" id="2jN-qJ-c9E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1F1-C6-nou" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121" y="527"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GBd-ql-QVV">
@@ -1296,7 +1536,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="971-Gk-4Ai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="894" y="445"/>
+            <point key="canvasLocation" x="602" y="527"/>
         </scene>
     </scenes>
     <resources>
@@ -1306,6 +1546,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CFl-JG-lcg"/>
+        <segue reference="J0h-b5-JgX"/>
+        <segue reference="wbv-cP-RXh"/>
+        <segue reference="wuc-R0-2HR"/>
     </inferredMetricsTieBreakers>
 </document>

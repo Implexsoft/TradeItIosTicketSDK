@@ -18,4 +18,7 @@
 @property BOOL popToRoot;
 @property BOOL debugMode;
 
+@property NSString * errorTitle;
+@property NSString * errorMessage;
+
 @end

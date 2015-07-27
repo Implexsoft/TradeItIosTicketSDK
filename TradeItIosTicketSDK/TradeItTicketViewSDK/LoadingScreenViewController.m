@@ -30,6 +30,8 @@
     
     if([[self actionToPerform] isEqualToString:@"sendTradeRequest"]) {
         [indicatorText setText:@"Submitting Your Order"];
+    } else if([[self actionToPerform] isEqualToString:@"verifyCredentials"]) {
+        [indicatorText setText:@"Validating Your Credentials"];
     }
     
     //using a delay, o/w it complains about how perform selector might cause a leak
@@ -42,6 +44,36 @@
 }
 
 #pragma mark - Actions To Perform While Loading
+
+- (void) verifyCredentials {
+    TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
+    TradeItResult * res = [verifyCredsSession verifyUser:self.tradeSession.authenticationInfo withBroker:self.tradeSession.broker];
+    [self verifyCredentialsRequestRecieved: res];
+}
+
+-(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
+    
+    if([result isKindOfClass:[TradeItErrorResult class]]) {
+        self.tradeSession.errorTitle = @"Connection Problem";
+        self.tradeSession.errorMessage = @"We're experiencing some issues connecting to the authentication server. Please try again later.";
+
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        TradeItSuccessAuthenticationResult * success = (TradeItSuccessAuthenticationResult *) result;
+        
+        if(success.credentialsValid) {
+            [TradeItTicket storeUsername:self.tradeSession.authenticationInfo.id andPassword:self.tradeSession.authenticationInfo.password forBroker:self.tradeSession.broker];
+            [TradeItTicket addLinkedBroker:self.tradeSession.broker];
+            [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
+        } else {
+            self.tradeSession.errorTitle = @"Invalid Credentials";
+            self.tradeSession.errorMessage = @"Check your username and password and try again.";
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            //TODO remove previously linked creds
+        }
+    }
+}
 
 - (void) sendLoginReviewRequest {
     /*[[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
@@ -361,6 +393,10 @@
         SuccessViewController * successPage = (SuccessViewController *)[segue destinationViewController];
         [successPage setResult: self.successResult];
         [successPage setTradeSession: self.tradeSession];
+    } else if([segue.identifier isEqualToString:@"loginToCalculator"]) {
+        UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
+        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        [initialViewController setTradeSession: self.tradeSession];
     }
     
 }

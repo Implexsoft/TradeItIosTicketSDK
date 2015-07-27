@@ -16,8 +16,11 @@
 #import "TradeItErrorResult.h"
 #import "CustomIOSAlertView.h"
 
+#import "TradeItVerifyCredentialSession.h"
+
 #import "ReviewScreenViewController.h"
 #import "SuccessViewController.h"
+#import "CalculatorViewController.h"
 
 @interface LoadingScreenViewController : UIViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
