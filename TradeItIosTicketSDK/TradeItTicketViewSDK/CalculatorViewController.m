@@ -29,6 +29,9 @@
     __weak IBOutlet UIButton * refreshAndDecimalButton;
     __weak IBOutlet UIButton * backspaceButton;
 
+    __weak IBOutlet UIButton *footerMessageButton;
+    
+    
     NSLayoutConstraint * priceValueToCalcRowViewConstraint;
     NSLayoutConstraint * stopPriceLabelNoWidthConstraint;
     NSLayoutConstraint * stopPriceLabelFullWidthConstraint;
@@ -42,6 +45,8 @@
     
     CalculatorRowLabel * activeCalcRowItem;
     CalculatorRowLabel * currentPriceCalcRowItem;
+    
+    NSDictionary * footerMessages;
     
     NSString * currentOrderType;
     BOOL readyToTrade;
@@ -76,6 +81,7 @@
     [lastPriceRowItem setUIToStack];
     
     linkedBrokers = [TradeItTicket getLinkedBrokersList];
+    [self initFooterMessages];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -205,6 +211,7 @@
     
     [self updateEstimatedCost];
     [self setOrderButtonActive: marketOrderButton];
+    [self setFooterMessage];
 }
 - (void) setTicketToLimitOrder {
     [limitPriceRowItem setDefaultsToUI];
@@ -219,6 +226,7 @@
     
     [self updateEstimatedCost];
     [self setOrderButtonActive: limitOrderButton];
+    [self setFooterMessage];
 }
 - (void) setTicketToStopMarketOrder {
     [stopPriceRowItem setDefaultsToUI];
@@ -233,6 +241,7 @@
     
     [self updateEstimatedCost];
     [self setOrderButtonActive: stopMarketOrderButton];
+    [self setFooterMessage];
 }
 - (void) setTicketToStopLimitOrder {
     [stopLimitPriceRowItem setDefaultsToUI];
@@ -244,6 +253,7 @@
     
     [self updateEstimatedCost];
     [self setOrderButtonActive: stopLimitOrderButton];
+    [self setFooterMessage];
 }
 
 - (void) setOrderButtonActive:(UIButton *) activeButton {
@@ -263,7 +273,7 @@
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
     
     [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
+        int actionIndex = (int) [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
         [self setAuthentication:linkedBrokers[actionIndex] withPassword:setPassword];
         
         onSelection();
@@ -327,6 +337,9 @@
     [[backspaceButton imageView] setContentMode: UIViewContentModeScaleAspectFit];
     [backspaceButton setImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/Backspace"] forState:UIControlStateNormal];
     [self refreshButtonShowRefresh];
+    
+    footerMessageButton.titleLabel.numberOfLines = 0;
+    footerMessageButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 -(void) updateTradeLabels {
@@ -403,6 +416,26 @@
                        multiplier:1
                        constant:0];
     stopPriceValueWidthConstraint.priority = 900;
+}
+
+-(void) initFooterMessages {
+    footerMessages = @{
+       @"marketday": @"Your market order is good for the day\nand will be executed at the next price.",
+       @"marketgtc": @"Your market order is good until canceled\nand will be executed at the next price.",
+       @"limitday": @"Your limit order is good for the day\nandwill be executed at your limit price or better.",
+       @"limitgtc": @"Your limit order is good until canceled\nand will be executed at your limit price or better.",
+       @"stopMarketday": @"Your stop market order is good for the day\nand will be activated when you stop price is reached.",
+       @"stopMarketgtc": @"Your stop market order is good until canceled\nand will be activated when you stop price is reached.",
+       @"stopLimitday": @"Your stop limit order is good for the day\nand will be activated when you stop price is reached.",
+       @"stopLimitgtc": @"Your stop limit order is good until canceled\nand will be activated when you stop price is reached."
+    };
+}
+
+-(void) setFooterMessage {
+    NSMutableString * messageType = [NSMutableString stringWithString: self.tradeSession.orderInfo.price.type];
+    [messageType appendString:self.tradeSession.orderInfo.expiration];
+    
+    [footerMessageButton setTitle:footerMessages[messageType] forState:UIControlStateNormal];
 }
 
 #pragma mark - Events
@@ -484,6 +517,11 @@
 - (IBAction)editButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"calculatorToEdit" sender:self];
 }
+
+- (IBAction)footerButtonMessagePressed:(id)sender {
+    [self performSegueWithIdentifier:@"calculatorToEdit" sender:self];
+}
+
 
 #pragma mark - TouchId
 

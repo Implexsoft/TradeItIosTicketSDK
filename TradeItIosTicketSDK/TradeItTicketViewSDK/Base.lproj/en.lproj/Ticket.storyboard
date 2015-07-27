@@ -40,7 +40,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VD5-sn-X2q">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -362,7 +362,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~$1000.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdN-oz-2U9">
-                                <rect key="frame" x="118" y="64" width="187" height="48"/>
+                                <rect key="frame" x="117" y="64" width="187" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -395,7 +395,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHt-RB-dc1">
-                                        <rect key="frame" x="161" y="1" width="79" height="57"/>
+                                        <rect key="frame" x="160" y="1" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="3">
@@ -407,7 +407,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWJ-H7-MTA">
-                                        <rect key="frame" x="241" y="1" width="79" height="57"/>
+                                        <rect key="frame" x="240" y="1" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Market">
@@ -467,7 +467,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cx0-7N-T2B">
-                                        <rect key="frame" x="161" y="59" width="79" height="57"/>
+                                        <rect key="frame" x="160" y="59" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="6">
@@ -479,7 +479,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jI-nj-dqM">
-                                        <rect key="frame" x="241" y="59" width="79" height="57"/>
+                                        <rect key="frame" x="240" y="59" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Limit">
@@ -503,7 +503,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-Nk-b5b">
-                                        <rect key="frame" x="161" y="117" width="79" height="57"/>
+                                        <rect key="frame" x="160" y="117" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="9">
@@ -515,7 +515,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="w3H-Mo-id7">
-                                        <rect key="frame" x="241" y="117" width="79" height="57"/>
+                                        <rect key="frame" x="240" y="117" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -540,7 +540,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEb-dE-m3b" userLabel="Backspace">
-                                        <rect key="frame" x="161" y="175" width="79" height="57"/>
+                                        <rect key="frame" x="160" y="175" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                         <state key="normal" image="backspace.png">
@@ -552,7 +552,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="N4L-ia-hp5">
-                                        <rect key="frame" x="241" y="175" width="79" height="57"/>
+                                        <rect key="frame" x="240" y="175" width="79" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -639,12 +639,6 @@
                                     <constraint firstItem="8YW-Bf-plP" firstAttribute="top" secondItem="y7n-bm-34m" secondAttribute="bottom" constant="1" id="zru-uf-3zH"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to select your broker and review order." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g03-2h-ksh">
-                                <rect key="frame" x="51" y="421" width="220" height="14"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-m5-OWM">
                                 <rect key="frame" x="16" y="442" width="288" height="30"/>
                                 <color key="backgroundColor" red="0.078431372549019607" green="0.24705882352941178" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -656,12 +650,22 @@
                                     <action selector="tradeButtonPressed:" destination="nq7-sb-bzx" eventType="touchUpInside" id="haO-qd-yHD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XAR-WK-l3t">
+                                <rect key="frame" x="16" y="407" width="289" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Tap to select your broker and review order.">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="footerButtonMessagePressed:" destination="nq7-sb-bzx" eventType="touchUpInside" id="nZG-lK-3G5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="6kn-LM-er4" secondAttribute="trailing" constant="-16" id="2Xm-j7-zMA"/>
+                            <constraint firstItem="6I9-m5-OWM" firstAttribute="top" secondItem="XAR-WK-l3t" secondAttribute="bottom" constant="8" id="4nK-8L-hMJ"/>
                             <constraint firstItem="jaF-OI-L9H" firstAttribute="top" secondItem="trb-FW-je9" secondAttribute="bottom" constant="48" id="51u-jJ-9Le"/>
-                            <constraint firstAttribute="centerX" secondItem="g03-2h-ksh" secondAttribute="centerX" id="9S7-K2-CkK"/>
                             <constraint firstItem="6kn-LM-er4" firstAttribute="leading" secondItem="4a2-Pr-Cwg" secondAttribute="leadingMargin" constant="-16" id="Bcz-1H-qkr"/>
                             <constraint firstItem="HdN-oz-2U9" firstAttribute="trailing" secondItem="4a2-Pr-Cwg" secondAttribute="trailingMargin" id="G6T-nz-aHH"/>
                             <constraint firstItem="6I9-m5-OWM" firstAttribute="leading" secondItem="4a2-Pr-Cwg" secondAttribute="leadingMargin" id="GwK-iJ-dOU"/>
@@ -672,12 +676,13 @@
                             <constraint firstItem="HdN-oz-2U9" firstAttribute="top" secondItem="trb-FW-je9" secondAttribute="bottom" id="c67-oo-sXw"/>
                             <constraint firstItem="KBS-ee-C5n" firstAttribute="top" secondItem="6I9-m5-OWM" secondAttribute="bottom" constant="8" id="cYc-wW-cXG"/>
                             <constraint firstItem="jaF-OI-L9H" firstAttribute="leading" secondItem="4a2-Pr-Cwg" secondAttribute="leadingMargin" constant="-16" id="ef7-Nd-DO7"/>
-                            <constraint firstItem="6I9-m5-OWM" firstAttribute="top" secondItem="g03-2h-ksh" secondAttribute="bottom" constant="8" id="h3f-YT-DFC"/>
                             <constraint firstItem="R16-U4-Pxw" firstAttribute="trailing" secondItem="4a2-Pr-Cwg" secondAttribute="trailingMargin" id="h9y-mQ-sKe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jaF-OI-L9H" secondAttribute="trailing" constant="-16" id="irJ-g1-2u8"/>
                             <constraint firstItem="R16-U4-Pxw" firstAttribute="top" secondItem="trb-FW-je9" secondAttribute="bottom" constant="56" id="klS-H9-xH9"/>
+                            <constraint firstItem="XAR-WK-l3t" firstAttribute="leading" secondItem="4a2-Pr-Cwg" secondAttribute="leadingMargin" id="mKu-HY-xi5"/>
                             <constraint firstItem="6kn-LM-er4" firstAttribute="top" secondItem="trb-FW-je9" secondAttribute="bottom" constant="98" id="mof-Lo-alj"/>
                             <constraint firstItem="KBS-ee-C5n" firstAttribute="top" secondItem="6kn-LM-er4" secondAttribute="bottom" constant="65" id="oTp-ml-mjd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XAR-WK-l3t" secondAttribute="trailing" constant="-1" id="rZ9-Sw-l8Y"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -711,6 +716,7 @@
                         <outlet property="backspaceButton" destination="LEb-dE-m3b" id="Ffz-eT-N0k"/>
                         <outlet property="calcRowView" destination="R16-U4-Pxw" id="qg8-KK-h4C"/>
                         <outlet property="estimatedCostLabel" destination="HdN-oz-2U9" id="g6Z-Tt-DrT"/>
+                        <outlet property="footerMessageButton" destination="XAR-WK-l3t" id="6YD-pQ-nf0"/>
                         <outlet property="limitOrderButton" destination="0jI-nj-dqM" id="gI6-Z0-43K"/>
                         <outlet property="marketOrderButton" destination="CWJ-H7-MTA" id="XBc-hZ-mVk"/>
                         <outlet property="priceLabelButton" destination="whm-J3-THO" id="e7d-Yy-EK5"/>
@@ -923,15 +929,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
                                 <rect key="frame" x="16" y="132" width="288" height="181"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="181" id="Jyh-1n-n3E"/>
+                                </constraints>
                                 <string key="text">Congratulations.
 Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price has been successfully transmitted to your broker at 26/06/15 4:54 PM EDT.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
                                 <rect key="frame" x="16" y="451" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -962,9 +971,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="oxD-Tc-Yoz" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="6SB-oF-sGM"/>
+                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="SdG-RL-fTT" secondAttribute="bottom" constant="8" id="Cfa-zr-abP"/>
                             <constraint firstItem="oxD-Tc-Yoz" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" id="DA8-OB-OEE"/>
+                            <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>
+                            <constraint firstItem="SdG-RL-fTT" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="R7p-un-l6H"/>
+                            <constraint firstItem="9or-AK-Crt" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="adU-sj-aSY"/>
                             <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="45" id="gpl-De-Jxz"/>
+                            <constraint firstItem="SdG-RL-fTT" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="vs9-jA-MkT"/>
+                            <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="7" id="zQn-9p-tnb"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -989,8 +1004,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are about to place a market order to buy XX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMD-Ha-IYA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are about to place a market order to buy XX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMD-Ha-IYA">
                                 <rect key="frame" x="16" y="72" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ew2-8O-xzT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1350,7 +1368,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <constraint firstItem="9zC-UW-bGD" firstAttribute="leading" secondItem="2Og-el-OsS" secondAttribute="leading" id="vg8-vU-lJl"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0e-uA-x4B">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0e-uA-x4B">
                                 <rect key="frame" x="16" y="430" width="288" height="30"/>
                                 <state key="normal" title="Submit Your Order">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1365,11 +1383,17 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </subviews>
                         <color key="backgroundColor" red="0.098039215686274508" green="0.27450980392156865" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Y9v-3y-Zb2" firstAttribute="top" secondItem="f0e-uA-x4B" secondAttribute="bottom" constant="20" id="NoN-Bc-VC4"/>
+                            <constraint firstItem="f0e-uA-x4B" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" id="SmX-Dt-X8z"/>
+                            <constraint firstItem="bMD-Ha-IYA" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" id="XgS-po-yj8"/>
                             <constraint firstItem="Y9v-3y-Zb2" firstAttribute="top" secondItem="2Og-el-OsS" secondAttribute="bottom" constant="65" id="eBz-ca-YU4"/>
                             <constraint firstAttribute="width" secondItem="9zC-UW-bGD" secondAttribute="width" id="eLz-FH-bJh"/>
                             <constraint firstItem="2Og-el-OsS" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" constant="-16" id="ltL-TC-SxE"/>
+                            <constraint firstItem="f0e-uA-x4B" firstAttribute="trailing" secondItem="GgS-5z-ucy" secondAttribute="trailingMargin" id="pE5-NF-Siu"/>
+                            <constraint firstItem="bMD-Ha-IYA" firstAttribute="top" secondItem="TIy-BI-Q4d" secondAttribute="bottom" constant="8" id="rzG-w6-1zf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Og-el-OsS" secondAttribute="trailing" constant="-16" id="uKT-dI-qWN"/>
                             <constraint firstItem="2Og-el-OsS" firstAttribute="top" secondItem="TIy-BI-Q4d" secondAttribute="bottom" constant="37" id="x96-Ze-uS3"/>
+                            <constraint firstItem="bMD-Ha-IYA" firstAttribute="trailing" secondItem="GgS-5z-ucy" secondAttribute="trailingMargin" id="zOw-30-9LG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="sYb-aR-z3I">
@@ -1433,13 +1457,13 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1h-4c-vkp">
                                 <rect key="frame" x="16" y="84" width="49" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Broker:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bt2-gz-CVi">
                                 <rect key="frame" x="16" y="228" width="56" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppd-I3-wPq">
@@ -1547,7 +1571,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J0h-b5-JgX"/>
+        <segue reference="gfX-l8-m5D"/>
         <segue reference="wbv-cP-RXh"/>
-        <segue reference="wuc-R0-2HR"/>
     </inferredMetricsTieBreakers>
 </document>
