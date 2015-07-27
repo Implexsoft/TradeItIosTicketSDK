@@ -47,8 +47,9 @@
 
 - (void) verifyCredentials {
     TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
-    TradeItResult * res = [verifyCredsSession verifyUser:self.tradeSession.authenticationInfo withBroker:self.tradeSession.broker];
-    [self verifyCredentialsRequestRecieved: res];
+    [verifyCredsSession verifyUser:self.tradeSession.authenticationInfo withBroker:self.tradeSession.broker WithCompletionBlock:^(TradeItResult * res){
+        [self verifyCredentialsRequestRecieved: res];
+    }];
 }
 
 -(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
@@ -76,13 +77,9 @@
 }
 
 - (void) sendLoginReviewRequest {
-    /*[[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
-        loginReviewResult = result;
-        [self loginReviewRequestRecieved: loginReviewResult];
-    }];*/
-    
-    TradeItResult * result = [[self tradeSession] authenticateAndReview];
-    [self loginReviewRequestRecieved:result];
+    [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
+        [self loginReviewRequestRecieved: result];
+    }];
 }
 
 - (void) loginReviewRequestRecieved: (TradeItResult *) result {
@@ -311,14 +308,9 @@
 #pragma mark - Send Order
 
 - (void) sendTradeRequest {
-    //TODO - the async is breaking here for some reason.
-    
-    /*[[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
-     [self tradeRequestRecieved:result];
-     }];*/
-    
-    TradeItResult * result = [[self tradeSession] placeOrder];
-    [self tradeRequestRecieved: result];
+    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
+        [self tradeRequestRecieved:result];
+    }];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
