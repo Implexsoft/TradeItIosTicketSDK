@@ -19,26 +19,39 @@
 #import "EditScreenViewController.h"
 
 
-@implementation TradeItTicketController
+@implementation TradeItTicketController {
+    NSString * publisherApp;
+    NSString* symbol;
+    double lastPrice;
+    UIViewController * view;
+}
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
-    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view onCompletion:nil];
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:NO onCompletion:nil];
 }
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
-    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:NO onCompletion:callback];
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:NO onCompletion:callback];
 }
 
 +(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
-    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:YES onCompletion:nil];
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:YES onCompletion:nil];
 }
 
 
 +(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
-    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice viewController:view withDebug:YES onCompletion:callback];
+    [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:YES onCompletion:callback];
 }
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(void)) callback {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view {
+        [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:action viewController:view withDebug:NO onCompletion:nil];
+}
+
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
+            [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:action viewController:view withDebug:NO onCompletion:callback];
+}
+
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(void)) callback {
 
     [TradeItTicketController forceClassesIntoLinker];
     
@@ -60,6 +73,7 @@
     TicketSession * tradeSession = [[TicketSession alloc]initWithpublisherApp: publisherApp];
     tradeSession.orderInfo.symbol = [symbol uppercaseString];
     tradeSession.lastPrice = lastPrice;
+    tradeSession.orderInfo.action = action;
     tradeSession.callback = callback;
     tradeSession.parentView = view;
     tradeSession.debugMode = debug;
@@ -75,6 +89,18 @@
     //Display
     [view presentViewController:nav animated:YES completion:nil];
 }
+
+
+- (id) initWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
+    self = [super init];
+    
+    if (self) {
+        
+    }
+    
+    return self;
+}
+
 
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources
@@ -94,5 +120,25 @@
     [BrokerSelectViewController class];
     [BrokerSelectDetailViewController class];
 }
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
