@@ -29,8 +29,6 @@
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [tradeItLabel setAttributedText:poweredBy];
-    
-    [[self tradeSession] reset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,8 +43,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    //[self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (IBAction)closeButtonPressed:(id)sender {

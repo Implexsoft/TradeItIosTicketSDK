@@ -60,7 +60,7 @@
     [self setCurrentOrderExpiration];
     
     linkedBrokers = [TradeItTicket getLinkedBrokersList];
-    //get last broker used??
+    [brokerButton setTitle:[TradeItTicket getBrokerDisplayString: self.tradeSession.broker] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,6 +93,11 @@
     }
     
     [orderTypeButton setTitle:typeLabels[i] forState:UIControlStateNormal];
+    
+    if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"]) {
+        self.tradeSession.orderInfo.expiration = @"day";
+        [self setCurrentOrderExpiration];
+    }
 }
 
 -(void) setCurrentOrderExpiration {
@@ -127,7 +132,7 @@
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
     
     [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:601] selectedRowInComponent:0];
+        int actionIndex = (int)[(UIPickerView *)[alertView.containerView viewWithTag:601] selectedRowInComponent:0];
         self.tradeSession.orderInfo.action = [self getOrderActionValues][actionIndex];
         [self setCurrentOrderAction];
     }];
@@ -141,12 +146,8 @@
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
     
     [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:602] selectedRowInComponent:0];
-        
-        //have two places storing order type is a bad idea
-        //TODO refactor
+        int actionIndex = (int)[(UIPickerView *)[alertView.containerView viewWithTag:602] selectedRowInComponent:0];
         self.tradeSession.orderInfo.price.type = [self getOrderTypeValues][actionIndex];
-        self.tradeSession.orderType = [self getOrderTypeValues][actionIndex];
         
         [self setCurrentOrderType];
     }];
@@ -160,25 +161,44 @@
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
     
     [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:603] selectedRowInComponent:0];
+        int actionIndex = (int)[(UIPickerView *)[alertView.containerView viewWithTag:603] selectedRowInComponent:0];
         NSString * exp = actionIndex == 0 ? @"day" : @"gtc";
-        self.tradeSession.orderInfo.expiration = exp;
-        [self setCurrentOrderExpiration];
+        
+        if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && actionIndex == 1) {
+            self.tradeSession.orderInfo.expiration = @"day";
+            [self setCurrentOrderExpiration];
+            
+            [alertView close];
+            
+            UIAlertView * alert;
+            alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration" message:@"Market orders are Good For The Day only." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            
+            [alert show];
+        } else {
+            self.tradeSession.orderInfo.expiration = exp;
+            [self setCurrentOrderExpiration];
+        }
     }];
     
     [alert show:YES];
 }
 
 - (IBAction)brokerSelectPressed:(id)sender {
-    if([linkedBrokers count] > 2) {
+    if([linkedBrokers count] > 1) {
         CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
         [alert setContainerView:[self createPickerView: @"Select Brokerage" andTag:604]];
         [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
         
         [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-            int actionIndex = [(UIPickerView *)[alertView.containerView viewWithTag:604] selectedRowInComponent:0];
+            int actionIndex = (int)[(UIPickerView *)[alertView.containerView viewWithTag:604] selectedRowInComponent:0];
             self.tradeSession.broker = linkedBrokers[actionIndex];
+            [brokerButton setTitle: [TradeItTicket getBrokerDisplayString: linkedBrokers[actionIndex]] forState:UIControlStateNormal];
+            
+            TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
+            self.tradeSession.authenticationInfo = creds;
         }];
+        
+        [alert show:YES];
     } else {
         [self performSegueWithIdentifier:@"editToBrokerSelectView" sender:self];
     }

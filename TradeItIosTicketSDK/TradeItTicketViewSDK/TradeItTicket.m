@@ -178,9 +178,34 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
     [defaults synchronize];
 }
 
++(void) removeLinkedBroker:(NSString *)broker {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray * linkedBrokers = [[defaults objectForKey:BROKER_LIST_KEY] mutableCopy];
+    NSString * brokerToRemove;
+    
+    if(!linkedBrokers) {
+        linkedBrokers = [[NSMutableArray alloc] init];
+    }
+    
+    int i;
+    for(i = 0; i < linkedBrokers.count; i++) {
+        if([linkedBrokers[i] isEqualToString: broker]) {
+            brokerToRemove = linkedBrokers[i];
+            break;
+        }
+    }
+    
+    if(brokerToRemove != nil) {
+        [linkedBrokers removeObject: brokerToRemove];
+        
+        [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
+        [defaults synchronize];
+    }
+}
+
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker {
     [Keychain saveString:username forKey:[NSString stringWithFormat:@"%@Username", broker]];
-    [Keychain saveString:password forKey:[NSString stringWithFormat:@"%@Passwrod", broker]];
+    [Keychain saveString:password forKey:[NSString stringWithFormat:@"%@Password", broker]];
 }
 
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker {
@@ -201,9 +226,43 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
     }
 }
 
-+(void) returnToParentApp:(TicketSession *)tradeSession {
-    [[tradeSession parentView] dismissViewControllerAnimated:YES completion:[tradeSession callback]];
++(void) showTicket:(TicketSession *) tradeSession {
+    //Get Resource Bundle
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
+    
+    //Setup ticket storyboard
+    NSString * startingView = @"brokerSelectController";
+    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        startingView = @"initalCalculatorController";
+    }
+    
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
+    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
+    
+    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        initialViewController.tradeSession = tradeSession;
+    } else {
+        BrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        initialViewController.tradeSession = tradeSession;
+    }
+    
+    //Display
+    [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
 }
+
+
++(void) returnToParentApp:(TicketSession *)tradeSession {
+    [[tradeSession parentView] dismissViewControllerAnimated:NO completion:[tradeSession callback]];
+}
+
++(void) restartTicket:(TicketSession *) tradeSession {
+    [[tradeSession parentView] dismissViewControllerAnimated:NO completion:nil];
+    [TradeItTicket showTicket:tradeSession];
+}
+
 
 @end
 

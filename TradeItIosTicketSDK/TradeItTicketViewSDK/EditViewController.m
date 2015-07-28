@@ -50,7 +50,7 @@
     
     NSArray * types = [self getOrderTypeValues];
     for(i = (int) types.count - 1; i > 0; i--) {
-        if([types[i] isEqualToString:[[self tradeSession] orderType]]) {
+        if([types[i] isEqualToString:self.tradeSession.orderInfo.price.type]) {
             break;
         }
     }
@@ -86,7 +86,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if(component == 1) {
-        [[self tradeSession] setOrderType:[self getOrderTypeValues][row]];
+        self.tradeSession.orderInfo.price.type = [self getOrderTypeValues][row];
     } else {
         [[[self tradeSession] orderInfo] setAction: [self getOrderActionValues][row]];
     }

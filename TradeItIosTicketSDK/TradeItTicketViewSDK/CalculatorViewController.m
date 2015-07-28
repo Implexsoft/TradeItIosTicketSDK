@@ -63,6 +63,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     readyToTrade = NO;
+    [self initFooterMessages];
+    linkedBrokers = [TradeItTicket getLinkedBrokersList];
     
     sharesRowItem = [CalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
     lastPriceRowItem = [CalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
@@ -74,14 +76,11 @@
     [sharesRowItem setActive];
     
     lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", self.tradeSession.lastPrice];
+    [lastPriceRowItem setUIToStack];
     
     [self updateTradeLabels];
     [self uiTweaks];
     [self setTicketView];
-    [lastPriceRowItem setUIToStack];
-    
-    linkedBrokers = [TradeItTicket getLinkedBrokersList];
-    [self initFooterMessages];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -94,7 +93,9 @@
         [self promptTouchId];
     } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
         if([linkedBrokers count] > 1) {
-            [self showBrokerPickerAndSetPassword:NO onSelection:nil];
+            [self showBrokerPickerAndSetPassword:NO onSelection:^{
+                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+            }];
         } else {
             [self setAuthentication:linkedBrokers[0] withPassword:NO];
             [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
@@ -103,8 +104,8 @@
 }
 
 -(void) setTicketView {
-    if(!currentOrderType || ![currentOrderType isEqualToString:[[self tradeSession] orderType]]) {
-        currentOrderType = [[self tradeSession] orderType] ? [[self tradeSession] orderType] : @"market";
+    if(!currentOrderType || ![currentOrderType isEqualToString:self.tradeSession.orderInfo.price.type]) {
+        currentOrderType = self.tradeSession.orderInfo.price.type ? self.tradeSession.orderInfo.price.type : @"market";
         if([currentOrderType isEqualToString:@"market"]) {
             [self setTicketToMarketOrder];
         } else if([currentOrderType isEqualToString:@"limit"]) {
@@ -115,6 +116,8 @@
             [self setTicketToStopLimitOrder];
         }
     }
+    
+    [self setFooterMessage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -147,7 +150,8 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     
-    NSString * formattedString = [NSString stringWithFormat:@"\u2248 %@", [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
+    NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * formattedString = [NSString stringWithFormat:@"%@ %@", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     [estimatedCostLabel setText:formattedString];
     [[[self tradeSession] orderInfo] setQuantity: (int) [sharesRowItem.currentValueStack integerValue]];
@@ -168,7 +172,7 @@
     NSInteger shares = [sharesRowItem.currentValueStack integerValue];
     double price = [currentPriceCalcRowItem.currentValueStack doubleValue];
     double stopLimitPrice = [stopLimitPriceRowItem.currentValueStack doubleValue];
-    BOOL isStopLimitOrder = [[[self tradeSession] orderType] isEqualToString:@"stopLimitOrder"];
+    BOOL isStopLimitOrder = [self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimitOrder"];
     
     
     if(price > 0 && shares > 0) {
@@ -199,6 +203,19 @@
     [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
 
+-(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+    NSString * symbol = [[[self tradeSession] orderInfo] symbol];
+    NSString * publisherApp = [[self tradeSession] publisherApp];
+    NSString * broker = [[self tradeSession] broker];
+    TradeItAuthenticationInfo * creds = [[self tradeSession] authenticationInfo];
+    
+    [[self tradeSession] reset];
+    [[[self tradeSession] orderInfo] setSymbol: symbol];
+    [[self tradeSession] setPublisherApp: publisherApp];
+    [[self tradeSession] setBroker: broker];
+    [[self tradeSession] setAuthenticationInfo: creds];
+}
+
 #pragma mark - Order Type Changes
 
 - (void) setTicketToMarketOrder {
@@ -206,6 +223,8 @@
     currentPriceCalcRowItem = lastPriceRowItem;
     [self removeStopPrice];
     [self changeCalcRowInput:sharesRowItem];
+    
+    [[[self tradeSession] orderInfo] setExpiration:@"day"];
     
     [[[self tradeSession] orderInfo] setPrice: [[TradeitStockOrEtfOrderPrice alloc]initMarket]];
     
@@ -268,16 +287,25 @@
 #pragma mark - Broker Picker
 
 -(void) showBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView: @"Select Brokerage" andTag:101]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-        int actionIndex = (int) [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
-        [self setAuthentication:linkedBrokers[actionIndex] withPassword:setPassword];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+        [alert setContainerView:[self createPickerView: @"Select Brokerage" andTag:101]];
+        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
         
-        onSelection();
-    }];
+        [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+            int actionIndex = (int) [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
+            [self setAuthentication:linkedBrokers[actionIndex] withPassword:setPassword];
+            
+            [alertView close];
+            
+            if(onSelection != nil) {
+                onSelection();
+            }
+        }];
+    
+    
+        [alert show:YES];
+    });
 }
 
 - (UIView *)createPickerView: (NSString *) popupTitle andTag:(int) tag {
@@ -335,7 +363,7 @@
     stopLimitOrderButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     [[backspaceButton imageView] setContentMode: UIViewContentModeScaleAspectFit];
-    [backspaceButton setImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/Backspace"] forState:UIControlStateNormal];
+    [backspaceButton setImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/backspace.png"] forState:UIControlStateNormal];
     [self refreshButtonShowRefresh];
     
     footerMessageButton.titleLabel.numberOfLines = 0;
@@ -354,7 +382,7 @@
 -(void) refreshButtonShowRefresh {
     [refreshAndDecimalButton setTitle:@"" forState:UIControlStateNormal];
     [[refreshAndDecimalButton imageView] setContentMode: UIViewContentModeScaleAspectFit];
-    [refreshAndDecimalButton setImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/Refresh"] forState:UIControlStateNormal];
+    [refreshAndDecimalButton setImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/refresh.png"] forState:UIControlStateNormal];
 }
 
 -(void) refreshButtonShowDecimal {
@@ -422,12 +450,12 @@
     footerMessages = @{
        @"marketday": @"Your market order is good for the day\nand will be executed at the next price.",
        @"marketgtc": @"Your market order is good until canceled\nand will be executed at the next price.",
-       @"limitday": @"Your limit order is good for the day\nandwill be executed at your limit price or better.",
+       @"limitday": @"Your limit order is good for the day\nand will be executed at your limit price or better.",
        @"limitgtc": @"Your limit order is good until canceled\nand will be executed at your limit price or better.",
-       @"stopMarketday": @"Your stop market order is good for the day\nand will be activated when you stop price is reached.",
-       @"stopMarketgtc": @"Your stop market order is good until canceled\nand will be activated when you stop price is reached.",
-       @"stopLimitday": @"Your stop limit order is good for the day\nand will be activated when you stop price is reached.",
-       @"stopLimitgtc": @"Your stop limit order is good until canceled\nand will be activated when you stop price is reached."
+       @"stopMarketday": @"Your stop market order is good for the day\nand will be activated when your stop price is reached.",
+       @"stopMarketgtc": @"Your stop market order is good until canceled\nand will be activated when your stop price is reached.",
+       @"stopLimitday": @"Your stop limit order is good for the day\nand will be activated when your stop price is reached.",
+       @"stopLimitgtc": @"Your stop limit order is good until canceled\nand will be activated when your stop price is reached."
     };
 }
 
@@ -493,15 +521,6 @@
 
 - (IBAction)stopPriceButtonPressed:(id)sender {
     [self changeCalcRowInput:stopLimitPriceRowItem];
-}
-
--(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
-    NSString * symbol = [[[self tradeSession] orderInfo] symbol];
-    NSString * publisherApp = [[self tradeSession] publisherApp];
-
-    [[self tradeSession] reset];
-    [[[self tradeSession] orderInfo] setSymbol: symbol];
-    [[self tradeSession] setPublisherApp: publisherApp];
 }
 
 - (IBAction)CancelPressed:(id)sender {

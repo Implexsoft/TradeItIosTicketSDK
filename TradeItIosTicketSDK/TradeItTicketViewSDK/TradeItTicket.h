@@ -12,6 +12,9 @@
 #import "TicketSession.h"
 #import "Keychain.h"
 
+#import "BrokerSelectViewController.h"
+#import "CalculatorViewController.h"
+
 @interface TradeItTicket : NSObject
 
 +(UIColor *) activeColor;
@@ -31,12 +34,15 @@
 
 +(NSArray *) getLinkedBrokersList;
 +(void) addLinkedBroker:(NSString *)broker;
++(void) removeLinkedBroker:(NSString *)broker;
 
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker;
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker;
 
 +(BOOL) hasTouchId;
 
++(void) showTicket:(TicketSession *) tradeSession;
 +(void) returnToParentApp: (TicketSession *) tradeSession;
++(void) restartTicket:(TicketSession *) tradeSession;
 
 @end

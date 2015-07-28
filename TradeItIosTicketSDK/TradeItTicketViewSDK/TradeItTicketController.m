@@ -20,10 +20,7 @@
 
 
 @implementation TradeItTicketController {
-    NSString * publisherApp;
-    NSString* symbol;
-    double lastPrice;
-    UIViewController * view;
+    TicketSession * tradeSession;
 }
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
@@ -55,22 +52,8 @@
 
     [TradeItTicketController forceClassesIntoLinker];
     
-    //Get Resource Bundle
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
-    
-    //Setup ticket storyboard
-    NSString * startingView = @"brokerSelectController";
-    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
-        startingView = @"initalCalculatorController";
-    }
-    
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
-    
     //Create Trade Session
-    TicketSession * tradeSession = [[TicketSession alloc]initWithpublisherApp: publisherApp];
+    TicketSession * tradeSession = [[TicketSession alloc] initWithpublisherApp: publisherApp];
     tradeSession.orderInfo.symbol = [symbol uppercaseString];
     tradeSession.lastPrice = lastPrice;
     tradeSession.orderInfo.action = action;
@@ -78,16 +61,7 @@
     tradeSession.parentView = view;
     tradeSession.debugMode = debug;
     
-    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
-        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-        initialViewController.tradeSession = tradeSession;
-    } else {
-        BrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-        initialViewController.tradeSession = tradeSession;
-    }
-    
-    //Display
-    [view presentViewController:nav animated:YES completion:nil];
+    [TradeItTicketController showTicket:tradeSession];
 }
 
 
@@ -95,12 +69,54 @@
     self = [super init];
     
     if (self) {
-        
+        tradeSession = [[TicketSession alloc] initWithpublisherApp: publisherApp];
+        tradeSession.orderInfo.symbol = [symbol uppercaseString];
+        tradeSession.lastPrice = lastPrice;
+        tradeSession.parentView = view;
     }
     
     return self;
 }
 
+-(void) showTicket {
+    
+    if(self.quantity > 0) {
+        tradeSession.orderInfo.quantity = self.quantity;
+    }
+    
+    if(self.action != nil && ![self.action isEqualToString:@""]) {
+        tradeSession.orderInfo.action = self.action;
+    }
+    
+    if([self.orderType containsString:@"stopLimit"]) {
+        tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0 :0];
+    } else if([self.orderType containsString:@"stopMarket"]) {
+        tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0];
+    } else if([self.orderType containsString:@"limit"]) {
+        tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0];
+    }
+    
+    if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
+        tradeSession.orderInfo.expiration = self.expiration;
+    }
+    
+    if(self.debugMode) {
+        tradeSession.debugMode = YES;
+    }
+    
+    if(self.onCompletion != nil) {
+        tradeSession.callback = self.onCompletion;
+    }
+
+    //TODO
+    //void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
+
+    [TradeItTicketController showTicket:tradeSession];
+}
+
++(void) showTicket:(TicketSession *) ticketSession {
+    [TradeItTicket showTicket:ticketSession];
+}
 
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources

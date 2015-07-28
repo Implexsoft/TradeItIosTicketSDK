@@ -47,7 +47,9 @@
 
 - (void) verifyCredentials {
     TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
-    [verifyCredsSession verifyUser:self.tradeSession.authenticationInfo withBroker:self.tradeSession.broker WithCompletionBlock:^(TradeItResult * res){
+    NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
+    
+    [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
         [self verifyCredentialsRequestRecieved: res];
     }];
 }
@@ -55,23 +57,37 @@
 -(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
     
     if([result isKindOfClass:[TradeItErrorResult class]]) {
-        self.tradeSession.errorTitle = @"Connection Problem";
-        self.tradeSession.errorMessage = @"We're experiencing some issues connecting to the authentication server. Please try again later.";
+        TradeItErrorResult * err = (TradeItErrorResult *) result;
+        
+        self.tradeSession.errorTitle = err.shortMessage;
+        self.tradeSession.errorMessage = [err.longMessages componentsJoinedByString:@"\n"];
 
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         TradeItSuccessAuthenticationResult * success = (TradeItSuccessAuthenticationResult *) result;
+        NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
         
         if(success.credentialsValid) {
-            [TradeItTicket storeUsername:self.tradeSession.authenticationInfo.id andPassword:self.tradeSession.authenticationInfo.password forBroker:self.tradeSession.broker];
-            [TradeItTicket addLinkedBroker:self.tradeSession.broker];
+            [TradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
+            [TradeItTicket addLinkedBroker:broker];
+            
+            if(self.addBroker) {
+                self.tradeSession.broker = self.addBroker;
+            }
+            
+            self.tradeSession.authenticationInfo = self.verifyCreds;
+            
             [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
         } else {
             self.tradeSession.errorTitle = @"Invalid Credentials";
             self.tradeSession.errorMessage = @"Check your username and password and try again.";
-            [self dismissViewControllerAnimated:YES completion:nil];
             
-            //TODO remove previously linked creds
+            if(!self.addBroker) {
+                [TradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
+                [TradeItTicket removeLinkedBroker: broker];
+            }
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
 }

@@ -10,9 +10,11 @@
 #import "LoadingScreenViewController.h"
 #import "TicketSession.h"
 
-@interface BrokerSelectDetailViewController : UIViewController
+@interface BrokerSelectDetailViewController : UIViewController <UITextFieldDelegate>
 
 @property TicketSession * tradeSession;
 @property BOOL cancelToParent;
+
+@property NSString * addBroker;
 
 @end

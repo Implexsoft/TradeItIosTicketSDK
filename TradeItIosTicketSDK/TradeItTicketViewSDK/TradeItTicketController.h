@@ -119,8 +119,10 @@
  */
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 
-
-
+/**
+ *  After setting all desired properties, call this method to launch the ticket
+ */
+-(void) showTicket;
 
 
 @end

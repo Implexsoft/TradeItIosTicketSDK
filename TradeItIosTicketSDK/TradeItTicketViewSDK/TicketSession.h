@@ -11,14 +11,16 @@
 
 @interface TicketSession : TradeItStockOrEtfTradeSession
 
-@property (copy) void (^callback)(void);
-@property double lastPrice;
-@property UIViewController * parentView;
-@property NSString * orderType;
-@property BOOL popToRoot;
 @property BOOL debugMode;
+
+@property double lastPrice;
+
+@property UIViewController * parentView;
+@property BOOL popToRoot;
 
 @property NSString * errorTitle;
 @property NSString * errorMessage;
+
+@property (copy) void (^callback)(void);
 
 @end

@@ -30,4 +30,7 @@
 @property TradeItStockOrEtfTradeReviewResult * reviewResult;
 @property TradeItStockOrEtfTradeSuccessResult * successResult;
 
+@property NSString * addBroker;
+@property TradeItAuthenticationInfo * verifyCreds;
+
 @end

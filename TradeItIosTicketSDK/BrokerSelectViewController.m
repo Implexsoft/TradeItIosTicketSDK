@@ -25,6 +25,10 @@ static NSString * CellIdentifier = @"BrokerCell";
     self.tableView.contentInset = UIEdgeInsetsMake(0, -8, 0, 0);
 }
 
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -42,9 +46,10 @@ static NSString * CellIdentifier = @"BrokerCell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.textLabel.text = displayText;
     
-    UIImage * logo = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", valueText]];
-    UIImage * myIcon = [TradeItTicket imageWithImage:logo scaledToWidth: 50.0f withInset: 15.0f];
-    cell.imageView.image = myIcon;
+    //Maybe someday we can add these back
+    //UIImage * logo = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", valueText]];
+    //UIImage * myIcon = [TradeItTicket imageWithImage:logo scaledToWidth: 50.0f withInset: 15.0f];
+    //cell.imageView.image = myIcon;
     
     if([linkedBrokers containsObject:valueText]) {
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -67,9 +72,14 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"brokerDetailSegue"]) {
-        self.tradeSession.broker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
+        [[segue destinationViewController] setAddBroker: [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1]];
         [[segue destinationViewController] setTradeSession: self.tradeSession];
     }
+}
+
+//placeholder action used in storyboard segue to unwind
+- (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
+    
 }
 
 /*

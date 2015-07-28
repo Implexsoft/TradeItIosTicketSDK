@@ -174,16 +174,6 @@
 		A9B2D4771B5EA92F008065E1 /* BrokerSelectDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D4751B5EA92F008065E1 /* BrokerSelectDetailViewController.h */; };
 		A9B2D4781B5EA92F008065E1 /* BrokerSelectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B2D4761B5EA92F008065E1 /* BrokerSelectDetailViewController.m */; };
 		A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4791B600F69008065E1 /* spinnerWhite.png */; };
-		A9B2D4851B600F93008065E1 /* Etrade.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D47C1B600F93008065E1 /* Etrade.png */; };
-		A9B2D4861B600F93008065E1 /* Fidelity.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D47D1B600F93008065E1 /* Fidelity.png */; };
-		A9B2D4871B600F93008065E1 /* IB.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D47E1B600F93008065E1 /* IB.png */; };
-		A9B2D4881B600F93008065E1 /* OptionsHouse.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D47F1B600F93008065E1 /* OptionsHouse.png */; };
-		A9B2D4891B600F93008065E1 /* Robinhood.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4801B600F93008065E1 /* Robinhood.png */; };
-		A9B2D48B1B600F93008065E1 /* Scottrade in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4821B600F93008065E1 /* Scottrade */; };
-		A9B2D48C1B600F93008065E1 /* TD.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4831B600F93008065E1 /* TD.png */; };
-		A9B2D48D1B600F93008065E1 /* Tradier.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4841B600F93008065E1 /* Tradier.png */; };
-		A9B2D4931B601685008065E1 /* TradeStation.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4921B601685008065E1 /* TradeStation.png */; };
-		A9B2D4951B601B90008065E1 /* Schwabs.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4941B601B90008065E1 /* Schwabs.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -435,16 +425,6 @@
 		A9B2D4751B5EA92F008065E1 /* BrokerSelectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokerSelectDetailViewController.h; sourceTree = "<group>"; };
 		A9B2D4761B5EA92F008065E1 /* BrokerSelectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokerSelectDetailViewController.m; sourceTree = "<group>"; };
 		A9B2D4791B600F69008065E1 /* spinnerWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinnerWhite.png; sourceTree = "<group>"; };
-		A9B2D47C1B600F93008065E1 /* Etrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Etrade.png; sourceTree = "<group>"; };
-		A9B2D47D1B600F93008065E1 /* Fidelity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fidelity.png; sourceTree = "<group>"; };
-		A9B2D47E1B600F93008065E1 /* IB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IB.png; sourceTree = "<group>"; };
-		A9B2D47F1B600F93008065E1 /* OptionsHouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OptionsHouse.png; sourceTree = "<group>"; };
-		A9B2D4801B600F93008065E1 /* Robinhood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Robinhood.png; sourceTree = "<group>"; };
-		A9B2D4821B600F93008065E1 /* Scottrade */ = {isa = PBXFileReference; lastKnownFileType = file; path = Scottrade; sourceTree = "<group>"; };
-		A9B2D4831B600F93008065E1 /* TD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TD.png; sourceTree = "<group>"; };
-		A9B2D4841B600F93008065E1 /* Tradier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tradier.png; sourceTree = "<group>"; };
-		A9B2D4921B601685008065E1 /* TradeStation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TradeStation.png; sourceTree = "<group>"; };
-		A9B2D4941B601B90008065E1 /* Schwabs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Schwabs.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -949,7 +929,6 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				A9B2D47B1B600F6E008065E1 /* brokers */,
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
 				A9A8D1311B504408000207B9 /* checkmark.png */,
@@ -967,23 +946,6 @@
 				A9B2D4761B5EA92F008065E1 /* BrokerSelectDetailViewController.m */,
 			);
 			name = BrokerSelectView;
-			sourceTree = "<group>";
-		};
-		A9B2D47B1B600F6E008065E1 /* brokers */ = {
-			isa = PBXGroup;
-			children = (
-				A9B2D4941B601B90008065E1 /* Schwabs.png */,
-				A9B2D4921B601685008065E1 /* TradeStation.png */,
-				A9B2D47C1B600F93008065E1 /* Etrade.png */,
-				A9B2D47D1B600F93008065E1 /* Fidelity.png */,
-				A9B2D47E1B600F93008065E1 /* IB.png */,
-				A9B2D47F1B600F93008065E1 /* OptionsHouse.png */,
-				A9B2D4801B600F93008065E1 /* Robinhood.png */,
-				A9B2D4821B600F93008065E1 /* Scottrade */,
-				A9B2D4831B600F93008065E1 /* TD.png */,
-				A9B2D4841B600F93008065E1 /* Tradier.png */,
-			);
-			name = brokers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1219,21 +1181,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9B2D48C1B600F93008065E1 /* TD.png in Resources */,
-				A9B2D48D1B600F93008065E1 /* Tradier.png in Resources */,
-				A9B2D4851B600F93008065E1 /* Etrade.png in Resources */,
 				A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */,
-				A9B2D4881B600F93008065E1 /* OptionsHouse.png in Resources */,
-				A9B2D4861B600F93008065E1 /* Fidelity.png in Resources */,
 				A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */,
-				A9B2D4871B600F93008065E1 /* IB.png in Resources */,
-				A9B2D4951B601B90008065E1 /* Schwabs.png in Resources */,
-				A9B2D4891B600F93008065E1 /* Robinhood.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
-				A9B2D48B1B600F93008065E1 /* Scottrade in Resources */,
 				A9A8D1351B504408000207B9 /* checkmark.png in Resources */,
-				A9B2D4931B601685008065E1 /* TradeStation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
