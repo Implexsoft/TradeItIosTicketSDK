@@ -47,11 +47,9 @@
 		A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8CF8C1B4EFDBB000207B9 /* CalculatorRowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */; };
 		A9A8CF8D1B4EFDBB000207B9 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */; };
-		A9A8CF8E1B4EFDBB000207B9 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF771B4EFDBB000207B9 /* EditViewController.m */; };
 		A9A8CF901B4EFDBB000207B9 /* Info 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF7A1B4EFDBB000207B9 /* Info 2.plist */; };
 		A9A8CF911B4EFDBB000207B9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF7B1B4EFDBB000207B9 /* Info.plist */; };
 		A9A8CF931B4EFDBB000207B9 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */; };
-		A9A8CF941B4EFDBB000207B9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF811B4EFDBB000207B9 /* LoginViewController.m */; };
 		A9A8CF951B4EFDBB000207B9 /* ReviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF831B4EFDBB000207B9 /* ReviewScreenViewController.m */; };
 		A9A8CF961B4EFDBB000207B9 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* SuccessViewController.m */; };
 		A9A8CF971B4EFDBB000207B9 /* TradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */; };
@@ -130,9 +128,7 @@
 		A9A8D0F01B4F13EA000207B9 /* NSArray+JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB91B4EFF86000207B9 /* NSArray+JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */; };
 		A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */; };
-		A9A8D0F91B4F19D4000207B9 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF771B4EFDBB000207B9 /* EditViewController.m */; };
 		A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */; };
-		A9A8D0FC1B4F19D5000207B9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF811B4EFDBB000207B9 /* LoginViewController.m */; };
 		A9A8D0FD1B4F19D5000207B9 /* ReviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF831B4EFDBB000207B9 /* ReviewScreenViewController.m */; };
 		A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* SuccessViewController.m */; };
 		A9A8D0FF1B4F19D5000207B9 /* TradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */; };
@@ -292,14 +288,10 @@
 		A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorRowLabel.m; path = TradeItTicketViewSDK/CalculatorRowLabel.m; sourceTree = "<group>"; };
 		A9A8CF741B4EFDBB000207B9 /* CalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatorViewController.h; path = TradeItTicketViewSDK/CalculatorViewController.h; sourceTree = "<group>"; };
 		A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorViewController.m; path = TradeItTicketViewSDK/CalculatorViewController.m; sourceTree = "<group>"; };
-		A9A8CF761B4EFDBB000207B9 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditViewController.h; path = TradeItTicketViewSDK/EditViewController.h; sourceTree = "<group>"; };
-		A9A8CF771B4EFDBB000207B9 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditViewController.m; path = TradeItTicketViewSDK/EditViewController.m; sourceTree = "<group>"; };
 		A9A8CF7A1B4EFDBB000207B9 /* Info 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info 2.plist"; path = "TradeItTicketViewSDK/Info 2.plist"; sourceTree = "<group>"; };
 		A9A8CF7B1B4EFDBB000207B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TradeItTicketViewSDK/Info.plist; sourceTree = "<group>"; };
 		A9A8CF7E1B4EFDBB000207B9 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = TradeItTicketViewSDK/LoadingScreenViewController.h; sourceTree = "<group>"; };
 		A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingScreenViewController.m; path = TradeItTicketViewSDK/LoadingScreenViewController.m; sourceTree = "<group>"; };
-		A9A8CF801B4EFDBB000207B9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = TradeItTicketViewSDK/LoginViewController.h; sourceTree = "<group>"; };
-		A9A8CF811B4EFDBB000207B9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = TradeItTicketViewSDK/LoginViewController.m; sourceTree = "<group>"; };
 		A9A8CF821B4EFDBB000207B9 /* ReviewScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewScreenViewController.h; path = TradeItTicketViewSDK/ReviewScreenViewController.h; sourceTree = "<group>"; };
 		A9A8CF831B4EFDBB000207B9 /* ReviewScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewScreenViewController.m; path = TradeItTicketViewSDK/ReviewScreenViewController.m; sourceTree = "<group>"; };
 		A9A8CF841B4EFDBB000207B9 /* SuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuccessViewController.h; path = TradeItTicketViewSDK/SuccessViewController.h; sourceTree = "<group>"; };
@@ -510,8 +502,6 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
-				A9A8D1261B503000000207B9 /* EditScreen - Deprecated */,
-				A9A8D1271B50300F000207B9 /* LoginScreen - Deprecated */,
 				A9B2D46C1B5D88ED008065E1 /* BrokerSelectView */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
@@ -881,24 +871,6 @@
 			name = CalculatorScreen;
 			sourceTree = "<group>";
 		};
-		A9A8D1261B503000000207B9 /* EditScreen - Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CF761B4EFDBB000207B9 /* EditViewController.h */,
-				A9A8CF771B4EFDBB000207B9 /* EditViewController.m */,
-			);
-			name = "EditScreen - Deprecated";
-			sourceTree = "<group>";
-		};
-		A9A8D1271B50300F000207B9 /* LoginScreen - Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CF801B4EFDBB000207B9 /* LoginViewController.h */,
-				A9A8CF811B4EFDBB000207B9 /* LoginViewController.m */,
-			);
-			name = "LoginScreen - Deprecated";
-			sourceTree = "<group>";
-		};
 		A9A8D1281B503028000207B9 /* LoadingScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -1266,9 +1238,7 @@
 				A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */,
 				A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */,
 				A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */,
-				A9A8D0F91B4F19D4000207B9 /* EditViewController.m in Sources */,
 				A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */,
-				A9A8D0FC1B4F19D5000207B9 /* LoginViewController.m in Sources */,
 				A905D3281B668B06006B0B8C /* EditScreenViewController.m in Sources */,
 				A9A8D0FD1B4F19D5000207B9 /* ReviewScreenViewController.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */,
@@ -1296,9 +1266,7 @@
 				A9A8CF961B4EFDBB000207B9 /* SuccessViewController.m in Sources */,
 				A9A8D0521B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
 				A9A8D0531B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */,
-				A9A8CF8E1B4EFDBB000207B9 /* EditViewController.m in Sources */,
 				A9A8D0541B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */,
-				A9A8CF941B4EFDBB000207B9 /* LoginViewController.m in Sources */,
 				A9A8CF8C1B4EFDBB000207B9 /* CalculatorRowLabel.m in Sources */,
 				A9A8D0551B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
 				A9A8D03F1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m in Sources */,
