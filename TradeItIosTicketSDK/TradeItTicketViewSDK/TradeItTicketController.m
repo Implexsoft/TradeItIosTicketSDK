@@ -10,7 +10,6 @@
 #import "TicketSession.h"
 
 #import "CalculatorViewController.h"
-#import "LoginViewController.h"
 #import "LoadingScreenViewController.h"
 #import "ReviewScreenViewController.h"
 #import "SuccessViewController.h"
@@ -130,7 +129,6 @@
 +(void) forceClassesIntoLinker {
     [CalculatorViewController class];
     [EditScreenViewController class];
-    [LoginViewController class];
     [LoadingScreenViewController class];
     [ReviewScreenViewController class];
     [SuccessViewController class];
