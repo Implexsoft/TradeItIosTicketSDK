@@ -187,6 +187,27 @@
     [tradeButton setBackgroundColor:[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:236.0f/255.0f alpha:1.0f]];
 }
 
+//I'm so sorry for anyone who has to read this
+//there really should be a better way to do this
+//maybe delegates?
+-(void) refreshPrice {
+    if(self.tradeSession.refreshLastPrice != nil) {
+        
+        //perform network request (most likely) off the main thread
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
+            self.tradeSession.refreshLastPrice(self.tradeSession.orderInfo.symbol, ^(double price){
+                
+                //return to main thread as this triggers a UI change
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", price];
+                    [lastPriceRowItem setUIToStack];
+                });
+            });
+        });
+        
+    }
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -492,6 +513,8 @@
             [activeCalcRowItem setUIToStack];
             [self updateEstimatedCost];
         }
+    } else {
+        [self refreshPrice];
     }
 }
 

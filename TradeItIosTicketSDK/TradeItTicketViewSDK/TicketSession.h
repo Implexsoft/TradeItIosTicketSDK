@@ -22,5 +22,6 @@
 @property NSString * errorMessage;
 
 @property (copy) void (^callback)(void);
+@property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 
 @end

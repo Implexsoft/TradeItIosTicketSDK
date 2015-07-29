@@ -108,9 +108,10 @@
         tradeSession.callback = self.onCompletion;
     }
 
-    //TODO
-    //void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
-
+    if(self.refreshLastPrice != nil) {
+        tradeSession.refreshLastPrice = self.refreshLastPrice;
+    }
+    
     [TradeItTicketController showTicket:tradeSession];
 }
 
