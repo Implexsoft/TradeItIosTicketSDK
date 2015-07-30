@@ -101,7 +101,7 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
                           @[@"TD Ameritrade",@"TD"],
                           @[@"Robinhood",@"Robinhood"],
                           @[@"OptionsHouse",@"OptionsHouse"],
-                          @[@"Schwab",@"Schwabs"],
+                          //@[@"Schwab",@"Schwabs"],
                           @[@"TradeStation",@"TradeStation"],
                           @[@"E*Trade",@"Etrade"],
                           @[@"Fidelity",@"Fidelity"],
@@ -237,15 +237,20 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
         startingView = @"initalCalculatorController";
     }
     
+    startingView = @"advCalculatorController";
+    
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
     
-    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+    if([startingView isEqualToString: @"initalCalculatorController"]) {
         CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
-    } else {
+    } else if([startingView isEqualToString: @"brokerSelectController"]){
         BrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        initialViewController.tradeSession = tradeSession;
+    } else {
+        AdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     }
     

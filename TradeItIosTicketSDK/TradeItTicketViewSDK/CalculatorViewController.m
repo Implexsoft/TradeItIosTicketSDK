@@ -184,7 +184,7 @@
     }
     
     readyToTrade = NO;
-    [tradeButton setBackgroundColor:[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:236.0f/255.0f alpha:1.0f]];
+    [tradeButton setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
 }
 
 //I'm so sorry for anyone who has to read this

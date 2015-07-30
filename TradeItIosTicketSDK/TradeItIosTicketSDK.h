@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "TradeItTicketController.h"
+
 #import "TradeItAuthenticationInfo.h"
 #import "TradeItCloseSessionRequest.h"
 #import "TradeItErrorResult.h"

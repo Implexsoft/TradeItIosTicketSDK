@@ -10,6 +10,8 @@
 #import "TicketSession.h"
 
 #import "CalculatorViewController.h"
+#import "AdvCalculatorViewController.h"
+#import "AdvCalcTextField.h"
 #import "LoadingScreenViewController.h"
 #import "ReviewScreenViewController.h"
 #import "SuccessViewController.h"
@@ -128,6 +130,8 @@
 //the linker to load the classes :)
 +(void) forceClassesIntoLinker {
     [CalculatorViewController class];
+    [AdvCalculatorViewController class];
+    [AdvCalcTextField class];
     [EditScreenViewController class];
     [LoadingScreenViewController class];
     [ReviewScreenViewController class];

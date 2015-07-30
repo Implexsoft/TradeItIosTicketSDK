@@ -41,6 +41,8 @@
 		A93B3C431B542C4B00373E1B /* TicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C411B542C4B00373E1B /* TicketSession.m */; };
 		A93B3C4E1B5464BC00373E1B /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */; };
 		A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */; };
+		A9901A991B6AA4A800FCC83D /* AdvCalcTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */; };
+		A9901A9A1B6AA4A800FCC83D /* AdvCalcTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */; };
 		A9A8CF561B4EFACB000207B9 /* TradeItIosTicketSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF551B4EFACB000207B9 /* TradeItIosTicketSDK.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
 		A9A8CF6B1B4EFC86000207B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF6A1B4EFC86000207B9 /* UIKit.framework */; };
@@ -170,6 +172,9 @@
 		A9B2D4771B5EA92F008065E1 /* BrokerSelectDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D4751B5EA92F008065E1 /* BrokerSelectDetailViewController.h */; };
 		A9B2D4781B5EA92F008065E1 /* BrokerSelectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B2D4761B5EA92F008065E1 /* BrokerSelectDetailViewController.m */; };
 		A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2D4791B600F69008065E1 /* spinnerWhite.png */; };
+		A9C002A31B6ACA86007D15F5 /* TradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF861B4EFDBB000207B9 /* TradeItTicket.h */; };
+		A9C002B21B6ACD90007D15F5 /* AdvCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */; };
+		A9C002B31B6ACD90007D15F5 /* AdvCalculatorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,6 +281,8 @@
 		A93B3C411B542C4B00373E1B /* TicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSession.m; path = TradeItTicketViewSDK/TicketSession.m; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvCalcTextField.h; sourceTree = "<group>"; };
+		A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvCalcTextField.m; sourceTree = "<group>"; };
 		A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTradeItIosTicketSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItIosTicketSDK.h; sourceTree = "<group>"; };
 		A9A8CF551B4EFACB000207B9 /* TradeItIosTicketSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItIosTicketSDK.m; sourceTree = "<group>"; };
@@ -417,6 +424,8 @@
 		A9B2D4751B5EA92F008065E1 /* BrokerSelectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokerSelectDetailViewController.h; sourceTree = "<group>"; };
 		A9B2D4761B5EA92F008065E1 /* BrokerSelectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokerSelectDetailViewController.m; sourceTree = "<group>"; };
 		A9B2D4791B600F69008065E1 /* spinnerWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinnerWhite.png; sourceTree = "<group>"; };
+		A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdvCalculatorViewController.m; path = TradeItTicketViewSDK/AdvCalculatorViewController.m; sourceTree = "<group>"; };
+		A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdvCalculatorViewController.h; path = TradeItTicketViewSDK/AdvCalculatorViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -476,6 +485,17 @@
 			name = CustomAlertView;
 			sourceTree = "<group>";
 		};
+		A9901A421B696C1900FCC83D /* AdvCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */,
+				A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */,
+				A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */,
+				A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */,
+			);
+			name = AdvCalculator;
+			sourceTree = "<group>";
+		};
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +522,7 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A9901A421B696C1900FCC83D /* AdvCalculator */,
 				A9B2D46C1B5D88ED008065E1 /* BrokerSelectView */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
@@ -936,6 +957,8 @@
 				A9A8D0D71B4F12B8000207B9 /* TradeItInformationNeededResult.h in Headers */,
 				A9A8D0D81B4F12B8000207B9 /* TradeItMultipleAccountResult.h in Headers */,
 				A9A8D0D91B4F12B8000207B9 /* TradeItPlaceOrderRequest.h in Headers */,
+				A9C002B31B6ACD90007D15F5 /* AdvCalculatorViewController.h in Headers */,
+				A9901A991B6AA4A800FCC83D /* AdvCalcTextField.h in Headers */,
 				A9A8D0DA1B4F12B8000207B9 /* TradeItRequest.h in Headers */,
 				A9A8D0DB1B4F12B8000207B9 /* TradeItResult.h in Headers */,
 				A9A8D0DC1B4F12B8000207B9 /* TradeItSecurityQuestionRequest.h in Headers */,
@@ -959,6 +982,7 @@
 				A9A8D0E61B4F1379000207B9 /* JSONModel.h in Headers */,
 				A9B2D4771B5EA92F008065E1 /* BrokerSelectDetailViewController.h in Headers */,
 				A92567DA1B595B08008065BF /* TradeItVerifyCredentialRequest.h in Headers */,
+				A9C002A31B6ACA86007D15F5 /* TradeItTicket.h in Headers */,
 				A9A8D0E71B4F13EA000207B9 /* JSONAPI.h in Headers */,
 				A9A8D0E81B4F13EA000207B9 /* JSONHTTPClient.h in Headers */,
 				A9A8D0E91B4F13EA000207B9 /* JSONKeyMapper.h in Headers */,
@@ -1201,16 +1225,17 @@
 			files = (
 				A9A8D1011B4F1A3E000207B9 /* JSONModel.m in Sources */,
 				A9A8D1021B4F1A3E000207B9 /* JSONModelArray.m in Sources */,
-				A92567DB1B595B08008065BF /* TradeItVerifyCredentialRequest.m in Sources */,
 				A9A8D1031B4F1A3E000207B9 /* JSONModelClassProperty.m in Sources */,
 				A92567CA1B595AD0008065BF /* TradeItEmsUtils.m in Sources */,
 				A9A8D1041B4F1A3E000207B9 /* JSONModelError.m in Sources */,
-				A9A8D1051B4F1A3E000207B9 /* NSArray+JSONModel.m in Sources */,
 				A9A8D1061B4F1A3E000207B9 /* JSONAPI.m in Sources */,
 				A9A8D1071B4F1A3E000207B9 /* JSONHTTPClient.m in Sources */,
 				A9A8D1081B4F1A3E000207B9 /* JSONModel+networking.m in Sources */,
 				A9A8D1091B4F1A3E000207B9 /* JSONKeyMapper.m in Sources */,
+				A9A8D1051B4F1A3E000207B9 /* NSArray+JSONModel.m in Sources */,
 				A9A8D10A1B4F1A3E000207B9 /* JSONValueTransformer.m in Sources */,
+				A92567DB1B595B08008065BF /* TradeItVerifyCredentialRequest.m in Sources */,
+				A9A8D0FF1B4F19D5000207B9 /* TradeItTicket.m in Sources */,
 				A9B2D4781B5EA92F008065E1 /* BrokerSelectDetailViewController.m in Sources */,
 				A9A8D10B1B4F1A3E000207B9 /* TradeItAuthenticationInfo.m in Sources */,
 				A9A8D10C1B4F1A3E000207B9 /* TradeItCloseSessionRequest.m in Sources */,
@@ -1221,10 +1246,12 @@
 				A9A8D1111B4F1A3E000207B9 /* TradeItRequest.m in Sources */,
 				A9A8D1121B4F1A3E000207B9 /* TradeItResult.m in Sources */,
 				A9A8D1131B4F1A3E000207B9 /* TradeItSecurityQuestionRequest.m in Sources */,
+				A9901A9A1B6AA4A800FCC83D /* AdvCalcTextField.m in Sources */,
 				A9A8D1141B4F1A3E000207B9 /* TradeItSecurityQuestionResult.m in Sources */,
 				A9A8D1151B4F1A3E000207B9 /* TradeItSelectAccountRequest.m in Sources */,
 				A905D1601B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m in Sources */,
 				A9A8D1161B4F1A3E000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
+				A9C002B21B6ACD90007D15F5 /* AdvCalculatorViewController.m in Sources */,
 				A9A8D1171B4F1A3E000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */,
 				A9A8D1181B4F1A3E000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */,
 				A9A8D1191B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
@@ -1242,7 +1269,6 @@
 				A905D3281B668B06006B0B8C /* EditScreenViewController.m in Sources */,
 				A9A8D0FD1B4F19D5000207B9 /* ReviewScreenViewController.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */,
-				A9A8D0FF1B4F19D5000207B9 /* TradeItTicket.m in Sources */,
 				A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */,
 				A9A8CF561B4EFACB000207B9 /* TradeItIosTicketSDK.m in Sources */,
 			);
@@ -1373,7 +1399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1407,7 +1433,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

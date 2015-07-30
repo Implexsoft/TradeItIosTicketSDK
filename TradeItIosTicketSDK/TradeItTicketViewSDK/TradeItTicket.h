@@ -14,6 +14,7 @@
 
 #import "BrokerSelectViewController.h"
 #import "CalculatorViewController.h"
+#import "AdvCalculatorViewController.h"
 
 @interface TradeItTicket : NSObject
 
