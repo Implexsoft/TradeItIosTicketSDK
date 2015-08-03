@@ -40,6 +40,9 @@
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker;
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker;
 
++(void) setCalcScreenPreferance: (NSString *) storyboardId;
++(NSString *) getCalcScreenPreferance;
+
 +(BOOL) hasTouchId;
 
 +(void) showTicket:(TicketSession *) tradeSession;

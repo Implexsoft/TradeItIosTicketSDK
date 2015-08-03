@@ -13,6 +13,7 @@
 }
 
 static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
+static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 
 +(UIColor *) activeColor {
     return [UIColor colorWithRed:0.0f
@@ -215,6 +216,21 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
     return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
 }
 
++(void) setCalcScreenPreferance: (NSString *) storyboardId {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:storyboardId forKey:CALC_SCREEN_PREFERENCE];
+    [defaults synchronize];
+}
+
+//initalCalculatorController
+//advCalculatorController
++(NSString *) getCalcScreenPreferance {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * pref = [defaults objectForKey:CALC_SCREEN_PREFERENCE];
+    
+    return pref;
+}
+
 +(BOOL) hasTouchId {
     LAContext * myContext = [[LAContext alloc] init];
     NSError * authError = nil;
@@ -233,11 +249,18 @@ static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
     
     //Setup ticket storyboard
     NSString * startingView = @"brokerSelectController";
-    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
-        startingView = @"initalCalculatorController";
-    }
     
-    startingView = @"advCalculatorController";
+    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        startingView = [TradeItTicket getCalcScreenPreferance];
+        
+        if(startingView == nil){
+            if(tradeSession.calcScreenStoryboardId != nil) {
+                startingView = tradeSession.calcScreenStoryboardId;
+            } else {
+                startingView = @"initalCalculatorController";
+            }
+        }
+    }
     
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];

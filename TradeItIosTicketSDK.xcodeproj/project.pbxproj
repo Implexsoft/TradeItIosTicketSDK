@@ -175,6 +175,8 @@
 		A9C002A31B6ACA86007D15F5 /* TradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF861B4EFDBB000207B9 /* TradeItTicket.h */; };
 		A9C002B21B6ACD90007D15F5 /* AdvCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */; };
 		A9C002B31B6ACD90007D15F5 /* AdvCalculatorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */; };
+		A9C002B71B6EE408007D15F5 /* BaseCalculatorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002B51B6EE408007D15F5 /* BaseCalculatorViewController.h */; };
+		A9C002B81B6EE408007D15F5 /* BaseCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002B61B6EE408007D15F5 /* BaseCalculatorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +428,8 @@
 		A9B2D4791B600F69008065E1 /* spinnerWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinnerWhite.png; sourceTree = "<group>"; };
 		A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdvCalculatorViewController.m; path = TradeItTicketViewSDK/AdvCalculatorViewController.m; sourceTree = "<group>"; };
 		A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdvCalculatorViewController.h; path = TradeItTicketViewSDK/AdvCalculatorViewController.h; sourceTree = "<group>"; };
+		A9C002B51B6EE408007D15F5 /* BaseCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCalculatorViewController.h; sourceTree = "<group>"; };
+		A9C002B61B6EE408007D15F5 /* BaseCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCalculatorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -488,8 +492,8 @@
 		A9901A421B696C1900FCC83D /* AdvCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */,
 				A9C002B11B6ACD90007D15F5 /* AdvCalculatorViewController.h */,
+				A9C002B01B6ACD90007D15F5 /* AdvCalculatorViewController.m */,
 				A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */,
 				A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */,
 			);
@@ -522,11 +526,12 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A9C002B41B6EE3E9007D15F5 /* CalcViewBase */,
 				A9901A421B696C1900FCC83D /* AdvCalculator */,
+				A9A8D1251B502FCB000207B9 /* CalculatorScreen */,
 				A9B2D46C1B5D88ED008065E1 /* BrokerSelectView */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
-				A9A8D1251B502FCB000207B9 /* CalculatorScreen */,
 				A905D3241B668ADB006B0B8C /* EditViewController */,
 				A9A8D1281B503028000207B9 /* LoadingScreen */,
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
@@ -941,6 +946,15 @@
 			name = BrokerSelectView;
 			sourceTree = "<group>";
 		};
+		A9C002B41B6EE3E9007D15F5 /* CalcViewBase */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002B51B6EE408007D15F5 /* BaseCalculatorViewController.h */,
+				A9C002B61B6EE408007D15F5 /* BaseCalculatorViewController.m */,
+			);
+			name = CalcViewBase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -991,6 +1005,7 @@
 				A9A8D0EB1B4F13EA000207B9 /* JSONModelArray.h in Headers */,
 				A9A8D0EC1B4F13EA000207B9 /* JSONModelClassProperty.h in Headers */,
 				A9A8D0ED1B4F13EA000207B9 /* JSONModelError.h in Headers */,
+				A9C002B71B6EE408007D15F5 /* BaseCalculatorViewController.h in Headers */,
 				A9A8D0EE1B4F13EA000207B9 /* JSONModelLib.h in Headers */,
 				A9A8D0EF1B4F13EA000207B9 /* JSONValueTransformer.h in Headers */,
 				A9A8D0F01B4F13EA000207B9 /* NSArray+JSONModel.h in Headers */,
@@ -1225,6 +1240,7 @@
 			files = (
 				A9A8D1011B4F1A3E000207B9 /* JSONModel.m in Sources */,
 				A9A8D1021B4F1A3E000207B9 /* JSONModelArray.m in Sources */,
+				A9C002B81B6EE408007D15F5 /* BaseCalculatorViewController.m in Sources */,
 				A9A8D1031B4F1A3E000207B9 /* JSONModelClassProperty.m in Sources */,
 				A92567CA1B595AD0008065BF /* TradeItEmsUtils.m in Sources */,
 				A9A8D1041B4F1A3E000207B9 /* JSONModelError.m in Sources */,

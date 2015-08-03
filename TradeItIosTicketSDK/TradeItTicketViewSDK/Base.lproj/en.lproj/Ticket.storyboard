@@ -712,6 +712,7 @@
                         <segue destination="xhK-K9-cnI" kind="show" identifier="loadingToSuccesSegue" id="ILP-eC-VWh"/>
                         <segue destination="31D-8a-egI" kind="unwind" identifier="exitToRootSegue" unwindAction="prepareForUnwind:" id="Lt8-X8-e06"/>
                         <segue destination="8WL-KA-Y25" kind="show" identifier="loginToCalculator" id="fkX-hE-2ms"/>
+                        <segue destination="trO-ZN-AJm" kind="show" identifier="loginToAdvCalculator" id="5Ap-NE-K4L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaX-aO-zmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1481,6 +1482,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="rightPriceInput" destination="91y-lh-fw2" id="RIs-Dm-6JN"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="symbolBox" destination="HmB-Xj-suI" id="3ZP-zV-juo"/>
+                        <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1615,9 +1617,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="J0h-b5-JgX"/>
-        <segue reference="gfX-l8-m5D"/>
+        <segue reference="Xhv-zk-HPd"/>
         <segue reference="u5N-Mz-Eih"/>
         <segue reference="wbv-cP-RXh"/>
+        <segue reference="gfX-l8-m5D"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -113,6 +113,10 @@
         tradeSession.refreshLastPrice = self.refreshLastPrice;
     }
     
+    if(self.calcScreenDefault != nil &&![self.calcScreenDefault isEqualToString:@""]) {
+        tradeSession.calcScreenStoryboardId = [self.calcScreenDefault isEqualToString:@"detail"] ? @"advCalculatorController" : @"initalCalculatorController";
+    }
+    
     [TradeItTicketController showTicket:tradeSession];
 }
 

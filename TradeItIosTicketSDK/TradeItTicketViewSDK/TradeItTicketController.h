@@ -120,6 +120,14 @@
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 
 /**
+ *  The default is "calculator" for the full calculator view
+ *  Alternative is the "detail" view, this value will continue
+ *  to be used until the user makes a change on the edit screen
+ *  at which point the user selected view will take precedence
+ */
+@property (copy) NSString * calcScreenDefault;
+
+/**
  *  After setting all desired properties, call this method to launch the ticket
  */
 -(void) showTicket;

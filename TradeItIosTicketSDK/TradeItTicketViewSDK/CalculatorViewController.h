@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <LocalAuthentication/LocalAuthentication.h>
+#import "BaseCalculatorViewController.h"
 #import "CalculatorRowLabel.h"
 #import "TradeItStockOrEtfOrderPrice.h"
-#import "TicketSession.h"
 #import "LoadingScreenViewController.h"
 #import "BrokerSelectDetailViewController.h"
 
-@interface CalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface CalculatorViewController : BaseCalculatorViewController
 
 -(IBAction)calcPadButtonPressed:(id)sender;
 -(IBAction)backspacePressed:(id)sender;
@@ -28,8 +27,6 @@
 - (IBAction)sharesButtonPressed:(id)sender;
 - (IBAction)priceButtonPressed:(id)sender;
 - (IBAction)stopPriceButtonPressed:(id)sender;
-
-@property TicketSession * tradeSession;
 
 @end
 

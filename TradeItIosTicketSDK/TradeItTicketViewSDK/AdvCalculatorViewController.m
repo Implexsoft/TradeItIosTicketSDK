@@ -62,6 +62,20 @@
     [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
     
     //TODO make sure broker gets updated
+    /*
+    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TradeItTicket hasTouchId]) {
+        [self promptTouchId];
+    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
+        if([linkedBrokers count] > 1) {
+            [self showBrokerPickerAndSetPassword:NO onSelection:^{
+                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+            }];
+        } else {
+            [self setAuthentication:linkedBrokers[0] withPassword:NO];
+            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+        }
+    }
+     */
 }
 
 - (void)didReceiveMemoryWarning {

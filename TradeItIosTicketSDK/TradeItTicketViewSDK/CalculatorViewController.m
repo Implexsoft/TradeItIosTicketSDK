@@ -50,8 +50,6 @@
     
     NSString * currentOrderType;
     BOOL readyToTrade;
-    
-    NSArray * linkedBrokers;
 }
 
 
@@ -64,7 +62,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     readyToTrade = NO;
     [self initFooterMessages];
-    linkedBrokers = [TradeItTicket getLinkedBrokersList];
     
     sharesRowItem = [CalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
     lastPriceRowItem = [CalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
@@ -89,18 +86,7 @@
     [self updateTradeLabels];
     [self setTicketView];
     
-    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TradeItTicket hasTouchId]) {
-        [self promptTouchId];
-    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
-        if([linkedBrokers count] > 1) {
-            [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-            }];
-        } else {
-            [self setAuthentication:linkedBrokers[0] withPassword:NO];
-            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-        }
-    }
+    
 }
 
 -(void) setTicketView {
@@ -305,75 +291,6 @@
     activeButton.backgroundColor = [UIColor colorWithRed:226.0f/255.0f green:238.0f/255.0f blue:246.0f/255.0f alpha:1.0f];
 }
 
-#pragma mark - Broker Picker
-
--(void) showBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
-        [alert setContainerView:[self createPickerView: @"Select Brokerage" andTag:101]];
-        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"Select",nil]];
-        
-        [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-            int actionIndex = (int) [(UIPickerView *)[alertView.containerView viewWithTag:101] selectedRowInComponent:0];
-            [self setAuthentication:linkedBrokers[actionIndex] withPassword:setPassword];
-            
-            [alertView close];
-            
-            if(onSelection != nil) {
-                onSelection();
-            }
-        }];
-    
-    
-        [alert show:YES];
-    });
-}
-
-- (UIView *)createPickerView: (NSString *) popupTitle andTag:(int) tag {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-    
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 50)];
-    [title setTextColor:[UIColor blackColor]];
-    [title setTextAlignment:NSTextAlignmentCenter];
-    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [title setNumberOfLines:0];
-    [title setText: popupTitle];
-    [contentView addSubview:title];
-    
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [picker setTag: tag];
-    [contentView addSubview:picker];
-    
-    [contentView setNeedsDisplay];
-    return contentView;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return linkedBrokers.count;
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [TradeItTicket getBrokerDisplayString:linkedBrokers[row]];
-}
-
--(void) setAuthentication:(NSString *) broker withPassword:(BOOL) setPassword {
-    self.tradeSession.broker = broker;
-    TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: broker];
-    
-    if(setPassword) {
-        self.tradeSession.authenticationInfo = creds;
-    } else {
-        self.tradeSession.authenticationInfo.id = creds.id;
-    }
-}
-
 #pragma mark - UI Changes
 
 //Things can't be done in IB
@@ -565,50 +482,6 @@
 }
 
 
-#pragma mark - TouchId
-
--(void) promptTouchId {
-    LAContext * myContext = [[LAContext alloc] init];
-    NSString * myLocalizedReasonString = @"Touch ID Test to show Touch ID working in a custom app";
-    
-    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-    localizedReason:myLocalizedReasonString
-            reply:^(BOOL success, NSError *error) {
-                if (success) {
-                    if([[TradeItTicket getLinkedBrokersList] count] > 1) {
-                        [self showBrokerPickerAndSetPassword:YES onSelection:nil];
-                    } else {
-                        NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
-                        [self setAuthentication:broker withPassword:YES];
-                    }
-                } else {
-                    //too many tries, or cancelled by user
-                    if(error.code == -2 || error.code == -1) {
-                        [TradeItTicket returnToParentApp:self.tradeSession];
-                    } else if(error.code == -3) {
-                        //fallback mechanism selected
-                        //load username into creds
-                        //segue to login screen for the password
-                        
-                        if([[TradeItTicket getLinkedBrokersList] count] > 1) {
-                            [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-                                });
-                            }];
-                        } else {
-                            NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
-                            [self setAuthentication:broker withPassword:NO];
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-                            });
-                        }
-                        
-                    }
-                }
-            }];
-} //end promptTouchId
 
 @end
 
