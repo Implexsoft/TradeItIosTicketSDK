@@ -507,7 +507,7 @@
     [self.view endEditing:YES];
     
     if(readyToTrade) {
-        self.tradeSession.orderInfo.quantity = [[sharesInput text] integerValue];
+        self.tradeSession.orderInfo.quantity = (int)[[sharesInput text] integerValue];
         
         if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]) {
             self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
@@ -529,7 +529,7 @@
 
 
 -(void) sharesInputChanged {
-    self.tradeSession.orderInfo.quantity = [sharesInput.text integerValue];
+    self.tradeSession.orderInfo.quantity = (int)[sharesInput.text integerValue];
     [self checkIfReadyToTrade];
 }
 
