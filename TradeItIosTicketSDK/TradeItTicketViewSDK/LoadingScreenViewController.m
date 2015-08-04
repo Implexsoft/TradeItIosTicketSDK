@@ -35,7 +35,7 @@
     }
     
     //using a delay, o/w it complains about how perform selector might cause a leak
-    [self performSelector:NSSelectorFromString([self actionToPerform]) withObject:nil afterDelay:0.5];
+    [self performSelector:NSSelectorFromString([self actionToPerform]) withObject:nil afterDelay:0.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -70,6 +70,7 @@
         if(success.credentialsValid) {
             [TradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
             [TradeItTicket addLinkedBroker:broker];
+            self.tradeSession.resultContainer.status = USER_CANCELED;
             
             if(self.addBroker) {
                 self.tradeSession.broker = self.addBroker;
@@ -77,7 +78,11 @@
             
             self.tradeSession.authenticationInfo = self.verifyCreds;
             
-            [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
+            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
+                [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
+            } else {
+                [self performSegueWithIdentifier:@"loginToAdvCalculator" sender:self];
+            }
         } else {
             self.tradeSession.errorTitle = @"Invalid Credentials";
             self.tradeSession.errorMessage = @"Check your username and password and try again.";
@@ -103,10 +108,15 @@
 
     if([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
     //REVIEW
+        self.tradeSession.resultContainer.status = USER_CANCELED;
+        self.tradeSession.resultContainer.reviewResponse = (TradeItStockOrEtfTradeReviewResult *) result;
+        
         [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
         [self performSegueWithIdentifier: @"loadingToReviewSegue" sender: self];
     }
     else if([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
+        self.tradeSession.resultContainer.status = USER_CANCELED_SECURITY;
+        
     //SECURITY QUESTION
         TradeItSecurityQuestionResult *securityQuestionResult = (TradeItSecurityQuestionResult *) result;
         
@@ -181,10 +191,12 @@
         if(error.errorFields.count > 0) {
             NSString * errorField = (NSString *) error.errorFields[0];
             if([errorField isEqualToString:@"authenticationInfo"]) {
-                errorMessage = error.longMessages.count > 0 ? [error longMessages][0] : errorMessage;
+                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
                 popToRoot = NO;
+                self.tradeSession.resultContainer.status = AUTHENTICATION_ERROR;
+                self.tradeSession.resultContainer.errorResponse = error;
             } else {
-                errorMessage = error.longMessages.count > 0 ? [error longMessages][0] : errorMessage;
+                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
             }
         }
         
@@ -332,16 +344,29 @@
 - (void) tradeRequestRecieved: (TradeItResult *) result {
     //success
     if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
+        self.tradeSession.resultContainer.status = SUCCESS;
+        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;
+        
         [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
         [self performSegueWithIdentifier: @"loadingToSuccesSegue" sender: self];
     }
     //error
     else if([result isKindOfClass:[TradeItErrorResult class]]) {
-        //Received an error
-        //TODO
-        NSLog(@"Bummer!!!!, Received Error result: %@", result);
+        TradeItErrorResult * error = (TradeItErrorResult *) result;
+        
+        NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
+        errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
+        
+        self.tradeSession.resultContainer.status = EXECUTION_ERROR;
+        self.tradeSession.resultContainer.errorResponse = error;
+        
+        UIAlertView * alert;
+        alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:errorMessage delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        
+        [[self tradeSession] setPopToRoot:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-    //TODO - else - throw random error
 }
 
 #pragma mark - Loading Animations
@@ -404,6 +429,10 @@
     } else if([segue.identifier isEqualToString:@"loginToCalculator"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
         CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        [initialViewController setTradeSession: self.tradeSession];
+    } else if([segue.identifier isEqualToString:@"loginToAdvCalculator"]) {
+        UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
+        AdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         [initialViewController setTradeSession: self.tradeSession];
     }
     

@@ -1202,7 +1202,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <navigationItem key="navigationItem" title="Review" id="sYb-aR-z3I">
                         <barButtonItem key="leftBarButtonItem" title="Change" id="fZB-WQ-Vb3">
                             <connections>
-                                <segue destination="SQg-dc-6Nj" kind="unwind" unwindAction="prepareForUnwind:" id="628-uI-9Dx"/>
+                                <action selector="changeClicked:" destination="tvV-A4-qDa" id="i4K-mu-Kd1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1238,6 +1238,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="sharesShortVV" destination="ZL5-9e-Iac" id="suf-99-kb8"/>
                         <outlet property="sharesShortValue" destination="yzJ-yB-9tb" id="1fO-P0-OnJ"/>
                         <outlet property="submitOrderButton" destination="f0e-uA-x4B" id="qsK-jO-XnA"/>
+                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="prepareForUnwind" unwindAction="prepareForUnwind:" id="3ao-wp-0oa"/>
+                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="unwindToAdvCalc" unwindAction="unwindToAdvCalc:" id="HQh-kc-wB1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-F4-2ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1325,7 +1327,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstAttribute="height" constant="30" id="y0y-vA-Ysp"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" customClass="AdvCalcTextField">
                                         <rect key="frame" x="7" y="5" width="151" height="30"/>
@@ -1333,7 +1335,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstAttribute="height" constant="30" id="e1j-3G-IEL"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1381,13 +1383,13 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="orderExpirationPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="QUb-7j-G15"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Cost" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
                                 <rect key="frame" x="16" y="293" width="288" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="CKg-zs-pbQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkT-XZ-XDB">
@@ -1463,7 +1465,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Ckx-Fo-rp3">
                             <connections>
-                                <action selector="editPressed:" destination="VXZ-vQ-tdp" id="iFh-lS-JtP"/>
                                 <segue destination="KOb-TP-yQo" kind="show" id="u5N-Mz-Eih"/>
                             </connections>
                         </barButtonItem>
@@ -1483,6 +1484,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="symbolBox" destination="HmB-Xj-suI" id="3ZP-zV-juo"/>
                         <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
+                        <segue destination="NtF-Vh-6FT" kind="show" identifier="advCalculatorToBrokerSelectDetail" id="ujk-YM-BZG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1553,21 +1555,42 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="brokerSelectPressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="peN-yF-YJO"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Ticket as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gl2-va-glh">
+                                <rect key="frame" x="16" y="320" width="122" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUb-kH-WVb">
+                                <rect key="frame" x="16" y="348" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Calculator">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="calculatorViewPressed:" destination="KOb-TP-yQo" eventType="touchUpInside" id="v4a-AX-t5j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bIY-6G-O0W" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="4HL-dp-9dH"/>
                             <constraint firstItem="bt2-gz-CVi" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="FAf-jq-GmT"/>
+                            <constraint firstItem="Gl2-va-glh" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="HAe-Y1-Eiz"/>
                             <constraint firstItem="v1h-4c-vkp" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="KgP-tD-EQ7"/>
                             <constraint firstItem="v1h-4c-vkp" firstAttribute="top" secondItem="S3l-1R-e2v" secondAttribute="bottom" constant="20" id="MPL-lb-Vv6"/>
                             <constraint firstItem="Rob-d1-rs9" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="NZP-AS-bBY"/>
                             <constraint firstItem="bIY-6G-O0W" firstAttribute="top" secondItem="Ppd-I3-wPq" secondAttribute="bottom" constant="-1" id="Pev-Vq-0rs"/>
                             <constraint firstItem="j1I-Rl-6HM" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="QM3-hd-I5d"/>
+                            <constraint firstItem="qUb-kH-WVb" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="Rac-PQ-Vfg"/>
                             <constraint firstItem="Ppd-I3-wPq" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="TAe-7A-rNL"/>
                             <constraint firstItem="j1I-Rl-6HM" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="Ty1-u8-bhh"/>
+                            <constraint firstItem="Gl2-va-glh" firstAttribute="top" secondItem="j1I-Rl-6HM" secondAttribute="bottom" constant="33" id="YWl-FD-Bxs"/>
                             <constraint firstItem="Ppd-I3-wPq" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="bVy-YC-nyi"/>
+                            <constraint firstItem="qUb-kH-WVb" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="cfz-2c-bkY"/>
                             <constraint firstItem="bt2-gz-CVi" firstAttribute="top" secondItem="Rob-d1-rs9" secondAttribute="bottom" constant="33" id="hlR-We-sqJ"/>
                             <constraint firstItem="Rob-d1-rs9" firstAttribute="trailing" secondItem="qpF-LY-PZm" secondAttribute="trailingMargin" id="jLI-QK-U44"/>
+                            <constraint firstItem="qUb-kH-WVb" firstAttribute="top" secondItem="Gl2-va-glh" secondAttribute="bottom" constant="8" id="lD3-Dp-GM8"/>
                             <constraint firstItem="Rob-d1-rs9" firstAttribute="top" secondItem="bIY-6G-O0W" secondAttribute="bottom" constant="-1" id="oja-WC-9mq"/>
                             <constraint firstItem="Ppd-I3-wPq" firstAttribute="top" secondItem="v1h-4c-vkp" secondAttribute="bottom" constant="3" id="qfW-R5-OrV"/>
                             <constraint firstItem="bIY-6G-O0W" firstAttribute="leading" secondItem="qpF-LY-PZm" secondAttribute="leadingMargin" id="t3h-wO-32W"/>
@@ -1583,6 +1606,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </navigationItem>
                     <connections>
                         <outlet property="brokerButton" destination="j1I-Rl-6HM" id="hHK-j0-bju"/>
+                        <outlet property="calculatorViewButton" destination="qUb-kH-WVb" id="edP-u1-CD6"/>
                         <outlet property="orderActionButton" destination="Ppd-I3-wPq" id="oxX-Ox-0Fq"/>
                         <outlet property="orderExpirationButton" destination="Rob-d1-rs9" id="jEX-ID-rOi"/>
                         <outlet property="orderTypeButton" destination="bIY-6G-O0W" id="2jN-qJ-c9E"/>
@@ -1619,7 +1643,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     <inferredMetricsTieBreakers>
         <segue reference="Xhv-zk-HPd"/>
         <segue reference="u5N-Mz-Eih"/>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="wbv-cP-RXh"/>
-        <segue reference="gfX-l8-m5D"/>
     </inferredMetricsTieBreakers>
 </document>

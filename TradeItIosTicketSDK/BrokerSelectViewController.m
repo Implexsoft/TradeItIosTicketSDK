@@ -16,6 +16,8 @@
 static NSString * CellIdentifier = @"BrokerCell";
 
 -(void) viewDidLoad {
+    [super viewDidLoad];
+    
     brokers = [TradeItTicket getAvailableBrokers:self.tradeSession];
     linkedBrokers = [TradeItTicket getLinkedBrokersList];
     
@@ -66,7 +68,8 @@ static NSString * CellIdentifier = @"BrokerCell";
     if([self editMode]) {
         [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
     } else {
-        [[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+        //[[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+        [TradeItTicket returnToParentApp:self.tradeSession];
     }
 }
 

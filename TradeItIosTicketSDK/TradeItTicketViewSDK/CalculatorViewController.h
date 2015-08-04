@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "BaseCalculatorViewController.h"
+#import <LocalAuthentication/LocalAuthentication.h>
+#import "TicketSession.h"
+#import "TradeItTicket.h"
+
 #import "CalculatorRowLabel.h"
 #import "TradeItStockOrEtfOrderPrice.h"
 #import "LoadingScreenViewController.h"
 #import "BrokerSelectDetailViewController.h"
+#import "BaseCalculatorViewController.h"
 
 @interface CalculatorViewController : BaseCalculatorViewController
 

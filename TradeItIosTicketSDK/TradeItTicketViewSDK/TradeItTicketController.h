@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TradeItStockOrEtfTradeSession.h"
+#import "TradeItTicketControllerResult.h"
 
 @interface TradeItTicketController : NSObject
 
@@ -31,7 +32,7 @@
  *  @param view         Presenting view, this is the current UIViewController of your app, on completion we dissmiss the ticket and return control back to this view.
  *  @param callback     Code block to be executed after we have returned control of the view back to you.
  */
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback;
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback;
 
 /**
  *  Presents the full screen version of the TradeIt Trading Ticket
@@ -54,7 +55,7 @@
  *  @param view         Presenting view, this is the current UIViewController of your app, on completion we dissmiss the ticket and return control back to this view.
  *  @param callback     Code block to be executed after we have returned control of the view back to you.
  */
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback;
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback;
 
 /**
  *  Testing version of showFullTicketWithPublisherApp, the main difference being the inclusion of the Dummy broker
@@ -66,7 +67,7 @@
  *  Testing version of showFullTicketWithPublisherApp, the main difference being the inclusion of the Dummy broker
  *
  */
-+(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback;
++(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback;
 
 
 
@@ -112,12 +113,19 @@
 /**
  *  Completion block called after the ticket has been exited, immediately after returning control to init'd view controller
  */
-@property (copy) void (^onCompletion)(void);
+@property (copy) void (^onCompletion)(TradeItTicketControllerResult * result);
 
 /**
  *  Supply a block that given a symbol will return an updated lastPrice to passed in callback
+ *  if refreshQuote is supplied we will NOT use refreshLastPrice
  */
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
+
+/**
+ *  Supply a block that given a symbol will return an updated quote information to passed in callback
+ *  if refreshQuote is supplied we will NOT use refreshLastPrice
+ */
+@property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
 
 /**
  *  The default is "calculator" for the full calculator view
@@ -126,6 +134,21 @@
  *  at which point the user selected view will take precedence
  */
 @property (copy) NSString * calcScreenDefault;
+
+/**
+ *  The full company name, to be displayed on the detail view ticket
+ */
+@property (copy) NSString * companyName;
+
+/**
+ *  The days change in price by dollars, both positive and negative numbers supported
+ */
+@property (copy) NSNumber * priceChangeDollar;
+
+/**
+ *  The days change in price by percentage, both positive and negative numbers supported
+ */
+@property (copy) NSNumber * priceChangePercentage;
 
 /**
  *  After setting all desired properties, call this method to launch the ticket

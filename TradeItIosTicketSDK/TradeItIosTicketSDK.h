@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "TradeItTicketController.h"
+#import "TradeItTicketControllerResult.h"
 
 #import "TradeItAuthenticationInfo.h"
 #import "TradeItCloseSessionRequest.h"

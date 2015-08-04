@@ -32,6 +32,8 @@
     
     NSLayoutConstraint * zeroHeightConstraint;
     NSLayoutConstraint * fullHeightConstraint;
+    
+    BOOL readyToTrade;
 }
 
 @end
@@ -39,8 +41,11 @@
 @implementation AdvCalculatorViewController
 
 - (void)viewDidLoad {
+    self.advMode = YES;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    readyToTrade = YES;
     
     [self initConstraints];
     [self uiTweaks];
@@ -50,37 +55,110 @@
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
     
     [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
+    
+    [symbolBox setText:self.tradeSession.orderInfo.symbol];
+    
+    NSString * companyNameString;
+    if(self.tradeSession.companyName != nil) {
+        companyNameString = [NSString stringWithFormat:@"%@ (%@)", self.tradeSession.companyName, self.tradeSession.orderInfo.symbol];
+    } else {
+        companyNameString = self.tradeSession.orderInfo.symbol;
+    }
+    
+    [companyNameLabel setText:companyNameString];
+    [self updatePrice];
+    [self checkIfReadyToTrade];
+    
+    if(self.tradeSession.orderInfo.quantity > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity]];
+    }
+    
+    [sharesInput addTarget:self action:@selector(sharesInputChanged) forControlEvents:UIControlEventEditingChanged];
+    [leftPriceInput addTarget:self action:@selector(leftInputChanged) forControlEvents:UIControlEventEditingChanged];
+    [rightPriceInput addTarget:self action:@selector(rightInputChanged) forControlEvents:UIControlEventEditingChanged];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
+    self.advMode = YES;
     [super viewDidAppear:animated];
     
     [self changeOrderAction:self.tradeSession.orderInfo.action];
     [self changeOrderType:self.tradeSession.orderInfo.price.type];
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
     
-    [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
+    [self setBroker];
     
-    //TODO make sure broker gets updated
-    /*
-    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TradeItTicket hasTouchId]) {
-        [self promptTouchId];
-    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
-        if([linkedBrokers count] > 1) {
-            [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-            }];
-        } else {
-            [self setAuthentication:linkedBrokers[0] withPassword:NO];
-            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
-        }
-    }
-     */
+    [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) checkIfReadyToTrade {
+    [self updateEstimatedCost];
+    
+    BOOL readyNow = NO;
+    NSInteger shares = [sharesInput.text integerValue];
+    
+    double leftPrice = [leftPriceInput.text doubleValue];
+    double rightPrice = [rightPriceInput.text doubleValue];
+    
+    if(shares < 1) {
+        readyNow = NO;
+    } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimitOrder"]) {
+        if(leftPrice > 0 && rightPrice > 0) {
+            readyNow = YES;
+        }
+    } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"]) {
+        readyNow = YES;
+    } else {
+        if(leftPrice > 0) {
+            readyNow = YES;
+        }
+    }
+    
+    if(readyNow != readyToTrade) {
+        if(readyNow) {
+            [previewOrderButton setBackgroundColor:[UIColor colorWithRed:20.0f/255.0f green:63.0f/255.0f blue:119.0f/255.0f alpha:1.0f]];
+        } else {
+            [previewOrderButton setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
+        }
+    }
+    
+    readyToTrade = readyNow;
+}
+
+-(void) updateEstimatedCost {
+    NSInteger shares = self.tradeSession.orderInfo.quantity;
+    double price = self.tradeSession.lastPrice;
+    
+    if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]){
+        price = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
+    } else if([self.tradeSession.orderInfo.price.type containsString:@"imit"]) {
+        price = [self.tradeSession.orderInfo.price.limitPrice doubleValue];
+    }
+    
+    double estimatedCost = shares * price;
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * formattedString = [NSString stringWithFormat:@"%@   %@ %@", @"Estimated Total", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
+    
+    NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
+    
+    [attString addAttribute:NSForegroundColorAttributeName
+                      value:[UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1.0f]
+                      range:NSMakeRange(0, 15)];
+    
+    [attString addAttribute:NSForegroundColorAttributeName
+                      value:[UIColor blackColor]
+                      range:NSMakeRange(16, [attString length] - 16)];
+    
+    [estimatedCostLabel setAttributedText:attString];
 }
 
 #pragma mark - UI Changes
@@ -105,6 +183,79 @@
     item.layer.borderWidth = 1;
 }
 
+-(void) updatePrice {
+    double lastPrice = self.tradeSession.lastPrice;
+    NSNumber * changeDollar = self.tradeSession.priceChangeDollar;
+    NSNumber * changePercentage = self.tradeSession.priceChangePercentage;
+    
+    NSMutableAttributedString * finalString;
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    NSString * lastPriceString = [formatter stringFromNumber:[NSNumber numberWithDouble:lastPrice]];
+    finalString = [[NSMutableAttributedString alloc] initWithString:lastPriceString];
+    
+    if(changeDollar != nil) {
+        if([changeDollar doubleValue] == 0) {
+            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
+        } else {
+            NSAttributedString * attString = [self getColoredString:changeDollar withFormat:NSNumberFormatterCurrencyStyle];
+            
+            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+            [finalString appendAttributedString:(NSAttributedString *) attString];
+        }
+    }
+    
+    if(changePercentage != nil) {
+        if([changePercentage doubleValue] == 0) {
+            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
+        } else {
+            NSAttributedString * attString = [self getColoredString:changePercentage withFormat:NSNumberFormatterDecimalStyle];
+            
+            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+            [finalString appendAttributedString:(NSAttributedString *) attString];
+        }
+    }
+    
+    priceAndPerformanceLabel.attributedText = (NSAttributedString *) finalString;
+}
+
+-(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
+    UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
+    UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:style];
+    
+    NSMutableAttributedString * attString;
+    if([number doubleValue] > 0) {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25B2"];
+    } else {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25BC"];
+    }
+    
+    double absValue = fabs([number doubleValue]);
+    NSString * asString = [formatter stringFromNumber:[NSNumber numberWithDouble:absValue]];
+    [attString appendAttributedString:[[NSAttributedString alloc] initWithString:asString]];
+    
+    if(style == NSNumberFormatterDecimalStyle) {
+        [attString appendAttributedString:[[NSAttributedString alloc] initWithString:@"%"]];
+    }
+    
+    if([number doubleValue] > 0) {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:positiveColor
+                          range:NSMakeRange(0, [attString length])];
+    } else {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:negativeColor
+                          range:NSMakeRange(0, [attString length])];
+    }
+    
+    return (NSAttributedString *) attString;
+}
+
 #pragma mark - Change Order
 
 -(void) changeOrderAction: (NSString *) action {
@@ -113,6 +264,14 @@
 }
 
 -(void) changeOrderExpiration: (NSString *) exp {
+    if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
+        self.tradeSession.orderInfo.expiration = @"day";
+        
+        UIAlertView * alert;
+        alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration" message:@"Market orders are Good For The Day only." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+    }
     
     if([exp isEqualToString:@"gtc"]) {
         [orderExpirationButton setTitle:@"Good Until Canceled" forState:UIControlStateNormal];
@@ -135,11 +294,13 @@
     } else {
         [self setToMarketOrder];
     }
+    
+    [self checkIfReadyToTrade];
 }
 
 -(void) setToMarketOrder {
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
-    
+    [self changeOrderExpiration:@"day"];
     [self hideLimitContainer];
 }
 
@@ -207,20 +368,72 @@
     fullHeightConstraint.priority = 900;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"advCalculatorToLoading"]){
+        [[segue destinationViewController] setActionToPerform: @"sendLoginReviewRequest"];
+    } else if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
+        [[segue destinationViewController] setCancelToParent: YES];
+    }
+    
+    [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
-*/
+
+-(IBAction) unwindToAdvCalc:(UIStoryboardSegue *)segue {
+    NSString * symbol = [[[self tradeSession] orderInfo] symbol];
+    NSString * publisherApp = [[self tradeSession] publisherApp];
+    NSString * broker = [[self tradeSession] broker];
+    TradeItAuthenticationInfo * creds = [[self tradeSession] authenticationInfo];
+    
+    [[self tradeSession] reset];
+    [[[self tradeSession] orderInfo] setSymbol: symbol];
+    [[self tradeSession] setPublisherApp: publisherApp];
+    [[self tradeSession] setBroker: broker];
+    [[self tradeSession] setAuthenticationInfo: creds];
+}
 
 #pragma mark - Events
 
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
+    
+    if(self.tradeSession.refreshQuote != nil) {
+        //perform network request (most likely) off the main thread
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
+            self.tradeSession.refreshQuote(self.tradeSession.orderInfo.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
+                
+                //return to main thread as this triggers a UI change
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.tradeSession.lastPrice = lastPrice;
+                    self.tradeSession.priceChangeDollar = [NSNumber numberWithDouble:priceChangeDollar];
+                    self.tradeSession.priceChangePercentage = [NSNumber numberWithDouble:priceChangePercentage];
+                    [self updatePrice];
+                });
+            });
+        });
+        
+    }
+    else if(self.tradeSession.refreshLastPrice != nil) {
+        
+        //perform network request (most likely) off the main thread
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
+            self.tradeSession.refreshLastPrice(self.tradeSession.orderInfo.symbol, ^(double price){
+                
+                //return to main thread as this triggers a UI change
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.tradeSession.lastPrice = price;
+                    [self updatePrice];
+                });
+            });
+        });
+        
+    }
+
 }
 
 - (IBAction)orderActionPressed:(id)sender {
@@ -292,12 +505,46 @@
 
 - (IBAction)previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
-}
-
-- (IBAction)editPressed:(id)sender {
+    
+    if(readyToTrade) {
+        self.tradeSession.orderInfo.quantity = [[sharesInput text] integerValue];
+        
+        if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]) {
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[rightPriceInput text] doubleValue]];
+        } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
+        } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"limit"]) {
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
+        }
+        
+        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
+    }
+    
 }
 
 - (IBAction)cancelPressed:(id)sender {
+    [TradeItTicket returnToParentApp:self.tradeSession];
+}
+
+
+-(void) sharesInputChanged {
+    self.tradeSession.orderInfo.quantity = [sharesInput.text integerValue];
+    [self checkIfReadyToTrade];
+}
+
+-(void) leftInputChanged {
+    if([self.tradeSession.orderInfo.price.type containsString:@"imit"]) {
+        self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
+    } else {
+        self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
+    }
+    [self checkIfReadyToTrade];
+}
+
+-(void) rightInputChanged {
+    self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
+    [self checkIfReadyToTrade];
 }
 
 @end

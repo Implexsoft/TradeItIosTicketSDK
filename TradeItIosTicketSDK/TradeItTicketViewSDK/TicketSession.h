@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItStockOrEtfTradeSession.h"
+#import "TradeItTicketControllerResult.h"
 
 @interface TicketSession : TradeItStockOrEtfTradeSession
 
@@ -21,9 +22,16 @@
 @property NSString * errorTitle;
 @property NSString * errorMessage;
 
-@property (copy) void (^callback)(void);
+@property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
+@property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
 
 @property NSString * calcScreenStoryboardId;
+
+@property NSString * companyName;
+@property NSNumber * priceChangeDollar;
+@property NSNumber * priceChangePercentage;
+
+@property TradeItTicketControllerResult * resultContainer;
 
 @end

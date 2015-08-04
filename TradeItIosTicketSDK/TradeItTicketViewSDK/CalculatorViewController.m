@@ -85,8 +85,7 @@
     
     [self updateTradeLabels];
     [self setTicketView];
-    
-    
+    [self setBroker];
 }
 
 -(void) setTicketView {
@@ -177,7 +176,21 @@
 //there really should be a better way to do this
 //maybe delegates?
 -(void) refreshPrice {
-    if(self.tradeSession.refreshLastPrice != nil) {
+    if(self.tradeSession.refreshQuote != nil) {
+        //perform network request (most likely) off the main thread
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
+            self.tradeSession.refreshQuote(self.tradeSession.orderInfo.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
+                
+                //return to main thread as this triggers a UI change
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    lastPriceRowItem.currentValueStack = [NSString stringWithFormat: @"%g", lastPrice];
+                    [lastPriceRowItem setUIToStack];
+                });
+            });
+        });
+
+    }
+    else if(self.tradeSession.refreshLastPrice != nil) {
         
         //perform network request (most likely) off the main thread
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){

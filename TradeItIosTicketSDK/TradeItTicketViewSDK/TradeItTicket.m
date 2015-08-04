@@ -251,14 +251,18 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     NSString * startingView = @"brokerSelectController";
     
     if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+        tradeSession.resultContainer.status = USER_CANCELED;
         startingView = [TradeItTicket getCalcScreenPreferance];
         
         if(startingView == nil){
             if(tradeSession.calcScreenStoryboardId != nil) {
                 startingView = tradeSession.calcScreenStoryboardId;
             } else {
+                tradeSession.calcScreenStoryboardId = @"initalCalculatorController";
                 startingView = @"initalCalculatorController";
             }
+        } else {
+            tradeSession.calcScreenStoryboardId = startingView;
         }
     }
     
@@ -283,7 +287,9 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 
 
 +(void) returnToParentApp:(TicketSession *)tradeSession {
-    [[tradeSession parentView] dismissViewControllerAnimated:NO completion:[tradeSession callback]];
+    [[tradeSession parentView] dismissViewControllerAnimated:NO completion:^{
+        tradeSession.callback(tradeSession.resultContainer);
+    }];
 }
 
 +(void) restartTicket:(TicketSession *) tradeSession {

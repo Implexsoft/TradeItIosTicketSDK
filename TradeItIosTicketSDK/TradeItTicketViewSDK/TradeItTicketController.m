@@ -28,7 +28,7 @@
     [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:NO onCompletion:nil];
 }
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:NO onCompletion:callback];
 }
 
@@ -37,7 +37,7 @@
 }
 
 
-+(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
++(void) debugShowFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:@"buy" viewController:view withDebug:YES onCompletion:callback];
 }
 
@@ -45,11 +45,11 @@
         [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:action viewController:view withDebug:NO onCompletion:nil];
 }
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view onCompletion:(void(^)(void)) callback {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
             [TradeItTicketController showFullTicketWithPublisherApp:publisherApp symbol:symbol lastPrice:lastPrice orderAction:action viewController:view withDebug:NO onCompletion:callback];
 }
 
-+(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(void)) callback {
++(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
 
     [TradeItTicketController forceClassesIntoLinker];
     
@@ -109,13 +109,29 @@
         tradeSession.callback = self.onCompletion;
     }
 
-    if(self.refreshLastPrice != nil) {
+    if(self.refreshQuote) {
+        tradeSession.refreshQuote = self.refreshQuote;
+    } else if(self.refreshLastPrice != nil) {
         tradeSession.refreshLastPrice = self.refreshLastPrice;
     }
     
     if(self.calcScreenDefault != nil &&![self.calcScreenDefault isEqualToString:@""]) {
         tradeSession.calcScreenStoryboardId = [self.calcScreenDefault isEqualToString:@"detail"] ? @"advCalculatorController" : @"initalCalculatorController";
     }
+    
+    if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
+        tradeSession.companyName = self.companyName;
+    }
+    
+    if(self.priceChangeDollar != nil) {
+        tradeSession.priceChangeDollar = self.priceChangeDollar;
+    }
+    
+    if(self.priceChangePercentage != nil) {
+        tradeSession.priceChangePercentage = self.priceChangePercentage;
+    }
+    
+    tradeSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
     
     [TradeItTicketController showTicket:tradeSession];
 }

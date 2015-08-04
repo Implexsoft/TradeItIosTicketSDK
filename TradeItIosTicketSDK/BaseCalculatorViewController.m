@@ -7,9 +7,11 @@
 //
 
 #import "BaseCalculatorViewController.h"
+#import "TradeItTicket.h"
 
 @interface BaseCalculatorViewController () {
     NSArray * linkedBrokers;
+    NSString * segueToBrokerSelectDetail;
 }
 
 @end
@@ -21,6 +23,8 @@
     // Do any additional setup after loading the view.
     
     linkedBrokers = [TradeItTicket getLinkedBrokersList];
+    
+    segueToBrokerSelectDetail = self.advMode ? @"advCalculatorToBrokerSelectDetail" : @"calculatorToBrokerSelectDetail";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,11 +38,11 @@
     } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
         if([linkedBrokers count] > 1) {
             [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+                [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
             }];
         } else {
             [self setAuthentication:linkedBrokers[0] withPassword:NO];
-            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+            [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
         }
     }
 }
@@ -69,7 +73,7 @@
                                     if([[TradeItTicket getLinkedBrokersList] count] > 1) {
                                         [self showBrokerPickerAndSetPassword:NO onSelection:^{
                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+                                                [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
                                             });
                                         }];
                                     } else {
@@ -77,7 +81,7 @@
                                         [self setAuthentication:broker withPassword:NO];
                                         
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            [self performSegueWithIdentifier:@"calculatorToBrokerSelectDetail" sender:self];
+                                            [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
                                         });
                                     }
                                     
@@ -95,7 +99,14 @@
         
         for (NSString * broker in linkedBrokers) {
             UIAlertAction * brokerOption = [UIAlertAction actionWithTitle: [TradeItTicket getBrokerDisplayString:broker] style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) { [self setAuthentication:broker withPassword:setPassword]; }];
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      
+                                                                      [self setAuthentication:broker withPassword:setPassword];
+                                                                      
+                                                                      if(onSelection) {
+                                                                          onSelection();
+                                                                      }
+                                                                  }];
             [alert addAction:brokerOption];
         }
         

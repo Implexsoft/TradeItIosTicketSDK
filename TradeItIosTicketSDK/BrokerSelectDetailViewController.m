@@ -24,6 +24,8 @@
 }
 
 -(void) viewDidLoad {
+    [super viewDidLoad];
+    
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
     
     /*  This might be nice at some point

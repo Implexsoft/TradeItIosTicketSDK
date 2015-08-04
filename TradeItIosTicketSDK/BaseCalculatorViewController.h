@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <LocalAuthentication/LocalAuthentication.h>
 #import "TicketSession.h"
-#import "TradeItTicket.h"
 
 @interface BaseCalculatorViewController : UIViewController
 
 @property TicketSession * tradeSession;
+
+@property BOOL advMode;
+
 
 -(void) setBroker;
 

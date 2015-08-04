@@ -8,9 +8,6 @@
 
 #import "TradeItIosTicketSDK.h"
 
-
-//not really nessecary, we could probably toss it
-
 @implementation TradeItIosTicketSDK
 
 @end
