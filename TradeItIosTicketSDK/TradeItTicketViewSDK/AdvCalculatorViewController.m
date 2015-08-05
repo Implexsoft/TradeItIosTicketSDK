@@ -14,7 +14,6 @@
     __weak IBOutlet UILabel *priceAndPerformanceLabel;
     
     __weak IBOutlet UITextField *sharesInput;
-    __weak IBOutlet UITextField *symbolBox;
     
     __weak IBOutlet UIButton *orderActionButton;
     
@@ -55,8 +54,6 @@
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
     
     [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
-    
-    [symbolBox setText:self.tradeSession.orderInfo.symbol];
     
     NSString * companyNameString;
     if(self.tradeSession.companyName != nil) {
@@ -166,14 +163,11 @@
 //things that can't be done in IB
 -(void) uiTweaks {
     [self applyBorder:(UIView *)sharesInput];
-    [self applyBorder:(UIView *)symbolBox];
     [self applyBorder:(UIView *)orderActionButton];
     [self applyBorder:(UIView *)orderTypeButton];
     [self applyBorder:(UIView *)leftPriceInput];
     [self applyBorder:(UIView *)rightPriceInput];
     [self applyBorder:(UIView *)orderExpirationButton];
-    
-    symbolBox.enabled = NO;
     
     [previewOrderButton.layer setCornerRadius:5.0f];
 }
