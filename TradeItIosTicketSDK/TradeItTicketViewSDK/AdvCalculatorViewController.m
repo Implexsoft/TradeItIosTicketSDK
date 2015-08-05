@@ -451,11 +451,14 @@
                                                       handler:^(UIAlertAction * action) { [self changeOrderAction:@"sellShort"]; }];
     UIAlertAction* buyToCoverAction = [UIAlertAction actionWithTitle:@"Buy to Cover" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) { [self changeOrderAction:@"buyToCover"]; }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     
     [alert addAction:buyAction];
     [alert addAction:sellAction];
     [alert addAction:sellShortAction];
     [alert addAction:buyToCoverAction];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -475,11 +478,14 @@
                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
     UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     
     [alert addAction:marketAction];
     [alert addAction:limitAction];
     [alert addAction:stopMarketAction];
     [alert addAction:stopLimitAction];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -495,10 +501,12 @@
                                                          handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"day"]; }];
     UIAlertAction* gtcAction = [UIAlertAction actionWithTitle:@"Good Until Canceled" style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"gtc"]; }];
-
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     
     [alert addAction:dayAction];
     [alert addAction:gtcAction];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

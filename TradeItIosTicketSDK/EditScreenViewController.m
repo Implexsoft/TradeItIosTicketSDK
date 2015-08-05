@@ -144,10 +144,14 @@
                                                               self.tradeSession.orderInfo.action = @"buyToCover";
                                                               [self setCurrentOrderAction];
                                                           }];
+    
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     [alert addAction:buyOption];
     [alert addAction:sellOption];
     [alert addAction:sellShortOption];
     [alert addAction:buyToCoverOption];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -180,11 +184,14 @@
                                                               self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0.0 :0.0];
                                                               [self setCurrentOrderType];
                                                           }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     
     [alert addAction:marketOption];
     [alert addAction:limitOption];
     [alert addAction:stopMarketOption];
     [alert addAction:stopLimitOption];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -205,9 +212,12 @@
                                                            self.tradeSession.orderInfo.expiration = @"gtc";
                                                            [self setCurrentOrderExpiration];
                                                        }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
     
     [alert addAction:dayOption];
     [alert addAction:gtcOption];
+    [alert addAction:cancelAction];
     
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -230,6 +240,10 @@
                                                                   }];
             [alert addAction:brokerOption];
         }
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * action) {}];
+        [alert addAction:cancelAction];
         
         [self presentViewController:alert animated:YES completion:nil];
         
