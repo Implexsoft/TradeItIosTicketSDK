@@ -142,13 +142,13 @@
 		A9C003791B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */; };
 		A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */; };
-		A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* MBProgressHUD.h */; };
+		A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A9C0038A1B728552007D15F5 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* MBProgressHUD.m */; };
-		A9C003931B72A67E007D15F5 /* Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003911B72A67E007D15F5 /* Theme.h */; };
-		A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003951B72A716007D15F5 /* DefaultLightTheme.h */; };
-		A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003991B72A798007D15F5 /* ThemeManager.h */; };
+		A9C003931B72A67E007D15F5 /* Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003911B72A67E007D15F5 /* Theme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003951B72A716007D15F5 /* DefaultLightTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003991B72A798007D15F5 /* ThemeManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A9C0039C1B72A798007D15F5 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0039A1B72A798007D15F5 /* ThemeManager.m */; };
-		A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0039D1B72A983007D15F5 /* DefaultDarkTheme.h */; };
+		A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0039D1B72A983007D15F5 /* DefaultDarkTheme.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -789,7 +789,6 @@
 				A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */,
 				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
 				A9C0033F1B7264A4007D15F5 /* JSONAPI.h in Headers */,
-				A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */,
 				A9C003381B7264A4007D15F5 /* JSONModelClassProperty.h in Headers */,
 				A9C003361B7264A4007D15F5 /* JSONModelArray.h in Headers */,
 				A9C0033E1B7264A4007D15F5 /* JSONModelLib.h in Headers */,
@@ -808,11 +807,9 @@
 				A9C003591B7264A4007D15F5 /* TradeItPlaceOrderRequest.h in Headers */,
 				A9C003631B7264A4007D15F5 /* TradeItSelectAccountRequest.h in Headers */,
 				A9C003781B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h in Headers */,
-				A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */,
 				A9C0036D1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h in Headers */,
 				A9C003501B7264A4007D15F5 /* TradeItEmsUtils.h in Headers */,
 				A9C003521B7264A4007D15F5 /* TradeItErrorResult.h in Headers */,
-				A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */,
 				A9C003611B7264A4007D15F5 /* TradeItSecurityQuestionResult.h in Headers */,
 				A9C003541B7264A4007D15F5 /* TradeItInformationNeededResult.h in Headers */,
 				A9C003711B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h in Headers */,
@@ -823,10 +820,8 @@
 				A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
 				A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */,
 				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */,
-				A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */,
 				A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */,
 				A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */,
-				A9C003931B72A67E007D15F5 /* Theme.h in Headers */,
 				A9C003651B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */,
 				A9C003671B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h in Headers */,
 				A9C0034E1B7264A4007D15F5 /* TradeItCloseSessionRequest.h in Headers */,
@@ -835,6 +830,11 @@
 				A905D3211B629D76006B0B8C /* Keychain.h in Headers */,
 				A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */,
 				A93B3C4E1B5464BC00373E1B /* CustomIOSAlertView.h in Headers */,
+				A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */,
+				A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */,
+				A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */,
+				A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */,
+				A9C003931B72A67E007D15F5 /* Theme.h in Headers */,
 				A905D3271B668B06006B0B8C /* EditScreenViewController.h in Headers */,
 				A9B2D4771B5EA92F008065E1 /* BrokerSelectDetailViewController.h in Headers */,
 				A9C002A31B6ACA86007D15F5 /* TradeItTicket.h in Headers */,
