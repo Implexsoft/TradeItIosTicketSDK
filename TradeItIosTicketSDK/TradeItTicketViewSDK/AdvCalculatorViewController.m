@@ -73,6 +73,9 @@
     [sharesInput addTarget:self action:@selector(sharesInputChanged) forControlEvents:UIControlEventEditingChanged];
     [leftPriceInput addTarget:self action:@selector(leftInputChanged) forControlEvents:UIControlEventEditingChanged];
     [rightPriceInput addTarget:self action:@selector(rightInputChanged) forControlEvents:UIControlEventEditingChanged];
+    
+    [sharesInput becomeFirstResponder];
+    [self refreshPressed:self];
 }
 
 -(void) viewDidAppear:(BOOL)animated {

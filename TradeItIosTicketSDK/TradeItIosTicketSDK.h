@@ -13,6 +13,8 @@
 #import "TradeItTicketControllerResult.h"
 
 #import "TradeItAuthenticationInfo.h"
+#import "TradeItBrokerListSuccessResult.h"
+#import "TradeItStockOrEtfBrokerListRequest.h"
 #import "TradeItCloseSessionRequest.h"
 #import "TradeItErrorResult.h"
 #import "TradeItInformationNeededResult.h"

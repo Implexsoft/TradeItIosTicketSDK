@@ -23,20 +23,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		A905D1571B61727E006B0B8C /* TradeItSuccessAuthenticationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A905D1561B61727E006B0B8C /* TradeItSuccessAuthenticationResult.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A905D1601B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A905D15F1B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m */; };
 		A905D3211B629D76006B0B8C /* Keychain.h in Headers */ = {isa = PBXBuildFile; fileRef = A905D31F1B629D75006B0B8C /* Keychain.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A905D3221B629D76006B0B8C /* Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A905D3201B629D76006B0B8C /* Keychain.m */; };
 		A905D3271B668B06006B0B8C /* EditScreenViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A905D3251B668B06006B0B8C /* EditScreenViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A905D3281B668B06006B0B8C /* EditScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A905D3261B668B06006B0B8C /* EditScreenViewController.m */; };
-		A92567C91B595AD0008065BF /* TradeItEmsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A92567C71B595AD0008065BF /* TradeItEmsUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A92567CA1B595AD0008065BF /* TradeItEmsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A92567C81B595AD0008065BF /* TradeItEmsUtils.m */; };
-		A92567D31B595AE7008065BF /* TradeItIosEmsApiLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A92567D21B595AE7008065BF /* TradeItIosEmsApiLib.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A92567D51B595AFD008065BF /* TradeItTypeDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = A92567D41B595AFD008065BF /* TradeItTypeDefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A92567DA1B595B08008065BF /* TradeItVerifyCredentialRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A92567D61B595B08008065BF /* TradeItVerifyCredentialRequest.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A92567DB1B595B08008065BF /* TradeItVerifyCredentialRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A92567D71B595B08008065BF /* TradeItVerifyCredentialRequest.m */; };
-		A92567DC1B595B08008065BF /* TradeItVerifyCredentialSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A92567D81B595B08008065BF /* TradeItVerifyCredentialSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A92567DD1B595B08008065BF /* TradeItVerifyCredentialSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A92567D91B595B08008065BF /* TradeItVerifyCredentialSession.m */; };
 		A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C401B542C4B00373E1B /* TicketSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4E1B5464BC00373E1B /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */; };
@@ -55,77 +45,7 @@
 		A9A8CF971B4EFDBB000207B9 /* TradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */; };
 		A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF881B4EFDBB000207B9 /* TradeItTicketController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0271B4EFF87000207B9 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFBE1B4EFF86000207B9 /* JSONModel.m */; };
-		A9A8D0281B4EFF87000207B9 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC01B4EFF86000207B9 /* JSONModelArray.m */; };
-		A9A8D0291B4EFF87000207B9 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC21B4EFF86000207B9 /* JSONModelClassProperty.m */; };
-		A9A8D02A1B4EFF87000207B9 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC41B4EFF86000207B9 /* JSONModelError.m */; };
-		A9A8D02B1B4EFF87000207B9 /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC71B4EFF86000207B9 /* NSArray+JSONModel.m */; };
-		A9A8D02C1B4EFF87000207B9 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCB1B4EFF86000207B9 /* JSONAPI.m */; };
-		A9A8D02D1B4EFF87000207B9 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCD1B4EFF86000207B9 /* JSONHTTPClient.m */; };
-		A9A8D02E1B4EFF87000207B9 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCF1B4EFF86000207B9 /* JSONModel+networking.m */; };
-		A9A8D02F1B4EFF87000207B9 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFD21B4EFF86000207B9 /* JSONKeyMapper.m */; };
-		A9A8D0301B4EFF87000207B9 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFD41B4EFF86000207B9 /* JSONValueTransformer.m */; };
-		A9A8D0311B4EFF87000207B9 /* LICENSE_jsonmodel.txt in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFD51B4EFF86000207B9 /* LICENSE_jsonmodel.txt */; };
-		A9A8D0331B4EFF87000207B9 /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFD81B4EFF86000207B9 /* Manifest.lock */; };
-		A9A8D0351B4EFF87000207B9 /* Pods-TradeItIosEmsApi-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFDF1B4EFF87000207B9 /* Pods-TradeItIosEmsApi-acknowledgements.plist */; };
-		A9A8D0361B4EFF87000207B9 /* Pods-TradeItIosEmsApi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFE01B4EFF87000207B9 /* Pods-TradeItIosEmsApi-dummy.m */; };
-		A9A8D0371B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFE21B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh */; };
-		A9A8D03A1B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFE61B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-dummy.m */; };
-		A9A8D03E1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFEC1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-acknowledgements.plist */; };
-		A9A8D03F1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFED1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m */; };
-		A9A8D0401B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-resources.sh in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CFEF1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-resources.sh */; };
-		A9A8D0431B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFF31B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-dummy.m */; };
-		A9A8D0471B4EFF87000207B9 /* TradeItAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFA1B4EFF87000207B9 /* TradeItAuthenticationInfo.m */; };
-		A9A8D0481B4EFF87000207B9 /* TradeItCloseSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFC1B4EFF87000207B9 /* TradeItCloseSessionRequest.m */; };
-		A9A8D0491B4EFF87000207B9 /* TradeItErrorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFE1B4EFF87000207B9 /* TradeItErrorResult.m */; };
-		A9A8D04A1B4EFF87000207B9 /* TradeItInformationNeededResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0001B4EFF87000207B9 /* TradeItInformationNeededResult.m */; };
-		A9A8D04B1B4EFF87000207B9 /* TradeItMultipleAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0021B4EFF87000207B9 /* TradeItMultipleAccountResult.m */; };
-		A9A8D04C1B4EFF87000207B9 /* TradeItPlaceOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0041B4EFF87000207B9 /* TradeItPlaceOrderRequest.m */; };
-		A9A8D04D1B4EFF87000207B9 /* TradeItRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0061B4EFF87000207B9 /* TradeItRequest.m */; };
-		A9A8D04E1B4EFF87000207B9 /* TradeItResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0081B4EFF87000207B9 /* TradeItResult.m */; };
-		A9A8D04F1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00A1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m */; };
-		A9A8D0501B4EFF87000207B9 /* TradeItSecurityQuestionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00C1B4EFF87000207B9 /* TradeItSecurityQuestionResult.m */; };
-		A9A8D0511B4EFF87000207B9 /* TradeItSelectAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00E1B4EFF87000207B9 /* TradeItSelectAccountRequest.m */; };
-		A9A8D0521B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0101B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */; };
-		A9A8D0531B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0121B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m */; };
-		A9A8D0541B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0141B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m */; };
-		A9A8D0551B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0161B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m */; };
-		A9A8D0561B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0181B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m */; };
-		A9A8D0571B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D01A1B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m */; };
-		A9A8D0581B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D01C1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m */; };
-		A9A8D0591B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0201B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace */; };
-		A9A8D05A1B4EFF87000207B9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0221B4EFF87000207B9 /* Info.plist */; };
-		A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */; };
 		A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF6F1B4EFDBB000207B9 /* Ticket.storyboard */; };
-		A9A8D0D41B4F12B8000207B9 /* TradeItAuthenticationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFF91B4EFF87000207B9 /* TradeItAuthenticationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D51B4F12B8000207B9 /* TradeItCloseSessionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFFB1B4EFF87000207B9 /* TradeItCloseSessionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D61B4F12B8000207B9 /* TradeItErrorResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFFD1B4EFF87000207B9 /* TradeItErrorResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D71B4F12B8000207B9 /* TradeItInformationNeededResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFFF1B4EFF87000207B9 /* TradeItInformationNeededResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D81B4F12B8000207B9 /* TradeItMultipleAccountResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0011B4EFF87000207B9 /* TradeItMultipleAccountResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D91B4F12B8000207B9 /* TradeItPlaceOrderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0031B4EFF87000207B9 /* TradeItPlaceOrderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DA1B4F12B8000207B9 /* TradeItRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0051B4EFF87000207B9 /* TradeItRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DB1B4F12B8000207B9 /* TradeItResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0071B4EFF87000207B9 /* TradeItResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DC1B4F12B8000207B9 /* TradeItSecurityQuestionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0091B4EFF87000207B9 /* TradeItSecurityQuestionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DD1B4F12B8000207B9 /* TradeItSecurityQuestionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D00B1B4EFF87000207B9 /* TradeItSecurityQuestionResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DE1B4F12B8000207B9 /* TradeItSelectAccountRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D00D1B4EFF87000207B9 /* TradeItSelectAccountRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0DF1B4F12B8000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D00F1B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E01B4F12B8000207B9 /* TradeItStockOrEtfOrderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0111B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E11B4F12B8000207B9 /* TradeitStockOrEtfOrderPrice.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0131B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E21B4F12B8000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0151B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E31B4F12B8000207B9 /* TradeItStockOrEtfTradeReviewResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0171B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E41B4F12B8000207B9 /* TradeItStockOrEtfTradeSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D0191B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E51B4F12B8000207B9 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8D01B1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E61B4F1379000207B9 /* JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB31B4EFF86000207B9 /* JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E71B4F13EA000207B9 /* JSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFAF1B4EFF86000207B9 /* JSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E81B4F13EA000207B9 /* JSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB01B4EFF86000207B9 /* JSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0E91B4F13EA000207B9 /* JSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB11B4EFF86000207B9 /* JSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0EA1B4F13EA000207B9 /* JSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB21B4EFF86000207B9 /* JSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0EB1B4F13EA000207B9 /* JSONModelArray.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB41B4EFF86000207B9 /* JSONModelArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0EC1B4F13EA000207B9 /* JSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB51B4EFF86000207B9 /* JSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0ED1B4F13EA000207B9 /* JSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB61B4EFF86000207B9 /* JSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0EE1B4F13EA000207B9 /* JSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB71B4EFF86000207B9 /* JSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0EF1B4F13EA000207B9 /* JSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB81B4EFF86000207B9 /* JSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0F01B4F13EA000207B9 /* NSArray+JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CFB91B4EFF86000207B9 /* NSArray+JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */; };
 		A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */; };
 		A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */; };
@@ -133,34 +53,6 @@
 		A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* SuccessViewController.m */; };
 		A9A8D0FF1B4F19D5000207B9 /* TradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */; };
 		A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
-		A9A8D1011B4F1A3E000207B9 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFBE1B4EFF86000207B9 /* JSONModel.m */; };
-		A9A8D1021B4F1A3E000207B9 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC01B4EFF86000207B9 /* JSONModelArray.m */; };
-		A9A8D1031B4F1A3E000207B9 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC21B4EFF86000207B9 /* JSONModelClassProperty.m */; };
-		A9A8D1041B4F1A3E000207B9 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC41B4EFF86000207B9 /* JSONModelError.m */; };
-		A9A8D1051B4F1A3E000207B9 /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFC71B4EFF86000207B9 /* NSArray+JSONModel.m */; };
-		A9A8D1061B4F1A3E000207B9 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCB1B4EFF86000207B9 /* JSONAPI.m */; };
-		A9A8D1071B4F1A3E000207B9 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCD1B4EFF86000207B9 /* JSONHTTPClient.m */; };
-		A9A8D1081B4F1A3E000207B9 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFCF1B4EFF86000207B9 /* JSONModel+networking.m */; };
-		A9A8D1091B4F1A3E000207B9 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFD21B4EFF86000207B9 /* JSONKeyMapper.m */; };
-		A9A8D10A1B4F1A3E000207B9 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFD41B4EFF86000207B9 /* JSONValueTransformer.m */; };
-		A9A8D10B1B4F1A3E000207B9 /* TradeItAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFA1B4EFF87000207B9 /* TradeItAuthenticationInfo.m */; };
-		A9A8D10C1B4F1A3E000207B9 /* TradeItCloseSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFC1B4EFF87000207B9 /* TradeItCloseSessionRequest.m */; };
-		A9A8D10D1B4F1A3E000207B9 /* TradeItErrorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CFFE1B4EFF87000207B9 /* TradeItErrorResult.m */; };
-		A9A8D10E1B4F1A3E000207B9 /* TradeItInformationNeededResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0001B4EFF87000207B9 /* TradeItInformationNeededResult.m */; };
-		A9A8D10F1B4F1A3E000207B9 /* TradeItMultipleAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0021B4EFF87000207B9 /* TradeItMultipleAccountResult.m */; };
-		A9A8D1101B4F1A3E000207B9 /* TradeItPlaceOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0041B4EFF87000207B9 /* TradeItPlaceOrderRequest.m */; };
-		A9A8D1111B4F1A3E000207B9 /* TradeItRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0061B4EFF87000207B9 /* TradeItRequest.m */; };
-		A9A8D1121B4F1A3E000207B9 /* TradeItResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0081B4EFF87000207B9 /* TradeItResult.m */; };
-		A9A8D1131B4F1A3E000207B9 /* TradeItSecurityQuestionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00A1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m */; };
-		A9A8D1141B4F1A3E000207B9 /* TradeItSecurityQuestionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00C1B4EFF87000207B9 /* TradeItSecurityQuestionResult.m */; };
-		A9A8D1151B4F1A3E000207B9 /* TradeItSelectAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D00E1B4EFF87000207B9 /* TradeItSelectAccountRequest.m */; };
-		A9A8D1161B4F1A3E000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0101B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */; };
-		A9A8D1171B4F1A3E000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0121B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m */; };
-		A9A8D1181B4F1A3E000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0141B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m */; };
-		A9A8D1191B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0161B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m */; };
-		A9A8D11A1B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D0181B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m */; };
-		A9A8D11B1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D01A1B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m */; };
-		A9A8D11C1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8D01C1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m */; };
 		A9A8D1341B504408000207B9 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1301B504408000207B9 /* backspace.png */; };
 		A9A8D1351B504408000207B9 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1311B504408000207B9 /* checkmark.png */; };
 		A9A8D1361B504408000207B9 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1321B504408000207B9 /* refresh.png */; };
@@ -179,6 +71,84 @@
 		A9C002C01B710853007D15F5 /* TicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002BE1B710853007D15F5 /* TicketSession.m */; };
 		A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */; };
+		A9C003341B7264A4007D15F5 /* JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002D81B7264A4007D15F5 /* JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003351B7264A4007D15F5 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002D91B7264A4007D15F5 /* JSONModel.m */; };
+		A9C003361B7264A4007D15F5 /* JSONModelArray.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003371B7264A4007D15F5 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */; };
+		A9C003381B7264A4007D15F5 /* JSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003391B7264A4007D15F5 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */; };
+		A9C0033A1B7264A4007D15F5 /* JSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DE1B7264A4007D15F5 /* JSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033B1B7264A4007D15F5 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DF1B7264A4007D15F5 /* JSONModelError.m */; };
+		A9C0033C1B7264A4007D15F5 /* NSArray+JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033D1B7264A4007D15F5 /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */; };
+		A9C0033E1B7264A4007D15F5 /* JSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E31B7264A4007D15F5 /* JSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033F1B7264A4007D15F5 /* JSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E51B7264A4007D15F5 /* JSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003401B7264A4007D15F5 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E61B7264A4007D15F5 /* JSONAPI.m */; };
+		A9C003411B7264A4007D15F5 /* JSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003421B7264A4007D15F5 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */; };
+		A9C003431B7264A4007D15F5 /* JSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003441B7264A4007D15F5 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */; };
+		A9C003451B7264A4007D15F5 /* JSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003461B7264A4007D15F5 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */; };
+		A9C003471B7264A4007D15F5 /* JSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003481B7264A4007D15F5 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */; };
+		A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002FC1B7264A4007D15F5 /* TradeItAuthenticationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0034B1B7264A4007D15F5 /* TradeItAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002FD1B7264A4007D15F5 /* TradeItAuthenticationInfo.m */; };
+		A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002FE1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0034D1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002FF1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.m */; };
+		A9C0034E1B7264A4007D15F5 /* TradeItCloseSessionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003001B7264A4007D15F5 /* TradeItCloseSessionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0034F1B7264A4007D15F5 /* TradeItCloseSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003011B7264A4007D15F5 /* TradeItCloseSessionRequest.m */; };
+		A9C003501B7264A4007D15F5 /* TradeItEmsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003021B7264A4007D15F5 /* TradeItEmsUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003511B7264A4007D15F5 /* TradeItEmsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003031B7264A4007D15F5 /* TradeItEmsUtils.m */; };
+		A9C003521B7264A4007D15F5 /* TradeItErrorResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003041B7264A4007D15F5 /* TradeItErrorResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003531B7264A4007D15F5 /* TradeItErrorResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003051B7264A4007D15F5 /* TradeItErrorResult.m */; };
+		A9C003541B7264A4007D15F5 /* TradeItInformationNeededResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003061B7264A4007D15F5 /* TradeItInformationNeededResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003551B7264A4007D15F5 /* TradeItInformationNeededResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003071B7264A4007D15F5 /* TradeItInformationNeededResult.m */; };
+		A9C003561B7264A4007D15F5 /* TradeItIosEmsApiLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003081B7264A4007D15F5 /* TradeItIosEmsApiLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003091B7264A4007D15F5 /* TradeItMultipleAccountResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003581B7264A4007D15F5 /* TradeItMultipleAccountResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0030A1B7264A4007D15F5 /* TradeItMultipleAccountResult.m */; };
+		A9C003591B7264A4007D15F5 /* TradeItPlaceOrderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0030B1B7264A4007D15F5 /* TradeItPlaceOrderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0035A1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0030C1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m */; };
+		A9C0035B1B7264A4007D15F5 /* TradeItRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0030D1B7264A4007D15F5 /* TradeItRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0035C1B7264A4007D15F5 /* TradeItRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0030E1B7264A4007D15F5 /* TradeItRequest.m */; };
+		A9C0035D1B7264A4007D15F5 /* TradeItResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0030F1B7264A4007D15F5 /* TradeItResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0035E1B7264A4007D15F5 /* TradeItResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003101B7264A4007D15F5 /* TradeItResult.m */; };
+		A9C0035F1B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003111B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003601B7264A4007D15F5 /* TradeItSecurityQuestionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003121B7264A4007D15F5 /* TradeItSecurityQuestionRequest.m */; };
+		A9C003611B7264A4007D15F5 /* TradeItSecurityQuestionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003131B7264A4007D15F5 /* TradeItSecurityQuestionResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003621B7264A4007D15F5 /* TradeItSecurityQuestionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003141B7264A4007D15F5 /* TradeItSecurityQuestionResult.m */; };
+		A9C003631B7264A4007D15F5 /* TradeItSelectAccountRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003151B7264A4007D15F5 /* TradeItSelectAccountRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003641B7264A4007D15F5 /* TradeItSelectAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003161B7264A4007D15F5 /* TradeItSelectAccountRequest.m */; };
+		A9C003651B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003171B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003661B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003181B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */; };
+		A9C003671B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003191B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003681B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0031A1B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.m */; };
+		A9C003691B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0031B1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0036A1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0031C1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m */; };
+		A9C0036B1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0031D1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0036C1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0031E1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m */; };
+		A9C0036D1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0031F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0036E1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003201B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m */; };
+		A9C0036F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003211B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003701B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003221B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m */; };
+		A9C003711B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003231B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003721B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003241B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m */; };
+		A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003251B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003741B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003261B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m */; };
+		A9C003751B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003271B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003761B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003281B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.m */; };
+		A9C003771B7264A4007D15F5 /* TradeItTypeDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003781B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003791B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */; };
+		A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */; };
+		A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* MBProgressHUD.h */; };
+		A9C0038A1B728552007D15F5 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* MBProgressHUD.m */; };
+		A9C003931B72A67E007D15F5 /* Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003911B72A67E007D15F5 /* Theme.h */; };
+		A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003951B72A716007D15F5 /* DefaultLightTheme.h */; };
+		A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003991B72A798007D15F5 /* ThemeManager.h */; };
+		A9C0039C1B72A798007D15F5 /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0039A1B72A798007D15F5 /* ThemeManager.m */; };
+		A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0039D1B72A983007D15F5 /* DefaultDarkTheme.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,48 +158,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A9A8CF4F1B4EFACB000207B9;
 			remoteInfo = TradeItIosTicketSDK;
-		};
-		A9A8D0601B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6D28FD5F13D359D680DA7442;
-			remoteInfo = "Pods-TradeItIosEmsApi";
-		};
-		A9A8D0621B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1A38C3A14E813140C61C8984;
-			remoteInfo = "Pods-TradeItIosEmsApi-JSONModel";
-		};
-		A9A8D0641B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CE1CA71307C27A3118F7BC52;
-			remoteInfo = "Pods-TradeItIosEmsApiTests";
-		};
-		A9A8D0661B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9CCAF94A80ACD9570134B1BF;
-			remoteInfo = "Pods-TradeItIosEmsApiTests-JSONModel";
-		};
-		A9A8D06B1B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 08CD8B851B338A7500F7E530;
-			remoteInfo = TradeItIosEmsApi;
-		};
-		A9A8D06D1B4EFF87000207B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 08CD8B901B338A7500F7E530;
-			remoteInfo = TradeItIosEmsApiTests;
 		};
 		A9A8D0BB1B4F0AE4000207B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -252,6 +180,20 @@
 			remoteGlobalIDString = A9A8D0C11B4F0F56000207B9;
 			remoteInfo = FullViewResources;
 		};
+		A9C003801B7264A4007D15F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 08CD8B851B338A7500F7E530;
+			remoteInfo = TradeItIosEmsApi;
+		};
+		A9C003821B7264A4007D15F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 08CD8B901B338A7500F7E530;
+			remoteInfo = TradeItIosEmsApiTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -267,20 +209,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A905D1561B61727E006B0B8C /* TradeItSuccessAuthenticationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSuccessAuthenticationResult.h; sourceTree = "<group>"; };
-		A905D15F1B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSuccessAuthenticationResult.m; sourceTree = "<group>"; };
 		A905D31F1B629D75006B0B8C /* Keychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keychain.h; sourceTree = "<group>"; };
 		A905D3201B629D76006B0B8C /* Keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keychain.m; sourceTree = "<group>"; };
 		A905D3251B668B06006B0B8C /* EditScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditScreenViewController.h; sourceTree = "<group>"; };
 		A905D3261B668B06006B0B8C /* EditScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditScreenViewController.m; sourceTree = "<group>"; };
-		A92567C71B595AD0008065BF /* TradeItEmsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItEmsUtils.h; sourceTree = "<group>"; };
-		A92567C81B595AD0008065BF /* TradeItEmsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItEmsUtils.m; sourceTree = "<group>"; };
-		A92567D21B595AE7008065BF /* TradeItIosEmsApiLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItIosEmsApiLib.h; sourceTree = "<group>"; };
-		A92567D41B595AFD008065BF /* TradeItTypeDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItTypeDefs.h; sourceTree = "<group>"; };
-		A92567D61B595B08008065BF /* TradeItVerifyCredentialRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialRequest.h; sourceTree = "<group>"; };
-		A92567D71B595B08008065BF /* TradeItVerifyCredentialRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialRequest.m; sourceTree = "<group>"; };
-		A92567D81B595B08008065BF /* TradeItVerifyCredentialSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialSession.h; sourceTree = "<group>"; };
-		A92567D91B595B08008065BF /* TradeItVerifyCredentialSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialSession.m; sourceTree = "<group>"; };
 		A93B3C401B542C4B00373E1B /* TicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSession.h; path = TradeItTicketViewSDK/TicketSession.h; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
@@ -309,112 +241,6 @@
 		A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TradeItTicket.m; path = TradeItTicketViewSDK/TradeItTicket.m; sourceTree = "<group>"; };
 		A9A8CF881B4EFDBB000207B9 /* TradeItTicketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TradeItTicketController.h; path = TradeItTicketViewSDK/TradeItTicketController.h; sourceTree = "<group>"; };
 		A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TradeItTicketController.m; path = TradeItTicketViewSDK/TradeItTicketController.m; sourceTree = "<group>"; };
-		A9A8CFA21B4EFF86000207B9 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
-		A9A8CFA31B4EFF86000207B9 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
-		A9A8CFA41B4EFF86000207B9 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
-		A9A8CFA51B4EFF86000207B9 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
-		A9A8CFA61B4EFF86000207B9 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
-		A9A8CFA71B4EFF86000207B9 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
-		A9A8CFA81B4EFF86000207B9 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
-		A9A8CFA91B4EFF86000207B9 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
-		A9A8CFAA1B4EFF86000207B9 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
-		A9A8CFAB1B4EFF86000207B9 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
-		A9A8CFAC1B4EFF86000207B9 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
-		A9A8CFAF1B4EFF86000207B9 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
-		A9A8CFB01B4EFF86000207B9 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
-		A9A8CFB11B4EFF86000207B9 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
-		A9A8CFB21B4EFF86000207B9 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
-		A9A8CFB31B4EFF86000207B9 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
-		A9A8CFB41B4EFF86000207B9 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
-		A9A8CFB51B4EFF86000207B9 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
-		A9A8CFB61B4EFF86000207B9 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
-		A9A8CFB71B4EFF86000207B9 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
-		A9A8CFB81B4EFF86000207B9 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
-		A9A8CFB91B4EFF86000207B9 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
-		A9A8CFBD1B4EFF86000207B9 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
-		A9A8CFBE1B4EFF86000207B9 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
-		A9A8CFBF1B4EFF86000207B9 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
-		A9A8CFC01B4EFF86000207B9 /* JSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelArray.m; sourceTree = "<group>"; };
-		A9A8CFC11B4EFF86000207B9 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
-		A9A8CFC21B4EFF86000207B9 /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
-		A9A8CFC31B4EFF86000207B9 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
-		A9A8CFC41B4EFF86000207B9 /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
-		A9A8CFC61B4EFF86000207B9 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
-		A9A8CFC71B4EFF86000207B9 /* NSArray+JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONModel.m"; sourceTree = "<group>"; };
-		A9A8CFC81B4EFF86000207B9 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
-		A9A8CFCA1B4EFF86000207B9 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
-		A9A8CFCB1B4EFF86000207B9 /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
-		A9A8CFCC1B4EFF86000207B9 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
-		A9A8CFCD1B4EFF86000207B9 /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
-		A9A8CFCE1B4EFF86000207B9 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
-		A9A8CFCF1B4EFF86000207B9 /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
-		A9A8CFD11B4EFF86000207B9 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
-		A9A8CFD21B4EFF86000207B9 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
-		A9A8CFD31B4EFF86000207B9 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
-		A9A8CFD41B4EFF86000207B9 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
-		A9A8CFD51B4EFF86000207B9 /* LICENSE_jsonmodel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_jsonmodel.txt; sourceTree = "<group>"; };
-		A9A8CFD81B4EFF86000207B9 /* Manifest.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Manifest.lock; sourceTree = "<group>"; };
-		A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
-		A9A8CFDF1B4EFF87000207B9 /* Pods-TradeItIosEmsApi-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-TradeItIosEmsApi-acknowledgements.plist"; sourceTree = "<group>"; };
-		A9A8CFE01B4EFF87000207B9 /* Pods-TradeItIosEmsApi-dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pods-TradeItIosEmsApi-dummy.m"; sourceTree = "<group>"; };
-		A9A8CFE11B4EFF87000207B9 /* Pods-TradeItIosEmsApi-environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pods-TradeItIosEmsApi-environment.h"; sourceTree = "<group>"; };
-		A9A8CFE21B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Pods-TradeItIosEmsApi-resources.sh"; sourceTree = "<group>"; };
-		A9A8CFE31B4EFF87000207B9 /* Pods-TradeItIosEmsApi.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApi.debug.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFE41B4EFF87000207B9 /* Pods-TradeItIosEmsApi.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApi.release.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFE61B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pods-TradeItIosEmsApi-JSONModel-dummy.m"; sourceTree = "<group>"; };
-		A9A8CFE71B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pods-TradeItIosEmsApi-JSONModel-prefix.pch"; sourceTree = "<group>"; };
-		A9A8CFE81B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-Private.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApi-JSONModel-Private.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFE91B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApi-JSONModel.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFEC1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-TradeItIosEmsApiTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		A9A8CFED1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pods-TradeItIosEmsApiTests-dummy.m"; sourceTree = "<group>"; };
-		A9A8CFEE1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pods-TradeItIosEmsApiTests-environment.h"; sourceTree = "<group>"; };
-		A9A8CFEF1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-resources.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Pods-TradeItIosEmsApiTests-resources.sh"; sourceTree = "<group>"; };
-		A9A8CFF01B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApiTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFF11B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApiTests.release.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFF31B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pods-TradeItIosEmsApiTests-JSONModel-dummy.m"; sourceTree = "<group>"; };
-		A9A8CFF41B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pods-TradeItIosEmsApiTests-JSONModel-prefix.pch"; sourceTree = "<group>"; };
-		A9A8CFF51B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-Private.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApiTests-JSONModel-Private.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFF61B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Pods-TradeItIosEmsApiTests-JSONModel.xcconfig"; sourceTree = "<group>"; };
-		A9A8CFF91B4EFF87000207B9 /* TradeItAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItAuthenticationInfo.h; sourceTree = "<group>"; };
-		A9A8CFFA1B4EFF87000207B9 /* TradeItAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItAuthenticationInfo.m; sourceTree = "<group>"; };
-		A9A8CFFB1B4EFF87000207B9 /* TradeItCloseSessionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItCloseSessionRequest.h; sourceTree = "<group>"; };
-		A9A8CFFC1B4EFF87000207B9 /* TradeItCloseSessionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItCloseSessionRequest.m; sourceTree = "<group>"; };
-		A9A8CFFD1B4EFF87000207B9 /* TradeItErrorResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItErrorResult.h; sourceTree = "<group>"; };
-		A9A8CFFE1B4EFF87000207B9 /* TradeItErrorResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItErrorResult.m; sourceTree = "<group>"; };
-		A9A8CFFF1B4EFF87000207B9 /* TradeItInformationNeededResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItInformationNeededResult.h; sourceTree = "<group>"; };
-		A9A8D0001B4EFF87000207B9 /* TradeItInformationNeededResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItInformationNeededResult.m; sourceTree = "<group>"; };
-		A9A8D0011B4EFF87000207B9 /* TradeItMultipleAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItMultipleAccountResult.h; sourceTree = "<group>"; };
-		A9A8D0021B4EFF87000207B9 /* TradeItMultipleAccountResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItMultipleAccountResult.m; sourceTree = "<group>"; };
-		A9A8D0031B4EFF87000207B9 /* TradeItPlaceOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItPlaceOrderRequest.h; sourceTree = "<group>"; };
-		A9A8D0041B4EFF87000207B9 /* TradeItPlaceOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItPlaceOrderRequest.m; sourceTree = "<group>"; };
-		A9A8D0051B4EFF87000207B9 /* TradeItRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItRequest.h; sourceTree = "<group>"; };
-		A9A8D0061B4EFF87000207B9 /* TradeItRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItRequest.m; sourceTree = "<group>"; };
-		A9A8D0071B4EFF87000207B9 /* TradeItResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItResult.h; sourceTree = "<group>"; };
-		A9A8D0081B4EFF87000207B9 /* TradeItResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItResult.m; sourceTree = "<group>"; };
-		A9A8D0091B4EFF87000207B9 /* TradeItSecurityQuestionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSecurityQuestionRequest.h; sourceTree = "<group>"; };
-		A9A8D00A1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSecurityQuestionRequest.m; sourceTree = "<group>"; };
-		A9A8D00B1B4EFF87000207B9 /* TradeItSecurityQuestionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSecurityQuestionResult.h; sourceTree = "<group>"; };
-		A9A8D00C1B4EFF87000207B9 /* TradeItSecurityQuestionResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSecurityQuestionResult.m; sourceTree = "<group>"; };
-		A9A8D00D1B4EFF87000207B9 /* TradeItSelectAccountRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSelectAccountRequest.h; sourceTree = "<group>"; };
-		A9A8D00E1B4EFF87000207B9 /* TradeItSelectAccountRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSelectAccountRequest.m; sourceTree = "<group>"; };
-		A9A8D00F1B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfAuthenticateAndTradeRequest.h; sourceTree = "<group>"; };
-		A9A8D0101B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfAuthenticateAndTradeRequest.m; sourceTree = "<group>"; };
-		A9A8D0111B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfOrderInfo.h; sourceTree = "<group>"; };
-		A9A8D0121B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfOrderInfo.m; sourceTree = "<group>"; };
-		A9A8D0131B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeitStockOrEtfOrderPrice.h; sourceTree = "<group>"; };
-		A9A8D0141B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeitStockOrEtfOrderPrice.m; sourceTree = "<group>"; };
-		A9A8D0151B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeReviewOrderDetails.h; sourceTree = "<group>"; };
-		A9A8D0161B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeReviewOrderDetails.m; sourceTree = "<group>"; };
-		A9A8D0171B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeReviewResult.h; sourceTree = "<group>"; };
-		A9A8D0181B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeReviewResult.m; sourceTree = "<group>"; };
-		A9A8D0191B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeSession.h; sourceTree = "<group>"; };
-		A9A8D01A1B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeSession.m; sourceTree = "<group>"; };
-		A9A8D01B1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeSuccessResult.h; sourceTree = "<group>"; };
-		A9A8D01C1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeSuccessResult.m; sourceTree = "<group>"; };
-		A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TradeItIosEmsApi.xcodeproj; sourceTree = "<group>"; };
-		A9A8D0201B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = TradeItIosEmsApi.xcworkspace; sourceTree = "<group>"; };
-		A9A8D0221B4EFF87000207B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockOrEtfTradeTest.m; sourceTree = "<group>"; };
 		A9A8D0C21B4F0F56000207B9 /* TradeItIosTicketSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8D0C51B4F0F56000207B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A8D1301B504408000207B9 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
@@ -434,6 +260,85 @@
 		A9C002BE1B710853007D15F5 /* TicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSession.m; path = TradeItTicketViewSDK/TicketSession.m; sourceTree = "<group>"; };
 		A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItTicketControllerResult.h; sourceTree = "<group>"; };
 		A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItTicketControllerResult.m; sourceTree = "<group>"; };
+		A9C002D81B7264A4007D15F5 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
+		A9C002D91B7264A4007D15F5 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
+		A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
+		A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelArray.m; sourceTree = "<group>"; };
+		A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
+		A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
+		A9C002DE1B7264A4007D15F5 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
+		A9C002DF1B7264A4007D15F5 /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
+		A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
+		A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONModel.m"; sourceTree = "<group>"; };
+		A9C002E31B7264A4007D15F5 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
+		A9C002E51B7264A4007D15F5 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
+		A9C002E61B7264A4007D15F5 /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
+		A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
+		A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
+		A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
+		A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
+		A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
+		A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
+		A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
+		A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		A9C002FC1B7264A4007D15F5 /* TradeItAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItAuthenticationInfo.h; sourceTree = "<group>"; };
+		A9C002FD1B7264A4007D15F5 /* TradeItAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItAuthenticationInfo.m; sourceTree = "<group>"; };
+		A9C002FE1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItBrokerListSuccessResult.h; sourceTree = "<group>"; };
+		A9C002FF1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItBrokerListSuccessResult.m; sourceTree = "<group>"; };
+		A9C003001B7264A4007D15F5 /* TradeItCloseSessionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItCloseSessionRequest.h; sourceTree = "<group>"; };
+		A9C003011B7264A4007D15F5 /* TradeItCloseSessionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItCloseSessionRequest.m; sourceTree = "<group>"; };
+		A9C003021B7264A4007D15F5 /* TradeItEmsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItEmsUtils.h; sourceTree = "<group>"; };
+		A9C003031B7264A4007D15F5 /* TradeItEmsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItEmsUtils.m; sourceTree = "<group>"; };
+		A9C003041B7264A4007D15F5 /* TradeItErrorResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItErrorResult.h; sourceTree = "<group>"; };
+		A9C003051B7264A4007D15F5 /* TradeItErrorResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItErrorResult.m; sourceTree = "<group>"; };
+		A9C003061B7264A4007D15F5 /* TradeItInformationNeededResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItInformationNeededResult.h; sourceTree = "<group>"; };
+		A9C003071B7264A4007D15F5 /* TradeItInformationNeededResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItInformationNeededResult.m; sourceTree = "<group>"; };
+		A9C003081B7264A4007D15F5 /* TradeItIosEmsApiLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItIosEmsApiLib.h; sourceTree = "<group>"; };
+		A9C003091B7264A4007D15F5 /* TradeItMultipleAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItMultipleAccountResult.h; sourceTree = "<group>"; };
+		A9C0030A1B7264A4007D15F5 /* TradeItMultipleAccountResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItMultipleAccountResult.m; sourceTree = "<group>"; };
+		A9C0030B1B7264A4007D15F5 /* TradeItPlaceOrderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItPlaceOrderRequest.h; sourceTree = "<group>"; };
+		A9C0030C1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItPlaceOrderRequest.m; sourceTree = "<group>"; };
+		A9C0030D1B7264A4007D15F5 /* TradeItRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItRequest.h; sourceTree = "<group>"; };
+		A9C0030E1B7264A4007D15F5 /* TradeItRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItRequest.m; sourceTree = "<group>"; };
+		A9C0030F1B7264A4007D15F5 /* TradeItResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItResult.h; sourceTree = "<group>"; };
+		A9C003101B7264A4007D15F5 /* TradeItResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItResult.m; sourceTree = "<group>"; };
+		A9C003111B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSecurityQuestionRequest.h; sourceTree = "<group>"; };
+		A9C003121B7264A4007D15F5 /* TradeItSecurityQuestionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSecurityQuestionRequest.m; sourceTree = "<group>"; };
+		A9C003131B7264A4007D15F5 /* TradeItSecurityQuestionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSecurityQuestionResult.h; sourceTree = "<group>"; };
+		A9C003141B7264A4007D15F5 /* TradeItSecurityQuestionResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSecurityQuestionResult.m; sourceTree = "<group>"; };
+		A9C003151B7264A4007D15F5 /* TradeItSelectAccountRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSelectAccountRequest.h; sourceTree = "<group>"; };
+		A9C003161B7264A4007D15F5 /* TradeItSelectAccountRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSelectAccountRequest.m; sourceTree = "<group>"; };
+		A9C003171B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfAuthenticateAndTradeRequest.h; sourceTree = "<group>"; };
+		A9C003181B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfAuthenticateAndTradeRequest.m; sourceTree = "<group>"; };
+		A9C003191B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfBrokerListRequest.h; sourceTree = "<group>"; };
+		A9C0031A1B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfBrokerListRequest.m; sourceTree = "<group>"; };
+		A9C0031B1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfOrderInfo.h; sourceTree = "<group>"; };
+		A9C0031C1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfOrderInfo.m; sourceTree = "<group>"; };
+		A9C0031D1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeitStockOrEtfOrderPrice.h; sourceTree = "<group>"; };
+		A9C0031E1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeitStockOrEtfOrderPrice.m; sourceTree = "<group>"; };
+		A9C0031F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeReviewOrderDetails.h; sourceTree = "<group>"; };
+		A9C003201B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeReviewOrderDetails.m; sourceTree = "<group>"; };
+		A9C003211B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeReviewResult.h; sourceTree = "<group>"; };
+		A9C003221B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeReviewResult.m; sourceTree = "<group>"; };
+		A9C003231B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeSession.h; sourceTree = "<group>"; };
+		A9C003241B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeSession.m; sourceTree = "<group>"; };
+		A9C003251B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStockOrEtfTradeSuccessResult.h; sourceTree = "<group>"; };
+		A9C003261B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStockOrEtfTradeSuccessResult.m; sourceTree = "<group>"; };
+		A9C003271B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItSuccessAuthenticationResult.h; sourceTree = "<group>"; };
+		A9C003281B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItSuccessAuthenticationResult.m; sourceTree = "<group>"; };
+		A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItTypeDefs.h; sourceTree = "<group>"; };
+		A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialRequest.h; sourceTree = "<group>"; };
+		A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialRequest.m; sourceTree = "<group>"; };
+		A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialSession.h; sourceTree = "<group>"; };
+		A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialSession.m; sourceTree = "<group>"; };
+		A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TradeItIosEmsApi.xcodeproj; sourceTree = "<group>"; };
+		A9C003871B728552007D15F5 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		A9C003881B728552007D15F5 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		A9C003911B72A67E007D15F5 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		A9C003951B72A716007D15F5 /* DefaultLightTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultLightTheme.h; sourceTree = "<group>"; };
+		A9C003991B72A798007D15F5 /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
+		A9C0039A1B72A798007D15F5 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
+		A9C0039D1B72A983007D15F5 /* DefaultDarkTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultDarkTheme.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,7 +420,7 @@
 				A9A8CF5F1B4EFACB000207B9 /* TradeItIosTicketSDKTests */,
 				A9A8D0C31B4F0F56000207B9 /* FullViewResources */,
 				A9A8CF511B4EFACB000207B9 /* Products */,
-				A9A8CF9A1B4EFF86000207B9 /* TradeItIosEmsApi */,
+				A9C002D41B7264A4007D15F5 /* TradeItIosEmsApi */,
 			);
 			sourceTree = "<group>";
 		};
@@ -532,11 +437,13 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A9C0038D1B72A3A9007D15F5 /* Themes */,
 				A9C002B41B6EE3E9007D15F5 /* CalcViewBase */,
 				A9901A421B696C1900FCC83D /* AdvCalculator */,
 				A9A8D1251B502FCB000207B9 /* CalculatorScreen */,
 				A9B2D46C1B5D88ED008065E1 /* BrokerSelectView */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
+				A9C003861B72853E007D15F5 /* MBProgressHUD */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
 				A905D3241B668ADB006B0B8C /* EditViewController */,
 				A9A8D1281B503028000207B9 /* LoadingScreen */,
@@ -570,310 +477,6 @@
 				A9A8CF611B4EFACB000207B9 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A9A8CF9A1B4EFF86000207B9 /* TradeItIosEmsApi */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CF9E1B4EFF86000207B9 /* Pods */,
-				A9A8CFF81B4EFF87000207B9 /* TradeItIosEmsApi */,
-				A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */,
-				A9A8D0201B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace */,
-				A9A8D0211B4EFF87000207B9 /* TradeItIosEmsApiTests */,
-			);
-			name = TradeItIosEmsApi;
-			path = ../TradeItIosEmsApi;
-			sourceTree = "<group>";
-		};
-		A9A8CF9E1B4EFF86000207B9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CF9F1B4EFF86000207B9 /* Headers */,
-				A9A8CFBA1B4EFF86000207B9 /* JSONModel */,
-				A9A8CFD71B4EFF86000207B9 /* Local Podspecs */,
-				A9A8CFD81B4EFF86000207B9 /* Manifest.lock */,
-				A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */,
-				A9A8CFDC1B4EFF87000207B9 /* Target Support Files */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		A9A8CF9F1B4EFF86000207B9 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFA01B4EFF86000207B9 /* Private */,
-				A9A8CFAD1B4EFF86000207B9 /* Public */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		A9A8CFA01B4EFF86000207B9 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFA11B4EFF86000207B9 /* JSONModel */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		A9A8CFA11B4EFF86000207B9 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFA21B4EFF86000207B9 /* JSONAPI.h */,
-				A9A8CFA31B4EFF86000207B9 /* JSONHTTPClient.h */,
-				A9A8CFA41B4EFF86000207B9 /* JSONKeyMapper.h */,
-				A9A8CFA51B4EFF86000207B9 /* JSONModel+networking.h */,
-				A9A8CFA61B4EFF86000207B9 /* JSONModel.h */,
-				A9A8CFA71B4EFF86000207B9 /* JSONModelArray.h */,
-				A9A8CFA81B4EFF86000207B9 /* JSONModelClassProperty.h */,
-				A9A8CFA91B4EFF86000207B9 /* JSONModelError.h */,
-				A9A8CFAA1B4EFF86000207B9 /* JSONModelLib.h */,
-				A9A8CFAB1B4EFF86000207B9 /* JSONValueTransformer.h */,
-				A9A8CFAC1B4EFF86000207B9 /* NSArray+JSONModel.h */,
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9A8CFAD1B4EFF86000207B9 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFAE1B4EFF86000207B9 /* JSONModel */,
-			);
-			path = Public;
-			sourceTree = "<group>";
-		};
-		A9A8CFAE1B4EFF86000207B9 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFAF1B4EFF86000207B9 /* JSONAPI.h */,
-				A9A8CFB01B4EFF86000207B9 /* JSONHTTPClient.h */,
-				A9A8CFB11B4EFF86000207B9 /* JSONKeyMapper.h */,
-				A9A8CFB21B4EFF86000207B9 /* JSONModel+networking.h */,
-				A9A8CFB31B4EFF86000207B9 /* JSONModel.h */,
-				A9A8CFB41B4EFF86000207B9 /* JSONModelArray.h */,
-				A9A8CFB51B4EFF86000207B9 /* JSONModelClassProperty.h */,
-				A9A8CFB61B4EFF86000207B9 /* JSONModelError.h */,
-				A9A8CFB71B4EFF86000207B9 /* JSONModelLib.h */,
-				A9A8CFB81B4EFF86000207B9 /* JSONValueTransformer.h */,
-				A9A8CFB91B4EFF86000207B9 /* NSArray+JSONModel.h */,
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9A8CFBA1B4EFF86000207B9 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFBB1B4EFF86000207B9 /* JSONModel */,
-				A9A8CFD51B4EFF86000207B9 /* LICENSE_jsonmodel.txt */,
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9A8CFBB1B4EFF86000207B9 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFBC1B4EFF86000207B9 /* JSONModel */,
-				A9A8CFC51B4EFF86000207B9 /* JSONModelCategories */,
-				A9A8CFC81B4EFF86000207B9 /* JSONModelLib.h */,
-				A9A8CFC91B4EFF86000207B9 /* JSONModelNetworking */,
-				A9A8CFD01B4EFF86000207B9 /* JSONModelTransformations */,
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9A8CFBC1B4EFF86000207B9 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFBD1B4EFF86000207B9 /* JSONModel.h */,
-				A9A8CFBE1B4EFF86000207B9 /* JSONModel.m */,
-				A9A8CFBF1B4EFF86000207B9 /* JSONModelArray.h */,
-				A9A8CFC01B4EFF86000207B9 /* JSONModelArray.m */,
-				A9A8CFC11B4EFF86000207B9 /* JSONModelClassProperty.h */,
-				A9A8CFC21B4EFF86000207B9 /* JSONModelClassProperty.m */,
-				A9A8CFC31B4EFF86000207B9 /* JSONModelError.h */,
-				A9A8CFC41B4EFF86000207B9 /* JSONModelError.m */,
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9A8CFC51B4EFF86000207B9 /* JSONModelCategories */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFC61B4EFF86000207B9 /* NSArray+JSONModel.h */,
-				A9A8CFC71B4EFF86000207B9 /* NSArray+JSONModel.m */,
-			);
-			path = JSONModelCategories;
-			sourceTree = "<group>";
-		};
-		A9A8CFC91B4EFF86000207B9 /* JSONModelNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFCA1B4EFF86000207B9 /* JSONAPI.h */,
-				A9A8CFCB1B4EFF86000207B9 /* JSONAPI.m */,
-				A9A8CFCC1B4EFF86000207B9 /* JSONHTTPClient.h */,
-				A9A8CFCD1B4EFF86000207B9 /* JSONHTTPClient.m */,
-				A9A8CFCE1B4EFF86000207B9 /* JSONModel+networking.h */,
-				A9A8CFCF1B4EFF86000207B9 /* JSONModel+networking.m */,
-			);
-			path = JSONModelNetworking;
-			sourceTree = "<group>";
-		};
-		A9A8CFD01B4EFF86000207B9 /* JSONModelTransformations */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFD11B4EFF86000207B9 /* JSONKeyMapper.h */,
-				A9A8CFD21B4EFF86000207B9 /* JSONKeyMapper.m */,
-				A9A8CFD31B4EFF86000207B9 /* JSONValueTransformer.h */,
-				A9A8CFD41B4EFF86000207B9 /* JSONValueTransformer.m */,
-			);
-			path = JSONModelTransformations;
-			sourceTree = "<group>";
-		};
-		A9A8CFD71B4EFF86000207B9 /* Local Podspecs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Local Podspecs";
-			sourceTree = "<group>";
-		};
-		A9A8CFDA1B4EFF86000207B9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8D0611B4EFF87000207B9 /* libPods-TradeItIosEmsApi.a */,
-				A9A8D0631B4EFF87000207B9 /* libPods-TradeItIosEmsApi-JSONModel.a */,
-				A9A8D0651B4EFF87000207B9 /* libPods-TradeItIosEmsApiTests.a */,
-				A9A8D0671B4EFF87000207B9 /* libPods-TradeItIosEmsApiTests-JSONModel.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A9A8CFDC1B4EFF87000207B9 /* Target Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFDD1B4EFF87000207B9 /* Pods-TradeItIosEmsApi */,
-				A9A8CFE51B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel */,
-				A9A8CFEA1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests */,
-				A9A8CFF21B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel */,
-			);
-			path = "Target Support Files";
-			sourceTree = "<group>";
-		};
-		A9A8CFDD1B4EFF87000207B9 /* Pods-TradeItIosEmsApi */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFDF1B4EFF87000207B9 /* Pods-TradeItIosEmsApi-acknowledgements.plist */,
-				A9A8CFE01B4EFF87000207B9 /* Pods-TradeItIosEmsApi-dummy.m */,
-				A9A8CFE11B4EFF87000207B9 /* Pods-TradeItIosEmsApi-environment.h */,
-				A9A8CFE21B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh */,
-				A9A8CFE31B4EFF87000207B9 /* Pods-TradeItIosEmsApi.debug.xcconfig */,
-				A9A8CFE41B4EFF87000207B9 /* Pods-TradeItIosEmsApi.release.xcconfig */,
-			);
-			path = "Pods-TradeItIosEmsApi";
-			sourceTree = "<group>";
-		};
-		A9A8CFE51B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFE61B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-dummy.m */,
-				A9A8CFE71B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-prefix.pch */,
-				A9A8CFE81B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-Private.xcconfig */,
-				A9A8CFE91B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel.xcconfig */,
-			);
-			path = "Pods-TradeItIosEmsApi-JSONModel";
-			sourceTree = "<group>";
-		};
-		A9A8CFEA1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFEC1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-acknowledgements.plist */,
-				A9A8CFED1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m */,
-				A9A8CFEE1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-environment.h */,
-				A9A8CFEF1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-resources.sh */,
-				A9A8CFF01B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests.debug.xcconfig */,
-				A9A8CFF11B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests.release.xcconfig */,
-			);
-			path = "Pods-TradeItIosEmsApiTests";
-			sourceTree = "<group>";
-		};
-		A9A8CFF21B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFF31B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-dummy.m */,
-				A9A8CFF41B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-prefix.pch */,
-				A9A8CFF51B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-Private.xcconfig */,
-				A9A8CFF61B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel.xcconfig */,
-			);
-			path = "Pods-TradeItIosEmsApiTests-JSONModel";
-			sourceTree = "<group>";
-		};
-		A9A8CFF81B4EFF87000207B9 /* TradeItIosEmsApi */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8CFF91B4EFF87000207B9 /* TradeItAuthenticationInfo.h */,
-				A9A8CFFA1B4EFF87000207B9 /* TradeItAuthenticationInfo.m */,
-				A9A8CFFB1B4EFF87000207B9 /* TradeItCloseSessionRequest.h */,
-				A9A8CFFC1B4EFF87000207B9 /* TradeItCloseSessionRequest.m */,
-				A9A8CFFD1B4EFF87000207B9 /* TradeItErrorResult.h */,
-				A9A8CFFE1B4EFF87000207B9 /* TradeItErrorResult.m */,
-				A9A8CFFF1B4EFF87000207B9 /* TradeItInformationNeededResult.h */,
-				A9A8D0001B4EFF87000207B9 /* TradeItInformationNeededResult.m */,
-				A9A8D0011B4EFF87000207B9 /* TradeItMultipleAccountResult.h */,
-				A9A8D0021B4EFF87000207B9 /* TradeItMultipleAccountResult.m */,
-				A9A8D0031B4EFF87000207B9 /* TradeItPlaceOrderRequest.h */,
-				A9A8D0041B4EFF87000207B9 /* TradeItPlaceOrderRequest.m */,
-				A9A8D0051B4EFF87000207B9 /* TradeItRequest.h */,
-				A9A8D0061B4EFF87000207B9 /* TradeItRequest.m */,
-				A9A8D0071B4EFF87000207B9 /* TradeItResult.h */,
-				A9A8D0081B4EFF87000207B9 /* TradeItResult.m */,
-				A92567C71B595AD0008065BF /* TradeItEmsUtils.h */,
-				A92567C81B595AD0008065BF /* TradeItEmsUtils.m */,
-				A92567D41B595AFD008065BF /* TradeItTypeDefs.h */,
-				A92567D21B595AE7008065BF /* TradeItIosEmsApiLib.h */,
-				A9A8D0091B4EFF87000207B9 /* TradeItSecurityQuestionRequest.h */,
-				A9A8D00A1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m */,
-				A9A8D00B1B4EFF87000207B9 /* TradeItSecurityQuestionResult.h */,
-				A9A8D00C1B4EFF87000207B9 /* TradeItSecurityQuestionResult.m */,
-				A9A8D00D1B4EFF87000207B9 /* TradeItSelectAccountRequest.h */,
-				A9A8D00E1B4EFF87000207B9 /* TradeItSelectAccountRequest.m */,
-				A9A8D00F1B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */,
-				A9A8D0101B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */,
-				A9A8D0111B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.h */,
-				A9A8D0121B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m */,
-				A9A8D0131B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.h */,
-				A9A8D0141B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m */,
-				A9A8D0151B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.h */,
-				A9A8D0161B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m */,
-				A9A8D0171B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.h */,
-				A9A8D0181B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m */,
-				A9A8D0191B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.h */,
-				A9A8D01A1B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m */,
-				A9A8D01B1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.h */,
-				A9A8D01C1B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m */,
-				A905D1561B61727E006B0B8C /* TradeItSuccessAuthenticationResult.h */,
-				A905D15F1B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m */,
-				A92567D61B595B08008065BF /* TradeItVerifyCredentialRequest.h */,
-				A92567D71B595B08008065BF /* TradeItVerifyCredentialRequest.m */,
-				A92567D81B595B08008065BF /* TradeItVerifyCredentialSession.h */,
-				A92567D91B595B08008065BF /* TradeItVerifyCredentialSession.m */,
-			);
-			path = TradeItIosEmsApi;
-			sourceTree = "<group>";
-		};
-		A9A8D01E1B4EFF87000207B9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8D06C1B4EFF87000207B9 /* libTradeItIosEmsApi.a */,
-				A9A8D06E1B4EFF87000207B9 /* TradeItIosEmsApiTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A9A8D0211B4EFF87000207B9 /* TradeItIosEmsApiTests */ = {
-			isa = PBXGroup;
-			children = (
-				A9A8D0221B4EFF87000207B9 /* Info.plist */,
-				A9A8D0231B4EFF87000207B9 /* StockOrEtfTradeTest.m */,
-			);
-			path = TradeItIosEmsApiTests;
 			sourceTree = "<group>";
 		};
 		A9A8D0C31B4F0F56000207B9 /* FullViewResources */ = {
@@ -961,6 +564,220 @@
 			name = CalcViewBase;
 			sourceTree = "<group>";
 		};
+		A9C002D41B7264A4007D15F5 /* TradeItIosEmsApi */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002D61B7264A4007D15F5 /* JSONModel */,
+				A9C002F01B7264A4007D15F5 /* Pods */,
+				A9C002FB1B7264A4007D15F5 /* TradeItIosEmsApi */,
+				A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */,
+			);
+			name = TradeItIosEmsApi;
+			path = ../TradeItIosEmsApi;
+			sourceTree = "<group>";
+		};
+		A9C002D61B7264A4007D15F5 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002D71B7264A4007D15F5 /* JSONModel */,
+				A9C002E01B7264A4007D15F5 /* JSONModelCategories */,
+				A9C002E31B7264A4007D15F5 /* JSONModelLib.h */,
+				A9C002E41B7264A4007D15F5 /* JSONModelNetworking */,
+				A9C002EB1B7264A4007D15F5 /* JSONModelTransformations */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9C002D71B7264A4007D15F5 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002D81B7264A4007D15F5 /* JSONModel.h */,
+				A9C002D91B7264A4007D15F5 /* JSONModel.m */,
+				A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */,
+				A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */,
+				A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */,
+				A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */,
+				A9C002DE1B7264A4007D15F5 /* JSONModelError.h */,
+				A9C002DF1B7264A4007D15F5 /* JSONModelError.m */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9C002E01B7264A4007D15F5 /* JSONModelCategories */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */,
+				A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */,
+			);
+			path = JSONModelCategories;
+			sourceTree = "<group>";
+		};
+		A9C002E41B7264A4007D15F5 /* JSONModelNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002E51B7264A4007D15F5 /* JSONAPI.h */,
+				A9C002E61B7264A4007D15F5 /* JSONAPI.m */,
+				A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */,
+				A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */,
+				A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */,
+				A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */,
+			);
+			path = JSONModelNetworking;
+			sourceTree = "<group>";
+		};
+		A9C002EB1B7264A4007D15F5 /* JSONModelTransformations */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */,
+				A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */,
+				A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */,
+				A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */,
+			);
+			path = JSONModelTransformations;
+			sourceTree = "<group>";
+		};
+		A9C002F01B7264A4007D15F5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002F11B7264A4007D15F5 /* Headers */,
+				A9C002F51B7264A4007D15F5 /* JSONModel */,
+				A9C002F61B7264A4007D15F5 /* Local Podspecs */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A9C002F11B7264A4007D15F5 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002F21B7264A4007D15F5 /* Private */,
+				A9C002F31B7264A4007D15F5 /* Public */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		A9C002F21B7264A4007D15F5 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		A9C002F31B7264A4007D15F5 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002F41B7264A4007D15F5 /* JSONModel */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		A9C002F41B7264A4007D15F5 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9C002F51B7264A4007D15F5 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9C002F61B7264A4007D15F5 /* Local Podspecs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Local Podspecs";
+			sourceTree = "<group>";
+		};
+		A9C002FB1B7264A4007D15F5 /* TradeItIosEmsApi */ = {
+			isa = PBXGroup;
+			children = (
+				A9C002FC1B7264A4007D15F5 /* TradeItAuthenticationInfo.h */,
+				A9C002FD1B7264A4007D15F5 /* TradeItAuthenticationInfo.m */,
+				A9C002FE1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h */,
+				A9C002FF1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.m */,
+				A9C003001B7264A4007D15F5 /* TradeItCloseSessionRequest.h */,
+				A9C003011B7264A4007D15F5 /* TradeItCloseSessionRequest.m */,
+				A9C003021B7264A4007D15F5 /* TradeItEmsUtils.h */,
+				A9C003031B7264A4007D15F5 /* TradeItEmsUtils.m */,
+				A9C003041B7264A4007D15F5 /* TradeItErrorResult.h */,
+				A9C003051B7264A4007D15F5 /* TradeItErrorResult.m */,
+				A9C003061B7264A4007D15F5 /* TradeItInformationNeededResult.h */,
+				A9C003071B7264A4007D15F5 /* TradeItInformationNeededResult.m */,
+				A9C003081B7264A4007D15F5 /* TradeItIosEmsApiLib.h */,
+				A9C003091B7264A4007D15F5 /* TradeItMultipleAccountResult.h */,
+				A9C0030A1B7264A4007D15F5 /* TradeItMultipleAccountResult.m */,
+				A9C0030B1B7264A4007D15F5 /* TradeItPlaceOrderRequest.h */,
+				A9C0030C1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m */,
+				A9C0030D1B7264A4007D15F5 /* TradeItRequest.h */,
+				A9C0030E1B7264A4007D15F5 /* TradeItRequest.m */,
+				A9C0030F1B7264A4007D15F5 /* TradeItResult.h */,
+				A9C003101B7264A4007D15F5 /* TradeItResult.m */,
+				A9C003111B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h */,
+				A9C003121B7264A4007D15F5 /* TradeItSecurityQuestionRequest.m */,
+				A9C003131B7264A4007D15F5 /* TradeItSecurityQuestionResult.h */,
+				A9C003141B7264A4007D15F5 /* TradeItSecurityQuestionResult.m */,
+				A9C003151B7264A4007D15F5 /* TradeItSelectAccountRequest.h */,
+				A9C003161B7264A4007D15F5 /* TradeItSelectAccountRequest.m */,
+				A9C003171B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h */,
+				A9C003181B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m */,
+				A9C003191B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h */,
+				A9C0031A1B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.m */,
+				A9C0031B1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h */,
+				A9C0031C1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m */,
+				A9C0031D1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h */,
+				A9C0031E1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m */,
+				A9C0031F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h */,
+				A9C003201B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m */,
+				A9C003211B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h */,
+				A9C003221B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m */,
+				A9C003231B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h */,
+				A9C003241B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m */,
+				A9C003251B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h */,
+				A9C003261B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m */,
+				A9C003271B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h */,
+				A9C003281B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.m */,
+				A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */,
+				A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */,
+				A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */,
+				A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */,
+				A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */,
+			);
+			path = TradeItIosEmsApi;
+			sourceTree = "<group>";
+		};
+		A9C0032F1B7264A4007D15F5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A9C003811B7264A4007D15F5 /* libTradeItIosEmsApi.a */,
+				A9C003831B7264A4007D15F5 /* TradeItIosEmsApiTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A9C003861B72853E007D15F5 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A9C003871B728552007D15F5 /* MBProgressHUD.h */,
+				A9C003881B728552007D15F5 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		A9C0038D1B72A3A9007D15F5 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				A9C003911B72A67E007D15F5 /* Theme.h */,
+				A9C0039D1B72A983007D15F5 /* DefaultDarkTheme.h */,
+				A9C003951B72A716007D15F5 /* DefaultLightTheme.h */,
+				A9C003991B72A798007D15F5 /* ThemeManager.h */,
+				A9C0039A1B72A798007D15F5 /* ThemeManager.m */,
+			);
+			name = Themes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -968,51 +785,58 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
 				A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */,
 				A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */,
-				A9A8D0E61B4F1379000207B9 /* JSONModel.h in Headers */,
-				A9A8D0E71B4F13EA000207B9 /* JSONAPI.h in Headers */,
-				A9A8D0E81B4F13EA000207B9 /* JSONHTTPClient.h in Headers */,
-				A9A8D0E91B4F13EA000207B9 /* JSONKeyMapper.h in Headers */,
-				A9A8D0EA1B4F13EA000207B9 /* JSONModel+networking.h in Headers */,
-				A9A8D0EB1B4F13EA000207B9 /* JSONModelArray.h in Headers */,
-				A9A8D0EC1B4F13EA000207B9 /* JSONModelClassProperty.h in Headers */,
-				A9A8D0ED1B4F13EA000207B9 /* JSONModelError.h in Headers */,
-				A9A8D0EE1B4F13EA000207B9 /* JSONModelLib.h in Headers */,
-				A9A8D0EF1B4F13EA000207B9 /* JSONValueTransformer.h in Headers */,
-				A9A8D0F01B4F13EA000207B9 /* NSArray+JSONModel.h in Headers */,
-				A9A8D0D41B4F12B8000207B9 /* TradeItAuthenticationInfo.h in Headers */,
-				A9A8D0D51B4F12B8000207B9 /* TradeItCloseSessionRequest.h in Headers */,
-				A9A8D0D61B4F12B8000207B9 /* TradeItErrorResult.h in Headers */,
-				A9A8D0D71B4F12B8000207B9 /* TradeItInformationNeededResult.h in Headers */,
-				A9A8D0D81B4F12B8000207B9 /* TradeItMultipleAccountResult.h in Headers */,
-				A9A8D0D91B4F12B8000207B9 /* TradeItPlaceOrderRequest.h in Headers */,
-				A9A8D0DA1B4F12B8000207B9 /* TradeItRequest.h in Headers */,
-				A9A8D0DB1B4F12B8000207B9 /* TradeItResult.h in Headers */,
-				A9A8D0DC1B4F12B8000207B9 /* TradeItSecurityQuestionRequest.h in Headers */,
-				A9A8D0DD1B4F12B8000207B9 /* TradeItSecurityQuestionResult.h in Headers */,
-				A9A8D0DE1B4F12B8000207B9 /* TradeItSelectAccountRequest.h in Headers */,
-				A9A8D0DF1B4F12B8000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */,
-				A9A8D0E01B4F12B8000207B9 /* TradeItStockOrEtfOrderInfo.h in Headers */,
-				A9A8D0E11B4F12B8000207B9 /* TradeitStockOrEtfOrderPrice.h in Headers */,
-				A9A8D0E21B4F12B8000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.h in Headers */,
-				A9A8D0E31B4F12B8000207B9 /* TradeItStockOrEtfTradeReviewResult.h in Headers */,
-				A9A8D0E41B4F12B8000207B9 /* TradeItStockOrEtfTradeSession.h in Headers */,
-				A9A8D0E51B4F12B8000207B9 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
-				A92567D51B595AFD008065BF /* TradeItTypeDefs.h in Headers */,
-				A92567DC1B595B08008065BF /* TradeItVerifyCredentialSession.h in Headers */,
-				A92567D31B595AE7008065BF /* TradeItIosEmsApiLib.h in Headers */,
+				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
+				A9C0033F1B7264A4007D15F5 /* JSONAPI.h in Headers */,
+				A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */,
+				A9C003381B7264A4007D15F5 /* JSONModelClassProperty.h in Headers */,
+				A9C003361B7264A4007D15F5 /* JSONModelArray.h in Headers */,
+				A9C0033E1B7264A4007D15F5 /* JSONModelLib.h in Headers */,
+				A9C003451B7264A4007D15F5 /* JSONKeyMapper.h in Headers */,
+				A9C003431B7264A4007D15F5 /* JSONModel+networking.h in Headers */,
+				A9C003341B7264A4007D15F5 /* JSONModel.h in Headers */,
+				A9C0033A1B7264A4007D15F5 /* JSONModelError.h in Headers */,
+				A9C003471B7264A4007D15F5 /* JSONValueTransformer.h in Headers */,
+				A9C003411B7264A4007D15F5 /* JSONHTTPClient.h in Headers */,
+				A9C0033C1B7264A4007D15F5 /* NSArray+JSONModel.h in Headers */,
+				A9C003691B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h in Headers */,
+				A9C003561B7264A4007D15F5 /* TradeItIosEmsApiLib.h in Headers */,
+				A9C0035F1B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h in Headers */,
+				A9C0035D1B7264A4007D15F5 /* TradeItResult.h in Headers */,
+				A9C003771B7264A4007D15F5 /* TradeItTypeDefs.h in Headers */,
+				A9C003591B7264A4007D15F5 /* TradeItPlaceOrderRequest.h in Headers */,
+				A9C003631B7264A4007D15F5 /* TradeItSelectAccountRequest.h in Headers */,
+				A9C003781B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h in Headers */,
+				A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */,
+				A9C0036D1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.h in Headers */,
+				A9C003501B7264A4007D15F5 /* TradeItEmsUtils.h in Headers */,
+				A9C003521B7264A4007D15F5 /* TradeItErrorResult.h in Headers */,
+				A9C003891B728552007D15F5 /* MBProgressHUD.h in Headers */,
+				A9C003611B7264A4007D15F5 /* TradeItSecurityQuestionResult.h in Headers */,
+				A9C003541B7264A4007D15F5 /* TradeItInformationNeededResult.h in Headers */,
+				A9C003711B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.h in Headers */,
+				A9C0036B1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h in Headers */,
+				A9C003751B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h in Headers */,
+				A9C0035B1B7264A4007D15F5 /* TradeItRequest.h in Headers */,
+				A9C0036F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h in Headers */,
+				A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
+				A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */,
+				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */,
+				A9C003971B72A716007D15F5 /* DefaultLightTheme.h in Headers */,
+				A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */,
+				A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */,
+				A9C003931B72A67E007D15F5 /* Theme.h in Headers */,
+				A9C003651B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */,
+				A9C003671B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h in Headers */,
+				A9C0034E1B7264A4007D15F5 /* TradeItCloseSessionRequest.h in Headers */,
 				A9C002B31B6ACD90007D15F5 /* AdvCalculatorViewController.h in Headers */,
 				A9901A991B6AA4A800FCC83D /* AdvCalcTextField.h in Headers */,
 				A905D3211B629D76006B0B8C /* Keychain.h in Headers */,
 				A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */,
-				A92567C91B595AD0008065BF /* TradeItEmsUtils.h in Headers */,
 				A93B3C4E1B5464BC00373E1B /* CustomIOSAlertView.h in Headers */,
 				A905D3271B668B06006B0B8C /* EditScreenViewController.h in Headers */,
-				A905D1571B61727E006B0B8C /* TradeItSuccessAuthenticationResult.h in Headers */,
 				A9B2D4771B5EA92F008065E1 /* BrokerSelectDetailViewController.h in Headers */,
-				A92567DA1B595B08008065BF /* TradeItVerifyCredentialRequest.h in Headers */,
 				A9C002A31B6ACA86007D15F5 /* TradeItTicket.h in Headers */,
 				A9B2D46F1B5D8929008065E1 /* BrokerSelectViewController.h in Headers */,
 				A9C002BC1B6FC507007D15F5 /* BaseCalculatorViewController.h in Headers */,
@@ -1113,12 +937,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = A9A8CFDA1B4EFF86000207B9 /* Products */;
-					ProjectRef = A9A8CFD91B4EFF86000207B9 /* Pods.xcodeproj */;
-				},
-				{
-					ProductGroup = A9A8D01E1B4EFF87000207B9 /* Products */;
-					ProjectRef = A9A8D01D1B4EFF87000207B9 /* TradeItIosEmsApi.xcodeproj */;
+					ProductGroup = A9C0032F1B7264A4007D15F5 /* Products */;
+					ProjectRef = A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1132,46 +952,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A9A8D0611B4EFF87000207B9 /* libPods-TradeItIosEmsApi.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-TradeItIosEmsApi.a";
-			remoteRef = A9A8D0601B4EFF87000207B9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A9A8D0631B4EFF87000207B9 /* libPods-TradeItIosEmsApi-JSONModel.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-TradeItIosEmsApi-JSONModel.a";
-			remoteRef = A9A8D0621B4EFF87000207B9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A9A8D0651B4EFF87000207B9 /* libPods-TradeItIosEmsApiTests.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-TradeItIosEmsApiTests.a";
-			remoteRef = A9A8D0641B4EFF87000207B9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A9A8D0671B4EFF87000207B9 /* libPods-TradeItIosEmsApiTests-JSONModel.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-TradeItIosEmsApiTests-JSONModel.a";
-			remoteRef = A9A8D0661B4EFF87000207B9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A9A8D06C1B4EFF87000207B9 /* libTradeItIosEmsApi.a */ = {
+		A9C003811B7264A4007D15F5 /* libTradeItIosEmsApi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libTradeItIosEmsApi.a;
-			remoteRef = A9A8D06B1B4EFF87000207B9 /* PBXContainerItemProxy */;
+			remoteRef = A9C003801B7264A4007D15F5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A9A8D06E1B4EFF87000207B9 /* TradeItIosEmsApiTests.xctest */ = {
+		A9C003831B7264A4007D15F5 /* TradeItIosEmsApiTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = TradeItIosEmsApiTests.xctest;
-			remoteRef = A9A8D06D1B4EFF87000207B9 /* PBXContainerItemProxy */;
+			remoteRef = A9C003821B7264A4007D15F5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1181,17 +973,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8D03E1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-acknowledgements.plist in Resources */,
-				A9A8D0331B4EFF87000207B9 /* Manifest.lock in Resources */,
-				A9A8D0311B4EFF87000207B9 /* LICENSE_jsonmodel.txt in Resources */,
-				A9A8D0351B4EFF87000207B9 /* Pods-TradeItIosEmsApi-acknowledgements.plist in Resources */,
-				A9A8D0401B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-resources.sh in Resources */,
-				A9A8D05A1B4EFF87000207B9 /* Info.plist in Resources */,
-				A9A8D0591B4EFF87000207B9 /* TradeItIosEmsApi.xcworkspace in Resources */,
 				A9A8CF911B4EFDBB000207B9 /* Info.plist in Resources */,
 				A9A8CF901B4EFDBB000207B9 /* Info 2.plist in Resources */,
-				A9A8D0371B4EFF87000207B9 /* Pods-TradeItIosEmsApi-resources.sh in Resources */,
-				A9A8D05B1B4EFF87000207B9 /* StockOrEtfTradeTest.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1245,55 +1028,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8D1011B4F1A3E000207B9 /* JSONModel.m in Sources */,
-				A9A8D1021B4F1A3E000207B9 /* JSONModelArray.m in Sources */,
+				A9C0035E1B7264A4007D15F5 /* TradeItResult.m in Sources */,
+				A9C003701B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m in Sources */,
+				A9C003791B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m in Sources */,
+				A9C003661B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
+				A9C003741B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */,
 				A9C002BB1B6FC507007D15F5 /* BaseCalculatorViewController.m in Sources */,
-				A9A8D1031B4F1A3E000207B9 /* JSONModelClassProperty.m in Sources */,
-				A92567CA1B595AD0008065BF /* TradeItEmsUtils.m in Sources */,
+				A9C003601B7264A4007D15F5 /* TradeItSecurityQuestionRequest.m in Sources */,
+				A9C003531B7264A4007D15F5 /* TradeItErrorResult.m in Sources */,
+				A9C0034D1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.m in Sources */,
 				A9C002C01B710853007D15F5 /* TicketSession.m in Sources */,
-				A9A8D1041B4F1A3E000207B9 /* JSONModelError.m in Sources */,
-				A9A8D1061B4F1A3E000207B9 /* JSONAPI.m in Sources */,
-				A9A8D1071B4F1A3E000207B9 /* JSONHTTPClient.m in Sources */,
-				A9A8D1081B4F1A3E000207B9 /* JSONModel+networking.m in Sources */,
-				A9A8D1091B4F1A3E000207B9 /* JSONKeyMapper.m in Sources */,
-				A9A8D1051B4F1A3E000207B9 /* NSArray+JSONModel.m in Sources */,
-				A9A8D10A1B4F1A3E000207B9 /* JSONValueTransformer.m in Sources */,
-				A92567DB1B595B08008065BF /* TradeItVerifyCredentialRequest.m in Sources */,
 				A9A8D0FF1B4F19D5000207B9 /* TradeItTicket.m in Sources */,
+				A9C003721B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m in Sources */,
+				A9C0035C1B7264A4007D15F5 /* TradeItRequest.m in Sources */,
+				A9C003551B7264A4007D15F5 /* TradeItInformationNeededResult.m in Sources */,
 				A9B2D4781B5EA92F008065E1 /* BrokerSelectDetailViewController.m in Sources */,
-				A9A8D10B1B4F1A3E000207B9 /* TradeItAuthenticationInfo.m in Sources */,
-				A9A8D10C1B4F1A3E000207B9 /* TradeItCloseSessionRequest.m in Sources */,
-				A9A8D10D1B4F1A3E000207B9 /* TradeItErrorResult.m in Sources */,
-				A9A8D10E1B4F1A3E000207B9 /* TradeItInformationNeededResult.m in Sources */,
-				A9A8D10F1B4F1A3E000207B9 /* TradeItMultipleAccountResult.m in Sources */,
-				A9A8D1101B4F1A3E000207B9 /* TradeItPlaceOrderRequest.m in Sources */,
-				A9A8D1111B4F1A3E000207B9 /* TradeItRequest.m in Sources */,
-				A9A8D1121B4F1A3E000207B9 /* TradeItResult.m in Sources */,
-				A9A8D1131B4F1A3E000207B9 /* TradeItSecurityQuestionRequest.m in Sources */,
 				A9901A9A1B6AA4A800FCC83D /* AdvCalcTextField.m in Sources */,
-				A9A8D1141B4F1A3E000207B9 /* TradeItSecurityQuestionResult.m in Sources */,
-				A9A8D1151B4F1A3E000207B9 /* TradeItSelectAccountRequest.m in Sources */,
-				A905D1601B6172A1006B0B8C /* TradeItSuccessAuthenticationResult.m in Sources */,
-				A9A8D1161B4F1A3E000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
+				A9C003371B7264A4007D15F5 /* JSONModelArray.m in Sources */,
+				A9C0034F1B7264A4007D15F5 /* TradeItCloseSessionRequest.m in Sources */,
 				A9C002B21B6ACD90007D15F5 /* AdvCalculatorViewController.m in Sources */,
-				A9A8D1171B4F1A3E000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */,
-				A9A8D1181B4F1A3E000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */,
-				A9A8D1191B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
-				A9A8D11A1B4F1A3E000207B9 /* TradeItStockOrEtfTradeReviewResult.m in Sources */,
-				A92567DD1B595B08008065BF /* TradeItVerifyCredentialSession.m in Sources */,
 				A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */,
-				A9A8D11B1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSession.m in Sources */,
-				A9A8D11C1B4F1A3E000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */,
+				A9C003401B7264A4007D15F5 /* JSONAPI.m in Sources */,
 				A905D3221B629D76006B0B8C /* Keychain.m in Sources */,
+				A9C003581B7264A4007D15F5 /* TradeItMultipleAccountResult.m in Sources */,
 				A9B2D4701B5D8929008065E1 /* BrokerSelectViewController.m in Sources */,
+				A9C0038A1B728552007D15F5 /* MBProgressHUD.m in Sources */,
+				A9C003481B7264A4007D15F5 /* JSONValueTransformer.m in Sources */,
 				A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */,
+				A9C003641B7264A4007D15F5 /* TradeItSelectAccountRequest.m in Sources */,
+				A9C003511B7264A4007D15F5 /* TradeItEmsUtils.m in Sources */,
+				A9C0039C1B72A798007D15F5 /* ThemeManager.m in Sources */,
+				A9C003461B7264A4007D15F5 /* JSONKeyMapper.m in Sources */,
 				A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */,
+				A9C003351B7264A4007D15F5 /* JSONModel.m in Sources */,
+				A9C0034B1B7264A4007D15F5 /* TradeItAuthenticationInfo.m in Sources */,
 				A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */,
+				A9C0036C1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m in Sources */,
+				A9C0036A1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m in Sources */,
+				A9C003391B7264A4007D15F5 /* JSONModelClassProperty.m in Sources */,
 				A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */,
+				A9C0033D1B7264A4007D15F5 /* NSArray+JSONModel.m in Sources */,
+				A9C0033B1B7264A4007D15F5 /* JSONModelError.m in Sources */,
 				A905D3281B668B06006B0B8C /* EditScreenViewController.m in Sources */,
+				A9C003621B7264A4007D15F5 /* TradeItSecurityQuestionResult.m in Sources */,
+				A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */,
+				A9C0036E1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
+				A9C003421B7264A4007D15F5 /* JSONHTTPClient.m in Sources */,
+				A9C003441B7264A4007D15F5 /* JSONModel+networking.m in Sources */,
 				A9A8D0FD1B4F19D5000207B9 /* ReviewScreenViewController.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */,
+				A9C0035A1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m in Sources */,
 				A9C002BF1B710853007D15F5 /* TradeItIosTicketSDK.m in Sources */,
+				A9C003681B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.m in Sources */,
+				A9C003761B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.m in Sources */,
 				A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1302,45 +1089,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8D0291B4EFF87000207B9 /* JSONModelClassProperty.m in Sources */,
-				A9A8D02B1B4EFF87000207B9 /* NSArray+JSONModel.m in Sources */,
 				A9A8CF951B4EFDBB000207B9 /* ReviewScreenViewController.m in Sources */,
-				A9A8D0511B4EFF87000207B9 /* TradeItSelectAccountRequest.m in Sources */,
-				A9A8D04A1B4EFF87000207B9 /* TradeItInformationNeededResult.m in Sources */,
-				A9A8D0471B4EFF87000207B9 /* TradeItAuthenticationInfo.m in Sources */,
-				A9A8D0431B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-JSONModel-dummy.m in Sources */,
-				A9A8D04B1B4EFF87000207B9 /* TradeItMultipleAccountResult.m in Sources */,
-				A9A8D0301B4EFF87000207B9 /* JSONValueTransformer.m in Sources */,
-				A9A8D0581B4EFF87000207B9 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */,
 				A9A8CF8D1B4EFDBB000207B9 /* CalculatorViewController.m in Sources */,
 				A9A8CF961B4EFDBB000207B9 /* SuccessViewController.m in Sources */,
-				A9A8D0521B4EFF87000207B9 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
-				A9A8D0531B4EFF87000207B9 /* TradeItStockOrEtfOrderInfo.m in Sources */,
-				A9A8D0541B4EFF87000207B9 /* TradeitStockOrEtfOrderPrice.m in Sources */,
 				A9A8CF8C1B4EFDBB000207B9 /* CalculatorRowLabel.m in Sources */,
-				A9A8D0551B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
-				A9A8D03F1B4EFF87000207B9 /* Pods-TradeItIosEmsApiTests-dummy.m in Sources */,
-				A9A8D02C1B4EFF87000207B9 /* JSONAPI.m in Sources */,
 				A9A8CF971B4EFDBB000207B9 /* TradeItTicket.m in Sources */,
-				A9A8D03A1B4EFF87000207B9 /* Pods-TradeItIosEmsApi-JSONModel-dummy.m in Sources */,
-				A9A8D0561B4EFF87000207B9 /* TradeItStockOrEtfTradeReviewResult.m in Sources */,
-				A9A8D0491B4EFF87000207B9 /* TradeItErrorResult.m in Sources */,
-				A9A8D02A1B4EFF87000207B9 /* JSONModelError.m in Sources */,
-				A9A8D0271B4EFF87000207B9 /* JSONModel.m in Sources */,
-				A9A8D02E1B4EFF87000207B9 /* JSONModel+networking.m in Sources */,
-				A9A8D0361B4EFF87000207B9 /* Pods-TradeItIosEmsApi-dummy.m in Sources */,
-				A9A8D02D1B4EFF87000207B9 /* JSONHTTPClient.m in Sources */,
-				A9A8D0281B4EFF87000207B9 /* JSONModelArray.m in Sources */,
-				A9A8D0571B4EFF87000207B9 /* TradeItStockOrEtfTradeSession.m in Sources */,
-				A9A8D02F1B4EFF87000207B9 /* JSONKeyMapper.m in Sources */,
-				A9A8D0501B4EFF87000207B9 /* TradeItSecurityQuestionResult.m in Sources */,
-				A9A8D04E1B4EFF87000207B9 /* TradeItResult.m in Sources */,
-				A9A8D04C1B4EFF87000207B9 /* TradeItPlaceOrderRequest.m in Sources */,
 				A9A8CF931B4EFDBB000207B9 /* LoadingScreenViewController.m in Sources */,
 				A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */,
-				A9A8D04D1B4EFF87000207B9 /* TradeItRequest.m in Sources */,
-				A9A8D04F1B4EFF87000207B9 /* TradeItSecurityQuestionRequest.m in Sources */,
-				A9A8D0481B4EFF87000207B9 /* TradeItCloseSessionRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

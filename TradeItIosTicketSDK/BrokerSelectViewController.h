@@ -10,8 +10,9 @@
 #import "TicketSession.h"
 #import "TradeItTicket.h"
 #import "BrokerSelectDetailViewController.h"
+#import "MBProgressHUD.h"
 
-@interface BrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface BrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property TicketSession * tradeSession;
 @property BOOL editMode;

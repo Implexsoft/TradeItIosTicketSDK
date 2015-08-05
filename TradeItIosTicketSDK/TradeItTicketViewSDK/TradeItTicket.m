@@ -107,7 +107,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
                           @[@"E*Trade",@"Etrade"],
                           @[@"Fidelity",@"Fidelity"],
                           @[@"Scottrade",@"Scottrade"],
-                          @[@"Tradier",@"Tradier"],
+                          @[@"Tradier Brokerage",@"Tradier"],
                           @[@"Interactive Brokers",@"IB"]
                           ];
     
@@ -243,6 +243,27 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 +(void) showTicket:(TicketSession *) tradeSession {
+    //Get brokers
+    [tradeSession asyncGetBrokerListWithCompletionBlock:^(NSArray *brokerList){
+        if(brokerList == nil) {
+            tradeSession.brokerList = [TradeItTicket getAvailableBrokers:tradeSession];
+        } else {
+            NSMutableArray * brokers = [[NSMutableArray alloc] init];
+            
+            if([tradeSession debugMode]) {
+                NSArray * dummy  =  @[@"Dummy",@"Dummy"];
+                [brokers addObject:dummy];
+            }
+            
+            for (NSDictionary * broker in brokerList) {
+                NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
+                [brokers addObject:entry];
+            }
+            
+            tradeSession.brokerList = (NSArray *) brokers;
+        }
+    }];
+    
     //Get Resource Bundle
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
@@ -264,6 +285,8 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
         } else {
             tradeSession.calcScreenStoryboardId = startingView;
         }
+    } else {
+        tradeSession.calcScreenStoryboardId = tradeSession.calcScreenStoryboardId != nil ? tradeSession.calcScreenStoryboardId : @"initalCalculatorController";
     }
     
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];

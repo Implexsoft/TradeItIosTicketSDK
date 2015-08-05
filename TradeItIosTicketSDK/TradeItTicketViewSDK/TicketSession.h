@@ -34,4 +34,6 @@
 
 @property TradeItTicketControllerResult * resultContainer;
 
+@property NSArray * brokerList;
+
 @end

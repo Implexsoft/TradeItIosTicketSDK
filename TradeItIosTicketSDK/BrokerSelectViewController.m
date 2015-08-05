@@ -18,17 +18,57 @@ static NSString * CellIdentifier = @"BrokerCell";
 -(void) viewDidLoad {
     [super viewDidLoad];
     
-    brokers = [TradeItTicket getAvailableBrokers:self.tradeSession];
+    brokers = self.tradeSession.brokerList;
     linkedBrokers = [TradeItTicket getLinkedBrokersList];
     
     UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, -8, 0, 0);
+    
+    if([brokers count] < 1){
+        [self showLoadingAndWait];
+    }
 }
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+-(void) showLoadingAndWait {
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        int cycles = 0;
+        
+        while([self.tradeSession.brokerList count] < 1 && cycles < 10) {
+            sleep(1);
+            cycles++;
+        }
+        
+        if([self.tradeSession.brokerList count] < 1) {
+            UIAlertView * alert;
+            alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            alert.alertViewStyle = UIAlertViewStyleDefault;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [alert show];
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                brokers = self.tradeSession.brokerList;
+                [self.tableView reloadData];
+                
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }
+    });
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [TradeItTicket returnToParentApp:self.tradeSession];
 }
 
 #pragma mark - Table view data source
