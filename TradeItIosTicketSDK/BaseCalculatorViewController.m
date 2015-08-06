@@ -49,7 +49,7 @@
 
 -(void) promptTouchId {
     LAContext * myContext = [[LAContext alloc] init];
-    NSString * myLocalizedReasonString = @"Touch ID Test to show Touch ID working in a custom app";
+    NSString * myLocalizedReasonString = @"Enable Broker Login to Trade";
     
     [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
               localizedReason:myLocalizedReasonString
