@@ -279,14 +279,14 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
             if(tradeSession.calcScreenStoryboardId != nil) {
                 startingView = tradeSession.calcScreenStoryboardId;
             } else {
-                tradeSession.calcScreenStoryboardId = @"initalCalculatorController";
-                startingView = @"initalCalculatorController";
+                tradeSession.calcScreenStoryboardId = @"advCalculatorController";
+                startingView = @"advCalculatorController";
             }
         } else {
             tradeSession.calcScreenStoryboardId = startingView;
         }
     } else {
-        tradeSession.calcScreenStoryboardId = tradeSession.calcScreenStoryboardId != nil ? tradeSession.calcScreenStoryboardId : @"initalCalculatorController";
+        tradeSession.calcScreenStoryboardId = tradeSession.calcScreenStoryboardId != nil ? tradeSession.calcScreenStoryboardId : @"advCalculatorController";
     }
     
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
