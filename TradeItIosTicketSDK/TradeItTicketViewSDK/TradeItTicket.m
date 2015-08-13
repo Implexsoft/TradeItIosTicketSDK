@@ -311,7 +311,9 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 
 +(void) returnToParentApp:(TicketSession *)tradeSession {
     [[tradeSession parentView] dismissViewControllerAnimated:NO completion:^{
-        tradeSession.callback(tradeSession.resultContainer);
+        if(tradeSession.callback) {
+            tradeSession.callback(tradeSession.resultContainer);
+        }
     }];
 }
 
