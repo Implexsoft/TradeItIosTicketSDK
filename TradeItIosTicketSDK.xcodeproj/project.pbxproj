@@ -1163,7 +1163,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.1;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1204,7 +1204,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.1;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1278,7 +1278,7 @@
 		A9A8D0B91B4F0AB1000207B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.4;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1286,7 +1286,7 @@
 		A9A8D0BA1B4F0AB1000207B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.4;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
