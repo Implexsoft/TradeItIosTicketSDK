@@ -4,7 +4,7 @@
 // Created by Matej Bukovinski on 2.4.09.
 //
 
-#import "MBProgressHUD.h"
+#import "TTSDKMBProgressHUD.h"
 #import <tgmath.h>
 
 
@@ -54,7 +54,7 @@ static const CGFloat kLabelFontSize = 16.f;
 static const CGFloat kDetailsLabelFontSize = 12.f;
 
 
-@interface MBProgressHUD () {
+@interface TTSDKMBProgressHUD () {
 	BOOL useAnimation;
 	SEL methodForExecution;
 	id targetForExecution;
@@ -73,7 +73,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 @end
 
 
-@implementation MBProgressHUD
+@implementation TTSDKMBProgressHUD
 
 #pragma mark - Properties
 
@@ -113,7 +113,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 #pragma mark - Class methods
 
 + (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
-	MBProgressHUD *hud = [[self alloc] initWithView:view];
+	TTSDKMBProgressHUD *hud = [[self alloc] initWithView:view];
 	hud.removeFromSuperViewOnHide = YES;
 	[view addSubview:hud];
 	[hud show:animated];
@@ -121,7 +121,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 + (BOOL)hideHUDForView:(UIView *)view animated:(BOOL)animated {
-	MBProgressHUD *hud = [self HUDForView:view];
+	TTSDKMBProgressHUD *hud = [self HUDForView:view];
 	if (hud != nil) {
 		hud.removeFromSuperViewOnHide = YES;
 		[hud hide:animated];
@@ -131,8 +131,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 + (NSUInteger)hideAllHUDsForView:(UIView *)view animated:(BOOL)animated {
-	NSArray *huds = [MBProgressHUD allHUDsForView:view];
-	for (MBProgressHUD *hud in huds) {
+	NSArray *huds = [TTSDKMBProgressHUD allHUDsForView:view];
+	for (TTSDKMBProgressHUD *hud in huds) {
 		hud.removeFromSuperViewOnHide = YES;
 		[hud hide:animated];
 	}
@@ -143,7 +143,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
 	for (UIView *subview in subviewsEnum) {
 		if ([subview isKindOfClass:self]) {
-			return (MBProgressHUD *)subview;
+			return (TTSDKMBProgressHUD *)subview;
 		}
 	}
 	return nil;
@@ -476,7 +476,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 - (void)updateIndicators {
 	
 	BOOL isActivityIndicator = [indicator isKindOfClass:[UIActivityIndicatorView class]];
-	BOOL isRoundIndicator = [indicator isKindOfClass:[MBRoundProgressView class]];
+	BOOL isRoundIndicator = [indicator isKindOfClass:[TTSDKMBRoundProgressView class]];
 	
 	if (mode == MBProgressHUDModeIndeterminate) {
 		if (!isActivityIndicator) {
@@ -494,18 +494,18 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	else if (mode == MBProgressHUDModeDeterminateHorizontalBar) {
 		// Update to bar determinate indicator
 		[indicator removeFromSuperview];
-		self.indicator = MB_AUTORELEASE([[MBBarProgressView alloc] init]);
+		self.indicator = MB_AUTORELEASE([[TTSDKMBBarProgressView alloc] init]);
 		[self addSubview:indicator];
 	}
 	else if (mode == MBProgressHUDModeDeterminate || mode == MBProgressHUDModeAnnularDeterminate) {
 		if (!isRoundIndicator) {
 			// Update to determinante indicator
 			[indicator removeFromSuperview];
-			self.indicator = MB_AUTORELEASE([[MBRoundProgressView alloc] init]);
+			self.indicator = MB_AUTORELEASE([[TTSDKMBRoundProgressView alloc] init]);
 			[self addSubview:indicator];
 		}
 		if (mode == MBProgressHUDModeAnnularDeterminate) {
-			[(MBRoundProgressView *)indicator setAnnular:YES];
+			[(TTSDKMBRoundProgressView *)indicator setAnnular:YES];
 		}
 	} 
 	else if (mode == MBProgressHUDModeCustomView && customView != indicator) {
@@ -776,7 +776,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 @end
 
 
-@implementation MBRoundProgressView
+@implementation TTSDKMBRoundProgressView
 
 #pragma mark - Lifecycle
 
@@ -882,7 +882,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 @end
 
 
-@implementation MBBarProgressView
+@implementation TTSDKMBBarProgressView
 
 #pragma mark - Lifecycle
 

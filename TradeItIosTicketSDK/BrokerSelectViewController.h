@@ -10,7 +10,7 @@
 #import "TicketSession.h"
 #import "TradeItTicket.h"
 #import "BrokerSelectDetailViewController.h"
-#import "MBProgressHUD.h"
+#import "TTSDKMBProgressHUD.h"
 
 @interface BrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 

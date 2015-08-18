@@ -30,7 +30,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-@protocol MBProgressHUDDelegate;
+@protocol TTSDKMBProgressHUDDelegate;
 
 
 typedef NS_ENUM(NSInteger, MBProgressHUDMode) {
@@ -108,7 +108,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
  *    indicator view.
  *  - If also the detailsLabelText property is set then another label is placed below the first label.
  */
-@interface MBProgressHUD : UIView
+@interface TTSDKMBProgressHUD : UIView
 
 /**
  * Creates a new HUD, adds it to provided view and shows it. The counterpart to this method is hideHUDForView:animated:.
@@ -307,7 +307,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
  *
  * @see MBProgressHUDDelegate
  */
-@property (MB_WEAK) id<MBProgressHUDDelegate> delegate;
+@property (MB_WEAK) id<TTSDKMBProgressHUDDelegate> delegate;
 
 /** 
  * An optional short message to be displayed below the activity indicator. The HUD is automatically resized to fit
@@ -448,14 +448,14 @@ typedef void (^MBProgressHUDCompletionBlock)();
 @end
 
 
-@protocol MBProgressHUDDelegate <NSObject>
+@protocol TTSDKMBProgressHUDDelegate <NSObject>
 
 @optional
 
 /** 
  * Called after the HUD was fully hidden from the screen. 
  */
-- (void)hudWasHidden:(MBProgressHUD *)hud;
+- (void)hudWasHidden:(TTSDKMBProgressHUD *)hud;
 
 @end
 
@@ -463,7 +463,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 /**
  * A progress view for showing definite progress by filling up a circle (pie chart).
  */
-@interface MBRoundProgressView : UIView 
+@interface TTSDKMBRoundProgressView : UIView 
 
 /**
  * Progress (0.0 to 1.0)
@@ -493,7 +493,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 /**
  * A flat bar progress view. 
  */
-@interface MBBarProgressView : UIView
+@interface TTSDKMBBarProgressView : UIView
 
 /**
  * Progress (0.0 to 1.0)

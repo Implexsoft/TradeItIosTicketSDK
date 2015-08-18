@@ -37,7 +37,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 -(void) showLoadingAndWait {
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
         
@@ -52,7 +52,7 @@ static NSString * CellIdentifier = @"BrokerCell";
             alert.alertViewStyle = UIAlertViewStyleDefault;
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [alert show];
             });
             
@@ -61,7 +61,7 @@ static NSString * CellIdentifier = @"BrokerCell";
                 brokers = self.tradeSession.brokerList;
                 [self.tableView reloadData];
                 
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }
     });
