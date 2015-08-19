@@ -32,17 +32,17 @@
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"
 
-#import "JSONModel.h"
-#import "JSONAPI.h"
-#import "JSONHTTPClient.h"
-#import "JSONKeyMapper.h"
-#import "JSONModel+networking.h"
-#import "JSONModelArray.h"
-#import "JSONModelClassProperty.h"
-#import "JSONModelError.h"
-#import "JSONModelLib.h"
-#import "JSONValueTransformer.h"
-#import "NSArray+JSONModel.h"
+#import "TIEMSJSONModel.h"
+#import "TIEMSJSONAPI.h"
+#import "TIEMSJSONHTTPClient.h"
+#import "TIEMSJSONKeyMapper.h"
+#import "TIEMSJSONModel+networking.h"
+#import "TIEMSJSONModelArray.h"
+#import "TIEMSJSONModelClassProperty.h"
+#import "TIEMSJSONModelError.h"
+#import "TIEMSJSONModelLib.h"
+#import "TIEMSJSONValueTransformer.h"
+#import "NSArray+TIEMSJSONModel.h"
 
 @interface TradeItIosTicketSDK : NSObject
 

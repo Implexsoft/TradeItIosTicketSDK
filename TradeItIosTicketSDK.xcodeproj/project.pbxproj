@@ -71,27 +71,27 @@
 		A9C002C01B710853007D15F5 /* TicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002BE1B710853007D15F5 /* TicketSession.m */; };
 		A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */; };
-		A9C003341B7264A4007D15F5 /* JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002D81B7264A4007D15F5 /* JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003351B7264A4007D15F5 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002D91B7264A4007D15F5 /* JSONModel.m */; };
-		A9C003361B7264A4007D15F5 /* JSONModelArray.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003371B7264A4007D15F5 /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */; };
-		A9C003381B7264A4007D15F5 /* JSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003391B7264A4007D15F5 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */; };
-		A9C0033A1B7264A4007D15F5 /* JSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DE1B7264A4007D15F5 /* JSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C0033B1B7264A4007D15F5 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DF1B7264A4007D15F5 /* JSONModelError.m */; };
-		A9C0033C1B7264A4007D15F5 /* NSArray+JSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C0033D1B7264A4007D15F5 /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */; };
-		A9C0033E1B7264A4007D15F5 /* JSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E31B7264A4007D15F5 /* JSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C0033F1B7264A4007D15F5 /* JSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E51B7264A4007D15F5 /* JSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003401B7264A4007D15F5 /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E61B7264A4007D15F5 /* JSONAPI.m */; };
-		A9C003411B7264A4007D15F5 /* JSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003421B7264A4007D15F5 /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */; };
-		A9C003431B7264A4007D15F5 /* JSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003441B7264A4007D15F5 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */; };
-		A9C003451B7264A4007D15F5 /* JSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003461B7264A4007D15F5 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */; };
-		A9C003471B7264A4007D15F5 /* JSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C003481B7264A4007D15F5 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */; };
+		A9C003341B7264A4007D15F5 /* TIEMSJSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002D81B7264A4007D15F5 /* TIEMSJSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003351B7264A4007D15F5 /* TIEMSJSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002D91B7264A4007D15F5 /* TIEMSJSONModel.m */; };
+		A9C003361B7264A4007D15F5 /* TIEMSJSONModelArray.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DA1B7264A4007D15F5 /* TIEMSJSONModelArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003371B7264A4007D15F5 /* TIEMSJSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DB1B7264A4007D15F5 /* TIEMSJSONModelArray.m */; };
+		A9C003381B7264A4007D15F5 /* TIEMSJSONModelClassProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DC1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003391B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DD1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m */; };
+		A9C0033A1B7264A4007D15F5 /* TIEMSJSONModelError.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002DE1B7264A4007D15F5 /* TIEMSJSONModelError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033B1B7264A4007D15F5 /* TIEMSJSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002DF1B7264A4007D15F5 /* TIEMSJSONModelError.m */; };
+		A9C0033C1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E11B7264A4007D15F5 /* NSArray+TIEMSJSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033D1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E21B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m */; };
+		A9C0033E1B7264A4007D15F5 /* TIEMSJSONModelLib.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E31B7264A4007D15F5 /* TIEMSJSONModelLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0033F1B7264A4007D15F5 /* TIEMSJSONAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E51B7264A4007D15F5 /* TIEMSJSONAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003401B7264A4007D15F5 /* TIEMSJSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E61B7264A4007D15F5 /* TIEMSJSONAPI.m */; };
+		A9C003411B7264A4007D15F5 /* TIEMSJSONHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E71B7264A4007D15F5 /* TIEMSJSONHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003421B7264A4007D15F5 /* TIEMSJSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002E81B7264A4007D15F5 /* TIEMSJSONHTTPClient.m */; };
+		A9C003431B7264A4007D15F5 /* TIEMSJSONModel+networking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002E91B7264A4007D15F5 /* TIEMSJSONModel+networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003441B7264A4007D15F5 /* TIEMSJSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EA1B7264A4007D15F5 /* TIEMSJSONModel+networking.m */; };
+		A9C003451B7264A4007D15F5 /* TIEMSJSONKeyMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EC1B7264A4007D15F5 /* TIEMSJSONKeyMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003461B7264A4007D15F5 /* TIEMSJSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002ED1B7264A4007D15F5 /* TIEMSJSONKeyMapper.m */; };
+		A9C003471B7264A4007D15F5 /* TIEMSJSONValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002EE1B7264A4007D15F5 /* TIEMSJSONValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C003481B7264A4007D15F5 /* TIEMSJSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002EF1B7264A4007D15F5 /* TIEMSJSONValueTransformer.m */; };
 		A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002FC1B7264A4007D15F5 /* TradeItAuthenticationInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C0034B1B7264A4007D15F5 /* TradeItAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002FD1B7264A4007D15F5 /* TradeItAuthenticationInfo.m */; };
 		A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002FE1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -260,27 +260,27 @@
 		A9C002BE1B710853007D15F5 /* TicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TicketSession.m; path = TradeItTicketViewSDK/TicketSession.m; sourceTree = "<group>"; };
 		A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItTicketControllerResult.h; sourceTree = "<group>"; };
 		A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItTicketControllerResult.m; sourceTree = "<group>"; };
-		A9C002D81B7264A4007D15F5 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
-		A9C002D91B7264A4007D15F5 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
-		A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
-		A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelArray.m; sourceTree = "<group>"; };
-		A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
-		A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
-		A9C002DE1B7264A4007D15F5 /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
-		A9C002DF1B7264A4007D15F5 /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
-		A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
-		A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONModel.m"; sourceTree = "<group>"; };
-		A9C002E31B7264A4007D15F5 /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
-		A9C002E51B7264A4007D15F5 /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
-		A9C002E61B7264A4007D15F5 /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
-		A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
-		A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
-		A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
-		A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
-		A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
-		A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
-		A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
-		A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		A9C002D81B7264A4007D15F5 /* TIEMSJSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONModel.h; sourceTree = "<group>"; };
+		A9C002D91B7264A4007D15F5 /* TIEMSJSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONModel.m; sourceTree = "<group>"; };
+		A9C002DA1B7264A4007D15F5 /* TIEMSJSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONModelArray.h; sourceTree = "<group>"; };
+		A9C002DB1B7264A4007D15F5 /* TIEMSJSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONModelArray.m; sourceTree = "<group>"; };
+		A9C002DC1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONModelClassProperty.h; sourceTree = "<group>"; };
+		A9C002DD1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONModelClassProperty.m; sourceTree = "<group>"; };
+		A9C002DE1B7264A4007D15F5 /* TIEMSJSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONModelError.h; sourceTree = "<group>"; };
+		A9C002DF1B7264A4007D15F5 /* TIEMSJSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONModelError.m; sourceTree = "<group>"; };
+		A9C002E11B7264A4007D15F5 /* NSArray+TIEMSJSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TIEMSJSONModel.h"; sourceTree = "<group>"; };
+		A9C002E21B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TIEMSJSONModel.m"; sourceTree = "<group>"; };
+		A9C002E31B7264A4007D15F5 /* TIEMSJSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONModelLib.h; sourceTree = "<group>"; };
+		A9C002E51B7264A4007D15F5 /* TIEMSJSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONAPI.h; sourceTree = "<group>"; };
+		A9C002E61B7264A4007D15F5 /* TIEMSJSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONAPI.m; sourceTree = "<group>"; };
+		A9C002E71B7264A4007D15F5 /* TIEMSJSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONHTTPClient.h; sourceTree = "<group>"; };
+		A9C002E81B7264A4007D15F5 /* TIEMSJSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONHTTPClient.m; sourceTree = "<group>"; };
+		A9C002E91B7264A4007D15F5 /* TIEMSJSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TIEMSJSONModel+networking.h"; sourceTree = "<group>"; };
+		A9C002EA1B7264A4007D15F5 /* TIEMSJSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TIEMSJSONModel+networking.m"; sourceTree = "<group>"; };
+		A9C002EC1B7264A4007D15F5 /* TIEMSJSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONKeyMapper.h; sourceTree = "<group>"; };
+		A9C002ED1B7264A4007D15F5 /* TIEMSJSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONKeyMapper.m; sourceTree = "<group>"; };
+		A9C002EE1B7264A4007D15F5 /* TIEMSJSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIEMSJSONValueTransformer.h; sourceTree = "<group>"; };
+		A9C002EF1B7264A4007D15F5 /* TIEMSJSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIEMSJSONValueTransformer.m; sourceTree = "<group>"; };
 		A9C002FC1B7264A4007D15F5 /* TradeItAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItAuthenticationInfo.h; sourceTree = "<group>"; };
 		A9C002FD1B7264A4007D15F5 /* TradeItAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItAuthenticationInfo.m; sourceTree = "<group>"; };
 		A9C002FE1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItBrokerListSuccessResult.h; sourceTree = "<group>"; };
@@ -568,7 +568,6 @@
 			isa = PBXGroup;
 			children = (
 				A9C002D61B7264A4007D15F5 /* JSONModel */,
-				A9C002F01B7264A4007D15F5 /* Pods */,
 				A9C002FB1B7264A4007D15F5 /* TradeItIosEmsApi */,
 				A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */,
 			);
@@ -581,7 +580,7 @@
 			children = (
 				A9C002D71B7264A4007D15F5 /* JSONModel */,
 				A9C002E01B7264A4007D15F5 /* JSONModelCategories */,
-				A9C002E31B7264A4007D15F5 /* JSONModelLib.h */,
+				A9C002E31B7264A4007D15F5 /* TIEMSJSONModelLib.h */,
 				A9C002E41B7264A4007D15F5 /* JSONModelNetworking */,
 				A9C002EB1B7264A4007D15F5 /* JSONModelTransformations */,
 			);
@@ -591,14 +590,14 @@
 		A9C002D71B7264A4007D15F5 /* JSONModel */ = {
 			isa = PBXGroup;
 			children = (
-				A9C002D81B7264A4007D15F5 /* JSONModel.h */,
-				A9C002D91B7264A4007D15F5 /* JSONModel.m */,
-				A9C002DA1B7264A4007D15F5 /* JSONModelArray.h */,
-				A9C002DB1B7264A4007D15F5 /* JSONModelArray.m */,
-				A9C002DC1B7264A4007D15F5 /* JSONModelClassProperty.h */,
-				A9C002DD1B7264A4007D15F5 /* JSONModelClassProperty.m */,
-				A9C002DE1B7264A4007D15F5 /* JSONModelError.h */,
-				A9C002DF1B7264A4007D15F5 /* JSONModelError.m */,
+				A9C002D81B7264A4007D15F5 /* TIEMSJSONModel.h */,
+				A9C002D91B7264A4007D15F5 /* TIEMSJSONModel.m */,
+				A9C002DA1B7264A4007D15F5 /* TIEMSJSONModelArray.h */,
+				A9C002DB1B7264A4007D15F5 /* TIEMSJSONModelArray.m */,
+				A9C002DC1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.h */,
+				A9C002DD1B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m */,
+				A9C002DE1B7264A4007D15F5 /* TIEMSJSONModelError.h */,
+				A9C002DF1B7264A4007D15F5 /* TIEMSJSONModelError.m */,
 			);
 			path = JSONModel;
 			sourceTree = "<group>";
@@ -606,8 +605,8 @@
 		A9C002E01B7264A4007D15F5 /* JSONModelCategories */ = {
 			isa = PBXGroup;
 			children = (
-				A9C002E11B7264A4007D15F5 /* NSArray+JSONModel.h */,
-				A9C002E21B7264A4007D15F5 /* NSArray+JSONModel.m */,
+				A9C002E11B7264A4007D15F5 /* NSArray+TIEMSJSONModel.h */,
+				A9C002E21B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m */,
 			);
 			path = JSONModelCategories;
 			sourceTree = "<group>";
@@ -615,12 +614,12 @@
 		A9C002E41B7264A4007D15F5 /* JSONModelNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				A9C002E51B7264A4007D15F5 /* JSONAPI.h */,
-				A9C002E61B7264A4007D15F5 /* JSONAPI.m */,
-				A9C002E71B7264A4007D15F5 /* JSONHTTPClient.h */,
-				A9C002E81B7264A4007D15F5 /* JSONHTTPClient.m */,
-				A9C002E91B7264A4007D15F5 /* JSONModel+networking.h */,
-				A9C002EA1B7264A4007D15F5 /* JSONModel+networking.m */,
+				A9C002E51B7264A4007D15F5 /* TIEMSJSONAPI.h */,
+				A9C002E61B7264A4007D15F5 /* TIEMSJSONAPI.m */,
+				A9C002E71B7264A4007D15F5 /* TIEMSJSONHTTPClient.h */,
+				A9C002E81B7264A4007D15F5 /* TIEMSJSONHTTPClient.m */,
+				A9C002E91B7264A4007D15F5 /* TIEMSJSONModel+networking.h */,
+				A9C002EA1B7264A4007D15F5 /* TIEMSJSONModel+networking.m */,
 			);
 			path = JSONModelNetworking;
 			sourceTree = "<group>";
@@ -628,67 +627,12 @@
 		A9C002EB1B7264A4007D15F5 /* JSONModelTransformations */ = {
 			isa = PBXGroup;
 			children = (
-				A9C002EC1B7264A4007D15F5 /* JSONKeyMapper.h */,
-				A9C002ED1B7264A4007D15F5 /* JSONKeyMapper.m */,
-				A9C002EE1B7264A4007D15F5 /* JSONValueTransformer.h */,
-				A9C002EF1B7264A4007D15F5 /* JSONValueTransformer.m */,
+				A9C002EC1B7264A4007D15F5 /* TIEMSJSONKeyMapper.h */,
+				A9C002ED1B7264A4007D15F5 /* TIEMSJSONKeyMapper.m */,
+				A9C002EE1B7264A4007D15F5 /* TIEMSJSONValueTransformer.h */,
+				A9C002EF1B7264A4007D15F5 /* TIEMSJSONValueTransformer.m */,
 			);
 			path = JSONModelTransformations;
-			sourceTree = "<group>";
-		};
-		A9C002F01B7264A4007D15F5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A9C002F11B7264A4007D15F5 /* Headers */,
-				A9C002F51B7264A4007D15F5 /* JSONModel */,
-				A9C002F61B7264A4007D15F5 /* Local Podspecs */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		A9C002F11B7264A4007D15F5 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				A9C002F21B7264A4007D15F5 /* Private */,
-				A9C002F31B7264A4007D15F5 /* Public */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		A9C002F21B7264A4007D15F5 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		A9C002F31B7264A4007D15F5 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				A9C002F41B7264A4007D15F5 /* JSONModel */,
-			);
-			path = Public;
-			sourceTree = "<group>";
-		};
-		A9C002F41B7264A4007D15F5 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9C002F51B7264A4007D15F5 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JSONModel;
-			sourceTree = "<group>";
-		};
-		A9C002F61B7264A4007D15F5 /* Local Podspecs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Local Podspecs";
 			sourceTree = "<group>";
 		};
 		A9C002FB1B7264A4007D15F5 /* TradeItIosEmsApi */ = {
@@ -788,17 +732,17 @@
 				A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */,
 				A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */,
 				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
-				A9C0033F1B7264A4007D15F5 /* JSONAPI.h in Headers */,
-				A9C003381B7264A4007D15F5 /* JSONModelClassProperty.h in Headers */,
-				A9C003361B7264A4007D15F5 /* JSONModelArray.h in Headers */,
-				A9C0033E1B7264A4007D15F5 /* JSONModelLib.h in Headers */,
-				A9C003451B7264A4007D15F5 /* JSONKeyMapper.h in Headers */,
-				A9C003431B7264A4007D15F5 /* JSONModel+networking.h in Headers */,
-				A9C003341B7264A4007D15F5 /* JSONModel.h in Headers */,
-				A9C0033A1B7264A4007D15F5 /* JSONModelError.h in Headers */,
-				A9C003471B7264A4007D15F5 /* JSONValueTransformer.h in Headers */,
-				A9C003411B7264A4007D15F5 /* JSONHTTPClient.h in Headers */,
-				A9C0033C1B7264A4007D15F5 /* NSArray+JSONModel.h in Headers */,
+				A9C0033F1B7264A4007D15F5 /* TIEMSJSONAPI.h in Headers */,
+				A9C003381B7264A4007D15F5 /* TIEMSJSONModelClassProperty.h in Headers */,
+				A9C003361B7264A4007D15F5 /* TIEMSJSONModelArray.h in Headers */,
+				A9C0033E1B7264A4007D15F5 /* TIEMSJSONModelLib.h in Headers */,
+				A9C003451B7264A4007D15F5 /* TIEMSJSONKeyMapper.h in Headers */,
+				A9C003431B7264A4007D15F5 /* TIEMSJSONModel+networking.h in Headers */,
+				A9C003341B7264A4007D15F5 /* TIEMSJSONModel.h in Headers */,
+				A9C0033A1B7264A4007D15F5 /* TIEMSJSONModelError.h in Headers */,
+				A9C003471B7264A4007D15F5 /* TIEMSJSONValueTransformer.h in Headers */,
+				A9C003411B7264A4007D15F5 /* TIEMSJSONHTTPClient.h in Headers */,
+				A9C0033C1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.h in Headers */,
 				A9C003691B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.h in Headers */,
 				A9C003561B7264A4007D15F5 /* TradeItIosEmsApiLib.h in Headers */,
 				A9C0035F1B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h in Headers */,
@@ -1044,37 +988,37 @@
 				A9C003551B7264A4007D15F5 /* TradeItInformationNeededResult.m in Sources */,
 				A9B2D4781B5EA92F008065E1 /* BrokerSelectDetailViewController.m in Sources */,
 				A9901A9A1B6AA4A800FCC83D /* AdvCalcTextField.m in Sources */,
-				A9C003371B7264A4007D15F5 /* JSONModelArray.m in Sources */,
+				A9C003371B7264A4007D15F5 /* TIEMSJSONModelArray.m in Sources */,
 				A9C0034F1B7264A4007D15F5 /* TradeItCloseSessionRequest.m in Sources */,
 				A9C002B21B6ACD90007D15F5 /* AdvCalculatorViewController.m in Sources */,
 				A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */,
-				A9C003401B7264A4007D15F5 /* JSONAPI.m in Sources */,
+				A9C003401B7264A4007D15F5 /* TIEMSJSONAPI.m in Sources */,
 				A905D3221B629D76006B0B8C /* Keychain.m in Sources */,
 				A9C003581B7264A4007D15F5 /* TradeItMultipleAccountResult.m in Sources */,
 				A9B2D4701B5D8929008065E1 /* BrokerSelectViewController.m in Sources */,
 				A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */,
-				A9C003481B7264A4007D15F5 /* JSONValueTransformer.m in Sources */,
+				A9C003481B7264A4007D15F5 /* TIEMSJSONValueTransformer.m in Sources */,
 				A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */,
 				A9C003641B7264A4007D15F5 /* TradeItSelectAccountRequest.m in Sources */,
 				A9C003511B7264A4007D15F5 /* TradeItEmsUtils.m in Sources */,
 				A9C0039C1B72A798007D15F5 /* ThemeManager.m in Sources */,
-				A9C003461B7264A4007D15F5 /* JSONKeyMapper.m in Sources */,
+				A9C003461B7264A4007D15F5 /* TIEMSJSONKeyMapper.m in Sources */,
 				A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */,
-				A9C003351B7264A4007D15F5 /* JSONModel.m in Sources */,
+				A9C003351B7264A4007D15F5 /* TIEMSJSONModel.m in Sources */,
 				A9C0034B1B7264A4007D15F5 /* TradeItAuthenticationInfo.m in Sources */,
 				A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */,
 				A9C0036C1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.m in Sources */,
 				A9C0036A1B7264A4007D15F5 /* TradeItStockOrEtfOrderInfo.m in Sources */,
-				A9C003391B7264A4007D15F5 /* JSONModelClassProperty.m in Sources */,
+				A9C003391B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m in Sources */,
 				A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */,
-				A9C0033D1B7264A4007D15F5 /* NSArray+JSONModel.m in Sources */,
-				A9C0033B1B7264A4007D15F5 /* JSONModelError.m in Sources */,
+				A9C0033D1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m in Sources */,
+				A9C0033B1B7264A4007D15F5 /* TIEMSJSONModelError.m in Sources */,
 				A905D3281B668B06006B0B8C /* EditScreenViewController.m in Sources */,
 				A9C003621B7264A4007D15F5 /* TradeItSecurityQuestionResult.m in Sources */,
 				A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */,
 				A9C0036E1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
-				A9C003421B7264A4007D15F5 /* JSONHTTPClient.m in Sources */,
-				A9C003441B7264A4007D15F5 /* JSONModel+networking.m in Sources */,
+				A9C003421B7264A4007D15F5 /* TIEMSJSONHTTPClient.m in Sources */,
+				A9C003441B7264A4007D15F5 /* TIEMSJSONModel+networking.m in Sources */,
 				A9A8D0FD1B4F19D5000207B9 /* ReviewScreenViewController.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* SuccessViewController.m in Sources */,
 				A9C0035A1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m in Sources */,
@@ -1163,7 +1107,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1204,7 +1148,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
