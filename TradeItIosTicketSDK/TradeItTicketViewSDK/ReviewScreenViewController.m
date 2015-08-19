@@ -82,14 +82,14 @@
     [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
     
-    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[self result] orderDetails] valueForKey:@"longHoldings"] == [NSNumber numberWithInt:-1]) {
+    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[[self result] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesLongVL];
         [self hideElement:sharesLongVV];
     } else {
         [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
     }
     
-    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [[[self result] orderDetails] valueForKey:@"shortHoldings"] == [NSNumber numberWithInt:-1]) {
+    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self result] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesShortVL];
         [self hideElement:sharesShortVV];
     } else {
