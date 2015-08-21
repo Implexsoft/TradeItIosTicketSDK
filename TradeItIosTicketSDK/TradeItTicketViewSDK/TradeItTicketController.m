@@ -130,13 +130,14 @@
     if(self.priceChangePercentage != nil) {
         tradeSession.priceChangePercentage = self.priceChangePercentage;
     }
-    
-    tradeSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
-    
+
     [TradeItTicketController showTicket:tradeSession];
 }
 
 +(void) showTicket:(TicketSession *) ticketSession {
+
+    ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
+    
     [TradeItTicket showTicket:ticketSession];
 }
 
