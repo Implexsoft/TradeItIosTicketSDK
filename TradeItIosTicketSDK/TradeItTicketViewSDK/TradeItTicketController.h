@@ -155,6 +155,16 @@
  */
 -(void) showTicket;
 
+/**
+ *  Use this method to clear all linked brokers off device
+ */
++(void) clearSavedData;
+
+/**
+ *  @return NSArray of brokers the user is linked with, it will use the short names as documented in TradeItEMS Api
+ */
++(NSArray *) getLinkedBrokers;
+
 
 @end
 

@@ -141,6 +141,19 @@
     [TradeItTicket showTicket:ticketSession];
 }
 
++(void) clearSavedData {
+    NSArray * brokers = [TradeItTicket getLinkedBrokersList];
+    
+    for (NSString * broker in brokers) {
+        [TradeItTicket removeLinkedBroker:broker];
+        [TradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
+    }
+}
+
++(NSArray *) getLinkedBrokers {
+    return [TradeItTicket getLinkedBrokersList];
+}
+
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources
 //Therefore when the linker goes through the library it doesn't
