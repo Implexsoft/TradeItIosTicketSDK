@@ -150,13 +150,24 @@
          */
         else if(securityQuestionResult.securityQuestion != nil){
         //SINGLE
-            UIAlertView * alert;
-            alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:securityQuestionResult.securityQuestion delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
-            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
+                                                                            message:securityQuestionResult.securityQuestion
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                                   }];
+            UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                        [[self tradeSession] asyncAnswerSecurityQuestion: [[alert textFields][0] text] andCompletionBlock:^(TradeItResult *result) { [self loginReviewRequestRecieved:result]; }];
+                                                                   }];
             
-            //not sure if we need the dispatch, without async calls??
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
+            [alert addAction:cancelAction];
+            [alert addAction:submitAction];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [alert show];
+                [self presentViewController:alert animated:YES completion:nil];
             });
         }
     }
@@ -183,7 +194,6 @@
         [alert show];
     }
     else if([result isKindOfClass:[TradeItErrorResult class]]){
-        UIAlertView * alert;
         NSString * errorMessage = @"Could Not Complete Your Order";
         BOOL popToRoot = YES;
         TradeItErrorResult * error = (TradeItErrorResult *) result;
@@ -207,26 +217,23 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         
-        alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:errorMessage delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                        message:errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                        message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
-        [alert show];
         [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if([[self lastResult] isKindOfClass:[TradeItSecurityQuestionResult class]]) {
-        if(buttonIndex == 1) {
-            [[self tradeSession] asyncAnswerSecurityQuestion: [[alertView textFieldAtIndex:0] text] andCompletionBlock:^(TradeItResult *result) {
-                [self loginReviewRequestRecieved:result];
-            }];
-        } else {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
     }
 }
 
@@ -360,9 +367,14 @@
         self.tradeSession.resultContainer.status = EXECUTION_ERROR;
         self.tradeSession.resultContainer.errorResponse = error;
         
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete Order" message:errorMessage delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                        message:errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
         
         [[self tradeSession] setPopToRoot:YES];
         [self dismissViewControllerAnimated:YES completion:nil];

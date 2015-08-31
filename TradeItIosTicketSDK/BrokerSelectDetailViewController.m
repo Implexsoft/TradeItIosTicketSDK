@@ -127,9 +127,13 @@
     [super viewDidAppear:animated];
     
     if(self.tradeSession.errorTitle) {
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:self.tradeSession.errorTitle message:self.tradeSession.errorMessage delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
+                                                                        message:self.tradeSession.errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
         self.tradeSession.errorMessage = nil;
         self.tradeSession.errorTitle = nil;
@@ -152,10 +156,15 @@
     
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
         NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.", brokerUsername[self.tradeSession.broker]];
+
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Credentials"
+                                                                        message:message
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credentials" message:message delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
     } else {
         [self performSegueWithIdentifier: @"loginToLoading" sender: self];
     }

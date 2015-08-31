@@ -74,8 +74,10 @@
 }
 
 -(void) updateUIWithReviewResult {
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale: US];
     
     [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];

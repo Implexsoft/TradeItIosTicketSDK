@@ -85,10 +85,13 @@
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && isGTC) {
         self.tradeSession.orderInfo.expiration = @"day";
         
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration" message:@"Market orders are Good For The Day only." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
+                                                                        message:@"Market orders are Good For The Day only."
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
     if([self.tradeSession.orderInfo.expiration isEqualToString:@"gtc"]) {

@@ -132,8 +132,10 @@
     
     double estimatedCost = shares * price;
     
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale:US];
     
     NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@ %@", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];

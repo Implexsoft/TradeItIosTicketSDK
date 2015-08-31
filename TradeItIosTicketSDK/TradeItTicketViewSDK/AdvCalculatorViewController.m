@@ -141,9 +141,10 @@
     }
     
     double estimatedCost = shares * price;
-    
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale: US];
     
     NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@   %@ %@", @"Estimated Total", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
@@ -187,8 +188,10 @@
     
     NSMutableAttributedString * finalString;
     
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale:US];
     
     NSString * lastPriceString = [formatter stringFromNumber:[NSNumber numberWithDouble:lastPrice]];
     finalString = [[NSMutableAttributedString alloc] initWithString:lastPriceString];
@@ -222,8 +225,10 @@
     UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
     UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
     
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:style];
+    [formatter setLocale:US];
     
     NSMutableAttributedString * attString;
     if([number doubleValue] > 0) {
@@ -264,10 +269,13 @@
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
         self.tradeSession.orderInfo.expiration = @"day";
         
-        UIAlertView * alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expiration" message:@"Market orders are Good For The Day only." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
+                                                                        message:@"Market orders are Good For The Day only."
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
     if([exp isEqualToString:@"gtc"]) {

@@ -22,7 +22,7 @@
 #import "SuccessViewController.h"
 #import "CalculatorViewController.h"
 
-@interface LoadingScreenViewController : UIViewController <UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface LoadingScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSString * actionToPerform;
 @property TicketSession * tradeSession;

@@ -47,13 +47,19 @@ static NSString * CellIdentifier = @"BrokerCell";
         }
         
         if([self.tradeSession.brokerList count] < 1) {
-            UIAlertView * alert;
-            alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            alert.alertViewStyle = UIAlertViewStyleDefault;
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [TradeItTicket returnToParentApp:self.tradeSession];
+                                                                   }];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
-                [alert show];
+                [self presentViewController:alert animated:YES completion:nil];
             });
             
         } else {
@@ -65,10 +71,6 @@ static NSString * CellIdentifier = @"BrokerCell";
             });
         }
     });
-}
-
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [TradeItTicket returnToParentApp:self.tradeSession];
 }
 
 #pragma mark - Table view data source
