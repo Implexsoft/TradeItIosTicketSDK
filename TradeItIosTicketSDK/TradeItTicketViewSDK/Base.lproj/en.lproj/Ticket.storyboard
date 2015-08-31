@@ -82,7 +82,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
-                                <rect key="frame" x="-2" y="226" width="322" height="30"/>
+                                <rect key="frame" x="-4" y="226" width="328" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rbi-me-C7k"/>
@@ -110,7 +110,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
-                                <rect key="frame" x="-1" y="197" width="322" height="30"/>
+                                <rect key="frame" x="-4" y="197" width="328" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xkg-Q1-EcE"/>
@@ -122,11 +122,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Osa-Gx-5fR" firstAttribute="top" secondItem="wbf-cv-Dik" secondAttribute="bottom" constant="-1" id="7Of-Iz-jdx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wbf-cv-Dik" secondAttribute="trailing" constant="-17" id="8zV-bP-vfm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wbf-cv-Dik" secondAttribute="trailing" constant="-20" id="8zV-bP-vfm"/>
                             <constraint firstItem="tei-VX-tIR" firstAttribute="top" secondItem="Osa-Gx-5fR" secondAttribute="bottom" constant="32" id="BCu-e8-q2z"/>
-                            <constraint firstItem="wbf-cv-Dik" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-17" id="D6a-QQ-PxH"/>
-                            <constraint firstItem="Osa-Gx-5fR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-18" id="KRH-nc-y1g"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Osa-Gx-5fR" secondAttribute="trailing" constant="-16" id="chs-ti-2Ct"/>
+                            <constraint firstItem="wbf-cv-Dik" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-20" id="D6a-QQ-PxH"/>
+                            <constraint firstItem="Osa-Gx-5fR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-20" id="KRH-nc-y1g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Osa-Gx-5fR" secondAttribute="trailing" constant="-20" id="chs-ti-2Ct"/>
                             <constraint firstAttribute="centerX" secondItem="lFr-FG-k7c" secondAttribute="centerX" id="dSE-jz-iwN"/>
                             <constraint firstItem="wbf-cv-Dik" firstAttribute="top" secondItem="lFr-FG-k7c" secondAttribute="bottom" constant="39" id="rsh-b6-r29"/>
                             <constraint firstItem="lFr-FG-k7c" firstAttribute="top" secondItem="rLg-5T-jsO" secondAttribute="bottom" constant="38" id="s9U-10-9Vz"/>
@@ -1630,7 +1630,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Xhv-zk-HPd"/>
+        <segue reference="QtJ-Lx-E79"/>
         <segue reference="ujk-YM-BZG"/>
         <segue reference="u5N-Mz-Eih"/>
         <segue reference="wbv-cP-RXh"/>
