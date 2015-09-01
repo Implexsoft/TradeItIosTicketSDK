@@ -195,14 +195,13 @@
     }
     else if([result isKindOfClass:[TradeItErrorResult class]]){
         NSString * errorMessage = @"Could Not Complete Your Order";
-        BOOL popToRoot = YES;
         TradeItErrorResult * error = (TradeItErrorResult *) result;
         
         if(error.errorFields.count > 0) {
             NSString * errorField = (NSString *) error.errorFields[0];
             if([errorField isEqualToString:@"authenticationInfo"]) {
                 errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
-                popToRoot = NO;
+                
                 self.tradeSession.resultContainer.status = AUTHENTICATION_ERROR;
                 self.tradeSession.resultContainer.errorResponse = error;
             } else {
@@ -210,18 +209,13 @@
             }
         }
         
-        if(popToRoot) {
-            [[self tradeSession] setPopToRoot:YES];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
+                                                               handler:^(UIAlertAction * action) {
+                                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
@@ -229,11 +223,11 @@
                                                                         message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
+                                                               handler:^(UIAlertAction * action) {
+                                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -371,13 +365,11 @@
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
+                                                               handler:^(UIAlertAction * action) {
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
-        
-        
-        [[self tradeSession] setPopToRoot:YES];
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

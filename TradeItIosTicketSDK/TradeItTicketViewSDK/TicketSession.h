@@ -17,7 +17,6 @@
 @property double lastPrice;
 
 @property UIViewController * parentView;
-@property BOOL popToRoot;
 
 @property NSString * errorTitle;
 @property NSString * errorMessage;
