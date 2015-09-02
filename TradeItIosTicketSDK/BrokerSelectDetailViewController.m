@@ -138,6 +138,12 @@
         self.tradeSession.errorMessage = nil;
         self.tradeSession.errorTitle = nil;
     }
+    
+    if(emailInput.text != nil && ![emailInput.text isEqualToString:@""]) {
+        [passwordInput becomeFirstResponder];
+    } else {
+        [emailInput becomeFirstResponder];
+    }
 }
 
 

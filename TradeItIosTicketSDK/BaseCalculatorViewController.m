@@ -110,6 +110,11 @@
             [alert addAction:brokerOption];
         }
         
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [TradeItTicket returnToParentApp:self.tradeSession];
+        }];
+        [alert addAction:cancel];
+        
         [self presentViewController:alert animated:YES completion:nil];
     });
 }

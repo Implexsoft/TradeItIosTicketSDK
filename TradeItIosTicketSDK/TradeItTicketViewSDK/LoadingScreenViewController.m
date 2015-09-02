@@ -17,7 +17,6 @@
     
     NSArray * questionOptions;
     NSString * currentSelection;
-    NSDictionary * currentAccount;
 }
 
 @end
@@ -174,24 +173,34 @@
     else if([result isKindOfClass:[TradeItMultipleAccountResult class]]){
     //ACCOUNT SELECT
         TradeItMultipleAccountResult * multiAccountResult = (TradeItMultipleAccountResult* ) result;
-        questionOptions = multiAccountResult.accountList;
-        currentAccount = questionOptions[0];
         
-        CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
-        [alert setContainerView:[self createPickerView]];
-        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Account"
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
         
-        [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-            if(buttonIndex == 0) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } else {
-                [[self tradeSession] asyncSelectAccount:currentAccount andCompletionBlock:^(TradeItResult *result) {
-                    [self loginReviewRequestRecieved:result];
-                }];
-            }
+        void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
+            [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
+                [self loginReviewRequestRecieved:result];
+            }];
+        };
+        
+        for (NSDictionary * account in multiAccountResult.accountList) {
+            NSString * title = [account objectForKey:@"name"];
+            UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      handler(account);
+                                                                  }];
+            [alert addAction:acct];
+        }
+        
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
+        [alert addAction:cancel];
         
-        [alert show];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
     }
     else if([result isKindOfClass:[TradeItErrorResult class]]){
         NSString * errorMessage = @"Could Not Complete Your Order";
@@ -327,11 +336,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if([pickerView tag] == 501) {
-        currentSelection = questionOptions[row];
-    } else {
-        currentAccount = questionOptions[row];
-    }
+    currentSelection = questionOptions[row];
 }
 
 #pragma mark - Send Order
