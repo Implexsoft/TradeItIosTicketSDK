@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B285F7EF5C45B799CC50AC660502A7947C4FEA11",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "99A86A572B8EDDA313F40FCB3864483E6BA01606" : 0,
+    "B285F7EF5C45B799CC50AC660502A7947C4FEA11" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "FBE5CE20-75A1-4A0D-B66B-827FD1696753",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "99A86A572B8EDDA313F40FCB3864483E6BA01606" : "TradeItIosEmsApi",
+    "B285F7EF5C45B799CC50AC660502A7947C4FEA11" : "TradeItIosTicketSDK"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TradeItIosTicketSDK",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TradeItIosTicketSDK.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tradingticket\/TradeItIosEmsApi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "99A86A572B8EDDA313F40FCB3864483E6BA01606"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tradingticket\/TradeItIosTicketSDK.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B285F7EF5C45B799CC50AC660502A7947C4FEA11"
+    }
+  ]
+}
