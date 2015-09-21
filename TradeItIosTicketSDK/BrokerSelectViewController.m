@@ -47,6 +47,11 @@ static NSString * CellIdentifier = @"BrokerCell";
         }
         
         if([self.tradeSession.brokerList count] < 1) {
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert];
+                return;
+            }
+            
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
@@ -55,7 +60,6 @@ static NSString * CellIdentifier = @"BrokerCell";
                                                                        [TradeItTicket returnToParentApp:self.tradeSession];
                                                                    }];
             [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
@@ -71,6 +75,21 @@ static NSString * CellIdentifier = @"BrokerCell";
             });
         }
     });
+}
+
+#pragma mark - iOS7 fallback
+
+-(void) showOldErrorAlert {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [TradeItTicket returnToParentApp:self.tradeSession];
 }
 
 #pragma mark - Table view data source

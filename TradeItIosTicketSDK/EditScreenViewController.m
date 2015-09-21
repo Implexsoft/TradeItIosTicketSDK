@@ -21,6 +21,11 @@
     NSArray * linkedBrokers;
     NSArray * brokers;
     NSString * currentCalcScreen;
+    
+    NSArray * pickerTitles;
+    NSArray * pickerValues;
+    NSString * currentSelection;
+    UIPickerView * currentPicker;
 }
 
 @end
@@ -55,8 +60,6 @@
     
     currentCalcScreen = [calcScreenPref isEqualToString: @"initalCalculatorController"] ? @"Calculator" : @"Detail View";
     [calculatorViewButton setTitle:currentCalcScreen forState:UIControlStateNormal];
-    
-    //TODO - possibly remove detail view for iphone < 4s
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,13 +88,17 @@
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && isGTC) {
         self.tradeSession.orderInfo.expiration = @"day";
         
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
-                                                                        message:@"Market orders are Good For The Day only."
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert:@"Invalid Expiration" withMessage:@"Market orders are Good For The Day only."];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
+                                                                            message:@"Market orders are Good For The Day only."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
     
     if([self.tradeSession.orderInfo.expiration isEqualToString:@"gtc"]) {
@@ -120,6 +127,11 @@
 #pragma mark - Events
 
 - (IBAction)orderActionPressed:(id)sender {
+    if(![UIAlertController class]) {
+        [self showOldOrderAction];
+        return;
+    }
+    
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Order Action"
                                                                     message:nil
                                                              preferredStyle:UIAlertControllerStyleActionSheet];
@@ -160,6 +172,11 @@
 }
 
 - (IBAction)orderTypePressed:(id)sender {
+    if(![UIAlertController class]) {
+        [self showOldOrderType];
+        return;
+    }
+    
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Order Type"
                                                                     message:nil
                                                              preferredStyle:UIAlertControllerStyleActionSheet];
@@ -200,6 +217,11 @@
 }
 
 - (IBAction)orderExpirationPressed:(id)sender {
+    if(![UIAlertController class]) {
+        [self showOldOrderExp];
+        return;
+    }
+    
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Order Expiration"
                                                                     message:nil
                                                              preferredStyle:UIAlertControllerStyleActionSheet];
@@ -227,6 +249,11 @@
 
 - (IBAction)brokerSelectPressed:(id)sender {
     if([linkedBrokers count] > 1) {
+        if(![UIAlertController class]) {
+            [self showOldBrokerSelect];
+            return;
+        }
+        
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Brokerage"
                                                                        message:nil
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
@@ -256,6 +283,11 @@
 }
 
 - (IBAction)calculatorViewPressed:(id)sender {
+    if(![UIAlertController class]) {
+        [self showOldScreenSelect];
+        return;
+    }
+    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Show Ticket As"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -281,6 +313,229 @@
     [alert addAction:detailAction];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - iOS7 Fallbacks
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+-(void) showOldScreenSelect {
+    pickerTitles = @[@"Calculator",@"Detail View"];
+    pickerValues = @[@"initalCalculatorController",@"advCalculatorController"];
+    currentSelection = currentCalcScreen;
+    
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Show Ticket As"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if([currentCalcScreen isEqualToString:@"Calculator"] && [currentSelection isEqualToString:@"advCalculatorController"]) {
+            [TradeItTicket setCalcScreenPreferance:@"advCalculatorController"];
+            [TradeItTicket restartTicket:self.tradeSession];
+        } else if([currentCalcScreen isEqualToString:@"Detail View"] && [currentSelection isEqualToString:@"initalCalculatorController"]) {
+            [TradeItTicket setCalcScreenPreferance:@"initalCalculatorController"];
+            [TradeItTicket restartTicket:self.tradeSession];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        if([currentCalcScreen isEqualToString:@"Detail View"]){
+            [currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+-(void) showOldBrokerSelect {
+    NSMutableArray * titles = [[NSMutableArray alloc] init];
+    NSMutableArray * values = [[NSMutableArray alloc] init];
+    
+    for (NSString * broker in linkedBrokers) {
+        [titles addObject:[TradeItTicket getBrokerDisplayString:broker]];
+        [values addObject:broker];
+    }
+    
+    pickerTitles = titles;
+    pickerValues = values;
+    currentSelection = self.tradeSession.broker;
+    
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Select Brokerage"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [brokerButton setTitle: [TradeItTicket getBrokerDisplayString:currentSelection] forState:UIControlStateNormal];
+            
+            self.tradeSession.broker = currentSelection;
+            TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
+            self.tradeSession.authenticationInfo = creds;
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        int count = 0;
+        for (NSString * broker in linkedBrokers) {
+            if([broker isEqualToString:self.tradeSession.broker]) {
+                [currentPicker selectRow:count inComponent:0 animated:NO];
+            }
+            
+            count++;
+        }
+    });
+}
+
+-(void) changeOrderAction: (NSString *) action {
+    self.tradeSession.orderInfo.action = action;
+    [self setCurrentOrderAction];
+}
+
+-(void) changeOrderType: (NSString *) type {
+    if([type isEqualToString:@"limit"]){
+        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0.0];
+    } else if([type isEqualToString:@"stopMarket"]){
+        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0.0];
+    } else if([type isEqualToString:@"stopLimit"]){
+        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0.0 :0.0];
+    } else {
+        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
+    }
+    
+    [self setCurrentOrderType];
+}
+
+-(void) changeOrderExpiration: (NSString *) exp {
+    self.tradeSession.orderInfo.expiration = exp;
+    [self setCurrentOrderExpiration];
+}
+
+-(void) showOldOrderAction {
+    pickerTitles = @[@"Buy",@"Sell",@"Buy to Cover",@"Sell Short"];
+    pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
+    currentSelection = self.tradeSession.orderInfo.action;
+    
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Order Action"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [self changeOrderAction: currentSelection];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        if([self.tradeSession.orderInfo.action isEqualToString:@"sellShort"]){
+            [currentPicker selectRow:3 inComponent:0 animated:NO];
+        } else if([self.tradeSession.orderInfo.action isEqualToString:@"buyToCover"]){
+            [currentPicker selectRow:2 inComponent:0 animated:NO];
+        } else if([self.tradeSession.orderInfo.action isEqualToString:@"sell"]){
+            [currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+-(void) showOldOrderType {
+    pickerTitles = @[@"Market",@"Limit",@"Stop Market",@"Stop Limit"];
+    pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
+    currentSelection = self.tradeSession.orderInfo.price.type;
+    
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Order Action"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [self changeOrderType: currentSelection];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]){
+            [currentPicker selectRow:3 inComponent:0 animated:NO];
+        } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
+            [currentPicker selectRow:2 inComponent:0 animated:NO];
+        } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"limit"]) {
+            [currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+-(void) showOldOrderExp {
+    pickerTitles = @[@"Good For The Day",@"Good Until Canceled"];
+    pickerValues = @[@"day",@"gtc"];
+    currentSelection = self.tradeSession.orderInfo.expiration;
+    
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Order Action"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [self changeOrderExpiration: currentSelection];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        if([self.tradeSession.orderInfo.expiration isEqualToString:@"gtc"]) {
+            [currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+-(UIView *) createPickerView: (NSString *) title {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
+    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [titleLabel setNumberOfLines:0];
+    [titleLabel setText: title];
+    [contentView addSubview:titleLabel];
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
+    currentPicker = picker;
+    
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [contentView addSubview:picker];
+    
+    [contentView setNeedsDisplay];
+    return contentView;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return pickerTitles.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return pickerTitles[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    currentSelection = pickerValues[row];
 }
 
 @end

@@ -12,11 +12,13 @@
 
 @interface DefaultDarkTheme : NSObject <Theme>
 
+/*
 -(void) themeOrderEntryPageBody:(UIView *) body;
 -(void) themeEditPageBody: (UIView *) body;
 -(void) themeLoadingPageBody: (UIView *) body;
 -(void) themeReviewPageBody: (UIView *) body;
 -(void) themeSuccessPageBody: (UIView *) body;
+*/
 
 @end
 
@@ -28,6 +30,14 @@
 
 -(void) themePassivePagesBody:(UIView *)body {
     body.backgroundColor = [UIColor blackColor];
+}
+
+-(void) themeOrderEntryPageBody:(UIView *)body {
+    
+}
+
+-(void) themeLoadingPageBody:(UIView *)body {
+    
 }
 
 @end

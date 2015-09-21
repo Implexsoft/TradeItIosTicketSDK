@@ -232,6 +232,10 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 +(BOOL) hasTouchId {
+    if(![LAContext class]) {
+        return NO;
+    }
+    
     LAContext * myContext = [[LAContext alloc] init];
     NSError * authError = nil;
     

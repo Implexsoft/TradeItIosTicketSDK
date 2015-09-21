@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TicketSession.h"
 
-@interface BaseCalculatorViewController : UIViewController
+@interface BaseCalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TicketSession * tradeSession;
 

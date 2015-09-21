@@ -30,6 +30,7 @@
 		A93B3C421B542C4B00373E1B /* TicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C401B542C4B00373E1B /* TicketSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4E1B5464BC00373E1B /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4F1B5464BC00373E1B /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */; };
+		A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */; };
 		A9901A991B6AA4A800FCC83D /* AdvCalcTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A9901A9A1B6AA4A800FCC83D /* AdvCalcTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
@@ -37,7 +38,6 @@
 		A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8CF8C1B4EFDBB000207B9 /* CalculatorRowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */; };
 		A9A8CF8D1B4EFDBB000207B9 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */; };
-		A9A8CF901B4EFDBB000207B9 /* Info 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF7A1B4EFDBB000207B9 /* Info 2.plist */; };
 		A9A8CF911B4EFDBB000207B9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF7B1B4EFDBB000207B9 /* Info.plist */; };
 		A9A8CF931B4EFDBB000207B9 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */; };
 		A9A8CF951B4EFDBB000207B9 /* ReviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF831B4EFDBB000207B9 /* ReviewScreenViewController.m */; };
@@ -45,7 +45,6 @@
 		A9A8CF971B4EFDBB000207B9 /* TradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TradeItTicket.m */; };
 		A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF881B4EFDBB000207B9 /* TradeItTicketController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF6F1B4EFDBB000207B9 /* Ticket.storyboard */; };
 		A9A8D0F71B4F19D4000207B9 /* CalculatorRowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */; };
 		A9A8D0F81B4F19D4000207B9 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */; };
 		A9A8D0FB1B4F19D4000207B9 /* LoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */; };
@@ -216,6 +215,7 @@
 		A93B3C401B542C4B00373E1B /* TicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TicketSession.h; path = TradeItTicketViewSDK/TicketSession.h; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Ticket.storyboard; path = ../Ticket.storyboard; sourceTree = "<group>"; };
 		A9901A971B6AA4A800FCC83D /* AdvCalcTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvCalcTextField.h; sourceTree = "<group>"; };
 		A9901A981B6AA4A800FCC83D /* AdvCalcTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvCalcTextField.m; sourceTree = "<group>"; };
 		A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTradeItIosTicketSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,13 +223,10 @@
 		A9A8CF5B1B4EFACB000207B9 /* TradeItIosTicketSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8CF611B4EFACB000207B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A8CF6A1B4EFC86000207B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A9A8CF701B4EFDBB000207B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = Base.lproj/en.lproj/Ticket.storyboard; sourceTree = "<group>"; };
-		A9A8CF711B4EFDBB000207B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Ticket.storyboard; sourceTree = "<group>"; };
 		A9A8CF721B4EFDBB000207B9 /* CalculatorRowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatorRowLabel.h; path = TradeItTicketViewSDK/CalculatorRowLabel.h; sourceTree = "<group>"; };
 		A9A8CF731B4EFDBB000207B9 /* CalculatorRowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorRowLabel.m; path = TradeItTicketViewSDK/CalculatorRowLabel.m; sourceTree = "<group>"; };
 		A9A8CF741B4EFDBB000207B9 /* CalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatorViewController.h; path = TradeItTicketViewSDK/CalculatorViewController.h; sourceTree = "<group>"; };
 		A9A8CF751B4EFDBB000207B9 /* CalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorViewController.m; path = TradeItTicketViewSDK/CalculatorViewController.m; sourceTree = "<group>"; };
-		A9A8CF7A1B4EFDBB000207B9 /* Info 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info 2.plist"; path = "TradeItTicketViewSDK/Info 2.plist"; sourceTree = "<group>"; };
 		A9A8CF7B1B4EFDBB000207B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TradeItTicketViewSDK/Info.plist; sourceTree = "<group>"; };
 		A9A8CF7E1B4EFDBB000207B9 /* LoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingScreenViewController.h; path = TradeItTicketViewSDK/LoadingScreenViewController.h; sourceTree = "<group>"; };
 		A9A8CF7F1B4EFDBB000207B9 /* LoadingScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingScreenViewController.m; path = TradeItTicketViewSDK/LoadingScreenViewController.m; sourceTree = "<group>"; };
@@ -450,8 +447,7 @@
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
 				A9A8D12A1B50304C000207B9 /* SuccessScreen */,
 				A905D3231B629D83006B0B8C /* Utils */,
-				A9A8CF6F1B4EFDBB000207B9 /* Ticket.storyboard */,
-				A9A8CF7A1B4EFDBB000207B9 /* Info 2.plist */,
+				A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */,
 				A9A8CF7B1B4EFDBB000207B9 /* Info.plist */,
 				A9A8CF881B4EFDBB000207B9 /* TradeItTicketController.h */,
 				A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */,
@@ -918,7 +914,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9A8CF911B4EFDBB000207B9 /* Info.plist in Resources */,
-				A9A8CF901B4EFDBB000207B9 /* Info 2.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,9 +921,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A8D0D31B4F1132000207B9 /* Ticket.storyboard in Resources */,
 				A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
+				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
 				A9A8D1351B504408000207B9 /* checkmark.png in Resources */,
 			);
@@ -1075,19 +1070,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		A9A8CF6F1B4EFDBB000207B9 /* Ticket.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A9A8CF701B4EFDBB000207B9 /* en */,
-				A9A8CF711B4EFDBB000207B9 /* Base */,
-			);
-			name = Ticket.storyboard;
-			path = TradeItTicketViewSDK;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		A9A8CF621B4EFACB000207B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1125,7 +1107,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1161,7 +1143,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

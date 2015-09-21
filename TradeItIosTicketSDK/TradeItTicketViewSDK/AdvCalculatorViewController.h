@@ -8,6 +8,6 @@
 #import "BaseCalculatorViewController.h"
 #import "TradeItTicket.h"
 
-@interface AdvCalculatorViewController : BaseCalculatorViewController
+@interface AdvCalculatorViewController : BaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end

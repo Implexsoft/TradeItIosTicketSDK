@@ -10,7 +10,7 @@
 #import "TicketSession.h"
 #import "BrokerSelectViewController.h"
 
-@interface EditScreenViewController : UIViewController
+@interface EditScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TicketSession * tradeSession;
 

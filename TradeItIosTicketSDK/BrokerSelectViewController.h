@@ -12,7 +12,7 @@
 #import "BrokerSelectDetailViewController.h"
 #import "TTSDKMBProgressHUD.h"
 
-@interface BrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface BrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property TicketSession * tradeSession;
 @property BOOL editMode;

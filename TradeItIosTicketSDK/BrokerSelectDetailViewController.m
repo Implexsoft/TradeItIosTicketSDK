@@ -127,17 +127,21 @@
     [super viewDidAppear:animated];
     
     if(self.tradeSession.errorTitle) {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
-                                                                        message:self.tradeSession.errorMessage
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        self.tradeSession.errorMessage = nil;
-        self.tradeSession.errorTitle = nil;
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
+                                                                            message:self.tradeSession.errorMessage
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
+    
+    self.tradeSession.errorMessage = nil;
+    self.tradeSession.errorTitle = nil;
     
     if(emailInput.text != nil && ![emailInput.text isEqualToString:@""]) {
         [passwordInput becomeFirstResponder];
@@ -163,13 +167,17 @@
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
         NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.", brokerUsername[self.tradeSession.broker]];
 
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Credentials"
-                                                                        message:message
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Credentials"
+                                                                            message:message
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
         
     } else {
         [self performSegueWithIdentifier: @"loginToLoading" sender: self];
@@ -243,6 +251,17 @@
     }
     
     return YES;
+}
+
+#pragma mark - iOS7 fallback
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 @end

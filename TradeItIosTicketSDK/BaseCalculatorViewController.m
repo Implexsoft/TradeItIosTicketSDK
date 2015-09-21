@@ -12,6 +12,8 @@
 @interface BaseCalculatorViewController () {
     NSArray * linkedBrokers;
     NSString * segueToBrokerSelectDetail;
+    NSString * selectedBroker;
+    UIPickerView * currentPicker;
 }
 
 @end
@@ -92,6 +94,11 @@
 
 
 -(void) showBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
+    if(![UIAlertController class]) {
+        [self oldShowBrokerPickerAndSetPassword:setPassword onSelection:onSelection];
+        return;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Broker"
                                                                        message:nil
@@ -130,4 +137,93 @@
     }
 }
 
+#pragma mark - iOS7 fallbacks
+
+-(void) oldShowBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
+    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 0) {
+            [TradeItTicket returnToParentApp:self.tradeSession];
+        } else {
+             [self setAuthentication:selectedBroker withPassword:setPassword];
+             
+             if(onSelection) {
+                onSelection();
+             }
+        }
+    }];
+    
+    selectedBroker = linkedBrokers[0];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+        
+        int count = 0;
+        for (NSString * broker in linkedBrokers) {
+            if([broker isEqualToString:self.tradeSession.broker]) {
+                [currentPicker selectRow:count inComponent:0 animated:NO];
+            }
+            
+            count++;
+        }
+    });
+}
+
+-(UIView *) createPickerView {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
+    [title setTextColor:[UIColor blackColor]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [title setNumberOfLines:1];
+    [title setText: @"Select Broker"];
+    [contentView addSubview:title];
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
+    currentPicker = picker;
+    
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [contentView addSubview:picker];
+    
+    [contentView setNeedsDisplay];
+    return contentView;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return linkedBrokers.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [TradeItTicket getBrokerDisplayString:[linkedBrokers objectAtIndex:row]];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    selectedBroker = linkedBrokers[row];
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
