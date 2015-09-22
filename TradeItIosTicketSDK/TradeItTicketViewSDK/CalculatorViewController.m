@@ -162,7 +162,7 @@
     BOOL isStopLimitOrder = [self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimitOrder"];
     
     
-    if(price > 0 && shares > 0) {
+    if((price > 0 && shares > 0) || ([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && shares > 0)) {
         if(!(isStopLimitOrder && stopLimitPrice <= 0)) {
             readyToTrade = YES;
             [tradeButton setBackgroundColor:[UIColor colorWithRed:20.0f/255.0f green:63.0f/255.0f blue:119.0f/255.0f alpha:1.0f]];
