@@ -504,6 +504,11 @@
 - (IBAction)orderTypePressed:(id)sender {
     [self.view endEditing:YES];
     
+    if(![UIAlertController class]) {
+        [self showOldOrderType];
+        return;
+    }
+    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -530,6 +535,11 @@
 
 - (IBAction)orderExpirationPressed:(id)sender {
     [self.view endEditing:YES];
+    
+    if(![UIAlertController class]) {
+        [self showOldOrderExp];
+        return;
+    }
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Expiration"
                                                                    message:nil
