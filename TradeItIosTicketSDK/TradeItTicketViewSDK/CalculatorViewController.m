@@ -137,7 +137,7 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale:US];
     
-    NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@ %@", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     [estimatedCostLabel setText:formattedString];
@@ -440,7 +440,7 @@
 
 - (IBAction)refreshAndDecimalPressed:(id)sender {
     if(activeCalcRowItem != sharesRowItem) {
-        if(![activeCalcRowItem.currentValueStack containsString:@"."]) {
+        if(![TradeItTicket containsString:activeCalcRowItem.currentValueStack searchString:@"."]) {
             activeCalcRowItem.currentValueStack = [NSString stringWithFormat: @"%@.", activeCalcRowItem.currentValueStack];
             [activeCalcRowItem setUIToStack];
             [self updateEstimatedCost];

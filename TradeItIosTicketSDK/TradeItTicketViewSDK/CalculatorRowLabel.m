@@ -51,7 +51,7 @@
     else if(![_label isEqual:@"Shares"]) {
         double doubleValue = [value doubleValue];
         
-        if(![value containsString:@"."]) {
+        if(![TradeItTicket containsString:value searchString:@"."]) {
             value = [NSString stringWithFormat:@"%@.00", value];
         } else if(doubleValue < 1 && doubleValue > 0) {
             if([[_currentValueStack substringFromIndex:[_currentValueStack rangeOfString:@"."].location] length] > 5) {

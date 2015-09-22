@@ -89,11 +89,11 @@
         tradeSession.orderInfo.action = self.action;
     }
     
-    if([self.orderType containsString:@"stopLimit"]) {
+    if([TradeItTicket containsString:self.orderType searchString:@"stopLimit"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0 :0];
-    } else if([self.orderType containsString:@"stopMarket"]) {
+    } else if([TradeItTicket containsString:self.orderType searchString:@"stopMarket"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0];
-    } else if([self.orderType containsString:@"limit"]) {
+    } else if([TradeItTicket containsString:self.orderType searchString:@"limit"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0];
     }
     

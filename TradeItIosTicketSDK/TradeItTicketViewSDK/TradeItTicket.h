@@ -49,4 +49,6 @@
 +(void) returnToParentApp: (TicketSession *) tradeSession;
 +(void) restartTicket:(TicketSession *) tradeSession;
 
++(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
+
 @end

@@ -141,17 +141,17 @@
     
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]){
         price = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
-    } else if([self.tradeSession.orderInfo.price.type containsString:@"imit"]) {
+    } else if([TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
         price = [self.tradeSession.orderInfo.price.limitPrice doubleValue];
     }
-    
+     
     double estimatedCost = shares * price;
     NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
     
-    NSString * equalitySign = [self.tradeSession.orderInfo.price.type containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@   %@ %@", @"Estimated Total", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
@@ -580,7 +580,7 @@
 }
 
 -(void) leftInputChanged {
-    if([self.tradeSession.orderInfo.price.type containsString:@"imit"]) {
+    if([TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
         self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
     } else {
         self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];

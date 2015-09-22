@@ -326,6 +326,10 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     [TradeItTicket showTicket:tradeSession];
 }
 
++(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString {
+    NSRange range = [base rangeOfString:searchString];
+    return range.length != 0;
+}
 
 @end
 
