@@ -1109,7 +1109,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1154,6 +1154,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
@@ -1209,7 +1210,8 @@
 		A9A8D0B91B4F0AB1000207B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.11;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1217,7 +1219,7 @@
 		A9A8D0BA1B4F0AB1000207B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.5;
+				"DYLIB_CURRENT_VERSION[sdk=*]" = 1.0.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1233,6 +1235,7 @@
 				INFOPLIST_FILE = FullViewResources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tradeit.$(PRODUCT_NAME)";
 				PRODUCT_NAME = TradeItIosTicketSDK;
 				SKIP_INSTALL = YES;
