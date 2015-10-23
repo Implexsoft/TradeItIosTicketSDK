@@ -78,7 +78,11 @@
             
             self.tradeSession.authenticationInfo = self.verifyCreds;
             
-            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
+            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"none"]) {
+                self.tradeSession.brokerSignUpComplete = true;
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
                 [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"loginToAdvCalculator" sender:self];

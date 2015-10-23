@@ -126,6 +126,16 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    if(self.tradeSession.brokerSignUpComplete) {
+        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
+        res.success = true;
+
+        self.tradeSession.brokerSignUpCallback(res);
+        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+        
+        return;
+    }
+    
     if(self.tradeSession.errorTitle) {
         if(![UIAlertController class]) {
             [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];

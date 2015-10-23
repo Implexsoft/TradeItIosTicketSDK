@@ -162,9 +162,15 @@
 
 /**
  *  @return NSArray of brokers the user is linked with, it will use the short names as documented in TradeItEMS Api
+ *  if you're displaying this to the end user, you should pass the value(s) through getBrokerDisplayString
  */
 +(NSArray *) getLinkedBrokers;
 
+/**
+ *  @param brokerIdentifier the broker short name as documented in TradeItEMS Api
+ *  @return the consumer friendly version of the broker name (i.e. IB -> Interactive Brokers)
+ */
++(NSString *) getBrokerDisplayString:(NSString *) brokerIdentifier;
 
 @end
 
