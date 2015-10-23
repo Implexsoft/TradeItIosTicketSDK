@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TradeItTicket.h"
+#import "TTSDKTradeItTicket.h"
 
-@implementation TradeItTicket {
+@implementation TTSDKTradeItTicket {
 
 }
 
@@ -38,12 +38,12 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString: @"TRADEIT"];
     
     [text addAttribute:NSForegroundColorAttributeName
-                 value:[TradeItTicket tradeItBlue]
+                 value:[TTSDKTradeItTicket tradeItBlue]
                  range:NSMakeRange(0, 5)];
     
     
     [text addAttribute:NSForegroundColorAttributeName
-                 value:[TradeItTicket tradeItLogoGray]
+                 value:[TTSDKTradeItTicket tradeItLogoGray]
                  range:NSMakeRange(5, 2)];
     
     return text;
@@ -59,7 +59,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     
     
     [text addAttribute:NSForegroundColorAttributeName
-                 value:[TradeItTicket tradeItBlue]
+                 value:[TTSDKTradeItTicket tradeItBlue]
                  range:NSMakeRange(5, 2)];
     
     return text;
@@ -114,8 +114,8 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     return brokers;
 }
 
-+(NSArray *) getAvailableBrokers:(TicketSession *) tradeSession {
-    NSArray * brokers = [TradeItTicket getAvailableBrokers];
++(NSArray *) getAvailableBrokers:(TTSDKTicketSession *) tradeSession {
+    NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
     
     if([tradeSession debugMode]) {
         NSArray * dummy  =  @[@[@"Dummy",@"Dummy"]];
@@ -126,7 +126,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 +(NSString *) getBrokerDisplayString:(NSString *) value {
-    NSArray * brokers = [TradeItTicket getAvailableBrokers];
+    NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
     
     for(NSArray * broker in brokers) {
         if([broker[1] isEqualToString:value]) {
@@ -138,7 +138,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 +(NSString *) getBrokerValueString:(NSString *) displayString {
-    NSArray * brokers = [TradeItTicket getAvailableBrokers];
+    NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
     
     for(NSArray * broker in brokers) {
         if([broker[0] isEqualToString:displayString]) {
@@ -205,13 +205,13 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker {
-    [Keychain saveString:username forKey:[NSString stringWithFormat:@"%@Username", broker]];
-    [Keychain saveString:password forKey:[NSString stringWithFormat:@"%@Password", broker]];
+    [TTSDKKeychain saveString:username forKey:[NSString stringWithFormat:@"%@Username", broker]];
+    [TTSDKKeychain saveString:password forKey:[NSString stringWithFormat:@"%@Password", broker]];
 }
 
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker {
-    NSString * username = [Keychain getStringForKey:[NSString stringWithFormat:@"%@Username", broker]];
-    NSString * password = [Keychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
+    NSString * username = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Username", broker]];
+    NSString * password = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
     
     return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
 }
@@ -246,11 +246,11 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     }
 }
 
-+(void) showTicket:(TicketSession *) tradeSession {
++(void) showTicket:(TTSDKTicketSession *) tradeSession {
     //Get brokers
     [tradeSession asyncGetBrokerListWithCompletionBlock:^(NSArray *brokerList){
         if(brokerList == nil) {
-            tradeSession.brokerList = [TradeItTicket getAvailableBrokers:tradeSession];
+            tradeSession.brokerList = [TTSDKTradeItTicket getAvailableBrokers:tradeSession];
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
             
@@ -275,9 +275,9 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     //Setup ticket storyboard
     NSString * startingView = @"brokerSelectController";
     
-    if([[TradeItTicket getLinkedBrokersList] count] > 0) {
+    if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
-        startingView = [TradeItTicket getCalcScreenPreferance];
+        startingView = [TTSDKTradeItTicket getCalcScreenPreferance];
         
         if(startingView == nil){
             if(tradeSession.calcScreenStoryboardId != nil) {
@@ -298,13 +298,13 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
     
     if([startingView isEqualToString: @"initalCalculatorController"]) {
-        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     } else if([startingView isEqualToString: @"brokerSelectController"]){
-        BrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKBrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     } else {
-        AdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKAdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     }
     
@@ -313,7 +313,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 }
 
 
-+(void) returnToParentApp:(TicketSession *)tradeSession {
++(void) returnToParentApp:(TTSDKTicketSession *)tradeSession {
     [[tradeSession parentView] dismissViewControllerAnimated:NO completion:^{
         if(tradeSession.callback) {
             tradeSession.callback(tradeSession.resultContainer);
@@ -321,9 +321,9 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     }];
 }
 
-+(void) restartTicket:(TicketSession *) tradeSession {
++(void) restartTicket:(TTSDKTicketSession *) tradeSession {
     [[tradeSession parentView] dismissViewControllerAnimated:NO completion:nil];
-    [TradeItTicket showTicket:tradeSession];
+    [TTSDKTradeItTicket showTicket:tradeSession];
 }
 
 +(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString {

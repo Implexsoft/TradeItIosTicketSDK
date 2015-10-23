@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <LocalAuthentication/LocalAuthentication.h>
-#import "TicketSession.h"
-#import "Keychain.h"
+#import "TTSDKTicketSession.h"
+#import "TTSDKKeychain.h"
 
-#import "BrokerSelectViewController.h"
-#import "CalculatorViewController.h"
-#import "AdvCalculatorViewController.h"
+#import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKCalculatorViewController.h"
+#import "TTSDKAdvCalculatorViewController.h"
 
-@interface TradeItTicket : NSObject
+@interface TTSDKTradeItTicket : NSObject
 
 +(UIColor *) activeColor;
 +(UIColor *) baseTextColor;
@@ -29,7 +29,7 @@
 
 +(NSString *) splitCamelCase:(NSString *) str;
 
-+(NSArray *) getAvailableBrokers: (TicketSession *) tradeSession;
++(NSArray *) getAvailableBrokers: (TTSDKTicketSession *) tradeSession;
 +(NSString *) getBrokerDisplayString:(NSString *) value;
 +(NSString *) getBrokerValueString:(NSString *) displayString;
 
@@ -45,9 +45,9 @@
 
 +(BOOL) hasTouchId;
 
-+(void) showTicket:(TicketSession *) tradeSession;
-+(void) returnToParentApp: (TicketSession *) tradeSession;
-+(void) restartTicket:(TicketSession *) tradeSession;
++(void) showTicket:(TTSDKTicketSession *) tradeSession;
++(void) returnToParentApp: (TTSDKTicketSession *) tradeSession;
++(void) restartTicket:(TTSDKTicketSession *) tradeSession;
 
 +(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 

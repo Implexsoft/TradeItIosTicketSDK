@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "BaseCalculatorViewController.h"
-#import "TradeItTicket.h"
+#import "TTSDKBaseCalculatorViewController.h"
+#import "TTSDKTradeItTicket.h"
 
-@interface BaseCalculatorViewController () {
+@interface TTSDKBaseCalculatorViewController () {
     NSArray * linkedBrokers;
     NSString * segueToBrokerSelectDetail;
     NSString * selectedBroker;
@@ -18,13 +18,13 @@
 
 @end
 
-@implementation BaseCalculatorViewController
+@implementation TTSDKBaseCalculatorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    linkedBrokers = [TradeItTicket getLinkedBrokersList];
+    linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
     
     segueToBrokerSelectDetail = self.advMode ? @"advCalculatorToBrokerSelectDetail" : @"calculatorToBrokerSelectDetail";
 }
@@ -35,7 +35,7 @@
 }
 
 -(void) setBroker {
-    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TradeItTicket hasTouchId]) {
+    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TTSDKTradeItTicket hasTouchId]) {
         [self promptTouchId];
     } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
         if([linkedBrokers count] > 1) {
@@ -57,29 +57,29 @@
               localizedReason:myLocalizedReasonString
                         reply:^(BOOL success, NSError *error) {
                             if (success) {
-                                if([[TradeItTicket getLinkedBrokersList] count] > 1) {
+                                if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 1) {
                                     [self showBrokerPickerAndSetPassword:YES onSelection:nil];
                                 } else {
-                                    NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
+                                    NSString * broker = [[TTSDKTradeItTicket getLinkedBrokersList] objectAtIndex:0];
                                     [self setAuthentication:broker withPassword:YES];
                                 }
                             } else {
                                 //too many tries, or cancelled by user
                                 if(error.code == -2 || error.code == -1) {
-                                    [TradeItTicket returnToParentApp:self.tradeSession];
+                                    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
                                 } else if(error.code == -3) {
                                     //fallback mechanism selected
                                     //load username into creds
                                     //segue to login screen for the password
                                     
-                                    if([[TradeItTicket getLinkedBrokersList] count] > 1) {
+                                    if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 1) {
                                         [self showBrokerPickerAndSetPassword:NO onSelection:^{
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
                                             });
                                         }];
                                     } else {
-                                        NSString * broker = [[TradeItTicket getLinkedBrokersList] objectAtIndex:0];
+                                        NSString * broker = [[TTSDKTradeItTicket getLinkedBrokersList] objectAtIndex:0];
                                         [self setAuthentication:broker withPassword:NO];
                                         
                                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -105,7 +105,7 @@
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
         
         for (NSString * broker in linkedBrokers) {
-            UIAlertAction * brokerOption = [UIAlertAction actionWithTitle: [TradeItTicket getBrokerDisplayString:broker] style:UIAlertActionStyleDefault
+            UIAlertAction * brokerOption = [UIAlertAction actionWithTitle: [TTSDKTradeItTicket getBrokerDisplayString:broker] style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
                                                                       
                                                                       [self setAuthentication:broker withPassword:setPassword];
@@ -118,7 +118,7 @@
         }
         
         UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [TradeItTicket returnToParentApp:self.tradeSession];
+            [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
         }];
         [alert addAction:cancel];
         
@@ -128,7 +128,7 @@
 
 -(void) setAuthentication: (NSString *) broker withPassword: (BOOL) setPassword {
     self.tradeSession.broker = broker;
-    TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: broker];
+    TradeItAuthenticationInfo * creds = [TTSDKTradeItTicket getStoredAuthenticationForBroker: broker];
     
     if(setPassword) {
         self.tradeSession.authenticationInfo = creds;
@@ -140,13 +140,13 @@
 #pragma mark - iOS7 fallbacks
 
 -(void) oldShowBrokerPickerAndSetPassword:(BOOL) setPassword onSelection:(void (^)(void)) onSelection {
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 0) {
-            [TradeItTicket returnToParentApp:self.tradeSession];
+            [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
         } else {
              [self setAuthentication:selectedBroker withPassword:setPassword];
              
@@ -204,7 +204,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [TradeItTicket getBrokerDisplayString:[linkedBrokers objectAtIndex:row]];
+    return [TTSDKTradeItTicket getBrokerDisplayString:[linkedBrokers objectAtIndex:row]];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "AdvCalculatorViewController.h"
+#import "TTSDKAdvCalculatorViewController.h"
 
-@interface AdvCalculatorViewController () {
+@interface TTSDKAdvCalculatorViewController () {
     
     __weak IBOutlet UILabel *companyNameLabel;
     __weak IBOutlet UILabel *priceAndPerformanceLabel;
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation AdvCalculatorViewController
+@implementation TTSDKAdvCalculatorViewController
 
 - (void)viewDidLoad {
     self.advMode = YES;
@@ -58,7 +58,7 @@
     [self changeOrderType:self.tradeSession.orderInfo.price.type];
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
     
-    [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
+    [[self navigationItem] setTitle: [TTSDKTradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
     
     NSString * companyNameString;
     if(self.tradeSession.companyName != nil) {
@@ -93,7 +93,7 @@
     
     [self setBroker];
     
-    [[self navigationItem] setTitle: [TradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
+    [[self navigationItem] setTitle: [TTSDKTradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,7 +141,7 @@
     
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]){
         price = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
-    } else if([TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
+    } else if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
         price = [self.tradeSession.orderInfo.price.limitPrice doubleValue];
     }
      
@@ -151,7 +151,7 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
     
-    NSString * equalitySign = [TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@   %@ %@", @"Estimated Total", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
@@ -285,7 +285,7 @@
 #pragma mark - Change Order
 
 -(void) changeOrderAction: (NSString *) action {
-    [orderActionButton setTitle:[TradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
+    [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
     self.tradeSession.orderInfo.action = action;
 }
 
@@ -316,7 +316,7 @@
 }
 
 -(void) changeOrderType: (NSString *) type {
-    [orderTypeButton setTitle:[TradeItTicket splitCamelCase:type] forState:UIControlStateNormal];
+    [orderTypeButton setTitle:[TTSDKTradeItTicket splitCamelCase:type] forState:UIControlStateNormal];
     
     if([type isEqualToString:@"limit"]){
         [self setToLimitOrder];
@@ -580,7 +580,7 @@
 }
 
 - (IBAction)cancelPressed:(id)sender {
-    [TradeItTicket returnToParentApp:self.tradeSession];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 
@@ -590,7 +590,7 @@
 }
 
 -(void) leftInputChanged {
-    if([TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
+    if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
         self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
     } else {
         self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
@@ -620,11 +620,11 @@
     pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
     currentSelection = self.tradeSession.orderInfo.action;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderAction: currentSelection];
         }
@@ -648,11 +648,11 @@
     pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
     currentSelection = self.tradeSession.orderInfo.price.type;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderType: currentSelection];
         }
@@ -676,11 +676,11 @@
     pickerValues = @[@"day",@"gtc"];
     currentSelection = self.tradeSession.orderInfo.expiration;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderExpiration: currentSelection];
         }

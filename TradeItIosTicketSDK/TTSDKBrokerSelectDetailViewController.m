@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "BrokerSelectDetailViewController.h"
+#import "TTSDKBrokerSelectDetailViewController.h"
 
-@implementation BrokerSelectDetailViewController {
+@implementation TTSDKBrokerSelectDetailViewController {
     
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
@@ -65,9 +65,9 @@
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
     
-    [pageTitle setText:[NSString stringWithFormat:@"Enter your %@ credentials to link your account and trade.", [TradeItTicket getBrokerDisplayString:broker]]];
+    [pageTitle setText:[NSString stringWithFormat:@"Enter your %@ credentials to link your account and trade.", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
     
-    if([[TradeItTicket getLinkedBrokersList] containsObject:broker]){
+    if([[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
         [self addUnlink];
     }
     
@@ -152,7 +152,7 @@
 
 
 -(void)home:(UIBarButtonItem *)sender {
-    [TradeItTicket returnToParentApp:self.tradeSession];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 - (IBAction)linkAccountPressed:(id)sender {
@@ -187,8 +187,8 @@
 -(IBAction) unlinkAccountPressed:(id) sender{
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
     
-    [TradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
-    [TradeItTicket removeLinkedBroker: broker];
+    [TTSDKTradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
+    [TTSDKTradeItTicket removeLinkedBroker: broker];
     
     if([self.tradeSession.broker isEqualToString:broker]) {
         self.tradeSession.broker = nil;
@@ -196,7 +196,7 @@
         self.tradeSession.authenticationInfo.password = @"";
     }
     
-    [TradeItTicket restartTicket:self.tradeSession];
+    [TTSDKTradeItTicket restartTicket:self.tradeSession];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

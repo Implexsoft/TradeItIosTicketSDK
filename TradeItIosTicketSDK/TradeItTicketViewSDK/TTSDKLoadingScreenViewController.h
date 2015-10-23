@@ -7,25 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TicketSession.h"
+#import "TTSDKTicketSession.h"
 #import "TradeItResult.h"
 #import "TradeItSecurityQuestionResult.h"
 #import "TradeItMultipleAccountResult.h"
 #import "TradeItStockOrEtfTradeReviewResult.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"
 #import "TradeItErrorResult.h"
-#import "CustomIOSAlertView.h"
+#import "TTSDKCustomIOSAlertView.h"
 
 #import "TradeItVerifyCredentialSession.h"
 
-#import "ReviewScreenViewController.h"
-#import "SuccessViewController.h"
-#import "CalculatorViewController.h"
+#import "TTSDKReviewScreenViewController.h"
+#import "TTSDKSuccessViewController.h"
+#import "TTSDKCalculatorViewController.h"
 
-@interface LoadingScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
+@interface TTSDKLoadingScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property NSString * actionToPerform;
-@property TicketSession * tradeSession;
+@property TTSDKTicketSession * tradeSession;
 @property TradeItResult * lastResult;
 @property TradeItStockOrEtfTradeReviewResult * reviewResult;
 @property TradeItStockOrEtfTradeSuccessResult * successResult;

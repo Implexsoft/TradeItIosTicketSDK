@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "LoadingScreenViewController.h"
+#import "TTSDKLoadingScreenViewController.h"
 
-@interface LoadingScreenViewController () {
+@interface TTSDKLoadingScreenViewController () {
     
     __weak IBOutlet UIImageView *loadingIcon;
     __weak IBOutlet UILabel *indicatorText;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation LoadingScreenViewController
+@implementation TTSDKLoadingScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,8 +68,8 @@
         NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
         
         if(success.credentialsValid) {
-            [TradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
-            [TradeItTicket addLinkedBroker:broker];
+            [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
+            [TTSDKTradeItTicket addLinkedBroker:broker];
             self.tradeSession.resultContainer.status = USER_CANCELED;
             
             if(self.addBroker) {
@@ -88,8 +88,8 @@
             self.tradeSession.errorMessage = @"Check your username and password and try again.";
             
             if(!self.addBroker) {
-                [TradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
-                [TradeItTicket removeLinkedBroker: broker];
+                [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
+                [TTSDKTradeItTicket removeLinkedBroker: broker];
             }
             
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -282,11 +282,11 @@
     questionOptions = multiAccountResult.accountList;
     currentAccount = questionOptions[0];
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
@@ -327,11 +327,11 @@
     questionOptions = securityQuestionResult.securityQuestionOptions;
     currentSelection = questionOptions[0];
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
@@ -535,21 +535,21 @@
     
     if([segue.identifier isEqualToString:@"loadingToReviewSegue"]) {
         UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
-        ReviewScreenViewController * rootController=(ReviewScreenViewController *)[dest.viewControllers objectAtIndex:0];
+        TTSDKReviewScreenViewController * rootController=(TTSDKReviewScreenViewController *)[dest.viewControllers objectAtIndex:0];
         
         [rootController setTradeSession: self.tradeSession];
         [rootController setResult: self.reviewResult];
     } else if([segue.identifier isEqualToString:@"loadingToSuccesSegue"]) {
-        SuccessViewController * successPage = (SuccessViewController *)[segue destinationViewController];
+        TTSDKSuccessViewController * successPage = (TTSDKSuccessViewController *)[segue destinationViewController];
         [successPage setResult: self.successResult];
         [successPage setTradeSession: self.tradeSession];
     } else if([segue.identifier isEqualToString:@"loginToCalculator"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
-        CalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         [initialViewController setTradeSession: self.tradeSession];
     } else if([segue.identifier isEqualToString:@"loginToAdvCalculator"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
-        AdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKAdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         [initialViewController setTradeSession: self.tradeSession];
     }
     

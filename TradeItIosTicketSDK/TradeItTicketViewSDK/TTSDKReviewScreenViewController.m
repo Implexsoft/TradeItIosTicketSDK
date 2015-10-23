@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "ReviewScreenViewController.h"
+#import "TTSDKReviewScreenViewController.h"
 
-@interface ReviewScreenViewController () {
+@interface TTSDKReviewScreenViewController () {
     
     __weak IBOutlet UILabel *reviewLabel;
     __weak IBOutlet UIButton *submitOrderButton;
@@ -53,7 +53,7 @@
 
 @end
 
-@implementation ReviewScreenViewController
+@implementation TTSDKReviewScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

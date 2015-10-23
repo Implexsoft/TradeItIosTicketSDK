@@ -7,21 +7,21 @@
 //
 
 #import "TradeItTicketController.h"
-#import "TicketSession.h"
+#import "TTSDKTicketSession.h"
 
-#import "CalculatorViewController.h"
-#import "AdvCalculatorViewController.h"
-#import "AdvCalcTextField.h"
-#import "LoadingScreenViewController.h"
-#import "ReviewScreenViewController.h"
-#import "SuccessViewController.h"
-#import "BrokerSelectViewController.h"
-#import "BrokerSelectDetailViewController.h"
-#import "EditScreenViewController.h"
+#import "TTSDKCalculatorViewController.h"
+#import "TTSDKAdvCalculatorViewController.h"
+#import "TTSDKAdvCalcTextField.h"
+#import "TTSDKLoadingScreenViewController.h"
+#import "TTSDKReviewScreenViewController.h"
+#import "TTSDKSuccessViewController.h"
+#import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKBrokerSelectDetailViewController.h"
+#import "TTSDKEditScreenViewController.h"
 
 
 @implementation TradeItTicketController {
-    TicketSession * tradeSession;
+    TTSDKTicketSession * tradeSession;
 }
 
 +(void) showFullTicketWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
@@ -54,7 +54,7 @@
     [TradeItTicketController forceClassesIntoLinker];
     
     //Create Trade Session
-    TicketSession * tradeSession = [[TicketSession alloc] initWithpublisherApp: publisherApp];
+    TTSDKTicketSession * tradeSession = [[TTSDKTicketSession alloc] initWithpublisherApp: publisherApp];
     tradeSession.orderInfo.symbol = [symbol uppercaseString];
     tradeSession.lastPrice = lastPrice;
     tradeSession.orderInfo.action = action;
@@ -70,7 +70,7 @@
     self = [super init];
     
     if (self) {
-        tradeSession = [[TicketSession alloc] initWithpublisherApp: publisherApp];
+        tradeSession = [[TTSDKTicketSession alloc] initWithpublisherApp: publisherApp];
         tradeSession.orderInfo.symbol = [symbol uppercaseString];
         tradeSession.lastPrice = lastPrice;
         tradeSession.parentView = view;
@@ -89,11 +89,11 @@
         tradeSession.orderInfo.action = self.action;
     }
     
-    if([TradeItTicket containsString:self.orderType searchString:@"stopLimit"]) {
+    if([TTSDKTradeItTicket containsString:self.orderType searchString:@"stopLimit"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0 :0];
-    } else if([TradeItTicket containsString:self.orderType searchString:@"stopMarket"]) {
+    } else if([TTSDKTradeItTicket containsString:self.orderType searchString:@"stopMarket"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0];
-    } else if([TradeItTicket containsString:self.orderType searchString:@"limit"]) {
+    } else if([TTSDKTradeItTicket containsString:self.orderType searchString:@"limit"]) {
         tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0];
     }
     
@@ -134,24 +134,24 @@
     [TradeItTicketController showTicket:tradeSession];
 }
 
-+(void) showTicket:(TicketSession *) ticketSession {
++(void) showTicket:(TTSDKTicketSession *) ticketSession {
 
     ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
     
-    [TradeItTicket showTicket:ticketSession];
+    [TTSDKTradeItTicket showTicket:ticketSession];
 }
 
 +(void) clearSavedData {
-    NSArray * brokers = [TradeItTicket getLinkedBrokersList];
+    NSArray * brokers = [TTSDKTradeItTicket getLinkedBrokersList];
     
     for (NSString * broker in brokers) {
-        [TradeItTicket removeLinkedBroker:broker];
-        [TradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
+        [TTSDKTradeItTicket removeLinkedBroker:broker];
+        [TTSDKTradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
     }
 }
 
 +(NSArray *) getLinkedBrokers {
-    return [TradeItTicket getLinkedBrokersList];
+    return [TTSDKTradeItTicket getLinkedBrokersList];
 }
 
 //Let me tell you a cool story about why this is here:
@@ -163,15 +163,15 @@
 //we simply call a lame method on every view class which forces
 //the linker to load the classes :)
 +(void) forceClassesIntoLinker {
-    [CalculatorViewController class];
-    [AdvCalculatorViewController class];
-    [AdvCalcTextField class];
-    [EditScreenViewController class];
-    [LoadingScreenViewController class];
-    [ReviewScreenViewController class];
-    [SuccessViewController class];
-    [BrokerSelectViewController class];
-    [BrokerSelectDetailViewController class];
+    [TTSDKCalculatorViewController class];
+    [TTSDKAdvCalculatorViewController class];
+    [TTSDKAdvCalcTextField class];
+    [TTSDKEditScreenViewController class];
+    [TTSDKLoadingScreenViewController class];
+    [TTSDKReviewScreenViewController class];
+    [TTSDKSuccessViewController class];
+    [TTSDKBrokerSelectViewController class];
+    [TTSDKBrokerSelectDetailViewController class];
 }
 @end
 

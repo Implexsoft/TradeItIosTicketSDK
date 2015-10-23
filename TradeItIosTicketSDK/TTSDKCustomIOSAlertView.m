@@ -9,7 +9,7 @@
 //  http://opensource.org/licenses/MIT
 //
 
-#import "CustomIOSAlertView.h"
+#import "TTSDKCustomIOSAlertView.h"
 #import <QuartzCore/QuartzCore.h>
 
 const static CGFloat kCustomIOSAlertViewDefaultButtonHeight       = 50;
@@ -17,7 +17,7 @@ const static CGFloat kCustomIOSAlertViewDefaultButtonSpacerHeight = 1;
 const static CGFloat kCustomIOSAlertViewCornerRadius              = 7;
 const static CGFloat kCustomIOS7MotionEffectExtent                = 10.0;
 
-@implementation CustomIOSAlertView
+@implementation TTSDKCustomIOSAlertView
 
 CGFloat buttonHeight = 0;
 CGFloat buttonSpacerHeight = 0;
@@ -156,7 +156,7 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 // Default button behaviour
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)customIOS7dialogButtonTouchUpInside: (TTSDKCustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //NSLog(@"Button Clicked! %d, %d", (int)buttonIndex, (int)[alertView tag]);
     [self close];

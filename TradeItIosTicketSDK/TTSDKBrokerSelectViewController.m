@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "BrokerSelectViewController.h"
+#import "TTSDKBrokerSelectViewController.h"
 
-@implementation BrokerSelectViewController {
+@implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
 }
@@ -19,7 +19,7 @@ static NSString * CellIdentifier = @"BrokerCell";
     [super viewDidLoad];
     
     brokers = self.tradeSession.brokerList;
-    linkedBrokers = [TradeItTicket getLinkedBrokersList];
+    linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
     
     UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
@@ -57,7 +57,7 @@ static NSString * CellIdentifier = @"BrokerCell";
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [TradeItTicket returnToParentApp:self.tradeSession];
+                                                                       [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
                                                                    }];
             [alert addAction:defaultAction];
             
@@ -89,7 +89,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [TradeItTicket returnToParentApp:self.tradeSession];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 #pragma mark - Table view data source
@@ -130,7 +130,7 @@ static NSString * CellIdentifier = @"BrokerCell";
         [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
     } else {
         //[[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
-        [TradeItTicket returnToParentApp:self.tradeSession];
+        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
     }
 }
 

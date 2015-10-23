@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "CalculatorViewController.h"
+#import "TTSDKCalculatorViewController.h"
 
-@interface CalculatorViewController () {
+@interface TTSDKCalculatorViewController () {
     __weak IBOutlet UIButton * tradeButton;
     
     __weak IBOutlet UILabel *estimatedCostLabel;
@@ -37,14 +37,14 @@
     NSLayoutConstraint * stopPriceLabelFullWidthConstraint;
     NSLayoutConstraint * stopPriceValueWidthConstraint;
     
-    CalculatorRowLabel * sharesRowItem;
-    CalculatorRowLabel * lastPriceRowItem;
-    CalculatorRowLabel * limitPriceRowItem;
-    CalculatorRowLabel * stopPriceRowItem;
-    CalculatorRowLabel * stopLimitPriceRowItem;
+    TTSDKCalculatorRowLabel * sharesRowItem;
+    TTSDKCalculatorRowLabel * lastPriceRowItem;
+    TTSDKCalculatorRowLabel * limitPriceRowItem;
+    TTSDKCalculatorRowLabel * stopPriceRowItem;
+    TTSDKCalculatorRowLabel * stopLimitPriceRowItem;
     
-    CalculatorRowLabel * activeCalcRowItem;
-    CalculatorRowLabel * currentPriceCalcRowItem;
+    TTSDKCalculatorRowLabel * activeCalcRowItem;
+    TTSDKCalculatorRowLabel * currentPriceCalcRowItem;
     
     NSDictionary * footerMessages;
     
@@ -55,7 +55,7 @@
 
 @end
 
-@implementation CalculatorViewController
+@implementation TTSDKCalculatorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,11 +63,11 @@
     readyToTrade = NO;
     [self initFooterMessages];
     
-    sharesRowItem = [CalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
-    lastPriceRowItem = [CalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
-    limitPriceRowItem = [CalculatorRowLabel getLimitPriceLabel:priceLabelButton uiValue:priceValueButton];
-    stopPriceRowItem = [CalculatorRowLabel getStopPriceLabel:priceLabelButton uiValue:priceValueButton];
-    stopLimitPriceRowItem = [CalculatorRowLabel getStopLimitPriceLabel:stopPriceLabelButton uiValue:stopPriceValueButton];
+    sharesRowItem = [TTSDKCalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
+    lastPriceRowItem = [TTSDKCalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
+    limitPriceRowItem = [TTSDKCalculatorRowLabel getLimitPriceLabel:priceLabelButton uiValue:priceValueButton];
+    stopPriceRowItem = [TTSDKCalculatorRowLabel getStopPriceLabel:priceLabelButton uiValue:priceValueButton];
+    stopLimitPriceRowItem = [TTSDKCalculatorRowLabel getStopLimitPriceLabel:stopPriceLabelButton uiValue:stopPriceValueButton];
     
     activeCalcRowItem = sharesRowItem;
     [sharesRowItem setActive];
@@ -110,7 +110,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) changeCalcRowInput:(CalculatorRowLabel *)newItem {
+-(void) changeCalcRowInput:(TTSDKCalculatorRowLabel *)newItem {
     if(newItem != lastPriceRowItem) {
         [activeCalcRowItem setPassive];
         activeCalcRowItem = newItem;
@@ -137,7 +137,7 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale:US];
     
-    NSString * equalitySign = [TradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedString = [NSString stringWithFormat:@"%@ %@", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
     
     [estimatedCostLabel setText:formattedString];
@@ -325,7 +325,7 @@
 
 -(void) updateTradeLabels {
     NSString * tradeString = [NSString stringWithFormat:@"%@ %@",
-                              [TradeItTicket splitCamelCase: [[[self tradeSession] orderInfo] action]],
+                              [TTSDKTradeItTicket splitCamelCase: [[[self tradeSession] orderInfo] action]],
                               [[[self tradeSession] orderInfo] symbol]];
     
     [[self navigationItem] setTitle: tradeString];
@@ -440,7 +440,7 @@
 
 - (IBAction)refreshAndDecimalPressed:(id)sender {
     if(activeCalcRowItem != sharesRowItem) {
-        if(![TradeItTicket containsString:activeCalcRowItem.currentValueStack searchString:@"."]) {
+        if(![TTSDKTradeItTicket containsString:activeCalcRowItem.currentValueStack searchString:@"."]) {
             activeCalcRowItem.currentValueStack = [NSString stringWithFormat: @"%@.", activeCalcRowItem.currentValueStack];
             [activeCalcRowItem setUIToStack];
             [self updateEstimatedCost];
@@ -479,7 +479,7 @@
 }
 
 - (IBAction)CancelPressed:(id)sender {
-    [TradeItTicket returnToParentApp:self.tradeSession];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 - (IBAction)tradeButtonPressed:(id)sender {

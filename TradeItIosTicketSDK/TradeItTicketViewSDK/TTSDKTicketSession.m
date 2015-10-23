@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TicketSession.h"
+#import "TTSDKTicketSession.h"
 
-@implementation TicketSession
+@implementation TTSDKTicketSession
 
 @end

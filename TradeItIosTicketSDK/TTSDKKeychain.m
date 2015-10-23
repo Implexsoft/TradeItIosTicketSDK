@@ -6,10 +6,10 @@
 // Created by Frank Kim on 1/3/11.
 //
 
-#import "Keychain.h"
+#import "TTSDKKeychain.h"
 #import <Security/Security.h>
 
-@implementation Keychain
+@implementation TTSDKKeychain
 
 + (void)saveString:(NSString *)inputString forKey:(NSString	*)account {
 	NSAssert(account != nil, @"Invalid account");

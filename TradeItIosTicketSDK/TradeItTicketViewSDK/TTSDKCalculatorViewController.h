@@ -7,16 +7,16 @@
 //
 
 #import <LocalAuthentication/LocalAuthentication.h>
-#import "TicketSession.h"
-#import "TradeItTicket.h"
+#import "TTSDKTicketSession.h"
+#import "TTSDKTradeItTicket.h"
 
-#import "CalculatorRowLabel.h"
+#import "TTSDKCalculatorRowLabel.h"
 #import "TradeItStockOrEtfOrderPrice.h"
-#import "LoadingScreenViewController.h"
-#import "BrokerSelectDetailViewController.h"
-#import "BaseCalculatorViewController.h"
+#import "TTSDKLoadingScreenViewController.h"
+#import "TTSDKBrokerSelectDetailViewController.h"
+#import "TTSDKBaseCalculatorViewController.h"
 
-@interface CalculatorViewController : BaseCalculatorViewController
+@interface TTSDKCalculatorViewController : TTSDKBaseCalculatorViewController
 
 -(IBAction)calcPadButtonPressed:(id)sender;
 -(IBAction)backspacePressed:(id)sender;

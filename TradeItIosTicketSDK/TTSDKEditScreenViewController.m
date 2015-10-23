@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "EditScreenViewController.h"
+#import "TTSDKEditScreenViewController.h"
 
-@interface EditScreenViewController () {
+@interface TTSDKEditScreenViewController () {
     
     __weak IBOutlet UIButton *orderActionButton;
     __weak IBOutlet UIButton *orderTypeButton;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation EditScreenViewController
+@implementation TTSDKEditScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,10 +52,10 @@
     [self setCurrentOrderType];
     [self setCurrentOrderExpiration];
     
-    linkedBrokers = [TradeItTicket getLinkedBrokersList];
-    [brokerButton setTitle:[TradeItTicket getBrokerDisplayString: self.tradeSession.broker] forState:UIControlStateNormal];
+    linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
+    [brokerButton setTitle:[TTSDKTradeItTicket getBrokerDisplayString: self.tradeSession.broker] forState:UIControlStateNormal];
     
-    NSString * calcScreenPref = [TradeItTicket getCalcScreenPreferance];
+    NSString * calcScreenPref = [TTSDKTradeItTicket getCalcScreenPreferance];
     if(calcScreenPref == nil) { calcScreenPref = @"initalCalculatorController"; }
     
     currentCalcScreen = [calcScreenPref isEqualToString: @"initalCalculatorController"] ? @"Calculator" : @"Detail View";
@@ -70,11 +70,11 @@
 #pragma mark - UI Changes
 
 -(void) setCurrentOrderAction {
-    [orderActionButton setTitle:[TradeItTicket splitCamelCase:self.tradeSession.orderInfo.action] forState:UIControlStateNormal];
+    [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:self.tradeSession.orderInfo.action] forState:UIControlStateNormal];
 }
 
 -(void) setCurrentOrderType {
-    [orderTypeButton setTitle:[TradeItTicket splitCamelCase:self.tradeSession.orderInfo.price.type] forState:UIControlStateNormal];
+    [orderTypeButton setTitle:[TTSDKTradeItTicket splitCamelCase:self.tradeSession.orderInfo.price.type] forState:UIControlStateNormal];
     
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"]) {
         self.tradeSession.orderInfo.expiration = @"day";
@@ -259,13 +259,13 @@
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
         
         for (NSString * broker in linkedBrokers) {
-            UIAlertAction * brokerOption = [UIAlertAction actionWithTitle: [TradeItTicket getBrokerDisplayString:broker] style:UIAlertActionStyleDefault
+            UIAlertAction * brokerOption = [UIAlertAction actionWithTitle: [TTSDKTradeItTicket getBrokerDisplayString:broker] style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
                                                                       
-                                                                      [brokerButton setTitle: [TradeItTicket getBrokerDisplayString:broker] forState:UIControlStateNormal];
+                                                                      [brokerButton setTitle: [TTSDKTradeItTicket getBrokerDisplayString:broker] forState:UIControlStateNormal];
                                                                       
                                                                       self.tradeSession.broker = broker;
-                                                                      TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
+                                                                      TradeItAuthenticationInfo * creds = [TTSDKTradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
                                                                       self.tradeSession.authenticationInfo = creds;
                                                                   }];
             [alert addAction:brokerOption];
@@ -295,16 +295,16 @@
     UIAlertAction* calcAction = [UIAlertAction actionWithTitle:@"Calculator" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) {
                                                           if([currentCalcScreen isEqualToString:@"Detail View"]) {
-                                                              [TradeItTicket setCalcScreenPreferance:@"initalCalculatorController"];
-                                                              [TradeItTicket restartTicket:self.tradeSession];
+                                                              [TTSDKTradeItTicket setCalcScreenPreferance:@"initalCalculatorController"];
+                                                              [TTSDKTradeItTicket restartTicket:self.tradeSession];
                                                           }
                                                       }];
     
     UIAlertAction* detailAction = [UIAlertAction actionWithTitle:@"Detail View" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) {
                                                           if([currentCalcScreen isEqualToString:@"Calculator"]) {
-                                                              [TradeItTicket setCalcScreenPreferance:@"advCalculatorController"];
-                                                              [TradeItTicket restartTicket:self.tradeSession];
+                                                              [TTSDKTradeItTicket setCalcScreenPreferance:@"advCalculatorController"];
+                                                              [TTSDKTradeItTicket restartTicket:self.tradeSession];
                                                           }
                                                       }];
     
@@ -331,17 +331,17 @@
     pickerValues = @[@"initalCalculatorController",@"advCalculatorController"];
     currentSelection = currentCalcScreen;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Show Ticket As"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if([currentCalcScreen isEqualToString:@"Calculator"] && [currentSelection isEqualToString:@"advCalculatorController"]) {
-            [TradeItTicket setCalcScreenPreferance:@"advCalculatorController"];
-            [TradeItTicket restartTicket:self.tradeSession];
+            [TTSDKTradeItTicket setCalcScreenPreferance:@"advCalculatorController"];
+            [TTSDKTradeItTicket restartTicket:self.tradeSession];
         } else if([currentCalcScreen isEqualToString:@"Detail View"] && [currentSelection isEqualToString:@"initalCalculatorController"]) {
-            [TradeItTicket setCalcScreenPreferance:@"initalCalculatorController"];
-            [TradeItTicket restartTicket:self.tradeSession];
+            [TTSDKTradeItTicket setCalcScreenPreferance:@"initalCalculatorController"];
+            [TTSDKTradeItTicket restartTicket:self.tradeSession];
         }
     }];
     
@@ -359,7 +359,7 @@
     NSMutableArray * values = [[NSMutableArray alloc] init];
     
     for (NSString * broker in linkedBrokers) {
-        [titles addObject:[TradeItTicket getBrokerDisplayString:broker]];
+        [titles addObject:[TTSDKTradeItTicket getBrokerDisplayString:broker]];
         [values addObject:broker];
     }
     
@@ -367,16 +367,16 @@
     pickerValues = values;
     currentSelection = self.tradeSession.broker;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Select Brokerage"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
-            [brokerButton setTitle: [TradeItTicket getBrokerDisplayString:currentSelection] forState:UIControlStateNormal];
+            [brokerButton setTitle: [TTSDKTradeItTicket getBrokerDisplayString:currentSelection] forState:UIControlStateNormal];
             
             self.tradeSession.broker = currentSelection;
-            TradeItAuthenticationInfo * creds = [TradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
+            TradeItAuthenticationInfo * creds = [TTSDKTradeItTicket getStoredAuthenticationForBroker: self.tradeSession.broker];
             self.tradeSession.authenticationInfo = creds;
         }
     }];
@@ -424,11 +424,11 @@
     pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
     currentSelection = self.tradeSession.orderInfo.action;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderAction: currentSelection];
         }
@@ -452,11 +452,11 @@
     pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
     currentSelection = self.tradeSession.orderInfo.price.type;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderType: currentSelection];
         }
@@ -480,11 +480,11 @@
     pickerValues = @[@"day",@"gtc"];
     currentSelection = self.tradeSession.orderInfo.expiration;
     
-    CustomIOSAlertView * alert = [[CustomIOSAlertView alloc]init];
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
     [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
     
-    [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
         if(buttonIndex == 1) {
             [self changeOrderExpiration: currentSelection];
         }

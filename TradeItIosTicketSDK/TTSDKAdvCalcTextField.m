@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "AdvCalcTextField.h"
+#import "TTSDKAdvCalcTextField.h"
 
-@implementation AdvCalcTextField
+@implementation TTSDKAdvCalcTextField
 
 /*
 // Only override drawRect: if you perform custom drawing.

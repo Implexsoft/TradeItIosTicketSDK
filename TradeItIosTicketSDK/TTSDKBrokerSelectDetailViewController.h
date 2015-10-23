@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoadingScreenViewController.h"
-#import "TicketSession.h"
+#import "TTSDKLoadingScreenViewController.h"
+#import "TTSDKTicketSession.h"
 
-@interface BrokerSelectDetailViewController : UIViewController <UITextFieldDelegate>
+@interface TTSDKBrokerSelectDetailViewController : UIViewController <UITextFieldDelegate>
 
-@property TicketSession * tradeSession;
+@property TTSDKTicketSession * tradeSession;
 @property BOOL cancelToParent;
 
 @property NSString * addBroker;

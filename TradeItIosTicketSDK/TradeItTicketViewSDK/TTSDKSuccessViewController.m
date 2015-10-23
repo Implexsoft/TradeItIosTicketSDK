@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "SuccessViewController.h"
+#import "TTSDKSuccessViewController.h"
 
-@interface SuccessViewController() {
+@interface TTSDKSuccessViewController() {
 
     __weak IBOutlet UILabel *successMessage;
     __weak IBOutlet UILabel *tradeItLabel;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation SuccessViewController
+@implementation TTSDKSuccessViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,7 +25,7 @@
     [successMessage setText:[NSString stringWithFormat:@"Congratulations.\r%@", [[self result] confirmationMessage]]];
     
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TradeItTicket logoStringLite]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TTSDKTradeItTicket logoStringLite]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [tradeItLabel setAttributedText:poweredBy];
@@ -46,7 +46,7 @@
 }
 
 - (IBAction)closeButtonPressed:(id)sender {
-    [TradeItTicket returnToParentApp:self.tradeSession];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 @end

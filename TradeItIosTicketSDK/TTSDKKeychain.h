@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Keychain : NSObject {
+@interface TTSDKKeychain : NSObject {
 }
 
 + (void)saveString:(NSString *)inputString forKey:(NSString	*)account;

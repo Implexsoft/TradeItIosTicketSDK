@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItTicket.h"
+#import "TTSDKTradeItTicket.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"
-#import "TicketSession.h"
+#import "TTSDKTicketSession.h"
 
-@interface SuccessViewController : UIViewController
+@interface TTSDKSuccessViewController : UIViewController
 
-@property TicketSession * tradeSession;
+@property TTSDKTicketSession * tradeSession;
 @property TradeItStockOrEtfTradeSuccessResult * result;
 
 @end

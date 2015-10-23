@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TicketSession.h"
+#import "TTSDKTicketSession.h"
 
-@interface BaseCalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKBaseCalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property TicketSession * tradeSession;
+@property TTSDKTicketSession * tradeSession;
 
 @property BOOL advMode;
 

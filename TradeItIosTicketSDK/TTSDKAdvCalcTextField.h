@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AdvCalcTextField : UITextField
+@interface TTSDKAdvCalcTextField : UITextField
 
 @end

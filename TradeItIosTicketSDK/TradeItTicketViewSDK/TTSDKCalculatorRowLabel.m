@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "CalculatorRowLabel.h"
+#import "TTSDKCalculatorRowLabel.h"
 
-@interface CalculatorRowLabel() {
+@interface TTSDKCalculatorRowLabel() {
     NSString * _label;
     NSString * _defaultValue;
     NSString * _format;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation CalculatorRowLabel
+@implementation TTSDKCalculatorRowLabel
 
 - (instancetype) initWithDefaultValue:(NSString *)defaultValue
                                 label:(NSString *)label
@@ -51,7 +51,7 @@
     else if(![_label isEqual:@"Shares"]) {
         double doubleValue = [value doubleValue];
         
-        if(![TradeItTicket containsString:value searchString:@"."]) {
+        if(![TTSDKTradeItTicket containsString:value searchString:@"."]) {
             value = [NSString stringWithFormat:@"%@.00", value];
         } else if(doubleValue < 1 && doubleValue > 0) {
             if([[_currentValueStack substringFromIndex:[_currentValueStack rangeOfString:@"."].location] length] > 5) {
@@ -78,49 +78,49 @@
 }
 
 -(void) setActive {
-    [self.uiLabel setTitleColor:[TradeItTicket activeColor] forState:UIControlStateNormal];
-    [self.uiButton setTitleColor:[TradeItTicket activeColor] forState:UIControlStateNormal];
+    [self.uiLabel setTitleColor:[TTSDKTradeItTicket activeColor] forState:UIControlStateNormal];
+    [self.uiButton setTitleColor:[TTSDKTradeItTicket activeColor] forState:UIControlStateNormal];
 }
 
 -(void) setPassive {
-    [self.uiLabel setTitleColor:[TradeItTicket baseTextColor] forState:UIControlStateNormal];
-    [self.uiButton setTitleColor:[TradeItTicket baseTextColor] forState:UIControlStateNormal];
+    [self.uiLabel setTitleColor:[TTSDKTradeItTicket baseTextColor] forState:UIControlStateNormal];
+    [self.uiButton setTitleColor:[TTSDKTradeItTicket baseTextColor] forState:UIControlStateNormal];
 }
 
-+(CalculatorRowLabel *) getSharesLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
-    return [[CalculatorRowLabel alloc] initWithDefaultValue:@"0"
++(TTSDKCalculatorRowLabel *) getSharesLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
+    return [[TTSDKCalculatorRowLabel alloc] initWithDefaultValue:@"0"
                                                       label:@"Shares"
                                                      format:@"%@"
                                                     uiLabel:uiLabel
                                                     uiValue:uiValue];
 }
 
-+(CalculatorRowLabel *) getLastPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
-    return [[CalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
++(TTSDKCalculatorRowLabel *) getLastPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
+    return [[TTSDKCalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
                                                       label:@"Last Price"
                                                      format:@"$%@"
                                                     uiLabel:uiLabel
                                                     uiValue:uiValue];
 }
 
-+(CalculatorRowLabel *) getLimitPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
-    return [[CalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
++(TTSDKCalculatorRowLabel *) getLimitPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
+    return [[TTSDKCalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
                                                       label:@"Limit Price"
                                                      format:@"$%@"
                                                     uiLabel:uiLabel
                                                     uiValue:uiValue];
 }
 
-+(CalculatorRowLabel *) getStopPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
-    return [[CalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
++(TTSDKCalculatorRowLabel *) getStopPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
+    return [[TTSDKCalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
                                                       label:@"Stop Price"
                                                      format:@"$%@"
                                                     uiLabel:uiLabel
                                                     uiValue:uiValue];
 }
 
-+(CalculatorRowLabel *) getStopLimitPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
-    return [[CalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
++(TTSDKCalculatorRowLabel *) getStopLimitPriceLabel:(UIButton *)uiLabel uiValue:(UIButton *)uiValue {
+    return [[TTSDKCalculatorRowLabel alloc] initWithDefaultValue:@"0.00"
                                                       label:@"Stop Price"
                                                      format:@"($%@)"
                                                     uiLabel:uiLabel

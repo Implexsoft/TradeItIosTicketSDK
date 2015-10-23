@@ -10,7 +10,7 @@
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItTicketControllerResult.h"
 
-@interface TicketSession : TradeItStockOrEtfTradeSession
+@interface TTSDKTicketSession : TradeItStockOrEtfTradeSession
 
 @property BOOL debugMode;
 
