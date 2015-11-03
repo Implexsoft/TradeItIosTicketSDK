@@ -129,7 +129,14 @@ static NSString * CellIdentifier = @"BrokerCell";
     if([self editMode]) {
         [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
     } else {
-        //[[[self tradeSession] parentView] dismissViewControllerAnimated:YES completion:[[self tradeSession] callback]];
+        if(self.tradeSession.brokerSignUpCallback) {
+            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
+            res.success = false;
+            res.errorTitle = @"Cancelled";
+            
+            self.tradeSession.brokerSignUpCallback(res);
+        }
+        
         [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
     }
 }

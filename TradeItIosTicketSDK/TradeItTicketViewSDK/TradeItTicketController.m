@@ -154,6 +154,10 @@
     return [TTSDKTradeItTicket getLinkedBrokersList];
 }
 
++(NSString *) getBrokerDisplayString:(NSString *) brokerIdentifier {
+    return [TTSDKTradeItTicket getBrokerDisplayString:brokerIdentifier];
+}
+
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources
 //Therefore when the linker goes through the library it doesn't

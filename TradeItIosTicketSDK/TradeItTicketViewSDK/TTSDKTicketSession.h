@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItTicketControllerResult.h"
+#import "TradeItAuthControllerResult.h"
 
 @interface TTSDKTicketSession : TradeItStockOrEtfTradeSession
 
@@ -24,6 +25,9 @@
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 @property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
+
+@property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
+@property BOOL brokerSignUpComplete;
 
 @property NSString * calcScreenStoryboardId;
 
