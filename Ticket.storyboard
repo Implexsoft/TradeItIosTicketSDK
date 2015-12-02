@@ -60,7 +60,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select Your Broker" id="qfr-Pn-H7b">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="uEO-UX-Xcf"/>
+                        <barButtonItem key="backBarButtonItem" title="Close" id="uEO-UX-Xcf"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -85,8 +85,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
-                                <rect key="frame" x="-4" y="226" width="328" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
+                                <rect key="frame" x="-4" y="203" width="328" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rbi-me-C7k"/>
@@ -94,27 +94,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
-                                <rect key="frame" x="115" y="288" width="90" height="30"/>
-                                <state key="normal" title="Link Account">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="linkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="o31-2A-GGh"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your [broker] credentials to link account and trade." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
-                                <rect key="frame" x="60" y="58" width="200" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to [broker]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
+                                <rect key="frame" x="60" y="102" width="200" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="4sv-6x-iZW"/>
+                                    <constraint firstAttribute="height" constant="32" id="4sv-6x-iZW"/>
                                     <constraint firstAttribute="width" constant="200" id="DNi-Q0-cGi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
-                                <rect key="frame" x="-4" y="197" width="328" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
+                                <rect key="frame" x="-4" y="174" width="328" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xkg-Q1-EcE"/>
@@ -122,19 +113,33 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
+                                <rect key="frame" x="46" y="372" width="228" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="wrJ-6X-O3I"/>
+                                </constraints>
+                                <state key="normal" title="Link Account">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="linkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="o31-2A-GGh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="tei-VX-tIR" secondAttribute="trailing" constant="30" id="5bs-9E-rSI"/>
+                            <constraint firstItem="tei-VX-tIR" firstAttribute="centerX" secondItem="V6d-j5-olZ" secondAttribute="centerX" id="6Gy-5N-OjX"/>
                             <constraint firstItem="Osa-Gx-5fR" firstAttribute="top" secondItem="wbf-cv-Dik" secondAttribute="bottom" constant="-1" id="7Of-Iz-jdx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wbf-cv-Dik" secondAttribute="trailing" constant="-20" id="8zV-bP-vfm"/>
-                            <constraint firstItem="tei-VX-tIR" firstAttribute="top" secondItem="Osa-Gx-5fR" secondAttribute="bottom" constant="32" id="BCu-e8-q2z"/>
+                            <constraint firstItem="lpI-ZS-Sic" firstAttribute="top" secondItem="tei-VX-tIR" secondAttribute="bottom" constant="20" id="AxB-Uc-tiu"/>
                             <constraint firstItem="wbf-cv-Dik" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-20" id="D6a-QQ-PxH"/>
                             <constraint firstItem="Osa-Gx-5fR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-20" id="KRH-nc-y1g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Osa-Gx-5fR" secondAttribute="trailing" constant="-20" id="chs-ti-2Ct"/>
                             <constraint firstAttribute="centerX" secondItem="lFr-FG-k7c" secondAttribute="centerX" id="dSE-jz-iwN"/>
-                            <constraint firstItem="wbf-cv-Dik" firstAttribute="top" secondItem="lFr-FG-k7c" secondAttribute="bottom" constant="39" id="rsh-b6-r29"/>
+                            <constraint firstItem="tei-VX-tIR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="30" id="fN7-Kh-aEx"/>
+                            <constraint firstItem="wbf-cv-Dik" firstAttribute="top" secondItem="lFr-FG-k7c" secondAttribute="bottom" constant="40" id="rsh-b6-r29"/>
                             <constraint firstItem="lFr-FG-k7c" firstAttribute="top" secondItem="rLg-5T-jsO" secondAttribute="bottom" constant="38" id="s9U-10-9Vz"/>
-                            <constraint firstAttribute="centerX" secondItem="tei-VX-tIR" secondAttribute="centerX" priority="750" id="xC3-Nb-m6u"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="SuV-y4-Vvz"/>
@@ -142,7 +147,6 @@
                     <connections>
                         <outlet property="emailInput" destination="wbf-cv-Dik" id="kGc-lE-g43"/>
                         <outlet property="linkAccountButton" destination="tei-VX-tIR" id="pKe-yR-Urz"/>
-                        <outlet property="linkAccountCenterLineConstraint" destination="xC3-Nb-m6u" id="oZX-Vy-g7m"/>
                         <outlet property="pageTitle" destination="lFr-FG-k7c" id="obw-e4-oD6"/>
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
                         <segue destination="QW8-1y-9oI" kind="presentation" identifier="loginToLoading" modalPresentationStyle="fullScreen" id="QtJ-Lx-E79"/>
@@ -1646,9 +1650,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CFl-JG-lcg"/>
-        <segue reference="u5N-Mz-Eih"/>
-        <segue reference="I3L-jI-b7x"/>
+        <segue reference="QtJ-Lx-E79"/>
         <segue reference="wuc-R0-2HR"/>
+        <segue reference="I3L-jI-b7x"/>
+        <segue reference="u5N-Mz-Eih"/>
     </inferredMetricsTieBreakers>
 </document>

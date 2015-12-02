@@ -25,7 +25,9 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.view.superview.backgroundColor = [UIColor whiteColor];
+
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
     
     /*  This might be nice at some point
@@ -33,12 +35,6 @@
     logo.image = image;
     [logo setContentMode: UIViewContentModeScaleAspectFit];
     */
-    
-    emailInput.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
-    passwordInput.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
-    
-    emailInput.layer.borderWidth = 1;
-    passwordInput.layer.borderWidth = 1;
 
     brokerUsername = @{
           @"Dummy":@"Username",
@@ -53,19 +49,17 @@
           @"Tradier":@"Username",
           @"IB":@"Username",
     };
-    
-    emailInput.placeholder = brokerUsername[broker];
-    
+
     if(self.addBroker == nil) {
         emailInput.text = self.tradeSession.authenticationInfo.id;
     }
-    
+
     if(self.cancelToParent) {
-        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
     
-    [pageTitle setText:[NSString stringWithFormat:@"Enter your %@ credentials to link your account and trade.", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
+    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
     
     if([[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
         [self addUnlink];
@@ -73,6 +67,30 @@
     
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+
+    linkAccountButton.backgroundColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+    CAGradientLayer *grLayer = [CAGradientLayer layer];
+    grLayer.frame = linkAccountButton.layer.bounds;
+    grLayer.colors = [NSArray arrayWithObjects:
+                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:0.001].CGColor,
+                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
+                      nil];
+    grLayer.startPoint = CGPointMake(0, 1);
+    grLayer.endPoint = CGPointMake(1, 0);
+    [linkAccountButton.layer addSublayer:grLayer];
+    linkAccountButton.layer.cornerRadius = 22.0f;
+    linkAccountButton.clipsToBounds = YES;
+}
+
+- (void)dismissKeyboard {
+    [emailInput resignFirstResponder];
+    [passwordInput resignFirstResponder];
 }
 
 -(void) addUnlink {
@@ -153,11 +171,11 @@
     self.tradeSession.errorMessage = nil;
     self.tradeSession.errorTitle = nil;
     
-    if(emailInput.text != nil && ![emailInput.text isEqualToString:@""]) {
-        [passwordInput becomeFirstResponder];
-    } else {
-        [emailInput becomeFirstResponder];
-    }
+//    if(emailInput.text != nil && ![emailInput.text isEqualToString:@""]) {
+//        [passwordInput becomeFirstResponder];
+//    } else {
+//        [emailInput becomeFirstResponder];
+//    }
 }
 
 
@@ -225,9 +243,9 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35f];
     
-    CGRect frame = self.view.frame;
-    frame.origin.y = -125;
-    [self.view setFrame:frame];
+    CGRect frame = linkAccountButton.frame;
+    frame.origin.y = frame.origin.y - 220;
+    [linkAccountButton setFrame:frame];
     
     [UIView commitAnimations];
     
@@ -235,18 +253,14 @@
 }
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
-    //reverting the animation seems to blow up the page
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.35f];
     
-    //might need to resign first responders in here
-    
-    //[UIView beginAnimations:nil context:NULL];
-    //[UIView setAnimationDuration:0.35f];
-    
-    //CGRect frame = self.view.frame;
-    //frame.origin.y = 150;
-    //[self.view setFrame:frame];
-    
-    //[UIView commitAnimations];
+    CGRect frame = linkAccountButton.frame;
+    frame.origin.y = frame.origin.y + 220;
+    [linkAccountButton setFrame:frame];
+
+    [UIView commitAnimations];
     
     return YES;
 }
