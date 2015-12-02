@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKBrokerSelectViewController.h"
+#import "BrokerSelectTableViewCell.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
@@ -17,18 +18,45 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    
+
+    [BrokerSelectTableViewCell emptyRoutine];
+
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+
     brokers = self.tradeSession.brokerList;
     linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
     
     UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, -8, 0, 0);
-    
+
     if([brokers count] < 1){
         [self showLoadingAndWait];
     }
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UILabel *headerLabelView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width, 100.0f)];
+    headerLabelView.text = @"Link your broker account \n to enable trading";
+    headerLabelView.numberOfLines = 0;
+    [headerView addSubview:headerLabelView];
+    headerLabelView.textAlignment = NSTextAlignmentCenter;
+    self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 100)];
+    UIButton *footerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    [footerButton setTitle:@"Next" forState:UIControlStateNormal];
+    [footerView addSubview:footerButton];
+
+
+    [self.view addSubview:footerView];
+
+    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:footerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
+
+//    self.view.backgroundColor = [UIColor redColor];
+//    self.tableView.backgroundColor = [UIColor yellowColor];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -106,14 +134,11 @@ static NSString * CellIdentifier = @"BrokerCell";
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
     NSString * valueText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:1];
     
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.textLabel.text = displayText;
-    
-    //Maybe someday we can add these back
-    //UIImage * logo = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", valueText]];
-    //UIImage * myIcon = [TradeItTicket imageWithImage:logo scaledToWidth: 50.0f withInset: 15.0f];
-    //cell.imageView.image = myIcon;
-    
+
+    [cell configureCell];
+
     if([linkedBrokers containsObject:valueText]) {
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
     }
