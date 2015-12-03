@@ -12,7 +12,9 @@
     
     __weak IBOutlet UILabel *companyNameLabel;
     __weak IBOutlet UILabel *priceAndPerformanceLabel;
-    
+    __weak IBOutlet UIView *companyDetails;
+    __weak IBOutlet UILabel *lastPriceLabel;
+
     __weak IBOutlet UITextField *sharesInput;
     
     __weak IBOutlet UIButton *orderActionButton;
@@ -50,27 +52,20 @@
     // Do any additional setup after loading the view.
 
     readyToTrade = YES;
-    
+
     [self initConstraints];
     [self uiTweaks];
-    
+
     [self changeOrderAction:self.tradeSession.orderInfo.action];
     [self changeOrderType:self.tradeSession.orderInfo.price.type];
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
-    
+
     [[self navigationItem] setTitle: [TTSDKTradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
-    
-    NSString * companyNameString;
-    if(self.tradeSession.companyName != nil) {
-        companyNameString = [NSString stringWithFormat:@"%@ (%@)", self.tradeSession.companyName, self.tradeSession.orderInfo.symbol];
-    } else {
-        companyNameString = self.tradeSession.orderInfo.symbol;
-    }
-    
-    [companyNameLabel setText:companyNameString];
+
+    [companyNameLabel setText:self.tradeSession.orderInfo.symbol];
     [self updatePrice];
     [self checkIfReadyToTrade];
-    
+
     if(self.tradeSession.orderInfo.quantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity]];
     }
@@ -81,6 +76,12 @@
     
     [sharesInput becomeFirstResponder];
     [self refreshPressed:self];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(refreshPressed:)];
+    
+    [companyDetails addGestureRecognizer:tap];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -152,8 +153,9 @@
     [formatter setLocale: US];
     
     NSString * equalitySign = [TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
-    NSString * formattedString = [NSString stringWithFormat:@"%@   %@ %@", @"Estimated Total", equalitySign, [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]]];
-    
+    NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
+    NSString * formattedString = [NSString stringWithFormat:@"%@ %@ %@", @"Est. Cost", equalitySign, formattedNumber];
+
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
     
     [attString addAttribute:NSForegroundColorAttributeName
@@ -173,31 +175,34 @@
 -(void) uiTweaks {
     [self applyBorder:(UIView *)sharesInput];
     [self applyBorder:(UIView *)orderActionButton];
-    [self applyBorder:(UIView *)orderTypeButton];
-    [self applyBorder:(UIView *)leftPriceInput];
-    [self applyBorder:(UIView *)rightPriceInput];
-    [self applyBorder:(UIView *)orderExpirationButton];
-    
-    [previewOrderButton.layer setCornerRadius:5.0f];
-    
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-     
-     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-         if (screenSize.height <= 480.0f) {
-             NSLayoutConstraint * estLabelHeight;
-             estLabelHeight = [NSLayoutConstraint
-                                     constraintWithItem:estimatedCostLabel
-                                     attribute:NSLayoutAttributeHeight
-                                     relatedBy:NSLayoutRelationEqual
-                                     toItem:NSLayoutAttributeNotAnAttribute
-                                     attribute:NSLayoutAttributeHeight
-                                     multiplier:1
-                                     constant:0];
-             estLabelHeight.priority = 900;
-             
-             [self.view addConstraint:estLabelHeight];
-         }
-     }
+//    [self applyBorder:(UIView *)orderTypeButton];
+//    [self applyBorder:(UIView *)leftPriceInput];
+//    [self applyBorder:(UIView *)rightPriceInput];
+//    [self applyBorder:(UIView *)orderExpirationButton];
+
+    [previewOrderButton.layer setCornerRadius:22.0f];
+    [orderActionButton.layer setCornerRadius:22.0f];
+    [sharesInput.layer setCornerRadius:22.0f];
+
+
+//    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+//     
+//     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+//         if (screenSize.height <= 480.0f) {
+//             NSLayoutConstraint * estLabelHeight;
+//             estLabelHeight = [NSLayoutConstraint
+//                                     constraintWithItem:estimatedCostLabel
+//                                     attribute:NSLayoutAttributeHeight
+//                                     relatedBy:NSLayoutRelationEqual
+//                                     toItem:NSLayoutAttributeNotAnAttribute
+//                                     attribute:NSLayoutAttributeHeight
+//                                     multiplier:1
+//                                     constant:0];
+//             estLabelHeight.priority = 900;
+//             
+//             [self.view addConstraint:estLabelHeight];
+//         }
+//     }
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -219,7 +224,9 @@
     
     NSString * lastPriceString = [formatter stringFromNumber:[NSNumber numberWithDouble:lastPrice]];
     finalString = [[NSMutableAttributedString alloc] initWithString:lastPriceString];
-    
+
+    lastPriceLabel.text = lastPriceString;
+
     if(changeDollar != nil) {
         if([changeDollar doubleValue] == 0) {
             [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
@@ -735,31 +742,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

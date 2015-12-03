@@ -19,7 +19,7 @@
     __weak IBOutlet UIButton * priceValueButton;
     __weak IBOutlet UIButton * priceLabelButton;
     __weak IBOutlet UIButton * sharesValueButton;
-    __weak IBOutlet UIButton * sharesLabelButton;
+//    __weak IBOutlet UIButton * sharesLabelButton;
 
     __weak IBOutlet UIButton * marketOrderButton;
     __weak IBOutlet UIButton * limitOrderButton;
@@ -63,7 +63,7 @@
     readyToTrade = NO;
     [self initFooterMessages];
     
-    sharesRowItem = [TTSDKCalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
+//    sharesRowItem = [TTSDKCalculatorRowLabel getSharesLabel:sharesLabelButton uiValue:sharesValueButton];
     lastPriceRowItem = [TTSDKCalculatorRowLabel getLastPriceLabel:priceLabelButton uiValue:priceValueButton];
     limitPriceRowItem = [TTSDKCalculatorRowLabel getLimitPriceLabel:priceLabelButton uiValue:priceValueButton];
     stopPriceRowItem = [TTSDKCalculatorRowLabel getStopPriceLabel:priceLabelButton uiValue:priceValueButton];
