@@ -240,27 +240,27 @@
 #pragma mark - Text Editing Delegates
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.35f];
-    
-    CGRect frame = linkAccountButton.frame;
-    frame.origin.y = frame.origin.y - 220;
-    [linkAccountButton setFrame:frame];
-    
-    [UIView commitAnimations];
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.35f];
+//    
+//    CGRect frame = linkAccountButton.frame;
+//    frame.origin.y = frame.origin.y - 220;
+//    [linkAccountButton setFrame:frame];
+//    
+//    [UIView commitAnimations];
     
     return YES;
 }
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.35f];
-    
-    CGRect frame = linkAccountButton.frame;
-    frame.origin.y = frame.origin.y + 220;
-    [linkAccountButton setFrame:frame];
-
-    [UIView commitAnimations];
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationDuration:0.35f];
+//    
+//    CGRect frame = linkAccountButton.frame;
+//    frame.origin.y = frame.origin.y + 220;
+//    [linkAccountButton setFrame:frame];
+//
+//    [UIView commitAnimations];
     
     return YES;
 }
