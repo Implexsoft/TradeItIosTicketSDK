@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKAdvCalculatorViewController.h"
+#import "Helper.h"
 
 @interface TTSDKAdvCalculatorViewController () {
     
@@ -40,6 +41,8 @@
     NSArray * pickerValues;
     NSString * currentSelection;
     UIPickerView * currentPicker;
+
+    Helper * helper;
 }
 
 @end
@@ -49,6 +52,9 @@
 - (void)viewDidLoad {
     self.advMode = YES;
     [super viewDidLoad];
+
+    helper = [Helper sharedHelper];
+
     // Do any additional setup after loading the view.
 
     readyToTrade = YES;
@@ -110,7 +116,7 @@
     
     double leftPrice = [leftPriceInput.text doubleValue];
     double rightPrice = [rightPriceInput.text doubleValue];
-    
+
     if(shares < 1) {
         readyNow = NO;
     } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimitOrder"]) {
@@ -127,7 +133,8 @@
     
     if(readyNow != readyToTrade) {
         if(readyNow) {
-            [previewOrderButton setBackgroundColor:[UIColor colorWithRed:20.0f/255.0f green:63.0f/255.0f blue:119.0f/255.0f alpha:1.0f]];
+            [previewOrderButton setBackgroundColor:helper.activeButtonColor];
+            [previewOrderButton.layer addSublayer:[helper activeGradientWithBounds:previewOrderButton.layer.bounds]];
         } else {
             [previewOrderButton setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
         }
@@ -165,7 +172,7 @@
     [attString addAttribute:NSForegroundColorAttributeName
                       value:[UIColor blackColor]
                       range:NSMakeRange(16, [attString length] - 16)];
-    
+
     [estimatedCostLabel setAttributedText:attString];
 }
 
@@ -181,9 +188,8 @@
 //    [self applyBorder:(UIView *)orderExpirationButton];
 
     [previewOrderButton.layer setCornerRadius:22.0f];
-    [orderActionButton.layer setCornerRadius:22.0f];
-    [sharesInput.layer setCornerRadius:22.0f];
-
+    previewOrderButton.clipsToBounds = YES;
+    orderActionButton.layer.borderColor = [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor;
 
 //    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 //     
@@ -208,6 +214,7 @@
 -(void) applyBorder: (UIView *) item {
     item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
     item.layer.borderWidth = 1;
+    item.layer.cornerRadius = item.frame.size.height / 2;
 }
 
 -(void) updatePrice {

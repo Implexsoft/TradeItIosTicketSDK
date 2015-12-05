@@ -25,6 +25,8 @@
 /* Begin PBXBuildFile section */
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
+		65ECCAF21C125403000CE86B /* Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* Helper.h */; };
+		65ECCAF31C125403000CE86B /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* Helper.m */; };
 		65F5BCC51C0F524000299956 /* BrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* BrokerSelectTableViewCell.h */; };
 		65F5BCC61C0F524000299956 /* BrokerSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F5BCC41C0F524000299956 /* BrokerSelectTableViewCell.m */; };
 		A905D3211B629D76006B0B8C /* TTSDKKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = A905D31F1B629D75006B0B8C /* TTSDKKeychain.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -217,6 +219,8 @@
 
 /* Begin PBXFileReference section */
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
+		65ECCAF01C125403000CE86B /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		65ECCAF11C125403000CE86B /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		65F5BCC31C0F524000299956 /* BrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokerSelectTableViewCell.h; sourceTree = "<group>"; };
 		65F5BCC41C0F524000299956 /* BrokerSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokerSelectTableViewCell.m; sourceTree = "<group>"; };
 		A905D31F1B629D75006B0B8C /* TTSDKKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKKeychain.h; sourceTree = "<group>"; };
@@ -390,6 +394,8 @@
 				A9A8CF871B4EFDBB000207B9 /* TTSDKTradeItTicket.m */,
 				A905D31F1B629D75006B0B8C /* TTSDKKeychain.h */,
 				A905D3201B629D76006B0B8C /* TTSDKKeychain.m */,
+				65ECCAF01C125403000CE86B /* Helper.h */,
+				65ECCAF11C125403000CE86B /* Helper.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -787,6 +793,7 @@
 				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */,
 				A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */,
 				A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */,
+				65ECCAF21C125403000CE86B /* Helper.h in Headers */,
 				A9C003651B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.h in Headers */,
 				A9C003671B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h in Headers */,
 				A9C0034E1B7264A4007D15F5 /* TradeItCloseSessionRequest.h in Headers */,
@@ -1009,6 +1016,7 @@
 				A9A8D0FF1B4F19D5000207B9 /* TTSDKTradeItTicket.m in Sources */,
 				A9C003721B7264A4007D15F5 /* TradeItStockOrEtfTradeSession.m in Sources */,
 				A9C0035C1B7264A4007D15F5 /* TradeItRequest.m in Sources */,
+				65ECCAF31C125403000CE86B /* Helper.m in Sources */,
 				A9C003551B7264A4007D15F5 /* TradeItInformationNeededResult.m in Sources */,
 				A9B2D4781B5EA92F008065E1 /* TTSDKBrokerSelectDetailViewController.m in Sources */,
 				A9901A9A1B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKBrokerSelectDetailViewController.h"
+#import "Helper.h"
 
 @implementation TTSDKBrokerSelectDetailViewController {
     
@@ -19,12 +20,16 @@
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
     
     UIButton * unlinkButton;
-    
+
     NSDictionary * brokerUsername;
+    
+    Helper * helper;
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+
+    helper = [Helper sharedHelper];
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
@@ -74,16 +79,18 @@
     
     [self.view addGestureRecognizer:tap];
 
-    linkAccountButton.backgroundColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
-    CAGradientLayer *grLayer = [CAGradientLayer layer];
-    grLayer.frame = linkAccountButton.layer.bounds;
-    grLayer.colors = [NSArray arrayWithObjects:
-                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:0.001].CGColor,
-                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
-                      nil];
-    grLayer.startPoint = CGPointMake(0, 1);
-    grLayer.endPoint = CGPointMake(1, 0);
-    [linkAccountButton.layer addSublayer:grLayer];
+    linkAccountButton.backgroundColor = helper.activeButtonColor;
+    [linkAccountButton.layer addSublayer:[helper activeGradientWithBounds: linkAccountButton.layer.bounds]];
+
+//    CAGradientLayer *grLayer = [CAGradientLayer layer];
+//    grLayer.frame = linkAccountButton.layer.bounds;
+//    grLayer.colors = [NSArray arrayWithObjects:
+//                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:0.001].CGColor,
+//                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
+//                      nil];
+//    grLayer.startPoint = CGPointMake(0, 1);
+//    grLayer.endPoint = CGPointMake(1, 0);
+//    [linkAccountButton.layer addSublayer:grLayer];
     linkAccountButton.layer.cornerRadius = 22.0f;
     linkAccountButton.clipsToBounds = YES;
 }
