@@ -10,19 +10,24 @@
 #import "TTSDKHelper.h"
 
 @interface TTSDKAdvCalculatorViewController () {
-    __weak IBOutlet UILabel * companyNameLabel;
-    __weak IBOutlet UILabel * priceAndPerformanceLabel;
     __weak IBOutlet UIView * companyDetails;
+    __weak IBOutlet UILabel * companyNameLabel;
     __weak IBOutlet UILabel * lastPriceLabel;
-    __weak IBOutlet UITextField * sharesInput;
+    __weak IBOutlet UILabel *performanceLabel;
+
     __weak IBOutlet UIButton * orderActionButton;
+    __weak IBOutlet UITextField * sharesInput;
+    __weak IBOutlet UILabel * estimatedCostLabel;
+
     __weak IBOutlet UIButton * orderTypeButton;
     __weak IBOutlet UIView * limitPricesView;
-    __weak IBOutlet UITextField * leftPriceInput;
-    __weak IBOutlet UITextField * rightPriceInput;
+    __weak IBOutlet UITextField *stopPriceInput;
+    __weak IBOutlet UITextField *limitPriceInput;
+
     __weak IBOutlet UIButton * orderExpirationButton;
-    __weak IBOutlet UILabel * estimatedCostLabel;
+
     __weak IBOutlet UIButton * previewOrderButton;
+
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
 
@@ -31,10 +36,13 @@
 
     BOOL readyToTrade;
 
+    NSString * currentFocus;
+
     NSArray * pickerTitles;
     NSArray * pickerValues;
     NSString * currentSelection;
     UIPickerView * currentPicker;
+    UIView * keypad;
 
     TTSDKHelper * helper;
 }
@@ -42,6 +50,9 @@
 @end
 
 @implementation TTSDKAdvCalculatorViewController
+
+
+/*** Delegate Methods ***/
 
 - (void)viewDidLoad {
     self.advMode = YES;
@@ -69,8 +80,8 @@
     }
 
     [sharesInput addTarget:self action:@selector(sharesInputChanged) forControlEvents:UIControlEventEditingChanged];
-    [leftPriceInput addTarget:self action:@selector(leftInputChanged) forControlEvents:UIControlEventEditingChanged];
-    [rightPriceInput addTarget:self action:@selector(rightInputChanged) forControlEvents:UIControlEventEditingChanged];
+    [limitPriceInput addTarget:self action:@selector(leftInputChanged) forControlEvents:UIControlEventEditingChanged];
+    [stopPriceInput addTarget:self action:@selector(rightInputChanged) forControlEvents:UIControlEventEditingChanged];
 
     [sharesInput becomeFirstResponder];
     [self refreshPressed:self];
@@ -78,10 +89,11 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(refreshPressed:)];
-
     [companyDetails addGestureRecognizer:tap];
 
     [self initKeypad];
+
+    [self changeOrderFocus:@"shares"];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -97,21 +109,92 @@
     [[self navigationItem] setTitle: [TTSDKTradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
 }
 
+
+
+#pragma mark - Initialization
+
 - (void)initKeypad {
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
     NSArray * keypadArray = [resourceBundle loadNibNamed:@"TTSDKcalc" owner:self options:nil];
-    UIView * keypad = [keypadArray firstObject];
+    keypad = [keypadArray firstObject];
     CGRect frame = CGRectMake(0, 0, keypadContainer.frame.size.width, keypadContainer.frame.size.height);
     keypad.frame = frame;
 
     [keypadContainer addSubview:keypad];
+    keypad.userInteractionEnabled = YES;
+    NSArray * subviews = keypad.subviews;
+
+    for (int i = 0; i < [subviews count]; i++) {
+        UIButton *button = [subviews objectAtIndex:i];
+        [button addTarget:self action:@selector(keypadPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void) initConstraints {
+    zeroHeightConstraint = [NSLayoutConstraint
+                            constraintWithItem:limitPricesView
+                            attribute:NSLayoutAttributeHeight
+                            relatedBy:NSLayoutRelationEqual
+                            toItem:NSLayoutAttributeNotAnAttribute
+                            attribute:NSLayoutAttributeHeight
+                            multiplier:1
+                            constant:0];
+    zeroHeightConstraint.priority = 900;
+    
+    fullHeightConstraint = [NSLayoutConstraint
+                            constraintWithItem:limitPricesView
+                            attribute:NSLayoutAttributeHeight
+                            relatedBy:NSLayoutRelationEqual
+                            toItem:NSLayoutAttributeNotAnAttribute
+                            attribute:NSLayoutAttributeHeight
+                            multiplier:1
+                            constant:35];
+    fullHeightConstraint.priority = 900;
 }
+
+-(void) uiTweaks { // things that can't be done in Storyboard
+    [self applyBorder:(UIView *)sharesInput];
+    sharesInput.text = @"1";
+    sharesInput.enabled = NO;
+    
+    [self applyBorder:(UIView *)orderActionButton];
+    
+    [previewOrderButton.layer setCornerRadius:22.0f];
+    previewOrderButton.clipsToBounds = YES;
+    orderActionButton.layer.borderColor = [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor;
+
+    /*
+        CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    
+         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+             if (screenSize.height <= 480.0f) {
+                 NSLayoutConstraint * estLabelHeight;
+                 estLabelHeight = [NSLayoutConstraint
+                                         constraintWithItem:estimatedCostLabel
+                                         attribute:NSLayoutAttributeHeight
+                                         relatedBy:NSLayoutRelationEqual
+                                         toItem:NSLayoutAttributeNotAnAttribute
+                                         attribute:NSLayoutAttributeHeight
+                                         multiplier:1
+                                         constant:0];
+                 estLabelHeight.priority = 900;
+    
+                 [self.view addConstraint:estLabelHeight];
+             }
+         }
+    */
+}
+
+-(void) applyBorder: (UIView *) item {
+    item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
+    item.layer.borderWidth = 1;
+    item.layer.cornerRadius = item.frame.size.height / 2;
+}
+
+
+
+#pragma mark - Order State
 
 -(void) checkIfReadyToTrade {
     [self updateEstimatedCost];
@@ -119,19 +202,19 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double leftPrice = [leftPriceInput.text doubleValue];
-    double rightPrice = [rightPriceInput.text doubleValue];
+    double limitPrice = [limitPriceInput.text doubleValue];
+    double stopPrice = [stopPriceInput.text doubleValue];
 
     if(shares < 1) {
         readyNow = NO;
     } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimitOrder"]) {
-        if(leftPrice > 0 && rightPrice > 0) {
+        if(limitPrice > 0 && stopPrice > 0) {
             readyNow = YES;
         }
     } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"]) {
         readyNow = YES;
     } else {
-        if(leftPrice > 0) {
+        if(limitPrice > 0) {
             readyNow = YES;
         }
     }
@@ -147,6 +230,33 @@
 
     readyToTrade = readyNow;
 }
+- (IBAction)sharesInputPressed:(id)sender {
+    [self changeOrderFocus:@"shares"];
+}
+
+-(void) changeOrderFocus: (NSString *)focus {
+    if ([focus isEqualToString:@"limitPrice"]) {
+        if (self.tradeSession.orderInfo.price.limitPrice) {
+            limitPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice] attributes:@{NSForegroundColorAttributeName: helper.activeButtonColor}];
+        } else {
+            limitPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Limit Price"];
+        }
+    }
+    else if ([focus isEqualToString:@"stopPrice"]) {
+        if (self.tradeSession.orderInfo.price.stopPrice) {
+            stopPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice] attributes:@{NSForegroundColorAttributeName: helper.activeButtonColor}];
+        } else {
+            stopPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Stop Price"];
+        }
+    }
+    else if ([focus isEqualToString:@"shares"]) {
+    }
+
+    currentFocus = focus;
+}
+
+
+#pragma mark - Order Editing
 
 -(void) updateEstimatedCost {
     NSInteger shares = self.tradeSession.orderInfo.quantity;
@@ -179,50 +289,6 @@
                       range:NSMakeRange(16, [attString length] - 16)];
 
     [estimatedCostLabel setAttributedText:attString];
-}
-
-#pragma mark - UI Changes
-
-//things that can't be done in IB
--(void) uiTweaks {
-    [self applyBorder:(UIView *)sharesInput];
-    sharesInput.enabled = NO;
-    sharesInput.text = @"1";
-
-    [self applyBorder:(UIView *)orderActionButton];
-//    [self applyBorder:(UIView *)orderTypeButton];
-//    [self applyBorder:(UIView *)leftPriceInput];
-//    [self applyBorder:(UIView *)rightPriceInput];
-//    [self applyBorder:(UIView *)orderExpirationButton];
-
-    [previewOrderButton.layer setCornerRadius:22.0f];
-    previewOrderButton.clipsToBounds = YES;
-    orderActionButton.layer.borderColor = [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor;
-
-//    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-//     
-//     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-//         if (screenSize.height <= 480.0f) {
-//             NSLayoutConstraint * estLabelHeight;
-//             estLabelHeight = [NSLayoutConstraint
-//                                     constraintWithItem:estimatedCostLabel
-//                                     attribute:NSLayoutAttributeHeight
-//                                     relatedBy:NSLayoutRelationEqual
-//                                     toItem:NSLayoutAttributeNotAnAttribute
-//                                     attribute:NSLayoutAttributeHeight
-//                                     multiplier:1
-//                                     constant:0];
-//             estLabelHeight.priority = 900;
-//             
-//             [self.view addConstraint:estLabelHeight];
-//         }
-//     }
-}
-
--(void) applyBorder: (UIView *) item {
-    item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
-    item.layer.borderWidth = 1;
-    item.layer.cornerRadius = item.frame.size.height / 2;
 }
 
 -(void) updatePrice {
@@ -264,47 +330,8 @@
         }
     }
 
-    priceAndPerformanceLabel.attributedText = (NSAttributedString *) finalString;
+    performanceLabel.attributedText = (NSAttributedString *) finalString;
 }
-
--(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
-    UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
-    UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
-
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:style];
-    [formatter setLocale:US];
-
-    NSMutableAttributedString * attString;
-    if([number doubleValue] > 0) {
-        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25B2"];
-    } else {
-        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25BC"];
-    }
-
-    double absValue = fabs([number doubleValue]);
-    NSString * asString = [formatter stringFromNumber:[NSNumber numberWithDouble:absValue]];
-    [attString appendAttributedString:[[NSAttributedString alloc] initWithString:asString]];
-
-    if(style == NSNumberFormatterDecimalStyle) {
-        [attString appendAttributedString:[[NSAttributedString alloc] initWithString:@"%"]];
-    }
-
-    if([number doubleValue] > 0) {
-        [attString addAttribute:NSForegroundColorAttributeName
-                          value:positiveColor
-                          range:NSMakeRange(0, [attString length])];
-    } else {
-        [attString addAttribute:NSForegroundColorAttributeName
-                          value:negativeColor
-                          range:NSMakeRange(0, [attString length])];
-    }
-
-    return (NSAttributedString *) attString;
-}
-
-#pragma mark - Change Order
 
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
@@ -353,6 +380,52 @@
     [self checkIfReadyToTrade];
 }
 
+-(void) sharesInputChanged {
+    self.tradeSession.orderInfo.quantity = (int)[sharesInput.text integerValue];
+    [self checkIfReadyToTrade];
+}
+
+-(void) leftInputChanged {
+    if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
+        self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
+    } else {
+        self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
+    }
+    [self checkIfReadyToTrade];
+}
+
+-(void) rightInputChanged {
+    self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
+    [self checkIfReadyToTrade];
+}
+
+-(void) sharesChangedByProxy:(NSInteger) key {
+    if (key == 10) { // decimal key - not allowed for quantity
+        return;
+    }
+
+    NSString * currentQuantityString = [NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity];
+
+    NSString * newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
+    NSString * appendedString;
+
+    if (key == 11) { // backspace
+        appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
+    } else {
+        appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
+    }
+
+    self.tradeSession.orderInfo.quantity = [appendedString intValue];
+
+    sharesInput.text = appendedString;
+}
+
+-(void) limitPriceChangedByProxy:(NSInteger) key {
+}
+
+-(void) stopPriceChangedByProxy:(NSInteger) key {
+}
+
 -(void) setToMarketOrder {
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
     [self changeOrderExpiration:@"day"];
@@ -360,9 +433,9 @@
 }
 
 -(void) setToLimitOrder {
-    [rightPriceInput setHidden:YES];
-    [leftPriceInput setHidden:NO];
-    [leftPriceInput setPlaceholder:@"Limit Price"];
+    [stopPriceInput setHidden:YES];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Limit Price"];
 
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0.0];
 
@@ -370,9 +443,9 @@
 }
 
 -(void) setToStopMarketOrder {
-    [rightPriceInput setHidden:YES];
-    [leftPriceInput setHidden:NO];
-    [leftPriceInput setPlaceholder:@"Stop Price"];
+    [stopPriceInput setHidden:YES];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Stop Price"];
 
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0.0];
 
@@ -380,9 +453,9 @@
 }
 
 -(void) setToStopLimitOrder {
-    [rightPriceInput setHidden: NO];
-    [leftPriceInput setHidden:NO];
-    [leftPriceInput setPlaceholder:@"Limit Price"];
+    [stopPriceInput setHidden: NO];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Limit Price"];
 
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0.0 :0.0];
 
@@ -392,8 +465,8 @@
 -(void) hideLimitContainer {
     [self.view removeConstraint:fullHeightConstraint];
     [self.view addConstraint:zeroHeightConstraint];
-    [leftPriceInput setHidden:YES];
-    [rightPriceInput setHidden:YES];
+    [limitPriceInput setHidden:YES];
+    [stopPriceInput setHidden:YES];
 }
 
 -(void) showLimitContainer {
@@ -401,27 +474,44 @@
     [self.view addConstraint:fullHeightConstraint];
 }
 
--(void) initConstraints {
-    zeroHeightConstraint = [NSLayoutConstraint
-                             constraintWithItem:limitPricesView
-                             attribute:NSLayoutAttributeHeight
-                             relatedBy:NSLayoutRelationEqual
-                             toItem:NSLayoutAttributeNotAnAttribute
-                             attribute:NSLayoutAttributeHeight
-                             multiplier:1
-                             constant:0];
-    zeroHeightConstraint.priority = 900;
-
-    fullHeightConstraint = [NSLayoutConstraint
-                           constraintWithItem:limitPricesView
-                           attribute:NSLayoutAttributeHeight
-                           relatedBy:NSLayoutRelationEqual
-                           toItem:NSLayoutAttributeNotAnAttribute
-                           attribute:NSLayoutAttributeHeight
-                           multiplier:1
-                           constant:35];
-    fullHeightConstraint.priority = 900;
+-(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
+    UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
+    UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
+    
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:style];
+    [formatter setLocale:US];
+    
+    NSMutableAttributedString * attString;
+    if([number doubleValue] > 0) {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25B2"];
+    } else {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25BC"];
+    }
+    
+    double absValue = fabs([number doubleValue]);
+    NSString * asString = [formatter stringFromNumber:[NSNumber numberWithDouble:absValue]];
+    [attString appendAttributedString:[[NSAttributedString alloc] initWithString:asString]];
+    
+    if(style == NSNumberFormatterDecimalStyle) {
+        [attString appendAttributedString:[[NSAttributedString alloc] initWithString:@"%"]];
+    }
+    
+    if([number doubleValue] > 0) {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:positiveColor
+                          range:NSMakeRange(0, [attString length])];
+    } else {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:negativeColor
+                          range:NSMakeRange(0, [attString length])];
+    }
+    
+    return (NSAttributedString *) attString;
 }
+
+
 
 #pragma mark - Navigation
 
@@ -452,6 +542,8 @@
     [[self tradeSession] setAuthenticationInfo: creds];
 }
 
+
+
 #pragma mark - Events
 
 - (IBAction)refreshPressed:(id)sender {
@@ -478,11 +570,30 @@
             self.tradeSession.refreshLastPrice(self.tradeSession.orderInfo.symbol, ^(double price){
                 //return to main thread as this triggers a UI change
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    
                     self.tradeSession.lastPrice = price;
                     [self updatePrice];
                 });
             });
         });
+    }
+}
+
+- (IBAction)keypadPressed:(id)sender {
+    UIButton * button = sender;
+    NSInteger key = button.tag;
+
+    BOOL focusIsShares = [currentFocus isEqualToString:@"shares"];
+    BOOL focusIsLimitPrice = [currentFocus isEqualToString:@"limitPrice"];
+    BOOL focusIsStopPrice = [currentFocus isEqualToString:@"stopPrice"];
+
+    if (focusIsShares) {
+        if (key == 10) { return; }
+        [self sharesChangedByProxy:key];
+    } else if (focusIsLimitPrice) {
+        [self limitPriceChangedByProxy:key];
+    } else if (focusIsStopPrice) {
+        [self stopPriceChangedByProxy:key];
     }
 }
 
@@ -583,12 +694,12 @@
         self.tradeSession.orderInfo.quantity = (int)[[sharesInput text] integerValue];
 
         if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[rightPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[stopPriceInput text] doubleValue]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"limit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[leftPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
         }
 
         [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
@@ -599,24 +710,49 @@
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
--(void) sharesInputChanged {
-    self.tradeSession.orderInfo.quantity = (int)[sharesInput.text integerValue];
-    [self checkIfReadyToTrade];
+
+
+#pragma mark - Picker View
+
+-(UIView *) createPickerView: (NSString *) title {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
+    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [titleLabel setNumberOfLines:0];
+    [titleLabel setText: title];
+    [contentView addSubview:titleLabel];
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
+    currentPicker = picker;
+    
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [contentView addSubview:picker];
+    
+    [contentView setNeedsDisplay];
+    return contentView;
 }
 
--(void) leftInputChanged {
-    if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
-        self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
-    } else {
-        self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
-    }
-    [self checkIfReadyToTrade];
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return pickerTitles.count;
 }
 
--(void) rightInputChanged {
-    self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[leftPriceInput.text doubleValue]];
-    [self checkIfReadyToTrade];
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
 }
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return pickerTitles[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    currentSelection = pickerValues[row];
+}
+
 
 
 #pragma mark - iOS7 Fallbacks
@@ -710,43 +846,6 @@
     });
 }
 
--(UIView *) createPickerView: (NSString *) title {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
 
-    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
-    [titleLabel setTextColor:[UIColor blackColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [titleLabel setNumberOfLines:0];
-    [titleLabel setText: title];
-    [contentView addSubview:titleLabel];
-
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
-    currentPicker = picker;
-
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [contentView addSubview:picker];
-
-    [contentView setNeedsDisplay];
-    return contentView;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return pickerTitles.count;
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return pickerTitles[row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    currentSelection = pickerValues[row];
-}
 
 @end

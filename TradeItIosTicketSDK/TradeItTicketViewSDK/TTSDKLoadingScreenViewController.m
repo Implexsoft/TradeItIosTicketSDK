@@ -56,7 +56,7 @@
 }
 
 -(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
-    
+
     if([result isKindOfClass:[TradeItErrorResult class]]) {
         TradeItErrorResult * err = (TradeItErrorResult *) result;
         

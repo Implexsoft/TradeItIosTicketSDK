@@ -15,73 +15,73 @@
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aky-5j-eWR">
                     <rect key="frame" x="107" y="0.0" width="106" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="2"/>
                 </button>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkg-2b-mYj">
                     <rect key="frame" x="213" y="0.0" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="3"/>
                 </button>
                 <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bq-YQ-XR2">
                     <rect key="frame" x="0.0" y="240" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="7"/>
                 </button>
                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7c-pF-SSu">
                     <rect key="frame" x="0.0" y="120" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="4"/>
                 </button>
                 <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7N-gZ-90m">
                     <rect key="frame" x="107" y="120" width="106" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="5"/>
                 </button>
                 <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGg-Oq-8F0">
                     <rect key="frame" x="213" y="120" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="6"/>
                 </button>
                 <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lPa-bh-w4L">
                     <rect key="frame" x="213" y="240" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="9"/>
                 </button>
                 <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKU-a0-HKB">
                     <rect key="frame" x="107" y="240" width="106" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="8"/>
                 </button>
                 <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pP4-2z-xXY">
                     <rect key="frame" x="0.0" y="360" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="."/>
                 </button>
                 <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLr-bG-gYe">
                     <rect key="frame" x="107" y="360" width="106" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="0"/>
                 </button>
                 <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opn-eC-nTx">
                     <rect key="frame" x="213" y="360" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="back"/>
                 </button>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-al-Bdw">
                     <rect key="frame" x="0.0" y="0.0" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                     <state key="normal" title="1"/>
                 </button>
             </subviews>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1276,7 +1277,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
                                                 <rect key="frame" x="18" y="0.0" width="294" height="74"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00  $0.00  %0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7c-Kf-zmh">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00  $0.00  %0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7c-Kf-zmh" userLabel="Performance Label">
                                                         <rect key="frame" x="0.0" y="36" width="139" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="xKt-2v-tYd"/>
@@ -1325,6 +1326,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                        <connections>
+                                                            <action selector="sharesInputPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="297-p7-yiV"/>
+                                                        </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
                                                         <rect key="frame" x="110" y="54" width="130" height="17"/>
@@ -1399,7 +1403,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-rN-Xap" userLabel="LimitPrices">
                                                         <rect key="frame" x="70" y="29" width="180" height="17"/>
                                                         <subviews>
-                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" customClass="TTSDKAdvCalcTextField">
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input">
                                                                 <rect key="frame" x="117" y="0.0" width="63" height="22"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="22" id="0ZO-6N-6Tk"/>
@@ -1407,7 +1411,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             </textField>
-                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" customClass="TTSDKAdvCalcTextField">
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" userLabel="Limit Price Input">
                                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="22"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="22" id="wAF-gZ-OdY"/>
@@ -1492,7 +1496,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
                                 <rect key="frame" x="0.0" y="317" width="320" height="163"/>
-                                <color key="backgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1527,16 +1531,16 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="estimatedCostLabel" destination="H5Q-3i-W7w" id="xU2-Zb-GYM"/>
                         <outlet property="keypadContainer" destination="WFw-bE-i5p" id="scM-3b-2sz"/>
                         <outlet property="lastPriceLabel" destination="khc-sp-oHM" id="BIe-1n-ZeV"/>
-                        <outlet property="leftPriceInput" destination="pWk-Ej-ZVu" id="fzh-MD-9pN"/>
+                        <outlet property="limitPriceInput" destination="pWk-Ej-ZVu" id="mdb-RW-OpI"/>
                         <outlet property="limitPricesView" destination="Ykc-rN-Xap" id="MTX-Ea-6TY"/>
                         <outlet property="orderActionButton" destination="JLr-7y-dEH" id="ALc-t4-f2d"/>
                         <outlet property="orderExpirationButton" destination="scy-hx-dPx" id="9gV-ZX-0uI"/>
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>
                         <outlet property="orderView" destination="DlU-2P-Iay" id="2gr-O0-gQI"/>
+                        <outlet property="performanceLabel" destination="T7c-Kf-zmh" id="3xz-78-NCR"/>
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
-                        <outlet property="priceAndPerformanceLabel" destination="T7c-Kf-zmh" id="ACx-VS-y6p"/>
-                        <outlet property="rightPriceInput" destination="91y-lh-fw2" id="RIs-Dm-6JN"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
+                        <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
                         <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
                         <segue destination="NtF-Vh-6FT" kind="show" identifier="advCalculatorToBrokerSelectDetail" id="ujk-YM-BZG"/>
                     </connections>
