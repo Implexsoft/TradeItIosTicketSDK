@@ -34,12 +34,6 @@
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
-    
-    /*  This might be nice at some point
-    UIImage * image = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", broker]];
-    logo.image = image;
-    [logo setContentMode: UIViewContentModeScaleAspectFit];
-    */
 
     brokerUsername = @{
           @"Dummy":@"Username",

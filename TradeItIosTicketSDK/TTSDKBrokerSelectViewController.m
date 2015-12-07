@@ -19,8 +19,6 @@ static NSString * CellIdentifier = @"BrokerCell";
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    [BrokerSelectTableViewCell emptyRoutine];
-
     self.tableView.contentInset = UIEdgeInsetsZero;
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 

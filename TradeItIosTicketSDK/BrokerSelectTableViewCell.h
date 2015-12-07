@@ -11,6 +11,5 @@
 @interface BrokerSelectTableViewCell : UITableViewCell
 
 - (void)configureCell;
-+ (void)emptyRoutine;
 
 @end

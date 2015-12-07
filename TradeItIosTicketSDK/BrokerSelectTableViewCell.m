@@ -10,10 +10,6 @@
 
 @implementation BrokerSelectTableViewCell
 
-+ (void)emptyRoutine {
-    return;
-}
-
 
 - (void)awakeFromNib {
     if (self) {
