@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKBrokerSelectViewController.h"
-#import "BrokerSelectTableViewCell.h"
+#import "TTSDKBrokerSelectTableViewCell.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
@@ -135,7 +135,7 @@ static NSString * CellIdentifier = @"BrokerCell";
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
     NSString * valueText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:1];
     
-    BrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.textLabel.text = displayText;
 
     [cell configureCell];

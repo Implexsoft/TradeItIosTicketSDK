@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BrokerSelectTableViewCell : UITableViewCell
+@interface TTSDKBrokerSelectTableViewCell : UITableViewCell
 
 - (void)configureCell;
 

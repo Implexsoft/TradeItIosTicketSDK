@@ -6,9 +6,9 @@
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "BrokerSelectTableViewCell.h"
+#import "TTSDKBrokerSelectTableViewCell.h"
 
-@implementation BrokerSelectTableViewCell
+@implementation TTSDKBrokerSelectTableViewCell
 
 
 - (void)awakeFromNib {

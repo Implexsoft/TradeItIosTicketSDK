@@ -18,7 +18,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKEditScreenViewController.h"
-#import "BrokerSelectTableViewCell.h"
+#import "TTSDKBrokerSelectTableViewCell.h"
 
 
 @implementation TradeItTicketController {
@@ -177,7 +177,7 @@
     [TTSDKSuccessViewController class];
     [TTSDKBrokerSelectViewController class];
     [TTSDKBrokerSelectDetailViewController class];
-    [BrokerSelectTableViewCell class];
+    [TTSDKBrokerSelectTableViewCell class];
 }
 @end
 
