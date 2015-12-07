@@ -25,6 +25,7 @@
 /* Begin PBXBuildFile section */
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
+		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
 		65ECCAF21C125403000CE86B /* Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* Helper.h */; };
 		65ECCAF31C125403000CE86B /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* Helper.m */; };
 		65F5BCC51C0F524000299956 /* BrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* BrokerSelectTableViewCell.h */; };
@@ -218,6 +219,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKcalc.xib; sourceTree = "<group>"; };
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
 		65ECCAF01C125403000CE86B /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		65ECCAF11C125403000CE86B /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				A9C002B01B6ACD90007D15F5 /* TTSDKAdvCalculatorViewController.m */,
 				A9901A971B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h */,
 				A9901A981B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m */,
+				6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */,
 			);
 			name = AdvCalculator;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 			files = (
 				A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
+				6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,

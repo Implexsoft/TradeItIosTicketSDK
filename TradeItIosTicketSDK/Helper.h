@@ -11,8 +11,9 @@
 
 @interface Helper : NSObject
 
-@property (nonatomic, retain) UIColor *activeButtonColor;
-@property (nonatomic, retain) UIColor *inactiveButtonColor;
+@property (nonatomic, retain) UIColor * activeButtonColor;
+@property (nonatomic, retain) UIColor * activeButtonHighlightColor;
+@property (nonatomic, retain) UIColor * inactiveButtonColor;
 
 + (id)sharedHelper;
 

@@ -1400,20 +1400,20 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-rN-Xap" userLabel="LimitPrices">
                                                         <rect key="frame" x="70" y="29" width="180" height="17"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" customClass="TTSDKAdvCalcTextField">
-                                                                <rect key="frame" x="109" y="0.0" width="71" height="17"/>
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" customClass="TTSDKAdvCalcTextField">
+                                                                <rect key="frame" x="117" y="0.0" width="63" height="22"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="17" id="0ZO-6N-6Tk"/>
+                                                                    <constraint firstAttribute="height" constant="22" id="0ZO-6N-6Tk"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             </textField>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" customClass="TTSDKAdvCalcTextField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="73" height="17"/>
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" customClass="TTSDKAdvCalcTextField">
+                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="22"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="17" id="wAF-gZ-OdY"/>
+                                                                    <constraint firstAttribute="height" constant="22" id="wAF-gZ-OdY"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             </textField>
                                                         </subviews>
@@ -1421,8 +1421,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="2FH-0S-fdP"/>
                                                             <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" id="KxM-NA-FxD"/>
-                                                            <constraint firstAttribute="bottom" secondItem="pWk-Ej-ZVu" secondAttribute="bottom" id="QeJ-lI-mEh"/>
-                                                            <constraint firstAttribute="bottom" secondItem="91y-lh-fw2" secondAttribute="bottom" id="VSr-wp-9b7"/>
+                                                            <constraint firstAttribute="bottom" secondItem="pWk-Ej-ZVu" secondAttribute="bottom" constant="-5" id="QeJ-lI-mEh"/>
+                                                            <constraint firstAttribute="bottom" secondItem="91y-lh-fw2" secondAttribute="bottom" constant="-5" id="VSr-wp-9b7"/>
                                                             <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="Ykc-rN-Xap" secondAttribute="leading" id="XAP-07-RaA"/>
                                                             <constraint firstAttribute="width" constant="180" id="yyD-Rq-2NF"/>
                                                         </constraints>
@@ -1493,7 +1493,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
                                 <rect key="frame" x="0.0" y="317" width="320" height="163"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1526,12 +1526,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="companyDetails" destination="OjD-iA-LDS" id="6NZ-fO-mnS"/>
                         <outlet property="companyNameLabel" destination="oEX-kx-2wE" id="hLC-Fc-tAo"/>
                         <outlet property="estimatedCostLabel" destination="H5Q-3i-W7w" id="xU2-Zb-GYM"/>
+                        <outlet property="keypadContainer" destination="WFw-bE-i5p" id="scM-3b-2sz"/>
                         <outlet property="lastPriceLabel" destination="khc-sp-oHM" id="BIe-1n-ZeV"/>
                         <outlet property="leftPriceInput" destination="pWk-Ej-ZVu" id="fzh-MD-9pN"/>
                         <outlet property="limitPricesView" destination="Ykc-rN-Xap" id="MTX-Ea-6TY"/>
                         <outlet property="orderActionButton" destination="JLr-7y-dEH" id="ALc-t4-f2d"/>
                         <outlet property="orderExpirationButton" destination="scy-hx-dPx" id="9gV-ZX-0uI"/>
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>
+                        <outlet property="orderView" destination="DlU-2P-Iay" id="2gr-O0-gQI"/>
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="priceAndPerformanceLabel" destination="T7c-Kf-zmh" id="ACx-VS-y6p"/>
                         <outlet property="rightPriceInput" destination="91y-lh-fw2" id="RIs-Dm-6JN"/>
@@ -1695,8 +1697,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Xhv-zk-HPd"/>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="QtJ-Lx-E79"/>
         <segue reference="u5N-Mz-Eih"/>
         <segue reference="I3L-jI-b7x"/>
     </inferredMetricsTieBreakers>

@@ -11,6 +11,7 @@
 @implementation Helper
 
 @synthesize activeButtonColor;
+@synthesize activeButtonHighlightColor;
 @synthesize inactiveButtonColor;
 
 + (id)sharedHelper {
@@ -26,6 +27,7 @@
 - (id)init {
     if (self = [super init]) {
         activeButtonColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+        activeButtonHighlightColor = [UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         inactiveButtonColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
     }
 
@@ -36,8 +38,8 @@
     CAGradientLayer *grLayer = [CAGradientLayer layer];
     grLayer.frame = bounds;
     grLayer.colors = [NSArray arrayWithObjects:
-                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:0.001].CGColor,
-                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
+                      (id)activeButtonColor.CGColor,
+                      (id)activeButtonHighlightColor.CGColor,
                       nil];
     grLayer.startPoint = CGPointMake(0, 1);
     grLayer.endPoint = CGPointMake(1, 0);

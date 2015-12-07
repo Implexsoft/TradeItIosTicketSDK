@@ -73,24 +73,16 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
 
     linkAccountButton.backgroundColor = helper.activeButtonColor;
-    [linkAccountButton.layer addSublayer:[helper activeGradientWithBounds: linkAccountButton.layer.bounds]];
-
-//    CAGradientLayer *grLayer = [CAGradientLayer layer];
-//    grLayer.frame = linkAccountButton.layer.bounds;
-//    grLayer.colors = [NSArray arrayWithObjects:
-//                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:0.001].CGColor,
-//                      (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
-//                      nil];
-//    grLayer.startPoint = CGPointMake(0, 1);
-//    grLayer.endPoint = CGPointMake(1, 0);
-//    [linkAccountButton.layer addSublayer:grLayer];
+    CAGradientLayer * buttonGrLayer = [helper activeGradientWithBounds: linkAccountButton.layer.bounds];
+    buttonGrLayer.zPosition = -1.0;
+    [linkAccountButton.layer addSublayer:buttonGrLayer];
     linkAccountButton.layer.cornerRadius = 22.0f;
     linkAccountButton.clipsToBounds = YES;
 }
@@ -101,21 +93,27 @@
 }
 
 -(void) addUnlink {
-    unlinkButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    unlinkButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [unlinkButton addTarget:self
                action:@selector(unlinkAccountPressed:)
      forControlEvents:UIControlEventTouchUpInside];
     [unlinkButton setTitle:@"Unlink Account" forState:UIControlStateNormal];
     [unlinkButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
+    unlinkButton.clipsToBounds = YES;
+    unlinkButton.layer.cornerRadius = unlinkButton.frame.size.height / 2;
+    unlinkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    unlinkButton.frame = linkAccountButton.frame;
+    unlinkButton.bounds = linkAccountButton.bounds;
+
     NSLayoutConstraint * topConstraint = [NSLayoutConstraint
                                              constraintWithItem:unlinkButton
-                                             attribute:NSLayoutAttributeTop
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:passwordInput
                                              attribute:NSLayoutAttributeBottom
+                                             relatedBy:NSLayoutRelationEqual
+                                             toItem:linkAccountButton
+                                             attribute:NSLayoutAttributeTop
                                              multiplier:1
-                                             constant:32];
+                                             constant:-20];
     topConstraint.priority = 900;
     
     NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
@@ -137,15 +135,13 @@
                                            multiplier:1
                                            constant:0];
     rightConstraint.priority = 900;
-   
+
     [self.view addSubview:unlinkButton];
     
     [self.view removeConstraint:linkAccountCenterLineConstraint];
     [self.view addConstraint:topConstraint];
     [self.view addConstraint:leftConstraint];
     [self.view addConstraint:rightConstraint];
-    
-   
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -174,15 +170,9 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }
-    
+
     self.tradeSession.errorMessage = nil;
     self.tradeSession.errorTitle = nil;
-    
-//    if(emailInput.text != nil && ![emailInput.text isEqualToString:@""]) {
-//        [passwordInput becomeFirstResponder];
-//    } else {
-//        [emailInput becomeFirstResponder];
-//    }
 }
 
 
