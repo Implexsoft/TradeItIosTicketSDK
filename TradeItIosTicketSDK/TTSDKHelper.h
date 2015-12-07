@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface Helper : NSObject
+@interface TTSDKHelper : NSObject
 
 @property (nonatomic, retain) UIColor * activeButtonColor;
 @property (nonatomic, retain) UIColor * activeButtonHighlightColor;

@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKBrokerSelectDetailViewController.h"
-#import "Helper.h"
+#import "TTSDKHelper.h"
 
 @implementation TTSDKBrokerSelectDetailViewController {
     
@@ -23,13 +23,13 @@
 
     NSDictionary * brokerUsername;
     
-    Helper * helper;
+    TTSDKHelper * helper;
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    helper = [Helper sharedHelper];
+    helper = [TTSDKHelper sharedHelper];
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 

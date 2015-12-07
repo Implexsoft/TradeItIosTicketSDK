@@ -6,16 +6,16 @@
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "Helper.h"
+#import "TTSDKHelper.h"
 
-@implementation Helper
+@implementation TTSDKHelper
 
 @synthesize activeButtonColor;
 @synthesize activeButtonHighlightColor;
 @synthesize inactiveButtonColor;
 
 + (id)sharedHelper {
-    static Helper *sharedHelperInstance = nil;
+    static TTSDKHelper *sharedHelperInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedHelperInstance = [[self alloc] init];

@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKAdvCalculatorViewController.h"
-#import "Helper.h"
+#import "TTSDKHelper.h"
 
 @interface TTSDKAdvCalculatorViewController () {
     __weak IBOutlet UILabel * companyNameLabel;
@@ -36,7 +36,7 @@
     NSString * currentSelection;
     UIPickerView * currentPicker;
 
-    Helper * helper;
+    TTSDKHelper * helper;
 }
 
 @end
@@ -47,7 +47,7 @@
     self.advMode = YES;
     [super viewDidLoad];
 
-    helper = [Helper sharedHelper];
+    helper = [TTSDKHelper sharedHelper];
 
     readyToTrade = YES;
 
