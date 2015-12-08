@@ -296,11 +296,8 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
-    
-    if([startingView isEqualToString: @"initalCalculatorController"]) {
-        TTSDKCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-        initialViewController.tradeSession = tradeSession;
-    } else if([startingView isEqualToString: @"brokerSelectController"]){
+
+    if([startingView isEqualToString: @"brokerSelectController"]){
         TTSDKBrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     } else {

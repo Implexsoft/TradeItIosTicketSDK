@@ -9,7 +9,6 @@
 #import "TradeItTicketController.h"
 #import "TTSDKTicketSession.h"
 
-#import "TTSDKCalculatorViewController.h"
 #import "TTSDKAdvCalculatorViewController.h"
 #import "TTSDKAdvCalcTextField.h"
 #import "TTSDKLoadingScreenViewController.h"
@@ -17,7 +16,6 @@
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectDetailViewController.h"
-#import "TTSDKEditScreenViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 
 
@@ -168,10 +166,8 @@
 //we simply call a lame method on every view class which forces
 //the linker to load the classes :)
 +(void) forceClassesIntoLinker {
-    [TTSDKCalculatorViewController class];
     [TTSDKAdvCalculatorViewController class];
     [TTSDKAdvCalcTextField class];
-    [TTSDKEditScreenViewController class];
     [TTSDKLoadingScreenViewController class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];

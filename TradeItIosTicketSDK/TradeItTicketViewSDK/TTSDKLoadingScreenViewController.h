@@ -20,7 +20,6 @@
 
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
-#import "TTSDKCalculatorViewController.h"
 
 @interface TTSDKLoadingScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 

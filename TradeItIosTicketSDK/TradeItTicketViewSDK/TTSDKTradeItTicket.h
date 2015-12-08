@@ -13,7 +13,6 @@
 #import "TTSDKKeychain.h"
 
 #import "TTSDKBrokerSelectViewController.h"
-#import "TTSDKCalculatorViewController.h"
 #import "TTSDKAdvCalculatorViewController.h"
 
 @interface TTSDKTradeItTicket : NSObject

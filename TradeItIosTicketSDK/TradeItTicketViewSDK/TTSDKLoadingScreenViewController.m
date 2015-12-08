@@ -551,7 +551,7 @@
         [successPage setTradeSession: self.tradeSession];
     } else if([segue.identifier isEqualToString:@"loginToCalculator"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
-        TTSDKCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKAdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         [initialViewController setTradeSession: self.tradeSession];
     } else if([segue.identifier isEqualToString:@"loginToAdvCalculator"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
