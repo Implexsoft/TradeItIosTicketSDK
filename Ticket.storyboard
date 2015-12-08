@@ -1256,6 +1256,25 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="-726" y="-999"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="1o3-eE-dv9">
+            <objects>
+                <viewController id="doB-IR-Mly" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tjb-DT-9lw"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bhm-9b-EeF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2wH-NO-V8l">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j0a-W4-aXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-236" y="-1586"/>
+        </scene>
         <!--Broker-->
         <scene sceneID="dXe-1O-F2b">
             <objects>
@@ -1328,6 +1347,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                         <connections>
                                                             <action selector="sharesInputPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="297-p7-yiV"/>
+                                                            <outlet property="delegate" destination="VXZ-vQ-tdp" id="FtA-07-Fwy"/>
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
@@ -1336,7 +1356,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                             <constraint firstAttribute="width" constant="130" id="BzE-Fu-urI"/>
                                                             <constraint firstAttribute="height" constant="17" id="ItI-U7-UyJ"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-7y-dEH">
@@ -1398,6 +1418,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </state>
                                                         <connections>
                                                             <action selector="orderTypePressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="7xZ-td-HZd"/>
+                                                            <segue destination="doB-IR-Mly" kind="show" id="gi6-Wm-tfS"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-rN-Xap" userLabel="LimitPrices">
@@ -1410,6 +1431,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="lQO-mr-iZK"/>
+                                                                </connections>
                                                             </textField>
                                                             <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" userLabel="Limit Price Input">
                                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="22"/>
@@ -1418,6 +1442,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                                <connections>
+                                                                    <action selector="limitPriceInputPressed:" destination="VXZ-vQ-tdp" eventType="editingDidEnd" id="Xqq-hP-JND"/>
+                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="GFH-hi-9X5"/>
+                                                                </connections>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

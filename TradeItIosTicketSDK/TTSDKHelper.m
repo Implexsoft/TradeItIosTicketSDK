@@ -57,5 +57,59 @@
     return grLayer;
 }
 
+- (NSString *)formatIntegerToReadablePrice: (NSString *)price {
+    unsigned int len = (int)[price length];
+    unichar buffer[len];
+    
+    [price getCharacters:buffer range:NSMakeRange(0, len)];
+    
+    NSMutableString * formatString = [NSMutableString string];
+    
+    int pos = 0;
+    for(int i = len - 1; i >= 0; --i) {
+        char current = buffer[i];
+        NSString * stringToInsert;
+        
+        if (pos && pos % 3 == 0) {
+            stringToInsert = [NSString stringWithFormat:@"%c,", current];
+        } else {
+            stringToInsert = [NSString stringWithFormat:@"%c", current];
+        }
+        
+        [formatString insertString:stringToInsert atIndex:0];
+        
+        pos++;
+    }
+    
+    return formatString;
+}
+
+-(void) styleFocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {
+    textField.textColor = activeButtonColor;
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: activeButtonColor}];
+}
+
+-(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {
+    double x = [placeholder doubleValue];
+
+    UIColor * textColor;
+    if (x > 0) {
+        textColor = [UIColor blackColor];
+    } else {
+        textColor = inactiveButtonColor;
+    }
+
+    textField.textColor = textColor;
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: textColor}];
+}
+
+-(void) styleBorderedFocusInput: (UITextField *)textField {
+    textField.layer.borderColor = activeButtonColor.CGColor;
+}
+
+-(void) styleBorderedUnfocusInput: (UITextField *)textField {
+    textField.layer.borderColor = inactiveButtonColor.CGColor;
+}
+
 
 @end

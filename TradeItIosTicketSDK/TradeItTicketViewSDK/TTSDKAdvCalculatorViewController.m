@@ -79,10 +79,6 @@
         [sharesInput setText:[NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity]];
     }
 
-    [sharesInput addTarget:self action:@selector(sharesInputChanged) forControlEvents:UIControlEventEditingChanged];
-    [limitPriceInput addTarget:self action:@selector(leftInputChanged) forControlEvents:UIControlEventEditingChanged];
-    [stopPriceInput addTarget:self action:@selector(rightInputChanged) forControlEvents:UIControlEventEditingChanged];
-
     [sharesInput becomeFirstResponder];
     [self refreshPressed:self];
 
@@ -153,37 +149,41 @@
     fullHeightConstraint.priority = 900;
 }
 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    BOOL isShares = textField == sharesInput;
+    BOOL isLimit = textField == limitPriceInput;
+    BOOL isStop = textField == stopPriceInput;
+
+    if (isShares) {
+        [self sharesInputPressed];
+    } else if (isLimit) {
+        [self limitInputPressed];
+    } else if (isStop) {
+        [self stopInputPressed];
+    }
+
+    return NO;
+}
+
+-(void) sharesInputPressed {
+    [self changeOrderFocus:@"shares"];
+}
+
+-(void) limitInputPressed {
+    [self changeOrderFocus:@"limitPrice"];
+}
+
+-(void) stopInputPressed {
+    [self changeOrderFocus:@"stopPrice"];
+}
+
 -(void) uiTweaks { // things that can't be done in Storyboard
     [self applyBorder:(UIView *)sharesInput];
-    sharesInput.text = @"1";
-    sharesInput.enabled = NO;
-    
     [self applyBorder:(UIView *)orderActionButton];
-    
+
     [previewOrderButton.layer setCornerRadius:22.0f];
     previewOrderButton.clipsToBounds = YES;
     orderActionButton.layer.borderColor = [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor;
-
-    /*
-        CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    
-         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-             if (screenSize.height <= 480.0f) {
-                 NSLayoutConstraint * estLabelHeight;
-                 estLabelHeight = [NSLayoutConstraint
-                                         constraintWithItem:estimatedCostLabel
-                                         attribute:NSLayoutAttributeHeight
-                                         relatedBy:NSLayoutRelationEqual
-                                         toItem:NSLayoutAttributeNotAnAttribute
-                                         attribute:NSLayoutAttributeHeight
-                                         multiplier:1
-                                         constant:0];
-                 estLabelHeight.priority = 900;
-    
-                 [self.view addConstraint:estLabelHeight];
-             }
-         }
-    */
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -230,30 +230,43 @@
 
     readyToTrade = readyNow;
 }
-- (IBAction)sharesInputPressed:(id)sender {
-    [self changeOrderFocus:@"shares"];
-}
 
 -(void) changeOrderFocus: (NSString *)focus {
     if ([focus isEqualToString:@"limitPrice"]) {
-        if (self.tradeSession.orderInfo.price.limitPrice) {
-            limitPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice] attributes:@{NSForegroundColorAttributeName: helper.activeButtonColor}];
+        if (self.tradeSession.orderInfo.price.limitPrice && ![self.tradeSession.orderInfo.price.limitPrice intValue] == 0) {
+            [helper styleFocusedInput:limitPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice]];
         } else {
-            limitPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Limit Price"];
+            [helper styleFocusedInput:limitPriceInput withPlaceholder:@"Limit Price"];
+        }
+    } else {
+        if (self.tradeSession.orderInfo.price.limitPrice && ![self.tradeSession.orderInfo.price.limitPrice intValue] == 0) {
+            [helper styleUnfocusedInput:limitPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice]];
+        } else {
+            [helper styleUnfocusedInput:limitPriceInput withPlaceholder:@"Limit Price"];
         }
     }
-    else if ([focus isEqualToString:@"stopPrice"]) {
+    if ([focus isEqualToString:@"stopPrice"]) {
         if (self.tradeSession.orderInfo.price.stopPrice) {
-            stopPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice] attributes:@{NSForegroundColorAttributeName: helper.activeButtonColor}];
+            [helper styleFocusedInput:stopPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice]];
         } else {
-            stopPriceInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Stop Price"];
+            [helper styleFocusedInput:stopPriceInput withPlaceholder:@"Stop Price"];
+        }
+    } else {
+        if (self.tradeSession.orderInfo.price.stopPrice) {
+            [helper styleUnfocusedInput:stopPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice]];
+        } else {
+            [helper styleUnfocusedInput:stopPriceInput withPlaceholder:@"Stop Price"];
         }
     }
-    else if ([focus isEqualToString:@"shares"]) {
+    if ([focus isEqualToString:@"shares"]) {
+        [helper styleBorderedFocusInput:sharesInput];
+    } else {
+        [helper styleBorderedUnfocusInput:sharesInput];
     }
 
     currentFocus = focus;
 }
+
 
 
 #pragma mark - Order Editing
@@ -380,50 +393,85 @@
     [self checkIfReadyToTrade];
 }
 
--(void) sharesInputChanged {
-    self.tradeSession.orderInfo.quantity = (int)[sharesInput.text integerValue];
-    [self checkIfReadyToTrade];
-}
-
--(void) leftInputChanged {
-    if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
-        self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
-    } else {
-        self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
-    }
-    [self checkIfReadyToTrade];
-}
-
--(void) rightInputChanged {
-    self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
-    [self checkIfReadyToTrade];
-}
-
 -(void) sharesChangedByProxy:(NSInteger) key {
     if (key == 10) { // decimal key - not allowed for quantity
         return;
     }
 
-    NSString * currentQuantityString = [NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity];
-
-    NSString * newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
+    NSString * currentQuantityString;
+    NSString * newQuantityString;
     NSString * appendedString;
 
-    if (key == 11) { // backspace
-        appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
+    if (!self.tradeSession.orderInfo.quantity) {
+        appendedString = [NSString stringWithFormat:@"%ld", (long)key];
     } else {
-        appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
+        currentQuantityString = [NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity];
+        newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
+
+        if (key == 11) { // backspace
+            appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
+        } else {
+            appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
+        }
     }
 
     self.tradeSession.orderInfo.quantity = [appendedString intValue];
+    sharesInput.text = [helper formatIntegerToReadablePrice:appendedString];
 
-    sharesInput.text = appendedString;
+    [self checkIfReadyToTrade];
 }
 
 -(void) limitPriceChangedByProxy:(NSInteger) key {
+    NSString *limitPriceString;
+    if (self.tradeSession.orderInfo.price.limitPrice) {
+        limitPriceString = [NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice];
+    } else {
+        limitPriceString = @"0";
+    }
+
+    NSString * currentLimitString = [NSString stringWithFormat:@"%@", limitPriceString];
+    NSString * newLimitString;
+
+    if (key == 10 && [currentLimitString rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+        return;
+    }
+
+    if (key == 11) { // backspace
+        newLimitString = [currentLimitString substringToIndex:[currentLimitString length] - 1];
+    } else if (key == 10) { // decimal point
+        newLimitString = [NSString stringWithFormat:@"%@.", currentLimitString];
+    } else {
+        newLimitString = [NSString stringWithFormat:@"%@%li", currentLimitString, (long)key];
+    }
+
+    self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[newLimitString doubleValue]];
+
+    limitPriceInput.text = [NSString stringWithFormat:@"%@", newLimitString];
+
+    [self checkIfReadyToTrade];
 }
 
 -(void) stopPriceChangedByProxy:(NSInteger) key {
+    NSString * currentStopString = [NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice];
+    NSString * newStopString;
+
+    if (key == 10 && [currentStopString rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+        return;
+    }
+
+    if (key == 11) { // backspace
+        newStopString = [currentStopString substringToIndex:[currentStopString length] - 1];
+    } else if (key == 10) { // decimal point
+        newStopString = [NSString stringWithFormat:@"%@.", currentStopString];
+    } else {
+        newStopString = [NSString stringWithFormat:@"%@%li", currentStopString, (long)key];
+    }
+
+    self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[newStopString doubleValue]];
+
+    stopPriceInput.text = [NSString stringWithFormat:@"%@", newStopString];
+
+    [self checkIfReadyToTrade];
 }
 
 -(void) setToMarketOrder {
@@ -546,6 +594,10 @@
 
 #pragma mark - Events
 
+- (IBAction)sharesInputPressed:(id)sender {
+    [self changeOrderFocus:@"shares"];
+}
+
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
@@ -588,7 +640,6 @@
     BOOL focusIsStopPrice = [currentFocus isEqualToString:@"stopPrice"];
 
     if (focusIsShares) {
-        if (key == 10) { return; }
         [self sharesChangedByProxy:key];
     } else if (focusIsLimitPrice) {
         [self limitPriceChangedByProxy:key];

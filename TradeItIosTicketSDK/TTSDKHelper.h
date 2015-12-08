@@ -19,5 +19,10 @@
 
 - (CAGradientLayer *)activeGradientWithBounds: (CGRect) bounds;
 - (CALayer *)inactiveGradientWithBounds: (CGRect)bounds;
+- (NSString *)formatIntegerToReadablePrice: (NSString *)price;
+-(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
+-(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
+-(void) styleBorderedFocusInput: (UITextField *)textField;
+-(void) styleBorderedUnfocusInput: (UITextField *)textField;
 
 @end

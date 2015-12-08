@@ -8,6 +8,6 @@
 #import "TTSDKBaseCalculatorViewController.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKAdvCalculatorViewController : TTSDKBaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKAdvCalculatorViewController : TTSDKBaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @end
