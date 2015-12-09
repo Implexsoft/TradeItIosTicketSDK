@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [successMessage setText:[NSString stringWithFormat:@"Congratulations.\r%@", [[self result] confirmationMessage]]];
+    [successMessage setText:[NSString stringWithFormat:@"%@", [[self result] confirmationMessage]]];
     
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
     NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TTSDKTradeItTicket logoStringLite]];
@@ -50,35 +50,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

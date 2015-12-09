@@ -225,8 +225,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
+                                <rect key="frame" x="140" y="221" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
+                                    <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
-                                <rect key="frame" x="16" y="132" width="288" height="181"/>
+                                <rect key="frame" x="16" y="268" width="288" height="181"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="181" id="Jyh-1n-n3E"/>
                                     <constraint firstAttribute="width" constant="288" id="Z2x-SR-q2B"/>
@@ -235,7 +242,6 @@
                                 <string key="text">Congratulations.
 Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price has been successfully transmitted to your broker at 26/06/15 4:54 PM EDT.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -246,43 +252,49 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
                                 <rect key="frame" x="16" y="451" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
-                                <rect key="frame" x="130" y="65" width="60" height="60"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAJ-9t-Tno">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="UJ0-TG-2Ek"/>
-                                    <constraint firstAttribute="height" constant="60" id="tsP-zn-ce9"/>
+                                    <constraint firstAttribute="height" constant="64" id="dae-3j-yxr"/>
                                 </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxD-Tc-Yoz">
-                                <rect key="frame" x="274" y="20" width="30" height="25"/>
+                                <items>
+                                    <navigationItem title="Title" id="8Uz-2T-zq4">
+                                        <barButtonItem key="leftBarButtonItem" title="Close" id="Wop-jC-j0W">
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="xhK-K9-cnI" id="cKE-oh-7A0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
+                                <rect key="frame" x="121" y="99" width="79" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="7lG-zk-ewy"/>
+                                    <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
-                                <state key="normal" title="x">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="closeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="Iua-Xm-91C"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oxD-Tc-Yoz" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="6SB-oF-sGM"/>
                             <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="SdG-RL-fTT" secondAttribute="bottom" constant="8" id="Cfa-zr-abP"/>
-                            <constraint firstItem="oxD-Tc-Yoz" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" id="DA8-OB-OEE"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>
+                            <constraint firstItem="wAJ-9t-Tno" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" constant="-20" id="QIr-Rn-XXU"/>
                             <constraint firstItem="SdG-RL-fTT" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="R7p-un-l6H"/>
+                            <constraint firstItem="wAJ-9t-Tno" firstAttribute="top" secondItem="ijX-Wv-ni7" secondAttribute="topMargin" id="TSk-VH-VUB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wAJ-9t-Tno" secondAttribute="trailing" constant="-20" id="Z3r-Gx-dZz"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="adU-sj-aSY"/>
                             <constraint firstAttribute="centerX" secondItem="9or-AK-Crt" secondAttribute="centerX" id="c1i-u6-mAf"/>
-                            <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="45" id="gpl-De-Jxz"/>
+                            <constraint firstItem="y4s-05-Ixc" firstAttribute="top" secondItem="wAJ-9t-Tno" secondAttribute="bottom" constant="35" id="eeu-DX-nvA"/>
                             <constraint firstItem="SdG-RL-fTT" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="vs9-jA-MkT"/>
+                            <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="y4s-05-Ixc" secondAttribute="bottom" constant="100" id="xl3-fP-vgE"/>
+                            <constraint firstItem="y4s-05-Ixc" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="z81-hO-H6p"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="7" id="zQn-9p-tnb"/>
                         </constraints>
                         <variation key="default">
