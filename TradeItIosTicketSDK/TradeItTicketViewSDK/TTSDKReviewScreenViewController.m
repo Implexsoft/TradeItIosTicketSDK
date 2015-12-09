@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKReviewScreenViewController.h"
+#import "TTSDKHelper.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -48,7 +49,12 @@
     __weak IBOutlet UILabel *estimatedCostValue;
     
     UIView * lastAttachedMessage;
-    NSMutableArray * ackLabels; //used for sizing
+    NSMutableArray * ackLabels; // used for sizing
+    NSMutableArray * warningLabels; // used for sizing
+
+    int ackLabelsToggled;
+
+    TTSDKHelper * helper;
 }
 
 @end
@@ -57,19 +63,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    ackLabels = [[NSMutableArray alloc]init];
-    
-    [self setBackgroundGradient];
-    [self setTableBorders];
-    [submitOrderButton.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [submitOrderButton.layer setBorderWidth:1.0f];
-    [submitOrderButton.layer setCornerRadius:5.0f];
-    
-    //used for attaching constraints
+
+    ackLabels = [[NSMutableArray alloc] init];
+    warningLabels = [[NSMutableArray alloc] init];
+
+    helper = [TTSDKHelper sharedHelper];
+
+    // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
-    
+
     [self updateUIWithReviewResult];
+
+    if ([ackLabels count]) {
+        [helper styleMainInactiveButton:submitOrderButton];
+        submitOrderButton.enabled = NO;
+    } else {
+        [helper styleMainActiveButton:submitOrderButton];
+    }
+
     [self setContentViewHeight];
 }
 
@@ -78,8 +89,7 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
-    
-    [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
+
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
@@ -156,61 +166,12 @@
     [self.view addConstraint:heightConstraint];
 }
 
-- (void) setBackgroundGradient {
-    UIColor *topColor = [UIColor colorWithRed:48.0f/255.0f green:104.0f/255.0f blue:155.0f/255.0f alpha:1.0f];
-    UIColor *bottomColor = [UIColor colorWithRed:8.0f/255.0f green:65.0f/255.0f blue:106.0f/255.0f alpha:1.0f];
-    
-    NSArray *gradientColors = [NSArray arrayWithObjects:(id)topColor.CGColor, (id)bottomColor.CGColor, nil];
-    NSArray *gradientLocations = [NSArray arrayWithObjects:[NSNumber numberWithInt:0.0],[NSNumber numberWithInt:1.0], nil];
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = gradientColors;
-    gradientLayer.locations = gradientLocations;
-    gradientLayer.frame = self.view.frame;
-    [self.view.layer insertSublayer:gradientLayer atIndex:0];
-}
-
-- (void) setTableBorders {
-    [priceVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [priceVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [quantityVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [quantityVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [expirationVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [expirationVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesLongVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesLongVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesShortVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesShortVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [buyingPowerVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [buyingPowerVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedFeesVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedFeesVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedCostVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedCostVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    
-    [priceVV.layer setBorderWidth:1.0f];
-    [priceVL.layer setBorderWidth:1.0f];
-    [quantityVV.layer setBorderWidth:1.0f];
-    [quantityVL.layer setBorderWidth:1.0f];
-    [expirationVV.layer setBorderWidth:1.0f];
-    [expirationVL.layer setBorderWidth:1.0f];
-    [sharesLongVV.layer setBorderWidth:1.0f];
-    [sharesLongVL.layer setBorderWidth:1.0f];
-    [sharesShortVV.layer setBorderWidth:1.0f];
-    [sharesShortVL.layer setBorderWidth:1.0f];
-    [buyingPowerVV.layer setBorderWidth:1.0f];
-    [buyingPowerVL.layer setBorderWidth:1.0f];
-    [estimatedFeesVV.layer setBorderWidth:1.0f];
-    [estimatedFeesVL.layer setBorderWidth:1.0f];
-    [estimatedCostVV.layer setBorderWidth:1.0f];
-    [estimatedCostVL.layer setBorderWidth:1.0f];
-}
-
 -(void) addReviewMessage:(NSString *) message {
-
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
-    [contentView addSubview:messageLabel];
+    [contentView insertSubview:messageLabel atIndex:0];
     [self addConstraintsToMessage:messageLabel];
+
+    [warningLabels addObject:messageLabel];
 }
 
 -(void) addAcknowledgeMessage:(NSString *) message {
@@ -220,26 +181,34 @@
     UISwitch * toggle = [[UISwitch alloc] init];
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
 
+    toggle.userInteractionEnabled = YES;
+
+    [toggle addTarget:self action:@selector(ackLabelToggled:) forControlEvents:UIControlEventValueChanged];
+
+//    [toggle addGestureRecognizer:gestureRec];
+
     [ackLabels addObject:messageLabel];
     
     [container addSubview:toggle];
     [container addSubview:messageLabel];
-    [contentView addSubview:container];
+    [contentView insertSubview:container atIndex:0];
     
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
     [self addConstraintsToMessage:container];
 }
 
+
+
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, reviewLabel.frame.size.width, CGFLOAT_MAX)];
     [label setTranslatesAutoresizingMaskIntoConstraints: NO];
     [label setText: message];
-    [label setNumberOfLines: 0]; //0 allows unlimited lines
-    [label setTextColor: [UIColor whiteColor]];
+    [label setNumberOfLines: 0]; // 0 allows unlimited lines
+    [label setTextColor: helper.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
     [label sizeToFit];
-    
+
     return label;
 }
 
@@ -251,9 +220,9 @@
                                          toItem:lastAttachedMessage
                                          attribute:NSLayoutAttributeBottom
                                          multiplier:1
-                                         constant:10];
+                                         constant:30];
     topConstraint.priority = 900;
-    
+
     NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeLeading
@@ -263,7 +232,7 @@
                                            multiplier:1
                                            constant:0];
     leftConstraint.priority = 900;
-    
+
     NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeTrailing
@@ -273,9 +242,9 @@
                                            multiplier:1
                                            constant:0];
     rightConstraint.priority = 900;
-    
+
     lastAttachedMessage = label;
-    
+
     [self.view addConstraint:topConstraint];
     [self.view addConstraint:leftConstraint];
     [self.view addConstraint:rightConstraint];
@@ -285,15 +254,19 @@
     CGFloat scrollViewHeight = 0.0f;
     for (UIView* view in contentView.subviews)
     {
-        if(!(view.tag > 400 && view.tag < 409)) { //These are the label views, we don't count them since we count the value side
+        if(!(view.tag > 400 && view.tag < 409)) { // These are the label views, we don't count them since we count the value side
             scrollViewHeight += view.frame.size.height;
         }
     }
-    
+
     for(UIView * label in ackLabels) {
         scrollViewHeight += label.frame.size.height;
     }
-    
+
+    for(UILabel * wLabel in warningLabels) {
+        scrollViewHeight += wLabel.frame.size.height;
+    }
+
     NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
                                              constraintWithItem:contentView
                                              attribute:NSLayoutAttributeHeight
@@ -301,7 +274,7 @@
                                              toItem:NSLayoutAttributeNotAnAttribute
                                              attribute:NSLayoutAttributeNotAnAttribute
                                              multiplier:1
-                                             constant:scrollViewHeight + 30]; //extra 30 for padding
+                                             constant:scrollViewHeight + 100]; // extra 30 for padding
     heightConstraint.priority = 900;
     [self.view addConstraint:heightConstraint];
 }
@@ -397,6 +370,22 @@
     }
 }
 
+- (IBAction)cancelPressed:(id)sender {
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+}
+
+-(IBAction)ackLabelToggled:(id)sender {
+    UISwitch * switchSender = sender;
+
+    if (switchSender.on) {
+        ackLabelsToggled++;
+    }
+
+    if (ackLabelsToggled >= [ackLabels count]) {
+        [helper styleMainActiveButton:submitOrderButton];
+        submitOrderButton.enabled = YES;
+    }
+}
 
 @end
 

@@ -13,6 +13,7 @@
 @synthesize activeButtonColor;
 @synthesize activeButtonHighlightColor;
 @synthesize inactiveButtonColor;
+@synthesize warningColor;
 
 + (id)sharedHelper {
     static TTSDKHelper *sharedHelperInstance = nil;
@@ -29,6 +30,7 @@
         activeButtonColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         activeButtonHighlightColor = [UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         inactiveButtonColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
+        warningColor = [UIColor colorWithRed:236.0f/255.0f green:121.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
     }
 
     return self;
@@ -82,6 +84,24 @@
     }
     
     return formatString;
+}
+
+-(void) styleMainActiveButton: (UIButton *)button {
+    button.backgroundColor = activeButtonColor;
+    button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.layer.borderWidth = 0.0f;
+    button.layer.cornerRadius = button.frame.size.height / 2;
+
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+-(void) styleMainInactiveButton: (UIButton *)button {
+    button.backgroundColor = inactiveButtonColor;
+    button.layer.borderColor = [UIColor clearColor].CGColor;
+    button.layer.borderWidth = 0.0f;
+    button.layer.cornerRadius = button.frame.size.height / 2;
+
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {

@@ -14,6 +14,7 @@
 @property (nonatomic, retain) UIColor * activeButtonColor;
 @property (nonatomic, retain) UIColor * activeButtonHighlightColor;
 @property (nonatomic, retain) UIColor * inactiveButtonColor;
+@property (nonatomic, retain) UIColor * warningColor;
 
 + (id)sharedHelper;
 
@@ -24,5 +25,7 @@
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
 -(void) styleBorderedFocusInput: (UITextField *)textField;
 -(void) styleBorderedUnfocusInput: (UITextField *)textField;
+-(void) styleMainActiveButton: (UIButton *)button;
+-(void) styleMainInactiveButton: (UIButton *)button;
 
 @end
