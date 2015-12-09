@@ -88,7 +88,6 @@
     [companyDetails addGestureRecognizer:tap];
 
     [self initKeypad];
-
     [self changeOrderFocus:@"shares"];
 }
 
@@ -183,7 +182,7 @@
 
     [previewOrderButton.layer setCornerRadius:22.0f];
     previewOrderButton.clipsToBounds = YES;
-    orderActionButton.layer.borderColor = [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor;
+    orderActionButton.layer.borderColor = helper.inactiveButtonColor.CGColor;
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -222,7 +221,6 @@
     if(readyNow != readyToTrade) {
         if(readyNow) {
             [previewOrderButton setBackgroundColor:helper.activeButtonColor];
-            [previewOrderButton.layer addSublayer:[helper activeGradientWithBounds:previewOrderButton.layer.bounds]];
         } else {
             [previewOrderButton setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
         }
@@ -246,13 +244,13 @@
         }
     }
     if ([focus isEqualToString:@"stopPrice"]) {
-        if (self.tradeSession.orderInfo.price.stopPrice) {
+        if (self.tradeSession.orderInfo.price.stopPrice && ![self.tradeSession.orderInfo.price.stopPrice intValue] == 0) {
             [helper styleFocusedInput:stopPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice]];
         } else {
             [helper styleFocusedInput:stopPriceInput withPlaceholder:@"Stop Price"];
         }
     } else {
-        if (self.tradeSession.orderInfo.price.stopPrice) {
+        if (self.tradeSession.orderInfo.price.stopPrice && ![self.tradeSession.orderInfo.price.stopPrice intValue] == 0) {
             [helper styleUnfocusedInput:stopPriceInput withPlaceholder:[NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice]];
         } else {
             [helper styleUnfocusedInput:stopPriceInput withPlaceholder:@"Stop Price"];
@@ -346,10 +344,16 @@
     performanceLabel.attributedText = (NSAttributedString *) finalString;
 }
 
+// CHANGING ORDER ACTION
+
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
     self.tradeSession.orderInfo.action = action;
+
+    orderActionButton.layer.borderColor = helper.inactiveButtonColor.CGColor;
 }
+
+// CHANGING ORDER EXPIRATION
 
 -(void) changeOrderExpiration: (NSString *) exp {
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
@@ -377,6 +381,8 @@
     }
 }
 
+// CHANGING ORDER TYPE
+
 -(void) changeOrderType: (NSString *) type {
     [orderTypeButton setTitle:[TTSDKTradeItTicket splitCamelCase:type] forState:UIControlStateNormal];
 
@@ -391,6 +397,54 @@
     }
 
     [self checkIfReadyToTrade];
+}
+
+-(void) setToMarketOrder {
+    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
+    [self changeOrderExpiration:@"day"];
+    [self hideLimitContainer];
+    
+    limitPriceInput.text = nil;
+    stopPriceInput.text = nil;
+}
+
+-(void) setToLimitOrder {
+    [stopPriceInput setHidden:YES];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Limit Price"];
+    
+    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0.0];
+    
+    limitPriceInput.text = nil;
+    stopPriceInput.text = nil;
+    
+    [self showLimitContainer];
+}
+
+-(void) setToStopMarketOrder {
+    [stopPriceInput setHidden:YES];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Stop Price"];
+    
+    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0.0];
+    
+    limitPriceInput.text = nil;
+    stopPriceInput.text = nil;
+    
+    [self showLimitContainer];
+}
+
+-(void) setToStopLimitOrder {
+    [stopPriceInput setHidden: NO];
+    [limitPriceInput setHidden:NO];
+    [limitPriceInput setPlaceholder:@"Limit Price"];
+    
+    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0.0 :0.0];
+    
+    limitPriceInput.text = nil;
+    stopPriceInput.text = nil;
+
+    [self showLimitContainer];
 }
 
 -(void) sharesChangedByProxy:(NSInteger) key {
@@ -422,29 +476,23 @@
 }
 
 -(void) limitPriceChangedByProxy:(NSInteger) key {
-    NSString *limitPriceString;
-    if (self.tradeSession.orderInfo.price.limitPrice) {
-        limitPriceString = [NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.limitPrice];
-    } else {
-        limitPriceString = @"0";
-    }
+    NSString * currentLimitPrice = limitPriceInput.text;
 
-    NSString * currentLimitString = [NSString stringWithFormat:@"%@", limitPriceString];
-    NSString * newLimitString;
-
-    if (key == 10 && [currentLimitString rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+    if (key == 10 && [currentLimitPrice rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
         return;
     }
 
+    NSString * newLimitString;
+
     if (key == 11) { // backspace
-        newLimitString = [currentLimitString substringToIndex:[currentLimitString length] - 1];
+        newLimitString = [currentLimitPrice substringToIndex:[currentLimitPrice length] - 1];
     } else if (key == 10) { // decimal point
-        newLimitString = [NSString stringWithFormat:@"%@.", currentLimitString];
+        newLimitString = [NSString stringWithFormat:@"%@.", currentLimitPrice];
     } else {
-        newLimitString = [NSString stringWithFormat:@"%@%li", currentLimitString, (long)key];
+        newLimitString = [NSString stringWithFormat:@"%@%li", currentLimitPrice, (long)key];
     }
 
-    self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[newLimitString doubleValue]];
+    self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:newLimitString.doubleValue];
 
     limitPriceInput.text = [NSString stringWithFormat:@"%@", newLimitString];
 
@@ -452,19 +500,20 @@
 }
 
 -(void) stopPriceChangedByProxy:(NSInteger) key {
-    NSString * currentStopString = [NSString stringWithFormat:@"%@", self.tradeSession.orderInfo.price.stopPrice];
-    NSString * newStopString;
+    NSString * currentStopPrice = stopPriceInput.text;
 
-    if (key == 10 && [currentStopString rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+    if (key == 10 && [currentStopPrice rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
         return;
     }
 
+    NSString * newStopString;
+
     if (key == 11) { // backspace
-        newStopString = [currentStopString substringToIndex:[currentStopString length] - 1];
+        newStopString = [currentStopPrice substringToIndex:[currentStopPrice length] - 1];
     } else if (key == 10) { // decimal point
-        newStopString = [NSString stringWithFormat:@"%@.", currentStopString];
+        newStopString = [NSString stringWithFormat:@"%@.", currentStopPrice];
     } else {
-        newStopString = [NSString stringWithFormat:@"%@%li", currentStopString, (long)key];
+        newStopString = [NSString stringWithFormat:@"%@%li", currentStopPrice, (long)key];
     }
 
     self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[newStopString doubleValue]];
@@ -472,42 +521,6 @@
     stopPriceInput.text = [NSString stringWithFormat:@"%@", newStopString];
 
     [self checkIfReadyToTrade];
-}
-
--(void) setToMarketOrder {
-    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
-    [self changeOrderExpiration:@"day"];
-    [self hideLimitContainer];
-}
-
--(void) setToLimitOrder {
-    [stopPriceInput setHidden:YES];
-    [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Limit Price"];
-
-    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:0.0];
-
-    [self showLimitContainer];
-}
-
--(void) setToStopMarketOrder {
-    [stopPriceInput setHidden:YES];
-    [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Stop Price"];
-
-    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0.0];
-
-    [self showLimitContainer];
-}
-
--(void) setToStopLimitOrder {
-    [stopPriceInput setHidden: NO];
-    [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Limit Price"];
-
-    self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:0.0 :0.0];
-
-    [self showLimitContainer];
 }
 
 -(void) hideLimitContainer {
@@ -650,6 +663,9 @@
 
 - (IBAction)orderActionPressed:(id)sender {
     [self.view endEditing:YES];
+
+    [self changeOrderFocus:@"action"];
+    orderActionButton.layer.borderColor = helper.activeButtonColor.CGColor;
 
     if(![UIAlertController class]) {
         [self showOldOrderAction];
