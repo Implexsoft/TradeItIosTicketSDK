@@ -136,7 +136,7 @@
                             multiplier:1
                             constant:0];
     zeroHeightConstraint.priority = 900;
-    
+
     fullHeightConstraint = [NSLayoutConstraint
                             constraintWithItem:limitPricesView
                             attribute:NSLayoutAttributeHeight
@@ -291,14 +291,6 @@
 
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
 
-    [attString addAttribute:NSForegroundColorAttributeName
-                      value:[UIColor colorWithRed:169.0f/255.0f green:169.0f/255.0f blue:169.0f/255.0f alpha:1.0f]
-                      range:NSMakeRange(0, 15)];
-
-    [attString addAttribute:NSForegroundColorAttributeName
-                      value:[UIColor blackColor]
-                      range:NSMakeRange(16, [attString length] - 16)];
-
     [estimatedCostLabel setAttributedText:attString];
 }
 
@@ -422,15 +414,14 @@
 }
 
 -(void) setToStopMarketOrder {
-    [stopPriceInput setHidden:YES];
-    [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Stop Price"];
-    
+    [limitPriceInput setHidden:YES];
+    [stopPriceInput setHidden:NO];
+
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:0.0];
-    
+
     limitPriceInput.text = nil;
     stopPriceInput.text = nil;
-    
+
     [self showLimitContainer];
 }
 
