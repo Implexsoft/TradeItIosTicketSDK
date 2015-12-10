@@ -18,8 +18,9 @@
 
 + (id)sharedHelper;
 
-- (CAGradientLayer *)activeGradientWithBounds: (CGRect) bounds;
-- (CALayer *)inactiveGradientWithBounds: (CGRect)bounds;
+- (void)addGradientToButton: (UIButton *)button;
+- (void)removeGradientFromCurrentContainer;
+
 - (NSString *)formatIntegerToReadablePrice: (NSString *)price;
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;

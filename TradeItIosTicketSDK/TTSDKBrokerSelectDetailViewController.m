@@ -73,12 +73,7 @@
     
     [self.view addGestureRecognizer:tap];
 
-    linkAccountButton.backgroundColor = helper.activeButtonColor;
-    CAGradientLayer * buttonGrLayer = [helper activeGradientWithBounds: linkAccountButton.layer.bounds];
-    buttonGrLayer.zPosition = -1.0;
-    [linkAccountButton.layer addSublayer:buttonGrLayer];
-    linkAccountButton.layer.cornerRadius = 22.0f;
-    linkAccountButton.clipsToBounds = YES;
+    [helper styleMainActiveButton:linkAccountButton];
 }
 
 - (void)dismissKeyboard {

@@ -6,7 +6,16 @@
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
+
 #import "TTSDKHelper.h"
+
+@interface TTSDKHelper () {
+    UIButton * currentGradientContainer;
+    CAGradientLayer * activeButtonGradient;
+}
+
+@end
+
 
 @implementation TTSDKHelper
 
@@ -14,6 +23,7 @@
 @synthesize activeButtonHighlightColor;
 @synthesize inactiveButtonColor;
 @synthesize warningColor;
+
 
 + (id)sharedHelper {
     static TTSDKHelper *sharedHelperInstance = nil;
@@ -36,27 +46,35 @@
     return self;
 }
 
-- (CAGradientLayer *)activeGradientWithBounds: (CGRect)bounds {
-    CAGradientLayer *grLayer = [CAGradientLayer layer];
-    grLayer.frame = bounds;
-    grLayer.colors = [NSArray arrayWithObjects:
-                      (id)activeButtonColor.CGColor,
-                      (id)activeButtonHighlightColor.CGColor,
-                      nil];
-    grLayer.startPoint = CGPointMake(0, 1);
-    grLayer.endPoint = CGPointMake(1, 0);
+- (void)addGradientToButton: (UIButton *)button {
+    [self removeGradientFromCurrentContainer];
 
+    activeButtonGradient = [CAGradientLayer layer];
+    activeButtonGradient.frame = button.bounds;
+    activeButtonGradient.colors = [NSArray arrayWithObjects:
+                                   (id)activeButtonColor.CGColor,
+                                   (id)activeButtonHighlightColor.CGColor,
+                                   nil];
+    activeButtonGradient.startPoint = CGPointMake(0, 1);
+    activeButtonGradient.endPoint = CGPointMake(1, 0);
+    activeButtonGradient.cornerRadius = button.layer.cornerRadius;
 
-    return grLayer;
+    if(button.layer.sublayers.count>0) {
+        [button.layer insertSublayer:activeButtonGradient atIndex: 0];
+    }else {
+        [button.layer addSublayer:activeButtonGradient];
+    }
+
+    currentGradientContainer = button;
 }
 
-- (CALayer *)inactiveGradientWithBounds: (CGRect)bounds {
-    CALayer *grLayer = [CALayer layer];
+- (void)removeGradientFromCurrentContainer {
+    if (currentGradientContainer) {
+        [activeButtonGradient removeFromSuperlayer];
+    }
 
-    grLayer.frame = bounds;
-    grLayer.backgroundColor = inactiveButtonColor.CGColor;
-
-    return grLayer;
+    activeButtonGradient = nil;
+    currentGradientContainer = nil;
 }
 
 - (NSString *)formatIntegerToReadablePrice: (NSString *)price {
@@ -66,7 +84,7 @@
     [price getCharacters:buffer range:NSMakeRange(0, len)];
     
     NSMutableString * formatString = [NSMutableString string];
-    
+
     int pos = 0;
     for(int i = len - 1; i >= 0; --i) {
         char current = buffer[i];
@@ -92,14 +110,27 @@
     button.layer.borderWidth = 0.0f;
     button.layer.cornerRadius = button.frame.size.height / 2;
 
+    button.layer.masksToBounds = NO;
+    button.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
+    button.layer.shadowOpacity = 0.4;
+    button.layer.shadowRadius = 1;
+    button.layer.shadowOffset = CGSizeMake(0,1);
+
+    [self addGradientToButton:button];
+
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(void) styleMainInactiveButton: (UIButton *)button {
+    [self removeGradientFromCurrentContainer];
+
     button.backgroundColor = inactiveButtonColor;
     button.layer.borderColor = [UIColor clearColor].CGColor;
     button.layer.borderWidth = 0.0f;
     button.layer.cornerRadius = button.frame.size.height / 2;
+
+    button.layer.shadowColor = [UIColor clearColor].CGColor;
+    button.layer.shadowOpacity = 0;
 
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }

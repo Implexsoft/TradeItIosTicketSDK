@@ -180,8 +180,8 @@
     [self applyBorder:(UIView *)sharesInput];
     [self applyBorder:(UIView *)orderActionButton];
 
-    [previewOrderButton.layer setCornerRadius:22.0f];
     previewOrderButton.clipsToBounds = YES;
+
     orderActionButton.layer.borderColor = helper.inactiveButtonColor.CGColor;
 }
 
@@ -220,9 +220,9 @@
 
     if(readyNow != readyToTrade) {
         if(readyNow) {
-            [previewOrderButton setBackgroundColor:helper.activeButtonColor];
+            [helper styleMainActiveButton:previewOrderButton];
         } else {
-            [previewOrderButton setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
+            [helper styleMainInactiveButton:previewOrderButton];
         }
     }
 
