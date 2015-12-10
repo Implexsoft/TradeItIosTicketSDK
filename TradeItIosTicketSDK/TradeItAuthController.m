@@ -18,7 +18,7 @@
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
             
-            if(true || [tradeSession debugMode]) {
+            if([tradeSession debugMode]) {
                 NSArray * dummy  =  @[@"Dummy",@"Dummy"];
                 [brokers addObject:dummy];
             }
