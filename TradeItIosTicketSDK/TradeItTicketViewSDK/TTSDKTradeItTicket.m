@@ -107,8 +107,8 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
                           @[@"E*Trade",@"Etrade"],
                           @[@"Fidelity",@"Fidelity"],
                           @[@"Scottrade",@"Scottrade"],
-                          @[@"Tradier Brokerage",@"Tradier"],
-                          @[@"Interactive Brokers",@"IB"]
+                          @[@"Tradier Brokerage",@"Tradier"]
+                          //@[@"Interactive Brokers",@"IB"]
                           ];
     
     return brokers;
@@ -152,7 +152,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 +(NSArray *) getLinkedBrokersList {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * linkedBrokers = [defaults objectForKey:BROKER_LIST_KEY];
-    
+
     return linkedBrokers;
 }
 
@@ -174,7 +174,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     if(i == linkedBrokers.count) {
         [linkedBrokers addObject: broker];
     }
-    
+
     [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
     [defaults synchronize];
 }
@@ -198,7 +198,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     
     if(brokerToRemove != nil) {
         [linkedBrokers removeObject: brokerToRemove];
-        
+
         [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
         [defaults synchronize];
     }
@@ -212,7 +212,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker {
     NSString * username = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Username", broker]];
     NSString * password = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
-    
+
     return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
 }
 
@@ -227,7 +227,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
 +(NSString *) getCalcScreenPreferance {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString * pref = [defaults objectForKey:CALC_SCREEN_PREFERENCE];
-    
+
     return pref;
 }
 
@@ -235,10 +235,10 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     if(![LAContext class]) {
         return NO;
     }
-    
+
     LAContext * myContext = [[LAContext alloc] init];
     NSError * authError = nil;
-    
+
     if([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
         return YES;
     } else {
@@ -267,18 +267,19 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
             tradeSession.brokerList = (NSArray *) brokers;
         }
     }];
-    
+
+
     //Get Resource Bundle
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
-    
+
     //Setup ticket storyboard
     NSString * startingView = @"brokerSelectController";
-    
+
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
         startingView = [TTSDKTradeItTicket getCalcScreenPreferance];
-        
+
         if(startingView == nil){
             if(tradeSession.calcScreenStoryboardId != nil) {
                 startingView = tradeSession.calcScreenStoryboardId;
@@ -292,7 +293,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     } else {
         tradeSession.calcScreenStoryboardId = tradeSession.calcScreenStoryboardId != nil ? tradeSession.calcScreenStoryboardId : @"advCalculatorController";
     }
-    
+
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];

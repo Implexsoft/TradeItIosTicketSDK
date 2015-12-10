@@ -57,7 +57,7 @@
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
-    
+
     [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
     
     if([[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
@@ -87,6 +87,8 @@
                action:@selector(unlinkAccountPressed:)
      forControlEvents:UIControlEventTouchUpInside];
     [unlinkButton setTitle:@"Unlink Account" forState:UIControlStateNormal];
+    [unlinkButton setTitleColor:[helper activeButtonColor] forState:UIControlStateNormal];
+
     [unlinkButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     unlinkButton.clipsToBounds = YES;
@@ -200,7 +202,7 @@
 
 -(IBAction) unlinkAccountPressed:(id) sender{
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
-    
+
     [TTSDKTradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
     [TTSDKTradeItTicket removeLinkedBroker: broker];
     

@@ -114,7 +114,7 @@
         tradeSession.refreshLastPrice = self.refreshLastPrice;
     }
     
-    if(self.calcScreenDefault != nil &&![self.calcScreenDefault isEqualToString:@""]) {
+    if(self.calcScreenDefault != nil && ![self.calcScreenDefault isEqualToString:@""]) {
         tradeSession.calcScreenStoryboardId = [self.calcScreenDefault isEqualToString:@"detail"] ? @"advCalculatorController" : @"initalCalculatorController";
     }
     
@@ -134,7 +134,6 @@
 }
 
 +(void) showTicket:(TTSDKTicketSession *) ticketSession {
-
     ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
     
     [TTSDKTradeItTicket showTicket:ticketSession];

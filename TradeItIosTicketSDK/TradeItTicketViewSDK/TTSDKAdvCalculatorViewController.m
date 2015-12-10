@@ -30,6 +30,7 @@
 
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
+    __weak IBOutlet UIView *containerView;
 
     NSLayoutConstraint * zeroHeightConstraint;
     NSLayoutConstraint * fullHeightConstraint;
@@ -59,6 +60,8 @@
     [super viewDidLoad];
 
     helper = [TTSDKHelper sharedHelper];
+
+
 
     readyToTrade = YES;
 
@@ -594,6 +597,33 @@
     [[self tradeSession] setAuthenticationInfo: creds];
 }
 
+- (IBAction)settingsPressed:(id)sender {
+    CATransform3D currentTransform = containerView.layer.transform;
+
+    if (containerView.layer.opacity < 1) {
+
+        [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
+                         animations:^{
+                             containerView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -180.0f, 0.0f));
+                             containerView.layer.opacity = 1.0f;
+                         }
+                         completion:^(BOOL finished) {
+                         }
+         ];
+
+    } else {
+
+        [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
+                         animations:^{
+                             containerView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 180.0f, 1.0f));
+                             containerView.layer.opacity = 0.95f;
+                         }
+                         completion:^(BOOL finished) {
+                         }
+         ];
+
+    }
+}
 
 
 #pragma mark - Events
@@ -768,6 +798,9 @@
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
+- (IBAction)editAccountsPressed:(id)sender {
+    [self performSegueWithIdentifier:@"advCalculatorToBrokerSelectDetail" sender:self];
+}
 
 
 #pragma mark - Picker View
