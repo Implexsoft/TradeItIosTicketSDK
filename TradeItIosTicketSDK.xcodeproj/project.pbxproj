@@ -25,6 +25,8 @@
 /* Begin PBXBuildFile section */
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
+		654B68851C1B6BAA00B2881E /* TTSDKLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 654B68831C1B6BAA00B2881E /* TTSDKLoading.h */; };
+		654B68861C1B6BAA00B2881E /* TTSDKLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B68841C1B6BAA00B2881E /* TTSDKLoading.m */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
 		65ECCAF21C125403000CE86B /* TTSDKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* TTSDKHelper.h */; };
 		65ECCAF31C125403000CE86B /* TTSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKHelper.m */; };
@@ -215,6 +217,8 @@
 /* Begin PBXFileReference section */
 		6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKcalc.xib; sourceTree = "<group>"; };
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
+		654B68831C1B6BAA00B2881E /* TTSDKLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKLoading.h; sourceTree = "<group>"; };
+		654B68841C1B6BAA00B2881E /* TTSDKLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKLoading.m; sourceTree = "<group>"; };
 		65ECCAF01C125403000CE86B /* TTSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKHelper.h; sourceTree = "<group>"; };
 		65ECCAF11C125403000CE86B /* TTSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKHelper.m; sourceTree = "<group>"; };
 		65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -378,6 +382,8 @@
 		A905D3231B629D83006B0B8C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				654B68831C1B6BAA00B2881E /* TTSDKLoading.h */,
+				654B68841C1B6BAA00B2881E /* TTSDKLoading.m */,
 				A93B3C401B542C4B00373E1B /* TTSDKTicketSession.h */,
 				A9C002BE1B710853007D15F5 /* TTSDKTicketSession.m */,
 				A9A8CF861B4EFDBB000207B9 /* TTSDKTradeItTicket.h */,
@@ -756,6 +762,7 @@
 				A9C0036B1B7264A4007D15F5 /* TradeitStockOrEtfOrderPrice.h in Headers */,
 				A9C003751B7264A4007D15F5 /* TradeItSuccessAuthenticationResult.h in Headers */,
 				A9C0035B1B7264A4007D15F5 /* TradeItRequest.h in Headers */,
+				654B68851C1B6BAA00B2881E /* TTSDKLoading.h in Headers */,
 				A9C0036F1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.h in Headers */,
 				A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
 				A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */,
@@ -1011,6 +1018,7 @@
 				A9C003391B7264A4007D15F5 /* TIEMSJSONModelClassProperty.m in Sources */,
 				A9A8D0FB1B4F19D4000207B9 /* TTSDKLoadingScreenViewController.m in Sources */,
 				A9C0033D1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m in Sources */,
+				654B68861C1B6BAA00B2881E /* TTSDKLoading.m in Sources */,
 				A9C0033B1B7264A4007D15F5 /* TIEMSJSONModelError.m in Sources */,
 				A9C003621B7264A4007D15F5 /* TradeItSecurityQuestionResult.m in Sources */,
 				A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */,

@@ -1,12 +1,12 @@
 //
-//  LoadingScreenViewController.h
-//  TradingTicket
+//  TTSDKLoading.h
+//  TradeItIosTicketSDK
 //
-//  Created by Antonio Reyes on 6/24/15.
-//  Copyright (c) 2015 Antonio Reyes. All rights reserved.
+//  Created by Daniel Vaughn on 12/11/15.
+//  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "TTSDKTicketSession.h"
 #import "TradeItResult.h"
 #import "TradeItSecurityQuestionResult.h"
@@ -19,7 +19,7 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
 
-@interface TTSDKLoadingScreenViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
+@interface TTSDKLoading : NSObject
 
 @property NSString * actionToPerform;
 @property TTSDKTicketSession * tradeSession;
@@ -29,5 +29,8 @@
 
 @property NSString * addBroker;
 @property TradeItAuthenticationInfo * verifyCreds;
+@property UIViewController * viewController;
+
+-(instancetype) initWithViewController: (UIViewController *)vc;
 
 @end

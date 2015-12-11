@@ -8,6 +8,7 @@
 
 #import "TTSDKAdvCalculatorViewController.h"
 #import "TTSDKHelper.h"
+#import "TTSDKLoading.h"
 
 @interface TTSDKAdvCalculatorViewController () {
     __weak IBOutlet UIView * companyDetails;
@@ -45,6 +46,8 @@
     UIPickerView * currentPicker;
     UIView * keypad;
 
+    TTSDKLoading * loader;
+
     TTSDKHelper * helper;
 }
 
@@ -61,7 +64,7 @@
 
     helper = [TTSDKHelper sharedHelper];
 
-
+    loader = [[TTSDKLoading alloc] initWithViewController:self];
 
     readyToTrade = YES;
 
@@ -192,6 +195,10 @@
     item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
     item.layer.borderWidth = 1;
     item.layer.cornerRadius = item.frame.size.height / 2;
+}
+
+-(void) authComplete {
+
 }
 
 
@@ -790,7 +797,8 @@
             self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
         }
 
-        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
+        [helper styleLoadingButton:previewOrderButton];
+//        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
     }
 }
 

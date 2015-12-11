@@ -28,5 +28,6 @@
 -(void) styleBorderedUnfocusInput: (UITextField *)textField;
 -(void) styleMainActiveButton: (UIButton *)button;
 -(void) styleMainInactiveButton: (UIButton *)button;
+-(void) styleLoadingButton: (UIButton *)button;
 
 @end

@@ -97,7 +97,7 @@
         }
         
         [formatString insertString:stringToInsert atIndex:0];
-        
+
         pos++;
     }
     
@@ -119,6 +119,12 @@
     [self addGradientToButton:button];
 
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+-(void) styleLoadingButton: (UIButton *)button {
+    [self removeGradientFromCurrentContainer];
+
+    button.backgroundColor = [UIColor redColor];
 }
 
 -(void) styleMainInactiveButton: (UIButton *)button {

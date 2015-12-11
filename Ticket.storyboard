@@ -835,10 +835,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0e-uA-x4B">
-                                <rect key="frame" x="36" y="406" width="248" height="44"/>
+                                <rect key="frame" x="50" y="406" width="220" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="H9k-1G-4VE"/>
+                                    <constraint firstAttribute="width" constant="220" id="hej-ZO-WJk"/>
                                 </constraints>
                                 <state key="normal" title="Place Order">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -854,12 +855,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstItem="D8Z-i4-dEA" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" id="GpC-s7-4Qs"/>
                             <constraint firstItem="D8Z-i4-dEA" firstAttribute="top" secondItem="TIy-BI-Q4d" secondAttribute="bottom" constant="7" id="IiG-FY-Ibn"/>
                             <constraint firstItem="Y9v-3y-Zb2" firstAttribute="top" secondItem="f0e-uA-x4B" secondAttribute="bottom" constant="30" id="NoN-Bc-VC4"/>
-                            <constraint firstItem="f0e-uA-x4B" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" constant="20" id="SmX-Dt-X8z"/>
                             <constraint firstItem="bMD-Ha-IYA" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" id="XgS-po-yj8"/>
                             <constraint firstItem="Y9v-3y-Zb2" firstAttribute="top" secondItem="2Og-el-OsS" secondAttribute="bottom" constant="95" id="eBz-ca-YU4"/>
                             <constraint firstAttribute="width" secondItem="9zC-UW-bGD" secondAttribute="width" id="eLz-FH-bJh"/>
                             <constraint firstItem="2Og-el-OsS" firstAttribute="leading" secondItem="GgS-5z-ucy" secondAttribute="leadingMargin" constant="-16" id="ltL-TC-SxE"/>
-                            <constraint firstItem="f0e-uA-x4B" firstAttribute="trailing" secondItem="GgS-5z-ucy" secondAttribute="trailingMargin" constant="-20" id="pE5-NF-Siu"/>
+                            <constraint firstItem="f0e-uA-x4B" firstAttribute="centerX" secondItem="GgS-5z-ucy" secondAttribute="centerX" id="rSU-f4-USh"/>
                             <constraint firstItem="bMD-Ha-IYA" firstAttribute="top" secondItem="TIy-BI-Q4d" secondAttribute="bottom" constant="35" id="rzG-w6-1zf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Og-el-OsS" secondAttribute="trailing" constant="-16" id="uKT-dI-qWN"/>
                             <constraint firstItem="2Og-el-OsS" firstAttribute="top" secondItem="TIy-BI-Q4d" secondAttribute="bottom" constant="80" id="x96-Ze-uS3"/>
@@ -1001,76 +1001,46 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
-                                                        <rect key="frame" x="18" y="0.0" width="294" height="82"/>
+                                                        <rect key="frame" x="20" y="20" width="300" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00  $0.00  %0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7c-Kf-zmh" userLabel="Performance Label">
-                                                                <rect key="frame" x="0.0" y="44" width="139" height="18"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="18" id="xKt-2v-tYd"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khc-sp-oHM">
-                                                                <rect key="frame" x="100" y="12" width="63" height="28"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="28" id="GlG-NR-bel"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SYMBOL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEX-kx-2wE">
-                                                                <rect key="frame" x="0.0" y="12" width="92" height="28"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="28" id="sL2-Lu-sdb"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="highlightedColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khc-sp-oHM">
+                                                                <rect key="frame" x="97" y="0.0" width="63" height="28"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00  $0.00  %0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7c-Kf-zmh" userLabel="Performance Label">
+                                                                <rect key="frame" x="0.0" y="28" width="131" height="17"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="khc-sp-oHM" firstAttribute="leading" secondItem="oEX-kx-2wE" secondAttribute="trailing" constant="8" id="0oo-o4-E5u"/>
-                                                            <constraint firstItem="khc-sp-oHM" firstAttribute="centerY" secondItem="oEX-kx-2wE" secondAttribute="centerY" id="QUI-w7-Hba"/>
-                                                            <constraint firstItem="T7c-Kf-zmh" firstAttribute="top" secondItem="oEX-kx-2wE" secondAttribute="bottom" constant="4" id="bcM-0D-9Tn"/>
-                                                            <constraint firstAttribute="bottom" secondItem="T7c-Kf-zmh" secondAttribute="bottom" constant="20" id="meb-jP-zt2"/>
-                                                            <constraint firstItem="oEX-kx-2wE" firstAttribute="leading" secondItem="OjD-iA-LDS" secondAttribute="leading" id="tl0-9M-Znh"/>
-                                                            <constraint firstItem="T7c-Kf-zmh" firstAttribute="leading" secondItem="OjD-iA-LDS" secondAttribute="leading" id="xj2-0p-adW"/>
+                                                            <constraint firstItem="T7c-Kf-zmh" firstAttribute="top" secondItem="khc-sp-oHM" secondAttribute="bottom" id="2IT-1x-bUx"/>
+                                                            <constraint firstItem="T7c-Kf-zmh" firstAttribute="leading" secondItem="OjD-iA-LDS" secondAttribute="leading" id="3Yw-ht-a7N"/>
+                                                            <constraint firstItem="khc-sp-oHM" firstAttribute="leading" secondItem="oEX-kx-2wE" secondAttribute="trailing" constant="5" id="BpM-GV-G2G"/>
+                                                            <constraint firstItem="oEX-kx-2wE" firstAttribute="leading" secondItem="OjD-iA-LDS" secondAttribute="leading" id="Qg8-y9-qgX"/>
+                                                            <constraint firstItem="khc-sp-oHM" firstAttribute="top" secondItem="OjD-iA-LDS" secondAttribute="top" id="VwZ-q5-BV3"/>
+                                                            <constraint firstItem="oEX-kx-2wE" firstAttribute="top" secondItem="OjD-iA-LDS" secondAttribute="top" id="mFM-8N-lYU"/>
+                                                            <constraint firstAttribute="height" constant="50" id="qfn-uP-BAz"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-ms-ajL" userLabel="OrderButtons">
-                                                        <rect key="frame" x="15" y="72" width="290" height="71"/>
+                                                        <rect key="frame" x="0.0" y="93" width="320" height="70"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Shares" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="feE-8H-8e0" customClass="TTSDKAdvCalcTextField">
-                                                                <rect key="frame" x="160" y="7" width="130" height="44"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="44" id="LB2-LA-qCX"/>
-                                                                    <constraint firstAttribute="width" constant="130" id="OnT-S1-vLI"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                                <connections>
-                                                                    <action selector="sharesInputPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="297-p7-yiV"/>
-                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="FtA-07-Fwy"/>
-                                                                </connections>
-                                                            </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
-                                                                <rect key="frame" x="160" y="54" width="130" height="17"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="130" id="BzE-Fu-urI"/>
-                                                                    <constraint firstAttribute="height" constant="17" id="ItI-U7-UyJ"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-7y-dEH">
-                                                                <rect key="frame" x="0.0" y="7" width="140" height="44"/>
+                                                                <rect key="frame" x="20" y="0.0" width="140" height="44"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="44" id="qaP-Yg-Bmc"/>
-                                                                    <constraint firstAttribute="width" constant="140" id="xHg-ob-yCD"/>
+                                                                    <constraint firstAttribute="width" constant="140" id="1E4-V5-gS2"/>
+                                                                    <constraint firstAttribute="height" constant="44" id="9Xy-Aj-btn"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1082,41 +1052,58 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                     <action selector="orderActionPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="f87-7h-nV0"/>
                                                                 </connections>
                                                             </button>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Shares" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="feE-8H-8e0" customClass="TTSDKAdvCalcTextField">
+                                                                <rect key="frame" x="170" y="0.0" width="130" height="44"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="130" id="0XA-wH-5xx"/>
+                                                                    <constraint firstAttribute="height" constant="44" id="7yp-Kr-DUp"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                <connections>
+                                                                    <action selector="sharesInputPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="297-p7-yiV"/>
+                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="FtA-07-Fwy"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w">
+                                                                <rect key="frame" x="198" y="54" width="75" height="17"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="17" id="3Mx-aK-syP"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="H5Q-3i-W7w" secondAttribute="trailing" id="6Eq-ru-VFy"/>
-                                                            <constraint firstAttribute="width" constant="290" id="9vD-iJ-ZcX"/>
-                                                            <constraint firstAttribute="bottom" secondItem="H5Q-3i-W7w" secondAttribute="bottom" id="M8I-kf-EiL"/>
-                                                            <constraint firstItem="H5Q-3i-W7w" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="3" id="OFa-Ct-koc"/>
-                                                            <constraint firstAttribute="bottom" secondItem="JLr-7y-dEH" secondAttribute="bottom" constant="20" id="P4r-a5-1j4"/>
-                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" id="Y5N-t6-h2X"/>
-                                                            <constraint firstAttribute="height" constant="71" id="gvj-cy-806"/>
-                                                            <constraint firstAttribute="trailing" secondItem="feE-8H-8e0" secondAttribute="trailing" id="vri-Th-Opo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="feE-8H-8e0" secondAttribute="trailing" constant="20" id="096-Oq-afx"/>
+                                                            <constraint firstItem="H5Q-3i-W7w" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="10" id="2vq-VT-flg"/>
+                                                            <constraint firstItem="feE-8H-8e0" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="AaQ-Qz-8nf"/>
+                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="FXy-nU-iAR"/>
+                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" constant="20" id="G5M-7e-aZ7"/>
+                                                            <constraint firstItem="H5Q-3i-W7w" firstAttribute="centerX" secondItem="feE-8H-8e0" secondAttribute="centerX" id="s7f-VH-HiH"/>
+                                                            <constraint firstAttribute="height" constant="70" id="x3C-JF-IET"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="top" secondItem="Icf-eA-afJ" secondAttribute="top" id="GuU-kz-AKS"/>
-                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="18" id="YRr-uw-VT0"/>
-                                                    <constraint firstAttribute="bottom" secondItem="XLO-ms-ajL" secondAttribute="bottom" constant="20" id="Zd1-bl-4bR"/>
-                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" constant="8" id="a5M-5t-7Us"/>
-                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="height" secondItem="Icf-eA-afJ" secondAttribute="height" multiplier="0.5" id="tDu-Gt-wge"/>
-                                                    <constraint firstItem="XLO-ms-ajL" firstAttribute="centerX" secondItem="Icf-eA-afJ" secondAttribute="centerX" id="v6h-8a-jAu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="XLO-ms-ajL" secondAttribute="bottom" id="IfV-jS-86X"/>
+                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="top" secondItem="Icf-eA-afJ" secondAttribute="top" constant="20" id="N06-MK-Gwf"/>
+                                                    <constraint firstItem="XLO-ms-ajL" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" id="ZFQ-2G-eb3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="XLO-ms-ajL" secondAttribute="trailing" id="cEo-Sd-wUC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" id="gPk-5J-ZVz"/>
+                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="20" id="lvg-kT-06I"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-wY-vR6" userLabel="BottomContainer">
-                                                <rect key="frame" x="0.0" y="134" width="320" height="163"/>
+                                                <rect key="frame" x="0.0" y="163" width="320" height="134"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8x-hT-TFj" userLabel="OrderDetails">
-                                                        <rect key="frame" x="0.0" y="5" width="320" height="88"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-kp-Nie">
-                                                                <rect key="frame" x="102" y="0.0" width="115" height="27"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="27" id="zVw-DB-WmK"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="0.0" y="0.0" width="320" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Type">
@@ -1128,13 +1115,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </connections>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-rN-Xap" userLabel="LimitPrices">
-                                                                <rect key="frame" x="70" y="29" width="180" height="17"/>
+                                                                <rect key="frame" x="60" y="29" width="200" height="17"/>
                                                                 <subviews>
                                                                     <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input">
-                                                                        <rect key="frame" x="117" y="0.0" width="63" height="22"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="22" id="0ZO-6N-6Tk"/>
-                                                                        </constraints>
+                                                                        <rect key="frame" x="137" y="0.0" width="63" height="15"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
@@ -1142,10 +1126,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                         </connections>
                                                                     </textField>
                                                                     <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" userLabel="Limit Price Input">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="22"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="22" id="wAF-gZ-OdY"/>
-                                                                        </constraints>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="15"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                         <connections>
@@ -1156,19 +1137,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="17" id="2FH-0S-fdP"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" id="KxM-NA-FxD"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="pWk-Ej-ZVu" secondAttribute="bottom" constant="-5" id="QeJ-lI-mEh"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="91y-lh-fw2" secondAttribute="bottom" constant="-5" id="VSr-wp-9b7"/>
-                                                                    <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="Ykc-rN-Xap" secondAttribute="leading" id="XAP-07-RaA"/>
-                                                                    <constraint firstAttribute="width" constant="180" id="yyD-Rq-2NF"/>
+                                                                    <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="Ykc-rN-Xap" secondAttribute="leading" id="H67-S9-Jjv"/>
+                                                                    <constraint firstAttribute="height" constant="17" id="Hi7-00-18Q"/>
+                                                                    <constraint firstItem="pWk-Ej-ZVu" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" id="MAD-hm-9PM"/>
+                                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" id="VXV-5e-hId"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" id="d2i-jm-k9T"/>
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scy-hx-dPx">
                                                                 <rect key="frame" x="78" y="61" width="164" height="27"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="27" id="yT1-aY-LdY"/>
-                                                                </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Expiration">
@@ -1181,20 +1158,23 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="0ic-gP-kxn"/>
-                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="B6Q-P4-NmL"/>
-                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="DuX-P3-QKv"/>
-                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="KzR-w4-Xpb"/>
-                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="QhQ-3w-zZh"/>
-                                                            <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" id="m5g-58-YfG"/>
-                                                            <constraint firstAttribute="height" constant="88" id="wxY-6J-gxK"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" id="TUn-FY-O9s"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="Vxl-tM-B2M"/>
+                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="ZqR-ut-Emk"/>
+                                                            <constraint firstAttribute="height" constant="88" id="bp9-Mu-7Wa"/>
+                                                            <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" id="fAZ-Bc-sDg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="cbn-kp-Nie" secondAttribute="trailing" id="fam-d4-bQw"/>
+                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" constant="60" id="hrp-tN-WEW"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Ykc-rN-Xap" secondAttribute="trailing" constant="60" id="tq4-oM-Jqu"/>
+                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="xeI-cc-D2n"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkT-XZ-XDB">
-                                                        <rect key="frame" x="50" y="117" width="220" height="44"/>
+                                                        <rect key="frame" x="50" y="90" width="220" height="44"/>
                                                         <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="44" id="obo-cF-R6f"/>
+                                                            <constraint firstAttribute="height" constant="44" id="9qH-em-BoI"/>
+                                                            <constraint firstAttribute="width" constant="220" id="Y19-Sl-wRO"/>
                                                         </constraints>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <state key="normal" title="Preview Order">
@@ -1207,25 +1187,24 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="HkT-XZ-XDB" secondAttribute="trailing" constant="50" id="9in-OE-cCm"/>
-                                                    <constraint firstItem="Y8x-hT-TFj" firstAttribute="top" secondItem="RSj-wY-vR6" secondAttribute="top" constant="5" id="S6x-np-GyW"/>
-                                                    <constraint firstItem="Y8x-hT-TFj" firstAttribute="leading" secondItem="RSj-wY-vR6" secondAttribute="leading" id="aaX-pO-WeH"/>
-                                                    <constraint firstItem="HkT-XZ-XDB" firstAttribute="leading" secondItem="RSj-wY-vR6" secondAttribute="leading" constant="50" id="hp5-zS-CaZ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Y8x-hT-TFj" secondAttribute="trailing" id="k8u-K3-NCP"/>
-                                                    <constraint firstAttribute="bottom" secondItem="HkT-XZ-XDB" secondAttribute="bottom" constant="2" id="pUb-J6-7T7"/>
+                                                    <constraint firstItem="Y8x-hT-TFj" firstAttribute="leading" secondItem="RSj-wY-vR6" secondAttribute="leading" id="30h-ip-xpu"/>
+                                                    <constraint firstItem="HkT-XZ-XDB" firstAttribute="centerX" secondItem="RSj-wY-vR6" secondAttribute="centerX" id="HxC-I7-oCC"/>
+                                                    <constraint firstItem="Y8x-hT-TFj" firstAttribute="top" secondItem="RSj-wY-vR6" secondAttribute="top" id="n47-95-G9c"/>
+                                                    <constraint firstAttribute="bottom" secondItem="HkT-XZ-XDB" secondAttribute="bottom" id="v7D-sJ-UkE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Y8x-hT-TFj" secondAttribute="trailing" id="vHH-nt-0Pb"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="leading" secondItem="DlU-2P-Iay" secondAttribute="leading" id="4JP-YH-pL0"/>
-                                            <constraint firstAttribute="trailing" secondItem="Icf-eA-afJ" secondAttribute="trailing" id="9Ze-d1-rH7"/>
-                                            <constraint firstItem="RSj-wY-vR6" firstAttribute="leading" secondItem="DlU-2P-Iay" secondAttribute="leading" id="NkL-1C-VdS"/>
-                                            <constraint firstItem="RSj-wY-vR6" firstAttribute="height" secondItem="Icf-eA-afJ" secondAttribute="height" id="PDz-ew-ioj"/>
-                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="height" secondItem="DlU-2P-Iay" secondAttribute="height" multiplier="0.55" id="XCp-cu-aFr"/>
-                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="top" secondItem="DlU-2P-Iay" secondAttribute="top" id="jxh-Tz-VSt"/>
-                                            <constraint firstAttribute="trailing" secondItem="RSj-wY-vR6" secondAttribute="trailing" id="kGE-xJ-AwO"/>
-                                            <constraint firstAttribute="bottom" secondItem="RSj-wY-vR6" secondAttribute="bottom" id="w4d-JQ-ung"/>
+                                            <constraint firstItem="RSj-wY-vR6" firstAttribute="leading" secondItem="DlU-2P-Iay" secondAttribute="leading" id="9nb-GZ-IPb"/>
+                                            <constraint firstAttribute="trailing" secondItem="Icf-eA-afJ" secondAttribute="trailing" id="BOi-kY-XoD"/>
+                                            <constraint firstItem="RSj-wY-vR6" firstAttribute="top" secondItem="Icf-eA-afJ" secondAttribute="bottom" id="DKC-ct-pIq"/>
+                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="top" secondItem="DlU-2P-Iay" secondAttribute="top" id="ExS-Ek-HFs"/>
+                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="leading" secondItem="DlU-2P-Iay" secondAttribute="leading" id="XSn-2T-7AY"/>
+                                            <constraint firstAttribute="bottom" secondItem="RSj-wY-vR6" secondAttribute="bottom" id="hib-0h-Mgc"/>
+                                            <constraint firstItem="Icf-eA-afJ" firstAttribute="height" secondItem="DlU-2P-Iay" secondAttribute="height" multiplier="0.55" id="jGd-rQ-BYj"/>
+                                            <constraint firstAttribute="trailing" secondItem="RSj-wY-vR6" secondAttribute="trailing" id="t1f-4L-3PN"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
@@ -1319,7 +1298,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="CFl-JG-lcg"/>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="Xhv-zk-HPd"/>
     </inferredMetricsTieBreakers>
 </document>

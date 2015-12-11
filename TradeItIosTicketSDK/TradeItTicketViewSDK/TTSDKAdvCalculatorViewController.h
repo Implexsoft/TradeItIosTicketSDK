@@ -10,4 +10,6 @@
 
 @interface TTSDKAdvCalculatorViewController : TTSDKBaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
+-(void)authComplete;
+
 @end
