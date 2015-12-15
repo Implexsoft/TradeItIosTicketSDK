@@ -47,7 +47,6 @@
     UIView * keypad;
 
     TTSDKLoading * loader;
-
     TTSDKHelper * helper;
 }
 
@@ -64,7 +63,7 @@
 
     helper = [TTSDKHelper sharedHelper];
 
-    loader = [[TTSDKLoading alloc] initWithViewController:self];
+    loader = [[TTSDKLoading alloc] init];
 
     readyToTrade = YES;
 
@@ -798,7 +797,7 @@
         }
 
         [helper styleLoadingButton:previewOrderButton];
-//        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
+        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
     }
 }
 

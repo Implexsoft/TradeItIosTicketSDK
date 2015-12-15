@@ -19,6 +19,8 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
 
+typedef void (^TradeItLoadingCompletionBlock)(void);
+
 @interface TTSDKLoading : NSObject
 
 @property NSString * actionToPerform;
@@ -31,6 +33,8 @@
 @property TradeItAuthenticationInfo * verifyCreds;
 @property UIViewController * viewController;
 
--(instancetype) initWithViewController: (UIViewController *)vc;
+- (void) verifyCredentials;
+- (void) verifyCredentialsWithCompletionBlock: (void (^)(void))localBlock;
+- (void) sendLoginReviewRequest;
 
 @end

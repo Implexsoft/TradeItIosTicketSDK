@@ -13,70 +13,78 @@
 
 #pragma mark - Actions To Perform While Loading
 
--(instancetype) initWithViewController: (UIViewController *)vc {
-    self = [super init];
 
-    if (self) {
-        self.viewController = vc;
-    }
-
-    return self;
-}
 
 - (void) verifyCredentials {
     TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
     NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
 
     [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
-        [self verifyCredentialsRequestRecieved: res];
+//         [self verifyCredentialsRequestRecieved: res];
     }];
 }
 
--(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
+-(void) verifyCredentialsWithCompletionBlock: (void (^)(void))localBlock {
+    TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
+//    NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
 
-    if([result isKindOfClass:[TradeItErrorResult class]]) {
-        TradeItErrorResult * err = (TradeItErrorResult *) result;
+    TradeItResult * result = [[TradeItResult alloc] init];
 
-        self.tradeSession.errorTitle = err.shortMessage;
-        self.tradeSession.errorMessage = [err.longMessages componentsJoinedByString:@"\n"];
+    [self verifyCredentialsRequestRecieved:result onComplete:localBlock];
 
-        // [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        TradeItSuccessAuthenticationResult * success = (TradeItSuccessAuthenticationResult *) result;
-        NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
+//    [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
+//        [self verifyCredentialsRequestRecieved: res onComplete:localBlock];
+//    }];
+}
 
-        if(success.credentialsValid) {
-            [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
-            [TTSDKTradeItTicket addLinkedBroker:broker];
-            self.tradeSession.resultContainer.status = USER_CANCELED;
+-(void) verifyCredentialsRequestRecieved: (TradeItResult *) result onComplete:(void (^)(void))localBlock {
 
-            if(self.addBroker) {
-                self.tradeSession.broker = self.addBroker;
-            }
+    localBlock();
+    return;
 
-            self.tradeSession.authenticationInfo = self.verifyCreds;
-
-            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"none"]) {
-                self.tradeSession.brokerSignUpComplete = true;
-                // [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
-                // [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
-            } else {
-                // [self performSegueWithIdentifier:@"loginToAdvCalculator" sender:self];
-            }
-        } else {
-            self.tradeSession.errorTitle = @"Invalid Credentials";
-            self.tradeSession.errorMessage = @"Check your username and password and try again.";
-
-            if(!self.addBroker) {
-                [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
-                [TTSDKTradeItTicket removeLinkedBroker: broker];
-            }
-
-            // [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }
+//    if([result isKindOfClass:[TradeItErrorResult class]]) {
+//        TradeItErrorResult * err = (TradeItErrorResult *) result;
+//
+//        self.tradeSession.errorTitle = err.shortMessage;
+//        self.tradeSession.errorMessage = [err.longMessages componentsJoinedByString:@"\n"];
+//    } else {
+//        TradeItSuccessAuthenticationResult * success = (TradeItSuccessAuthenticationResult *) result;
+//        NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
+//
+//        if(success.credentialsValid) {
+//            [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
+//            [TTSDKTradeItTicket addLinkedBroker:broker];
+//            self.tradeSession.resultContainer.status = USER_CANCELED;
+//
+//            if(self.addBroker) {
+//                self.tradeSession.broker = self.addBroker;
+//            }
+//
+//            self.tradeSession.authenticationInfo = self.verifyCreds;
+//
+//            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"none"]) {
+//                self.tradeSession.brokerSignUpComplete = true;
+//                // [self dismissViewControllerAnimated:YES completion:nil];
+//            }
+//            else if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
+//                // [self performSegueWithIdentifier:@"loginToCalculator" sender:self];
+//            } else {
+//                // [self performSegueWithIdentifier:@"loginToAdvCalculator" sender:self];
+//            }
+//        } else {
+//            self.tradeSession.errorTitle = @"Invalid Credentials";
+//            self.tradeSession.errorMessage = @"Check your username and password and try again.";
+//
+//            if(!self.addBroker) {
+//                [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
+//                [TTSDKTradeItTicket removeLinkedBroker: broker];
+//            }
+//
+//            // [self dismissViewControllerAnimated:YES completion:nil];
+//        }
+//    }
+//
+//    localBlock();
 }
 
 - (void) sendLoginReviewRequest {

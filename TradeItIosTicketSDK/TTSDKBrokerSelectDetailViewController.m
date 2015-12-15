@@ -8,6 +8,7 @@
 
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKHelper.h"
+#import "TTSDKLoading.h"
 
 @implementation TTSDKBrokerSelectDetailViewController {
     
@@ -24,12 +25,14 @@
     NSDictionary * brokerUsername;
     
     TTSDKHelper * helper;
+    TTSDKLoading * loader;
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
     helper = [TTSDKHelper sharedHelper];
+    loader = [[TTSDKLoading alloc] init];
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
@@ -138,16 +141,20 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self checkAuthState];
+}
+
+-(void) checkAuthState {
     if(self.tradeSession.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
-
+        
         self.tradeSession.brokerSignUpCallback(res);
         [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
         
         return;
     }
-    
+
     if(self.tradeSession.errorTitle) {
         if(![UIAlertController class]) {
             [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
@@ -165,7 +172,6 @@
     self.tradeSession.errorMessage = nil;
     self.tradeSession.errorTitle = nil;
 }
-
 
 -(void)home:(UIBarButtonItem *)sender {
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
@@ -196,7 +202,15 @@
         }
         
     } else {
-        [self performSegueWithIdentifier: @"loginToLoading" sender: self];
+         [self performSegueWithIdentifier: @"loginToLoading" sender: self];
+//        [helper styleLoadingButton:linkAccountButton];
+//        loader.addBroker = self.addBroker;
+//        loader.verifyCreds = [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text];
+//
+//        [loader verifyCredentialsWithCompletionBlock:^(void) {
+//            [helper styleMainActiveButton:linkAccountButton];
+//            [self checkAuthState];
+//        }];
     }
 }
 
@@ -221,7 +235,7 @@
         [[segue destinationViewController] setAddBroker: self.addBroker];
         [[segue destinationViewController] setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
     }
-    
+
     [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
 
