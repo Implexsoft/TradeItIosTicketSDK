@@ -797,7 +797,10 @@
         }
 
         [helper styleLoadingButton:previewOrderButton];
-        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
+        [loader sendLoginReviewRequestWithCompletionBlock:^(void) {
+            
+        }];
+//        [self performSegueWithIdentifier:@"advCalculatorToLoading" sender:self];
     }
 }
 

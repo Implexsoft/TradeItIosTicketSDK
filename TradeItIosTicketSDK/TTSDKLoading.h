@@ -36,4 +36,6 @@ typedef void (^TradeItLoadingCompletionBlock)(void);
 - (void) verifyCredentialsWithCompletionBlock: (void (^)(void))localBlock;
 - (void) sendLoginReviewRequest;
 
+- (void) sendLoginReviewRequestWithCompletionBlock: (void (^)(void))localBlock;
+
 @end

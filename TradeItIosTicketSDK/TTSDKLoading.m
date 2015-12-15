@@ -64,11 +64,17 @@
 
 - (void) sendLoginReviewRequest {
     [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
-        [self loginReviewRequestRecieved: result];
+//        [self loginReviewRequestRecieved: result];
     }];
 }
 
-- (void) loginReviewRequestRecieved: (TradeItResult *) result {
+- (void) sendLoginReviewRequestWithCompletionBlock: (void (^)(void))localBlock {
+    [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
+        [self loginReviewRequestRecieved: result onComplete:localBlock];
+    }];
+}
+
+- (void) loginReviewRequestRecieved: (TradeItResult *) result onComplete:(void (^)(void))localBlock {
     self.lastResult = result;
     
     if ([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
@@ -98,7 +104,7 @@
                     UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
                                                                     handler:^(UIAlertAction * action) {
                                                                         [[self tradeSession] asyncAnswerSecurityQuestion:title andCompletionBlock:^(TradeItResult *result) {
-                                                                            [self loginReviewRequestRecieved:result];
+//                                                                            [self loginReviewRequestRecieved:result];
                                                                         }];
                                                                     }];
                     [alert addAction:option];
@@ -138,7 +144,7 @@
                                                                       }];
                 UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action) {
-                                                                          [[self tradeSession] asyncAnswerSecurityQuestion: [[alert textFields][0] text] andCompletionBlock:^(TradeItResult *result) { [self loginReviewRequestRecieved:result]; }];
+                                                                          [[self tradeSession] asyncAnswerSecurityQuestion: [[alert textFields][0] text] andCompletionBlock:^(TradeItResult *result) { /*[self loginReviewRequestRecieved:result];*/ }];
                                                                       }];
                 
                 [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
@@ -163,10 +169,10 @@
             
             void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
                 [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
-                    [self loginReviewRequestRecieved:result];
+//                    [self loginReviewRequestRecieved:result];
                 }];
             };
-            
+
             for (NSDictionary * account in multiAccountResult.accountList) {
                 NSString * title = [account objectForKey:@"name"];
                 UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
@@ -230,6 +236,8 @@
 //            [self presentViewController:alert animated:YES completion:nil];
         }
     }
+
+    localBlock();
 }
 
 @end
