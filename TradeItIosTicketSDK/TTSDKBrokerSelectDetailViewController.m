@@ -20,7 +20,7 @@
     
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
     
-    UIButton * unlinkButton;
+    __weak IBOutlet UIButton *unlinkButton;
 
     NSDictionary * brokerUsername;
     
@@ -63,10 +63,10 @@
 
     [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
     
-    if([[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
-        [self addUnlink];
+    if(![[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
+        unlinkButton.hidden = YES;
     }
-    
+
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
@@ -84,76 +84,10 @@
     [passwordInput resignFirstResponder];
 }
 
--(void) addUnlink {
-    unlinkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [unlinkButton addTarget:self
-               action:@selector(unlinkAccountPressed:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [unlinkButton setTitle:@"Unlink Account" forState:UIControlStateNormal];
-    [unlinkButton setTitleColor:[helper activeButtonColor] forState:UIControlStateNormal];
-
-    [unlinkButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-    unlinkButton.clipsToBounds = YES;
-    unlinkButton.layer.cornerRadius = unlinkButton.frame.size.height / 2;
-    unlinkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    unlinkButton.frame = linkAccountButton.frame;
-    unlinkButton.bounds = linkAccountButton.bounds;
-
-    NSLayoutConstraint * topConstraint = [NSLayoutConstraint
-                                             constraintWithItem:unlinkButton
-                                             attribute:NSLayoutAttributeBottom
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:linkAccountButton
-                                             attribute:NSLayoutAttributeTop
-                                             multiplier:1
-                                             constant:-20];
-    topConstraint.priority = 900;
-    
-    NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
-                                          constraintWithItem:unlinkButton
-                                          attribute:NSLayoutAttributeLeading
-                                          relatedBy:NSLayoutRelationEqual
-                                          toItem:self.view
-                                          attribute:NSLayoutAttributeLeadingMargin
-                                          multiplier:1
-                                          constant:0];
-    leftConstraint.priority = 900;
-    
-    NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
-                                           constraintWithItem:linkAccountButton
-                                           attribute:NSLayoutAttributeTrailing
-                                           relatedBy:NSLayoutRelationEqual
-                                           toItem:self.view
-                                           attribute:NSLayoutAttributeTrailingMargin
-                                           multiplier:1
-                                           constant:0];
-    rightConstraint.priority = 900;
-
-    [self.view addSubview:unlinkButton];
-    
-    [self.view removeConstraint:linkAccountCenterLineConstraint];
-    [self.view addConstraint:topConstraint];
-    [self.view addConstraint:leftConstraint];
-    [self.view addConstraint:rightConstraint];
-}
-
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self checkAuthState];
-}
-
--(void) checkAuthState {
-    if(self.tradeSession.brokerSignUpComplete) {
-        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
-        res.success = true;
-        
-        self.tradeSession.brokerSignUpCallback(res);
-        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-        
-        return;
-    }
 
     if(self.tradeSession.errorTitle) {
         if(![UIAlertController class]) {
@@ -168,9 +102,21 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }
-
+    
     self.tradeSession.errorMessage = nil;
     self.tradeSession.errorTitle = nil;
+}
+
+-(void) checkAuthState {
+    if(self.tradeSession.brokerSignUpComplete) {
+        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
+        res.success = true;
+        
+        self.tradeSession.brokerSignUpCallback(res);
+        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+        
+        return;
+    }
 }
 
 -(void)home:(UIBarButtonItem *)sender {
@@ -202,15 +148,33 @@
         }
         
     } else {
-         [self performSegueWithIdentifier: @"loginToLoading" sender: self];
-//        [helper styleLoadingButton:linkAccountButton];
-//        loader.addBroker = self.addBroker;
-//        loader.verifyCreds = [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text];
-//
-//        [loader verifyCredentialsWithCompletionBlock:^(void) {
-//            [helper styleMainActiveButton:linkAccountButton];
-//            [self checkAuthState];
-//        }];
+        [helper styleLoadingButton:linkAccountButton];
+        [loader setActionToPerform: @"verifyCredentials"];
+        [loader setAddBroker: self.addBroker];
+        [loader setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
+        [loader setTradeSession: self.tradeSession];
+        [loader verifyCredentialsWithCompletionBlock:^(void) {
+            [helper styleMainActiveButton:linkAccountButton];
+
+            if(self.tradeSession.errorTitle) {
+                if(![UIAlertController class]) {
+                    [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
+                                                                                    message:self.tradeSession.errorMessage
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                           handler:^(UIAlertAction * action) {}];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            } else {
+                [self performSegueWithIdentifier: @"LoginToCalculator" sender: self];
+            }
+
+            self.tradeSession.errorMessage = nil;
+            self.tradeSession.errorTitle = nil;
+        }];
     }
 }
 
@@ -219,51 +183,29 @@
 
     [TTSDKTradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
     [TTSDKTradeItTicket removeLinkedBroker: broker];
-    
+
     if([self.tradeSession.broker isEqualToString:broker]) {
         self.tradeSession.broker = nil;
         self.tradeSession.authenticationInfo.id = @"";
         self.tradeSession.authenticationInfo.password = @"";
     }
-    
+
     [TTSDKTradeItTicket restartTicket:self.tradeSession];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if(![[segue identifier] isEqualToString:@"unwindToBrokerSelect"]) {
-        [[segue destinationViewController] setActionToPerform: @"verifyCredentials"];
-        [[segue destinationViewController] setAddBroker: self.addBroker];
-        [[segue destinationViewController] setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
-    }
-
     [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
+
+
 
 #pragma mark - Text Editing Delegates
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.35f];
-//    
-//    CGRect frame = linkAccountButton.frame;
-//    frame.origin.y = frame.origin.y - 220;
-//    [linkAccountButton setFrame:frame];
-//    
-//    [UIView commitAnimations];
-    
     return YES;
 }
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.35f];
-//    
-//    CGRect frame = linkAccountButton.frame;
-//    frame.origin.y = frame.origin.y + 220;
-//    [linkAccountButton setFrame:frame];
-//
-//    [UIView commitAnimations];
-    
     return YES;
 }
 
@@ -275,7 +217,7 @@
     } else {
         [self linkAccountPressed:self];
     }
-    
+
     return YES;
 }
 
@@ -291,20 +233,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

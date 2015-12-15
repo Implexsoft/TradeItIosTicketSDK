@@ -33,7 +33,6 @@ typedef void (^TradeItLoadingCompletionBlock)(void);
 @property TradeItAuthenticationInfo * verifyCreds;
 @property UIViewController * viewController;
 
-- (void) verifyCredentials;
 - (void) verifyCredentialsWithCompletionBlock: (void (^)(void))localBlock;
 - (void) sendLoginReviewRequest;
 

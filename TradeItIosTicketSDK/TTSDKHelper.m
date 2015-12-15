@@ -124,7 +124,17 @@
 -(void) styleLoadingButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
 
-    button.backgroundColor = [UIColor redColor];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    indicator.frame = CGRectMake(0, 0, 20.0, 20.0);
+    indicator.center = button.center;
+    indicator.backgroundColor = [UIColor redColor];
+    indicator.hidden = NO;
+    [button addSubview:indicator];
+    [indicator bringSubviewToFront:button];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [indicator startAnimating];
+
+    button.backgroundColor = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
 }
 
 -(void) styleMainInactiveButton: (UIButton *)button {

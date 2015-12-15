@@ -107,9 +107,20 @@
                                     <action selector="linkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="o31-2A-GGh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWy-YN-bS5">
+                                <rect key="frame" x="108" y="344" width="104" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3Li-D9-2K7"/>
+                                </constraints>
+                                <state key="normal" title="Unlink Account"/>
+                                <connections>
+                                    <action selector="unlinkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="fhl-ZU-Ipu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="FWy-YN-bS5" firstAttribute="centerX" secondItem="V6d-j5-olZ" secondAttribute="centerX" id="16h-8h-6Fc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tei-VX-tIR" secondAttribute="trailing" constant="25" id="5bs-9E-rSI"/>
                             <constraint firstItem="tei-VX-tIR" firstAttribute="centerX" secondItem="V6d-j5-olZ" secondAttribute="centerX" id="6Gy-5N-OjX"/>
                             <constraint firstItem="Osa-Gx-5fR" firstAttribute="top" secondItem="wbf-cv-Dik" secondAttribute="bottom" constant="-3" id="7Of-Iz-jdx"/>
@@ -117,6 +128,7 @@
                             <constraint firstItem="lpI-ZS-Sic" firstAttribute="top" secondItem="tei-VX-tIR" secondAttribute="bottom" constant="20" id="AxB-Uc-tiu"/>
                             <constraint firstItem="wbf-cv-Dik" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-24" id="D6a-QQ-PxH"/>
                             <constraint firstItem="Osa-Gx-5fR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="-24" id="KRH-nc-y1g"/>
+                            <constraint firstItem="tei-VX-tIR" firstAttribute="top" secondItem="FWy-YN-bS5" secondAttribute="bottom" constant="42" id="NY8-AJ-CFl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Osa-Gx-5fR" secondAttribute="trailing" constant="-24" id="chs-ti-2Ct"/>
                             <constraint firstAttribute="centerX" secondItem="lFr-FG-k7c" secondAttribute="centerX" id="dSE-jz-iwN"/>
                             <constraint firstItem="tei-VX-tIR" firstAttribute="leading" secondItem="V6d-j5-olZ" secondAttribute="leadingMargin" constant="25" id="fN7-Kh-aEx"/>
@@ -131,9 +143,9 @@
                         <outlet property="linkAccountButton" destination="tei-VX-tIR" id="pKe-yR-Urz"/>
                         <outlet property="pageTitle" destination="lFr-FG-k7c" id="obw-e4-oD6"/>
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
-                        <segue destination="QW8-1y-9oI" kind="presentation" identifier="loginToLoading" modalPresentationStyle="fullScreen" id="QtJ-Lx-E79"/>
+                        <outlet property="unlinkButton" destination="FWy-YN-bS5" id="3rP-DI-ukX"/>
                         <segue destination="ms7-Oa-HyF" kind="unwind" identifier="unwindToBrokerSelect" unwindAction="unwindToBrokerSelect:" id="2c2-FE-Lc7"/>
-                        <segue destination="VXZ-vQ-tdp" kind="presentation" identifier="LoginToCalculator" id="j7Y-Ba-avL"/>
+                        <segue destination="VXZ-vQ-tdp" kind="show" identifier="LoginToCalculator" id="j7Y-Ba-avL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1300,7 +1312,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="j7Y-Ba-avL"/>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="QtJ-Lx-E79"/>
+        <segue reference="wuc-R0-2HR"/>
+        <segue reference="Xhv-zk-HPd"/>
     </inferredMetricsTieBreakers>
 </document>
