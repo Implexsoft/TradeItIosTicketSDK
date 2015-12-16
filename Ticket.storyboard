@@ -69,7 +69,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to [broker]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Log in to [broker]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
                                 <rect key="frame" x="60" y="89" width="200" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="4sv-6x-iZW"/>
@@ -79,7 +79,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
                                 <rect key="frame" x="-8" y="151" width="336" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -88,7 +88,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
                                 <rect key="frame" x="-8" y="180" width="336" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -97,7 +97,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
                                 <rect key="frame" x="41" y="372" width="238" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="wrJ-6X-O3I"/>
@@ -107,7 +107,7 @@
                                     <action selector="linkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="o31-2A-GGh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWy-YN-bS5">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWy-YN-bS5">
                                 <rect key="frame" x="108" y="300" width="104" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3Li-D9-2K7"/>
@@ -337,7 +337,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8Z-i4-dEA">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8Z-i4-dEA">
                                 <rect key="frame" x="16" y="71" width="37" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="BACK"/>
@@ -345,7 +345,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="changeClicked:" destination="tvV-A4-qDa" eventType="touchUpInside" id="Gbq-of-MRa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMD-Ha-IYA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMD-Ha-IYA">
                                 <rect key="frame" x="16" y="99" width="288" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ew2-8O-xzT"/>
@@ -353,7 +353,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Og-el-OsS">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Og-el-OsS">
                                 <rect key="frame" x="0.0" y="144" width="320" height="241"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zC-UW-bGD" userLabel="ContentView">
@@ -956,7 +956,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G8e-Oy-8w5" userLabel="Dropdown">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8e-Oy-8w5" userLabel="Dropdown">
                                 <rect key="frame" x="0.0" y="20" width="320" height="180"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckS-Ch-mB9">
@@ -976,6 +976,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                         <state key="normal" title="Portfolio">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="bbK-hu-Twv" kind="show" id="XHV-XK-40g"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MzK-qq-j0Y">
                                         <rect key="frame" x="100" y="124" width="120" height="44"/>
@@ -1004,13 +1007,13 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <constraint firstItem="MzK-qq-j0Y" firstAttribute="leading" secondItem="G8e-Oy-8w5" secondAttribute="leading" constant="100" id="yIl-jw-Oza"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-hm-yzr" userLabel="Container">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-hm-yzr" userLabel="Container">
                                 <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DlU-2P-Iay" userLabel="OrderInitial">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlU-2P-Iay" userLabel="OrderInitial">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="297"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-eA-afJ" userLabel="TopContainer">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-eA-afJ" userLabel="TopContainer">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
@@ -1046,7 +1049,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                             <constraint firstAttribute="height" constant="50" id="qfn-uP-BAz"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-ms-ajL" userLabel="OrderButtons">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-ms-ajL" userLabel="OrderButtons">
                                                         <rect key="frame" x="0.0" y="93" width="320" height="70"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-7y-dEH">
@@ -1109,7 +1112,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="20" id="lvg-kT-06I"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-wY-vR6" userLabel="BottomContainer">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-wY-vR6" userLabel="BottomContainer">
                                                 <rect key="frame" x="0.0" y="163" width="320" height="134"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8x-hT-TFj" userLabel="OrderDetails">
@@ -1182,7 +1185,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                             <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="xeI-cc-D2n"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkT-XZ-XDB">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkT-XZ-XDB">
                                                         <rect key="frame" x="50" y="90" width="220" height="44"/>
                                                         <color key="backgroundColor" red="0.098039215690000001" green="0.27450980390000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -1220,7 +1223,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstAttribute="trailing" secondItem="RSj-wY-vR6" secondAttribute="trailing" id="t1f-4L-3PN"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
                                         <rect key="frame" x="0.0" y="297" width="320" height="163"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1288,6 +1291,54 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="47" y="-816"/>
+        </scene>
+        <!--Portfolio View Controller-->
+        <scene sceneID="nci-rh-nvD">
+            <objects>
+                <viewController id="bbK-hu-Twv" customClass="TTSDKPortfolioViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZBU-0y-JPc"/>
+                        <viewControllerLayoutGuide type="bottom" id="g7g-Tb-mQn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A6a-Bv-pob">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
+                                <rect key="frame" x="0.0" y="120" width="319" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="igy-EC-dHJ"/>
+                                </constraints>
+                                <color key="sectionIndexBackgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rAF-7j-GGL">
+                                        <rect key="frame" x="0.0" y="28" width="319" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rAF-7j-GGL" id="cPK-iT-cKT">
+                                            <rect key="frame" x="0.0" y="0.0" width="319" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bbK-hu-Twv" id="bzP-i4-tbl"/>
+                                    <outlet property="delegate" destination="bbK-hu-Twv" id="mPo-Xp-chT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="ZBU-0y-JPc" secondAttribute="bottom" constant="100" id="IEV-vR-Mbo"/>
+                            <constraint firstItem="Spr-uL-UE8" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="WIS-z7-059"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Spr-uL-UE8" secondAttribute="trailing" constant="-15" id="WbP-at-SHM"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="511" y="-816"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GBd-ql-QVV">

@@ -26,6 +26,12 @@
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
+		657ED25D1C21FDCF00217735 /* TTSDKPortfolioViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED25B1C21FDCF00217735 /* TTSDKPortfolioViewController.h */; };
+		657ED25E1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */; };
+		657ED25F1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */; };
+		657ED2621C220A0A00217735 /* TTSDKPortfolioTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED2601C220A0A00217735 /* TTSDKPortfolioTableViewCell.h */; };
+		657ED2631C220A0A00217735 /* TTSDKPortfolioTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED2611C220A0A00217735 /* TTSDKPortfolioTableViewCell.m */; };
+		657ED2641C220A0A00217735 /* TTSDKPortfolioTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED2611C220A0A00217735 /* TTSDKPortfolioTableViewCell.m */; };
 		65ECCAF21C125403000CE86B /* TTSDKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* TTSDKHelper.h */; };
 		65ECCAF31C125403000CE86B /* TTSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKHelper.m */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
@@ -215,6 +221,10 @@
 /* Begin PBXFileReference section */
 		6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKcalc.xib; sourceTree = "<group>"; };
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
+		657ED25B1C21FDCF00217735 /* TTSDKPortfolioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioViewController.h; sourceTree = "<group>"; };
+		657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioViewController.m; sourceTree = "<group>"; };
+		657ED2601C220A0A00217735 /* TTSDKPortfolioTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioTableViewCell.h; sourceTree = "<group>"; };
+		657ED2611C220A0A00217735 /* TTSDKPortfolioTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioTableViewCell.m; sourceTree = "<group>"; };
 		65ECCAF01C125403000CE86B /* TTSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKHelper.h; sourceTree = "<group>"; };
 		65ECCAF11C125403000CE86B /* TTSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKHelper.m; sourceTree = "<group>"; };
 		65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -375,6 +385,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		655493121C21FCA9005D4270 /* PortfolioScreen */ = {
+			isa = PBXGroup;
+			children = (
+				657ED25B1C21FDCF00217735 /* TTSDKPortfolioViewController.h */,
+				657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */,
+				657ED2601C220A0A00217735 /* TTSDKPortfolioTableViewCell.h */,
+				657ED2611C220A0A00217735 /* TTSDKPortfolioTableViewCell.m */,
+			);
+			name = PortfolioScreen;
+			sourceTree = "<group>";
+		};
 		A905D3231B629D83006B0B8C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +464,7 @@
 				A9B2D46C1B5D88ED008065E1 /* BrokerSelectView */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9C003861B72853E007D15F5 /* MBProgressHUD */,
+				655493121C21FCA9005D4270 /* PortfolioScreen */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
 				A9A8D1281B503028000207B9 /* LoadingScreen */,
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
@@ -760,6 +782,7 @@
 				A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
 				A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */,
 				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */,
+				657ED2621C220A0A00217735 /* TTSDKPortfolioTableViewCell.h in Headers */,
 				A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */,
 				A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */,
 				65ECCAF21C125403000CE86B /* TTSDKHelper.h in Headers */,
@@ -770,6 +793,7 @@
 				A9901A991B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h in Headers */,
 				A905D3211B629D76006B0B8C /* TTSDKKeychain.h in Headers */,
 				A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */,
+				657ED25D1C21FDCF00217735 /* TTSDKPortfolioViewController.h in Headers */,
 				A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */,
 				A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */,
 				A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */,
@@ -994,10 +1018,12 @@
 				A9C002B21B6ACD90007D15F5 /* TTSDKAdvCalculatorViewController.m in Sources */,
 				A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */,
 				A9C003401B7264A4007D15F5 /* TIEMSJSONAPI.m in Sources */,
+				657ED25E1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */,
 				A905D3221B629D76006B0B8C /* TTSDKKeychain.m in Sources */,
 				A9C003581B7264A4007D15F5 /* TradeItMultipleAccountResult.m in Sources */,
 				A9B2D4701B5D8929008065E1 /* TTSDKBrokerSelectViewController.m in Sources */,
 				A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */,
+				657ED2631C220A0A00217735 /* TTSDKPortfolioTableViewCell.m in Sources */,
 				A9C003481B7264A4007D15F5 /* TIEMSJSONValueTransformer.m in Sources */,
 				A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */,
 				A9C003641B7264A4007D15F5 /* TradeItSelectAccountRequest.m in Sources */,
@@ -1033,7 +1059,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9A8CF951B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m in Sources */,
+				657ED2641C220A0A00217735 /* TTSDKPortfolioTableViewCell.m in Sources */,
 				A9A8CF961B4EFDBB000207B9 /* TTSDKSuccessViewController.m in Sources */,
+				657ED25F1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */,
 				A9A8CF971B4EFDBB000207B9 /* TTSDKTradeItTicket.m in Sources */,
 				A9A8CF931B4EFDBB000207B9 /* TTSDKLoadingScreenViewController.m in Sources */,
 				A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */,
