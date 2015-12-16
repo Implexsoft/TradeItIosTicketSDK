@@ -16,5 +16,6 @@
 @property BOOL cancelToParent;
 
 @property NSString * addBroker;
+@property TradeItAuthenticationInfo * verifyCreds;
 
 @end

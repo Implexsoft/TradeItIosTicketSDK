@@ -98,7 +98,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tei-VX-tIR">
-                                <rect key="frame" x="41" y="416" width="238" height="44"/>
+                                <rect key="frame" x="41" y="372" width="238" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="wrJ-6X-O3I"/>
                                 </constraints>
@@ -108,7 +108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWy-YN-bS5">
-                                <rect key="frame" x="108" y="344" width="104" height="30"/>
+                                <rect key="frame" x="108" y="300" width="104" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3Li-D9-2K7"/>
                                 </constraints>
@@ -1282,6 +1282,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
                         <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
                         <segue destination="NtF-Vh-6FT" kind="show" identifier="advCalculatorToBrokerSelectDetail" id="ujk-YM-BZG"/>
+                        <segue destination="tvV-A4-qDa" kind="presentation" identifier="CalculatorToReview" id="rFw-Bc-wS6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1311,8 +1312,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="j7Y-Ba-avL"/>
-        <segue reference="wuc-R0-2HR"/>
         <segue reference="Xhv-zk-HPd"/>
+        <segue reference="rFw-Bc-wS6"/>
     </inferredMetricsTieBreakers>
 </document>

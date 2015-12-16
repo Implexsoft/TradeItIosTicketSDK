@@ -8,7 +8,6 @@
 
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKHelper.h"
-#import "TTSDKLoading.h"
 
 @implementation TTSDKBrokerSelectDetailViewController {
     
@@ -25,14 +24,12 @@
     NSDictionary * brokerUsername;
     
     TTSDKHelper * helper;
-    TTSDKLoading * loader;
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
     helper = [TTSDKHelper sharedHelper];
-    loader = [[TTSDKLoading alloc] init];
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
@@ -149,32 +146,8 @@
         
     } else {
         [helper styleLoadingButton:linkAccountButton];
-        [loader setActionToPerform: @"verifyCredentials"];
-        [loader setAddBroker: self.addBroker];
-        [loader setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
-        [loader setTradeSession: self.tradeSession];
-        [loader verifyCredentialsWithCompletionBlock:^(void) {
-            [helper styleMainActiveButton:linkAccountButton];
-
-            if(self.tradeSession.errorTitle) {
-                if(![UIAlertController class]) {
-                    [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
-                } else {
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
-                                                                                    message:self.tradeSession.errorMessage
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                           handler:^(UIAlertAction * action) {}];
-                    [alert addAction:defaultAction];
-                    [self presentViewController:alert animated:YES completion:nil];
-                }
-            } else {
-                [self performSegueWithIdentifier: @"LoginToCalculator" sender: self];
-            }
-
-            self.tradeSession.errorMessage = nil;
-            self.tradeSession.errorTitle = nil;
-        }];
+        [self setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
+        [self verifyCredentials];
     }
 }
 
@@ -220,6 +193,93 @@
 
     return YES;
 }
+
+
+
+#pragma mark - Verify Credentials
+
+- (void) verifyCredentials {
+    TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
+    NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
+    
+    [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
+        [self verifyCredentialsRequestRecieved: res];
+    }];
+}
+
+-(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
+
+    [helper styleMainActiveButton:linkAccountButton];
+
+    if([result isKindOfClass:[TradeItErrorResult class]]) {
+        TradeItErrorResult * err = (TradeItErrorResult *) result;
+        
+        self.tradeSession.errorTitle = err.shortMessage; // keeping this flow, in case it's used somewhere else in the application
+        self.tradeSession.errorMessage = [err.longMessages componentsJoinedByString:@"\n"];
+
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
+                                                                            message:self.tradeSession.errorMessage
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+
+        self.tradeSession.errorMessage = nil;
+        self.tradeSession.errorTitle = nil;
+    } else {
+        TradeItSuccessAuthenticationResult * success = (TradeItSuccessAuthenticationResult *) result;
+        NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
+        
+        if(success.credentialsValid) {
+            [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:self.verifyCreds.password forBroker:broker];
+            [TTSDKTradeItTicket addLinkedBroker:broker];
+            self.tradeSession.resultContainer.status = USER_CANCELED;
+            
+            if(self.addBroker) {
+                self.tradeSession.broker = self.addBroker;
+            }
+            
+            self.tradeSession.authenticationInfo = self.verifyCreds;
+            
+            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"none"]) {
+                self.tradeSession.brokerSignUpComplete = true;
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+
+            [self performSegueWithIdentifier: @"LoginToCalculator" sender: self];
+        } else {
+            self.tradeSession.errorTitle = @"Invalid Credentials";
+            self.tradeSession.errorMessage = @"Check your username and password and try again.";
+
+            if(!self.addBroker) {
+                [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
+                [TTSDKTradeItTicket removeLinkedBroker: broker];
+            }
+
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+            } else {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
+                                                                                message:self.tradeSession.errorMessage
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                       handler:^(UIAlertAction * action) {}];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+            
+            self.tradeSession.errorMessage = nil;
+            self.tradeSession.errorTitle = nil;
+        }
+    }
+}
+
+
 
 #pragma mark - iOS7 fallback
 
