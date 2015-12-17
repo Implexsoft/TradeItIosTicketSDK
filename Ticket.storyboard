@@ -55,7 +55,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="FPY-Ig-tWq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1220" y="-156"/>
+            <point key="canvasLocation" x="-848" y="-129"/>
         </scene>
         <!--Login-->
         <scene sceneID="sqE-ot-BFi">
@@ -151,7 +151,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ms7-Oa-HyF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-763" y="-156"/>
+            <point key="canvasLocation" x="-440" y="-129"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
@@ -168,61 +168,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hy-zS-JoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1645" y="-156"/>
-        </scene>
-        <!--Loading Screen View Controller-->
-        <scene sceneID="Vkw-vn-rU8">
-            <objects>
-                <viewController id="QW8-1y-9oI" customClass="TTSDKLoadingScreenViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uyi-u5-c0A"/>
-                        <viewControllerLayoutGuide type="bottom" id="y1C-ho-WQz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GoO-aD-LAL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authenticating and Reviewing Your Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW4-Oz-TWU">
-                                <rect key="frame" x="68" y="215" width="185" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="2DH-Pj-RFP"/>
-                                    <constraint firstAttribute="width" constant="185" id="Qfl-w1-psH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spinnerWhite.png" translatesAutoresizingMaskIntoConstraints="NO" id="TBd-Y5-dRG">
-                                <rect key="frame" x="130" y="135" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="GyG-iL-QwI"/>
-                                    <constraint firstAttribute="height" constant="60" id="f0H-QS-EoY"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="FW4-Oz-TWU" firstAttribute="top" secondItem="TBd-Y5-dRG" secondAttribute="bottom" constant="20" id="2C0-X2-mR7"/>
-                            <constraint firstAttribute="centerY" secondItem="FW4-Oz-TWU" secondAttribute="centerY" id="SgO-Pt-LNA"/>
-                            <constraint firstAttribute="centerX" secondItem="FW4-Oz-TWU" secondAttribute="centerX" id="V7p-ji-CIg"/>
-                            <constraint firstAttribute="centerX" secondItem="TBd-Y5-dRG" secondAttribute="centerX" id="zcR-c4-ozF"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="indicatorText" destination="FW4-Oz-TWU" id="YfB-Ed-jiw"/>
-                        <outlet property="loadingIcon" destination="TBd-Y5-dRG" id="7XS-Ze-FxL"/>
-                        <segue destination="J4w-qr-In7" kind="show" identifier="loadingToReviewSegue" id="t4Z-OK-ZcN"/>
-                        <segue destination="xhK-K9-cnI" kind="show" identifier="loadingToSuccesSegue" id="ILP-eC-VWh"/>
-                        <segue destination="31D-8a-egI" kind="unwind" identifier="exitToRootSegue" unwindAction="prepareForUnwind:" id="Lt8-X8-e06"/>
-                        <segue destination="trO-ZN-AJm" kind="show" identifier="loginToAdvCalculator" id="5Ap-NE-K4L"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RaX-aO-zmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="31D-8a-egI" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="47" y="-156"/>
+            <point key="canvasLocation" x="-1273" y="-129"/>
         </scene>
         <!--Success View Controller-->
         <scene sceneID="QCT-Ou-Vi2">
@@ -323,7 +269,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlv-uo-0tT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="511" y="525"/>
+            <point key="canvasLocation" x="976" y="-129"/>
         </scene>
         <!--Review-->
         <scene sceneID="IVY-4o-mGS">
@@ -926,7 +872,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-F4-2ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SQg-dc-6Nj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-376" y="525"/>
+            <point key="canvasLocation" x="517" y="-129"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SqP-UT-lT4">
@@ -1284,7 +1230,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
-                        <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
                         <segue destination="NtF-Vh-6FT" kind="show" identifier="advCalculatorToBrokerSelectDetail" id="ujk-YM-BZG"/>
                         <segue destination="tvV-A4-qDa" kind="presentation" identifier="CalculatorToReview" id="rFw-Bc-wS6"/>
                         <segue destination="bbK-hu-Twv" kind="presentation" identifier="CalculatorToPortfolio" id="kyf-iM-tIO"/>
@@ -1365,17 +1310,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="971-Gk-4Ai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-825" y="525"/>
+            <point key="canvasLocation" x="68" y="-129"/>
         </scene>
     </scenes>
     <resources>
         <image name="checkmark.png" width="120" height="119"/>
-        <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rFw-Bc-wS6"/>
-        <segue reference="5Fi-se-3f5"/>
-        <segue reference="YNX-r4-12o"/>
+        <segue reference="n8W-hu-tjJ"/>
+        <segue reference="j7Y-Ba-avL"/>
         <segue reference="wuc-R0-2HR"/>
     </inferredMetricsTieBreakers>
 </document>

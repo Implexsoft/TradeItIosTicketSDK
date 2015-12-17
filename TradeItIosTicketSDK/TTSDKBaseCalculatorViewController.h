@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
+#import "TTSDKCustomIOSAlertView.h"
 
 @interface TTSDKBaseCalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 

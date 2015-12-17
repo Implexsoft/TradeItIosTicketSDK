@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
 #import "TradeItStockOrEtfTradeReviewResult.h"
-#import "TTSDKLoadingScreenViewController.h"
 
 @interface TTSDKReviewScreenViewController : UIViewController
 

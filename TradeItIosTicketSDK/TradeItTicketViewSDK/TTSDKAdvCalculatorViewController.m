@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKAdvCalculatorViewController.h"
+#import "TTSDKReviewScreenViewController.h"
 #import "TTSDKHelper.h"
 
 @interface TTSDKAdvCalculatorViewController () {
@@ -572,9 +573,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 
-    if([segue.identifier isEqualToString:@"advCalculatorToLoading"]){
-        [[segue destinationViewController] setActionToPerform: @"sendLoginReviewRequest"];
-    } else if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
+    if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
         [[segue destinationViewController] setCancelToParent: YES];
     } else if([segue.identifier isEqualToString:@"CalculatorToReview"]) {
         [[segue destinationViewController] setResult: self.reviewResult];

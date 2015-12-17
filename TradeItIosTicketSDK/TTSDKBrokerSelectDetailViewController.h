@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKLoadingScreenViewController.h"
 #import "TTSDKTicketSession.h"
+#import "TradeItVerifyCredentialSession.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKBrokerSelectDetailViewController : UIViewController <UITextFieldDelegate>
 

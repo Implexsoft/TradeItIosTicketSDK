@@ -11,7 +11,6 @@
 
 #import "TTSDKAdvCalculatorViewController.h"
 #import "TTSDKAdvCalcTextField.h"
-#import "TTSDKLoadingScreenViewController.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
@@ -168,7 +167,6 @@
 +(void) forceClassesIntoLinker {
     [TTSDKAdvCalculatorViewController class];
     [TTSDKAdvCalcTextField class];
-    [TTSDKLoadingScreenViewController class];
     [TTSDKPortfolioViewController class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];

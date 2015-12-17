@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKReviewScreenViewController.h"
+#import "TTSDKSuccessViewController.h"
 #import "TTSDKHelper.h"
 
 @interface TTSDKReviewScreenViewController () {
@@ -403,12 +404,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    if([segue.identifier isEqualToString:@"reviewToLoadingSegue"]) {
-        [[segue destinationViewController] setActionToPerform: @"sendTradeRequest"];
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
-    } else if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
-        [[segue destinationViewController] setResult: self.successResult];
+
+    if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
+        TTSDKSuccessViewController * dest = [segue destinationViewController];
+        [dest setResult: self.successResult];
         [[segue destinationViewController] setTradeSession: self.tradeSession];
     }
 }
