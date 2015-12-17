@@ -86,10 +86,16 @@
     [sharesInput becomeFirstResponder];
     [self refreshPressed:self];
 
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer * detailsTap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(refreshPressed:)];
-    [companyDetails addGestureRecognizer:tap];
+    [companyDetails addGestureRecognizer:detailsTap];
+
+    UITapGestureRecognizer * symbolTap = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(symbolPressed:)];
+    symbolTap.numberOfTapsRequired = 1;
+    [companyNameLabel addGestureRecognizer:symbolTap];
+    companyNameLabel.userInteractionEnabled = YES;
 
     [self initKeypad];
     [self changeOrderFocus:@"shares"];
@@ -624,12 +630,17 @@
 }
 
 
+
 #pragma mark - Events
 
 - (IBAction)sharesInputPressed:(id)sender {
     [self changeOrderFocus:@"shares"];
 }
 
+- (IBAction)symbolPressed:(id)sender {
+    [self performSegueWithIdentifier:@"CalculatorToSymbolSearch" sender:self];
+}
+                                          
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
