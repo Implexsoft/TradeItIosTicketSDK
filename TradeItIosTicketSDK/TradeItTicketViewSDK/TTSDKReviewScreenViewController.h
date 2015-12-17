@@ -15,5 +15,6 @@
 
 @property TTSDKTicketSession * tradeSession;
 @property TradeItStockOrEtfTradeReviewResult * result;
+@property TradeItStockOrEtfTradeSuccessResult * successResult;
 
 @end

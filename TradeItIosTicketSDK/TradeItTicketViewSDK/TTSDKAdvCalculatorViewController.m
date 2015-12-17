@@ -798,6 +798,11 @@
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
+- (IBAction)portfolioLinkPressed:(id)sender {
+    [self performSegueWithIdentifier:@"CalculatorToPortfolio" sender:self];
+}
+
+
 - (IBAction)editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"advCalculatorToBrokerSelectDetail" sender:self];
 }

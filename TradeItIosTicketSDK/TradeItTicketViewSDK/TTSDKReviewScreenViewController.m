@@ -349,6 +349,54 @@
     [self.view addConstraint:labelBottomConstraint];
 }
 
+
+#pragma mark - Trade Request
+- (IBAction)placeOrderPressed:(id)sender {
+    [helper styleLoadingButton:submitOrderButton];
+    [self sendTradeRequest];
+}
+
+- (void) sendTradeRequest {
+    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
+        [self tradeRequestRecieved:result];
+    }];
+}
+
+- (void) tradeRequestRecieved: (TradeItResult *) result {
+    [helper styleMainActiveButton:submitOrderButton];
+
+    //success
+    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
+        self.tradeSession.resultContainer.status = SUCCESS;
+        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;
+        
+        [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
+        [self performSegueWithIdentifier: @"ReviewToSuccess" sender: self];
+    }
+    //error
+    else if([result isKindOfClass:[TradeItErrorResult class]]) {
+        TradeItErrorResult * error = (TradeItErrorResult *) result;
+        
+        NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
+        errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
+        
+        self.tradeSession.resultContainer.status = EXECUTION_ERROR;
+        self.tradeSession.resultContainer.errorResponse = error;
+        
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                        message:errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {
+                                                                   [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -358,6 +406,9 @@
     
     if([segue.identifier isEqualToString:@"reviewToLoadingSegue"]) {
         [[segue destinationViewController] setActionToPerform: @"sendTradeRequest"];
+        [[segue destinationViewController] setTradeSession: self.tradeSession];
+    } else if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
+        [[segue destinationViewController] setResult: self.successResult];
         [[segue destinationViewController] setTradeSession: self.tradeSession];
     }
 }

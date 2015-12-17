@@ -859,7 +859,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="QW8-1y-9oI" kind="presentation" identifier="reviewToLoadingSegue" id="CFl-JG-lcg"/>
+                                    <action selector="placeOrderPressed:" destination="tvV-A4-qDa" eventType="touchUpInside" id="Cdl-zq-AgT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -920,6 +920,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="submitOrderButton" destination="f0e-uA-x4B" id="qsK-jO-XnA"/>
                         <segue destination="SQg-dc-6Nj" kind="unwind" identifier="prepareForUnwind" unwindAction="prepareForUnwind:" id="3ao-wp-0oa"/>
                         <segue destination="SQg-dc-6Nj" kind="unwind" identifier="unwindToAdvCalc" unwindAction="unwindToAdvCalc:" id="HQh-kc-wB1"/>
+                        <segue destination="xhK-K9-cnI" kind="presentation" identifier="ReviewToSuccess" id="YNX-r4-12o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-F4-2ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -942,7 +943,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMz-8f-qYe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-443" y="-816"/>
+            <point key="canvasLocation" x="-440" y="-816"/>
         </scene>
         <!--Broker-->
         <scene sceneID="dXe-1O-F2b">
@@ -977,7 +978,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bbK-hu-Twv" kind="show" id="XHV-XK-40g"/>
+                                            <action selector="portfolioLinkPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="O03-dU-Uzm"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MzK-qq-j0Y">
@@ -1286,6 +1287,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <segue destination="QW8-1y-9oI" kind="presentation" identifier="advCalculatorToLoading" id="Xhv-zk-HPd"/>
                         <segue destination="NtF-Vh-6FT" kind="show" identifier="advCalculatorToBrokerSelectDetail" id="ujk-YM-BZG"/>
                         <segue destination="tvV-A4-qDa" kind="presentation" identifier="CalculatorToReview" id="rFw-Bc-wS6"/>
+                        <segue destination="bbK-hu-Twv" kind="presentation" identifier="CalculatorToPortfolio" id="kyf-iM-tIO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1326,6 +1328,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <outlet property="delegate" destination="bbK-hu-Twv" id="mPo-Xp-chT"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="57S-e1-KMX">
+                                <rect key="frame" x="-1" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Porfolio" id="aWt-EX-JI3">
+                                        <barButtonItem key="leftBarButtonItem" title="Close" id="Kri-ZH-10r"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1363,9 +1373,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="spinnerWhite.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="j7Y-Ba-avL"/>
-        <segue reference="Xhv-zk-HPd"/>
         <segue reference="rFw-Bc-wS6"/>
+        <segue reference="5Fi-se-3f5"/>
+        <segue reference="YNX-r4-12o"/>
+        <segue reference="wuc-R0-2HR"/>
     </inferredMetricsTieBreakers>
 </document>
