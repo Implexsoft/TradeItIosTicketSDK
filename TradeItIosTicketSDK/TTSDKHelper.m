@@ -12,6 +12,7 @@
 @interface TTSDKHelper () {
     UIButton * currentGradientContainer;
     CAGradientLayer * activeButtonGradient;
+    UIActivityIndicatorView * currentIndicator;
 }
 
 @end
@@ -48,6 +49,7 @@
 
 - (void)addGradientToButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
+    [self removeLoadingIndicatorFromContainer];
 
     activeButtonGradient = [CAGradientLayer layer];
     activeButtonGradient.frame = button.bounds;
@@ -75,6 +77,12 @@
 
     activeButtonGradient = nil;
     currentGradientContainer = nil;
+}
+
+- (void)removeLoadingIndicatorFromContainer {
+    if (currentIndicator) {
+        [currentIndicator removeFromSuperview];
+    }
 }
 
 - (NSString *)formatIntegerToReadablePrice: (NSString *)price {
@@ -123,22 +131,20 @@
 
 -(void) styleLoadingButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
+    [self removeLoadingIndicatorFromContainer];
 
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    indicator.frame = CGRectMake(0, 0, 20.0, 20.0);
-    indicator.center = button.center;
-    indicator.backgroundColor = [UIColor redColor];
-    indicator.hidden = NO;
-    [button addSubview:indicator];
-    [indicator bringSubviewToFront:button];
+    currentIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    currentIndicator.hidden = NO;
+    [button addSubview:currentIndicator];
+    currentIndicator.frame = CGRectMake(button.titleLabel.frame.origin.x + button.titleLabel.frame.size.width + 10.0, button.titleLabel.frame.origin.y, 20.0, 20.0);
+    [currentIndicator bringSubviewToFront:button];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    [indicator startAnimating];
-
-    button.backgroundColor = [UIColor colorWithRed:150.0f/255.0f green:150.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+    [currentIndicator startAnimating];
 }
 
 -(void) styleMainInactiveButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
+    [self removeLoadingIndicatorFromContainer];
 
     button.backgroundColor = inactiveButtonColor;
     button.layer.borderColor = [UIColor clearColor].CGColor;
