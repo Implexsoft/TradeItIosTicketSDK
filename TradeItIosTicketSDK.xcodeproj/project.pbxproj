@@ -35,6 +35,7 @@
 		65B314001C2364C900EBC30D /* TTSDKSymbolSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B313FE1C2364C900EBC30D /* TTSDKSymbolSearchViewController.h */; };
 		65B314011C2364C900EBC30D /* TTSDKSymbolSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B313FF1C2364C900EBC30D /* TTSDKSymbolSearchViewController.m */; };
 		65B314021C2364C900EBC30D /* TTSDKSymbolSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B313FF1C2364C900EBC30D /* TTSDKSymbolSearchViewController.m */; };
+		65B314051C2377E700EBC30D /* success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B314031C2377E700EBC30D /* success_icon.png */; };
 		65ECCAF21C125403000CE86B /* TTSDKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* TTSDKHelper.h */; };
 		65ECCAF31C125403000CE86B /* TTSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKHelper.m */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
@@ -228,6 +229,7 @@
 		657ED2611C220A0A00217735 /* TTSDKPortfolioTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioTableViewCell.m; sourceTree = "<group>"; };
 		65B313FE1C2364C900EBC30D /* TTSDKSymbolSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKSymbolSearchViewController.h; sourceTree = "<group>"; };
 		65B313FF1C2364C900EBC30D /* TTSDKSymbolSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKSymbolSearchViewController.m; sourceTree = "<group>"; };
+		65B314031C2377E700EBC30D /* success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success_icon.png; sourceTree = "<group>"; };
 		65ECCAF01C125403000CE86B /* TTSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKHelper.h; sourceTree = "<group>"; };
 		65ECCAF11C125403000CE86B /* TTSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKHelper.m; sourceTree = "<group>"; };
 		65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
+				65B314031C2377E700EBC30D /* success_icon.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
 				653666C11C0F7FCC00DB4D34 /* nativeArrow.png */,
 				A9A8D1311B504408000207B9 /* checkmark.png */,
@@ -952,6 +955,7 @@
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
+				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
 				A9A8D1351B504408000207B9 /* checkmark.png in Resources */,
