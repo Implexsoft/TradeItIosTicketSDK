@@ -73,7 +73,8 @@
     
     [self.view addGestureRecognizer:tap];
 
-    [helper styleMainActiveButton:linkAccountButton];
+    //[helper styleMainActiveButton:linkAccountButton];
+    [helper styleMainInactiveButton:linkAccountButton];
 }
 
 - (void)dismissKeyboard {
@@ -179,6 +180,10 @@
 }
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
+    if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
+        [helper styleMainActiveButton:linkAccountButton];
+    }
+
     return YES;
 }
 
