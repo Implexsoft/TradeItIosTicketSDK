@@ -7,6 +7,8 @@
 //
 
 #import "TTSDKAdvCalculatorViewController.h"
+#import "TTSDKOrderTypeSelectionViewController.h"
+#import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKHelper.h"
 
@@ -579,7 +581,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 
-    if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
+    if([segue.identifier isEqualToString:@"CalculatorToOrderTypeSelection"]) {
+        TTSDKOrderTypeSelectionViewController * dest = [segue destinationViewController];
+
+        [dest setTradeSession: self.tradeSession];
+    } else if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
         [[segue destinationViewController] setCancelToParent: YES];
     } else if([segue.identifier isEqualToString:@"CalculatorToReview"]) {
         [[segue destinationViewController] setResult: self.reviewResult];
@@ -729,33 +735,35 @@
 - (IBAction)orderTypePressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self showOldOrderType];
-        return;
-    }
+    [self performSegueWithIdentifier:@"CalculatorToOrderTypeSelection" sender:self];
 
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-
-    UIAlertAction* marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderType:@"market"]; }];
-    UIAlertAction* limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * action) { [self changeOrderType:@"limit"]; }];
-    UIAlertAction* stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
-    UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:marketAction];
-    [alert addAction:limitAction];
-    [alert addAction:stopMarketAction];
-    [alert addAction:stopLimitAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
+//    if(![UIAlertController class]) {
+//        [self showOldOrderType];
+//        return;
+//    }
+//
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
+//                                                                   message:nil
+//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//    UIAlertAction* marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
+//                                                      handler:^(UIAlertAction * action) { [self changeOrderType:@"market"]; }];
+//    UIAlertAction* limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
+//                                                       handler:^(UIAlertAction * action) { [self changeOrderType:@"limit"]; }];
+//    UIAlertAction* stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
+//                                                            handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
+//    UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
+//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+//                                                          handler:^(UIAlertAction * action) {}];
+//
+//    [alert addAction:marketAction];
+//    [alert addAction:limitAction];
+//    [alert addAction:stopMarketAction];
+//    [alert addAction:stopLimitAction];
+//    [alert addAction:cancelAction];
+//
+//    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)orderExpirationPressed:(id)sender {

@@ -11,6 +11,8 @@
 
 #import "TTSDKAdvCalculatorViewController.h"
 #import "TTSDKAdvCalcTextField.h"
+#import "TTSDKOrderTypeSelectionViewController.h"
+#import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKSymbolSearchViewController.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -168,6 +170,8 @@
 +(void) forceClassesIntoLinker {
     [TTSDKAdvCalculatorViewController class];
     [TTSDKAdvCalcTextField class];
+    [TTSDKOrderTypeSelectionViewController class];
+    [TTSDKOrderTypeInputViewController class];
     [TTSDKSymbolSearchViewController class];
     [TTSDKPortfolioViewController class];
     [TTSDKReviewScreenViewController class];
