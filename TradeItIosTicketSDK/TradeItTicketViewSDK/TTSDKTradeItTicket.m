@@ -302,7 +302,7 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
         TTSDKBrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     } else {
-        TTSDKAdvCalculatorViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+        TTSDKOrderViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
     }
     

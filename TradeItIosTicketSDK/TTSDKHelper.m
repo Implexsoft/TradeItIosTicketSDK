@@ -178,6 +178,40 @@
     }
 }
 
+- (void)initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * keypadArray = [resourceBundle loadNibNamed:name owner:self options:nil];
+    
+    UIView * keypad = [keypadArray firstObject];
+    
+    CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
+    keypad.frame = frame;
+    
+    [container addSubview:keypad];
+    keypad.userInteractionEnabled = YES;
+    NSArray * subviews = keypad.subviews;
+    
+    for (int i = 0; i < [subviews count]; i++) {
+        UIButton *button = [subviews objectAtIndex:i];
+        [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+-(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * companyDetailsArray = [resourceBundle loadNibNamed:@"TTSDKCompanyDetailsView" owner:vc options:nil];
+
+    TTSDKCompanyDetails * companyDetailsNib = [companyDetailsArray firstObject];
+    CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
+    companyDetailsNib.frame = frame;
+
+    [container addSubview:companyDetailsNib];
+
+    return companyDetailsNib;
+}
+
 - (void) stopSpin {
     // set the flag to stop spinning after one last 90 degree increment
     animating = NO;
@@ -225,5 +259,45 @@
     textField.layer.borderColor = inactiveButtonColor.CGColor;
 }
 
+-(NSString *) formatPriceString: (NSNumber *)num {
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale: US];
+
+    return [formatter stringFromNumber: num];
+}
+
+-(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
+    UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
+    UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
+    
+    NSMutableAttributedString * attString;
+    if([number doubleValue] > 0) {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25B2"];
+    } else {
+        attString = [[NSMutableAttributedString alloc] initWithString:@"\u25BC"];
+    }
+
+    double absValue = fabs([number doubleValue]);
+    NSString * asString = [self formatPriceString:[NSNumber numberWithDouble:absValue]];
+    [attString appendAttributedString:[[NSAttributedString alloc] initWithString:asString]];
+
+    if(style == NSNumberFormatterDecimalStyle) {
+        [attString appendAttributedString:[[NSAttributedString alloc] initWithString:@"%"]];
+    }
+
+    if([number doubleValue] > 0) {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:positiveColor
+                          range:NSMakeRange(0, [attString length])];
+    } else {
+        [attString addAttribute:NSForegroundColorAttributeName
+                          value:negativeColor
+                          range:NSMakeRange(0, [attString length])];
+    }
+
+    return (NSAttributedString *) attString;
+}
 
 @end

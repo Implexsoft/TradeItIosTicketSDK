@@ -29,11 +29,6 @@
     segueToBrokerSelectDetail = self.advMode ? @"advCalculatorToBrokerSelectDetail" : @"calculatorToBrokerSelectDetail";
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 -(void) setBroker {
     if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TTSDKTradeItTicket hasTouchId]) {
         [self promptTouchId];

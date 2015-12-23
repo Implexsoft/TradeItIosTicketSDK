@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TTSDKCompanyDetails.h"
 
 @interface TTSDKHelper : NSObject
 
@@ -18,10 +19,12 @@
 
 + (id)sharedHelper;
 
-- (void)addGradientToButton: (UIButton *)button;
-- (void)removeGradientFromCurrentContainer;
+-(NSString *) formatIntegerToReadablePrice: (NSString *)price;
+-(NSString *) formatPriceString: (NSNumber *)num;
+-(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style;
 
-- (NSString *)formatIntegerToReadablePrice: (NSString *)price;
+-(void) addGradientToButton: (UIButton *)button;
+-(void) removeGradientFromCurrentContainer;
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
 -(void) styleBorderedFocusInput: (UITextField *)textField;
@@ -29,5 +32,7 @@
 -(void) styleMainActiveButton: (UIButton *)button;
 -(void) styleMainInactiveButton: (UIButton *)button;
 -(void) styleLoadingButton: (UIButton *)button;
+-(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
+-(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
 
 @end

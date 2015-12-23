@@ -9,8 +9,9 @@
 #import "TradeItTicketController.h"
 #import "TTSDKTicketSession.h"
 
-#import "TTSDKAdvCalculatorViewController.h"
+#import "TTSDKOrderViewController.h"
 #import "TTSDKAdvCalcTextField.h"
+#import "TTSDKCompanyDetails.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKSymbolSearchViewController.h"
@@ -63,7 +64,7 @@
     tradeSession.callback = callback;
     tradeSession.parentView = view;
     tradeSession.debugMode = debug;
-    
+
     [TradeItTicketController showTicket:tradeSession];
 }
 
@@ -168,8 +169,9 @@
 //we simply call a lame method on every view class which forces
 //the linker to load the classes :)
 +(void) forceClassesIntoLinker {
-    [TTSDKAdvCalculatorViewController class];
+    [TTSDKOrderViewController class];
     [TTSDKAdvCalcTextField class];
+    [TTSDKCompanyDetails class];
     [TTSDKOrderTypeSelectionViewController class];
     [TTSDKOrderTypeInputViewController class];
     [TTSDKSymbolSearchViewController class];

@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 #import "TTSDKBaseCalculatorViewController.h"
+#import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKAdvCalculatorViewController : TTSDKBaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+
+@interface TTSDKOrderViewController : TTSDKBaseCalculatorViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property TradeItResult * lastResult;
 @property TradeItStockOrEtfTradeReviewResult * reviewResult;

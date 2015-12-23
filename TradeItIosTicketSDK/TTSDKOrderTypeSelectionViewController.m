@@ -26,17 +26,16 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     if ([[segue identifier] isEqualToString:@"OrderTypeSelectionToInput"]) {
         TTSDKOrderTypeInputViewController * dest = [segue destinationViewController];
         dest.orderType = self.orderType;
+        dest.tradeSession = self.tradeSession;
     }
-
 }
 
 - (IBAction)marketPressed:(id)sender {
-    self.orderType = @"market";
-    [self performSegueWithIdentifier:@"OrderTypeSelectionToInput" sender:self];
+    self.tradeSession.orderInfo.price.type = @"market";
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)limitPressed:(id)sender {
