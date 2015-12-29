@@ -8,88 +8,83 @@
 
 #import "TTSDKPortfolioTableViewCell.h"
 
+@interface TTSDKPortfolioTableViewCell()
+@property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
+
+@end
+
 @implementation TTSDKPortfolioTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
     if (self) {
-        self.textLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1];
         self.contentView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         self.detailTextLabel.textColor = [UIColor colorWithRed:0.592 green:0.592 blue:0.592 alpha:1];
-        
+
         self.indentationLevel = 6;
+
+        if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self setSeparatorInset:UIEdgeInsetsMake(0, 20, 0, 20)];
+        }
+        
+        if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+            [self setLayoutMargins:UIEdgeInsetsMake(0, 20, 0, 20)];
+        }
     }
 }
 
-- (UIEdgeInsets)layoutMargins {
-    return UIEdgeInsetsZero;
-}
+//- (UIEdgeInsets)layoutMargins {
+//    return UIEdgeInsetsMake(0, 20, 0, 20);
+//}
 
 - (void)configureCell {
     // set title
-    self.textLabel.text = @"this is a title";
+    self.brokerLabel.text = @"fidelity";
+    self.brokerLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1];
+    self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
     // format creation date
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM d, yyyy"];
 
     // set subtitle to formatted string
-    self.detailTextLabel.text = @"details!";
+    self.accountTypeLabel.text = @"brokerage";
 
-    [self insertAlertsDetailWithCount:1];
+    [self insertPortfolioDetail];
 }
 
-- (void)insertAlertsDetailWithCount:(int)count {
-    CGFloat alertSize = 25;
-    CGFloat alertTextSize = 14;
-    
+- (void)insertPortfolioDetail {
+    self.circle.backgroundColor = [UIColor clearColor];
+    CGFloat alertSize = self.circle.frame.size.height / 2;
+
     struct CGColor *alertFill = [[UIColor clearColor] CGColor];
-    
+
     CAShapeLayer *circleLayer;
-    CATextLayer *countLayer;
     
     BOOL isNewLayer = YES;
     
-    for (id item in self.contentView.layer.sublayers) {
+    for (id item in self.circle.layer.sublayers) {
         if ([NSStringFromClass([item class]) isEqualToString:@"CAShapeLayer"]) {
             circleLayer = item;
             isNewLayer = NO;
-            
-            for (id sub in circleLayer.sublayers) {
-                if ([NSStringFromClass([sub class]) isEqualToString:@"CATextLayer"]) {
-                    countLayer = sub;
-                    break;
-                }
-            }
-            
+
             break;
         }
     }
-    
+
     if (!circleLayer) {
         circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(alertTextSize, (self.frame.size.height / 2) - (alertSize / 2), alertSize, alertSize)] CGPath]];
-        countLayer = [CATextLayer layer];
-        countLayer.frame = CGRectMake(alertTextSize, ((self.frame.size.height / 2) - (alertSize / 2)) + (alertTextSize / 3), alertSize, alertSize);
-        countLayer.foregroundColor = [[UIColor whiteColor] CGColor];
-        countLayer.font = (__bridge CFTypeRef)([UIFont boldSystemFontOfSize:5]);
-        countLayer.fontSize = alertTextSize;
-        countLayer.alignmentMode = kCAAlignmentCenter;
-        countLayer.contentsScale = [[UIScreen mainScreen] scale];
+        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, alertSize / 2, alertSize, alertSize)] CGPath]];
     }
-    
-    if (count == 0) {
-        alertFill = [[UIColor colorWithRed:0.961 green:0.647 blue:0.137 alpha:0.25] CGColor];
-    } else {
-        alertFill = [[UIColor colorWithRed:0.961 green:0.647 blue:0.137 alpha:1] CGColor];
-    }
-    
+
+    alertFill = [[UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:1] CGColor];
+
     [circleLayer setFillColor: alertFill];
-    countLayer.string = [NSString stringWithFormat:@"%i", count];
-    
+
     if (isNewLayer) {
-        [circleLayer addSublayer:countLayer];
-        [self.contentView.layer addSublayer:circleLayer];
+        [self.circle.layer addSublayer:circleLayer];
     }
 }
 

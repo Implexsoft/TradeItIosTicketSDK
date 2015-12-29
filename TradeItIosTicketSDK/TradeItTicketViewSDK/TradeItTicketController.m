@@ -16,6 +16,7 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKSymbolSearchViewController.h"
 #import "TTSDKPortfolioViewController.h"
+#import "TTSDKPortfolioTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
@@ -176,6 +177,7 @@
     [TTSDKOrderTypeInputViewController class];
     [TTSDKSymbolSearchViewController class];
     [TTSDKPortfolioViewController class];
+    [TTSDKPortfolioTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
     [TTSDKBrokerSelectViewController class];
