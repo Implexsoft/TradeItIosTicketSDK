@@ -209,7 +209,7 @@
 
     [container addSubview:companyDetailsNib];
 
-    return companyDetailsNib;
+    return [companyDetailsNib init];
 }
 
 - (void) stopSpin {
@@ -266,6 +266,15 @@
     [formatter setLocale: US];
 
     return [formatter stringFromNumber: num];
+}
+
+-(double) numberFromPriceString: (NSString *)priceString {
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale: US];
+
+    return [formatter numberFromString:priceString].doubleValue;
 }
 
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {

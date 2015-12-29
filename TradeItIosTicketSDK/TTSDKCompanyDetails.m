@@ -29,10 +29,12 @@
     [self populateSymbol:symbol];
     [self populateLastPrice:lastPrice];
     [self populateChangeLabelWithChange:change andChangePct:changePct];
+
+    [self setNeedsDisplay];
 }
 
 -(void) populateSymbol: (NSString *)symbol {
-    self.symbolLabel.titleLabel.text = symbol;
+    [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
 }
 
 -(void) populateLastPrice: (NSNumber *)lastPrice {
@@ -40,7 +42,7 @@
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : nil), (changePct ? changePct : nil)];
+    self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @""), (changePct ? changePct : @"")];
 }
 
 @end

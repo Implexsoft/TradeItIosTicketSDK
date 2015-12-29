@@ -84,6 +84,8 @@
     [helper initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
     TTSDKCompanyDetails * companyDetailsNib = [helper companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
     [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+
+    [self.view setNeedsDisplay];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -167,8 +169,8 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [limitPriceInput.text doubleValue];
-    double stopPrice = [stopPriceInput.text doubleValue];
+    double limitPrice = [helper numberFromPriceString:limitPriceInput.text];
+    double stopPrice = [helper numberFromPriceString:stopPriceInput.text];
 
     if(shares < 1) {
         readyNow = NO;
@@ -570,12 +572,12 @@
         self.tradeSession.orderInfo.quantity = (int)[[sharesInput text] integerValue];
 
         if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[stopPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:stopPriceInput.text]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"limit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[[limitPriceInput text] doubleValue]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
         }
 
         [helper styleLoadingButton:previewOrderButton];
@@ -590,7 +592,6 @@
 - (IBAction)portfolioLinkPressed:(id)sender {
     [self performSegueWithIdentifier:@"CalculatorToPortfolio" sender:self];
 }
-
 
 - (IBAction)editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"advCalculatorToBrokerSelectDetail" sender:self];

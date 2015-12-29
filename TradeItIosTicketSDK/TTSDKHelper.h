@@ -21,6 +21,7 @@
 
 -(NSString *) formatIntegerToReadablePrice: (NSString *)price;
 -(NSString *) formatPriceString: (NSNumber *)num;
+-(double) numberFromPriceString: (NSString *)priceString;
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style;
 
 -(void) addGradientToButton: (UIButton *)button;
