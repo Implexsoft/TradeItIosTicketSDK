@@ -50,6 +50,8 @@
     NSArray * questionOptions;
     NSDictionary * currentAccount;
 
+    TTSDKCompanyDetails * companyNib;
+
     TTSDKHelper * helper;
 }
 
@@ -77,13 +79,13 @@
     [self checkIfReadyToTrade];
 
     [sharesInput becomeFirstResponder];
-    [self refreshPressed:self];
-
-    [self setCustomEvents];
 
     [helper initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
-    TTSDKCompanyDetails * companyDetailsNib = [helper companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
-    [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+    companyNib = [helper companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
+    [companyNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+
+    [self setCustomEvents];
+    [self refreshPressed:self];
 
     [self.view setNeedsDisplay];
 }
@@ -151,13 +153,13 @@
     UITapGestureRecognizer * detailsTap = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(refreshPressed:)];
-    [companyDetails addGestureRecognizer:detailsTap];
+    [companyNib addGestureRecognizer:detailsTap];
     
     UITapGestureRecognizer * symbolTap = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(symbolPressed:)];
     symbolTap.numberOfTapsRequired = 1;
-    [companyNameLabel addGestureRecognizer:symbolTap];
-    companyNameLabel.userInteractionEnabled = YES;
+    [companyNib.symbolLabel addGestureRecognizer:symbolTap];
+    companyNib.symbolLabel.userInteractionEnabled = YES;
 }
 
 
