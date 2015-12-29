@@ -478,7 +478,7 @@
     if (key == 10) { // decimal key - not allowed for quantity
         return;
     }
-    
+
     NSString * currentQuantityString;
     NSString * newQuantityString;
     NSString * appendedString;

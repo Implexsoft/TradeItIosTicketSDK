@@ -32,11 +32,12 @@
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
 
-    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
+    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x + 43, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
     addAccount.tintColor = [UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
     [addAccount setTitleColor:[UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:12.0f]];
+    addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
     [footerView addSubview:addAccount];
 

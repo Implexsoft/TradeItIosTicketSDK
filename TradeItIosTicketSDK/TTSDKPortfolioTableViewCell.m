@@ -41,7 +41,7 @@
 
 - (void)configureCell {
     // set title
-    self.brokerLabel.text = @"fidelity";
+    self.brokerLabel.text = @"Fidelity";
     self.brokerLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1];
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
@@ -50,19 +50,19 @@
     [dateFormatter setDateFormat:@"MMM d, yyyy"];
 
     // set subtitle to formatted string
-    self.accountTypeLabel.text = @"brokerage";
+    self.accountTypeLabel.text = @"Brokerage";
 
     [self insertPortfolioDetail];
 }
 
 - (void)insertPortfolioDetail {
     self.circle.backgroundColor = [UIColor clearColor];
-    CGFloat alertSize = self.circle.frame.size.height / 2;
+    CGFloat alertSize = self.circle.frame.size.height - 3;
 
     struct CGColor *alertFill = [[UIColor clearColor] CGColor];
 
     CAShapeLayer *circleLayer;
-    
+
     BOOL isNewLayer = YES;
     
     for (id item in self.circle.layer.sublayers) {
@@ -76,7 +76,7 @@
 
     if (!circleLayer) {
         circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, alertSize / 2, alertSize, alertSize)] CGPath]];
+        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 1.5, alertSize, alertSize)] CGPath]];
     }
 
     alertFill = [[UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:1] CGColor];
