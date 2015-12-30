@@ -69,7 +69,6 @@
 		A9A8D0FF1B4F19D5000207B9 /* TTSDKTradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TTSDKTradeItTicket.m */; };
 		A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		A9A8D1341B504408000207B9 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1301B504408000207B9 /* backspace.png */; };
-		A9A8D1351B504408000207B9 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1311B504408000207B9 /* checkmark.png */; };
 		A9A8D1361B504408000207B9 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1321B504408000207B9 /* refresh.png */; };
 		A9B2D4571B5D5973008065E1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */; };
 		A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -274,7 +273,6 @@
 		A9A8D0C21B4F0F56000207B9 /* TradeItIosTicketSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8D0C51B4F0F56000207B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A8D1301B504408000207B9 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
-		A9A8D1311B504408000207B9 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		A9A8D1321B504408000207B9 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectViewController.h; sourceTree = "<group>"; };
@@ -578,7 +576,6 @@
 				65B314031C2377E700EBC30D /* success_icon.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
 				653666C11C0F7FCC00DB4D34 /* nativeArrow.png */,
-				A9A8D1311B504408000207B9 /* checkmark.png */,
 				A9A8D1321B504408000207B9 /* refresh.png */,
 			);
 			name = Images;
@@ -983,7 +980,6 @@
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
-				A9A8D1351B504408000207B9 /* checkmark.png in Resources */,
 				650FED3C1C330C0A005CBABA /* TTSDKPortfolioCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
