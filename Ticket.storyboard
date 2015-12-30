@@ -1511,6 +1511,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
+                        <segue destination="V42-ok-rVA" kind="presentation" identifier="PortfolioToBrokerSelect" id="V7o-09-esf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1540,8 +1541,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="checkmark.png" width="120" height="119"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="rFw-Bc-wS6"/>
         <segue reference="j7Y-Ba-avL"/>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="rFw-Bc-wS6"/>
+        <segue reference="V7o-09-esf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -42,10 +42,20 @@
     [addAccount setTitleColor:[UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
     addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [addAccount setUserInteractionEnabled:YES];
+
+    UITapGestureRecognizer * addAccountTap = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(addAccountPressed:)];
+    [addAccount addGestureRecognizer:addAccountTap];
 
     [footerView addSubview:addAccount];
 
     return footerView;
+}
+
+- (IBAction)addAccountPressed:(id)sender {
+    [self performSegueWithIdentifier:@"PortfolioToBrokerSelect" sender:self];
 }
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
