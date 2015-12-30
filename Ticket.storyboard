@@ -1454,7 +1454,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
                                 <rect key="frame" x="0.0" y="120" width="319" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1463,10 +1463,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <color key="sectionIndexBackgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="portfolioCell" selectionStyle="default" indentationWidth="10" id="rAF-7j-GGL">
-                                        <rect key="frame" x="0.0" y="28" width="319" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="319" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rAF-7j-GGL" id="cPK-iT-cKT">
-                                            <rect key="frame" x="0.0" y="0.0" width="319" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="319" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1488,18 +1488,30 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-Yc-a8p">
+                                <rect key="frame" x="216" y="54" width="83" height="30"/>
+                                <state key="normal" title="Edit Brokers"/>
+                                <connections>
+                                    <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="57S-e1-KMX" firstAttribute="top" secondItem="A6a-Bv-pob" secondAttribute="topMargin" id="3kP-ua-8Ae"/>
-                            <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="ZBU-0y-JPc" secondAttribute="bottom" constant="100" id="IEV-vR-Mbo"/>
+                            <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="caJ-Yc-a8p" secondAttribute="bottom" constant="36" id="FXm-bO-Nwe"/>
                             <constraint firstItem="Spr-uL-UE8" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="WIS-z7-059"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Spr-uL-UE8" secondAttribute="trailing" constant="-15" id="WbP-at-SHM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="57S-e1-KMX" secondAttribute="trailing" constant="-16" id="dDw-0P-GTQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="caJ-Yc-a8p" secondAttribute="trailing" constant="5" id="p8I-3I-kwD"/>
                             <constraint firstItem="57S-e1-KMX" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="tfl-0S-LLl"/>
+                            <constraint firstItem="caJ-Yc-a8p" firstAttribute="top" secondItem="57S-e1-KMX" secondAttribute="bottom" constant="10" id="udu-Qc-eKt"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BlA-D5-Hkv" userLabel="Exit" sceneMemberID="exit"/>

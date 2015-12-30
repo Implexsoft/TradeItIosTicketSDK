@@ -10,6 +10,7 @@
 #import "TTSDKPortfolioTableViewCell.h"
 
 @interface TTSDKPortfolioViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -19,6 +20,9 @@
     [super viewDidLoad];
 
 
+}
+- (IBAction)editBrokersPressed:(id)sender {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -36,12 +40,16 @@
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
     addAccount.tintColor = [UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
     [addAccount setTitleColor:[UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [addAccount.titleLabel setFont: [UIFont systemFontOfSize:12.0f]];
+    [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
     addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
     [footerView addSubview:addAccount];
 
     return footerView;
+}
+
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

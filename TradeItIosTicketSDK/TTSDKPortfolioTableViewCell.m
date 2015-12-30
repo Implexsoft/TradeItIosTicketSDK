@@ -64,7 +64,7 @@
     CAShapeLayer *circleLayer;
 
     BOOL isNewLayer = YES;
-    
+
     for (id item in self.circle.layer.sublayers) {
         if ([NSStringFromClass([item class]) isEqualToString:@"CAShapeLayer"]) {
             circleLayer = item;
