@@ -8,9 +8,13 @@
 
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioTableViewCell.h"
+#import "TTSDKHelper.h"
 
 @interface TTSDKPortfolioViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
+@property TTSDKHelper * helper;
 
 @end
 
@@ -19,10 +23,31 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
+    self.helper = [TTSDKHelper sharedHelper];
 
+    [self.helper styleMainActiveButton:self.doneEditingBrokersButton];
+
+    [self updateEditStyles];
 }
-- (IBAction)editBrokersPressed:(id)sender {
-    [self.tableView setEditing:!self.tableView.editing animated:YES];
+
+-(IBAction) editBrokersPressed:(id)sender {
+    [self.tableView setEditing:YES animated:YES];
+    [self updateEditStyles];
+}
+
+-(IBAction) doneEditingBrokersPressed:(id)sender {
+    [self.tableView setEditing:NO animated:YES];
+    [self updateEditStyles];
+}
+
+-(void) updateEditStyles {
+    if (self.tableView.editing) {
+        self.editBrokersButton.hidden = YES;
+        self.doneEditingBrokersButton.hidden = NO;
+    } else {
+        self.editBrokersButton.hidden = NO;
+        self.doneEditingBrokersButton.hidden = YES;
+    }
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
