@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKOrderTypeInputViewController.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKOrderTypeInputViewController ()
 
@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *keypadContainer;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
-@property TTSDKHelper * helper;
+@property TTSDKUtils * utils;
 @property NSString * limitPrice;
 @property NSString * stopPrice;
 @property NSString * currentFocus;
@@ -53,13 +53,13 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    self.helper = [TTSDKHelper sharedHelper];
+    self.utils = [TTSDKUtils sharedUtils];
 
-    TTSDKCompanyDetails * companyDetailsNib = [self.helper companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
+    TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
 
     [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
 
-    [self.helper initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
+    [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -157,10 +157,10 @@
     }
 
     if (isReady) {
-        [self.helper styleMainActiveButton:self.submitButton];
+        [self.utils styleMainActiveButton:self.submitButton];
         self.submitButton.enabled = YES;
     } else {
-        [self.helper styleMainInactiveButton:self.submitButton];
+        [self.utils styleMainInactiveButton:self.submitButton];
         self.submitButton.enabled = NO;
     }
 

@@ -8,7 +8,7 @@
 
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -55,7 +55,7 @@
 
     int ackLabelsToggled;
 
-    TTSDKHelper * helper;
+    TTSDKUtils * utils;
 }
 
 @end
@@ -68,7 +68,7 @@
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
 
-    helper = [TTSDKHelper sharedHelper];
+    utils = [TTSDKUtils sharedUtils];
 
     // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
@@ -76,10 +76,10 @@
     [self updateUIWithReviewResult];
 
     if ([ackLabels count]) {
-        [helper styleMainInactiveButton:submitOrderButton];
+        [utils styleMainInactiveButton:submitOrderButton];
         submitOrderButton.enabled = NO;
     } else {
-        [helper styleMainActiveButton:submitOrderButton];
+        [utils styleMainActiveButton:submitOrderButton];
     }
 
     [self setContentViewHeight];
@@ -205,7 +205,7 @@
     [label setTranslatesAutoresizingMaskIntoConstraints: NO];
     [label setText: message];
     [label setNumberOfLines: 0]; // 0 allows unlimited lines
-    [label setTextColor: helper.warningColor];
+    [label setTextColor: utils.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
     [label sizeToFit];
@@ -353,7 +353,7 @@
 
 #pragma mark - Trade Request
 - (IBAction)placeOrderPressed:(id)sender {
-    [helper styleLoadingButton:submitOrderButton];
+    [utils styleLoadingButton:submitOrderButton];
     [self sendTradeRequest];
 }
 
@@ -364,7 +364,7 @@
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
-    [helper styleMainActiveButton:submitOrderButton];
+    [utils styleMainActiveButton:submitOrderButton];
 
     //success
     if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
@@ -429,7 +429,7 @@
     }
 
     if (ackLabelsToggled >= [ackLabels count]) {
-        [helper styleMainActiveButton:submitOrderButton];
+        [utils styleMainActiveButton:submitOrderButton];
         submitOrderButton.enabled = YES;
     }
 }

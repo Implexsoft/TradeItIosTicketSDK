@@ -8,13 +8,13 @@
 
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioTableViewCell.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKPortfolioViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
-@property TTSDKHelper * helper;
+@property TTSDKUtils * utils;
 
 @end
 
@@ -23,9 +23,9 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    self.helper = [TTSDKHelper sharedHelper];
+    self.utils = [TTSDKUtils sharedUtils];
 
-    [self.helper styleMainActiveButton:self.doneEditingBrokersButton];
+    [self.utils styleMainActiveButton:self.doneEditingBrokersButton];
 
     [self updateEditStyles];
 }

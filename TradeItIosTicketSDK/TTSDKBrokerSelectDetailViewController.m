@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKBrokerSelectDetailViewController.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @implementation TTSDKBrokerSelectDetailViewController {
     
@@ -23,13 +23,13 @@
 
     NSDictionary * brokerUsername;
     
-    TTSDKHelper * helper;
+    TTSDKUtils * utils;
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    helper = [TTSDKHelper sharedHelper];
+    utils = [TTSDKUtils sharedUtils];
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
@@ -73,8 +73,7 @@
     
     [self.view addGestureRecognizer:tap];
 
-    //[helper styleMainActiveButton:linkAccountButton];
-    [helper styleMainInactiveButton:linkAccountButton];
+    [utils styleMainInactiveButton:linkAccountButton];
 }
 
 - (void)dismissKeyboard {
@@ -146,7 +145,7 @@
         }
         
     } else {
-        [helper styleLoadingButton:linkAccountButton];
+        [utils styleLoadingButton:linkAccountButton];
         [self setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
         [self verifyCredentials];
     }
@@ -181,7 +180,7 @@
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
-        [helper styleMainActiveButton:linkAccountButton];
+        [utils styleMainActiveButton:linkAccountButton];
     }
 
     return YES;
@@ -214,7 +213,7 @@
 
 -(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
 
-    [helper styleMainActiveButton:linkAccountButton];
+    [utils styleMainActiveButton:linkAccountButton];
 
     if([result isKindOfClass:[TradeItErrorResult class]]) {
         TradeItErrorResult * err = (TradeItErrorResult *) result;

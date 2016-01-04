@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKCompanyDetails() {
-    TTSDKHelper * helper;
+    TTSDKUtils * utils;
 }
 
 @end
@@ -19,7 +19,7 @@
 
 -(id) init {
     if (self = [super init]) {
-        helper = [TTSDKHelper sharedHelper];
+        utils = [TTSDKUtils sharedUtils];
     }
 
     return self;
@@ -38,7 +38,7 @@
 }
 
 -(void) populateLastPrice: (NSNumber *)lastPrice {
-    self.lastPriceLabel.text = [helper formatPriceString:lastPrice];
+    self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {

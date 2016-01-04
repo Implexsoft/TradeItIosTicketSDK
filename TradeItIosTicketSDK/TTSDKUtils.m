@@ -1,5 +1,5 @@
 //
-//  Helper.m
+//  TTSDKUtils.m
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 12/4/15.
@@ -7,9 +7,9 @@
 //
 
 
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
-@interface TTSDKHelper () {
+@interface TTSDKUtils () {
     UIButton * currentGradientContainer;
     CAGradientLayer * activeButtonGradient;
     UIActivityIndicatorView * currentIndicator;
@@ -21,7 +21,7 @@
 @end
 
 
-@implementation TTSDKHelper
+@implementation TTSDKUtils
 
 @synthesize activeButtonColor;
 @synthesize activeButtonHighlightColor;
@@ -29,14 +29,14 @@
 @synthesize warningColor;
 
 
-+ (id)sharedHelper {
-    static TTSDKHelper *sharedHelperInstance = nil;
++ (id)sharedUtils {
+    static TTSDKUtils *sharedUtilsInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedHelperInstance = [[self alloc] init];
+        sharedUtilsInstance = [[self alloc] init];
     });
 
-    return sharedHelperInstance;
+    return sharedUtilsInstance;
 }
 
 - (id)init {

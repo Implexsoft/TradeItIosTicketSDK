@@ -1,5 +1,5 @@
 //
-//  Helper.h
+//  TTSDKUtils.h
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 12/4/15.
@@ -10,14 +10,14 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKCompanyDetails.h"
 
-@interface TTSDKHelper : NSObject
+@interface TTSDKUtils : NSObject
 
 @property (nonatomic, retain) UIColor * activeButtonColor;
 @property (nonatomic, retain) UIColor * activeButtonHighlightColor;
 @property (nonatomic, retain) UIColor * inactiveButtonColor;
 @property (nonatomic, retain) UIColor * warningColor;
 
-+ (id)sharedHelper;
++ (id)sharedUtils;
 
 -(NSString *) formatIntegerToReadablePrice: (NSString *)price;
 -(NSString *) formatPriceString: (NSNumber *)num;

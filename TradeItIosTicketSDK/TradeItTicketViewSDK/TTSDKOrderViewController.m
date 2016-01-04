@@ -11,7 +11,7 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKHelper.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKOrderViewController () {
     __weak IBOutlet UIView * companyDetails;
@@ -52,7 +52,7 @@
 
     TTSDKCompanyDetails * companyNib;
 
-    TTSDKHelper * helper;
+    TTSDKUtils * utils;
 }
 
 @end
@@ -66,7 +66,7 @@
     self.advMode = YES;
     [super viewDidLoad];
 
-    helper = [TTSDKHelper sharedHelper];
+    utils = [TTSDKUtils sharedUtils];
 
     [self initConstraints];
     [self uiTweaks];
@@ -80,8 +80,8 @@
 
     [sharesInput becomeFirstResponder];
 
-    [helper initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
-    companyNib = [helper companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
+    [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
+    companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
     [companyNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
 
     [self setCustomEvents];
@@ -137,10 +137,10 @@
     [self applyBorder:(UIView *)sharesInput];
     [self applyBorder:(UIView *)orderActionButton];
 
-    [helper styleBorderedFocusInput:sharesInput];
+    [utils styleBorderedFocusInput:sharesInput];
 
     previewOrderButton.clipsToBounds = YES;
-    orderActionButton.layer.borderColor = helper.inactiveButtonColor.CGColor;
+    orderActionButton.layer.borderColor = utils.inactiveButtonColor.CGColor;
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -171,8 +171,8 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [helper numberFromPriceString:limitPriceInput.text];
-    double stopPrice = [helper numberFromPriceString:stopPriceInput.text];
+    double limitPrice = [utils numberFromPriceString:limitPriceInput.text];
+    double stopPrice = [utils numberFromPriceString:stopPriceInput.text];
 
     if(shares < 1) {
         readyNow = NO;
@@ -189,9 +189,9 @@
     }
 
     if(readyNow) {
-        [helper styleMainActiveButton:previewOrderButton];
+        [utils styleMainActiveButton:previewOrderButton];
     } else {
-        [helper styleMainInactiveButton:previewOrderButton];
+        [utils styleMainInactiveButton:previewOrderButton];
     }
 
     readyToTrade = readyNow;
@@ -247,7 +247,7 @@
         if([changeDollar doubleValue] == 0) {
             [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
         } else {
-            NSAttributedString * attString = [helper getColoredString:changeDollar withFormat:NSNumberFormatterCurrencyStyle];
+            NSAttributedString * attString = [utils getColoredString:changeDollar withFormat:NSNumberFormatterCurrencyStyle];
 
             [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
             [finalString appendAttributedString:(NSAttributedString *) attString];
@@ -258,7 +258,7 @@
         if([changePercentage doubleValue] == 0) {
             [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
         } else {
-            NSAttributedString * attString = [helper getColoredString:changePercentage withFormat:NSNumberFormatterDecimalStyle];
+            NSAttributedString * attString = [utils getColoredString:changePercentage withFormat:NSNumberFormatterDecimalStyle];
 
             [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
             [finalString appendAttributedString:(NSAttributedString *) attString];
@@ -273,7 +273,7 @@
     [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
     self.tradeSession.orderInfo.action = action;
 
-    orderActionButton.layer.borderColor = helper.inactiveButtonColor.CGColor;
+    orderActionButton.layer.borderColor = utils.inactiveButtonColor.CGColor;
 }
 
 // CHANGING ORDER EXPIRATION
@@ -335,7 +335,7 @@
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
 
-    limitPriceInput.text = [helper formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
+    limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
 
     [self showLimitContainer];
 }
@@ -345,7 +345,7 @@
     [stopPriceInput setHidden:NO];
     limitPriceInput.text = nil;
 
-    stopPriceInput.text = [helper formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+    stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
 
     [self showLimitContainer];
 }
@@ -354,8 +354,8 @@
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [helper formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
-    stopPriceInput.text = [helper formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+    limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
+    stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
     [self showLimitContainer];
 }
 
@@ -497,7 +497,7 @@
     }
     
     self.tradeSession.orderInfo.quantity = [appendedString intValue];
-    sharesInput.text = [helper formatIntegerToReadablePrice:appendedString];
+    sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
     
     [self checkIfReadyToTrade];
 }
@@ -505,7 +505,7 @@
 - (IBAction)orderActionPressed:(id)sender {
     [self.view endEditing:YES];
 
-    orderActionButton.layer.borderColor = helper.activeButtonColor.CGColor;
+    orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
 
     if(![UIAlertController class]) {
         [self showOldOrderAction];
@@ -574,15 +574,15 @@
         self.tradeSession.orderInfo.quantity = (int)[[sharesInput text] integerValue];
 
         if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopLimit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:stopPriceInput.text]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:stopPriceInput.text]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
-            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
+            self.tradeSession.orderInfo.price.stopPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
         } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"limit"]) {
-            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[helper numberFromPriceString:limitPriceInput.text]];
+            self.tradeSession.orderInfo.price.limitPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
         }
 
-        [helper styleLoadingButton:previewOrderButton];
+        [utils styleLoadingButton:previewOrderButton];
         [self sendLoginReviewRequest];
     }
 }
