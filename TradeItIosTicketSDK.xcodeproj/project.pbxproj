@@ -33,6 +33,12 @@
 		653613171C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 653613141C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m */; };
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
+		655745691C3AB7BC004BA180 /* TTSDKLinkPromptViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKLinkPromptViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6557456A1C3AB7BC004BA180 /* TTSDKLinkPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKLinkPromptViewController.m */; };
+		655745721C3ACA9B004BA180 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 655745701C3ACA9B004BA180 /* menuIcon.png */; };
+		655745781C3ACCBF004BA180 /* TTSDKAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745761C3ACCBF004BA180 /* TTSDKAlertView.h */; };
+		655745791C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
+		6557457A1C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
 		657ED25D1C21FDCF00217735 /* TTSDKPortfolioViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED25B1C21FDCF00217735 /* TTSDKPortfolioViewController.h */; };
 		657ED25E1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */; };
@@ -154,8 +160,8 @@
 		A9C003771B7264A4007D15F5 /* TradeItTypeDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C003781B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C003791B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */; };
-		A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */; };
+		A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.m */; };
 		A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */; };
 		A9C003931B72A67E007D15F5 /* Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003911B72A67E007D15F5 /* Theme.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -234,6 +240,12 @@
 		653613131C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOrderTypeInputViewController.h; sourceTree = "<group>"; };
 		653613141C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKOrderTypeInputViewController.m; sourceTree = "<group>"; };
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
+		655745671C3AB7BC004BA180 /* TTSDKLinkPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKLinkPromptViewController.h; sourceTree = "<group>"; };
+		655745681C3AB7BC004BA180 /* TTSDKLinkPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKLinkPromptViewController.m; sourceTree = "<group>"; };
+		655745701C3ACA9B004BA180 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
+		655745761C3ACCBF004BA180 /* TTSDKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAlertView.h; sourceTree = "<group>"; };
+		655745771C3ACCBF004BA180 /* TTSDKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAlertView.m; sourceTree = "<group>"; };
+		6557457B1C3AD5F9004BA180 /* chevronRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevronRight.png; sourceTree = "<group>"; };
 		657ED25B1C21FDCF00217735 /* TTSDKPortfolioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioViewController.h; sourceTree = "<group>"; };
 		657ED25C1C21FDCF00217735 /* TTSDKPortfolioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioViewController.m; sourceTree = "<group>"; };
 		657ED2601C220A0A00217735 /* TTSDKPortfolioTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioTableViewCell.h; sourceTree = "<group>"; };
@@ -357,8 +369,8 @@
 		A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItTypeDefs.h; sourceTree = "<group>"; };
 		A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialRequest.h; sourceTree = "<group>"; };
 		A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialRequest.m; sourceTree = "<group>"; };
-		A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialSession.h; sourceTree = "<group>"; };
-		A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialSession.m; sourceTree = "<group>"; };
+		A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItVerifyCredentialsSession.h; sourceTree = "<group>"; };
+		A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItVerifyCredentialsSession.m; sourceTree = "<group>"; };
 		A9C0032E1B7264A4007D15F5 /* TradeItIosEmsApi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TradeItIosEmsApi.xcodeproj; sourceTree = "<group>"; };
 		A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKMBProgressHUD.h; sourceTree = "<group>"; };
 		A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKMBProgressHUD.m; sourceTree = "<group>"; };
@@ -433,6 +445,8 @@
 				A905D3201B629D76006B0B8C /* TTSDKKeychain.m */,
 				65ECCAF01C125403000CE86B /* TTSDKHelper.h */,
 				65ECCAF11C125403000CE86B /* TTSDKHelper.m */,
+				655745761C3ACCBF004BA180 /* TTSDKAlertView.h */,
+				655745771C3ACCBF004BA180 /* TTSDKAlertView.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -573,7 +587,9 @@
 			isa = PBXGroup;
 			children = (
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
+				6557457B1C3AD5F9004BA180 /* chevronRight.png */,
 				65B314031C2377E700EBC30D /* success_icon.png */,
+				655745701C3ACA9B004BA180 /* menuIcon.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
 				653666C11C0F7FCC00DB4D34 /* nativeArrow.png */,
 				A9A8D1321B504408000207B9 /* refresh.png */,
@@ -590,6 +606,8 @@
 				65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */,
 				A9B2D4751B5EA92F008065E1 /* TTSDKBrokerSelectDetailViewController.h */,
 				A9B2D4761B5EA92F008065E1 /* TTSDKBrokerSelectDetailViewController.m */,
+				655745671C3AB7BC004BA180 /* TTSDKLinkPromptViewController.h */,
+				655745681C3AB7BC004BA180 /* TTSDKLinkPromptViewController.m */,
 			);
 			name = BrokerSelectView;
 			sourceTree = "<group>";
@@ -725,8 +743,8 @@
 				A9C003291B7264A4007D15F5 /* TradeItTypeDefs.h */,
 				A9C0032A1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.h */,
 				A9C0032B1B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m */,
-				A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h */,
-				A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m */,
+				A9C0032C1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.h */,
+				A9C0032D1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.m */,
 			);
 			path = TradeItIosEmsApi;
 			sourceTree = "<group>";
@@ -771,6 +789,7 @@
 				A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */,
 				A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */,
 				A9CE9C871BDA99E000D2209C /* TradeItAuthController.h in Headers */,
+				655745781C3ACCBF004BA180 /* TTSDKAlertView.h in Headers */,
 				A9EFA5571BDABD0600B92489 /* TradeItAuthControllerResult.h in Headers */,
 				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
 				A9C0033F1B7264A4007D15F5 /* TIEMSJSONAPI.h in Headers */,
@@ -808,7 +827,7 @@
 				A9C003731B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.h in Headers */,
 				653613151C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.h in Headers */,
 				A9C0034C1B7264A4007D15F5 /* TradeItBrokerListSuccessResult.h in Headers */,
-				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialSession.h in Headers */,
+				A9C0037A1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.h in Headers */,
 				A9C003571B7264A4007D15F5 /* TradeItMultipleAccountResult.h in Headers */,
 				A9C0034A1B7264A4007D15F5 /* TradeItAuthenticationInfo.h in Headers */,
 				65ECCAF21C125403000CE86B /* TTSDKHelper.h in Headers */,
@@ -821,6 +840,7 @@
 				A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */,
 				657ED25D1C21FDCF00217735 /* TTSDKPortfolioViewController.h in Headers */,
 				A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */,
+				655745691C3AB7BC004BA180 /* TTSDKLinkPromptViewController.h in Headers */,
 				A9C0039F1B72A983007D15F5 /* DefaultDarkTheme.h in Headers */,
 				A9C0039B1B72A798007D15F5 /* ThemeManager.h in Headers */,
 				A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */,
@@ -979,6 +999,7 @@
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
+				655745721C3ACA9B004BA180 /* menuIcon.png in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
 				650FED3C1C330C0A005CBABA /* TTSDKPortfolioCell.xib in Resources */,
 			);
@@ -1027,6 +1048,7 @@
 				A9C0035E1B7264A4007D15F5 /* TradeItResult.m in Sources */,
 				A9C003701B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewResult.m in Sources */,
 				A9C003791B7264A4007D15F5 /* TradeItVerifyCredentialRequest.m in Sources */,
+				6557456A1C3AB7BC004BA180 /* TTSDKLinkPromptViewController.m in Sources */,
 				A9C003661B7264A4007D15F5 /* TradeItStockOrEtfAuthenticateAndTradeRequest.m in Sources */,
 				A9C003741B7264A4007D15F5 /* TradeItStockOrEtfTradeSuccessResult.m in Sources */,
 				A9C002BB1B6FC507007D15F5 /* TTSDKBaseCalculatorViewController.m in Sources */,
@@ -1069,10 +1091,11 @@
 				A9C0033D1B7264A4007D15F5 /* NSArray+TIEMSJSONModel.m in Sources */,
 				A9C0033B1B7264A4007D15F5 /* TIEMSJSONModelError.m in Sources */,
 				A9C003621B7264A4007D15F5 /* TradeItSecurityQuestionResult.m in Sources */,
-				A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialSession.m in Sources */,
+				A9C0037B1B7264A4007D15F5 /* TradeItVerifyCredentialsSession.m in Sources */,
 				A9C0036E1B7264A4007D15F5 /* TradeItStockOrEtfTradeReviewOrderDetails.m in Sources */,
 				A9C003421B7264A4007D15F5 /* TIEMSJSONHTTPClient.m in Sources */,
 				A9C003441B7264A4007D15F5 /* TIEMSJSONModel+networking.m in Sources */,
+				655745791C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */,
 				A9A8D0FD1B4F19D5000207B9 /* TTSDKReviewScreenViewController.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* TTSDKSuccessViewController.m in Sources */,
 				A9C0035A1B7264A4007D15F5 /* TradeItPlaceOrderRequest.m in Sources */,
@@ -1095,6 +1118,7 @@
 				A9A8CF961B4EFDBB000207B9 /* TTSDKSuccessViewController.m in Sources */,
 				657ED25F1C21FDCF00217735 /* TTSDKPortfolioViewController.m in Sources */,
 				A9A8CF971B4EFDBB000207B9 /* TTSDKTradeItTicket.m in Sources */,
+				6557457A1C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */,
 				65B314021C2364C900EBC30D /* TTSDKSymbolSearchViewController.m in Sources */,
 				A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */,
 			);

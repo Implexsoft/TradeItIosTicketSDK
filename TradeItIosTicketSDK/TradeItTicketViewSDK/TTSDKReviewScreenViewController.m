@@ -413,11 +413,8 @@
 }
 
 - (IBAction)changeClicked:(id)sender {
-    if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
-        [self performSegueWithIdentifier:@"prepareForUnwind" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"unwindToAdvCalc" sender:self];
-    }
+    //[self performSegueWithIdentifier:@"prepareForUnwind" sender:self];
+    [self performSegueWithIdentifier:@"unwindToAdvCalc" sender:self];
 }
 
 - (IBAction)cancelPressed:(id)sender {

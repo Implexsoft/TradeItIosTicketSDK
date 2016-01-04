@@ -19,9 +19,11 @@
 #import "TTSDKPortfolioTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
+#import "TTSDKLinkPromptViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
+#import "TTSDKAlertView.h"
 
 
 @implementation TradeItTicketController {
@@ -119,10 +121,6 @@
         tradeSession.refreshLastPrice = self.refreshLastPrice;
     }
     
-    if(self.calcScreenDefault != nil && ![self.calcScreenDefault isEqualToString:@""]) {
-        tradeSession.calcScreenStoryboardId = [self.calcScreenDefault isEqualToString:@"detail"] ? @"advCalculatorController" : @"initalCalculatorController";
-    }
-    
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
         tradeSession.companyName = self.companyName;
     }
@@ -180,9 +178,11 @@
     [TTSDKPortfolioTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
+    [TTSDKLinkPromptViewController class];
     [TTSDKBrokerSelectViewController class];
     [TTSDKBrokerSelectDetailViewController class];
     [TTSDKBrokerSelectTableViewCell class];
+    [TTSDKAlertView class];
 }
 @end
 

@@ -13,7 +13,7 @@
 }
 
 static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
-static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
+static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
 
 +(UIColor *) activeColor {
     return [UIColor colorWithRed:0.0f
@@ -216,17 +216,16 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
 }
 
-+(void) setCalcScreenPreferance: (NSString *) storyboardId {
++(void) setInitialScreenPreference: (NSString *) storyboardId {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:storyboardId forKey:CALC_SCREEN_PREFERENCE];
+    [defaults setObject:storyboardId forKey:INITIAL_SCREEN_PREFERENCE];
     [defaults synchronize];
 }
 
-//initalCalculatorController
-//advCalculatorController
-+(NSString *) getCalcScreenPreferance {
+// initial screen (order screen or portfolio screen)
++(NSString *) getInitialScreenPreference {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * pref = [defaults objectForKey:CALC_SCREEN_PREFERENCE];
+    NSString * pref = [defaults objectForKey:INITIAL_SCREEN_PREFERENCE];
 
     return pref;
 }
@@ -274,40 +273,31 @@ static NSString * CALC_SCREEN_PREFERENCE = @"CALC_PREFERNCE";
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
 
     //Setup ticket storyboard
-    NSString * startingView = @"brokerSelectController";
+    NSString * startingView = @"linkPromptController"; //brokerSelectController
 
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
-        startingView = [TTSDKTradeItTicket getCalcScreenPreferance];
-
-        if(startingView == nil){
-            if(tradeSession.calcScreenStoryboardId != nil) {
-                startingView = tradeSession.calcScreenStoryboardId;
-            } else {
-                tradeSession.calcScreenStoryboardId = @"advCalculatorController";
-                startingView = @"advCalculatorController";
-            }
-        } else {
-            tradeSession.calcScreenStoryboardId = startingView;
-        }
-    } else {
-        tradeSession.calcScreenStoryboardId = tradeSession.calcScreenStoryboardId != nil ? tradeSession.calcScreenStoryboardId : @"advCalculatorController";
+        startingView = @"advCalculatorController";
     }
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
 
-    if([startingView isEqualToString: @"brokerSelectController"]){
-        TTSDKBrokerSelectViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+    if([startingView isEqualToString: @"linkPromptController"]){
+        //TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+        TTSDKBrokerSelectViewController * initialViewController = (TTSDKBrokerSelectViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
         initialViewController.tradeSession = tradeSession;
+        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+        //Display
+        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
     } else {
         TTSDKOrderViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
         initialViewController.tradeSession = tradeSession;
+        //Display
+        [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
     }
-    
-    //Display
-    [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
+
 }
 
 

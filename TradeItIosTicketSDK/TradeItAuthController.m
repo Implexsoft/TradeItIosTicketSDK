@@ -40,8 +40,7 @@
     tradeSession.parentView = view;
     tradeSession.brokerSignUpCallback = completionBlock;
     
-    NSString * startingView = @"brokerSelectController";
-    tradeSession.calcScreenStoryboardId = @"none";
+    NSString * startingView = @"linkPromptController"; //brokerSelectController
     
     [TradeItAuthController getBrokers:tradeSession];
     
@@ -65,7 +64,7 @@
     
     TradeItAuthenticationInfo * verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
     
-    TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: publisherApp];
+    TradeItVerifyCredentialsSession * verifyCredsSession = [[TradeItVerifyCredentialsSession alloc] initWithpublisherApp: publisherApp];
     
     [verifyCredsSession verifyUser: verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * result){
         if([result isKindOfClass:[TradeItErrorResult class]]) {

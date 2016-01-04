@@ -30,8 +30,8 @@
 }
 
 -(void) setBroker {
-    if ([self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TTSDKTradeItTicket hasTouchId]) {
-        [self promptTouchId];
+    if (![self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TTSDKTradeItTicket hasTouchId]) {
+//        [self promptTouchId];
     } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
         if([linkedBrokers count] > 1) {
             [self showBrokerPickerAndSetPassword:NO onSelection:^{

@@ -29,8 +29,6 @@
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 @property BOOL brokerSignUpComplete;
 
-@property NSString * calcScreenStoryboardId;
-
 @property NSString * companyName;
 @property NSNumber * priceChangeDollar;
 @property NSNumber * priceChangePercentage;

@@ -14,6 +14,7 @@
 
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKOrderViewController.h"
+#import "TTSDKLinkPromptViewController.h"
 
 @interface TTSDKTradeItTicket : NSObject
 
@@ -39,8 +40,8 @@
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker;
 +(TradeItAuthenticationInfo *) getStoredAuthenticationForBroker: (NSString *) broker;
 
-+(void) setCalcScreenPreferance: (NSString *) storyboardId;
-+(NSString *) getCalcScreenPreferance;
++(void) setInitialScreenPreference: (NSString *) storyboardId;
++(NSString *) getInitialScreenPreference;
 
 +(BOOL) hasTouchId;
 

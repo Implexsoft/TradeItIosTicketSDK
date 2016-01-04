@@ -204,7 +204,7 @@
 #pragma mark - Verify Credentials
 
 - (void) verifyCredentials {
-    TradeItVerifyCredentialSession * verifyCredsSession = [[TradeItVerifyCredentialSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
+    TradeItVerifyCredentialsSession * verifyCredsSession = [[TradeItVerifyCredentialsSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
     NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
     
     [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
@@ -250,11 +250,7 @@
             }
             
             self.tradeSession.authenticationInfo = self.verifyCreds;
-            
-            if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"none"]) {
-                self.tradeSession.brokerSignUpComplete = true;
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
+            self.tradeSession.brokerSignUpComplete = true;
 
             [self performSegueWithIdentifier: @"LoginToCalculator" sender: self];
         } else {
