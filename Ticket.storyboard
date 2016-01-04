@@ -17,7 +17,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="BrokerCell" textLabel="VD5-sn-X2q" style="IBUITableViewCellStyleDefault" id="cUq-xX-cQ5" customClass="TTSDKBrokerSelectTableViewCell">
-                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="1" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>

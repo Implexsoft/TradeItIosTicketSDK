@@ -74,12 +74,14 @@
                                            action:@selector(addAccountPressed:)];
     [addAccount addGestureRecognizer:addAccountTap];
 
+    footerView.backgroundColor = [UIColor whiteColor];
+
     [footerView addSubview:addAccount];
 
     return footerView;
 }
 
-- (IBAction)addAccountPressed:(id)sender {
+-(IBAction) addAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToBrokerSelect" sender:self];
 }
 
@@ -106,7 +108,7 @@
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
 }
 
