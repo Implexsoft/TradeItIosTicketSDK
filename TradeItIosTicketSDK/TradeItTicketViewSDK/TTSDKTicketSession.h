@@ -37,4 +37,6 @@
 
 @property NSArray * brokerList;
 
+@property BOOL portfolioMode;
+
 @end
