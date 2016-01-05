@@ -81,7 +81,7 @@
 }
 
 -(void) showTicket {
-    
+
     if(self.quantity > 0) {
         tradeSession.orderInfo.quantity = self.quantity;
     }

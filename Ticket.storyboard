@@ -1524,7 +1524,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Portfolio View Controller-->
         <scene sceneID="nci-rh-nvD">
             <objects>
-                <viewController id="bbK-hu-Twv" customClass="TTSDKPortfolioViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="portfolioController" id="bbK-hu-Twv" customClass="TTSDKPortfolioViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZBU-0y-JPc"/>
                         <viewControllerLayoutGuide type="bottom" id="g7g-Tb-mQn"/>

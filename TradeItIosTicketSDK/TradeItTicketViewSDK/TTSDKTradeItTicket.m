@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKPortfolioViewController.h"
 
 @implementation TTSDKTradeItTicket {
 
@@ -246,6 +247,8 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
 }
 
 +(void) showTicket:(TTSDKTicketSession *) tradeSession {
+    BOOL portfolioMode = tradeSession.portfolioMode;
+
     //Get brokers
     [tradeSession asyncGetBrokerListWithCompletionBlock:^(NSArray *brokerList){
         if(brokerList == nil) {
@@ -253,20 +256,19 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
             
-            if([tradeSession debugMode]) {
+            if(tradeSession.debugMode) {
                 NSArray * dummy  =  @[@"Dummy",@"Dummy"];
                 [brokers addObject:dummy];
             }
-            
+
             for (NSDictionary * broker in brokerList) {
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
             }
-            
+
             tradeSession.brokerList = (NSArray *) brokers;
         }
     }];
-
 
     //Get Resource Bundle
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
@@ -277,7 +279,7 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
 
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
-        startingView = @"advCalculatorController";
+        startingView = portfolioMode ? @"portfolioController" : @"advCalculatorController";
     }
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
@@ -287,6 +289,12 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     if([startingView isEqualToString: @"linkPromptController"]){
         //TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
         TTSDKBrokerSelectViewController * initialViewController = (TTSDKBrokerSelectViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+        initialViewController.tradeSession = tradeSession;
+        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+        //Display
+        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+    } else if ([startingView isEqualToString:@"portfolioController"]) {
+        TTSDKPortfolioViewController * initialViewController = (TTSDKPortfolioViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
         initialViewController.tradeSession = tradeSession;
         [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
         //Display
