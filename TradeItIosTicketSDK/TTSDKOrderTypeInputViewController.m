@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKOrderTypeInputViewController.h"
+#import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKOrderTypeInputViewController ()
@@ -14,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderTypeLabel;
 @property (weak, nonatomic) IBOutlet UIView *keypadContainer;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-
 @property TTSDKUtils * utils;
 @property NSString * limitPrice;
 @property NSString * stopPrice;
@@ -43,10 +43,22 @@
         self.stopPriceField.text = self.stopPrice;
     }
 
+    if ([self.orderType isEqualToString:@"limit"]) {
+        [self limitPricePressed: self];
+        self.stopPriceField.hidden = YES;
+        self.limitPriceField.hidden = NO;
+    }
+
+    if ([self.orderType isEqualToString:@"stopLimit"]) {
+        [self limitPricePressed: self];
+        self.stopPriceField.hidden = NO;
+        self.limitPriceField.hidden = NO;
+    }
+
     if ([self.orderType isEqualToString:@"stop"]) {
         [self stopPricePressed: self];
-    } else {
-        [self limitPricePressed: self];
+        self.stopPriceField.hidden = NO;
+        self.limitPriceField.hidden = YES;
     }
 }
 
@@ -56,7 +68,6 @@
     self.utils = [TTSDKUtils sharedUtils];
 
     TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
-
     [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
 
     [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];

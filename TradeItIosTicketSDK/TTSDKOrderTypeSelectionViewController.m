@@ -29,7 +29,7 @@
     if ([[segue identifier] isEqualToString:@"OrderTypeSelectionToInput"]) {
         TTSDKOrderTypeInputViewController * dest = [segue destinationViewController];
         dest.orderType = self.orderType;
-        dest.tradeSession = self.tradeSession;
+        [dest setTradeSession:self.tradeSession];
     }
 }
 
