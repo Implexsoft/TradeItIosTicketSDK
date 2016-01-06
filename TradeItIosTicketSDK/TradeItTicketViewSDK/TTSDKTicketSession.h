@@ -13,30 +13,21 @@
 
 @interface TTSDKTicketSession : TradeItStockOrEtfTradeSession
 
-@property BOOL debugMode;
-
 @property double lastPrice;
-
 @property UIViewController * parentView;
-
 @property NSString * errorTitle;
 @property NSString * errorMessage;
-
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 @property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
-
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
-@property BOOL brokerSignUpComplete;
-
 @property NSString * companyName;
 @property NSNumber * priceChangeDollar;
 @property NSNumber * priceChangePercentage;
-
 @property TradeItTicketControllerResult * resultContainer;
-
 @property NSArray * brokerList;
-
+@property BOOL brokerSignUpComplete;
+@property BOOL debugMode;
 @property BOOL portfolioMode;
 
 @end

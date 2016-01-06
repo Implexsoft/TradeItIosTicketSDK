@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TTSDKPortfolioTableViewCell : UITableViewCell
+@interface TTSDKAccountsTableViewCell : UITableViewCell
 
 - (void)configureCell;
 

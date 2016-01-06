@@ -541,6 +541,10 @@
     [self performSegueWithIdentifier:@"CalculatorToOrderTypeSelection" sender:self];
 }
 
+- (IBAction)portfolioPressed:(id)sender {
+    [self performSegueWithIdentifier:@"OrderToPortfolio" sender:self];
+}
+
 - (IBAction)orderExpirationPressed:(id)sender {
     [self.view endEditing:YES];
 
@@ -592,7 +596,7 @@
 }
 
 - (IBAction)portfolioLinkPressed:(id)sender {
-    [self performSegueWithIdentifier:@"CalculatorToPortfolio" sender:self];
+    [self performSegueWithIdentifier:@"CalculatorToAccounts" sender:self];
 }
 
 - (IBAction)editAccountsPressed:(id)sender {

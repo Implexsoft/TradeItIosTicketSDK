@@ -6,16 +6,16 @@
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKPortfolioTableViewCell.h"
+#import "TTSDKAccountsTableViewCell.h"
 
-@interface TTSDKPortfolioTableViewCell()
+@interface TTSDKAccountsTableViewCell()
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 
 @end
 
-@implementation TTSDKPortfolioTableViewCell
+@implementation TTSDKAccountsTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

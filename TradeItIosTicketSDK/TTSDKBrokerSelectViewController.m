@@ -43,21 +43,17 @@ static NSString * CellIdentifier = @"BrokerCell";
 
     self.tableView.tableHeaderView = headerView;
 
-//    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:headerLabelView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
+    //[headerView addConstraint:[NSLayoutConstraint constraintWithItem:headerLabelView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 100)];
-    UIButton *footerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-    [footerButton setTitle:@"Next" forState:UIControlStateNormal];
-    [footerView addSubview:footerButton];
+//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 100)];
+//    UIButton *footerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+//    [footerButton setTitle:@"Next" forState:UIControlStateNormal];
+//    [footerView addSubview:footerButton];
+//    [self.view addSubview:footerView];
 
-    [self.view addSubview:footerView];
-    
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:footerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
-
-//    self.view.backgroundColor = [UIColor redColor];
-//    self.tableView.backgroundColor = [UIColor yellowColor];
+    //[self.view addConstraint:[NSLayoutConstraint constraintWithItem:footerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -65,16 +61,15 @@ static NSString * CellIdentifier = @"BrokerCell";
 }
 
 -(void) showLoadingAndWait {
-    
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
-        
+
         while([self.tradeSession.brokerList count] < 1 && cycles < 10) {
             sleep(1);
             cycles++;
         }
-        
+
         if([self.tradeSession.brokerList count] < 1) {
             if(![UIAlertController class]) {
                 [self showOldErrorAlert];

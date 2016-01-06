@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKPortfolioViewController.h"
+#import "TTSDKAccountsViewController.h"
 
 @implementation TTSDKTradeItTicket {
 
@@ -294,7 +294,7 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
         //Display
         [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
     } else if ([startingView isEqualToString:@"portfolioController"]) {
-        TTSDKPortfolioViewController * initialViewController = (TTSDKPortfolioViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+        TTSDKAccountsViewController * initialViewController = (TTSDKAccountsViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
         initialViewController.tradeSession = tradeSession;
         [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
         //Display

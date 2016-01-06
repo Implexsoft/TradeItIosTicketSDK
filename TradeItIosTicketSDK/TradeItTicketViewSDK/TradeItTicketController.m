@@ -15,14 +15,15 @@
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKSymbolSearchViewController.h"
-#import "TTSDKPortfolioViewController.h"
-#import "TTSDKPortfolioTableViewCell.h"
+#import "TTSDKAccountsViewController.h"
+#import "TTSDKAccountsTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKLinkPromptViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
+#import "TTSDKPortfolioViewController.h"
 #import "TTSDKAlertView.h"
 
 
@@ -133,7 +134,7 @@
 
 +(void) showTicket:(TTSDKTicketSession *) ticketSession {
     ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
-    
+
     [TTSDKTradeItTicket showTicket:ticketSession];
 }
 
@@ -169,14 +170,15 @@
     [TTSDKOrderTypeSelectionViewController class];
     [TTSDKOrderTypeInputViewController class];
     [TTSDKSymbolSearchViewController class];
-    [TTSDKPortfolioViewController class];
-    [TTSDKPortfolioTableViewCell class];
+    [TTSDKAccountsViewController class];
+    [TTSDKAccountsTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
     [TTSDKLinkPromptViewController class];
     [TTSDKBrokerSelectViewController class];
     [TTSDKBrokerSelectDetailViewController class];
     [TTSDKBrokerSelectTableViewCell class];
+    [TTSDKPortfolioViewController class];
     [TTSDKAlertView class];
 }
 @end
