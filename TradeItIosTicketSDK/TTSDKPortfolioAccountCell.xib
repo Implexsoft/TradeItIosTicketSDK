@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PortfolioAccountIdentifier" id="nfH-qu-tSj">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PortfolioAccountIdentifier" id="nfH-qu-tSj" customClass="TTSDKPortfolioAccountsTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nfH-qu-tSj" id="IyZ-jj-Bc5">
@@ -45,6 +45,11 @@
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="sUN-3h-HBW"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="accountLabel" destination="7tc-4J-X92" id="Xu7-5H-WaM"/>
+                <outlet property="buyingPowerLabel" destination="ThJ-Fm-dLS" id="Vjg-ZS-oxC"/>
+                <outlet property="valueLabel" destination="dPb-QM-MmZ" id="XGI-QO-UEy"/>
+            </connections>
             <point key="canvasLocation" x="678" y="424"/>
         </tableViewCell>
     </objects>

@@ -20,6 +20,10 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
 @property (nonatomic, assign) CGPoint panStartPoint;
 
+@property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
+@property (weak, nonatomic) IBOutlet UILabel *costLabel;
+@property (weak, nonatomic) IBOutlet UILabel *changeLabel;
+
 @end
 
 @implementation TTSDKPortfolioHoldingTableViewCell
@@ -36,8 +40,6 @@ static CGFloat const kBounceValue = 20.0f;
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 -(void) panCell:(UIPanGestureRecognizer *)recognizer {
@@ -171,6 +173,14 @@ static CGFloat const kBounceValue = 20.0f;
     }];
 }
 
+-(void) configureCellWithData:(NSDictionary *)data {
+    NSString * symbol = [data valueForKey:@"symbol"];
+    NSString * cost = [data valueForKey:@"cost"];
+    NSString * change = [data valueForKey:@"change"];
 
+    self.symbolLabel.text = symbol;
+    self.costLabel.text = cost;
+    self.changeLabel.text = change;
+}
 
 @end

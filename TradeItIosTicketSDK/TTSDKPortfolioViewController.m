@@ -8,9 +8,11 @@
 
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKUtils.h"
+#import "TTSDKPortfolioHoldingTableViewCell.h"
+#import "TTSDKPortfolioAccountsTableViewCell.h"
 
 @interface TTSDKPortfolioViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
 @property TTSDKUtils * utils;
@@ -18,6 +20,10 @@
 
 @property NSArray * testAccounts;
 @property NSArray * testHoldings;
+@property (weak, nonatomic) IBOutlet UITableView *accountsTable;
+@property (weak, nonatomic) IBOutlet UITableView *holdingsTable;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *holdingsHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountsHeightConstraint;
 
 @end
 
@@ -28,22 +34,24 @@
 }
 
 -(void) viewDidLoad {
-
     self.scrollView.scrollEnabled = YES;
+    self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.alwaysBounceHorizontal = NO;
+    self.scrollView.bounces = YES;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [self.scrollView.subviews firstObject].frame.size.height);
     [self.scrollView needsUpdateConstraints];
 
     self.testAccounts = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acct", @"+18,940 (6.24%)", @"value", @"$40,416", @"buyingPower", nil],
-                         @"Fidelity",
-                         @"Etrade",
-                         @"Robinhood",
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acctName", @"+18,940 (6.24%)", @"totalValue", @"$40,416", @"buyingPower", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acctName", @"+2,214 (3.16%)", @"totalValue", @"$2,105", @"buyingPower", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"Etrade", @"acctName", @"-129 (2.08%)", @"totalValue", @"$305", @"buyingPower", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"Robinhood", @"acctName", @"+679 (8.02%)", @"totalValue", @"$1,536", @"buyingPower", nil],
                          nil];
 
     self.testHoldings = [NSArray arrayWithObjects:
-                         @"AAPL",
-                         @"GE",
-                         @"BET",
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"AAPL", @"symbol", @"$4,988.04", @"cost", @"+1,346 (1.23%)", @"change", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"GE", @"symbol", @"$628.63", @"cost", @"+282 (3.1%)", @"change", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:@"BET", @"symbol", @"$45.54", @"cost", @"-1,823 (0.1%)", @"change", nil],
                          nil];
 
 }
@@ -56,51 +64,76 @@
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self isHoldingsTable:tableView]) {
-        return self.testAccounts.count;
-    } else {
         return self.testHoldings.count;
+    } else {
+        return self.testAccounts.count;
     }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    return NO;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isHoldingsTable:tableView]) {
         return 60.0f;
     } else {
-        return 43.0f;
+        return 44.0f;
     }
+}
+
+-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+        [self resizeUIComponents];
+    }
+}
+
+-(void) resizeUIComponents {
+    self.holdingsHeightConstraint.constant = self.holdingsTable.contentSize.height;
+    self.accountsHeightConstraint.constant = self.accountsTable.contentSize.height;
+
+    CGRect contentRect = CGRectZero;
+
+    for (UIView * view in [[self.scrollView.subviews firstObject] subviews]) {
+        contentRect = CGRectUnion(contentRect, view.frame);
+    }
+
+    [self.scrollView setContentSize: contentRect.size];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier;
     NSString * nibIdentifier;
 
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+
     if ([self isHoldingsTable:tableView]) {
         cellIdentifier = @"PortfolioHoldingIdentifier";
         nibIdentifier = @"TTSDKPortfolioHoldingCell";
+        TTSDKPortfolioHoldingTableViewCell * cell = (TTSDKPortfolioHoldingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
+        if (cell == nil) {
+            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        }
+
+        [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
+        return cell;
     } else {
         cellIdentifier = @"PortfolioAccountIdentifier";
         nibIdentifier = @"TTSDKPortfolioAccountCell";
+        TTSDKPortfolioAccountsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
+        if (cell == nil) {
+            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        }
+
+        [cell configureCellWithData:[self.testAccounts objectAtIndex:indexPath.row]];
+
+        return cell;
     }
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
-    if (cell == nil) {
-        NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-        NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-
-        [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    }
-
-    return cell;
 }
 
 -(BOOL) isHoldingsTable:(UITableView *)tableView {
