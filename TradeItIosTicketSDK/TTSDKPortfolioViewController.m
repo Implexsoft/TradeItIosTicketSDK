@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *holdingsHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountsHeightConstraint;
 
+@property NSInteger selectedIndex;
+
 @end
 
 @implementation TTSDKPortfolioViewController
@@ -54,6 +56,9 @@
                          [NSDictionary dictionaryWithObjectsAndKeys:@"BET", @"symbol", @"$45.54", @"cost", @"-1,823 (0.1%)", @"change", nil],
                          nil];
 
+    self.selectedIndex = -1;
+
+    [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -70,13 +75,37 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // User taps expanded row
+    if (self.selectedIndex == indexPath.row) {
+        self.selectedIndex = -1;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+
+    // User taps different row
+    if (self.selectedIndex != -1) {
+        NSIndexPath * prevPath = [NSIndexPath indexPathForRow:self.selectedIndex inSection:0];
+        self.selectedIndex = indexPath.row;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+
+    // User taps new row with none expanded
+    self.selectedIndex = indexPath.row;
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self resizeUIComponents];
+}
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isHoldingsTable:tableView]) {
-        return 60.0f;
+        if (self.selectedIndex == indexPath.row) {
+            return 120.0f;
+        } else {
+            return 60.0f;
+        }
     } else {
         return 44.0f;
     }
@@ -119,6 +148,7 @@
         }
 
         [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
+        cell.clipsToBounds = YES;
         return cell;
     } else {
         cellIdentifier = @"PortfolioAccountIdentifier";
