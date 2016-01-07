@@ -24,6 +24,7 @@
 #import "TTSDKBrokerSelectDetailViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKPortfolioViewController.h"
+#import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKAlertView.h"
 
 
@@ -179,6 +180,7 @@
     [TTSDKBrokerSelectDetailViewController class];
     [TTSDKBrokerSelectTableViewCell class];
     [TTSDKPortfolioViewController class];
+    [TTSDKPortfolioHoldingTableViewCell class];
     [TTSDKAlertView class];
 }
 @end
