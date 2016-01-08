@@ -23,6 +23,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changeLabel;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UILabel *bidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *askLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dailyReturnValue;
+@property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
 
 @end
 
@@ -40,6 +46,14 @@ static CGFloat const kBounceValue = 20.0f;
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+-(void) hideSeparator {
+    self.separatorView.hidden = YES;
+}
+
+-(void) showSeparator {
+    self.separatorView.hidden = NO;
 }
 
 -(void) panCell:(UIPanGestureRecognizer *)recognizer {
@@ -178,9 +192,23 @@ static CGFloat const kBounceValue = 20.0f;
     NSString * cost = [data valueForKey:@"cost"];
     NSString * change = [data valueForKey:@"change"];
 
+    NSString * bid = [data valueForKey:@"bid"];
+    NSString * ask = [data valueForKey:@"ask"];
+    NSString * totalValue = [data valueForKey:@"totalValue"];
+    NSString * dailyReturn = [data valueForKey:@"dailyReturn"];
+    NSString * totalReturn = [data valueForKey:@"totalReturn"];
+
     self.symbolLabel.text = symbol;
     self.costLabel.text = cost;
     self.changeLabel.text = change;
+
+    self.bidLabel.text = bid;
+    self.askLabel.text = ask;
+    self.totalValueLabel.text = totalValue;
+    self.dailyReturnValue.text = dailyReturn;
+    self.totalReturnValueLabel.text = totalReturn;
+
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end

@@ -11,5 +11,7 @@
 @interface TTSDKPortfolioHoldingTableViewCell : UITableViewCell
 
 -(void) configureCellWithData:(NSDictionary *)data;
+-(void) hideSeparator;
+-(void) showSeparator;
 
 @end

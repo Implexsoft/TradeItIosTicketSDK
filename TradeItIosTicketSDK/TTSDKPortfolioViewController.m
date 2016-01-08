@@ -51,9 +51,36 @@
                          nil];
 
     self.testHoldings = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"AAPL", @"symbol", @"$4,988.04", @"cost", @"+1,346 (1.23%)", @"change", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"GE", @"symbol", @"$628.63", @"cost", @"+282 (3.1%)", @"change", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"BET", @"symbol", @"$45.54", @"cost", @"-1,823 (0.1%)", @"change", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"AAPL", @"symbol",
+                          @"$4,988.04", @"cost",
+                          @"+1,346 (1.23%)", @"change",
+                          @"223.43", @"bid",
+                          @"224.34", @"ask",
+                          @"$7,023.87", @"totalValue",
+                          @"1.36%", @"dailyReturn",
+                          @"-4.32%", @"totalReturn",
+                          nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"GE", @"symbol",
+                          @"$628.63", @"cost",
+                          @"+282 (3.1%)", @"change",
+                          @"52.43", @"bid",
+                          @"51.21", @"ask",
+                          @"$735.07", @"totalValue",
+                          @"-8.1%", @"dailyReturn",
+                          @"4.29%", @"totalReturn",
+                          nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"BET", @"symbol",
+                          @"$45.54", @"cost",
+                          @"-1,823 (0.1%)", @"change",
+                          @"119.03", @"bid",
+                          @"120.74", @"ask",
+                          @"$5,988.07", @"totalValue",
+                          @"3.52%", @"dailyReturn",
+                          @"-1.89%", @"totalReturn",
+                          nil],
                          nil];
 
     self.selectedIndex = -1;
@@ -92,6 +119,7 @@
     // User taps new row with none expanded
     self.selectedIndex = indexPath.row;
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
     [self resizeUIComponents];
 }
 
@@ -102,7 +130,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isHoldingsTable:tableView]) {
         if (self.selectedIndex == indexPath.row) {
-            return 120.0f;
+            return 140.0f;
         } else {
             return 60.0f;
         }
@@ -128,6 +156,8 @@
     }
 
     [self.scrollView setContentSize: contentRect.size];
+    [self.scrollView setNeedsLayout];
+    [self.scrollView setNeedsUpdateConstraints];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,6 +178,13 @@
         }
 
         [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
+
+        if (indexPath.row == 0) {
+            [cell hideSeparator];
+        } else {
+            [cell showSeparator];
+        }
+
         cell.clipsToBounds = YES;
         return cell;
     } else {
