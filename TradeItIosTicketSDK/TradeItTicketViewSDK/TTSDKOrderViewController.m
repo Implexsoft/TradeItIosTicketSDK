@@ -83,6 +83,7 @@
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
     companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
     [companyNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+    [companyNib populateBrokerButtonTitle:self.tradeSession.broker];
 
     [self setCustomEvents];
     [self refreshPressed:self];
@@ -150,6 +151,10 @@
 }
 
 -(void) setCustomEvents {
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(brokerLinkPressed:)];
+    tap.numberOfTapsRequired = 1;
+    [companyNib.brokerButton addGestureRecognizer:tap];
+
     UITapGestureRecognizer * detailsTap = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(refreshPressed:)];
@@ -541,8 +546,12 @@
     [self performSegueWithIdentifier:@"CalculatorToOrderTypeSelection" sender:self];
 }
 
+-(IBAction)brokerLinkPressed:(id)sender {
+    [self performSegueWithIdentifier:@"CalculatorToAccounts" sender:self];
+}
+
 - (IBAction)portfolioPressed:(id)sender {
-    [self performSegueWithIdentifier:@"OrderToPortfolio" sender:self];
+
 }
 
 - (IBAction)orderExpirationPressed:(id)sender {
@@ -596,7 +605,7 @@
 }
 
 - (IBAction)portfolioLinkPressed:(id)sender {
-    [self performSegueWithIdentifier:@"CalculatorToAccounts" sender:self];
+    [self performSegueWithIdentifier:@"OrderToPortfolio" sender:self];
 }
 
 - (IBAction)editAccountsPressed:(id)sender {

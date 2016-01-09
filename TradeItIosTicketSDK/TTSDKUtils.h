@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TTSDKCompanyDetails.h"
+#import "TTSDKCustomAlertView.h"
 
 @interface TTSDKUtils : NSObject
 
@@ -35,5 +36,6 @@
 -(void) styleLoadingButton: (UIButton *)button;
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
+-(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
 
 @end

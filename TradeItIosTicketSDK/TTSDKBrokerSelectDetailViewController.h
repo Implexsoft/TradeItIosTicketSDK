@@ -11,7 +11,7 @@
 #import "TradeItVerifyCredentialsSession.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKBrokerSelectDetailViewController : UIViewController <UITextFieldDelegate>
+@interface TTSDKBrokerSelectDetailViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 @property BOOL cancelToParent;

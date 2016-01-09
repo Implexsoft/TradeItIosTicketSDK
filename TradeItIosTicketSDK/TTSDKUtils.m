@@ -207,9 +207,27 @@
     CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
     companyDetailsNib.frame = frame;
 
+    if ([vc.restorationIdentifier isEqualToString:@"orderViewController"]) {
+        companyDetailsNib.brokerDetails.hidden = NO;
+    } else {
+        companyDetailsNib.brokerDetails.hidden = YES;
+    }
+
     [container addSubview:companyDetailsNib];
 
     return [companyDetailsNib init];
+}
+
+-(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * customAlertArray = [resourceBundle loadNibNamed:@"TTSDKCustomAlertView" owner:vc options:nil];
+
+    TTSDKCustomAlertView * customAlert = [customAlertArray firstObject];
+    CGRect frame = CGRectMake(0, 0, vc.view.frame.size.width, vc.view.frame.size.height);
+    customAlert.frame = frame;
+
+    return customAlert;
 }
 
 - (void) stopSpin {

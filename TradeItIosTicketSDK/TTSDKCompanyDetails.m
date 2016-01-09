@@ -45,4 +45,8 @@
     self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @""), (changePct ? changePct : @"")];
 }
 
+-(void) populateBrokerButtonTitle:(NSString *)broker {
+    [self.brokerButton setTitle:broker forState:UIControlStateNormal];
+}
+
 @end

@@ -17,7 +17,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="BrokerCell" textLabel="VD5-sn-X2q" style="IBUITableViewCellStyleDefault" id="cUq-xX-cQ5" customClass="TTSDKBrokerSelectTableViewCell">
-                                <rect key="frame" x="0.0" y="1" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -55,7 +55,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="FPY-Ig-tWq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-646" y="-117"/>
+            <point key="canvasLocation" x="-632" y="-71"/>
         </scene>
         <!--Login-->
         <scene sceneID="sqE-ot-BFi">
@@ -147,13 +147,13 @@
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
                         <outlet property="unlinkButton" destination="FWy-YN-bS5" id="3rP-DI-ukX"/>
                         <segue destination="ms7-Oa-HyF" kind="unwind" identifier="unwindToBrokerSelect" unwindAction="unwindToBrokerSelect:" id="2c2-FE-Lc7"/>
-                        <segue destination="VXZ-vQ-tdp" kind="show" identifier="LoginToCalculator" id="j7Y-Ba-avL"/>
+                        <segue destination="trO-ZN-AJm" kind="presentation" identifier="LoginToOrder" id="SUN-bA-Ai5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ms7-Oa-HyF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-249" y="-117"/>
+            <point key="canvasLocation" x="-205" y="-71"/>
         </scene>
         <!--Portfolio View Controller-->
         <scene sceneID="nCp-Pb-SR9">
@@ -391,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXD-UY-D7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1006" y="-1397"/>
+            <point key="canvasLocation" x="577" y="157"/>
         </scene>
         <!--Link Prompt View Controller-->
         <scene sceneID="caK-z3-vmR">
@@ -496,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJc-zt-7Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-867" y="601"/>
+            <point key="canvasLocation" x="-1525" y="-71"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
@@ -513,7 +513,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hy-zS-JoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1071" y="-117"/>
+            <point key="canvasLocation" x="-1075" y="-71"/>
         </scene>
         <!--Success View Controller-->
         <scene sceneID="QCT-Ou-Vi2">
@@ -1280,7 +1280,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Broker-->
         <scene sceneID="dXe-1O-F2b">
             <objects>
-                <viewController id="VXZ-vQ-tdp" customClass="TTSDKOrderViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="orderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VXZ-vQ-tdp" customClass="TTSDKOrderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1QG-Ea-qct"/>
                         <viewControllerLayoutGuide type="bottom" id="6ni-aS-n4Y"/>
@@ -1401,19 +1401,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
-                                                        <rect key="frame" x="20" y="20" width="300" height="50"/>
+                                                        <rect key="frame" x="20" y="20" width="280" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="qfn-uP-BAz"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRn-L9-KOk">
-                                                        <rect key="frame" x="249" y="0.0" width="63" height="30"/>
-                                                        <state key="normal" title="Fidelity"/>
-                                                        <connections>
-                                                            <action selector="portfolioPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="KDC-lA-VQO"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1421,7 +1414,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="OjD-iA-LDS" firstAttribute="top" secondItem="Icf-eA-afJ" secondAttribute="top" constant="20" id="N06-MK-Gwf"/>
                                                     <constraint firstItem="XLO-ms-ajL" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" id="ZFQ-2G-eb3"/>
                                                     <constraint firstAttribute="trailing" secondItem="XLO-ms-ajL" secondAttribute="trailing" id="cEo-Sd-wUC"/>
-                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" id="gPk-5J-ZVz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" constant="20" id="gPk-5J-ZVz"/>
                                                     <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="20" id="lvg-kT-06I"/>
                                                 </constraints>
                                             </view>
@@ -1923,7 +1916,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BlA-D5-Hkv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="517" y="-38"/>
+            <point key="canvasLocation" x="97" y="-1404"/>
         </scene>
     </scenes>
     <resources>
@@ -1931,8 +1924,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="success_icon.png" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="j7Y-Ba-avL"/>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="V7o-09-esf"/>
+        <segue reference="wuc-R0-2HR"/>
+        <segue reference="I3L-jI-b7x"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,9 +13,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *symbolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *brokerButton;
+@property (weak, nonatomic) IBOutlet UIView *brokerDetails;
 
 -(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct;
 -(void) populateSymbol: (NSString *)symbol;
 -(void) populateLastPrice: (NSNumber *)lastPrice;
+-(void) populateBrokerButtonTitle:(NSString *)broker;
 
 @end
