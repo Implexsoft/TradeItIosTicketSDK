@@ -10,4 +10,9 @@
 
 @interface TTSDKCustomAlertView : UIView
 
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;
+
 @end

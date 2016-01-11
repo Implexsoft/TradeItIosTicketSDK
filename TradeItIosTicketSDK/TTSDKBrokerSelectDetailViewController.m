@@ -261,47 +261,47 @@
             self.tradeSession.authenticationInfo = self.verifyCreds;
             self.tradeSession.brokerSignUpComplete = true;
 
-            //[self performSegueWithIdentifier: @"LoginToOrder" sender: self];
-//            NSArray * fakeAccounts = [NSArray arrayWithObjects:
-//                                      [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*2345",@"name",nil],
-//                                      [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*9283",@"name",nil],
-//                                      nil];
-//
-//            if(![UIAlertController class]) {
-//                [self showOldAcctSelect: fakeAccounts];
-//            } else {
-//                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Accounts To Link"
-//                                                                                message:nil
-//                                                                         preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//                void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
-//                    [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
-//                        [self loginComplete];
-//                    }];
-//                };
-//
-//                for (NSDictionary * account in fakeAccounts) {
-//                    NSString * title = [account objectForKey:@"name"];
-//                    UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
-//                                                                  handler:^(UIAlertAction * action) {
-//                                                                      handler(account);
-//                                                                  }];
-//                    [alert addAction:acct];
-//                }
-//
-//                UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//                    [self dismissViewControllerAnimated:YES completion:nil];
-//                }];
-//                [alert addAction:cancel];
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self presentViewController:alert animated:YES completion:nil];
-//                });
-//            }
+            [self performSegueWithIdentifier: @"LoginToOrder" sender: self];
+            NSArray * fakeAccounts = [NSArray arrayWithObjects:
+                                      [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*2345",@"name",nil],
+                                      [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*9283",@"name",nil],
+                                      nil];
+
+            if(![UIAlertController class]) {
+                [self showOldAcctSelect: fakeAccounts];
+            } else {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Accounts To Link"
+                                                                                message:nil
+                                                                         preferredStyle:UIAlertControllerStyleActionSheet];
+
+                void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
+                    [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
+                        [self loginComplete];
+                    }];
+                };
+
+                for (NSDictionary * account in fakeAccounts) {
+                    NSString * title = [account objectForKey:@"name"];
+                    UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      handler(account);
+                                                                  }];
+                    [alert addAction:acct];
+                }
+
+                UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                [alert addAction:cancel];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:YES completion:nil];
+                });
+            }
 
             
-            TTSDKCustomAlertView * alert = [utils customAlertWithVC:self];
-            [self.view addSubview:alert];
+//            TTSDKCustomAlertView * alert = [utils customAlertWithVC:self];
+//            [self.view addSubview:alert];
 
 
         } else {

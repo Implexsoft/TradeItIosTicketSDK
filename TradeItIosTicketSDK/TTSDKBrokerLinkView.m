@@ -1,20 +1,20 @@
 //
-//  TTSDKCustomAlertView.m
+//  BrokerLinkView.m
 //  TradeItIosTicketSDK
 //
-//  Created by Daniel Vaughn on 1/8/16.
+//  Created by Daniel Vaughn on 1/11/16.
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKCustomAlertView.h"
+#import "TTSDKBrokerLinkView.h"
+#import "TTSDKUtils.h"
 
-@interface TTSDKCustomAlertView()
-
-
+@interface TTSDKBrokerLinkView()
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
-@implementation TTSDKCustomAlertView
+@implementation TTSDKBrokerLinkView
 
 /*
 // Only override drawRect: if you perform custom drawing.
