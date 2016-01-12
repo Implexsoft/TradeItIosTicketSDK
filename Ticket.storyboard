@@ -155,11 +155,11 @@
             </objects>
             <point key="canvasLocation" x="135" y="359"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Portfolio-->
         <scene sceneID="hwj-2O-7ua">
             <objects>
                 <navigationController id="McX-JL-l75" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="zyv-cJ-mAp"/>
+                    <tabBarItem key="tabBarItem" title="Portfolio" selectedImage="accountsIcon.png" id="zyv-cJ-mAp"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SGc-an-pIu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -380,7 +380,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="wxp-Tb-Pmc" secondAttribute="trailing" constant="-16" id="zph-re-Jx7"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="e1d-tN-ZfR"/>
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="accountsIcon.png" selectedImage="accountsIcon.png" id="e1d-tN-ZfR"/>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
                         <barButtonItem key="leftBarButtonItem" title="Close" id="jz8-Jg-IW6"/>
                     </navigationItem>
@@ -1220,11 +1220,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="1241" y="-493"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Trade-->
         <scene sceneID="SqP-UT-lT4">
             <objects>
                 <navigationController storyboardIdentifier="advCalculatorController" id="trO-ZN-AJm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="rOF-1j-wUF"/>
+                    <tabBarItem key="tabBarItem" title="Trade" selectedImage="tradeIcon.png" id="rOF-1j-wUF"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xK-Dg-alF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1942,8 +1942,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         </scene>
     </scenes>
     <resources>
+        <image name="accountsIcon.png" width="66" height="66"/>
         <image name="chevronRight.png" width="87" height="128"/>
         <image name="success_icon.png" width="120" height="120"/>
+        <image name="tradeIcon.png" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ujk-YM-BZG"/>
