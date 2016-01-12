@@ -67,6 +67,7 @@
 		65ECCAF31C125403000CE86B /* TTSDKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKUtils.m */; };
 		65F240C91C4570BD00DD2309 /* TTSDKBaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F240C71C4570BD00DD2309 /* TTSDKBaseViewController.h */; };
 		65F240CA1C4570BD00DD2309 /* TTSDKBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F240C81C4570BD00DD2309 /* TTSDKBaseViewController.m */; };
+		65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
 		65F5BCC61C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */; };
 		A905D3211B629D76006B0B8C /* TTSDKKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = A905D31F1B629D75006B0B8C /* TTSDKKeychain.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -74,7 +75,6 @@
 		A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C401B542C4B00373E1B /* TTSDKTicketSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */; };
-		A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */; };
 		A9901A991B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A9901A971B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A9901A9A1B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9901A981B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
@@ -1057,6 +1057,7 @@
 			files = (
 				6588C3AC1C441BB700927F72 /* View.xib in Resources */,
 				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
+				65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */,
 				A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
@@ -1064,7 +1065,6 @@
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
-				A94C7A7E1BB08A3800212EE7 /* Ticket.storyboard in Resources */,
 				65D582C41C4050E40060925A /* TTSDKCustomAlertView.xib in Resources */,
 				655745721C3ACA9B004BA180 /* menuIcon.png in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,

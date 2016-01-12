@@ -39,6 +39,8 @@
             [self showBrokerPickerAndSetPassword:NO onSelection:^{
                 [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
             }];
+        } else if (![linkedBrokers count]) {
+            return;
         } else {
             [self setAuthentication:linkedBrokers[0] withPassword:NO];
             [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];

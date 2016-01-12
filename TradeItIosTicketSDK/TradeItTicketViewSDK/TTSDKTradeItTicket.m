@@ -202,32 +202,32 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     }
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
+//    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+//    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
 
-//    TTSDKBaseViewController *initialViewController = (TTSDKBaseViewController *)[ticket instantiateViewControllerWithIdentifier: @"BaseController"];
-//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//    [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-//    return;
+    TTSDKBaseViewController *initialViewController = (TTSDKBaseViewController *)[ticket instantiateViewControllerWithIdentifier: @"BaseController"];
+    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+    return;
 
-    if([startingView isEqualToString: @"linkPromptController"]){
-        TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-        initialViewController.tradeSession = tradeSession;
-        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-        //Display
-        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-    } else if ([startingView isEqualToString:@"portfolioController"]) {
-        TTSDKAccountsViewController * initialViewController = (TTSDKAccountsViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-        initialViewController.tradeSession = tradeSession;
-        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-        //Display
-        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-    } else {
-        TTSDKOrderViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-        initialViewController.tradeSession = tradeSession;
-        //Display
-        [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
-    }
+//    if([startingView isEqualToString: @"linkPromptController"]){
+//        TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+//        initialViewController.tradeSession = tradeSession;
+//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//        //Display
+//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+//    } else if ([startingView isEqualToString:@"portfolioController"]) {
+//        TTSDKAccountsViewController * initialViewController = (TTSDKAccountsViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+//        initialViewController.tradeSession = tradeSession;
+//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//        //Display
+//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+//    } else {
+//        TTSDKOrderViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+//        initialViewController.tradeSession = tradeSession;
+//        //Display
+//        [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
+//    }
 
 }
 
