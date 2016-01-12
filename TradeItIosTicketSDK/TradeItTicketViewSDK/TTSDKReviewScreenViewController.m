@@ -65,6 +65,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
 
@@ -408,7 +410,6 @@
     if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
         TTSDKSuccessViewController * dest = [segue destinationViewController];
         [dest setResult: self.successResult];
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
     }
 }
 

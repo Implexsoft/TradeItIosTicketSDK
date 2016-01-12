@@ -8,6 +8,7 @@
 
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKAccountsViewController.h"
+#import "TTSDKBaseViewController.h"
 
 @implementation TTSDKTradeItTicket {
 
@@ -15,88 +16,6 @@
 
 static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
 static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
-
-+(UIColor *) activeColor {
-    return [UIColor colorWithRed:0.0f
-                           green:114.0f/255.0f
-                            blue:188.0f/255.0f
-                           alpha:1.0f];
-}
-
-+(UIColor *) baseTextColor {
-    return [UIColor darkTextColor];
-}
-
-+(UIColor *) tradeItBlue {
-    return [UIColor colorWithRed:81.0f/255.0f green:137.0f/255.0f blue:185.0f/255.0f alpha:1.0f];
-}
-
-+(UIColor *) tradeItLogoGray {
-    return [UIColor colorWithRed:12.0f/255.0f green:52.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
-}
-
-+(NSMutableAttributedString *) logoString {
-    NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString: @"TRADEIT"];
-    
-    [text addAttribute:NSForegroundColorAttributeName
-                 value:[TTSDKTradeItTicket tradeItBlue]
-                 range:NSMakeRange(0, 5)];
-    
-    
-    [text addAttribute:NSForegroundColorAttributeName
-                 value:[TTSDKTradeItTicket tradeItLogoGray]
-                 range:NSMakeRange(5, 2)];
-    
-    return text;
-
-}
-
-+(NSMutableAttributedString *) logoStringLite {
-    NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString: @"TRADEIT"];
-    
-    [text addAttribute:NSForegroundColorAttributeName
-                 value:[UIColor whiteColor]
-                 range:NSMakeRange(0, 5)];
-    
-    
-    [text addAttribute:NSForegroundColorAttributeName
-                 value:[TTSDKTradeItTicket tradeItBlue]
-                 range:NSMakeRange(5, 2)];
-    
-    return text;
-
-}
-
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToWidth: (float) i_width withInset: (float) inset {
-    //UIGraphicsBeginImageContext(newSize);
-    float oldWidth = image.size.width;
-    float scaleFactor = i_width / oldWidth;
-    
-    float newHeight = image.size.height * scaleFactor;
-    float newWidth = oldWidth * scaleFactor;
-    
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(newWidth + inset, newHeight), NO, 0.0);
-    [image drawInRect:CGRectMake(inset, 0, newWidth, newHeight)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-+(NSString *) splitCamelCase:(NSString *) str {
-    NSMutableString * str2 = [NSMutableString string];
-    
-    for (NSInteger i=0; i < str.length; i++){
-        NSString *ch = [str substringWithRange:NSMakeRange(i, 1)];
-        if ([ch rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound) {
-            [str2 appendString:@" "];
-        }
-        [str2 appendString:ch];
-    }
-    
-    return str2.capitalizedString;
-}
 
 +(NSArray *) getAvailableBrokers {
     NSArray * brokers = @[
@@ -286,9 +205,13 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
     [nav setModalPresentationStyle: UIModalPresentationFullScreen];
 
+//    TTSDKBaseViewController *initialViewController = (TTSDKBaseViewController *)[ticket instantiateViewControllerWithIdentifier: @"BaseController"];
+//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//    [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+//    return;
+
     if([startingView isEqualToString: @"linkPromptController"]){
-        //TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-        TTSDKBrokerSelectViewController * initialViewController = (TTSDKBrokerSelectViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+        TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
         initialViewController.tradeSession = tradeSession;
         [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
         //Display
@@ -320,11 +243,6 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
 +(void) restartTicket:(TTSDKTicketSession *) tradeSession {
     [[tradeSession parentView] dismissViewControllerAnimated:NO completion:nil];
     [TTSDKTradeItTicket showTicket:tradeSession];
-}
-
-+(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString {
-    NSRange range = [base rangeOfString:searchString];
-    return range.length != 0;
 }
 
 @end

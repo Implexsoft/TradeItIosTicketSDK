@@ -295,6 +295,34 @@
     return [formatter numberFromString:priceString].doubleValue;
 }
 
+-(NSString *) splitCamelCase:(NSString *) str {
+    NSMutableString * str2 = [NSMutableString string];
+
+    for (NSInteger i=0; i < str.length; i++){
+        NSString *ch = [str substringWithRange:NSMakeRange(i, 1)];
+        if ([ch rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound) {
+            [str2 appendString:@" "];
+        }
+        [str2 appendString:ch];
+    }
+    
+    return str2.capitalizedString;
+}
+
+-(NSMutableAttributedString *) logoStringLight {
+    NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString: @"TRADEIT"];
+    
+    [text addAttribute:NSForegroundColorAttributeName
+                 value:[UIColor lightGrayColor]
+                 range:NSMakeRange(0, 5)];
+    
+    [text addAttribute:NSForegroundColorAttributeName
+                 value:activeButtonColor
+                 range:NSMakeRange(5, 2)];
+
+    return text;
+}
+
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
     UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
     UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
@@ -325,6 +353,11 @@
     }
 
     return (NSAttributedString *) attString;
+}
+
+-(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString {
+    NSRange range = [base rangeOfString:searchString];
+    return range.length != 0;
 }
 
 @end

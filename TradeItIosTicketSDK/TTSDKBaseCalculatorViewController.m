@@ -25,7 +25,9 @@
     // Do any additional setup after loading the view.
     
     linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
-    
+
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     segueToBrokerSelectDetail = self.advMode ? @"advCalculatorToBrokerSelectDetail" : @"calculatorToBrokerSelectDetail";
 }
 

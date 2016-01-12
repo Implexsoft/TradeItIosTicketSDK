@@ -37,6 +37,8 @@
 
     self.view.superview.backgroundColor = [UIColor whiteColor];
 
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
 
     brokerUsername = @{
@@ -112,8 +114,10 @@
     if(self.tradeSession.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
-        
-        self.tradeSession.brokerSignUpCallback(res);
+
+        if (self.tradeSession.brokerSignUpCallback) {
+            self.tradeSession.brokerSignUpCallback(res);
+        }
         [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
         
         return;
@@ -171,13 +175,6 @@
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"LoginToOrder"]) {
-        UIViewController * nav = [segue destinationViewController];
-        TTSDKBrokerSelectViewController * dest = (TTSDKBrokerSelectViewController *)[((UINavigationController *)nav).viewControllers objectAtIndex:0];
-        [dest setTradeSession:self.tradeSession];
-    } else {
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
-    }
 }
 
 

@@ -11,7 +11,7 @@
 
 #import "TradeItTicketController.h"
 #import "TradeItTicketControllerResult.h"
-#import "TradeItAuthController.h"
+
 #import "TradeItAuthControllerResult.h"
 
 

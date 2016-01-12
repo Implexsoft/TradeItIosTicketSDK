@@ -7,12 +7,13 @@
 //
 
 #import "TTSDKSuccessViewController.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKSuccessViewController() {
 
     __weak IBOutlet UILabel *successMessage;
     __weak IBOutlet UILabel *tradeItLabel;
-    
+    TTSDKUtils * utils;
 }
 
 @end
@@ -21,11 +22,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
+    utils = [TTSDKUtils sharedUtils];
+
     [successMessage setText:[NSString stringWithFormat:@"%@", [[self result] confirmationMessage]]];
     
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TTSDKTradeItTicket logoStringLite]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [tradeItLabel setAttributedText:poweredBy];

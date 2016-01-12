@@ -41,14 +41,6 @@
 
 
 - (void)configureCell {
-    //Maybe someday we can add these back
-    //UIImage * logo = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", valueText]];
-    //UIImage * myIcon = [TradeItTicket imageWithImage:logo scaledToWidth: 50.0f withInset: 15.0f];
-    //cell.imageView.image = myIcon;
-
-//    self.textLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1];
-//    [self setSeparatorInset:UIEdgeInsetsZero];
-
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

@@ -109,10 +109,6 @@
 #pragma mark - Navigation
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"PortfolioToBrokerSelect"]) {
-        TTSDKBrokerSelectViewController * dest = [segue destinationViewController];
-        [dest setTradeSession:self.tradeSession];
-    }
 }
 
 

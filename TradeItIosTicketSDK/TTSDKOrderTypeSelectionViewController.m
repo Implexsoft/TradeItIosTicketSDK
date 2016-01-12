@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tradeSession = [TTSDKTicketSession globalSession];
 }
 
 
@@ -29,7 +30,6 @@
     if ([[segue identifier] isEqualToString:@"OrderTypeSelectionToInput"]) {
         TTSDKOrderTypeInputViewController * dest = [segue destinationViewController];
         dest.orderType = self.orderType;
-        [dest setTradeSession:self.tradeSession];
     }
 }
 

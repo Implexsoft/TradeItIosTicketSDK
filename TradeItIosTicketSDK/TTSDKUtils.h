@@ -24,7 +24,7 @@
 -(NSString *) formatPriceString: (NSNumber *)num;
 -(double) numberFromPriceString: (NSString *)priceString;
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style;
-
+-(NSMutableAttributedString *) logoStringLight;
 -(void) addGradientToButton: (UIButton *)button;
 -(void) removeGradientFromCurrentContainer;
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
@@ -37,5 +37,8 @@
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
 -(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
+
+-(NSString *) splitCamelCase:(NSString *) str;
+-(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 
 @end

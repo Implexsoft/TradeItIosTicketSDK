@@ -71,6 +71,8 @@
     [self initConstraints];
     [self uiTweaks];
 
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     if(self.tradeSession.orderInfo.quantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", self.tradeSession.orderInfo.quantity]];
     }
@@ -212,7 +214,7 @@
 
     if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]){
         price = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
-    } else if([TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
+    } else if([utils containsString:self.tradeSession.orderInfo.price.type searchString:@"imit"]) {
         price = [self.tradeSession.orderInfo.price.limitPrice doubleValue];
     }
 
@@ -222,7 +224,7 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
 
-    NSString * equalitySign = [TTSDKTradeItTicket containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [utils containsString:self.tradeSession.orderInfo.price.type searchString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
     NSString * formattedString = [NSString stringWithFormat:@"%@ %@ %@", @"Est. Cost", equalitySign, formattedNumber];
 
@@ -275,7 +277,7 @@
 
 // CHANGING ORDER ACTION
 -(void) changeOrderAction: (NSString *) action {
-    [orderActionButton setTitle:[TTSDKTradeItTicket splitCamelCase:action] forState:UIControlStateNormal];
+    [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
     self.tradeSession.orderInfo.action = action;
 
     orderActionButton.layer.borderColor = utils.inactiveButtonColor.CGColor;
@@ -311,7 +313,7 @@
 // CHANGING ORDER TYPE
 
 -(void) changeOrderType: (NSString *) type {
-    [orderTypeButton setTitle:[TTSDKTradeItTicket splitCamelCase:type] forState:UIControlStateNormal];
+    [orderTypeButton setTitle:[utils splitCamelCase:type] forState:UIControlStateNormal];
 
     if([type isEqualToString:@"limit"]){
         [self setToLimitOrder];
@@ -390,8 +392,6 @@
     } else if([segue.identifier isEqualToString:@"CalculatorToReview"]) {
         [[segue destinationViewController] setResult: self.reviewResult];
     }
-
-    [[segue destinationViewController] setTradeSession: self.tradeSession];
 }
 
 -(IBAction) unwindToAdvCalc:(UIStoryboardSegue *)segue {

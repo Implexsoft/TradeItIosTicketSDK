@@ -22,6 +22,8 @@ static NSString * CellIdentifier = @"BrokerCell";
     self.tableView.contentInset = UIEdgeInsetsZero;
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     brokers = self.tradeSession.brokerList;
     linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
     
@@ -165,7 +167,6 @@ static NSString * CellIdentifier = @"BrokerCell";
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"brokerDetailSegue"]) {
         [[segue destinationViewController] setAddBroker: [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1]];
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
     }
 }
 

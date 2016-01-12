@@ -18,17 +18,6 @@
 
 @interface TTSDKTradeItTicket : NSObject
 
-+(UIColor *) activeColor;
-+(UIColor *) baseTextColor;
-+(UIColor *) tradeItBlue;
-
-+(NSAttributedString *) logoString;
-+(NSAttributedString *) logoStringLite;
-
-+(UIImage *)imageWithImage:(UIImage *)image scaledToWidth: (float) i_width withInset: (float) inset;
-
-+(NSString *) splitCamelCase:(NSString *) str;
-
 +(NSArray *) getAvailableBrokers: (TTSDKTicketSession *) tradeSession;
 +(NSString *) getBrokerDisplayString:(NSString *) value;
 +(NSString *) getBrokerValueString:(NSString *) displayString;
@@ -48,7 +37,5 @@
 +(void) showTicket:(TTSDKTicketSession *) tradeSession;
 +(void) returnToParentApp: (TTSDKTicketSession *) tradeSession;
 +(void) restartTicket:(TTSDKTicketSession *) tradeSession;
-
-+(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 
 @end

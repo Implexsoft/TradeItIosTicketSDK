@@ -28,6 +28,8 @@
 @implementation TTSDKOrderTypeInputViewController
 
 -(void) viewWillAppear:(BOOL)animated {
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     self.orderTypeLabel.text = self.orderType;
 
     self.limitPrice = nil;

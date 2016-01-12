@@ -1,24 +1,22 @@
 //
-//  LinkPromptViewController.m
+//  TTSDKBaseViewController.m
 //  TradeItIosTicketSDK
 //
-//  Created by Daniel Vaughn on 1/4/16.
+//  Created by Daniel Vaughn on 1/12/16.
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKLinkPromptViewController.h"
-#import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKBaseViewController.h"
 
-@interface TTSDKLinkPromptViewController ()
+@interface TTSDKBaseViewController ()
 
 @end
 
-@implementation TTSDKLinkPromptViewController
+@implementation TTSDKBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.tradeSession = [TTSDKTicketSession globalSession];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,16 +24,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)brokerSelectPressed:(id)sender {
-    [self performSegueWithIdentifier:@"LinkPromptToBrokerSelect" sender:self];
-}
-
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
+*/
 
 @end
