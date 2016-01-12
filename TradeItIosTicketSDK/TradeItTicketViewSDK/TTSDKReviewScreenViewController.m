@@ -84,6 +84,9 @@
         [utils styleMainActiveButton:submitOrderButton];
     }
 
+    scrollView.alwaysBounceHorizontal = NO;
+    scrollView.alwaysBounceVertical = YES;
+
     [self setContentViewHeight];
 }
 
@@ -280,6 +283,7 @@
                                              constant:scrollViewHeight + 100]; // extra 30 for padding
     heightConstraint.priority = 900;
     [self.view addConstraint:heightConstraint];
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, heightConstraint.constant);
 }
 
 -(void) constrainToggle:(UISwitch *) toggle andLabel:(UILabel *) label toView:(UIView *) view {

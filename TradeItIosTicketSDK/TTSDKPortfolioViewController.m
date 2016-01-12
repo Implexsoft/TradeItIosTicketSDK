@@ -103,22 +103,20 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // User taps expanded row
     if (self.selectedIndex == indexPath.row) {
+        // User taps expanded row
         self.selectedIndex = -1;
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-
-    // User taps different row
-    if (self.selectedIndex != -1) {
+    } else if (self.selectedIndex != -1) {
+        // User taps different row
         NSIndexPath * prevPath = [NSIndexPath indexPathForRow:self.selectedIndex inSection:0];
         self.selectedIndex = indexPath.row;
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        // User taps new row with none expanded
+        self.selectedIndex = indexPath.row;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
-
-    // User taps new row with none expanded
-    self.selectedIndex = indexPath.row;
-    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
     [self resizeUIComponents];
 }

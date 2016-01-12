@@ -477,11 +477,11 @@
 				65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */,
 				65DD1BD61C3C82F80032676A /* TTSDKPortfolioViewController.m */,
 				65DD1BD91C3C8C4B0032676A /* TTSDKPortfolioAccountCell.xib */,
+				654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */,
+				654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */,
 				6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */,
 				6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */,
 				6510FBC21C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m */,
-				654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */,
-				654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */,
 			);
 			name = PortfolioScreen;
 			sourceTree = "<group>";
