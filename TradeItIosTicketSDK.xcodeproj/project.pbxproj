@@ -24,7 +24,7 @@
 
 /* Begin PBXBuildFile section */
 		650C32831C2B221500E97E8A /* TTSDKCompanyDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E0C66B1C2B054600DE74CC /* TTSDKCompanyDetails.m */; };
-		650E2D3F1C45BE9700A3069E /* accountsIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 650E2D3D1C45BE9700A3069E /* accountsIcon@3x.png */; };
+		650E2D3F1C45BE9700A3069E /* portfolioIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */; };
 		650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */; };
 		650FED3C1C330C0A005CBABA /* TTSDKAccountsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650FED381C3301AF005CBABA /* TTSDKAccountsCell.xib */; };
 		6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65DD1BD91C3C8C4B0032676A /* TTSDKPortfolioAccountCell.xib */; };
@@ -245,7 +245,7 @@
 
 /* Begin PBXFileReference section */
 		6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKcalc.xib; sourceTree = "<group>"; };
-		650E2D3D1C45BE9700A3069E /* accountsIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accountsIcon@3x.png"; sourceTree = "<group>"; };
+		650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "portfolioIcon@3x.png"; sourceTree = "<group>"; };
 		650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tradeIcon@3x.png"; sourceTree = "<group>"; };
 		650FED381C3301AF005CBABA /* TTSDKAccountsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKAccountsCell.xib; sourceTree = "<group>"; };
 		6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKPortfolioHoldingCell.xib; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 			children = (
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
 				6557457B1C3AD5F9004BA180 /* chevronRight.png */,
-				650E2D3D1C45BE9700A3069E /* accountsIcon@3x.png */,
+				650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */,
 				650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */,
 				65B314031C2377E700EBC30D /* success_icon.png */,
 				655745701C3ACA9B004BA180 /* menuIcon.png */,
@@ -1041,7 +1041,7 @@
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
 				6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */,
-				650E2D3F1C45BE9700A3069E /* accountsIcon@3x.png in Resources */,
+				650E2D3F1C45BE9700A3069E /* portfolioIcon@3x.png in Resources */,
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
 				650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,

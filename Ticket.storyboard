@@ -174,11 +174,12 @@
             </objects>
             <point key="canvasLocation" x="614" y="617"/>
         </scene>
-        <!--Portfolio-->
+        <!--PortfolioNav-->
         <scene sceneID="hwj-2O-7ua">
             <objects>
-                <navigationController storyboardIdentifier="PortfolioController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="McX-JL-l75" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Portfolio" selectedImage="accountsIcon.png" id="zyv-cJ-mAp"/>
+                <navigationController storyboardIdentifier="PortfolioController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="McX-JL-l75" userLabel="PortfolioNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="portfolioIcon.png" selectedImage="portfolioIcon.png" id="zyv-cJ-mAp"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SGc-an-pIu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -399,12 +400,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="wxp-Tb-Pmc" secondAttribute="trailing" constant="-16" id="zph-re-Jx7"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Portfolio" image="accountsIcon.png" selectedImage="accountsIcon.png" id="e1d-tN-ZfR"/>
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="portfolioIcon.png" selectedImage="portfolioIcon.png" id="e1d-tN-ZfR"/>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
                         <barButtonItem key="leftBarButtonItem" title="Close" id="jz8-Jg-IW6"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountsHeightConstraint" destination="LbQ-2R-uD2" id="jKX-qX-YKc"/>
@@ -1239,11 +1239,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="1241" y="-493"/>
         </scene>
-        <!--Trade-->
+        <!--TradeNav-->
         <scene sceneID="SqP-UT-lT4">
             <objects>
-                <navigationController storyboardIdentifier="TradeController" id="trO-ZN-AJm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Trade" selectedImage="tradeIcon.png" id="rOF-1j-wUF"/>
+                <navigationController storyboardIdentifier="TradeController" id="trO-ZN-AJm" userLabel="TradeNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Trade" image="tradeIcon.png" selectedImage="tradeIcon.png" id="rOF-1j-wUF"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4xK-Dg-alF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1303,10 +1304,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="1241" y="-1675"/>
         </scene>
-        <!--Order-->
+        <!--Trade-->
         <scene sceneID="dXe-1O-F2b">
             <objects>
-                <viewController storyboardIdentifier="orderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VXZ-vQ-tdp" userLabel="Order" customClass="TTSDKTradeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="orderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VXZ-vQ-tdp" customClass="TTSDKTradeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1QG-Ea-qct"/>
                         <viewControllerLayoutGuide type="bottom" id="6ni-aS-n4Y"/>
@@ -1962,8 +1963,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         </scene>
     </scenes>
     <resources>
-        <image name="accountsIcon.png" width="22" height="22"/>
         <image name="chevronRight.png" width="87" height="128"/>
+        <image name="portfolioIcon.png" width="22" height="22"/>
         <image name="success_icon.png" width="120" height="120"/>
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
