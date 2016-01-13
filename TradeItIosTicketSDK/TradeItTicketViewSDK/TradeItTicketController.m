@@ -30,6 +30,8 @@
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAlertView.h"
+#import "TTSDKAccountLinkViewController.h"
+#import "TTSDKAccountLinkTableViewCell.h"
 
 
 @implementation TradeItTicketController {
@@ -192,6 +194,8 @@
     [TTSDKPortfolioAccountsTableViewCell class];
     [TTSDKCustomAlertView class];
     [TTSDKTabBarViewController class];
+    [TTSDKAccountLinkViewController class];
+    [TTSDKAccountLinkTableViewCell class];
 
     [TTSDKAlertView class];
 }

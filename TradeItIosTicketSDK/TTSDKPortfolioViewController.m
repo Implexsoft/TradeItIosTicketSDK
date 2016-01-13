@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountsHeightConstraint;
 
 @property NSInteger selectedIndex;
+@property (weak, nonatomic) IBOutlet UIButton *editAccountsButton;
 
 @end
 
@@ -34,6 +35,10 @@
 
 - (IBAction)closePressed:(id)sender {
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+}
+
+- (IBAction)editAccountsPressed:(id)sender {
+    [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
 }
 
 -(void) viewDidLoad {
@@ -47,9 +52,41 @@
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [self.scrollView.subviews firstObject].frame.size.height);
     [self.scrollView needsUpdateConstraints];
 
+//    NSArray * fidelityHoldings = [NSArray arrayWithObjects:
+//                         [NSDictionary dictionaryWithObjectsAndKeys:
+//                          @"AAPL", @"symbol",
+//                          @"$4,988.04", @"cost",
+//                          @"+1,346 (1.23%)", @"change",
+//                          @"223.43", @"bid",
+//                          @"224.34", @"ask",
+//                          @"$7,023.87", @"totalValue",
+//                          @"1.36%", @"dailyReturn",
+//                          @"-4.32%", @"totalReturn",
+//                          nil],
+//                         [NSDictionary dictionaryWithObjectsAndKeys:
+//                          @"GE", @"symbol",
+//                          @"$628.63", @"cost",
+//                          @"+282 (3.1%)", @"change",
+//                          @"52.43", @"bid",
+//                          @"51.21", @"ask",
+//                          @"$735.07", @"totalValue",
+//                          @"-8.1%", @"dailyReturn",
+//                          @"4.29%", @"totalReturn",
+//                          nil],
+//                         [NSDictionary dictionaryWithObjectsAndKeys:
+//                          @"BET", @"symbol",
+//                          @"$45.54", @"cost",
+//                          @"-1,823 (0.1%)", @"change",
+//                          @"119.03", @"bid",
+//                          @"120.74", @"ask",
+//                          @"$5,988.07", @"totalValue",
+//                          @"3.52%", @"dailyReturn",
+//                          @"-1.89%", @"totalReturn",
+//                          nil],
+//                         nil];
+
     self.testAccounts = [NSArray arrayWithObjects:
                          [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acctName", @"+18,940 (6.24%)", @"totalValue", @"$40,416", @"buyingPower", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acctName", @"+2,214 (3.16%)", @"totalValue", @"$2,105", @"buyingPower", nil],
                          [NSDictionary dictionaryWithObjectsAndKeys:@"Etrade", @"acctName", @"-129 (2.08%)", @"totalValue", @"$305", @"buyingPower", nil],
                          [NSDictionary dictionaryWithObjectsAndKeys:@"Robinhood", @"acctName", @"+679 (8.02%)", @"totalValue", @"$1,536", @"buyingPower", nil],
                          nil];
