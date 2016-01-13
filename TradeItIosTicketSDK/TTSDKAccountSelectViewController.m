@@ -13,7 +13,6 @@
 @interface TTSDKAccountSelectViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
-@property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
 @property TTSDKUtils * utils;
 
 @end
@@ -24,30 +23,10 @@
     [super viewDidLoad];
 
     self.utils = [TTSDKUtils sharedUtils];
-
-    [self.utils styleMainActiveButton:self.doneEditingBrokersButton];
-
-    [self updateEditStyles];
 }
 
 -(IBAction) editBrokersPressed:(id)sender {
-    [self.tableView setEditing:YES animated:YES];
-    [self updateEditStyles];
-}
-
--(IBAction) doneEditingBrokersPressed:(id)sender {
-    [self.tableView setEditing:NO animated:YES];
-    [self updateEditStyles];
-}
-
--(void) updateEditStyles {
-    if (self.tableView.editing) {
-        self.editBrokersButton.hidden = YES;
-        self.doneEditingBrokersButton.hidden = NO;
-    } else {
-        self.editBrokersButton.hidden = NO;
-        self.doneEditingBrokersButton.hidden = YES;
-    }
+    [self performSegueWithIdentifier:@"AccountSelectToAccountLink" sender:self];
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {

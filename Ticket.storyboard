@@ -193,6 +193,9 @@ you want to link</string>
                                     <constraint firstAttribute="width" constant="200" id="Pcr-Hs-ZIy"/>
                                 </constraints>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="zTt-u9-UeG" eventType="touchUpInside" id="NQn-xJ-ts7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1959,17 +1962,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08s-ji-HfN">
-                                <rect key="frame" x="60" y="422" width="200" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="RBF-vr-3M3"/>
-                                    <constraint firstAttribute="width" constant="200" id="snK-ls-m1w"/>
-                                </constraints>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="doneEditingBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="A0m-Ow-g38"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1978,8 +1970,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstItem="Spr-uL-UE8" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="WIS-z7-059"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Spr-uL-UE8" secondAttribute="trailing" constant="-15" id="WbP-at-SHM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="57S-e1-KMX" secondAttribute="trailing" constant="-16" id="dDw-0P-GTQ"/>
-                            <constraint firstItem="08s-ji-HfN" firstAttribute="centerX" secondItem="A6a-Bv-pob" secondAttribute="centerX" id="jxB-dZ-m3d"/>
-                            <constraint firstItem="g7g-Tb-mQn" firstAttribute="top" secondItem="08s-ji-HfN" secondAttribute="bottom" constant="14" id="m67-qa-qlD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="caJ-Yc-a8p" secondAttribute="trailing" constant="5" id="p8I-3I-kwD"/>
                             <constraint firstItem="57S-e1-KMX" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="tfl-0S-LLl"/>
                             <constraint firstItem="caJ-Yc-a8p" firstAttribute="top" secondItem="57S-e1-KMX" secondAttribute="bottom" constant="10" id="udu-Qc-eKt"/>
@@ -1987,16 +1977,16 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="doneEditingBrokersButton" destination="08s-ji-HfN" id="xJC-27-Vb6"/>
                         <outlet property="editBrokersButton" destination="caJ-Yc-a8p" id="thV-1A-LKk"/>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
                         <segue destination="V42-ok-rVA" kind="presentation" identifier="AccountSelectToBrokerSelect" id="V7o-09-esf"/>
+                        <segue destination="zTt-u9-UeG" kind="presentation" identifier="AccountSelectToAccountLink" id="yNj-E0-fjH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BlA-D5-Hkv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1241" y="72"/>
+            <point key="canvasLocation" x="1217" y="82"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="mCR-6k-glU">
@@ -2027,6 +2017,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wuc-R0-2HR"/>
-        <segue reference="I3L-jI-b7x"/>
+        <segue reference="V7o-09-esf"/>
+        <segue reference="yNj-E0-fjH"/>
     </inferredMetricsTieBreakers>
 </document>
