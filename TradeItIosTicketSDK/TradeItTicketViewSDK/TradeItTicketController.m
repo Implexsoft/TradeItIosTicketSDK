@@ -15,8 +15,8 @@
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKSymbolSearchViewController.h"
-#import "TTSDKAccountsViewController.h"
-#import "TTSDKAccountsTableViewCell.h"
+#import "TTSDKAccountSelectViewController.h"
+#import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKOnboardingViewController.h"
@@ -179,8 +179,8 @@
     [TTSDKOrderTypeSelectionViewController class];
     [TTSDKOrderTypeInputViewController class];
     [TTSDKSymbolSearchViewController class];
-    [TTSDKAccountsViewController class];
-    [TTSDKAccountsTableViewCell class];
+    [TTSDKAccountSelectViewController class];
+    [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
     [TTSDKOnboardingViewController class];

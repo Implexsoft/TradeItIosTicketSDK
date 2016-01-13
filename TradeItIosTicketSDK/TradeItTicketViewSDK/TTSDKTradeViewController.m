@@ -545,7 +545,7 @@
 }
 
 -(IBAction)brokerLinkPressed:(id)sender {
-    [self performSegueWithIdentifier:@"TradeToAccounts" sender:self];
+    [self performSegueWithIdentifier:@"TradeToAccountSelect" sender:self];
 }
 
 - (IBAction)portfolioPressed:(id)sender {

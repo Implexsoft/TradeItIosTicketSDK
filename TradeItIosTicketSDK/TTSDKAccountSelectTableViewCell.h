@@ -1,5 +1,5 @@
 //
-//  TTSDKPortfolioTableViewCell.h
+//  TTSDKAccountSelectTableViewCell.h
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 12/16/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TTSDKAccountsTableViewCell : UITableViewCell
+@interface TTSDKAccountSelectTableViewCell : UITableViewCell
 
 - (void)configureCell;
 

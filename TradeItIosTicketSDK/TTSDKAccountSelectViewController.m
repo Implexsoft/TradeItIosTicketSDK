@@ -6,11 +6,11 @@
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKAccountsViewController.h"
-#import "TTSDKAccountsTableViewCell.h"
+#import "TTSDKAccountSelectViewController.h"
+#import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKAccountsViewController ()
+@interface TTSDKAccountSelectViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation TTSDKAccountsViewController
+@implementation TTSDKAccountSelectViewController
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -82,7 +82,7 @@
 }
 
 -(IBAction) addAccountPressed:(id)sender {
-    [self performSegueWithIdentifier:@"PortfolioToBrokerSelect" sender:self];
+    [self performSegueWithIdentifier:@"AccountSelectToBrokerSelect" sender:self];
 }
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,13 +90,13 @@
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * accountIdentifier = @"AccountIdentifier";
-    TTSDKAccountsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
+    static NSString * accountIdentifier = @"AccountSelect";
+    TTSDKAccountSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     if (cell == nil) {
         NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
         NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
 
-        [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountsCell" bundle:resourceBundle] forCellReuseIdentifier:accountIdentifier];
+        [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountSelectCell" bundle:resourceBundle] forCellReuseIdentifier:accountIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     }
 

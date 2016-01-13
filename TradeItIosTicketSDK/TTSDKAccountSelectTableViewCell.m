@@ -1,21 +1,21 @@
 //
-//  TTSDKPortfolioTableViewCell.m
+//  TTSDKAccountSelectTableViewCell.m
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 12/16/15.
 //  Copyright © 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKAccountsTableViewCell.h"
+#import "TTSDKAccountSelectTableViewCell.h"
 
-@interface TTSDKAccountsTableViewCell()
+@interface TTSDKAccountSelectTableViewCell()
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 
 @end
 
-@implementation TTSDKAccountsTableViewCell
+@implementation TTSDKAccountSelectTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

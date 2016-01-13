@@ -26,7 +26,7 @@
 		650C32831C2B221500E97E8A /* TTSDKCompanyDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E0C66B1C2B054600DE74CC /* TTSDKCompanyDetails.m */; };
 		650E2D3F1C45BE9700A3069E /* portfolioIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */; };
 		650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */; };
-		650FED3C1C330C0A005CBABA /* TTSDKAccountsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650FED381C3301AF005CBABA /* TTSDKAccountsCell.xib */; };
+		650FED3C1C330C0A005CBABA /* TTSDKAccountSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650FED381C3301AF005CBABA /* TTSDKAccountSelectCell.xib */; };
 		6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65DD1BD91C3C8C4B0032676A /* TTSDKPortfolioAccountCell.xib */; };
 		6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */; };
 		6510FBC31C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */; };
@@ -48,10 +48,10 @@
 		655745791C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
 		6557457A1C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
-		657ED25D1C21FDCF00217735 /* TTSDKAccountsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED25B1C21FDCF00217735 /* TTSDKAccountsViewController.h */; };
-		657ED25E1C21FDCF00217735 /* TTSDKAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountsViewController.m */; };
-		657ED25F1C21FDCF00217735 /* TTSDKAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountsViewController.m */; };
-		657ED2631C220A0A00217735 /* TTSDKAccountsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED2611C220A0A00217735 /* TTSDKAccountsTableViewCell.m */; };
+		657ED25D1C21FDCF00217735 /* TTSDKAccountSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */; };
+		657ED25E1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
+		657ED25F1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
+		657ED2631C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED2611C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m */; };
 		6588C3A61C441B9B00927F72 /* TTSDKBrokerLinkView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6588C3A41C441B9B00927F72 /* TTSDKBrokerLinkView.h */; };
 		6588C3A71C441B9B00927F72 /* TTSDKBrokerLinkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6588C3A51C441B9B00927F72 /* TTSDKBrokerLinkView.m */; };
 		6588C3AC1C441BB700927F72 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6588C3AB1C441BB700927F72 /* View.xib */; };
@@ -247,7 +247,7 @@
 		6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKcalc.xib; sourceTree = "<group>"; };
 		650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "portfolioIcon@3x.png"; sourceTree = "<group>"; };
 		650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tradeIcon@3x.png"; sourceTree = "<group>"; };
-		650FED381C3301AF005CBABA /* TTSDKAccountsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKAccountsCell.xib; sourceTree = "<group>"; };
+		650FED381C3301AF005CBABA /* TTSDKAccountSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKAccountSelectCell.xib; sourceTree = "<group>"; };
 		6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKPortfolioHoldingCell.xib; sourceTree = "<group>"; };
 		6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioHoldingTableViewCell.h; sourceTree = "<group>"; };
 		6510FBC21C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioHoldingTableViewCell.m; sourceTree = "<group>"; };
@@ -264,10 +264,10 @@
 		655745761C3ACCBF004BA180 /* TTSDKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAlertView.h; sourceTree = "<group>"; };
 		655745771C3ACCBF004BA180 /* TTSDKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAlertView.m; sourceTree = "<group>"; };
 		6557457B1C3AD5F9004BA180 /* chevronRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevronRight.png; sourceTree = "<group>"; };
-		657ED25B1C21FDCF00217735 /* TTSDKAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountsViewController.h; sourceTree = "<group>"; };
-		657ED25C1C21FDCF00217735 /* TTSDKAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountsViewController.m; sourceTree = "<group>"; };
-		657ED2601C220A0A00217735 /* TTSDKAccountsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountsTableViewCell.h; sourceTree = "<group>"; };
-		657ED2611C220A0A00217735 /* TTSDKAccountsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountsTableViewCell.m; sourceTree = "<group>"; };
+		657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectViewController.h; sourceTree = "<group>"; };
+		657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectViewController.m; sourceTree = "<group>"; };
+		657ED2601C220A0A00217735 /* TTSDKAccountSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectTableViewCell.h; sourceTree = "<group>"; };
+		657ED2611C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectTableViewCell.m; sourceTree = "<group>"; };
 		6588C3A41C441B9B00927F72 /* TTSDKBrokerLinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerLinkView.h; sourceTree = "<group>"; };
 		6588C3A51C441B9B00927F72 /* TTSDKBrokerLinkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKBrokerLinkView.m; sourceTree = "<group>"; };
 		6588C3AB1C441BB700927F72 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
@@ -435,16 +435,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		655493121C21FCA9005D4270 /* AccountsScreen */ = {
+		655493121C21FCA9005D4270 /* AccountSelect */ = {
 			isa = PBXGroup;
 			children = (
-				657ED25B1C21FDCF00217735 /* TTSDKAccountsViewController.h */,
-				657ED25C1C21FDCF00217735 /* TTSDKAccountsViewController.m */,
-				657ED2601C220A0A00217735 /* TTSDKAccountsTableViewCell.h */,
-				657ED2611C220A0A00217735 /* TTSDKAccountsTableViewCell.m */,
-				650FED381C3301AF005CBABA /* TTSDKAccountsCell.xib */,
+				657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */,
+				657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */,
+				657ED2601C220A0A00217735 /* TTSDKAccountSelectTableViewCell.h */,
+				657ED2611C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m */,
+				650FED381C3301AF005CBABA /* TTSDKAccountSelectCell.xib */,
 			);
-			name = AccountsScreen;
+			name = AccountSelect;
 			sourceTree = "<group>";
 		};
 		6588C3E11C446F0400927F72 /* TabBar */ = {
@@ -562,7 +562,7 @@
 				65B313FA1C23613600EBC30D /* SymbolSearch */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9C003861B72853E007D15F5 /* MBProgressHUD */,
-				655493121C21FCA9005D4270 /* AccountsScreen */,
+				655493121C21FCA9005D4270 /* AccountSelect */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
 				A9A8D12A1B50304C000207B9 /* SuccessScreen */,
@@ -884,7 +884,7 @@
 				A905D3211B629D76006B0B8C /* TTSDKKeychain.h in Headers */,
 				A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */,
 				6588C3A61C441B9B00927F72 /* TTSDKBrokerLinkView.h in Headers */,
-				657ED25D1C21FDCF00217735 /* TTSDKAccountsViewController.h in Headers */,
+				657ED25D1C21FDCF00217735 /* TTSDKAccountSelectViewController.h in Headers */,
 				A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */,
 				655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */,
 				A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */,
@@ -1049,7 +1049,7 @@
 				65D582C41C4050E40060925A /* TTSDKCustomAlertView.xib in Resources */,
 				655745721C3ACA9B004BA180 /* menuIcon.png in Resources */,
 				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
-				650FED3C1C330C0A005CBABA /* TTSDKAccountsCell.xib in Resources */,
+				650FED3C1C330C0A005CBABA /* TTSDKAccountSelectCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,12 +1120,12 @@
 				65B314011C2364C900EBC30D /* TTSDKSymbolSearchViewController.m in Sources */,
 				65D582C81C40513C0060925A /* TTSDKCustomAlertView.m in Sources */,
 				A9C003401B7264A4007D15F5 /* TIEMSJSONAPI.m in Sources */,
-				657ED25E1C21FDCF00217735 /* TTSDKAccountsViewController.m in Sources */,
+				657ED25E1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */,
 				A905D3221B629D76006B0B8C /* TTSDKKeychain.m in Sources */,
 				A9C003581B7264A4007D15F5 /* TradeItMultipleAccountResult.m in Sources */,
 				A9B2D4701B5D8929008065E1 /* TTSDKBrokerSelectViewController.m in Sources */,
 				A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */,
-				657ED2631C220A0A00217735 /* TTSDKAccountsTableViewCell.m in Sources */,
+				657ED2631C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m in Sources */,
 				A9C003481B7264A4007D15F5 /* TIEMSJSONValueTransformer.m in Sources */,
 				65F240CA1C4570BD00DD2309 /* TTSDKTabBarViewController.m in Sources */,
 				A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */,
@@ -1168,7 +1168,7 @@
 				A9A8CF951B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m in Sources */,
 				653613171C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m in Sources */,
 				A9A8CF961B4EFDBB000207B9 /* TTSDKSuccessViewController.m in Sources */,
-				657ED25F1C21FDCF00217735 /* TTSDKAccountsViewController.m in Sources */,
+				657ED25F1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */,
 				A9A8CF971B4EFDBB000207B9 /* TTSDKTradeItTicket.m in Sources */,
 				6557457A1C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */,
 				65B314021C2364C900EBC30D /* TTSDKSymbolSearchViewController.m in Sources */,

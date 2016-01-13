@@ -10,6 +10,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioViewController ()
 
@@ -32,10 +33,13 @@
 @implementation TTSDKPortfolioViewController
 
 - (IBAction)closePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
 
 -(void) viewDidLoad {
+
+    self.tradeSession = [TTSDKTicketSession globalSession];
+
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.alwaysBounceHorizontal = NO;

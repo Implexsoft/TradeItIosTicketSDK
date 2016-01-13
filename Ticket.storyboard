@@ -17,7 +17,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="BrokerCell" textLabel="VD5-sn-X2q" style="IBUITableViewCellStyleDefault" id="cUq-xX-cQ5" customClass="TTSDKBrokerSelectTableViewCell">
-                                <rect key="frame" x="0.0" y="1" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -55,7 +55,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="FPY-Ig-tWq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-292" y="359"/>
+            <point key="canvasLocation" x="-12" y="-1675"/>
         </scene>
         <!--Login-->
         <scene sceneID="sqE-ot-BFi">
@@ -153,7 +153,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ms7-Oa-HyF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="135" y="359"/>
+            <point key="canvasLocation" x="415" y="-1675"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Bkj-Re-flQ">
@@ -172,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KYg-2n-1Fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="614" y="617"/>
+            <point key="canvasLocation" x="624" y="595"/>
         </scene>
         <!--PortfolioNav-->
         <scene sceneID="hwj-2O-7ua">
@@ -206,10 +206,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxp-Tb-Pmc">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCp-F4-9j1" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL ACCOUNTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrx-kz-Ecm">
                                                 <rect key="frame" x="110" y="12" width="100" height="16"/>
@@ -394,17 +394,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wxp-Tb-Pmc" firstAttribute="top" secondItem="5hL-0L-FlI" secondAttribute="bottom" id="4ZK-oT-DBf"/>
                             <constraint firstItem="wxp-Tb-Pmc" firstAttribute="leading" secondItem="VQr-T4-h2F" secondAttribute="leadingMargin" constant="-16" id="X5e-1X-lqh"/>
+                            <constraint firstItem="wxp-Tb-Pmc" firstAttribute="top" secondItem="VQr-T4-h2F" secondAttribute="topMargin" id="otj-b2-DgS"/>
                             <constraint firstAttribute="bottomMargin" secondItem="wxp-Tb-Pmc" secondAttribute="bottom" id="ouz-H2-LH5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wxp-Tb-Pmc" secondAttribute="trailing" constant="-16" id="zph-re-Jx7"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Portfolio" image="portfolioIcon.png" selectedImage="portfolioIcon.png" id="e1d-tN-ZfR"/>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="jz8-Jg-IW6"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="jz8-Jg-IW6">
+                            <connections>
+                                <action selector="closePressed:" destination="QbV-2r-TI7" id="eAi-r4-KY6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountsHeightConstraint" destination="LbQ-2R-uD2" id="jKX-qX-YKc"/>
@@ -521,7 +525,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJc-zt-7Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1185" y="359"/>
+            <point key="canvasLocation" x="-905" y="-1675"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
@@ -538,7 +542,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hy-zS-JoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-735" y="359"/>
+            <point key="canvasLocation" x="-455" y="-1675"/>
         </scene>
         <!--Success View Controller-->
         <scene sceneID="QCT-Ou-Vi2">
@@ -1586,7 +1590,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </view>
                     <navigationItem key="navigationItem" title="Trade" id="hHX-w2-81q">
                         <barButtonItem key="backBarButtonItem" title="Back" id="xYq-dk-0jG"/>
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="35P-gP-XDe">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="35P-gP-XDe">
                             <connections>
                                 <action selector="cancelPressed:" destination="VXZ-vQ-tdp" id="QGi-Io-fm1"/>
                             </connections>
@@ -1609,9 +1613,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
-                        <segue destination="NtF-Vh-6FT" kind="show" identifier="TradeToLogin" id="ujk-YM-BZG"/>
+                        <segue destination="NtF-Vh-6FT" kind="presentation" identifier="TradeToLogin" id="ujk-YM-BZG"/>
                         <segue destination="tvV-A4-qDa" kind="show" identifier="TradeToReview" id="rFw-Bc-wS6"/>
-                        <segue destination="bbK-hu-Twv" kind="show" identifier="TradeToAccounts" id="kyf-iM-tIO"/>
+                        <segue destination="bbK-hu-Twv" kind="show" identifier="TradeToAccountSelect" id="kyf-iM-tIO"/>
                         <segue destination="mGd-gp-pc2" kind="presentation" identifier="TradeToSymbolSearch" id="vwC-61-Shn"/>
                         <segue destination="5lP-jA-kx1" kind="show" identifier="TradeToOrderTypeSelection" id="MQl-R5-hjs"/>
                     </connections>
@@ -1849,10 +1853,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="1683" y="-1088"/>
         </scene>
-        <!--Accounts View Controller-->
+        <!--Account Select View Controller-->
         <scene sceneID="nci-rh-nvD">
             <objects>
-                <viewController storyboardIdentifier="portfolioController" id="bbK-hu-Twv" customClass="TTSDKAccountsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="portfolioController" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZBU-0y-JPc"/>
                         <viewControllerLayoutGuide type="bottom" id="g7g-Tb-mQn"/>
@@ -1870,7 +1874,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <color key="sectionIndexBackgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="accountCell" selectionStyle="default" indentationWidth="10" id="rAF-7j-GGL">
-                                        <rect key="frame" x="0.0" y="28" width="319" height="60"/>
+                                        <rect key="frame" x="0.0" y="92" width="319" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rAF-7j-GGL" id="cPK-iT-cKT">
                                             <rect key="frame" x="0.0" y="0.0" width="319" height="59"/>
@@ -1902,7 +1906,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08s-ji-HfN">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08s-ji-HfN">
                                 <rect key="frame" x="60" y="422" width="200" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="RBF-vr-3M3"/>
@@ -1933,7 +1937,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="doneEditingBrokersButton" destination="08s-ji-HfN" id="xJC-27-Vb6"/>
                         <outlet property="editBrokersButton" destination="caJ-Yc-a8p" id="thV-1A-LKk"/>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
-                        <segue destination="V42-ok-rVA" kind="presentation" identifier="PortfolioToBrokerSelect" id="V7o-09-esf"/>
+                        <segue destination="V42-ok-rVA" kind="presentation" identifier="AccountSelectToBrokerSelect" id="V7o-09-esf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1970,6 +1974,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="V7o-09-esf"/>
+        <segue reference="I3L-jI-b7x"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,7 +11,7 @@
 #import "TTSDKTradeItTicket.h"
 
 
-@interface TTSDKAccountsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface TTSDKAccountSelectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 

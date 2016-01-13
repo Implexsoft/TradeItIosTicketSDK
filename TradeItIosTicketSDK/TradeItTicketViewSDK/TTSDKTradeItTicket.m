@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKAccountsViewController.h"
+#import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
 
 @implementation TTSDKTradeItTicket {
