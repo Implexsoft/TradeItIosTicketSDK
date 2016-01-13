@@ -6,13 +6,13 @@
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKBaseViewController.h"
+#import "TTSDKTabBarViewController.h"
 
-@interface TTSDKBaseViewController ()
+@interface TTSDKTabBarViewController ()
 
 @end
 
-@implementation TTSDKBaseViewController
+@implementation TTSDKTabBarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

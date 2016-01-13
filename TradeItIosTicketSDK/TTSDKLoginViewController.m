@@ -1,16 +1,16 @@
 //
-//  BrokerSelectDetailViewController.m
+//  TTSDKLoginViewController.m
 //  TradeItIosTicketSDK
 //
 //  Created by Antonio Reyes on 7/21/15.
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKBrokerSelectDetailViewController.h"
+#import "TTSDKLoginViewController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKCustomAlertView.h"
 
-@implementation TTSDKBrokerSelectDetailViewController {
+@implementation TTSDKLoginViewController {
     
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
@@ -21,8 +21,6 @@
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
     
     __weak IBOutlet UIButton *unlinkButton;
-
-    NSDictionary * brokerUsername;
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
@@ -41,20 +39,6 @@
 
     NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
 
-    brokerUsername = @{
-          @"Dummy":@"Username",
-          @"TD":@"User Id",
-          @"Robinhood":@"Username",
-          @"OptionsHouse":@"User Id",
-          @"Schwabs":@"User Id",
-          @"TradeStation":@"Username",
-          @"Etrade":@"User Id",
-          @"Fidelity":@"Username",
-          @"Scottrade":@"Account #",
-          @"Tradier":@"Username",
-          @"IB":@"Username",
-    };
-
     if(self.addBroker == nil) {
         emailInput.text = self.tradeSession.authenticationInfo.id;
     }
@@ -65,7 +49,7 @@
     }
 
     [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
-    
+
     if(![[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
         unlinkButton.hidden = YES;
     }
@@ -138,7 +122,7 @@
     }
     
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
-        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.", brokerUsername[self.tradeSession.broker]];
+        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [TTSDKTradeItTicket getBrokerUsername:self.tradeSession.broker]];
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
@@ -155,7 +139,7 @@
     } else {
         [utils styleLoadingButton:linkAccountButton];
         [self setVerifyCreds: [[TradeItAuthenticationInfo alloc]initWithId:emailInput.text andPassword:passwordInput.text]];
-        [self verifyCredentials];
+        [self authenticate];
     }
 }
 
@@ -209,25 +193,25 @@
 
 #pragma mark - Verify Credentials
 
-- (void) verifyCredentials {
+-(void) authenticate {
     TradeItVerifyCredentialsSession * verifyCredsSession = [[TradeItVerifyCredentialsSession alloc] initWithpublisherApp: self.tradeSession.publisherApp];
     NSString * broker = self.addBroker != nil ? self.addBroker : self.tradeSession.broker;
     
     [verifyCredsSession verifyUser: self.verifyCreds withBroker:broker WithCompletionBlock:^(TradeItResult * res){
-        [self verifyCredentialsRequestRecieved: res];
+        [self authenticateRequestReceived: res];
     }];
 }
 
--(void) verifyCredentialsRequestRecieved: (TradeItResult *) result {
-
+-(void) authenticateRequestReceived: (TradeItResult *) result {
+    
     [utils styleMainActiveButton:linkAccountButton];
-
+    
     if([result isKindOfClass:[TradeItErrorResult class]]) {
         TradeItErrorResult * err = (TradeItErrorResult *) result;
         
         self.tradeSession.errorTitle = err.shortMessage; // keeping this flow, in case it's used somewhere else in the application
         self.tradeSession.errorMessage = [err.longMessages componentsJoinedByString:@"\n"];
-
+        
         if(![UIAlertController class]) {
             [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
         } else {
@@ -239,7 +223,7 @@
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
         }
-
+        
         self.tradeSession.errorMessage = nil;
         self.tradeSession.errorTitle = nil;
     } else {
@@ -257,26 +241,26 @@
             
             self.tradeSession.authenticationInfo = self.verifyCreds;
             self.tradeSession.brokerSignUpComplete = true;
-
-            [self performSegueWithIdentifier: @"LoginToOrder" sender: self];
+            
+            [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
             NSArray * fakeAccounts = [NSArray arrayWithObjects:
                                       [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*2345",@"name",nil],
                                       [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity*9283",@"name",nil],
                                       nil];
-
+            
             if(![UIAlertController class]) {
                 [self showOldAcctSelect: fakeAccounts];
             } else {
                 UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Accounts To Link"
                                                                                 message:nil
                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
-
+                
                 void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
                     [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
                         [self loginComplete];
                     }];
                 };
-
+                
                 for (NSDictionary * account in fakeAccounts) {
                     NSString * title = [account objectForKey:@"name"];
                     UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
@@ -285,7 +269,7 @@
                                                                   }];
                     [alert addAction:acct];
                 }
-
+                
                 UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }];
@@ -295,21 +279,21 @@
                     [self presentViewController:alert animated:YES completion:nil];
                 });
             }
-
             
-//            TTSDKCustomAlertView * alert = [utils customAlertWithVC:self];
-//            [self.view addSubview:alert];
-
-
+            
+            //            TTSDKCustomAlertView * alert = [utils customAlertWithVC:self];
+            //            [self.view addSubview:alert];
+            
+            
         } else {
             self.tradeSession.errorTitle = @"Invalid Credentials";
             self.tradeSession.errorMessage = @"Check your username and password and try again.";
-
+            
             if(!self.addBroker) {
                 [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:broker];
                 [TTSDKTradeItTicket removeLinkedBroker: broker];
             }
-
+            
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
             } else {
@@ -327,7 +311,6 @@
         }
     }
 }
-
 
 -(void) loginComplete {
     

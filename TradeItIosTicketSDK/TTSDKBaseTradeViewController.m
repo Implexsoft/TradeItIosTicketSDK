@@ -6,19 +6,19 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKBaseCalculatorViewController.h"
+#import "TTSDKBaseTradeViewController.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKBaseCalculatorViewController () {
+@interface TTSDKBaseTradeViewController () {
     NSArray * linkedBrokers;
-    NSString * segueToBrokerSelectDetail;
+    NSString * segueToLogin;
     NSString * selectedBroker;
     UIPickerView * currentPicker;
 }
 
 @end
 
-@implementation TTSDKBaseCalculatorViewController
+@implementation TTSDKBaseTradeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +28,7 @@
 
     self.tradeSession = [TTSDKTicketSession globalSession];
 
-    segueToBrokerSelectDetail = self.advMode ? @"advCalculatorToBrokerSelectDetail" : @"calculatorToBrokerSelectDetail";
+    segueToLogin = @"TradeToLogin";
 }
 
 -(void) setBroker {
@@ -37,13 +37,13 @@
     } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
         if([linkedBrokers count] > 1) {
             [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
+                [self performSegueWithIdentifier:segueToLogin sender:self];
             }];
         } else if (![linkedBrokers count]) {
             return;
         } else {
             [self setAuthentication:linkedBrokers[0] withPassword:NO];
-            [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
+            [self performSegueWithIdentifier:segueToLogin sender:self];
         }
     }
 }
@@ -74,7 +74,7 @@
                                     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 1) {
                                         [self showBrokerPickerAndSetPassword:NO onSelection:^{
                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
+                                                [self performSegueWithIdentifier:segueToLogin sender:self];
                                             });
                                         }];
                                     } else {
@@ -82,7 +82,7 @@
                                         [self setAuthentication:broker withPassword:NO];
                                         
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            [self performSegueWithIdentifier:segueToBrokerSelectDetail sender:self];
+                                            [self performSegueWithIdentifier:segueToLogin sender:self];
                                         });
                                     }
                                     

@@ -1,5 +1,5 @@
 //
-//  LinkPromptViewController.h
+//  TTSDKOnboardingViewController.h
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 1/4/16.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
 
-@interface TTSDKLinkPromptViewController : UIViewController
+@interface TTSDKOnboardingViewController : UIViewController
 
 @property TTSDKTicketSession * tradeSession;
 

@@ -8,14 +8,16 @@
 
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKAccountsViewController.h"
-#import "TTSDKBaseViewController.h"
+#import "TTSDKTabBarViewController.h"
 
 @implementation TTSDKTradeItTicket {
 
 }
 
-static NSString * BROKER_LIST_KEY = @"BROKER_LIST";
-static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
+static NSString * kBrokerListKey = @"BROKER_LIST";
+static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
+static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
+static NSString * kTradeViewIdentifier = @"TRADE";
 
 +(NSArray *) getAvailableBrokers {
     NSArray * brokers = @[
@@ -45,6 +47,30 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     return brokers;
 }
 
++(NSString *) getBrokerUsername:(NSString *) broker {
+    NSDictionary *brokerUsernames = @{
+                       @"Dummy":@"Username",
+                       @"TD":@"User Id",
+                       @"Robinhood":@"Username",
+                       @"OptionsHouse":@"User Id",
+                       @"Schwabs":@"User Id",
+                       @"TradeStation":@"Username",
+                       @"Etrade":@"User Id",
+                       @"Fidelity":@"Username",
+                       @"Scottrade":@"Account #",
+                       @"Tradier":@"Username",
+                       @"IB":@"Username",
+                       };
+
+    NSString * brokerName = [brokerUsernames valueForKey:broker];
+
+    if (brokerName) {
+        return brokerName;
+    } else {
+        return @"Username";
+    }
+}
+
 +(NSString *) getBrokerDisplayString:(NSString *) value {
     NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
     
@@ -71,14 +97,14 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
 
 +(NSArray *) getLinkedBrokersList {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSArray * linkedBrokers = [defaults objectForKey:BROKER_LIST_KEY];
+    NSArray * linkedBrokers = [defaults objectForKey:kBrokerListKey];
 
     return linkedBrokers;
 }
 
 +(void) addLinkedBroker:(NSString *)broker {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray * linkedBrokers = [[defaults objectForKey:BROKER_LIST_KEY] mutableCopy];
+    NSMutableArray * linkedBrokers = [[defaults objectForKey:kBrokerListKey] mutableCopy];
     
     if(!linkedBrokers) {
         linkedBrokers = [[NSMutableArray alloc] init];
@@ -95,13 +121,13 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
         [linkedBrokers addObject: broker];
     }
 
-    [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
+    [defaults setObject:linkedBrokers forKey:kBrokerListKey];
     [defaults synchronize];
 }
 
 +(void) removeLinkedBroker:(NSString *)broker {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray * linkedBrokers = [[defaults objectForKey:BROKER_LIST_KEY] mutableCopy];
+    NSMutableArray * linkedBrokers = [[defaults objectForKey:kBrokerListKey] mutableCopy];
     NSString * brokerToRemove;
     
     if(!linkedBrokers) {
@@ -119,7 +145,7 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     if(brokerToRemove != nil) {
         [linkedBrokers removeObject: brokerToRemove];
 
-        [defaults setObject:linkedBrokers forKey:BROKER_LIST_KEY];
+        [defaults setObject:linkedBrokers forKey:kBrokerListKey];
         [defaults synchronize];
     }
 }
@@ -134,20 +160,6 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     NSString * password = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
 
     return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
-}
-
-+(void) setInitialScreenPreference: (NSString *) storyboardId {
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:storyboardId forKey:INITIAL_SCREEN_PREFERENCE];
-    [defaults synchronize];
-}
-
-// initial screen (order screen or portfolio screen)
-+(NSString *) getInitialScreenPreference {
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * pref = [defaults objectForKey:INITIAL_SCREEN_PREFERENCE];
-
-    return pref;
 }
 
 +(BOOL) hasTouchId {
@@ -193,44 +205,35 @@ static NSString * INITIAL_SCREEN_PREFERENCE = @"INITIAL_SCREEN_PREFERENCE";
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
 
-    //Setup ticket storyboard
-    NSString * startingView = @"linkPromptController"; //brokerSelectController
+
+    NSString * startingView = kOnboardingViewIdentifier;
 
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
-        startingView = portfolioMode ? @"portfolioController" : @"advCalculatorController";
+        startingView = portfolioMode ? kPortfolioViewIdentifier : kTradeViewIdentifier;
     }
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-//    UIViewController * nav = (UIViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-//    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
 
-    TTSDKBaseViewController *initialViewController = (TTSDKBaseViewController *)[ticket instantiateViewControllerWithIdentifier: @"BaseController"];
-    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-    [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-    return;
+    if([startingView isEqualToString:kOnboardingViewIdentifier]){
+        TTSDKOnboardingViewController * initialViewController = (TTSDKOnboardingViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+        initialViewController.tradeSession = tradeSession;
+        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+        //Display
+        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+    } else {
+        TTSDKTabBarViewController *initialViewController = (TTSDKTabBarViewController *)[ticket instantiateViewControllerWithIdentifier:@"BaseTabBarController"];
+        if ([startingView isEqualToString:kPortfolioViewIdentifier]) {
+            initialViewController.selectedIndex = 1;
+        } else {
+            initialViewController.selectedIndex = 0;
+        }
 
-//    if([startingView isEqualToString: @"linkPromptController"]){
-//        TTSDKLinkPromptViewController * initialViewController = (TTSDKLinkPromptViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-//        initialViewController.tradeSession = tradeSession;
-//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//        //Display
-//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-//    } else if ([startingView isEqualToString:@"portfolioController"]) {
-//        TTSDKAccountsViewController * initialViewController = (TTSDKAccountsViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-//        initialViewController.tradeSession = tradeSession;
-//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//        //Display
-//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-//    } else {
-//        TTSDKOrderViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-//        initialViewController.tradeSession = tradeSession;
-//        //Display
-//        [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
-//    }
-
+        // Display
+        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+    }
 }
-
 
 +(void) returnToParentApp:(TTSDKTicketSession *)tradeSession {
     [[tradeSession parentView] dismissViewControllerAnimated:NO completion:^{

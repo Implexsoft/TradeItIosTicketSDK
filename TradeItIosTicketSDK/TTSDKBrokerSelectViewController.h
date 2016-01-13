@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKBrokerSelectDetailViewController.h"
+#import "TTSDKLoginViewController.h"
 #import "TTSDKMBProgressHUD.h"
 
 @interface TTSDKBrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>

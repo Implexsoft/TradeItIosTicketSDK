@@ -10,7 +10,7 @@
 #import "TTSDKTicketSession.h"
 #import "TTSDKCustomIOSAlertView.h"
 
-@interface TTSDKBaseCalculatorViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 

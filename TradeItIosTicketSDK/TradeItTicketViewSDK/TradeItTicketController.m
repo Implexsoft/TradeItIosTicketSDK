@@ -9,7 +9,7 @@
 #import "TradeItTicketController.h"
 #import "TTSDKTicketSession.h"
 
-#import "TTSDKOrderViewController.h"
+#import "TTSDKTradeViewController.h"
 #import "TTSDKAdvCalcTextField.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
@@ -19,15 +19,15 @@
 #import "TTSDKAccountsTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
-#import "TTSDKLinkPromptViewController.h"
+#import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
-#import "TTSDKBrokerSelectDetailViewController.h"
+#import "TTSDKLoginViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TTSDKCustomAlertView.h"
-#import "TTSDKBaseViewController.h"
+#import "TTSDKTabBarViewController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAlertView.h"
 
@@ -173,7 +173,7 @@
 //we simply call a lame method on every view class which forces
 //the linker to load the classes :)
 + (void)forceClassesIntoLinker {
-    [TTSDKOrderViewController class];
+    [TTSDKTradeViewController class];
     [TTSDKAdvCalcTextField class];
     [TTSDKCompanyDetails class];
     [TTSDKOrderTypeSelectionViewController class];
@@ -183,15 +183,15 @@
     [TTSDKAccountsTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
-    [TTSDKLinkPromptViewController class];
+    [TTSDKOnboardingViewController class];
     [TTSDKBrokerSelectViewController class];
-    [TTSDKBrokerSelectDetailViewController class];
+    [TTSDKLoginViewController class];
     [TTSDKBrokerSelectTableViewCell class];
     [TTSDKPortfolioViewController class];
     [TTSDKPortfolioHoldingTableViewCell class];
     [TTSDKPortfolioAccountsTableViewCell class];
     [TTSDKCustomAlertView class];
-    [TTSDKBaseViewController class];
+    [TTSDKTabBarViewController class];
 
     [TTSDKAlertView class];
 }

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKOrderViewController.h"
+#import "TTSDKTradeViewController.h"
 #import "TTSDKTicketSession.h"
 
 @interface TTSDKOrderTypeSelectionViewController : UIViewController

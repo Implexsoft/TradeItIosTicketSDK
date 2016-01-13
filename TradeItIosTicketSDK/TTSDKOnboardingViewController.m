@@ -1,19 +1,19 @@
 //
-//  LinkPromptViewController.m
+//  TTSDKOnboardingViewController.m
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 1/4/16.
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKLinkPromptViewController.h"
+#import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 
-@interface TTSDKLinkPromptViewController ()
+@interface TTSDKOnboardingViewController ()
 
 @end
 
-@implementation TTSDKLinkPromptViewController
+@implementation TTSDKOnboardingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +27,7 @@
 }
 
 - (IBAction)brokerSelectPressed:(id)sender {
-    [self performSegueWithIdentifier:@"LinkPromptToBrokerSelect" sender:self];
+    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
 }
 
 

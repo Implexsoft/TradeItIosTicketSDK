@@ -1,19 +1,19 @@
 //
-//  AdvCalculatorViewController.m
+//  TTSDKTradeViewController.m
 //  TradeItIosTicketSDK
 //
 //  Created by Antonio Reyes on 7/29/15.
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKOrderViewController.h"
+#import "TTSDKTradeViewController.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKOrderViewController () {
+@interface TTSDKTradeViewController () {
     __weak IBOutlet UIView * companyDetails;
     __weak IBOutlet UILabel * companyNameLabel;
     __weak IBOutlet UILabel * lastPriceLabel;
@@ -57,7 +57,7 @@
 
 @end
 
-@implementation TTSDKOrderViewController
+@implementation TTSDKTradeViewController
 
 
 /*** Delegate Methods ***/
@@ -102,8 +102,6 @@
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
 
     [self setBroker];
-
-    [[self navigationItem] setTitle: [TTSDKTradeItTicket getBrokerDisplayString:self.tradeSession.broker]];
 }
 
 
@@ -383,13 +381,13 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"CalculatorToOrderTypeSelection"]) {
+    if([segue.identifier isEqualToString:@"TradeToOrderTypeSelection"]) {
         TTSDKOrderTypeSelectionViewController * dest = [segue destinationViewController];
 
         [dest setTradeSession: self.tradeSession];
-    } else if([segue.identifier isEqualToString:@"advCalculatorToBrokerSelectDetail"]) {
+    } else if([segue.identifier isEqualToString:@"TradeToLogin"]) {
         [[segue destinationViewController] setCancelToParent: YES];
-    } else if([segue.identifier isEqualToString:@"CalculatorToReview"]) {
+    } else if([segue.identifier isEqualToString:@"TradeToReview"]) {
         [[segue destinationViewController] setResult: self.reviewResult];
     }
 }
@@ -440,7 +438,7 @@
 #pragma mark - Events
 
 - (IBAction)symbolPressed:(id)sender {
-    [self performSegueWithIdentifier:@"CalculatorToSymbolSearch" sender:self];
+    [self performSegueWithIdentifier:@"TradeToSymbolSearch" sender:self];
 }
                                           
 - (IBAction)refreshPressed:(id)sender {
@@ -543,11 +541,11 @@
 
 - (IBAction)orderTypePressed:(id)sender {
     [self.view endEditing:YES];
-    [self performSegueWithIdentifier:@"CalculatorToOrderTypeSelection" sender:self];
+    [self performSegueWithIdentifier:@"TradeToOrderTypeSelection" sender:self];
 }
 
 -(IBAction)brokerLinkPressed:(id)sender {
-    [self performSegueWithIdentifier:@"CalculatorToAccounts" sender:self];
+    [self performSegueWithIdentifier:@"TradeToAccounts" sender:self];
 }
 
 - (IBAction)portfolioPressed:(id)sender {
@@ -609,7 +607,7 @@
 }
 
 - (IBAction)editAccountsPressed:(id)sender {
-    [self performSegueWithIdentifier:@"advCalculatorToBrokerSelectDetail" sender:self];
+    [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
 }
 
 
@@ -673,7 +671,7 @@
         self.tradeSession.resultContainer.reviewResponse = (TradeItStockOrEtfTradeReviewResult *) result;
         
         [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
-         [self performSegueWithIdentifier: @"CalculatorToReview" sender: self];
+         [self performSegueWithIdentifier: @"TradeToReview" sender: self];
     }
     else if ([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
         self.tradeSession.resultContainer.status = USER_CANCELED_SECURITY;

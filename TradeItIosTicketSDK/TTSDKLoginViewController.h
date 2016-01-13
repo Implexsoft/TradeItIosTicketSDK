@@ -1,5 +1,5 @@
 //
-//  BrokerSelectDetailViewController.h
+//  TTSDKLoginViewController.h
 //  TradeItIosTicketSDK
 //
 //  Created by Antonio Reyes on 7/21/15.
@@ -11,7 +11,7 @@
 #import "TradeItVerifyCredentialsSession.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKBrokerSelectDetailViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 @property BOOL cancelToParent;

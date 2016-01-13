@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TTSDKBaseViewController : UITabBarController
+@interface TTSDKTabBarViewController : UITabBarController
 
 @end
