@@ -14,12 +14,10 @@
     CAGradientLayer * activeButtonGradient;
     UIActivityIndicatorView * currentIndicator;
     UIImageView * loadingIcon;
-
     BOOL animating;
 }
 
 @end
-
 
 @implementation TTSDKUtils
 
@@ -27,6 +25,15 @@
 @synthesize activeButtonHighlightColor;
 @synthesize inactiveButtonColor;
 @synthesize warningColor;
+@synthesize etradeColor;
+@synthesize robinhoodColor;
+@synthesize schwabColor;
+@synthesize scottradeColor;
+@synthesize fidelityColor;
+@synthesize tdColor;
+@synthesize optionshouseColor;
+
+
 
 
 + (id)sharedUtils {
@@ -45,6 +52,13 @@
         activeButtonHighlightColor = [UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         inactiveButtonColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
         warningColor = [UIColor colorWithRed:236.0f/255.0f green:121.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
+        etradeColor = [UIColor colorWithRed:98.0f / 255.0f green:77.0f / 255.0f blue:160.0f / 255.0f alpha:1.0f];
+        robinhoodColor = [UIColor colorWithRed:33.0f / 255.0f green:206.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];
+        schwabColor = [UIColor colorWithRed:25.0f / 255.0f green:159.0f / 255.0f blue:218.0f / 255.0f alpha:1.0f];
+        scottradeColor = [UIColor colorWithRed:69.0f / 255.0f green:40.0f / 255.0f blue:112.0f / 255.0f alpha:1.0f];
+        fidelityColor = [UIColor colorWithRed:74.0f / 255.0f green:145.0f / 255.0f blue:46.0f / 255.0f alpha:1.0f];
+        tdColor = [UIColor colorWithRed:2.0f / 255.0f green:182.0f / 255.0f blue:36.0f / 255.0f alpha:1.0f];
+        optionshouseColor = [UIColor colorWithRed:46.0f / 255.0f green:98.0f / 255.0f blue:9.0f / 255.0f alpha:1.0f];
     }
 
     return self;

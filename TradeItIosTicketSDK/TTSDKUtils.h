@@ -17,6 +17,13 @@
 @property (nonatomic, retain) UIColor * activeButtonHighlightColor;
 @property (nonatomic, retain) UIColor * inactiveButtonColor;
 @property (nonatomic, retain) UIColor * warningColor;
+@property (nonatomic, retain) UIColor * etradeColor;
+@property (nonatomic, retain) UIColor * robinhoodColor;
+@property (nonatomic, retain) UIColor * schwabColor;
+@property (nonatomic, retain) UIColor * scottradeColor;
+@property (nonatomic, retain) UIColor * fidelityColor;
+@property (nonatomic, retain) UIColor * tdColor;
+@property (nonatomic, retain) UIColor * optionshouseColor;
 
 + (id)sharedUtils;
 
@@ -35,10 +42,9 @@
 -(void) styleMainInactiveButton: (UIButton *)button;
 -(void) styleLoadingButton: (UIButton *)button;
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
--(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
--(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
-
 -(NSString *) splitCamelCase:(NSString *) str;
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
+-(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
+-(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
 
 @end

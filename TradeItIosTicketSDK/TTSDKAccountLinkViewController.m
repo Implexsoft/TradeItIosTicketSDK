@@ -29,13 +29,15 @@
 
     self.testingData = @[
                          [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Fidelity",@"accountName",
+                          @"Fidelity",@"broker",
+                          @"Fidelity*7221",@"accountName",
                           @"Brokerage",@"accountType",
                           @"$12,340",@"buyingPower",
                           @"1",@"linked",
                           nil],
                          [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Robinhood",@"accountName",
+                          @"Robinhood",@"broker",
+                          @"Robinhood*3748",@"accountName",
                           @"IRA",@"accountType",
                           @"$642",@"buyingPower",
                           @"0",@"linked",
