@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -8,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountLink" id="RBc-lr-aEv" customClass="TTSDKAccountLinkTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="AccountLink" rowHeight="60" id="RBc-lr-aEv" customClass="TTSDKAccountLinkTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RBc-lr-aEv" id="qBM-3a-jRU">
@@ -38,26 +39,38 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1f-3C-i0H" userLabel="Buying Power">
-                        <rect key="frame" x="0.0" y="9" width="224" height="12"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <rect key="frame" x="0.0" y="11" width="224" height="10"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,325" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTK-wq-cNf" userLabel="Buying Power Value">
-                        <rect key="frame" x="0.0" y="27" width="224" height="15"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <rect key="frame" x="0.0" y="26" width="224" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54U-6y-6zP">
                         <rect key="frame" x="263" y="14" width="51" height="31"/>
+                        <connections>
+                            <action selector="togglePressed:" destination="RBc-lr-aEv" eventType="valueChanged" id="UbH-4r-S6V"/>
+                        </connections>
                     </switch>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVU-Ar-O39" userLabel="Separator">
+                        <rect key="frame" x="8" y="58" width="304" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="s1E-8u-aEO"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="nVU-Ar-O39" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" id="1j7-9C-FSF"/>
                     <constraint firstItem="wfu-wF-3DB" firstAttribute="centerY" secondItem="tSI-QB-iLz" secondAttribute="centerY" id="7k2-IM-1jf"/>
                     <constraint firstItem="54U-6y-6zP" firstAttribute="trailing" secondItem="qBM-3a-jRU" secondAttribute="trailingMargin" id="Be1-xb-eTH"/>
                     <constraint firstItem="54U-6y-6zP" firstAttribute="centerY" secondItem="qBM-3a-jRU" secondAttribute="centerY" id="Cnv-30-2sf"/>
                     <constraint firstItem="tSI-QB-iLz" firstAttribute="top" secondItem="qBM-3a-jRU" secondAttribute="topMargin" id="G11-oa-vW8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nVU-Ar-O39" secondAttribute="trailing" id="Hhr-B2-FUS"/>
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="width" secondItem="qBM-3a-jRU" secondAttribute="width" multiplier="0.7" id="Lc7-sA-ezx"/>
                     <constraint firstItem="hTK-wq-cNf" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" constant="-8" id="ON4-Sr-Xxn"/>
                     <constraint firstItem="tSI-QB-iLz" firstAttribute="leading" secondItem="wfu-wF-3DB" secondAttribute="trailing" constant="8" id="Qw5-ij-td3"/>
@@ -66,10 +79,12 @@
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="baseline" secondItem="tSI-QB-iLz" secondAttribute="baseline" id="Uri-SY-7lf"/>
                     <constraint firstItem="hTK-wq-cNf" firstAttribute="centerY" secondItem="phr-cu-72X" secondAttribute="centerY" id="fH7-sy-C1J"/>
                     <constraint firstItem="phr-cu-72X" firstAttribute="leading" secondItem="tSI-QB-iLz" secondAttribute="leading" id="lgn-UY-SLT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="nVU-Ar-O39" secondAttribute="bottom" constant="-8" id="nQe-JV-9Dv"/>
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" constant="-8" id="phi-ZR-jgC"/>
                     <constraint firstItem="wfu-wF-3DB" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" id="uTW-TD-36l"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="accountNameLabel" destination="tSI-QB-iLz" id="HDx-Nb-tKu"/>
                 <outlet property="accountTypeLabel" destination="phr-cu-72X" id="4O0-k1-TPn"/>

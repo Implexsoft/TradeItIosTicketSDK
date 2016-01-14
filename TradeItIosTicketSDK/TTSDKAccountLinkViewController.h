@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKAccountLinkTableViewCell.h"
 
-@interface TTSDKAccountLinkViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@interface TTSDKAccountLinkViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTSDKAccountLinkDelegate>
 
 @end

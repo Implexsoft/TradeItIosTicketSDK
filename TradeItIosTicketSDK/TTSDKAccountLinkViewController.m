@@ -7,13 +7,14 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
-#import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKAccountLinkViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property TTSDKUtils * sharedUtils;
+
+@property NSArray * testingData;
 
 @end
 
@@ -25,6 +26,21 @@
     self.sharedUtils = [TTSDKUtils sharedUtils];
 
     [self.sharedUtils styleMainActiveButton:self.doneButton];
+
+    self.testingData = @[
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"Fidelity",@"accountName",
+                          @"Brokerage",@"accountType",
+                          @"$12,340",@"buyingPower",
+                          @"1",@"linked",
+                          nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"Robinhood",@"accountName",
+                          @"IRA",@"accountType",
+                          @"$642",@"buyingPower",
+                          @"0",@"linked",
+                          nil]
+                         ];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,13 +49,12 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return self.testingData.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
-
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier = @"AccountLink";
@@ -53,7 +68,14 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
 
+
+    [cell configureCellWithData:[self.testingData objectAtIndex:indexPath.row]];
+
     return cell;
+}
+
+-(void)linkToggleDidSelect {
+    // if an account is toggled
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
