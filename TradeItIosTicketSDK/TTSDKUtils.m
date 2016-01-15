@@ -207,8 +207,10 @@
     NSArray * subviews = keypad.subviews;
     
     for (int i = 0; i < [subviews count]; i++) {
-        UIButton *button = [subviews objectAtIndex:i];
-        [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
+        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
+            UIButton *button = [subviews objectAtIndex:i];
+            [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
+        }
     }
 }
 

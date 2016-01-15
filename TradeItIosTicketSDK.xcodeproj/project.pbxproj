@@ -46,6 +46,7 @@
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		654C05841C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */; };
 		654C05851C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */; };
+		65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65554E501C49802100BBA6F6 /* backspace@3x.png */; };
 		655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */; };
 		655745721C3ACA9B004BA180 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 655745701C3ACA9B004BA180 /* menuIcon.png */; };
@@ -79,8 +80,6 @@
 		A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C401B542C4B00373E1B /* TTSDKTicketSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */; };
-		A9901A991B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = A9901A971B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A9901A9A1B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9901A981B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
 		A9A8CF6B1B4EFC86000207B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF6A1B4EFC86000207B9 /* UIKit.framework */; };
 		A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -265,6 +264,7 @@
 		653666C11C0F7FCC00DB4D34 /* nativeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nativeArrow.png; sourceTree = "<group>"; };
 		654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioAccountsTableViewCell.h; sourceTree = "<group>"; };
 		654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioAccountsTableViewCell.m; sourceTree = "<group>"; };
+		65554E501C49802100BBA6F6 /* backspace@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backspace@3x.png"; sourceTree = "<group>"; };
 		655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOnboardingViewController.h; sourceTree = "<group>"; };
 		655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKOnboardingViewController.m; sourceTree = "<group>"; };
 		655745701C3ACA9B004BA180 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
@@ -299,8 +299,6 @@
 		A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCustomIOSAlertView.m; sourceTree = "<group>"; };
 		A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Ticket.storyboard; path = ../Ticket.storyboard; sourceTree = "<group>"; };
-		A9901A971B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAdvCalcTextField.h; sourceTree = "<group>"; };
-		A9901A981B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAdvCalcTextField.m; sourceTree = "<group>"; };
 		A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTradeItIosTicketSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItIosTicketSDK.h; sourceTree = "<group>"; };
 		A9A8CF5B1B4EFACB000207B9 /* TradeItIosTicketSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -518,8 +516,6 @@
 			children = (
 				A9C002B11B6ACD90007D15F5 /* TTSDKTradeViewController.h */,
 				A9C002B01B6ACD90007D15F5 /* TTSDKTradeViewController.m */,
-				A9901A971B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h */,
-				A9901A981B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m */,
 				6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */,
 				65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */,
 				6536130B1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.h */,
@@ -642,6 +638,7 @@
 				6557457B1C3AD5F9004BA180 /* chevronRight.png */,
 				650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */,
 				650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */,
+				65554E501C49802100BBA6F6 /* backspace@3x.png */,
 				65B314031C2377E700EBC30D /* success_icon.png */,
 				655745701C3ACA9B004BA180 /* menuIcon.png */,
 				A9A8D1301B504408000207B9 /* backspace.png */,
@@ -888,7 +885,6 @@
 				A9C003671B7264A4007D15F5 /* TradeItStockOrEtfBrokerListRequest.h in Headers */,
 				A9C0034E1B7264A4007D15F5 /* TradeItCloseSessionRequest.h in Headers */,
 				A9C002B31B6ACD90007D15F5 /* TTSDKTradeViewController.h in Headers */,
-				A9901A991B6AA4A800FCC83D /* TTSDKAdvCalcTextField.h in Headers */,
 				A905D3211B629D76006B0B8C /* TTSDKKeychain.h in Headers */,
 				A93B3C421B542C4B00373E1B /* TTSDKTicketSession.h in Headers */,
 				657ED25D1C21FDCF00217735 /* TTSDKAccountSelectViewController.h in Headers */,
@@ -1050,6 +1046,7 @@
 				650E2D3F1C45BE9700A3069E /* portfolioIcon@3x.png in Resources */,
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
 				650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */,
+				65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				65D582C41C4050E40060925A /* TTSDKCustomAlertView.xib in Resources */,
@@ -1120,7 +1117,6 @@
 				65ECCAF31C125403000CE86B /* TTSDKUtils.m in Sources */,
 				A9C003551B7264A4007D15F5 /* TradeItInformationNeededResult.m in Sources */,
 				A9B2D4781B5EA92F008065E1 /* TTSDKLoginViewController.m in Sources */,
-				A9901A9A1B6AA4A800FCC83D /* TTSDKAdvCalcTextField.m in Sources */,
 				A9C003371B7264A4007D15F5 /* TIEMSJSONModelArray.m in Sources */,
 				654C05851C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m in Sources */,
 				A9C0034F1B7264A4007D15F5 /* TradeItCloseSessionRequest.m in Sources */,

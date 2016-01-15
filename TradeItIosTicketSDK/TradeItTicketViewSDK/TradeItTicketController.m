@@ -10,7 +10,6 @@
 #import "TTSDKTicketSession.h"
 
 #import "TTSDKTradeViewController.h"
-#import "TTSDKAdvCalcTextField.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
@@ -176,7 +175,6 @@
 //the linker to load the classes :)
 + (void)forceClassesIntoLinker {
     [TTSDKTradeViewController class];
-    [TTSDKAdvCalcTextField class];
     [TTSDKCompanyDetails class];
     [TTSDKOrderTypeSelectionViewController class];
     [TTSDKOrderTypeInputViewController class];
