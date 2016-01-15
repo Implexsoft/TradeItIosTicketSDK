@@ -31,7 +31,12 @@
 
 @end
 
+
 @implementation TTSDKPortfolioViewController
+
+static float kHoldingCellDefaultHeight = 60.0f;
+static float kHoldingCellExpandedHeight = 140.0f;
+static float kAccountCellHeight = 44.0f;
 
 - (IBAction)closePressed:(id)sender {
     [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
@@ -52,46 +57,7 @@
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [self.scrollView.subviews firstObject].frame.size.height);
     [self.scrollView needsUpdateConstraints];
 
-//    NSArray * fidelityHoldings = [NSArray arrayWithObjects:
-//                         [NSDictionary dictionaryWithObjectsAndKeys:
-//                          @"AAPL", @"symbol",
-//                          @"$4,988.04", @"cost",
-//                          @"+1,346 (1.23%)", @"change",
-//                          @"223.43", @"bid",
-//                          @"224.34", @"ask",
-//                          @"$7,023.87", @"totalValue",
-//                          @"1.36%", @"dailyReturn",
-//                          @"-4.32%", @"totalReturn",
-//                          nil],
-//                         [NSDictionary dictionaryWithObjectsAndKeys:
-//                          @"GE", @"symbol",
-//                          @"$628.63", @"cost",
-//                          @"+282 (3.1%)", @"change",
-//                          @"52.43", @"bid",
-//                          @"51.21", @"ask",
-//                          @"$735.07", @"totalValue",
-//                          @"-8.1%", @"dailyReturn",
-//                          @"4.29%", @"totalReturn",
-//                          nil],
-//                         [NSDictionary dictionaryWithObjectsAndKeys:
-//                          @"BET", @"symbol",
-//                          @"$45.54", @"cost",
-//                          @"-1,823 (0.1%)", @"change",
-//                          @"119.03", @"bid",
-//                          @"120.74", @"ask",
-//                          @"$5,988.07", @"totalValue",
-//                          @"3.52%", @"dailyReturn",
-//                          @"-1.89%", @"totalReturn",
-//                          nil],
-//                         nil];
-
-    self.testAccounts = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"Fidelity", @"acctName", @"+18,940 (6.24%)", @"totalValue", @"$40,416", @"buyingPower", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"Etrade", @"acctName", @"-129 (2.08%)", @"totalValue", @"$305", @"buyingPower", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:@"Robinhood", @"acctName", @"+679 (8.02%)", @"totalValue", @"$1,536", @"buyingPower", nil],
-                         nil];
-
-    self.testHoldings = [NSArray arrayWithObjects:
+    NSArray * testHoldings = [NSArray arrayWithObjects:
                          [NSDictionary dictionaryWithObjectsAndKeys:
                           @"AAPL", @"symbol",
                           @"$4,988.04", @"cost",
@@ -123,6 +89,63 @@
                           @"-1.89%", @"totalReturn",
                           nil],
                          nil];
+
+    self.testHoldings = [NSArray arrayWithObjects:
+                              [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"AAPL", @"symbol",
+                               @"$4,988.04", @"cost",
+                               @"+1,346 (1.23%)", @"change",
+                               @"223.43", @"bid",
+                               @"224.34", @"ask",
+                               @"$7,023.87", @"totalValue",
+                               @"1.36%", @"dailyReturn",
+                               @"-4.32%", @"totalReturn",
+                               nil],
+                              [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"GE", @"symbol",
+                               @"$628.63", @"cost",
+                               @"+282 (3.1%)", @"change",
+                               @"52.43", @"bid",
+                               @"51.21", @"ask",
+                               @"$735.07", @"totalValue",
+                               @"-8.1%", @"dailyReturn",
+                               @"4.29%", @"totalReturn",
+                               nil],
+                              [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"BET", @"symbol",
+                               @"$45.54", @"cost",
+                               @"-1,823 (0.1%)", @"change",
+                               @"119.03", @"bid",
+                               @"120.74", @"ask",
+                               @"$5,988.07", @"totalValue",
+                               @"3.52%", @"dailyReturn",
+                               @"-1.89%", @"totalReturn",
+                               nil],
+                              nil];
+
+    self.testAccounts = [NSArray arrayWithObjects:
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"broker",@"Fidelity",
+                          @"accountName",@"My Fidelity Account",
+                          @"accountNumber",@"3239554",
+                          @"totalValue",@"$2,530",
+                          @"buyingPower",@"$87.23",
+                          @"holdings", testHoldings, nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"broker",@"Robinhood",
+                           @"accountName",@"My Robinhood Account",
+                           @"accountNumber",@"0298384",
+                           @"totalValue",@"$73,343",
+                           @"buyingPower",@"$29.23",
+                           @"holdings", testHoldings, nil],
+                          [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"broker",@"Etrade",
+                           @"accountName",@"My Etrade Account",
+                           @"accountNumber",@"9824334",
+                           @"totalValue",@"$2,354",
+                           @"buyingPower",@"$1,293",
+                           @"holdings", testHoldings, nil],
+                          nil];
 
     self.selectedIndex = -1;
 
@@ -159,6 +182,7 @@
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 
+    [self updateScrollContentSize:tableView];
     [self resizeUIComponents];
 }
 
@@ -169,12 +193,12 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isHoldingsTable:tableView]) {
         if (self.selectedIndex == indexPath.row) {
-            return 140.0f;
+            return kHoldingCellExpandedHeight;
         } else {
-            return 60.0f;
+            return kHoldingCellDefaultHeight;
         }
     } else {
-        return 44.0f;
+        return kAccountCellHeight;
     }
 }
 
@@ -188,21 +212,23 @@
     self.holdingsHeightConstraint.constant = self.holdingsTable.contentSize.height;
     self.accountsHeightConstraint.constant = self.accountsTable.contentSize.height;
 
-    CGRect contentRect = CGRectZero;
+    [self updateScrollContentSize:self.scrollView];
+}
 
-    for (UIView * view in [[self.scrollView.subviews firstObject] subviews]) {
+-(void)updateScrollContentSize:(UIScrollView *)scrollView {
+    CGRect contentRect = CGRectZero;
+    for (UIView * view in [[scrollView.subviews firstObject] subviews]) {
         contentRect = CGRectUnion(contentRect, view.frame);
     }
 
-    [self.scrollView setContentSize: contentRect.size];
-    [self.scrollView setNeedsLayout];
-    [self.scrollView setNeedsUpdateConstraints];
+    [scrollView setContentSize:contentRect.size];
+    [scrollView layoutIfNeeded];
+    [scrollView setNeedsUpdateConstraints];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier;
     NSString * nibIdentifier;
-
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
 

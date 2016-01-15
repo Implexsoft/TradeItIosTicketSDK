@@ -417,15 +417,6 @@
     }
 }
 
-- (IBAction)changeClicked:(id)sender {
-    //[self performSegueWithIdentifier:@"prepareForUnwind" sender:self];
-    [self performSegueWithIdentifier:@"unwindToAdvCalc" sender:self];
-}
-
-- (IBAction)cancelPressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-}
-
 -(IBAction)ackLabelToggled:(id)sender {
     UISwitch * switchSender = sender;
 

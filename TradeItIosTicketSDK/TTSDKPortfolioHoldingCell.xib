@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PortfolioHoldingIdentifier" rowHeight="140" id="ccm-Np-7uV" customClass="TTSDKPortfolioHoldingTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="PortfolioHoldingIdentifier" rowHeight="140" id="ccm-Np-7uV" customClass="TTSDKPortfolioHoldingTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccm-Np-7uV" id="RDH-lE-Bbu">
@@ -17,23 +17,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n64-lf-wFV" userLabel="SecondaryView">
-                        <rect key="frame" x="212" y="0.0" width="108" height="60"/>
+                        <rect key="frame" x="192" y="0.0" width="128" height="60"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efO-vF-Uhp">
-                                <rect key="frame" x="54" y="0.0" width="54" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efO-vF-Uhp">
+                                <rect key="frame" x="64" y="0.0" width="64" height="60"/>
                                 <color key="backgroundColor" red="0.34509803919999998" green="0.63921568630000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="jEC-UE-Pdf"/>
+                                    <constraint firstAttribute="width" constant="64" id="jEC-UE-Pdf"/>
                                 </constraints>
                                 <state key="normal" title="Sell">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-7o-qMS">
-                                <rect key="frame" x="0.0" y="0.0" width="54" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-7o-qMS">
+                                <rect key="frame" x="0.0" y="0.0" width="64" height="60"/>
                                 <color key="backgroundColor" red="0.16717208059999999" green="0.39085629109999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="IhF-Rd-3tc"/>
+                                    <constraint firstAttribute="width" constant="64" id="IhF-Rd-3tc"/>
                                 </constraints>
                                 <state key="normal" title="Buy">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,7 +48,7 @@
                             <constraint firstAttribute="bottom" secondItem="0eh-7o-qMS" secondAttribute="bottom" id="XBy-rk-fX4"/>
                             <constraint firstItem="efO-vF-Uhp" firstAttribute="leading" secondItem="0eh-7o-qMS" secondAttribute="trailing" id="dTq-EM-Nsh"/>
                             <constraint firstAttribute="trailing" secondItem="efO-vF-Uhp" secondAttribute="trailing" id="kiA-DV-mjc"/>
-                            <constraint firstAttribute="width" constant="108" id="lQG-gb-OEk"/>
+                            <constraint firstAttribute="width" constant="128" id="lQG-gb-OEk"/>
                             <constraint firstAttribute="height" constant="60" id="xgU-mm-mjk"/>
                         </constraints>
                     </view>
@@ -87,7 +87,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtO-yq-JC5" userLabel="SeparatorView">
-                        <rect key="frame" x="8" y="0.0" width="304" height="1"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Gpx-EW-qBF"/>
@@ -188,15 +188,15 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="0Nn-QU-80y" secondAttribute="trailing" id="1Vw-4V-JGD"/>
                     <constraint firstItem="ZtO-yq-JC5" firstAttribute="top" secondItem="0Nn-QU-80y" secondAttribute="top" id="86L-in-gyz"/>
                     <constraint firstItem="59L-m4-l5m" firstAttribute="leading" secondItem="RDH-lE-Bbu" secondAttribute="leadingMargin" constant="-8" id="LYa-4i-E61"/>
                     <constraint firstAttribute="trailingMargin" secondItem="n64-lf-wFV" secondAttribute="trailing" constant="-8" id="Nqo-Hk-Xwb"/>
-                    <constraint firstItem="ZtO-yq-JC5" firstAttribute="leading" secondItem="RDH-lE-Bbu" secondAttribute="leadingMargin" id="RgZ-iX-s4S"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ZtO-yq-JC5" secondAttribute="trailing" id="axB-cx-Id5"/>
+                    <constraint firstItem="ZtO-yq-JC5" firstAttribute="leading" secondItem="RDH-lE-Bbu" secondAttribute="leadingMargin" constant="-8" id="RgZ-iX-s4S"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ZtO-yq-JC5" secondAttribute="trailing" constant="-8" id="axB-cx-Id5"/>
                     <constraint firstItem="59L-m4-l5m" firstAttribute="trailing" secondItem="n64-lf-wFV" secondAttribute="trailing" id="dby-9N-Hu3"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="0Nn-QU-80y" secondAttribute="trailing" constant="-8" id="kQz-LS-J9E"/>
                     <constraint firstItem="59L-m4-l5m" firstAttribute="top" secondItem="0Nn-QU-80y" secondAttribute="bottom" constant="8" id="lGE-bn-M39"/>
-                    <constraint firstItem="0Nn-QU-80y" firstAttribute="leading" secondItem="RDH-lE-Bbu" secondAttribute="leadingMargin" constant="-8" id="nLa-7R-Rfx"/>
+                    <constraint firstItem="0Nn-QU-80y" firstAttribute="leading" secondItem="RDH-lE-Bbu" secondAttribute="leading" id="peT-7J-2IZ"/>
                     <constraint firstItem="n64-lf-wFV" firstAttribute="top" secondItem="RDH-lE-Bbu" secondAttribute="topMargin" constant="-8" id="tlb-Wv-lrB"/>
                     <constraint firstItem="0Nn-QU-80y" firstAttribute="top" secondItem="RDH-lE-Bbu" secondAttribute="topMargin" constant="-8" id="ye6-OZ-1GX"/>
                 </constraints>
@@ -208,8 +208,8 @@
                 <outlet property="changeLabel" destination="fXD-EB-vm8" id="gNI-Q6-YL4"/>
                 <outlet property="costLabel" destination="h0n-Jb-gtE" id="khT-Tj-SIZ"/>
                 <outlet property="dailyReturnValue" destination="5zO-yC-J6Q" id="LDA-49-VdU"/>
-                <outlet property="primaryLeftConstraint" destination="nLa-7R-Rfx" id="44J-uS-EkC"/>
-                <outlet property="primaryRightConstraint" destination="kQz-LS-J9E" id="fzH-5G-NOu"/>
+                <outlet property="primaryLeftConstraint" destination="peT-7J-2IZ" id="wxT-pI-vPD"/>
+                <outlet property="primaryRightConstraint" destination="1Vw-4V-JGD" id="1yb-t5-388"/>
                 <outlet property="primaryView" destination="0Nn-QU-80y" id="8q8-6z-k7M"/>
                 <outlet property="secondaryView" destination="n64-lf-wFV" id="gfo-I1-4hd"/>
                 <outlet property="sellButton" destination="efO-vF-Uhp" id="kGY-TR-fhf"/>
@@ -218,7 +218,7 @@
                 <outlet property="totalReturnValueLabel" destination="nlW-dX-x2c" id="eDD-VF-NX0"/>
                 <outlet property="totalValueLabel" destination="Op7-hK-I8r" id="8vX-5Z-IAq"/>
             </connections>
-            <point key="canvasLocation" x="879" y="1482"/>
+            <point key="canvasLocation" x="313" y="1015"/>
         </tableViewCell>
     </objects>
 </document>

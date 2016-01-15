@@ -558,8 +558,8 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
-				A9B2D46C1B5D88ED008065E1 /* Authentication */,
 				6588C3E11C446F0400927F72 /* TabBar */,
+				A9B2D46C1B5D88ED008065E1 /* Authentication */,
 				65DD1BD11C3C80DA0032676A /* Portfolio */,
 				A9C002B41B6EE3E9007D15F5 /* BaseTrade */,
 				A9901A421B696C1900FCC83D /* Trade */,

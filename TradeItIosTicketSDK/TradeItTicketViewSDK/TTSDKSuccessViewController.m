@@ -20,6 +20,10 @@
 
 @implementation TTSDKSuccessViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationItem setHidesBackButton:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
