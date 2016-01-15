@@ -215,24 +215,34 @@ static NSString * kTradeViewIdentifier = @"TRADE";
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
 
-    if([startingView isEqualToString:kOnboardingViewIdentifier]){
-        TTSDKOnboardingViewController * initialViewController = (TTSDKOnboardingViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-        initialViewController.tradeSession = tradeSession;
-        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-        //Display
-        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-    } else {
-        TTSDKTabBarViewController *initialViewController = (TTSDKTabBarViewController *)[ticket instantiateViewControllerWithIdentifier:@"BaseTabBarController"];
-        if ([startingView isEqualToString:kPortfolioViewIdentifier]) {
-            initialViewController.selectedIndex = 1;
-        } else {
-            initialViewController.selectedIndex = 0;
-        }
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"AuthenticationNavController"];
+    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
 
-        // Display
-        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-    }
+//    TTSDKOnboardingViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
+//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//    [nav pushViewController:initialViewController animated:YES];
+
+    [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
+
+//    if([startingView isEqualToString:kOnboardingViewIdentifier]){
+//        TTSDKOnboardingViewController * initialViewController = (TTSDKOnboardingViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
+//        initialViewController.tradeSession = tradeSession;
+//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//        //Display
+//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+//    } else {
+//        TTSDKTabBarViewController *initialViewController = (TTSDKTabBarViewController *)[ticket instantiateViewControllerWithIdentifier:@"BaseTabBarController"];
+//        if ([startingView isEqualToString:kPortfolioViewIdentifier]) {
+//            initialViewController.selectedIndex = 1;
+//        } else {
+//            initialViewController.selectedIndex = 0;
+//        }
+//
+//        // Display
+//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
+//    }
 }
 
 +(void) returnToParentApp:(TTSDKTicketSession *)tradeSession {

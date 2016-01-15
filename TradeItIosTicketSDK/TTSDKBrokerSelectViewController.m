@@ -26,9 +26,6 @@ static NSString * CellIdentifier = @"BrokerCell";
 
     brokers = self.tradeSession.brokerList;
     linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
-    
-    UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
 
     if([brokers count] < 1){
         [self showLoadingAndWait];
@@ -45,17 +42,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 
     self.tableView.tableHeaderView = headerView;
 
-    //[headerView addConstraint:[NSLayoutConstraint constraintWithItem:headerLabelView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
-
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
-//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 200, self.tableView.frame.size.width, 100)];
-//    UIButton *footerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-//    [footerButton setTitle:@"Next" forState:UIControlStateNormal];
-//    [footerView addSubview:footerButton];
-//    [self.view addSubview:footerView];
-
-    //[self.view addConstraint:[NSLayoutConstraint constraintWithItem:footerView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f]];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -147,8 +134,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 
 #pragma mark - events
-
-- (void)cancelButtonTapped:(id)sender {
+- (IBAction)closePressed:(id)sender {
     if([self editMode]) {
         [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
     } else {

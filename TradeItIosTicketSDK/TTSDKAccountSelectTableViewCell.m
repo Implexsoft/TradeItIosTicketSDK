@@ -7,11 +7,13 @@
 //
 
 #import "TTSDKAccountSelectTableViewCell.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKAccountSelectTableViewCell()
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
+@property TTSDKUtils * utils;
 
 @end
 
@@ -32,6 +34,8 @@
         if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
             [self setLayoutMargins:UIEdgeInsetsMake(0, 20, 0, 20)];
         }
+
+        self.utils = [TTSDKUtils sharedUtils];
     }
 }
 
@@ -59,8 +63,6 @@
     self.circle.backgroundColor = [UIColor clearColor];
     CGFloat alertSize = self.circle.frame.size.height - 3;
 
-    struct CGColor *alertFill = [[UIColor clearColor] CGColor];
-
     CAShapeLayer *circleLayer;
 
     BOOL isNewLayer = YES;
@@ -74,14 +76,12 @@
         }
     }
 
+    UIColor * circleFill = [UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:1];
     if (!circleLayer) {
-        circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 1.5, alertSize, alertSize)] CGPath]];
+        circleLayer = [self.utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
+    } else {
+        [circleLayer setFillColor: circleFill.CGColor];
     }
-
-    alertFill = [[UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:1] CGColor];
-
-    [circleLayer setFillColor: alertFill];
 
     if (isNewLayer) {
         [self.circle.layer addSublayer:circleLayer];

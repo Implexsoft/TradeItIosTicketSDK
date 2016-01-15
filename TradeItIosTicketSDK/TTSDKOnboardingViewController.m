@@ -8,22 +8,38 @@
 
 #import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKOnboardingViewController ()
+
+@property TTSDKUtils * utils;
+@property (weak, nonatomic) IBOutlet UIButton *brokerSelectButton;
 
 @end
 
 @implementation TTSDKOnboardingViewController
 
+static int kBulletContainerTag = 2;
+
+- (IBAction)closePressed:(id)sender {
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.tradeSession = [TTSDKTicketSession globalSession];
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.utils = [TTSDKUtils sharedUtils];
+
+    for (UIView *view in self.view.subviews) {
+        if (view.tag == kBulletContainerTag) {
+            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor:self.utils.activeButtonColor];
+            [view.layer addSublayer:circleLayer];
+        }
+    }
+
+    [self.utils styleCustomDropdownButton:self.brokerSelectButton];
 }
 
 - (IBAction)brokerSelectPressed:(id)sender {
@@ -33,7 +49,6 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 }
 

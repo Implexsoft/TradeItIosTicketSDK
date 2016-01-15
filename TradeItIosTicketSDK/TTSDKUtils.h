@@ -46,5 +46,7 @@
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
 -(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
+- (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color;
+-(void) styleCustomDropdownButton: (UIButton *)button;
 
 @end

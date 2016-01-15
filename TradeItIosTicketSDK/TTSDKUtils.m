@@ -96,6 +96,14 @@
     currentGradientContainer = nil;
 }
 
+- (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color {
+    CAShapeLayer * circleLayer = [CAShapeLayer layer];
+    [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 1.5, diameter, diameter)] CGPath]];
+    [circleLayer setFillColor: color.CGColor];
+
+    return circleLayer;
+}
+
 - (void)removeLoadingIndicatorFromContainer {
     if (currentIndicator) {
         [currentIndicator removeFromSuperview];
@@ -105,9 +113,9 @@
 - (NSString *)formatIntegerToReadablePrice: (NSString *)price {
     unsigned int len = (int)[price length];
     unichar buffer[len];
-    
+
     [price getCharacters:buffer range:NSMakeRange(0, len)];
-    
+
     NSMutableString * formatString = [NSMutableString string];
 
     int pos = 0;
@@ -144,6 +152,21 @@
     [self addGradientToButton:button];
 
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+-(void) styleCustomDropdownButton: (UIButton *)button {
+    button.backgroundColor = [UIColor whiteColor];
+    button.layer.borderColor = activeButtonColor.CGColor;
+    button.layer.borderWidth = 1.5f;
+    button.layer.cornerRadius = button.frame.size.height / 2;
+
+    UILabel * preferredBrokerLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, button.frame.size.width, 8)];
+    preferredBrokerLabel.font = [UIFont systemFontOfSize:8.0f];
+    preferredBrokerLabel.textColor = [UIColor lightGrayColor];
+    preferredBrokerLabel.text = @"PREFERRED BROKER";
+
+    [button.titleLabel addSubview:preferredBrokerLabel];
+    [button setTitleColor:[UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
 }
 
 -(void) styleLoadingButton: (UIButton *)button {

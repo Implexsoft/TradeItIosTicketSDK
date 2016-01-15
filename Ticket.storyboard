@@ -45,6 +45,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select Your Broker" id="qfr-Pn-H7b">
                         <barButtonItem key="backBarButtonItem" title="Back" id="uEO-UX-Xcf"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="GV0-St-g7D">
+                            <connections>
+                                <action selector="closePressed:" destination="V42-ok-rVA" id="juZ-Pu-isF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
@@ -478,10 +483,10 @@ you want to link</string>
             </objects>
             <point key="canvasLocation" x="415" y="-1009"/>
         </scene>
-        <!--Onboarding View Controller-->
+        <!--Welcome-->
         <scene sceneID="caK-z3-vmR">
             <objects>
-                <viewController storyboardIdentifier="onboardingController" id="r6z-Ew-5zU" customClass="TTSDKOnboardingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ONBOARDING" useStoryboardIdentifierAsRestorationIdentifier="YES" id="r6z-Ew-5zU" customClass="TTSDKOnboardingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ym6-P2-CNs"/>
                         <viewControllerLayoutGuide type="bottom" id="PqO-0z-E9M"/>
@@ -490,59 +495,98 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvo-Gu-GcY">
-                                <rect key="frame" x="135" y="370" width="50" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvo-Gu-GcY">
+                                <rect key="frame" x="60" y="356" width="200" height="44"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="gI0-Uj-TIB"/>
+                                    <constraint firstAttribute="height" constant="44" id="xCw-H6-2Tc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="contentEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Fidelity"/>
                                 <connections>
                                     <action selector="brokerSelectPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="chd-iK-luP"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPh-MO-MXH">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="44"/>
-                                <items>
-                                    <navigationItem title="Trade" id="Zxe-Ie-6tE">
-                                        <barButtonItem key="leftBarButtonItem" title="Close" id="KEE-cs-jDK"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast and easy trading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-uL-kzG">
-                                <rect key="frame" x="29" y="128" width="139" height="17"/>
+                                <rect key="frame" x="36" y="134" width="139" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
+                                <rect key="frame" x="22" y="141" width="4" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="nQs-1g-WFp"/>
+                                    <constraint firstAttribute="width" constant="4" id="sPw-Wr-pOC"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI">
-                                <rect key="frame" x="29" y="155" width="243" height="17"/>
+                                <rect key="frame" x="36" y="161" width="243" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
+                                <rect key="frame" x="22" y="168" width="4" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="XkL-wA-a8c"/>
+                                    <constraint firstAttribute="width" constant="4" id="fbS-9F-xsV"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV">
-                                <rect key="frame" x="29" y="182" width="157" height="17"/>
+                                <rect key="frame" x="36" y="188" width="157" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
+                                <rect key="frame" x="22" y="194" width="4" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="MiR-rc-Xij"/>
+                                    <constraint firstAttribute="width" constant="4" id="cdM-U4-eXS"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT">
-                                <rect key="frame" x="29" y="209" width="195" height="17"/>
+                                <rect key="frame" x="36" y="215" width="195" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
+                                <rect key="frame" x="22" y="222" width="4" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="4OF-A7-f5A"/>
+                                    <constraint firstAttribute="width" constant="4" id="Dp6-X3-Wp8"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg">
-                                <rect key="frame" x="29" y="236" width="203" height="17"/>
+                                <rect key="frame" x="36" y="242" width="203" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
+                                <rect key="frame" x="22" y="248" width="4" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="gH8-EK-MmS"/>
+                                    <constraint firstAttribute="width" constant="4" id="gQL-wQ-Fd6"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your broker to begin:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsE-Pz-vxy">
-                                <rect key="frame" x="54" y="324" width="212" height="21"/>
+                                <rect key="frame" x="54" y="310" width="212" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your broker account to enable:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-vI-2sy">
-                                <rect key="frame" x="60" y="59" width="201" height="44"/>
+                                <rect key="frame" x="60" y="65" width="201" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4oa-lL-Atj"/>
                                 </constraints>
@@ -553,49 +597,68 @@ you want to link</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aHi-HP-SoW" firstAttribute="centerY" secondItem="bEh-ol-Fgg" secondAttribute="centerY" id="4sv-qa-So2"/>
                             <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="10" id="5b1-op-Vg3"/>
+                            <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="SwW-BQ-aXo" secondAttribute="trailing" constant="10" id="D5J-HI-l2f"/>
                             <constraint firstItem="uXb-3D-lgI" firstAttribute="top" secondItem="dOw-uL-kzG" secondAttribute="bottom" constant="10" id="DUw-vu-vtg"/>
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="DxX-aE-CNC"/>
+                            <constraint firstItem="c6p-Kc-Q9q" firstAttribute="centerY" secondItem="Snw-Fa-ScV" secondAttribute="centerY" id="Frb-xf-fFI"/>
                             <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="uXb-3D-lgI" secondAttribute="leading" id="G2D-Aj-4HN"/>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="G6g-AX-6rY"/>
-                            <constraint firstItem="MPh-MO-MXH" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leadingMargin" constant="-20" id="GGw-n8-8nJ"/>
-                            <constraint firstItem="MPh-MO-MXH" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" id="JKy-rl-Q1K"/>
                             <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="10" id="R3L-vS-Ytq"/>
-                            <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="MPh-MO-MXH" secondAttribute="bottom" constant="15" id="Umq-jf-Hzi"/>
                             <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Uwo-r4-k0K"/>
+                            <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="65" id="VHj-Bx-vBm"/>
                             <constraint firstItem="PqO-0z-E9M" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="80" id="ViG-I5-wWb"/>
-                            <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leadingMargin" constant="13" id="VvP-7p-Zaf"/>
+                            <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leadingMargin" constant="20" id="VvP-7p-Zaf"/>
+                            <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="4LW-hd-IFh" secondAttribute="trailing" constant="10" id="a7S-5a-Q6W"/>
                             <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="dOw-uL-kzG" secondAttribute="leading" id="bRA-Er-LCa"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MPh-MO-MXH" secondAttribute="trailing" constant="-20" id="eFO-zi-IIE"/>
+                            <constraint firstItem="SwW-BQ-aXo" firstAttribute="centerY" secondItem="oif-bt-exT" secondAttribute="centerY" id="dSS-Ho-rGX"/>
+                            <constraint firstItem="a1A-PP-k3j" firstAttribute="centerY" secondItem="uXb-3D-lgI" secondAttribute="centerY" id="eiC-An-4ht"/>
                             <constraint firstItem="bEh-ol-Fgg" firstAttribute="leading" secondItem="oif-bt-exT" secondAttribute="leading" id="f8p-qV-BG3"/>
+                            <constraint firstItem="bEh-ol-Fgg" firstAttribute="leading" secondItem="aHi-HP-SoW" secondAttribute="trailing" constant="10" id="gIi-vN-YAg"/>
                             <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="Snw-Fa-ScV" secondAttribute="leading" id="hbq-DK-EgT"/>
                             <constraint firstItem="dOw-uL-kzG" firstAttribute="top" secondItem="Wui-vI-2sy" secondAttribute="bottom" constant="25" id="ifr-Yo-Ccg"/>
                             <constraint firstItem="bEh-ol-Fgg" firstAttribute="top" secondItem="oif-bt-exT" secondAttribute="bottom" constant="10" id="jMp-W2-QUk"/>
+                            <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="a1A-PP-k3j" secondAttribute="trailing" constant="10" id="kxT-fF-vhQ"/>
+                            <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="c6p-Kc-Q9q" secondAttribute="trailing" constant="10" id="lz6-8H-l75"/>
+                            <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" id="r4q-f5-VwI"/>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="top" secondItem="dsE-Pz-vxy" secondAttribute="bottom" constant="25" id="sKa-Vf-Fhy"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Welcome" id="Epp-1L-8un">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="dsB-7B-gsS"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="dZv-us-ASM">
+                            <connections>
+                                <action selector="closePressed:" destination="r6z-Ew-5zU" id="C1o-BN-1uG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="brokerSelectButton" destination="Tvo-Gu-GcY" id="DMs-2z-aPv"/>
+                        <segue destination="V42-ok-rVA" kind="show" identifier="OnboardingToBrokerSelect" id="3sc-EH-xgQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJc-zt-7Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-786" y="56"/>
+            <point key="canvasLocation" x="-423" y="483"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
             <objects>
-                <navigationController storyboardIdentifier="brokerSelectNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AuthenticationNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SXg-ap-0ac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="V42-ok-rVA" kind="relationship" relationship="rootViewController" id="I3L-jI-b7x"/>
+                        <segue destination="r6z-Ew-5zU" kind="relationship" relationship="rootViewController" id="BvC-V7-TQi"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hy-zS-JoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-419" y="483"/>
+            <point key="canvasLocation" x="-834" y="483"/>
         </scene>
         <!--Success View Controller-->
         <scene sceneID="QCT-Ou-Vi2">
@@ -633,7 +696,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
                                 <rect key="frame" x="16" y="451" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1991,7 +2054,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wuc-R0-2HR"/>
-        <segue reference="I3L-jI-b7x"/>
+        <segue reference="3sc-EH-xgQ"/>
         <segue reference="w8F-LL-uTO"/>
     </inferredMetricsTieBreakers>
 </document>
