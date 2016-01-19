@@ -117,17 +117,10 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
-    NSString * valueText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:1];
-    
+
     TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.textLabel.text = displayText;
+    [cell configureCellWithText:displayText];
 
-    [cell configureCell];
-
-    if([linkedBrokers containsObject:valueText]) {
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    }
-    
     return cell;
 }
 
@@ -142,7 +135,7 @@ static NSString * CellIdentifier = @"BrokerCell";
             TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
             res.success = false;
             res.errorTitle = @"Cancelled";
-            
+
             self.tradeSession.brokerSignUpCallback(res);
         }
         

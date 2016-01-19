@@ -50,7 +50,6 @@
 		65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65554E501C49802100BBA6F6 /* backspace@3x.png */; };
 		655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */; };
-		655745721C3ACA9B004BA180 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 655745701C3ACA9B004BA180 /* menuIcon.png */; };
 		655745781C3ACCBF004BA180 /* TTSDKAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745761C3ACCBF004BA180 /* TTSDKAlertView.h */; };
 		655745791C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
 		6557457A1C3ACCBF004BA180 /* TTSDKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745771C3ACCBF004BA180 /* TTSDKAlertView.m */; };
@@ -94,7 +93,6 @@
 		A9A8D0FE1B4F19D5000207B9 /* TTSDKSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* TTSDKSuccessViewController.m */; };
 		A9A8D0FF1B4F19D5000207B9 /* TTSDKTradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF871B4EFDBB000207B9 /* TTSDKTradeItTicket.m */; };
 		A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
-		A9A8D1341B504408000207B9 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1301B504408000207B9 /* backspace.png */; };
 		A9A8D1361B504408000207B9 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A8D1321B504408000207B9 /* refresh.png */; };
 		A9B2D4571B5D5973008065E1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */; };
 		A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -268,7 +266,6 @@
 		65554E501C49802100BBA6F6 /* backspace@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backspace@3x.png"; sourceTree = "<group>"; };
 		655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOnboardingViewController.h; sourceTree = "<group>"; };
 		655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKOnboardingViewController.m; sourceTree = "<group>"; };
-		655745701C3ACA9B004BA180 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		655745761C3ACCBF004BA180 /* TTSDKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAlertView.h; sourceTree = "<group>"; };
 		655745771C3ACCBF004BA180 /* TTSDKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAlertView.m; sourceTree = "<group>"; };
 		6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevronRight@3x.png"; sourceTree = "<group>"; };
@@ -316,7 +313,6 @@
 		A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TradeItTicketController.m; path = TradeItTicketViewSDK/TradeItTicketController.m; sourceTree = "<group>"; };
 		A9A8D0C21B4F0F56000207B9 /* TradeItIosTicketSDK.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TradeItIosTicketSDK.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A8D0C51B4F0F56000207B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9A8D1301B504408000207B9 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		A9A8D1321B504408000207B9 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectViewController.h; sourceTree = "<group>"; };
@@ -641,8 +637,6 @@
 				650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */,
 				65554E501C49802100BBA6F6 /* backspace@3x.png */,
 				65B314031C2377E700EBC30D /* success_icon.png */,
-				655745701C3ACA9B004BA180 /* menuIcon.png */,
-				A9A8D1301B504408000207B9 /* backspace.png */,
 				653666C11C0F7FCC00DB4D34 /* nativeArrow.png */,
 				A9A8D1321B504408000207B9 /* refresh.png */,
 			);
@@ -1052,8 +1046,6 @@
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				65D582C41C4050E40060925A /* TTSDKCustomAlertView.xib in Resources */,
-				655745721C3ACA9B004BA180 /* menuIcon.png in Resources */,
-				A9A8D1341B504408000207B9 /* backspace.png in Resources */,
 				6510F4A81C4710CE009989BD /* TTSDKAccountLinkCell.xib in Resources */,
 				650FED3C1C330C0A005CBABA /* TTSDKAccountSelectCell.xib in Resources */,
 			);

@@ -306,7 +306,7 @@
                                                  multiplier:1
                                                  constant:0];
     toggleTopConstraint.priority = 900;
-    
+
     NSLayoutConstraint * toggleLabelConstraint = [NSLayoutConstraint
                                                 constraintWithItem:toggle
                                                 attribute:NSLayoutAttributeTrailing
@@ -316,7 +316,7 @@
                                                 multiplier:1
                                                 constant:-10];
     toggleLabelConstraint.priority = 900;
-    
+
     NSLayoutConstraint * labelTopConstraint = [NSLayoutConstraint
                                                   constraintWithItem:label
                                                   attribute:NSLayoutAttributeTop

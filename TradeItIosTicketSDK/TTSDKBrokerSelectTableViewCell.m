@@ -17,30 +17,24 @@
     }
 }
 
-
 - (UIEdgeInsets)layoutMargins {
     return UIEdgeInsetsZero;
 }
-
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.textLabel.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
 
-//    UIImageView *customDisclosureView = [[ alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 30, 0, 30, self.contentView.frame.size.height)];
-//    customDisclosureView.backgroundColor = [UIColor greenColor];
-
     UIImageView *customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
 
     customDisclosureView.contentMode = UIViewContentModeScaleAspectFit;
-
     customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - 7, 0, 7, self.contentView.frame.size.height);
 
     [self addSubview:customDisclosureView];
 }
 
-
-- (void)configureCell {
+- (void)configureCellWithText:(NSString *)text {
+    self.textLabel.text = text;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
@@ -58,5 +52,6 @@
 
     [super setFrame:frame];
 }
+
 
 @end

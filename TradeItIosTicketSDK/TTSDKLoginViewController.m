@@ -102,8 +102,7 @@
         if (self.tradeSession.brokerSignUpCallback) {
             self.tradeSession.brokerSignUpCallback(res);
         }
-        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-        
+
         return;
     }
 }

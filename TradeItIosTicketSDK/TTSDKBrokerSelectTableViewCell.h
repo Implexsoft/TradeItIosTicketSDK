@@ -10,6 +10,6 @@
 
 @interface TTSDKBrokerSelectTableViewCell : UITableViewCell
 
-- (void)configureCell;
+- (void)configureCellWithText:(NSString *)text;
 
 @end
