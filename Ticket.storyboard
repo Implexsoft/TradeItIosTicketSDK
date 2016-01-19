@@ -1395,9 +1395,20 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="Yy8-Yu-eMp" id="Uwh-b2-rfD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPo-hR-fH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Xt2-7y-EwX" userLabel="Exit" sceneMemberID="exit"/>
+                <searchDisplayController id="Yy8-Yu-eMp">
+                    <connections>
+                        <outlet property="delegate" destination="mGd-gp-pc2" id="7ZQ-Lg-MhH"/>
+                        <outlet property="searchContentsController" destination="mGd-gp-pc2" id="adG-SW-8gn"/>
+                        <outlet property="searchResultsDataSource" destination="mGd-gp-pc2" id="WCt-uL-Gff"/>
+                        <outlet property="searchResultsDelegate" destination="mGd-gp-pc2" id="itB-1x-yqS"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1241" y="-1629"/>
         </scene>

@@ -44,6 +44,7 @@
 		653613171C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 653613141C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m */; };
 		653666C21C0F7FCC00DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
 		653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* nativeArrow.png */; };
+		654BE36A1C4EE2E100E8510F /* chevronRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */; };
 		654C05841C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */; };
 		654C05851C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */; };
 		65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65554E501C49802100BBA6F6 /* backspace@3x.png */; };
@@ -270,7 +271,7 @@
 		655745701C3ACA9B004BA180 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		655745761C3ACCBF004BA180 /* TTSDKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAlertView.h; sourceTree = "<group>"; };
 		655745771C3ACCBF004BA180 /* TTSDKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAlertView.m; sourceTree = "<group>"; };
-		6557457B1C3AD5F9004BA180 /* chevronRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevronRight.png; sourceTree = "<group>"; };
+		6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevronRight@3x.png"; sourceTree = "<group>"; };
 		657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectViewController.h; sourceTree = "<group>"; };
 		657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectViewController.m; sourceTree = "<group>"; };
 		657ED2601C220A0A00217735 /* TTSDKAccountSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -635,7 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
-				6557457B1C3AD5F9004BA180 /* chevronRight.png */,
+				6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */,
 				650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */,
 				650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */,
 				65554E501C49802100BBA6F6 /* backspace@3x.png */,
@@ -1047,6 +1048,7 @@
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
 				650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */,
 				65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */,
+				654BE36A1C4EE2E100E8510F /* chevronRight@3x.png in Resources */,
 				653666C31C0F814400DB4D34 /* nativeArrow.png in Resources */,
 				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				65D582C41C4050E40060925A /* TTSDKCustomAlertView.xib in Resources */,
