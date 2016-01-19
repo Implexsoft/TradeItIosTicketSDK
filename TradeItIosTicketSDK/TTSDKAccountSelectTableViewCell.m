@@ -76,7 +76,14 @@
         }
     }
 
-    UIColor * circleFill = [UIColor colorWithRed:0.1 green:0.8 blue:0.1 alpha:1];
+
+    UIColor * circleFill;
+    @try {
+        circleFill = [self.utils valueForKey:@"activeButtonColor"];
+    }
+    @catch (NSException *exception) {
+        // do nothing
+    }
     if (!circleLayer) {
         circleLayer = [self.utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
     } else {

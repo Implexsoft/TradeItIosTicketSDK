@@ -85,7 +85,7 @@
                     <state key="normal" title="1"/>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backspace.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3J-1o-Ku8">
-                    <rect key="frame" x="233" y="360" width="67" height="120"/>
+                    <rect key="frame" x="236" y="360" width="61" height="120"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -116,7 +116,7 @@
                 <constraint firstItem="kKU-a0-HKB" firstAttribute="top" secondItem="g7N-gZ-90m" secondAttribute="bottom" id="PFq-fS-iKp"/>
                 <constraint firstItem="pP4-2z-xXY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PZy-nU-yrM"/>
                 <constraint firstItem="e7c-pF-SSu" firstAttribute="width" secondItem="UdZ-al-Bdw" secondAttribute="width" id="SGD-Cl-F8k"/>
-                <constraint firstAttribute="trailing" secondItem="x3J-1o-Ku8" secondAttribute="trailing" constant="20" id="VUb-1m-Fn6"/>
+                <constraint firstAttribute="trailing" secondItem="x3J-1o-Ku8" secondAttribute="trailing" constant="23" id="VUb-1m-Fn6"/>
                 <constraint firstItem="hkg-2b-mYj" firstAttribute="width" secondItem="UdZ-al-Bdw" secondAttribute="width" id="Zei-n7-dzf"/>
                 <constraint firstItem="e7c-pF-SSu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aFr-Li-YGF"/>
                 <constraint firstItem="2bq-YQ-XR2" firstAttribute="height" secondItem="UdZ-al-Bdw" secondAttribute="height" id="bYD-GK-KLi"/>
@@ -127,7 +127,7 @@
                 <constraint firstItem="lPa-bh-w4L" firstAttribute="height" secondItem="hkg-2b-mYj" secondAttribute="height" id="fzJ-dV-a1f"/>
                 <constraint firstItem="g7N-gZ-90m" firstAttribute="height" secondItem="aky-5j-eWR" secondAttribute="height" id="gEh-Fv-VuH"/>
                 <constraint firstItem="UdZ-al-Bdw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gHN-FS-fPw"/>
-                <constraint firstItem="x3J-1o-Ku8" firstAttribute="leading" secondItem="SLr-bG-gYe" secondAttribute="trailing" constant="20" id="gNw-ec-6dq"/>
+                <constraint firstItem="x3J-1o-Ku8" firstAttribute="leading" secondItem="SLr-bG-gYe" secondAttribute="trailing" constant="23" id="gNw-ec-6dq"/>
                 <constraint firstAttribute="bottom" secondItem="x3J-1o-Ku8" secondAttribute="bottom" id="iUJ-Q1-dNc"/>
                 <constraint firstItem="lPa-bh-w4L" firstAttribute="leading" secondItem="kKU-a0-HKB" secondAttribute="trailing" id="jbE-b6-8kq"/>
                 <constraint firstItem="pP4-2z-xXY" firstAttribute="top" secondItem="2bq-YQ-XR2" secondAttribute="bottom" id="ld0-dn-Sh0"/>
@@ -149,6 +149,6 @@
         </view>
     </objects>
     <resources>
-        <image name="backspace.png" width="120" height="120"/>
+        <image name="backspace.png" width="101" height="76"/>
     </resources>
 </document>
