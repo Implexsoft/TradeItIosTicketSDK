@@ -12,8 +12,4 @@
 
 @interface TTSDKTradeViewController : TTSDKBaseTradeViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
-@property TradeItResult * lastResult;
-@property TradeItStockOrEtfTradeReviewResult * reviewResult;
-@property TradeItStockOrEtfTradeSuccessResult * successResult;
-
 @end

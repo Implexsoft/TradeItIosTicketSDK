@@ -232,6 +232,22 @@
     for (int i = 0; i < [subviews count]; i++) {
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
+
+            if (button.tag == 10) { // decimal
+                UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5.0f, 5.0f)];
+                CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:activeButtonColor];
+                circle.frame = CGRectMake(0, 0, 5.0f, 5.0f);
+                circleView.backgroundColor = [UIColor orangeColor];
+                [circleView.layer addSublayer:circle];
+                [button addSubview:circleView];
+
+                NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+                [button addConstraint:xCenterConstraint];
+    
+                NSLayoutConstraint *yCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+                [button addConstraint:yCenterConstraint];
+            }
+
             [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
         }
     }

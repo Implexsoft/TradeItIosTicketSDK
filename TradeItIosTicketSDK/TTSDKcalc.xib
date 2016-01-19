@@ -63,8 +63,7 @@
                 <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pP4-2z-xXY">
                     <rect key="frame" x="0.0" y="360" width="107" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
-                    <state key="normal" title="."/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="55"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLr-bG-gYe">
                     <rect key="frame" x="107" y="360" width="106" height="120"/>
