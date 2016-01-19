@@ -280,7 +280,7 @@
                                              toItem:NSLayoutAttributeNotAnAttribute
                                              attribute:NSLayoutAttributeNotAnAttribute
                                              multiplier:1
-                                             constant:scrollViewHeight + 100]; // extra 30 for padding
+                                             constant:scrollViewHeight + 120]; // extra 120 for padding
     heightConstraint.priority = 900;
     [self.view addConstraint:heightConstraint];
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width, heightConstraint.constant);
