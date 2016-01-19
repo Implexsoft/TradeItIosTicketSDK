@@ -325,10 +325,13 @@
 
 -(void) setToMarketOrder {
     self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initMarket];
+
     [self changeOrderExpiration:@"day"];
-    [self hideLimitContainer];
+    [self hideExpiration];
+
     limitPriceInput.text = nil;
     stopPriceInput.text = nil;
+    [self hideLimitContainer];
 }
 
 -(void) setToLimitOrder {
@@ -336,8 +339,9 @@
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
-
     limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
+
+    [self showExpiration];
 
     [self showLimitContainer];
 }
@@ -346,8 +350,9 @@
     [limitPriceInput setHidden:YES];
     [stopPriceInput setHidden:NO];
     limitPriceInput.text = nil;
-
     stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+
+    [self showExpiration];
 
     [self showLimitContainer];
 }
@@ -358,6 +363,9 @@
     [limitPriceInput setPlaceholder:@"Limit Price"];
     limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
     stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+
+    [self showExpiration];
+
     [self showLimitContainer];
 }
 
@@ -373,6 +381,13 @@
     [self.view addConstraint:fullHeightConstraint];
 }
 
+-(void) hideExpiration {
+    orderExpirationButton.hidden = YES;
+}
+
+-(void) showExpiration {
+    orderExpirationButton.hidden = NO;
+}
 
 
 #pragma mark - Navigation
