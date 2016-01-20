@@ -39,15 +39,16 @@
     NSLayoutConstraint * zeroHeightConstraint;
     NSLayoutConstraint * fullHeightConstraint;
 
-    BOOL readyToTrade;
+    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
 
+    BOOL readyToTrade;
     UIView * keypad;
 
-
-
     TTSDKCompanyDetails * companyNib;
-
     TTSDKUtils * utils;
+    BOOL uiConfigured;
+    BOOL defaultEditingCheckComplete;
+    CGFloat screenHeight;
 }
 
 @end
@@ -96,10 +97,87 @@
     [self changeOrderType:self.tradeSession.orderInfo.price.type];
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
 
+    screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    if ([self isSmallScreen] && !uiConfigured) {
+        [self configureUIForSmallScreens];
+    }
+
     [self setBroker];
 }
 
+-(BOOL) isSmallScreen {
+    return screenHeight < 500;
+}
 
+-(void) configureUIForSmallScreens {
+    uiConfigured = YES;
+    if (keypadTopConstraint) {
+        [containerView removeConstraint:keypadTopConstraint];
+        NSLayoutConstraint * heightConstraint = [NSLayoutConstraint constraintWithItem:keypadContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:200];
+        [containerView addConstraint:heightConstraint];
+    }
+
+    CALayer * borderLayer = [CALayer layer];
+    borderLayer.frame = CGRectMake(0, 0, keypadContainer.frame.size.width, 1.0f);
+    borderLayer.backgroundColor = utils.activeButtonColor.CGColor;
+    [keypadContainer.layer addSublayer:borderLayer];
+
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:keypadContainer.bounds];
+    keypadContainer.layer.masksToBounds = NO;
+    keypadContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+    keypadContainer.layer.shadowOffset = CGSizeMake(0.0f, -0.5f);
+    keypadContainer.layer.shadowOpacity = 0.5f;
+    keypadContainer.layer.shadowPath = shadowPath.CGPath;
+    keypadContainer.layer.zPosition = 100;
+
+    [self hideKeypad];
+}
+
+-(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if ([self isSmallScreen]) {
+        [self hideKeypad];
+    }
+}
+
+-(BOOL) isKeypadVisible {
+    if (keypadContainer.layer.opacity < 1) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void) showKeypad {
+    if ([self isKeypadVisible] || ![self isSmallScreen]) {
+        return;
+    }
+
+    CATransform3D currentTransform = keypadContainer.layer.transform;
+    [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -200.0f, 0.0f));
+                         keypadContainer.layer.opacity = 1.0f;
+                     }
+                     completion:^(BOOL finished) {
+                     }
+     ];
+}
+
+-(void) hideKeypad {
+    if (![self isKeypadVisible] || ![self isSmallScreen]) {
+        return;
+    }
+
+    CATransform3D currentTransform = keypadContainer.layer.transform;
+    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 200.0f, 1.0f));
+                         keypadContainer.layer.opacity = 0.0f;
+                     }
+                     completion:^(BOOL finished) {
+                     }
+     ];
+}
 
 #pragma mark - Initialization
 
@@ -126,6 +204,16 @@
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (![self isSmallScreen]) {
+        return NO;
+    }
+
+    if ([textField.placeholder isEqualToString:@"Shares"] && defaultEditingCheckComplete) {
+        [self showKeypad];
+    } else {
+        defaultEditingCheckComplete = YES;
+    }
+
     return NO;
 }
 
@@ -136,7 +224,7 @@
     [utils styleBorderedFocusInput:sharesInput];
 
     previewOrderButton.clipsToBounds = YES;
-    orderActionButton.layer.borderColor = utils.inactiveButtonColor.CGColor;
+    orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -273,8 +361,6 @@
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
     self.tradeSession.orderInfo.action = action;
-
-    orderActionButton.layer.borderColor = utils.inactiveButtonColor.CGColor;
 }
 
 // ORDER EXPIRATION
@@ -402,6 +488,8 @@
     } else if([segue.identifier isEqualToString:@"TradeToReview"]) {
         [[segue destinationViewController] setResult: self.reviewResult];
     }
+
+    defaultEditingCheckComplete = NO;
 }
 
 -(IBAction) unwindToAdvCalc:(UIStoryboardSegue *)segue {
@@ -495,8 +583,6 @@
 
 - (IBAction)orderActionPressed:(id)sender {
     [self.view endEditing:YES];
-
-    orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
 
     if(![UIAlertController class]) {
         [self showOldOrderAction];
