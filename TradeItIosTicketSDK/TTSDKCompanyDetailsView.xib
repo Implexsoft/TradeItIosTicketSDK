@@ -86,6 +86,6 @@
         </view>
     </objects>
     <resources>
-        <image name="chevronRight.png" width="87" height="128"/>
+        <image name="chevronRight.png" width="29" height="42"/>
     </resources>
 </document>

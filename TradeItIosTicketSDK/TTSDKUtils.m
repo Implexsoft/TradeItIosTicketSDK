@@ -64,6 +64,19 @@
     return self;
 }
 
+-(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName {
+    UIColor * brokerColor;
+
+    @try {
+        brokerColor = [self valueForKey: [NSString stringWithFormat:@"%@Color", [brokerName lowercaseString]]];
+    }
+    @catch (NSException *exception) {
+        brokerColor = activeButtonColor;
+    }
+
+    return brokerColor;
+}
+
 - (void)addGradientToButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
     [self removeLoadingIndicatorFromContainer];

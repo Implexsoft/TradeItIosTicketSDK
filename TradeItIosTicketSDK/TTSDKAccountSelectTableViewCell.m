@@ -56,10 +56,10 @@
     // set subtitle to formatted string
     self.accountTypeLabel.text = @"Brokerage";
 
-    [self insertPortfolioDetail];
+    [self insertPortfolioDetail:self.brokerLabel.text];
 }
 
-- (void)insertPortfolioDetail {
+- (void)insertPortfolioDetail:(NSString *)broker {
     self.circle.backgroundColor = [UIColor clearColor];
     CGFloat alertSize = self.circle.frame.size.height - 3;
 
@@ -76,14 +76,8 @@
         }
     }
 
+    UIColor * circleFill = [self.utils retrieveBrokerColorByBrokerName:broker];
 
-    UIColor * circleFill;
-    @try {
-        circleFill = [self.utils valueForKey:@"activeButtonColor"];
-    }
-    @catch (NSException *exception) {
-        // do nothing
-    }
     if (!circleLayer) {
         circleLayer = [self.utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
     } else {
