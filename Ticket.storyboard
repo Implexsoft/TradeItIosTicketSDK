@@ -510,13 +510,13 @@ you want to link</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast and easy trading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-uL-kzG">
-                                <rect key="frame" x="36" y="134" width="139" height="17"/>
+                                <rect key="frame" x="36" y="154" width="139" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
-                                <rect key="frame" x="22" y="141" width="4" height="4"/>
+                                <rect key="frame" x="22" y="161" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="nQs-1g-WFp"/>
@@ -524,13 +524,13 @@ you want to link</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI">
-                                <rect key="frame" x="36" y="161" width="243" height="17"/>
+                                <rect key="frame" x="36" y="181" width="243" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
-                                <rect key="frame" x="22" y="168" width="4" height="4"/>
+                                <rect key="frame" x="22" y="188" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="XkL-wA-a8c"/>
@@ -538,13 +538,13 @@ you want to link</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV">
-                                <rect key="frame" x="36" y="188" width="157" height="17"/>
+                                <rect key="frame" x="36" y="208" width="157" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
-                                <rect key="frame" x="22" y="194" width="4" height="4"/>
+                                <rect key="frame" x="22" y="214" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="MiR-rc-Xij"/>
@@ -552,13 +552,13 @@ you want to link</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT">
-                                <rect key="frame" x="36" y="215" width="195" height="17"/>
+                                <rect key="frame" x="36" y="235" width="195" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
-                                <rect key="frame" x="22" y="222" width="4" height="4"/>
+                                <rect key="frame" x="22" y="242" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="4OF-A7-f5A"/>
@@ -566,13 +566,13 @@ you want to link</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg">
-                                <rect key="frame" x="36" y="242" width="203" height="17"/>
+                                <rect key="frame" x="36" y="262" width="203" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
-                                <rect key="frame" x="22" y="248" width="4" height="4"/>
+                                <rect key="frame" x="22" y="268" width="4" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="gH8-EK-MmS"/>
@@ -586,7 +586,7 @@ you want to link</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your broker account to enable:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-vI-2sy">
-                                <rect key="frame" x="60" y="65" width="201" height="44"/>
+                                <rect key="frame" x="60" y="85" width="201" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4oa-lL-Atj"/>
                                 </constraints>
@@ -607,7 +607,7 @@ you want to link</string>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="G6g-AX-6rY"/>
                             <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="10" id="R3L-vS-Ytq"/>
                             <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Uwo-r4-k0K"/>
-                            <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="65" id="VHj-Bx-vBm"/>
+                            <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="85" id="VHj-Bx-vBm"/>
                             <constraint firstItem="PqO-0z-E9M" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="80" id="ViG-I5-wWb"/>
                             <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leadingMargin" constant="20" id="VvP-7p-Zaf"/>
                             <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="4LW-hd-IFh" secondAttribute="trailing" constant="10" id="a7S-5a-Q6W"/>
