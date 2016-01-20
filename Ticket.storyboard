@@ -1973,14 +1973,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <connections>
                         <outlet property="editBrokersButton" destination="caJ-Yc-a8p" id="thV-1A-LKk"/>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
-                        <segue destination="V42-ok-rVA" kind="presentation" identifier="AccountSelectToBrokerSelect" id="V7o-09-esf"/>
                         <segue destination="zTt-u9-UeG" kind="presentation" identifier="AccountSelectToAccountLink" id="yNj-E0-fjH"/>
+                        <segue destination="3Iv-K7-0hh" kind="presentation" identifier="AccountSelectToBrokerSelect" id="X2r-Bb-VCg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BlA-D5-Hkv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="82"/>
+            <point key="canvasLocation" x="1233" y="84"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="mCR-6k-glU">
@@ -2011,7 +2011,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="w8F-LL-uTO"/>
-        <segue reference="3sc-EH-xgQ"/>
+        <segue reference="yNj-E0-fjH"/>
     </inferredMetricsTieBreakers>
 </document>
