@@ -1549,7 +1549,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-kp-Nie">
-                                                                <rect key="frame" x="0.0" y="0.0" width="320" height="27"/>
+                                                                <rect key="frame" x="103" y="0.0" width="115" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Type">
@@ -1560,15 +1560,23 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                     <action selector="orderTypePressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="7xZ-td-HZd"/>
                                                                 </connections>
                                                             </button>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevronRight.png" translatesAutoresizingMaskIntoConstraints="NO" id="4la-7L-exR">
+                                                                <rect key="frame" x="227" y="3" width="11" height="21"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="11" id="1J4-sp-kk7"/>
+                                                                    <constraint firstAttribute="height" constant="21" id="CGR-XS-wg0"/>
+                                                                </constraints>
+                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" id="TUn-FY-O9s"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="6JP-4j-43d"/>
+                                                            <constraint firstItem="4la-7L-exR" firstAttribute="leading" secondItem="cbn-kp-Nie" secondAttribute="trailing" constant="9" id="CUL-iz-Y6S"/>
                                                             <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="Vxl-tM-B2M"/>
+                                                            <constraint firstItem="4la-7L-exR" firstAttribute="centerY" secondItem="cbn-kp-Nie" secondAttribute="centerY" id="YtA-Ui-9CA"/>
                                                             <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="ZqR-ut-Emk"/>
                                                             <constraint firstAttribute="height" constant="88" id="bp9-Mu-7Wa"/>
                                                             <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" id="fAZ-Bc-sDg"/>
-                                                            <constraint firstAttribute="trailing" secondItem="cbn-kp-Nie" secondAttribute="trailing" id="fam-d4-bQw"/>
                                                             <constraint firstItem="Ykc-rN-Xap" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" constant="60" id="hrp-tN-WEW"/>
                                                             <constraint firstAttribute="trailing" secondItem="Ykc-rN-Xap" secondAttribute="trailing" constant="60" id="tq4-oM-Jqu"/>
                                                             <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="xeI-cc-D2n"/>
