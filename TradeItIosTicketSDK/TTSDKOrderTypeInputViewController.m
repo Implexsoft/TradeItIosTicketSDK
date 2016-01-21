@@ -190,7 +190,7 @@
 
     if([self.orderType isEqualToString:@"limit"] && self.limitPrice){
         isReady = YES;
-    } else if([self.orderType isEqualToString:@"stopMarket"] && self.stopPrice){
+    } else if([self.orderType isEqualToString:@"stop"] && self.stopPrice){
         isReady = YES;
     } else if([self.orderType isEqualToString:@"stopLimit"] && self.limitPrice && self.stopPrice){
         isReady = YES;
