@@ -1338,7 +1338,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--TradeNav-->
         <scene sceneID="SqP-UT-lT4">
             <objects>
-                <navigationController storyboardIdentifier="TradeController" id="trO-ZN-AJm" userLabel="TradeNav" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TradeNavController" id="trO-ZN-AJm" userLabel="TradeNav" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trade" image="tradeIcon.png" selectedImage="tradeIcon.png" id="rOF-1j-wUF"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

@@ -19,17 +19,19 @@
 
 @implementation TTSDKAccountSelectViewController
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+
+
 
     self.utils = [TTSDKUtils sharedUtils];
 }
@@ -46,9 +48,9 @@
     return 3;
 }
 
--(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-
+-(void) addFooter {
+    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+    
     UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x + 43, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
     addAccount.tintColor = [UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
@@ -56,17 +58,17 @@
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
     addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [addAccount setUserInteractionEnabled:YES];
-
+    
     UITapGestureRecognizer * addAccountTap = [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(addAccountPressed:)];
+                                              initWithTarget:self
+                                              action:@selector(addAccountPressed:)];
     [addAccount addGestureRecognizer:addAccountTap];
-
+    
     footerView.backgroundColor = [UIColor whiteColor];
-
+    
     [footerView addSubview:addAccount];
-
-    return footerView;
+    
+    self.tableView.tableFooterView = footerView;
 }
 
 -(IBAction) addAccountPressed:(id)sender {
@@ -93,11 +95,6 @@
     return cell;
 }
 
-
-#pragma mark - Navigation
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-}
 
 
 @end
