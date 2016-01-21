@@ -255,18 +255,23 @@
             UIButton *button = [subviews objectAtIndex:i];
 
             if (button.tag == 10) { // decimal
-                UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5.0f, 5.0f)];
-                CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:activeButtonColor];
-                circle.frame = CGRectMake(0, 0, 5.0f, 5.0f);
-                circleView.backgroundColor = [UIColor orangeColor];
-                [circleView.layer addSublayer:circle];
-                [button addSubview:circleView];
-
-                NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
-                [button addConstraint:xCenterConstraint];
-    
-                NSLayoutConstraint *yCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-                [button addConstraint:yCenterConstraint];
+                if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
+                    button.hidden = YES;
+                    button.userInteractionEnabled = NO;
+                } else {
+                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5.0f, 5.0f)];
+                    CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:activeButtonColor];
+                    circle.frame = CGRectMake(0, 0, 5.0f, 5.0f);
+                    circleView.backgroundColor = [UIColor orangeColor];
+                    [circleView.layer addSublayer:circle];
+                    [button addSubview:circleView];
+                    
+                    NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+                    [button addConstraint:xCenterConstraint];
+                    
+                    NSLayoutConstraint *yCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+                    [button addConstraint:yCenterConstraint];
+                }
             }
 
             [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
@@ -283,7 +288,7 @@
     CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
     companyDetailsNib.frame = frame;
 
-    if ([vc.restorationIdentifier isEqualToString:@"orderViewController"]) {
+    if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
         companyDetailsNib.brokerDetails.hidden = NO;
     } else {
         companyDetailsNib.brokerDetails.hidden = YES;
