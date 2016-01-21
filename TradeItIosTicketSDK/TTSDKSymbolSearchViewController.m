@@ -14,16 +14,13 @@
 
 @implementation TTSDKSymbolSearchViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
-
-#pragma mark - Navigation
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
 }
-
 
 @end

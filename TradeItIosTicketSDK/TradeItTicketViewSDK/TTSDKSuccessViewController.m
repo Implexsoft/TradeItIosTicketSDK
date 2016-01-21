@@ -20,6 +20,15 @@
 
 @implementation TTSDKSuccessViewController
 
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationItem setHidesBackButton:YES];
 }

@@ -14,13 +14,17 @@
 
 @implementation TTSDKTabBarViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
-#pragma mark - Navigation
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
+}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)viewDidLoad {
+    [super viewDidLoad];
 }
 
 

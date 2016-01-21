@@ -38,12 +38,13 @@ static float kHoldingCellDefaultHeight = 60.0f;
 static float kHoldingCellExpandedHeight = 140.0f;
 static float kAccountCellHeight = 44.0f;
 
-- (IBAction)closePressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
-- (IBAction)editAccountsPressed:(id)sender {
-    [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
 }
 
 -(void) viewDidLoad {
@@ -276,7 +277,14 @@ static float kAccountCellHeight = 44.0f;
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (IBAction)closePressed:(id)sender {
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
+
+- (IBAction)editAccountsPressed:(id)sender {
+    [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
+}
+
+
 
 @end

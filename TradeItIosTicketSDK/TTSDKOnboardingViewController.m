@@ -21,8 +21,13 @@
 
 static int kBulletContainerTag = 2;
 
-- (IBAction)closePressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)viewDidLoad {
@@ -42,14 +47,14 @@ static int kBulletContainerTag = 2;
     [self.utils styleCustomDropdownButton:self.brokerSelectButton];
 }
 
-- (IBAction)brokerSelectPressed:(id)sender {
-    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
+- (IBAction)closePressed:(id)sender {
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
 }
-
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (IBAction)brokerSelectPressed:(id)sender {
+    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
 }
 
 
