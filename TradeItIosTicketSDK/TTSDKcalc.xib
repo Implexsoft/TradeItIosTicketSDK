@@ -85,9 +85,9 @@
                     </state>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backspace.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3J-1o-Ku8">
-                    <rect key="frame" x="244" y="382" width="45" height="76"/>
+                    <rect key="frame" x="252" y="382" width="30" height="76"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45" id="01Z-hz-mRs"/>
+                        <constraint firstAttribute="width" constant="30" id="01Z-hz-mRs"/>
                     </constraints>
                 </imageView>
             </subviews>

@@ -48,7 +48,6 @@
     TTSDKUtils * utils;
     BOOL uiConfigured;
     BOOL defaultEditingCheckComplete;
-    CGFloat screenHeight;
 }
 
 @end
@@ -97,16 +96,11 @@
     [self changeOrderType:self.tradeSession.orderInfo.price.type];
     [self changeOrderExpiration:self.tradeSession.orderInfo.expiration];
 
-    screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    if ([self isSmallScreen] && !uiConfigured) {
+    if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
     }
 
     [self setBroker];
-}
-
--(BOOL) isSmallScreen {
-    return screenHeight < 500;
 }
 
 -(void) configureUIForSmallScreens {
@@ -134,7 +128,7 @@
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if ([self isSmallScreen]) {
+    if ([utils isSmallScreen]) {
         [self hideKeypad];
     }
 }
@@ -148,7 +142,7 @@
 }
 
 -(void) showKeypad {
-    if ([self isKeypadVisible] || ![self isSmallScreen]) {
+    if ([self isKeypadVisible] || ![utils isSmallScreen]) {
         return;
     }
 
@@ -164,7 +158,7 @@
 }
 
 -(void) hideKeypad {
-    if (![self isKeypadVisible] || ![self isSmallScreen]) {
+    if (![self isKeypadVisible] || ![utils isSmallScreen]) {
         return;
     }
 
@@ -204,7 +198,7 @@
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (![self isSmallScreen]) {
+    if (![utils isSmallScreen]) {
         return NO;
     }
 

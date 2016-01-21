@@ -64,6 +64,14 @@
     return self;
 }
 
+-(CGFloat) retrieveScreenHeight {
+    return [[UIScreen mainScreen] bounds].size.height;
+}
+
+-(BOOL) isSmallScreen {
+    return ([self retrieveScreenHeight] < 500);
+}
+
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName {
     UIColor * brokerColor;
 

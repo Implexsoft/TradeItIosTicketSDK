@@ -49,5 +49,7 @@
 - (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color;
 -(void) styleCustomDropdownButton: (UIButton *)button;
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName;
+-(CGFloat) retrieveScreenHeight;
+-(BOOL) isSmallScreen;
 
 @end

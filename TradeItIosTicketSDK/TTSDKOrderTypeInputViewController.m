@@ -22,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *limitPriceField;
 @property (weak, nonatomic) IBOutlet UITextField *stopPriceField;
 @property (weak, nonatomic) IBOutlet UIView *companyDetails;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stopPriceTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *limitPriceTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderTypeTopConstraint;
 
 @end
 
@@ -38,11 +42,19 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     self.tradeSession = [TTSDKTicketSession globalSession];
+    self.utils = [TTSDKUtils sharedUtils];
 
-    self.orderTypeLabel.text = self.orderType;
+    self.orderTypeLabel.text = [self.utils splitCamelCase:self.orderType];
 
     self.limitPrice = nil;
     self.stopPrice = nil;
+
+    if ([self.utils isSmallScreen]) {
+        self.limitPriceTopConstraint.constant /= 2;
+        self.stopPriceTopConstraint.constant /= 2;
+        self.contentHeightConstraint.constant = 300;
+        self.orderTypeTopConstraint.constant /= 2;
+    }
 
     if (self.tradeSession.orderInfo.price.limitPrice) {
         self.limitPrice = [self.tradeSession.orderInfo.price.limitPrice stringValue];
@@ -55,31 +67,36 @@
     }
 
     if ([self.orderType isEqualToString:@"limit"]) {
-        [self limitPricePressed: self];
         self.stopPriceField.hidden = YES;
         self.limitPriceField.hidden = NO;
+        self.limitPriceTopConstraint.constant = self.stopPriceTopConstraint.constant;
+        self.currentFocus = @"limitPrice";
     }
 
     if ([self.orderType isEqualToString:@"stopLimit"]) {
-        [self limitPricePressed: self];
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = NO;
+        self.currentFocus = @"stopPrice";
     }
 
     if ([self.orderType isEqualToString:@"stop"]) {
-        [self stopPricePressed: self];
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = YES;
+        self.currentFocus = @"stopPrice";
     }
+
+    [self checkIfReadyToSubmit];
 }
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-
+    self.tradeSession = [TTSDKTicketSession globalSession];
     self.utils = [TTSDKUtils sharedUtils];
 
     TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
+
     [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+    companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
 }
@@ -91,7 +108,8 @@
     if (isLimit) {
         [self limitPricePressed: self];
     } else if (isStop) {
-        [self stopPriceField];
+        //[self stopPriceField];
+        [self stopPricePressed: self];
     }
 
     return NO;

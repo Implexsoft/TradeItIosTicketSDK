@@ -42,7 +42,7 @@
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @""), (changePct ? changePct : @"")];
+    self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @"+3.14"), (changePct ? changePct : @"(2.53%)")];
 }
 
 -(void) populateBrokerButtonTitle:(NSString *)broker {
