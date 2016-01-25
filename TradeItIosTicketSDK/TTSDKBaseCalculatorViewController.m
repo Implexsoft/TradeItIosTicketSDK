@@ -122,6 +122,10 @@
         }];
         [alert addAction:cancel];
         
+        if(alert.popoverPresentationController) {
+            alert.popoverPresentationController.sourceView = self.view;
+        }
+        
         [self presentViewController:alert animated:YES completion:nil];
     });
 }

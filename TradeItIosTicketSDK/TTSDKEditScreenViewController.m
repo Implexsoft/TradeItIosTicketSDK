@@ -168,6 +168,10 @@
     [alert addAction:buyToCoverOption];
     [alert addAction:cancelAction];
     
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -213,6 +217,10 @@
     [alert addAction:stopLimitOption];
     [alert addAction:cancelAction];
     
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -244,6 +252,10 @@
     [alert addAction:gtcOption];
     [alert addAction:cancelAction];
     
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -274,6 +286,10 @@
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                               handler:^(UIAlertAction * action) {}];
         [alert addAction:cancelAction];
+        
+        if(alert.popoverPresentationController) {
+            alert.popoverPresentationController.sourceView = sender;
+        }
         
         [self presentViewController:alert animated:YES completion:nil];
         
@@ -311,6 +327,10 @@
     
     [alert addAction:calcAction];
     [alert addAction:detailAction];
+    
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
     
     [self presentViewController:alert animated:YES completion:nil];
 }

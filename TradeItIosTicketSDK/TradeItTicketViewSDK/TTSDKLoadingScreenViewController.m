@@ -220,6 +220,10 @@
             }];
             [alert addAction:cancel];
             
+            if(alert.popoverPresentationController) {
+                alert.popoverPresentationController.sourceView = self.view;
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self presentViewController:alert animated:YES completion:nil];
             });

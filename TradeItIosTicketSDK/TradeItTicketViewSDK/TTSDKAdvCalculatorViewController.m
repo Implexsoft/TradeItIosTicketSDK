@@ -301,6 +301,7 @@
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
+            
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
         }
@@ -498,6 +499,10 @@
     [alert addAction:buyToCoverAction];
     [alert addAction:cancelAction];
     
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -530,6 +535,10 @@
     [alert addAction:stopLimitAction];
     [alert addAction:cancelAction];
     
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -555,6 +564,10 @@
     [alert addAction:dayAction];
     [alert addAction:gtcAction];
     [alert addAction:cancelAction];
+    
+    if(alert.popoverPresentationController) {
+        alert.popoverPresentationController.sourceView = sender;
+    }
     
     [self presentViewController:alert animated:YES completion:nil];
 }
