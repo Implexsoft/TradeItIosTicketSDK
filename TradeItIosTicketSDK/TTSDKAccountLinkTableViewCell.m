@@ -55,8 +55,9 @@
 
     UIColor * brokerColor = [self.utils retrieveBrokerColorByBrokerName:broker];
 
-    self.layer.borderWidth = 1.0f;
-    self.layer.borderColor = brokerColor.CGColor;
+    CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:(self.circleGraphic.frame.size.width - 1) andColor:brokerColor];
+    self.circleGraphic.backgroundColor = [UIColor clearColor];
+    [self.circleGraphic.layer addSublayer:circleLayer];
 }
 
 @end
