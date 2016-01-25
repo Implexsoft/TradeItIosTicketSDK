@@ -674,5 +674,10 @@
     [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
 }
 
+-(void) acknowledgeAlert {
+    [utils styleMainActiveButton:previewOrderButton];
+}
+
+
 
 @end

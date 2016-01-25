@@ -35,5 +35,6 @@
 -(void) showOldOrderExp;
 -(UIView *) createPickerView;
 -(UIView *) createPickerView: (NSString *) title;
+-(void) acknowledgeAlert;
 
 @end

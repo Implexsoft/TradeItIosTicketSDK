@@ -463,18 +463,18 @@
                     UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
                                                                     handler:^(UIAlertAction * action) {
                                                                         [[self tradeSession] asyncAnswerSecurityQuestion:title andCompletionBlock:^(TradeItResult *result) {
-                                                                            // [self loginReviewRequestRecieved:result];
+                                                                             [self loginReviewRequestRecieved:result];
                                                                         }];
                                                                     }];
                     [alert addAction:option];
                 }
-                
+
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action) {
-                                                                          // [self dismissViewControllerAnimated:YES completion:nil];
+                                                                          [self acknowledgeAlert];
                                                                       }];
                 [alert addAction:cancelAction];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self presentViewController:alert animated:YES completion:nil];
                 }) ;
@@ -532,7 +532,7 @@
             }
             
             UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self acknowledgeAlert];
             }];
             [alert addAction:cancel];
             
@@ -565,7 +565,7 @@
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [self dismissViewControllerAnimated:YES completion:nil];
+                                                                       [self acknowledgeAlert];
                                                                    }];
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
@@ -579,7 +579,7 @@
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [self dismissViewControllerAnimated:YES completion:nil];
+                                                                       [self acknowledgeAlert];
                                                                    }];
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
@@ -587,6 +587,10 @@
     }
 }
 
+
+-(void) acknowledgeAlert {
+    // implement in sub class
+}
 
 
 @end
