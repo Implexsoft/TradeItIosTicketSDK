@@ -60,6 +60,8 @@
 
 @end
 
+static float kMessageSeparatorHeight = 30.0f;
+
 @implementation TTSDKReviewScreenViewController
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -96,7 +98,7 @@
     scrollView.alwaysBounceHorizontal = NO;
     scrollView.alwaysBounceVertical = YES;
 
-    [self setContentViewHeight];
+    [self initContentViewHeight];
 }
 
 -(void) updateUIWithReviewResult {
@@ -183,6 +185,7 @@
 
 -(void) addReviewMessage:(NSString *) message {
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
+    messageLabel.autoresizesSubviews = YES;
     [contentView insertSubview:messageLabel atIndex:0];
     [self addConstraintsToMessage:messageLabel];
 
@@ -195,6 +198,8 @@
 
     UISwitch * toggle = [[UISwitch alloc] init];
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
+    toggle.autoresizesSubviews = YES;
+    messageLabel.autoresizesSubviews = YES;
 
     toggle.userInteractionEnabled = YES;
 
@@ -215,13 +220,20 @@
 
 
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, reviewLabel.frame.size.width, CGFLOAT_MAX)];
-    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
+    CGRect labelFrame = reviewLabel.frame;
+    labelFrame.size.width = contentView.frame.size.width;
+
+    UILabel * label = [[UILabel alloc] init];
     [label setText: message];
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
     [label setNumberOfLines: 0]; // 0 allows unlimited lines
     [label setTextColor: utils.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
+
+    label.frame = labelFrame;
+
     [label sizeToFit];
 
     return label;
@@ -235,7 +247,7 @@
                                          toItem:lastAttachedMessage
                                          attribute:NSLayoutAttributeBottom
                                          multiplier:1
-                                         constant:30];
+                                         constant:kMessageSeparatorHeight];
     topConstraint.priority = 900;
 
     NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
@@ -265,22 +277,22 @@
     [self.view addConstraint:rightConstraint];
 }
 
--(void) setContentViewHeight {
-    CGFloat scrollViewHeight = 0.0f;
-    for (UIView* view in contentView.subviews)
-    {
-        if(!(view.tag > 400 && view.tag < 409)) { // These are the label views, we don't count them since we count the value side
-            scrollViewHeight += view.frame.size.height;
-        }
+-(void) initContentViewHeight {
+    CGRect contentRect = CGRectZero;
+    for (UIView * view in [contentView subviews]) {
+        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + kMessageSeparatorHeight);
+        contentRect = CGRectUnion(contentRect, frame);
     }
 
-    for(UIView * label in ackLabels) {
-        scrollViewHeight += label.frame.size.height;
+    for(UIView * aLabel in ackLabels) {
+        contentRect.size.height += aLabel.frame.size.height;
     }
 
     for(UILabel * wLabel in warningLabels) {
-        scrollViewHeight += wLabel.frame.size.height;
+        contentRect.size.height += wLabel.frame.size.height;
     }
+
+    contentRect.size.height += 120; // extra 120 for padding
 
     NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
                                              constraintWithItem:contentView
@@ -289,10 +301,13 @@
                                              toItem:NSLayoutAttributeNotAnAttribute
                                              attribute:NSLayoutAttributeNotAnAttribute
                                              multiplier:1
-                                             constant:scrollViewHeight + 120]; // extra 120 for padding
+                                             constant:contentRect.size.height];
     heightConstraint.priority = 900;
     [self.view addConstraint:heightConstraint];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, heightConstraint.constant);
+
+    [scrollView setContentSize:contentRect.size];
+    [scrollView layoutIfNeeded];
+    [scrollView setNeedsUpdateConstraints];
 }
 
 -(void) constrainToggle:(UISwitch *) toggle andLabel:(UILabel *) label toView:(UIView *) view {
