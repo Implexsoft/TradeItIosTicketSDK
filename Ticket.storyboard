@@ -1933,8 +1933,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-Yc-a8p">
+                                <rect key="frame" x="216" y="84" width="83" height="30"/>
+                                <state key="normal" title="Edit Brokers"/>
+                                <connections>
+                                    <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
-                                <rect key="frame" x="0.0" y="120" width="319" height="300"/>
+                                <rect key="frame" x="0.0" y="150" width="319" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="igy-EC-dHJ"/>
@@ -1955,38 +1962,18 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <outlet property="delegate" destination="bbK-hu-Twv" id="mPo-Xp-chT"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57S-e1-KMX">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Accounts" id="aWt-EX-JI3">
-                                        <barButtonItem key="leftBarButtonItem" title="Close" id="Kri-ZH-10r">
-                                            <connections>
-                                                <segue destination="BlA-D5-Hkv" kind="unwind" unwindAction="unwindToAdvCalc:" id="rXA-K7-7eB"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-Yc-a8p">
-                                <rect key="frame" x="216" y="54" width="83" height="30"/>
-                                <state key="normal" title="Edit Brokers"/>
-                                <connections>
-                                    <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="57S-e1-KMX" firstAttribute="top" secondItem="A6a-Bv-pob" secondAttribute="topMargin" id="3kP-ua-8Ae"/>
                             <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="caJ-Yc-a8p" secondAttribute="bottom" constant="36" id="FXm-bO-Nwe"/>
                             <constraint firstItem="Spr-uL-UE8" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="WIS-z7-059"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Spr-uL-UE8" secondAttribute="trailing" constant="-15" id="WbP-at-SHM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="57S-e1-KMX" secondAttribute="trailing" constant="-16" id="dDw-0P-GTQ"/>
+                            <constraint firstItem="caJ-Yc-a8p" firstAttribute="top" secondItem="ZBU-0y-JPc" secondAttribute="bottom" constant="20" id="ZlZ-yi-tPu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="caJ-Yc-a8p" secondAttribute="trailing" constant="5" id="p8I-3I-kwD"/>
-                            <constraint firstItem="57S-e1-KMX" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="tfl-0S-LLl"/>
-                            <constraint firstItem="caJ-Yc-a8p" firstAttribute="top" secondItem="57S-e1-KMX" secondAttribute="bottom" constant="10" id="udu-Qc-eKt"/>
                         </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="editBrokersButton" destination="caJ-Yc-a8p" id="thV-1A-LKk"/>
@@ -1996,7 +1983,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="BlA-D5-Hkv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1233" y="84"/>
         </scene>

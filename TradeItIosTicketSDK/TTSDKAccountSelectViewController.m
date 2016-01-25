@@ -48,6 +48,12 @@
     return 3;
 }
 
+-(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    // create a blank footer to remove extra separators
+    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+    return footerView;
+}
+
 -(void) addFooter {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
     
