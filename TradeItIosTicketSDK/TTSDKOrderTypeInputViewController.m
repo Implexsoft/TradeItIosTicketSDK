@@ -40,7 +40,8 @@
     [UIView setAnimationsEnabled:YES];
 }
 
--(void) viewWillAppear:(BOOL)animated {
+-(void) viewDidLoad {
+    [super viewDidLoad];
     self.tradeSession = [TTSDKTicketSession globalSession];
     self.utils = [TTSDKUtils sharedUtils];
 
@@ -55,43 +56,35 @@
         self.contentHeightConstraint.constant = 300;
         self.orderTypeTopConstraint.constant /= 2;
     }
-
+    
     if (self.tradeSession.orderInfo.price.limitPrice) {
         self.limitPrice = [self.tradeSession.orderInfo.price.limitPrice stringValue];
         self.limitPriceField.text = self.limitPrice;
     }
-
+    
     if (self.tradeSession.orderInfo.price.stopPrice) {
         self.stopPrice = [self.tradeSession.orderInfo.price.stopPrice stringValue];
         self.stopPriceField.text = self.stopPrice;
     }
-
+    
     if ([self.orderType isEqualToString:@"limit"]) {
         self.stopPriceField.hidden = YES;
         self.limitPriceField.hidden = NO;
         self.limitPriceTopConstraint.constant = self.stopPriceTopConstraint.constant;
         self.currentFocus = @"limitPrice";
     }
-
+    
     if ([self.orderType isEqualToString:@"stopLimit"]) {
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = NO;
         self.currentFocus = @"stopPrice";
     }
-
+    
     if ([self.orderType isEqualToString:@"stop"]) {
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = YES;
         self.currentFocus = @"stopPrice";
     }
-
-    [self checkIfReadyToSubmit];
-}
-
--(void) viewDidLoad {
-    [super viewDidLoad];
-    self.tradeSession = [TTSDKTicketSession globalSession];
-    self.utils = [TTSDKUtils sharedUtils];
 
     TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
 
@@ -99,6 +92,8 @@
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
+
+    [self checkIfReadyToSubmit];
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
