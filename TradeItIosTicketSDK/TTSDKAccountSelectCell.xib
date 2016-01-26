@@ -25,7 +25,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fidelity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gff-EA-z3u">
-                        <rect key="frame" x="31" y="10" width="53" height="15"/>
+                        <rect key="frame" x="31" y="10" width="140" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="1l8-G4-fkq"/>
                         </constraints>
@@ -94,6 +94,7 @@
                     <constraint firstItem="Gff-EA-z3u" firstAttribute="leading" secondItem="9lZ-N7-5hP" secondAttribute="trailing" constant="8" id="epw-Yg-nGA"/>
                     <constraint firstAttribute="bottomMargin" secondItem="zmL-nI-tU9" secondAttribute="bottom" constant="-8" id="iM8-97-xxn"/>
                     <constraint firstItem="uCs-P2-SgY" firstAttribute="top" secondItem="Gff-EA-z3u" secondAttribute="bottom" constant="2" id="pY0-pn-Xra"/>
+                    <constraint firstItem="zmL-nI-tU9" firstAttribute="leading" secondItem="Gff-EA-z3u" secondAttribute="trailing" constant="5" id="uJz-Mm-Gi3"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
