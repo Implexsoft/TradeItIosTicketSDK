@@ -73,7 +73,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Log in to [broker]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to [broker]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFr-FG-k7c">
                                 <rect key="frame" x="60" y="89" width="200" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="4sv-6x-iZW"/>
@@ -83,7 +83,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-cv-Dik">
                                 <rect key="frame" x="-8" y="151" width="336" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -92,7 +92,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Broker password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-Gx-5fR">
                                 <rect key="frame" x="-8" y="180" width="336" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -144,6 +144,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Login" id="SuV-y4-Vvz"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="emailInput" destination="wbf-cv-Dik" id="kGc-lE-g43"/>
@@ -594,8 +595,8 @@ you want to link</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
-                                <rect key="frame" x="127" y="441" width="66" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
+                                <rect key="frame" x="124" y="441" width="73" height="15"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -1551,6 +1552,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                     <constraint firstItem="pWk-Ej-ZVu" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" id="MAD-hm-9PM"/>
                                                                     <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" id="VXV-5e-hId"/>
                                                                     <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" id="d2i-jm-k9T"/>
+                                                                    <constraint firstAttribute="width" constant="200" id="hHJ-qi-lal"/>
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scy-hx-dPx">
@@ -1588,13 +1590,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         <constraints>
                                                             <constraint firstItem="cbn-kp-Nie" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="6JP-4j-43d"/>
                                                             <constraint firstItem="4la-7L-exR" firstAttribute="leading" secondItem="cbn-kp-Nie" secondAttribute="trailing" constant="9" id="CUL-iz-Y6S"/>
+                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="NOe-p7-Vac"/>
                                                             <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="Vxl-tM-B2M"/>
                                                             <constraint firstItem="4la-7L-exR" firstAttribute="centerY" secondItem="cbn-kp-Nie" secondAttribute="centerY" id="YtA-Ui-9CA"/>
                                                             <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="ZqR-ut-Emk"/>
                                                             <constraint firstAttribute="height" constant="88" id="bp9-Mu-7Wa"/>
                                                             <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" id="fAZ-Bc-sDg"/>
-                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" constant="60" id="hrp-tN-WEW"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Ykc-rN-Xap" secondAttribute="trailing" constant="60" id="tq4-oM-Jqu"/>
                                                             <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="xeI-cc-D2n"/>
                                                         </constraints>
                                                     </view>
@@ -1636,8 +1637,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstAttribute="trailing" secondItem="RSj-wY-vR6" secondAttribute="trailing" id="t1f-4L-3PN"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
-                                        <rect key="frame" x="0.0" y="300" width="320" height="0.0"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
+                                        <rect key="frame" x="0.0" y="300" width="320" height="67"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -1680,6 +1681,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="keypadTopConstraint" destination="1TG-2O-Fma" id="lAL-qH-cKg"/>
                         <outlet property="limitPriceInput" destination="pWk-Ej-ZVu" id="mdb-RW-OpI"/>
                         <outlet property="limitPricesView" destination="Ykc-rN-Xap" id="MTX-Ea-6TY"/>
+                        <outlet property="limitPricesWidthConstraint" destination="hHJ-qi-lal" id="ufv-kF-5KB"/>
                         <outlet property="orderActionButton" destination="JLr-7y-dEH" id="ALc-t4-f2d"/>
                         <outlet property="orderExpirationButton" destination="scy-hx-dPx" id="9gV-ZX-0uI"/>
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>

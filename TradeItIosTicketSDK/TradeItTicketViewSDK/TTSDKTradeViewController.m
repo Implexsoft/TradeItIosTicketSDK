@@ -40,6 +40,7 @@
     NSLayoutConstraint * fullHeightConstraint;
 
     __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
+    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
 
     BOOL readyToTrade;
     UIView * keypad;
@@ -419,7 +420,10 @@
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
-    limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice]];
+
+    [limitPriceInput sizeToFit];
+    limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width;
 
     [self showExpiration];
 
@@ -430,7 +434,10 @@
     [limitPriceInput setHidden:YES];
     [stopPriceInput setHidden:NO];
     limitPriceInput.text = nil;
-    stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice]];
+
+    [stopPriceInput sizeToFit];
+    limitPricesWidthConstraint.constant = stopPriceInput.frame.size.width;
 
     [self showExpiration];
 
@@ -441,8 +448,12 @@
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice];
-    stopPriceInput.text = [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: self.tradeSession.orderInfo.price.limitPrice]];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: self.tradeSession.orderInfo.price.stopPrice]];
+
+    [limitPriceInput sizeToFit];
+    [stopPriceInput sizeToFit];
+    limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width + stopPriceInput.frame.size.width + 20.0f;
 
     [self showExpiration];
 
