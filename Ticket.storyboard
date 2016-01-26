@@ -680,27 +680,21 @@ you want to link</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
-                                <rect key="frame" x="16" y="223" width="288" height="150"/>
+                                <rect key="frame" x="16" y="223" width="288" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="Jyh-1n-n3E"/>
+                                    <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
                                     <constraint firstAttribute="width" constant="288" id="Z2x-SR-q2B"/>
                                     <constraint firstAttribute="width" constant="288" id="bMj-dF-QKn"/>
                                 </constraints>
                                 <string key="text">Congratulations.
 Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price has been successfully transmitted to your broker at 26/06/15 4:54 PM EDT.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Z2x-SR-q2B"/>
                                     </mask>
                                 </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="powered by TRADEIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdG-RL-fTT">
-                                <rect key="frame" x="16" y="402" width="288" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAJ-9t-Tno">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="64"/>
@@ -725,20 +719,30 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1j-0F-nO9">
+                                <rect key="frame" x="50" y="379" width="220" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="CcK-YY-RIm"/>
+                                    <constraint firstAttribute="height" constant="44" id="vEa-7G-s1D"/>
+                                </constraints>
+                                <state key="normal" title="Make another trade"/>
+                                <connections>
+                                    <action selector="tradeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="4NJ-DI-xZM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="SdG-RL-fTT" secondAttribute="bottom" constant="8" id="Cfa-zr-abP"/>
+                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="8" id="1Ou-ey-1gP"/>
+                            <constraint firstItem="V1j-0F-nO9" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="I90-0X-SNx"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>
                             <constraint firstItem="wAJ-9t-Tno" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" constant="-20" id="QIr-Rn-XXU"/>
-                            <constraint firstItem="SdG-RL-fTT" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="R7p-un-l6H"/>
                             <constraint firstItem="wAJ-9t-Tno" firstAttribute="top" secondItem="ijX-Wv-ni7" secondAttribute="topMargin" id="TSk-VH-VUB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wAJ-9t-Tno" secondAttribute="trailing" constant="-20" id="Z3r-Gx-dZz"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="adU-sj-aSY"/>
                             <constraint firstAttribute="centerX" secondItem="9or-AK-Crt" secondAttribute="centerX" id="c1i-u6-mAf"/>
                             <constraint firstItem="y4s-05-Ixc" firstAttribute="top" secondItem="wAJ-9t-Tno" secondAttribute="bottom" constant="40" id="eeu-DX-nvA"/>
-                            <constraint firstItem="SdG-RL-fTT" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="vs9-jA-MkT"/>
                             <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="y4s-05-Ixc" secondAttribute="bottom" constant="50" id="xl3-fP-vgE"/>
                             <constraint firstItem="y4s-05-Ixc" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="z81-hO-H6p"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="7" id="zQn-9p-tnb"/>
@@ -750,10 +754,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             </mask>
                         </variation>
                     </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="successMessage" destination="9or-AK-Crt" id="yhW-R8-gC1"/>
-                        <outlet property="tradeItLabel" destination="SdG-RL-fTT" id="w1y-YC-wkN"/>
+                        <outlet property="tradeButton" destination="V1j-0F-nO9" id="i7O-1K-Tqw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlv-uo-0tT" userLabel="First Responder" sceneMemberID="firstResponder"/>
