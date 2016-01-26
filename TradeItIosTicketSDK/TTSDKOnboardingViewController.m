@@ -13,7 +13,8 @@
 @interface TTSDKOnboardingViewController ()
 
 @property TTSDKUtils * utils;
-@property (weak, nonatomic) IBOutlet UIButton *brokerSelectButton;
+@property (weak, nonatomic) IBOutlet UIButton * brokerSelectButton;
+@property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 
 @end
 
@@ -43,6 +44,12 @@ static int kBulletContainerTag = 2;
             [view.layer addSublayer:circleLayer];
         }
     }
+
+    NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
+    [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0f] range:NSMakeRange(0, 7)];
+    [poweredBy appendAttributedString:logoString];
+    [self.tradeItLabel setAttributedText:poweredBy];
 
     [self.utils styleCustomDropdownButton:self.brokerSelectButton];
 }

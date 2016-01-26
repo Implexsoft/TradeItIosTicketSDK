@@ -496,7 +496,7 @@ you want to link</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvo-Gu-GcY">
-                                <rect key="frame" x="60" y="356" width="200" height="44"/>
+                                <rect key="frame" x="60" y="362" width="200" height="44"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="gI0-Uj-TIB"/>
@@ -580,7 +580,7 @@ you want to link</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your broker to begin:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsE-Pz-vxy">
-                                <rect key="frame" x="54" y="310" width="212" height="21"/>
+                                <rect key="frame" x="54" y="316" width="212" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -594,9 +594,16 @@ you want to link</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
+                                <rect key="frame" x="125" y="441" width="71" height="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PqO-0z-E9M" firstAttribute="top" secondItem="a79-3h-B8T" secondAttribute="bottom" constant="24" id="3Ei-RR-w36"/>
                             <constraint firstItem="aHi-HP-SoW" firstAttribute="centerY" secondItem="bEh-ol-Fgg" secondAttribute="centerY" id="4sv-qa-So2"/>
                             <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="10" id="5b1-op-Vg3"/>
                             <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="SwW-BQ-aXo" secondAttribute="trailing" constant="10" id="D5J-HI-l2f"/>
@@ -606,9 +613,10 @@ you want to link</string>
                             <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="uXb-3D-lgI" secondAttribute="leading" id="G2D-Aj-4HN"/>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="G6g-AX-6rY"/>
                             <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="10" id="R3L-vS-Ytq"/>
+                            <constraint firstItem="a79-3h-B8T" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="35" id="Swf-6A-TMJ"/>
+                            <constraint firstItem="a79-3h-B8T" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Tta-zv-eIf"/>
                             <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Uwo-r4-k0K"/>
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="85" id="VHj-Bx-vBm"/>
-                            <constraint firstItem="PqO-0z-E9M" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="80" id="ViG-I5-wWb"/>
                             <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leadingMargin" constant="20" id="VvP-7p-Zaf"/>
                             <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="4LW-hd-IFh" secondAttribute="trailing" constant="10" id="a7S-5a-Q6W"/>
                             <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="dOw-uL-kzG" secondAttribute="leading" id="bRA-Er-LCa"/>
@@ -636,6 +644,7 @@ you want to link</string>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="brokerSelectButton" destination="Tvo-Gu-GcY" id="DMs-2z-aPv"/>
+                        <outlet property="tradeItLabel" destination="a79-3h-B8T" id="Vb1-3T-IFA"/>
                         <segue destination="V42-ok-rVA" kind="show" identifier="OnboardingToBrokerSelect" id="3sc-EH-xgQ"/>
                     </connections>
                 </viewController>
