@@ -594,9 +594,9 @@ you want to link</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
-                                <rect key="frame" x="125" y="441" width="71" height="15"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
+                                <rect key="frame" x="127" y="441" width="66" height="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1342,7 +1342,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="sharesShortValue" destination="yzJ-yB-9tb" id="1fO-P0-OnJ"/>
                         <outlet property="submitOrderButton" destination="f0e-uA-x4B" id="qsK-jO-XnA"/>
                         <segue destination="SQg-dc-6Nj" kind="unwind" identifier="prepareForUnwind" unwindAction="prepareForUnwind:" id="3ao-wp-0oa"/>
-                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="unwindToAdvCalc" unwindAction="unwindToAdvCalc:" id="HQh-kc-wB1"/>
+                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="unwindToAdvCalc" unwindAction="unwindToAdvCal:" id="HQh-kc-wB1"/>
                         <segue destination="xhK-K9-cnI" kind="show" identifier="ReviewToSuccess" id="YNX-r4-12o"/>
                     </connections>
                 </viewController>

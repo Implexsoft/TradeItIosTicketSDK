@@ -84,7 +84,7 @@
                         <color key="titleColor" red="0.16717208059999999" green="0.39085629109999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backspace.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3J-1o-Ku8">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="backspace.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3J-1o-Ku8">
                     <rect key="frame" x="252" y="382" width="30" height="76"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="01Z-hz-mRs"/>

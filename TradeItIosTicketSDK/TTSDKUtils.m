@@ -34,7 +34,7 @@
 @synthesize optionshouseColor;
 
 
-
+static float kDecimalSize = 5.0f;
 
 + (id)sharedUtils {
     static TTSDKUtils *sharedUtilsInstance = nil;
@@ -249,7 +249,11 @@
     [container addSubview:keypad];
     keypad.userInteractionEnabled = YES;
     NSArray * subviews = keypad.subviews;
-    
+
+    [keypad updateConstraints];
+    [keypad layoutSubviews];
+    [keypad layoutIfNeeded];
+
     for (int i = 0; i < [subviews count]; i++) {
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
@@ -259,13 +263,12 @@
                     button.hidden = YES;
                     button.userInteractionEnabled = NO;
                 } else {
-                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5.0f, 5.0f)];
+                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.bounds.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
                     CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:activeButtonColor];
-                    circle.frame = CGRectMake(0, 0, 5.0f, 5.0f);
-                    circleView.backgroundColor = [UIColor orangeColor];
+                    circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
                     [circleView.layer addSublayer:circle];
                     [button addSubview:circleView];
-                    
+
                     NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
                     [button addConstraint:xCenterConstraint];
                     
