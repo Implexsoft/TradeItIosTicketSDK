@@ -14,6 +14,12 @@
 - (void)awakeFromNib {
     if (self) {
         self.textLabel.textColor = [UIColor blackColor];
+
+        UIImageView * customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
+        customDisclosureView.contentMode = UIViewContentModeScaleAspectFit;
+        customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - 7, 0, 7, self.contentView.frame.size.height);
+
+        [self addSubview:customDisclosureView];
     }
 }
 
@@ -23,14 +29,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
     self.textLabel.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
-
-    UIImageView *customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
-
-    customDisclosureView.contentMode = UIViewContentModeScaleAspectFit;
-    customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - 7, 0, 7, self.contentView.frame.size.height);
-
-    [self addSubview:customDisclosureView];
 }
 
 - (void)configureCellWithText:(NSString *)text {
@@ -39,9 +39,17 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     if (highlighted) {
-        self.backgroundColor = [UIColor grayColor];
+        self.textLabel.textColor = [UIColor colorWithRed:180.0f/225.0f green:180.0f/225.0f blue:180.0f/225.0f alpha:1.0f];
     } else {
-        self.backgroundColor = [UIColor whiteColor];
+        self.textLabel.textColor = [UIColor blackColor];
+    }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    if (selected) {
+        self.textLabel.textColor = [UIColor colorWithRed:180.0f/225.0f green:180.0f/225.0f blue:180.0f/225.0f alpha:1.0f];
+    } else {
+        self.textLabel.textColor = [UIColor blackColor];
     }
 }
 
