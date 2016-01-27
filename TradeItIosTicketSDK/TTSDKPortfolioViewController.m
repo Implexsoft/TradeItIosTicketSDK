@@ -35,7 +35,7 @@
 @implementation TTSDKPortfolioViewController
 
 static float kHoldingCellDefaultHeight = 60.0f;
-static float kHoldingCellExpandedHeight = 140.0f;
+static float kHoldingCellExpandedHeight = 132.0f;
 static float kAccountCellHeight = 44.0f;
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -48,7 +48,6 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) viewDidLoad {
-
     self.tradeSession = [TTSDKTicketSession globalSession];
 
     self.scrollView.scrollEnabled = YES;
@@ -185,6 +184,9 @@ static float kAccountCellHeight = 44.0f;
 
     [self updateScrollContentSize:tableView];
     [self resizeUIComponents];
+
+    [tableView layoutIfNeeded];
+    [tableView setNeedsUpdateConstraints];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -214,17 +216,20 @@ static float kAccountCellHeight = 44.0f;
     self.accountsHeightConstraint.constant = self.accountsTable.contentSize.height;
 
     [self updateScrollContentSize:self.scrollView];
+
+    [self.scrollView layoutIfNeeded];
+    [self.scrollView setNeedsUpdateConstraints];
+    [self.scrollView layoutSubviews];
 }
 
 -(void)updateScrollContentSize:(UIScrollView *)scrollView {
     CGRect contentRect = CGRectZero;
+
     for (UIView * view in [[scrollView.subviews firstObject] subviews]) {
         contentRect = CGRectUnion(contentRect, view.frame);
     }
 
     [scrollView setContentSize:contentRect.size];
-    [scrollView layoutIfNeeded];
-    [scrollView setNeedsUpdateConstraints];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -252,6 +257,7 @@ static float kAccountCellHeight = 44.0f;
         }
 
         cell.clipsToBounds = YES;
+
         return cell;
     } else {
         cellIdentifier = @"PortfolioAccountIdentifier";
