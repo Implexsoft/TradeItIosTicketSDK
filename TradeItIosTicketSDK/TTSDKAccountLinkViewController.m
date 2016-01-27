@@ -93,6 +93,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)doneBarButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
