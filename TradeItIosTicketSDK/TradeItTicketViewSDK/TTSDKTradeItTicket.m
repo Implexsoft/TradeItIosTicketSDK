@@ -9,15 +9,18 @@
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
+#import "TTSDKBrokerSelectViewController.h"
 
 @implementation TTSDKTradeItTicket {
 
 }
 
 static NSString * kBrokerListKey = @"BROKER_LIST";
+static NSString * kBrokerListViewIdentifier = @"BROKER_SELECT";
 static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
 static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
 static NSString * kTradeViewIdentifier = @"TRADE";
+static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 +(NSArray *) getAvailableBrokers {
     NSArray * brokers = @[
@@ -150,6 +153,20 @@ static NSString * kTradeViewIdentifier = @"TRADE";
     }
 }
 
++(BOOL) isOnboarding {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
+    
+    BOOL complete = (BOOL)hasCompletedOnboarding;
+
+    if (complete) {
+        return NO;
+    } else {
+        [defaults setObject:@1 forKey:kOnboardingKey];
+        return YES;
+    }
+}
+
 +(void) storeUsername: (NSString *) username andPassword: (NSString *) password forBroker: (NSString *) broker {
     [TTSDKKeychain saveString:username forKey:[NSString stringWithFormat:@"%@Username", broker]];
     [TTSDKKeychain saveString:password forKey:[NSString stringWithFormat:@"%@Password", broker]];
@@ -206,7 +223,7 @@ static NSString * kTradeViewIdentifier = @"TRADE";
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
 
 
-    NSString * startingView = kOnboardingViewIdentifier;
+    NSString * startingView = kBrokerListViewIdentifier;
 
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {
         tradeSession.resultContainer.status = USER_CANCELED;
@@ -214,35 +231,15 @@ static NSString * kTradeViewIdentifier = @"TRADE";
     }
 
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-
     UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"AuthenticationNavController"];
-    [nav setModalPresentationStyle: UIModalPresentationFullScreen];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
-//    TTSDKOnboardingViewController * initialViewController = [((UINavigationController *)nav).viewControllers objectAtIndex:0];
-//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//    [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//    [nav pushViewController:initialViewController animated:YES];
+    if (![self isOnboarding]) {
+        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
+        [nav pushViewController:initialViewController animated:NO];
+    }
 
     [tradeSession.parentView presentViewController:nav animated:YES completion:nil];
-
-//    if([startingView isEqualToString:kOnboardingViewIdentifier]){
-//        TTSDKOnboardingViewController * initialViewController = (TTSDKOnboardingViewController *)[ticket instantiateViewControllerWithIdentifier: startingView];
-//        initialViewController.tradeSession = tradeSession;
-//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//        //Display
-//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-//    } else {
-//        TTSDKTabBarViewController *initialViewController = (TTSDKTabBarViewController *)[ticket instantiateViewControllerWithIdentifier:@"BaseTabBarController"];
-//        if ([startingView isEqualToString:kPortfolioViewIdentifier]) {
-//            initialViewController.selectedIndex = 1;
-//        } else {
-//            initialViewController.selectedIndex = 0;
-//        }
-//
-//        // Display
-//        [initialViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-//        [tradeSession.parentView presentViewController:initialViewController animated:YES completion:nil];
-//    }
 }
 
 +(void) returnToParentApp:(TTSDKTicketSession *)tradeSession {
