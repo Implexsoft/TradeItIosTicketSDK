@@ -254,8 +254,8 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [utils numberFromPriceString:limitPriceInput.text];
-    double stopPrice = [utils numberFromPriceString:stopPriceInput.text];
+    double limitPrice = [self.tradeSession.orderInfo.price.limitPrice doubleValue];
+    double stopPrice = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
 
     if(shares < 1) {
         readyNow = NO;
@@ -265,6 +265,10 @@
         }
     } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"market"]) {
         readyNow = YES;
+    } else if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]) {
+        if(stopPrice > 0) {
+            readyNow = YES;
+        }
     } else {
         if(limitPrice > 0) {
             readyNow = YES;
