@@ -8,17 +8,22 @@
 
 #import "TTSDKBrokerSelectTableViewCell.h"
 
+@interface TTSDKBrokerSelectTableViewCell() {
+    UIImageView * customDisclosureView;
+}
+
+@end
+
 @implementation TTSDKBrokerSelectTableViewCell
 
+static float kDisclosureWidth = 7.0f;
 
 - (void)awakeFromNib {
     if (self) {
         self.textLabel.textColor = [UIColor blackColor];
 
-        UIImageView * customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
+        customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
         customDisclosureView.contentMode = UIViewContentModeScaleAspectFit;
-        customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - 7, 0, 7, self.contentView.frame.size.height);
-
         [self addSubview:customDisclosureView];
     }
 }
@@ -31,6 +36,7 @@
     [super layoutSubviews];
 
     self.textLabel.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - (kDisclosureWidth * 2), 0, kDisclosureWidth, self.contentView.frame.size.height);
 }
 
 - (void)configureCellWithText:(NSString *)text {
