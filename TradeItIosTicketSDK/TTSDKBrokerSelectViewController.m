@@ -8,10 +8,12 @@
 
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
+#import "TTSDKTicketController.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
+    TTSDKTicketController * globalController;
 }
 
 static NSString * CellIdentifier = @"BrokerCell";
@@ -33,8 +35,8 @@ static NSString * CellIdentifier = @"BrokerCell";
 
     self.tradeSession = [TTSDKTicketSession globalSession];
 
-    brokers = self.tradeSession.brokerList;
-    linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
+    globalController = [TTSDKTicketController globalController];
+    brokers = globalController.brokerList;
 
     if([brokers count] < 1){
         [self showLoadingAndWait];
@@ -154,7 +156,8 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"brokerDetailSegue"]) {
-        [[segue destinationViewController] setAddBroker: [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1]];
+        NSString * selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
+        [[segue destinationViewController] setAddBroker: selectedBroker];
     }
 }
 

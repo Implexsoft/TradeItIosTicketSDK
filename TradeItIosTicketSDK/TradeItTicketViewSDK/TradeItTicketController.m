@@ -7,6 +7,11 @@
 //
 
 #import "TradeItTicketController.h"
+#import "TTSDKTicketController.h"
+
+
+
+
 #import "TTSDKTicketSession.h"
 
 #import "TTSDKTradeViewController.h"
@@ -31,6 +36,7 @@
 #import "TTSDKAlertView.h"
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKAccountLinkTableViewCell.h"
+#import "TradeItConnector.h"
 
 
 @implementation TradeItTicketController {
@@ -45,13 +51,22 @@
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
+
+    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+    ticketController.apiKey = apiKey;
+    ticketController.callback = callback;
+    ticketController.parentView = view;
+    ticketController.debugMode = debug;
+    ticketController.portfolioMode = YES;
+
+
+
     TTSDKTicketSession * tradeSession = [TTSDKTicketSession globalSession];
     tradeSession.publisherApp = apiKey;
     tradeSession.callback = callback;
     tradeSession.parentView = view;
     tradeSession.debugMode = debug;
     tradeSession.portfolioMode = YES;
-
     [TradeItTicketController showTicket:tradeSession];
 }
 
@@ -61,7 +76,17 @@
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
-    
+
+    TTSDKTicketController * controller = [TTSDKTicketController globalController];
+    controller.apiKey = apiKey;
+    controller.initialSymbol = [symbol uppercaseString];
+    controller.initialLastPrice = lastPrice;
+    controller.initialAction = action;
+    controller.callback = callback;
+    controller.parentView = view;
+    controller.debugMode = debug;
+    controller.portfolioMode = NO;
+
     TTSDKTicketSession * tradeSession = [TTSDKTicketSession globalSession];
     tradeSession.publisherApp = apiKey;
     tradeSession.orderInfo.symbol = [symbol uppercaseString];
@@ -71,14 +96,19 @@
     tradeSession.parentView = view;
     tradeSession.debugMode = debug;
     tradeSession.portfolioMode = NO;
-
     [TradeItTicketController showTicket:tradeSession];
 }
 
 - (id)initWithPublisherApp: (NSString *) publisherApp symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
     self = [super init];
-    
+
     if (self) {
+        TTSDKTicketController * controller = [TTSDKTicketController globalController];
+        controller.apiKey = publisherApp;
+        controller.initialSymbol = [symbol uppercaseString];
+        controller.initialLastPrice = lastPrice;
+        controller.parentView = view;
+
         tradeSession = [TTSDKTicketSession globalSession];
         tradeSession.publisherApp = publisherApp;
         tradeSession.orderInfo.symbol = [symbol uppercaseString];
@@ -143,9 +173,12 @@
 }
 
 +(void) showTicket:(TTSDKTicketSession *) ticketSession {
-    ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
+    TTSDKTicketController * controller = [TTSDKTicketController globalController];
+    controller.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
+    [controller showTicket];
 
-    [TTSDKTradeItTicket showTicket:ticketSession];
+//    ticketSession.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
+//    [TTSDKTradeItTicket showTicket:ticketSession];
 }
 
 + (void)clearSavedData {

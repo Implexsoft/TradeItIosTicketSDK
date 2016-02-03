@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKCustomAlertView.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface TTSDKUtils : NSObject
 
@@ -51,5 +52,6 @@
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName;
 -(CGFloat) retrieveScreenHeight;
 -(BOOL) isSmallScreen;
+-(BOOL) hasTouchId;
 
 @end

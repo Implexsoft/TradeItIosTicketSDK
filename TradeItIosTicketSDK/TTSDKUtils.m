@@ -444,4 +444,19 @@ static float kDecimalSize = 5.0f;
     return range.length != 0;
 }
 
+-(BOOL) hasTouchId {
+    if(![LAContext class]) {
+        return NO;
+    }
+    
+    LAContext * myContext = [[LAContext alloc] init];
+    NSError * authError = nil;
+    
+    if([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

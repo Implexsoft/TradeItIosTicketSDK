@@ -15,6 +15,8 @@
     NSString * selectedBroker;
 }
 
+
+
 @end
 
 @implementation TTSDKBaseTradeViewController
@@ -37,6 +39,12 @@
     self.tradeSession = [TTSDKTicketSession globalSession];
 
     segueToLogin = @"TradeToLogin";
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    self.utils = [TTSDKUtils sharedUtils];
 }
 
 -(void) promptTouchId {
@@ -119,26 +127,26 @@
 #pragma mark - order state
 
 -(void) setBroker {
-    if (![self.tradeSession.authenticationInfo.id isEqualToString:@""] && [TTSDKTradeItTicket hasTouchId]) {
-        //        [self promptTouchId];
-    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
-        if([linkedBrokers count] > 1) {
-            [self showBrokerPickerAndSetPassword:NO onSelection:^{
-                [self performSegueWithIdentifier:segueToLogin sender:self];
-            }];
-        } else if (![linkedBrokers count]) {
-            return;
-        } else {
-            [self setAuthentication:linkedBrokers[0] withPassword:NO];
-            [self performSegueWithIdentifier:segueToLogin sender:self];
-        }
-    }
+//    if (![self.tradeSession.authenticationInfo.id isEqualToString:@""] && [self.utils hasTouchId]) {
+//        //        [self promptTouchId];
+//    } else if([self.tradeSession.authenticationInfo.id isEqualToString:@""]){
+//        if([linkedBrokers count] > 1) {
+//            [self showBrokerPickerAndSetPassword:NO onSelection:^{
+//                [self performSegueWithIdentifier:segueToLogin sender:self];
+//            }];
+//        } else if (![linkedBrokers count]) {
+//            return;
+//        } else {
+//            [self setAuthentication:linkedBrokers[0] withPassword:NO];
+//            [self performSegueWithIdentifier:segueToLogin sender:self];
+//        }
+//    }
 }
 
 -(void) setAuthentication: (NSString *) broker withPassword: (BOOL) setPassword {
     self.tradeSession.broker = broker;
     TradeItAuthenticationInfo * creds = [TTSDKTradeItTicket getStoredAuthenticationForBroker: broker];
-    
+
     if(setPassword) {
         self.tradeSession.authenticationInfo = creds;
     } else {

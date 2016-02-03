@@ -102,66 +102,66 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 -(void) updateUIWithReviewResult {
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setLocale: US];
-
-    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
-    [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
-    [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
-    
-    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[[self result] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-        [self hideElement:sharesLongVL];
-        [self hideElement:sharesLongVV];
-    } else {
-        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
-    }
-    
-    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self result] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-        [self hideElement:sharesShortVL];
-        [self hideElement:sharesShortVV];
-    } else {
-        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"shortHoldings"]]];
-    }
-    
-    if(![[[self result] orderDetails] valueForKey:@"buyingPower"] && ![[[self result] orderDetails] valueForKey:@"availableCash"]) {
-        [self hideElement:buyingPowerVL];
-        [self hideElement:buyingPowerVV];
-    } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
-        [buyingPowerLabel setText:@"Buying Power"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
-    } else {
-        [buyingPowerLabel setText:@"Avail. Cash"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"availableCash"]]];
-    }
-    
-    if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
-        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
-    } else {
-        [self hideElement:estimatedFeesVL];
-        [self hideElement:estimatedFeesVV];
-    }
-    
-    if([[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
-        [estimateCostLabel setText:@"Estimated Proceeds"];
-    } else {
-        [estimateCostLabel setText:@"Estimated Cost"];
-    }
-    
-    if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
-    } else {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
-    }
-    
-    for(NSString * warning in [[self result] warningsList]) {
-        [self addReviewMessage: warning];
-    }
-    
-    for(NSString * warning in [[self result] ackWarningsList]) {
-        [self addAcknowledgeMessage: warning];
-    }
+//    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+//    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    [formatter setLocale: US];
+//
+//    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
+//    [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
+//    [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
+//    
+//    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[[self result] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+//        [self hideElement:sharesLongVL];
+//        [self hideElement:sharesLongVV];
+//    } else {
+//        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
+//    }
+//    
+//    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self result] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+//        [self hideElement:sharesShortVL];
+//        [self hideElement:sharesShortVV];
+//    } else {
+//        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"shortHoldings"]]];
+//    }
+//    
+//    if(![[[self result] orderDetails] valueForKey:@"buyingPower"] && ![[[self result] orderDetails] valueForKey:@"availableCash"]) {
+//        [self hideElement:buyingPowerVL];
+//        [self hideElement:buyingPowerVV];
+//    } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
+//        [buyingPowerLabel setText:@"Buying Power"];
+//        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
+//    } else {
+//        [buyingPowerLabel setText:@"Avail. Cash"];
+//        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"availableCash"]]];
+//    }
+//    
+//    if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
+//        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+//    } else {
+//        [self hideElement:estimatedFeesVL];
+//        [self hideElement:estimatedFeesVV];
+//    }
+//    
+//    if([[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
+//        [estimateCostLabel setText:@"Estimated Proceeds"];
+//    } else {
+//        [estimateCostLabel setText:@"Estimated Cost"];
+//    }
+//    
+//    if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
+//        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+//    } else {
+//        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+//    }
+//    
+//    for(NSString * warning in [[self result] warningsList]) {
+//        [self addReviewMessage: warning];
+//    }
+//    
+//    for(NSString * warning in [[self result] ackWarningsList]) {
+//        [self addAcknowledgeMessage: warning];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

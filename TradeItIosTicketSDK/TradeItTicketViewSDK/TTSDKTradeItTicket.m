@@ -10,6 +10,8 @@
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TradeItAuthenticationInfo.h"
+#import "TradeItConnector.h"
 
 @implementation TTSDKTradeItTicket {
 
@@ -35,13 +37,15 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
                           @[@"Tradier Brokerage",@"Tradier"]
                           //@[@"Interactive Brokers",@"IB"]
                           ];
+
     
+
     return brokers;
 }
 
 +(NSArray *) getAvailableBrokers:(TTSDKTicketSession *) tradeSession {
     NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
-    
+
     if([tradeSession debugMode]) {
         NSArray * dummy  =  @[@[@"Dummy",@"Dummy"]];
         brokers = [dummy arrayByAddingObjectsFromArray: brokers];
@@ -76,19 +80,19 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 +(NSString *) getBrokerDisplayString:(NSString *) value {
     NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
-    
+
     for(NSArray * broker in brokers) {
         if([broker[1] isEqualToString:value]) {
             return broker[0];
         }
     }
-    
+
     return value;
 }
 
 +(NSString *) getBrokerValueString:(NSString *) displayString {
     NSArray * brokers = [TTSDKTradeItTicket getAvailableBrokers];
-    
+
     for(NSArray * broker in brokers) {
         if([broker[0] isEqualToString:displayString]) {
             return broker[1];
@@ -156,7 +160,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 +(BOOL) isOnboarding {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
-    
+
     BOOL complete = (BOOL)hasCompletedOnboarding;
 
     if (complete) {
@@ -176,22 +180,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     NSString * username = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Username", broker]];
     NSString * password = [TTSDKKeychain getStringForKey:[NSString stringWithFormat:@"%@Password", broker]];
 
-    return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password];
-}
-
-+(BOOL) hasTouchId {
-    if(![LAContext class]) {
-        return NO;
-    }
-
-    LAContext * myContext = [[LAContext alloc] init];
-    NSError * authError = nil;
-
-    if([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return [[TradeItAuthenticationInfo alloc] initWithId:username andPassword:password andBroker:broker];
 }
 
 +(void) showTicket:(TTSDKTicketSession *) tradeSession {
@@ -203,7 +192,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
             tradeSession.brokerList = [TTSDKTradeItTicket getAvailableBrokers:tradeSession];
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
-            
+
             if(tradeSession.debugMode) {
                 NSArray * dummy  =  @[@"Dummy",@"Dummy"];
                 [brokers addObject:dummy];
@@ -221,8 +210,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     //Get Resource Bundle
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
-
-
     NSString * startingView = kBrokerListViewIdentifier;
 
     if([[TTSDKTradeItTicket getLinkedBrokersList] count] > 0) {

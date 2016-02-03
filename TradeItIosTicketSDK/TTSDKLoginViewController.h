@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
-#import "TradeItVerifyCredentialsSession.h"
 #import "TTSDKTradeItTicket.h"
 
 @interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>

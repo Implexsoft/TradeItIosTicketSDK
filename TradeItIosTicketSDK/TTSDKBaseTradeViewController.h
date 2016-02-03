@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
 #import "TTSDKCustomIOSAlertView.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -24,6 +25,8 @@
 @property NSString * currentSelection;
 @property NSArray * questionOptions;
 @property NSDictionary * currentAccount;
+
+@property TTSDKUtils * utils;
 
 -(void) setBroker;
 -(void) sendLoginReviewRequest;

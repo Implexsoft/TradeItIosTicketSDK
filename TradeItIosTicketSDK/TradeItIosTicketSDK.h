@@ -30,7 +30,6 @@
 #import "TradeItStockOrEtfAuthenticateAndTradeRequest.h"
 #import "TradeItStockOrEtfOrderInfo.h"
 #import "TradeItStockOrEtfOrderPrice.h"
-#import "TradeItStockOrEtfTradeReviewOrderDetails.h"
 #import "TradeItStockOrEtfTradeReviewResult.h"
 #import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItStockOrEtfTradeSuccessResult.h"

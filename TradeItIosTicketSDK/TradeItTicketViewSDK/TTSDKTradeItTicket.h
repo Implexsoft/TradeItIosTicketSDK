@@ -31,8 +31,6 @@
 
 +(NSString *) getBrokerUsername:(NSString *) broker;
 
-+(BOOL) hasTouchId;
-
 +(void) showTicket:(TTSDKTicketSession *) tradeSession;
 +(void) returnToParentApp: (TTSDKTicketSession *) tradeSession;
 +(void) restartTicket:(TTSDKTicketSession *) tradeSession;

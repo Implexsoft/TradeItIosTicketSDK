@@ -11,7 +11,7 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKUtils.h"
+
 
 @interface TTSDKTradeViewController () {
     __weak IBOutlet UIView * companyDetails;
@@ -46,9 +46,11 @@
     UIView * keypad;
 
     TTSDKCompanyDetails * companyNib;
-    TTSDKUtils * utils;
+
     BOOL uiConfigured;
     BOOL defaultEditingCheckComplete;
+    
+    TTSDKUtils * utils;
 }
 
 @end
