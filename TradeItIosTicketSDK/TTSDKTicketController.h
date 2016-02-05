@@ -12,6 +12,7 @@
 #import "TradeItResult.h"
 #import "TradeItAuthenticationInfo.h"
 #import "TradeItLinkedLogin.h"
+#import "TradeItPreviewTradeOrderDetails.h"
 
 @interface TTSDKTicketController : NSObject
 
@@ -31,12 +32,12 @@
 
 @property TradeItLinkedLogin * currentLogin;
 
-@property NSString * initialSymbol;
-@property NSString * initialCompanyName;
-@property NSString * initialAction;
-@property double initialLastPrice;
-@property NSNumber * initialPriceChangeDollar;
-@property NSNumber * initialPriceChangePercentage;
+@property NSString * symbol;
+@property NSString * companyName;
+@property NSString * action;
+@property double lastPrice;
+@property NSNumber * priceChangeDollar;
+@property NSNumber * priceChangePercentage;
 
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
@@ -47,5 +48,6 @@
 - (id)initWithApiKey:(NSString *)apiKey;
 - (void)showTicket;
 - (void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
 @end

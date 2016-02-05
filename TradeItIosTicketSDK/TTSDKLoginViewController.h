@@ -10,12 +10,15 @@
 #import "TTSDKTicketSession.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 @property BOOL cancelToParent;
 
 @property NSString * addBroker;
 @property TradeItAuthenticationInfo * verifyCreds;
+
+@property NSArray * questionOptions;
+@property NSString * currentSelection;
 
 @end

@@ -79,9 +79,9 @@
 
     TTSDKTicketController * controller = [TTSDKTicketController globalController];
     controller.apiKey = apiKey;
-    controller.initialSymbol = [symbol uppercaseString];
-    controller.initialLastPrice = lastPrice;
-    controller.initialAction = action;
+    controller.symbol = [symbol uppercaseString];
+    controller.lastPrice = lastPrice;
+    controller.action = action;
     controller.callback = callback;
     controller.parentView = view;
     controller.debugMode = debug;
@@ -105,8 +105,8 @@
     if (self) {
         TTSDKTicketController * controller = [TTSDKTicketController globalController];
         controller.apiKey = publisherApp;
-        controller.initialSymbol = [symbol uppercaseString];
-        controller.initialLastPrice = lastPrice;
+        controller.symbol = [symbol uppercaseString];
+        controller.lastPrice = lastPrice;
         controller.parentView = view;
 
         tradeSession = [TTSDKTicketSession globalSession];
@@ -115,7 +115,7 @@
         tradeSession.lastPrice = lastPrice;
         tradeSession.parentView = view;
     }
-    
+
     return self;
 }
 

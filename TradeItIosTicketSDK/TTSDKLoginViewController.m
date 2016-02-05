@@ -221,11 +221,6 @@
         self.tradeSession.errorTitle = @"Invalid Credentials";
         self.tradeSession.errorMessage = @"Check your username and password and try again.";
 
-//        if(!self.addBroker) {
-//            [TTSDKTradeItTicket storeUsername:self.verifyCreds.id andPassword:@"" forBroker:self.addBroker];
-//            [TTSDKTradeItTicket removeLinkedBroker: self.addBroker];
-//        }
-
         if(![UIAlertController class]) {
             [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
         } else {
@@ -240,6 +235,17 @@
 
         self.tradeSession.errorMessage = nil;
         self.tradeSession.errorTitle = nil;
+
+    } else if ([result isKindOfClass:TradeItSecurityQuestionResult.class]) {
+
+        TradeItSecurityQuestionResult * res = (TradeItSecurityQuestionResult *)result;
+
+        if (res.securityQuestionOptions != nil && res.securityQuestionOptions.count > 0) {
+            [self showOldMultiSelect:res];
+        } else if (res.securityQuestion != nil) {
+            [self showOldSecQuestion:res.securityQuestion];
+        }
+
 
     } else {
         [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
@@ -316,17 +322,66 @@
     [titleLabel setNumberOfLines:0];
     [titleLabel setText: title];
     [contentView addSubview:titleLabel];
-    
+
     UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
     currentPicker = picker;
-    
+
     [picker setDataSource: self];
     [picker setDelegate: self];
     picker.showsSelectionIndicator = YES;
     [contentView addSubview:picker];
-    
+
     [contentView setNeedsDisplay];
     return contentView;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex > 0) {
+        [globalController answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
+            [self authenticateRequestReceived:res];
+        }];
+    }
+}
+
+-(void) showOldSecQuestion:(NSString *) question {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.questionOptions.count;
+}
+
+-(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult {
+    self.questionOptions = securityQuestionResult.securityQuestionOptions;
+    self.currentSelection = self.questionOptions[0];
+
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView: @"Security Question"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
+
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 0) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [[self tradeSession] asyncAnswerSecurityQuestion:self.currentSelection andCompletionBlock:^(TradeItResult *result) {
+                [self authenticateRequestReceived:result];
+            }];
+        }
+    }];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 @end

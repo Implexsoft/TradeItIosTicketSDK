@@ -12,10 +12,11 @@
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TradeItErrorResult.h"
+#import "TradeItSession.h"
 
 @interface TTSDKTicketController() {
     TradeItConnector * connector;
-
+    TradeItSession * session;
 }
 
 @end
@@ -112,14 +113,23 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 -(void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     [connector linkBrokerWithAuthenticationInfo:authInfo andCompletionBlock:^(TradeItResult * res){
-        if (![res isKindOfClass:TradeItErrorResult.class]) {
-            TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
-            self.currentLogin = [connector saveLinkToKeychain:result withBroker:authInfo.broker];
-            self.currentBroker = authInfo.broker;
+        if ([res isKindOfClass:TradeItErrorResult.class]) {
+            completionBlock(res);
+            return;
         }
 
-        completionBlock(res);
+        TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
+
+        self.currentLogin = [connector saveLinkToKeychain:result withBroker:authInfo.broker];
+        self.currentBroker = authInfo.broker;
+
+        session = [[TradeItSession alloc] initWithConnector:connector];
+        [session authenticate:self.currentLogin withCompletionBlock:completionBlock];
     }];
+}
+
+-(void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    [session answerSecurityQuestion:answer withCompletionBlock:completionBlock];
 }
 
 -(void)launchInitialViewController {
