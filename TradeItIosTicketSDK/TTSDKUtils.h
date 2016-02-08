@@ -53,5 +53,6 @@
 -(CGFloat) retrieveScreenHeight;
 -(BOOL) isSmallScreen;
 -(BOOL) hasTouchId;
+-(NSString *) getBrokerUsername:(NSString *) broker;
 
 @end

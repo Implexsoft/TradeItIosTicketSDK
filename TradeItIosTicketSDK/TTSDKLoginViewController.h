@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 #import "TTSDKTradeItTicket.h"
 #import "TradeItAuthenticationInfo.h"
 
 @interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
-@property TTSDKTicketSession * tradeSession;
 @property BOOL cancelToParent;
 
 @property NSString * addBroker;

@@ -85,6 +85,30 @@ static float kDecimalSize = 5.0f;
     return brokerColor;
 }
 
+-(NSString *) getBrokerUsername:(NSString *) broker {
+    NSDictionary *brokerUsernames = @{
+                                      @"Dummy":@"Username",
+                                      @"TD":@"User Id",
+                                      @"Robinhood":@"Username",
+                                      @"OptionsHouse":@"User Id",
+                                      @"Schwabs":@"User Id",
+                                      @"TradeStation":@"Username",
+                                      @"Etrade":@"User Id",
+                                      @"Fidelity":@"Username",
+                                      @"Scottrade":@"Account #",
+                                      @"Tradier":@"Username",
+                                      @"IB":@"Username",
+                                      };
+    
+    NSString * brokerName = [brokerUsernames valueForKey:broker];
+    
+    if (brokerName) {
+        return brokerName;
+    } else {
+        return @"Username";
+    }
+}
+
 - (void)addGradientToButton: (UIButton *)button {
     [self removeGradientFromCurrentContainer];
     [self removeLoadingIndicatorFromContainer];

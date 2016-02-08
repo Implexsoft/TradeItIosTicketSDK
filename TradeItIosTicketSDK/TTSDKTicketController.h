@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "TradeItTicketControllerResult.h"
 #import "TradeItResult.h"
+#import "TradeItConnector.h"
 #import "TradeItAuthenticationInfo.h"
 #import "TradeItAuthControllerResult.h"
 #import "TradeItLinkedLogin.h"
@@ -32,8 +33,11 @@
 @property BOOL debugMode;
 @property BOOL portfolioMode;
 @property NSString * currentBroker;
+@property NSArray * accounts;
 
 @property TradeItLinkedLogin * currentLogin;
+@property TradeItConnector * connector;
+@property NSDictionary * currentAccount;
 
 @property NSString * initialSymbol;
 @property NSString * initialCompanyName;
@@ -58,12 +62,13 @@
 - (void)showTicket;
 - (void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)addAccounts: (NSArray *)accounts;
+- (void)selectAccount:(NSDictionary *) account;
 - (void)createInitialTradeRequest;
 - (void)unlinkAccounts;
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
 - (void)returnToParentApp;
-- (NSString *)getBrokerUsername:(NSString *) broker;
 
 @end

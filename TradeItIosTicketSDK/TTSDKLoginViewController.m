@@ -7,30 +7,31 @@
 //
 
 #import "TTSDKLoginViewController.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKCustomAlertView.h"
-#import "TradeItAuthLinkResult.h"
 #import "TradeItErrorResult.h"
-#import "TTSDKTicketController.h"
+#import "TradeItAuthLinkResult.h"
 #import "TradeItAuthenticationResult.h"
 #import "TradeItSecurityQuestionResult.h"
 
 @implementation TTSDKLoginViewController {
-    
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
     __weak IBOutlet UITextField *passwordInput;
     __weak IBOutlet UIButton *linkAccountButton;
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
-    __weak IBOutlet UIButton *unlinkButton;
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
 
     TTSDKTicketController * globalController;
-
     TTSDKUtils * utils;
 }
+
+
+
+#pragma mark - Rotation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -41,14 +42,17 @@
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 -(void) viewDidLoad {
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-
     globalController = [TTSDKTicketController globalController];
 
-    NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
+    NSString * broker = (self.addBroker == nil) ? globalController.currentBroker : self.addBroker;
 
     if(self.addBroker == nil && globalController.currentLogin.userId) {
         emailInput.text = globalController.currentLogin.userId;
@@ -71,11 +75,6 @@
     [self.view addGestureRecognizer:tap];
 
     [utils styleMainInactiveButton:linkAccountButton];
-}
-
-- (void)dismissKeyboard {
-    [emailInput resignFirstResponder];
-    [passwordInput resignFirstResponder];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -101,6 +100,15 @@
     globalController.errorTitle = nil;
 }
 
+- (void)dismissKeyboard {
+    [emailInput resignFirstResponder];
+    [passwordInput resignFirstResponder];
+}
+
+
+
+#pragma mark - Authentication
+
 -(void) checkAuthState {
     if(globalController.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
@@ -114,10 +122,6 @@
     }
 }
 
--(void)home:(UIBarButtonItem *)sender {
-    [globalController returnToParentApp];
-}
-
 - (IBAction)linkAccountPressed:(id)sender {
     if (emailInput.isFirstResponder) {
         [emailInput resignFirstResponder];
@@ -128,7 +132,7 @@
     }
 
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
-        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [globalController getBrokerUsername:globalController.currentBroker]];
+        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [utils getBrokerUsername:globalController.currentBroker]];
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
@@ -148,11 +152,52 @@
     }
 }
 
--(IBAction) unlinkAccountPressed:(id) sender{
-    // TODO: get rid of this
+-(void) authenticate {
+    NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
+    
+    self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
+    
+    [globalController authenticate:self.verifyCreds withCompletionBlock:^(TradeItResult * res){
+        [self authenticateRequestReceived: res];
+    }];
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) authenticateRequestReceived: (TradeItResult *) result {
+    [utils styleMainActiveButton:linkAccountButton];
+    
+    if ([result isKindOfClass:TradeItErrorResult.class]) {
+        globalController.errorTitle = @"Invalid Credentials";
+        globalController.errorMessage = @"Check your username and password and try again.";
+        
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
+                                                                            message:globalController.errorMessage
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
+        globalController.errorMessage = nil;
+        globalController.errorTitle = nil;
+    } else if ([result isKindOfClass:TradeItSecurityQuestionResult.class]) {
+        TradeItSecurityQuestionResult * res = (TradeItSecurityQuestionResult *)result;
+        
+        if (res.securityQuestionOptions != nil && res.securityQuestionOptions.count > 0) {
+            [self showOldMultiSelect:res];
+        } else if (res.securityQuestion != nil) {
+            [self showOldSecQuestion:res.securityQuestion];
+        }
+    } else {
+        NSArray * accounts = [result valueForKey:@"accounts"];
+        [globalController addAccounts:accounts];
+        [globalController selectAccount:(NSDictionary *)[accounts lastObject]];
+        
+        [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+    }
 }
 
 
@@ -185,95 +230,12 @@
 
 
 
-#pragma mark - Verify Credentials
+#pragma mark - Navigation
 
--(void) authenticate {
-    NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
-
-    self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
-
-    [globalController authenticate:self.verifyCreds withCompletionBlock:^(TradeItResult * res){
-        [self authenticateRequestReceived: res];
-    }];
+-(void)home:(UIBarButtonItem *)sender {
+    [globalController returnToParentApp];
 }
 
--(void) authenticateRequestReceived: (TradeItResult *) result {
-
-    NSLog(@"AUTH RESULT");
-    NSLog(@"%@", result);
-
-    [utils styleMainActiveButton:linkAccountButton];
-
-    if ([result isKindOfClass:TradeItErrorResult.class]) {
-        globalController.errorTitle = @"Invalid Credentials";
-        globalController.errorMessage = @"Check your username and password and try again.";
-
-        if(![UIAlertController class]) {
-            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
-                                                                            message:globalController.errorMessage
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {}];
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-
-        globalController.errorMessage = nil;
-        globalController.errorTitle = nil;
-    } else if ([result isKindOfClass:TradeItSecurityQuestionResult.class]) {
-        TradeItSecurityQuestionResult * res = (TradeItSecurityQuestionResult *)result;
-
-        if (res.securityQuestionOptions != nil && res.securityQuestionOptions.count > 0) {
-            [self showOldMultiSelect:res];
-        } else if (res.securityQuestion != nil) {
-            [self showOldSecQuestion:res.securityQuestion];
-        }
-    } else {
-        NSArray * accounts = [result valueForKey:@"accounts"];
-
-
-
-        if (accounts.count > 1) {
-                    if(![UIAlertController class]) {
-                        [self showOldAcctSelect: accounts];
-                    } else {
-                        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Account"
-                                                                                        message:nil
-                                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
-            
-                        void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
-                            globalController.tradeRequest.accountNumber = [account valueForKey:@"accountNumber"];
-                        };
-
-                        for (NSDictionary * account in accounts) {
-                            NSString * title = [account objectForKey:@"name"];
-                            UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
-                                                                          handler:^(UIAlertAction * action) {
-                                                                              handler(account);
-                                                                          }];
-                            [alert addAction:acct];
-                        }
-
-                        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        }];
-                        [alert addAction:cancel];
-
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self presentViewController:alert animated:YES completion:nil];
-                        });
-                    }
-        } else {
-            [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
-        }
-    }
-}
-
--(void) loginComplete {
-    
-}
 
 
 #pragma mark - iOS7 fallback
@@ -285,49 +247,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
     });
-}
-
--(void) showOldAcctSelect: (NSArray *)accounts {
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-
-
-    [alert setContainerView:[self createAccountPickerView]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
-
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-//            [[self tradeSession] asyncSelectAccount:currentAccount andCompletionBlock:^(TradeItResult *result) {
-//            }];
-        }
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
-- (UIView *)createAccountPickerView {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-    
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 50)];
-    [title setTextColor:[UIColor blackColor]];
-    [title setTextAlignment:NSTextAlignmentCenter];
-    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [title setNumberOfLines:0];
-    [title setText: @"Select the account\ryou want to trade in"];
-    [contentView addSubview:title];
-    
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [picker setTag: 502];
-    [contentView addSubview:picker];
-    
-    [contentView setNeedsDisplay];
-    return contentView;
 }
 
 -(UIView *) createPickerView: (NSString *) title {
@@ -353,7 +272,7 @@
     return contentView;
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
@@ -375,7 +294,7 @@
     });
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return self.questionOptions.count;
 }
 
@@ -401,5 +320,7 @@
         [alert show];
     });
 }
+
+
 
 @end
