@@ -7,14 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKMBProgressHUD.h"
 
 @interface TTSDKBrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
-
-@property TTSDKTicketSession * tradeSession;
-@property BOOL editMode;
 
 @end

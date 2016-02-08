@@ -16,7 +16,7 @@
     TTSDKTicketController * globalController;
 }
 
-static NSString * CellIdentifier = @"BrokerCell";
+static NSString * kCellIdentifier = @"BrokerCell";
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -63,26 +63,26 @@ static NSString * CellIdentifier = @"BrokerCell";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while([self.tradeSession.brokerList count] < 1 && cycles < 10) {
+        while([globalController.brokerList count] < 1 && cycles < 10) {
             sleep(1);
             cycles++;
         }
 
-        if([self.tradeSession.brokerList count] < 1) {
+        if([globalController.brokerList count] < 1) {
             if(![UIAlertController class]) {
                 [self showOldErrorAlert];
                 return;
             }
-            
+
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+                                                                       [globalController returnToParentApp];
                                                                    }];
             [alert addAction:defaultAction];
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [self presentViewController:alert animated:YES completion:nil];
@@ -90,14 +90,16 @@ static NSString * CellIdentifier = @"BrokerCell";
             
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                brokers = self.tradeSession.brokerList;
+                brokers = globalController.brokerList;
                 [self.tableView reloadData];
-                
+
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }
     });
 }
+
+
 
 #pragma mark - iOS7 fallback
 
@@ -114,6 +116,8 @@ static NSString * CellIdentifier = @"BrokerCell";
     [globalController returnToParentApp];
 }
 
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -127,7 +131,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
 
-    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
     [cell configureCellWithText:displayText];
 
     return cell;
@@ -136,20 +140,17 @@ static NSString * CellIdentifier = @"BrokerCell";
 
 
 #pragma mark - events
+
 - (IBAction)closePressed:(id)sender {
-    if([self editMode]) {
-        [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
-    } else {
-        if(globalController.brokerSignUpCallback) {
-            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
-            res.success = false;
-            res.errorTitle = @"Cancelled";
+    if(globalController.brokerSignUpCallback) {
+        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
+        res.success = false;
+        res.errorTitle = @"Cancelled";
 
-            globalController.brokerSignUpCallback(res);
-        }
-
-        [globalController returnToParentApp];
+        globalController.brokerSignUpCallback(res);
     }
+
+    [globalController returnToParentApp];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -164,13 +165,6 @@ static NSString * CellIdentifier = @"BrokerCell";
     
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
 
