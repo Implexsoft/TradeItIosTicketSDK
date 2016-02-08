@@ -33,10 +33,10 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
 
-
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
 }
+
 
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {

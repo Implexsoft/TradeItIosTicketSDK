@@ -677,7 +677,7 @@ you want to link</string>
         <!--Authentication Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
             <objects>
-                <navigationController storyboardIdentifier="AuthenticationNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" userLabel="Authentication Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AUTH_NAV" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" userLabel="Authentication Navigation Controller" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SXg-ap-0ac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2009,7 +2009,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Tab Bar View Controller-->
         <scene sceneID="mCR-6k-glU">
             <objects>
-                <tabBarController storyboardIdentifier="BaseTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mny-9H-gjs" customClass="TTSDKTabBarViewController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="BASE_TAB_BAR" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mny-9H-gjs" customClass="TTSDKTabBarViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="n98-zL-lfc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

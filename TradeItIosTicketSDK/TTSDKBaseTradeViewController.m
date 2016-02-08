@@ -69,7 +69,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 
 
-#pragma mark - order state
+#pragma mark - Order State
 
 -(void) changeOrderAction: (NSString *) action {
     // Implement me in subclass
@@ -79,9 +79,63 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     // Implement me in subclass
 }
 
+-(void) sendReviewRequest {
+    [self.globalController previewTrade:^(TradeItResult * res){
+        if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
+            self.globalController.resultContainer.status = USER_CANCELED;
+            self.globalController.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
+            
+            [self performSegueWithIdentifier:@"TradeToReview" sender:self];
+        } else if([res isKindOfClass:[TradeItErrorResult class]]){
+            NSString * errorMessage = @"Could Not Complete Your Order";
+            TradeItErrorResult * error = (TradeItErrorResult *)res;
+            
+            if(error.errorFields.count > 0) {
+                NSString * errorField = (NSString *) error.errorFields[0];
+                if([errorField isEqualToString:@"authenticationInfo"]) {
+                    errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
+                    
+                    self.globalController.resultContainer.status = AUTHENTICATION_ERROR;
+                    self.globalController.resultContainer.errorResponse = error;
+                } else {
+                    errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
+                }
+            }
+            
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
+            } else {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                                message:errorMessage
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                       handler:^(UIAlertAction * action) {
+                                                                           [self acknowledgeAlert];
+                                                                       }];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        } else {
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:@"Could Not Complete Order" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
+            } else {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                                message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                       handler:^(UIAlertAction * action) {
+                                                                           [self acknowledgeAlert];
+                                                                       }];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }
+    }];
+}
 
 
-#pragma mark - Custom views
+
+#pragma mark - Custom Views
 
 -(UIView *) createPickerView: (NSString *) title {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
@@ -106,6 +160,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     return contentView;
 }
 
+
+
+#pragma mark - Picker Delegate Methods
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return self.pickerTitles.count;
 }
@@ -122,74 +180,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     self.currentSelection = self.pickerValues[row];
 }
 
-- (UIView *)createAccountPickerView {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 50)];
-    [title setTextColor:[UIColor blackColor]];
-    [title setTextAlignment:NSTextAlignmentCenter];
-    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [title setNumberOfLines:0];
-    [title setText: @"Select the account\ryou want to trade in"];
-    [contentView addSubview:title];
-
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 50, 270, 130)];
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [picker setTag: 502];
-    [contentView addSubview:picker];
-
-    [contentView setNeedsDisplay];
-    return contentView;
-}
-
-- (UIView *)createSecurityPickerView {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-
-//    TradeItSecurityQuestionResult * currentResult = (TradeItSecurityQuestionResult *) self.lastResult;
-
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
-    [title setTextColor:[UIColor blackColor]];
-    [title setTextAlignment:NSTextAlignmentCenter];
-    [title setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [title setText: @"Verify Identity"];
-    [contentView addSubview:title];
-
-    UILabel * question = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 270, 150)];
-    [question setTextColor:[UIColor blackColor]];
-    [question setTextAlignment:NSTextAlignmentCenter];
-    [question setFont:[UIFont systemFontOfSize:12]];
-    [question setNumberOfLines:0];
-//    [question setText: currentResult.securityQuestion];
-
-    //resize to fit text
-    CGSize requiredSize = [question sizeThatFits:CGSizeMake(270, 150)];
-    CGRect questionFrame = question.frame;
-    CGFloat questionHeight = questionFrame.size.height = requiredSize.height;
-    question.frame = questionFrame;
-
-    [contentView addSubview:question];
-    
-    //If the question is more than two lines, stretch it!
-    if(questionHeight > 30) {
-        CGRect contentFrame = contentView.frame;
-        contentFrame.size.height = 250;
-        contentView.frame = contentFrame;
-    }
-
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, (20 + questionHeight), 270, (200 - 35 - questionHeight))];
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [picker setTag: 501];
-    [contentView addSubview:picker];
-    
-    [contentView setNeedsDisplay];
-    
-    return contentView;
-}
-
 
 
 #pragma mark - iOS7 fallbacks
@@ -203,46 +193,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     });
 }
 
--(void) showOldSecQuestion:(NSString *) question {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
-//-(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult {
-//    self.questionOptions = securityQuestionResult.securityQuestionOptions;
-//    self.currentSelection = self.questionOptions[0];
-//    
-//    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-//    [alert setContainerView:[self createPickerView]];
-//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
-//    
-//    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-//        if(buttonIndex == 0) {
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        } else {
-//            [[self tradeSession] asyncAnswerSecurityQuestion:self.currentSelection andCompletionBlock:^(TradeItResult *result) {
-//                [self loginReviewRequestRecieved:result];
-//            }];
-//        }
-//    }];
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [alert show];
-//    });
-//}
-
 -(void) showOldOrderAction {
     self.pickerTitles = @[@"Buy",@"Sell",@"Buy to Cover",@"Sell Short"];
     self.pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
     self.currentSelection = self.globalController.tradeRequest.orderAction;
-
-
-
 
     TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
@@ -289,60 +243,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             [self.currentPicker selectRow:1 inComponent:0 animated:NO];
         }
     });
-}
-
--(void) sendReviewRequest {
-    [self.globalController previewTrade:^(TradeItResult * res){
-        if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
-            self.globalController.resultContainer.status = USER_CANCELED;
-            self.globalController.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
-
-            [self performSegueWithIdentifier:@"TradeToReview" sender:self];
-        } else if([res isKindOfClass:[TradeItErrorResult class]]){
-            NSString * errorMessage = @"Could Not Complete Your Order";
-            TradeItErrorResult * error = (TradeItErrorResult *)res;
-
-            if(error.errorFields.count > 0) {
-                NSString * errorField = (NSString *) error.errorFields[0];
-                if([errorField isEqualToString:@"authenticationInfo"]) {
-                    errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
-    
-                    self.globalController.resultContainer.status = AUTHENTICATION_ERROR;
-                    self.globalController.resultContainer.errorResponse = error;
-                } else {
-                    errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
-                }
-            }
-
-            if(![UIAlertController class]) {
-                [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
-                                                                                message:errorMessage
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                       handler:^(UIAlertAction * action) {
-                                                                           [self acknowledgeAlert];
-                                                                       }];
-                [alert addAction:defaultAction];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
-        } else {
-            if(![UIAlertController class]) {
-                [self showOldErrorAlert:@"Could Not Complete Order" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
-                                                                                message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                       handler:^(UIAlertAction * action) {
-                                                                           [self acknowledgeAlert];
-                                                                       }];
-                [alert addAction:defaultAction];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
-        }
-    }];
 }
 
 

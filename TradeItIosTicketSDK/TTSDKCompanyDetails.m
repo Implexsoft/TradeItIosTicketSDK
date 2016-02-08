@@ -17,6 +17,8 @@
 
 @implementation TTSDKCompanyDetails
 
+
+
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
@@ -34,19 +36,39 @@
 }
 
 -(void) populateSymbol: (NSString *)symbol {
-    [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
+    if (symbol) {
+        [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
+    } else {
+        [self.symbolLabel setTitle:@"N/A" forState:UIControlStateNormal];
+    }
 }
 
 -(void) populateLastPrice: (NSNumber *)lastPrice {
-    self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
+    if (lastPrice && (lastPrice > 0)) {
+        self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
+        self.lastPriceLabel.hidden = NO;
+    } else {
+        self.lastPriceLabel.hidden = YES;
+    }
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @"+3.14"), (changePct ? changePct : @"(2.53%)")];
+    if (change != nil && changePct != nil) {
+        self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @"+3.14"), (changePct ? changePct : @"(2.53%)")];
+        self.changeLabel.hidden = NO;
+    } else {
+        self.changeLabel.hidden = YES;
+    }
 }
 
 -(void) populateBrokerButtonTitle:(NSString *)broker {
-    [self.brokerButton setTitle:broker forState:UIControlStateNormal];
+    if (broker) {
+        [self.brokerButton setTitle:broker forState:UIControlStateNormal];
+    } else {
+        [self.brokerButton setTitle:@"N/A" forState:UIControlStateNormal];
+    }
 }
+
+
 
 @end
