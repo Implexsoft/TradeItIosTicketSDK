@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "TradeItErrorResult.h"
+#import "TradeItPreviewTradeResult.h"
+
 //#import "TradeItStockOrEtfTradeReviewResult.h"
 //#import "TradeItStockOrEtfTradeSuccessResult.h"
 
@@ -44,7 +46,7 @@ enum controllerStatus {
 /**
  *  Will be set when review screen loads, will be set for some USER_CANCELED and all SUCCESS
  */
-//@property TradeItStockOrEtfTradeReviewResult * reviewResponse;
+@property TradeItPreviewTradeResult * reviewResponse;
 
 /**
  *  Will be set when the success screen loads

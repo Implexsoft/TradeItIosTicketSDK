@@ -24,8 +24,9 @@
 
 @implementation TTSDKTicketController
 
-static NSString * kBrokerListKey = @"BROKER_LIST";
-static NSString * kBrokerListViewIdentifier = @"BROKER_SELECT";
+static NSString * kBaseTabBarViewIdentifier = @"BASE_TAB_BAR";
+static NSString * kAuthNavViewIdentifier = @"AUTH_NAV";
+static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
 static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
 static NSString * kTradeViewIdentifier = @"TRADE";
@@ -33,7 +34,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 
-+ (id)globalController {
++(id) globalController {
     static TTSDKTicketController * globalControllerInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -43,7 +44,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return globalControllerInstance;
 }
 
-- (id)initWithApiKey:(NSString *)apiKey {
+-(id) initWithApiKey:(NSString *)apiKey {
     self = [super init];
 
     if (self) {
@@ -56,7 +57,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 #pragma mark - Initialization
 
-- (BOOL)isOnboarding {
+-(BOOL) isOnboarding {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
 
@@ -70,13 +71,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
-- (void)showTicket {
+- (void) showTicket {
     if (!self.connector) {
         self.connector = [[TradeItConnector alloc] initWithApiKey:self.apiKey];
     }
 
     //Get brokers
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
+
+        // set brokers
         if(brokerList == nil) {
             self.brokerList = [self getDefaultBrokerList];
         } else {
@@ -99,35 +102,68 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }];
 }
 
--(void)launchInitialViewController {
-    //Get Resource Bundle
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * myBundle = [NSBundle bundleWithPath:bundlePath];
-    NSString * startingView = kBrokerListViewIdentifier;
+-(void) launchInitialViewController {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+    // Get logins
     NSArray * linkedLogins = [self.connector getLinkedLogins];
 
-    if (linkedLogins.count > 0) {
-        self.resultContainer.status = USER_CANCELED;
-        startingView = self.portfolioMode ? kPortfolioViewIdentifier : kTradeViewIdentifier;
+    // Has the user authenticated before?
+    NSDictionary * initialAccount = [self attemptToRetrieveInitialAccount];
+    BOOL authenticated = NO;
+    if (initialAccount) {
+        [self selectAccount:initialAccount];
+
+        for (TradeItLinkedLogin * login in linkedLogins) {
+            if (!login) {
+                continue;
+            }
+
+            if ([login.userId isEqualToString:[initialAccount valueForKey:@"UserId"]]) {
+                self.currentLogin = login;
+                self.currentBroker = login.broker;
+            }
+        }
+
+        if (self.currentLogin) {
+            self.resultContainer.status = USER_CANCELED;
+            authenticated = YES;
+        }
     }
 
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: myBundle];
-    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"AuthenticationNavController"];
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    // If user needs to authenticate, go either to onboarding or broker select
+    if (!authenticated) {
+        // The first item in the auth nav stack is the onboarding view
+        UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: kAuthNavViewIdentifier];
+        [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
-    if (![self isOnboarding]) {
-        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
-        [nav pushViewController:initialViewController animated:NO];
+        // If not onboarding, push the nav to the broker select view
+        if (![self isOnboarding]) {
+            TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier:kBrokerSelectViewIdentifier];
+            [nav pushViewController:initialViewController animated:NO];
+        }
+        
+        [self.parentView presentViewController:nav animated:YES completion:nil];
+    } else {
+        UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
+        [tab setModalPresentationStyle:UIModalPresentationFullScreen];
+
+        if (self.portfolioMode) {
+            tab.selectedIndex = 1;
+        } else {
+            tab.selectedIndex = 0;
+        }
+
+        [self.parentView presentViewController:tab animated:YES completion:nil];
     }
-
-    [self.parentView presentViewController:nav animated:YES completion:nil];
 }
 
 
 
 #pragma mark - Authentication
 
--(void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+-(void) authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     [self.connector linkBrokerWithAuthenticationInfo:authInfo andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
             completionBlock(res);
@@ -145,7 +181,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }];
 }
 
--(void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+-(void) answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     [session answerSecurityQuestion:answer withCompletionBlock:completionBlock];
 }
 
@@ -153,15 +189,60 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return [self.connector getLinkedLogins];
 }
 
--(void) addAccounts:(NSArray *)accounts {
+-(NSArray *) retrieveStoredAccounts {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * storedAccounts = [defaults objectForKey:kAccountsKey];
+
+    return storedAccounts;
+}
+
+-(NSDictionary *) attemptToRetrieveInitialAccount {
+    NSDictionary * lastSelectedAccount;
+    NSDictionary * lastActiveAccount;
+
+    NSArray * storedAccounts = [self retrieveStoredAccounts];
+    if (storedAccounts && storedAccounts.count) {
+        for (NSDictionary * account in storedAccounts) {
+            NSNumber * isLastSelected = [account valueForKey:@"lastSelected"];
+            NSNumber * isActive = [account valueForKey:@"active"];
+
+            if ([isLastSelected boolValue] && [isActive boolValue]) {
+                lastSelectedAccount = account;
+            } else if ([isActive boolValue]) {
+                lastActiveAccount = account;
+            }
+        }
+    }
+
+    if (lastSelectedAccount) {
+        return lastSelectedAccount;
+    } else if (lastActiveAccount) {
+        return lastActiveAccount;
+    }
+
+    return nil;
+}
+
+-(void) addAccounts:(NSArray *)accounts {
+    NSArray * storedAccounts = [self retrieveStoredAccounts];
+
     if (!storedAccounts) {
         storedAccounts = [[NSArray alloc] init];
     }
 
-    self.accounts = [storedAccounts arrayByAddingObjectsFromArray:accounts];
+    NSMutableArray * newAccounts = [[NSMutableArray alloc] init];
+    int i;
+    for (i = 0; i < accounts.count; i++) {
+        NSMutableDictionary * acct = [NSMutableDictionary dictionaryWithDictionary:[accounts objectAtIndex:i]];
+        [acct setObject:self.currentLogin.userId forKey:@"UserId"];
+        [acct setObject:[NSNumber numberWithBool:YES] forKey:@"active"];
+        [acct setObject:[NSNumber numberWithBool:NO] forKey:@"lastSelected"];
+        [newAccounts addObject:acct];
+    }
 
+    self.accounts = [storedAccounts arrayByAddingObjectsFromArray:newAccounts];
+
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.accounts forKey:kAccountsKey];
     [defaults synchronize];
 }
@@ -185,7 +266,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 #pragma mark - Trading
 
-- (void)createInitialTradeRequest {
+-(void) createInitialTradeRequest {
     self.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
     
     if (self.initialAction) {
@@ -197,6 +278,11 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
+-(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
+    [tradeService previewTrade:self.tradeRequest withCompletionBlock:^(TradeItResult * res){
+        completionBlock(res);
+    }];
+}
 
 
 #pragma mark - Broker Utilities

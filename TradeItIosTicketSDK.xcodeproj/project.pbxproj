@@ -40,6 +40,8 @@
 		652A8FFB1C68EC120097CDE2 /* TradeItBrokerListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECDD831C65351800ABCF56 /* TradeItBrokerListRequest.m */; };
 		652A8FFF1C68EC1A0097CDE2 /* TradeItBrokerListResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECDD861C65353D00ABCF56 /* TradeItBrokerListResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		652A90001C68EC1A0097CDE2 /* TradeItBrokerListRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECDD871C65353D00ABCF56 /* TradeItBrokerListRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		652A90021C690BD30097CDE2 /* TradeItPreviewTradeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A90011C690BD30097CDE2 /* TradeItPreviewTradeResult.m */; };
+		652A90041C690BEC0097CDE2 /* TradeItPreviewTradeResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 652A90031C690BEC0097CDE2 /* TradeItPreviewTradeResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6536130D1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6536130B1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.h */; };
 		6536130E1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6536130C1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m */; };
 		6536130F1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6536130C1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m */; };
@@ -252,6 +254,8 @@
 		6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKPortfolioHoldingCell.xib; sourceTree = "<group>"; };
 		6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioHoldingTableViewCell.h; sourceTree = "<group>"; };
 		6510FBC21C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioHoldingTableViewCell.m; sourceTree = "<group>"; };
+		652A90011C690BD30097CDE2 /* TradeItPreviewTradeResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPreviewTradeResult.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeResult.m; sourceTree = "<group>"; };
+		652A90031C690BEC0097CDE2 /* TradeItPreviewTradeResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPreviewTradeResult.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeResult.h; sourceTree = "<group>"; };
 		6536130B1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOrderTypeSelectionViewController.h; sourceTree = "<group>"; };
 		6536130C1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKOrderTypeSelectionViewController.m; sourceTree = "<group>"; };
 		653613131C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOrderTypeInputViewController.h; sourceTree = "<group>"; };
@@ -523,6 +527,8 @@
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
+				652A90031C690BEC0097CDE2 /* TradeItPreviewTradeResult.h */,
+				652A90011C690BD30097CDE2 /* TradeItPreviewTradeResult.m */,
 				65ECDD861C65353D00ABCF56 /* TradeItBrokerListResult.h */,
 				65ECDD871C65353D00ABCF56 /* TradeItBrokerListRequest.h */,
 				65ECDD821C65351800ABCF56 /* TradeItBrokerListResult.m */,
@@ -834,6 +840,7 @@
 				6510F4A61C47010E009989BD /* TTSDKAccountLinkTableViewCell.h in Headers */,
 				A9C003431B7264A4007D15F5 /* TIEMSJSONModel+networking.h in Headers */,
 				A9C003341B7264A4007D15F5 /* TIEMSJSONModel.h in Headers */,
+				652A90041C690BEC0097CDE2 /* TradeItPreviewTradeResult.h in Headers */,
 				A9C0033A1B7264A4007D15F5 /* TIEMSJSONModelError.h in Headers */,
 				A9C003471B7264A4007D15F5 /* TIEMSJSONValueTransformer.h in Headers */,
 				A9C003411B7264A4007D15F5 /* TIEMSJSONHTTPClient.h in Headers */,
@@ -1077,6 +1084,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				652A90021C690BD30097CDE2 /* TradeItPreviewTradeResult.m in Sources */,
 				652A8FFA1C68EC120097CDE2 /* TradeItBrokerListResult.m in Sources */,
 				652A8FFB1C68EC120097CDE2 /* TradeItBrokerListRequest.m in Sources */,
 				65ECDD7F1C65347C00ABCF56 /* TradeItAuthenticationResult.m in Sources */,

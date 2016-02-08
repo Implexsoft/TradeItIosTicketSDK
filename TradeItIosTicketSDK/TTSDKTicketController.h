@@ -16,6 +16,7 @@
 #import "TradeItLinkedLogin.h"
 #import "TradeItPreviewTradeOrderDetails.h"
 #import "TradeItPreviewTradeRequest.h"
+#import "TradeItPreviewTradeResult.h"
 #import "TradeItPosition.h"
 
 @interface TTSDKTicketController : NSObject
@@ -69,6 +70,7 @@
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
+- (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;
 
 @end

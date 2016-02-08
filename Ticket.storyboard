@@ -115,6 +115,9 @@
                                 <state key="normal" title="Unlink Account">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="unlinkAccountPressed:" destination="NtF-Vh-6FT" eventType="touchUpInside" id="fhl-ZU-Ipu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,6 +147,7 @@
                         <outlet property="linkAccountButton" destination="tei-VX-tIR" id="pKe-yR-Urz"/>
                         <outlet property="pageTitle" destination="lFr-FG-k7c" id="obw-e4-oD6"/>
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
+                        <outlet property="unlinkButton" destination="FWy-YN-bS5" id="3rP-DI-ukX"/>
                         <segue destination="ms7-Oa-HyF" kind="unwind" identifier="unwindToBrokerSelect" unwindAction="unwindToBrokerSelect:" id="2c2-FE-Lc7"/>
                         <segue destination="Mny-9H-gjs" kind="presentation" identifier="LoginToTrade" id="SUN-bA-Ai5"/>
                         <segue destination="EOX-B4-DHL" kind="show" identifier="LoginToAccountLink" id="Vdw-ys-tjA"/>
@@ -1350,13 +1354,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="sharesShortVV" destination="ZL5-9e-Iac" id="suf-99-kb8"/>
                         <outlet property="sharesShortValue" destination="yzJ-yB-9tb" id="1fO-P0-OnJ"/>
                         <outlet property="submitOrderButton" destination="f0e-uA-x4B" id="qsK-jO-XnA"/>
-                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="prepareForUnwind" unwindAction="prepareForUnwind:" id="3ao-wp-0oa"/>
-                        <segue destination="SQg-dc-6Nj" kind="unwind" identifier="unwindToAdvCalc" unwindAction="unwindToAdvCal:" id="HQh-kc-wB1"/>
                         <segue destination="xhK-K9-cnI" kind="show" identifier="ReviewToSuccess" id="YNX-r4-12o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-F4-2ta" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="SQg-dc-6Nj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1241" y="-493"/>
         </scene>
@@ -1399,11 +1400,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Trade" id="IC8-3Z-ZYN">
-                                        <barButtonItem key="leftBarButtonItem" title="Close" id="j96-Uc-uWv">
-                                            <connections>
-                                                <segue destination="Xt2-7y-EwX" kind="unwind" unwindAction="unwindToAdvCalc:" id="maf-6i-ffh"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="leftBarButtonItem" title="Close" id="j96-Uc-uWv"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -1424,7 +1421,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPo-hR-fH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Xt2-7y-EwX" userLabel="Exit" sceneMemberID="exit"/>
                 <searchDisplayController id="Yy8-Yu-eMp">
                     <connections>
                         <outlet property="delegate" destination="mGd-gp-pc2" id="7ZQ-Lg-MhH"/>
@@ -2038,7 +2034,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wuc-R0-2HR"/>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
 </document>

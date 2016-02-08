@@ -106,8 +106,6 @@
     if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
     }
-
-    [self setBroker];
 }
 
 -(void) configureUIForSmallScreens {
@@ -296,7 +294,7 @@
 
 -(void) updateEstimatedCost {
 //    NSInteger shares = self.tradeSession.orderInfo.quantity;
-    double price = self.tradeSession.lastPrice;
+//    double price = self.tradeSession.lastPrice;
 
 //    if([self.tradeSession.orderInfo.price.type isEqualToString:@"stopMarket"]){
 //        price = [self.tradeSession.orderInfo.price.stopPrice doubleValue];
@@ -320,45 +318,45 @@
 }
 
 -(void) updatePrice {
-    double lastPrice = self.tradeSession.lastPrice;
-    NSNumber * changeDollar = self.tradeSession.priceChangeDollar;
-    NSNumber * changePercentage = self.tradeSession.priceChangePercentage;
-
-    NSMutableAttributedString * finalString;
-
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setLocale:US];
-
-    NSString * lastPriceString = [formatter stringFromNumber:[NSNumber numberWithDouble:lastPrice]];
-    finalString = [[NSMutableAttributedString alloc] initWithString:lastPriceString];
-
-    lastPriceLabel.text = lastPriceString;
-
-    if(changeDollar != nil) {
-        if([changeDollar doubleValue] == 0) {
-            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
-        } else {
-            NSAttributedString * attString = [utils getColoredString:changeDollar withFormat:NSNumberFormatterCurrencyStyle];
-
-            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-            [finalString appendAttributedString:(NSAttributedString *) attString];
-        }
-    }
-
-    if(changePercentage != nil) {
-        if([changePercentage doubleValue] == 0) {
-            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
-        } else {
-            NSAttributedString * attString = [utils getColoredString:changePercentage withFormat:NSNumberFormatterDecimalStyle];
-
-            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
-            [finalString appendAttributedString:(NSAttributedString *) attString];
-        }
-    }
-
-    performanceLabel.attributedText = (NSAttributedString *) finalString;
+//    double lastPrice = self.tradeSession.lastPrice;
+//    NSNumber * changeDollar = self.tradeSession.priceChangeDollar;
+//    NSNumber * changePercentage = self.tradeSession.priceChangePercentage;
+//
+//    NSMutableAttributedString * finalString;
+//
+//    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+//    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    [formatter setLocale:US];
+//
+//    NSString * lastPriceString = [formatter stringFromNumber:[NSNumber numberWithDouble:lastPrice]];
+//    finalString = [[NSMutableAttributedString alloc] initWithString:lastPriceString];
+//
+//    lastPriceLabel.text = lastPriceString;
+//
+//    if(changeDollar != nil) {
+//        if([changeDollar doubleValue] == 0) {
+//            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
+//        } else {
+//            NSAttributedString * attString = [utils getColoredString:changeDollar withFormat:NSNumberFormatterCurrencyStyle];
+//
+//            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+//            [finalString appendAttributedString:(NSAttributedString *) attString];
+//        }
+//    }
+//
+//    if(changePercentage != nil) {
+//        if([changePercentage doubleValue] == 0) {
+//            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" $0.00"]];
+//        } else {
+//            NSAttributedString * attString = [utils getColoredString:changePercentage withFormat:NSNumberFormatterDecimalStyle];
+//
+//            [finalString appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+//            [finalString appendAttributedString:(NSAttributedString *) attString];
+//        }
+//    }
+//
+//    performanceLabel.attributedText = (NSAttributedString *) finalString;
 }
 
 // ORDER ACTION
@@ -491,33 +489,15 @@
 }
 
 
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"TradeToOrderTypeSelection"]) {
-        TTSDKOrderTypeSelectionViewController * dest = [segue destinationViewController];
-
-        [dest setTradeSession: self.tradeSession];
-    } else if([segue.identifier isEqualToString:@"TradeToLogin"]) {
+    if([segue.identifier isEqualToString:@"TradeToLogin"]) {
         [[segue destinationViewController] setCancelToParent: YES];
-    } else if([segue.identifier isEqualToString:@"TradeToReview"]) {
-//        [[segue destinationViewController] setResult: self.reviewResult];
     }
 
     defaultEditingCheckComplete = NO;
-}
-
--(IBAction) unwindToAdvCalc:(UIStoryboardSegue *)segue {
-//    NSString * symbol = [[[self tradeSession] orderInfo] symbol];
-//    NSString * publisherApp = [[self tradeSession] publisherApp];
-//    NSString * broker = [[self tradeSession] broker];
-//    TradeItAuthenticationInfo * creds = [[self tradeSession] authenticationInfo];
-//
-//    [[self tradeSession] reset];
-//    [[[self tradeSession] orderInfo] setSymbol: symbol];
-//    [[self tradeSession] setPublisherApp: publisherApp];
-//    [[self tradeSession] setBroker: broker];
-//    [[self tradeSession] setAuthenticationInfo: creds];
 }
 
 
@@ -531,34 +511,34 @@
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(self.tradeSession.refreshQuote != nil) {
-        //perform network request (most likely) off the main thread
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-//            self.tradeSession.refreshQuote(self.tradeSession.orderInfo.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
-//
-//                //return to main thread as this triggers a UI change
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.tradeSession.lastPrice = lastPrice;
-//                    self.tradeSession.priceChangeDollar = [NSNumber numberWithDouble:priceChangeDollar];
-//                    self.tradeSession.priceChangePercentage = [NSNumber numberWithDouble:priceChangePercentage];
-//                    [self updatePrice];
-//                });
-//            });
-        });
-    }
-    else if(self.tradeSession.refreshLastPrice != nil) {
-        //perform network request (most likely) off the main thread
+//    if(self.tradeSession.refreshQuote != nil) {
+//        //perform network request (most likely) off the main thread
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-//            self.tradeSession.refreshLastPrice(self.tradeSession.orderInfo.symbol, ^(double price){
-//                //return to main thread as this triggers a UI change
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    self.tradeSession.lastPrice = price;
-//                    [self updatePrice];
-//                });
-//            });
+////            self.tradeSession.refreshQuote(self.tradeSession.orderInfo.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
+////
+////                //return to main thread as this triggers a UI change
+////                dispatch_async(dispatch_get_main_queue(), ^{
+////                    self.tradeSession.lastPrice = lastPrice;
+////                    self.tradeSession.priceChangeDollar = [NSNumber numberWithDouble:priceChangeDollar];
+////                    self.tradeSession.priceChangePercentage = [NSNumber numberWithDouble:priceChangePercentage];
+////                    [self updatePrice];
+////                });
+////            });
 //        });
-    }
+//    }
+//    else if(self.tradeSession.refreshLastPrice != nil) {
+//        //perform network request (most likely) off the main thread
+////        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
+////            self.tradeSession.refreshLastPrice(self.tradeSession.orderInfo.symbol, ^(double price){
+////                //return to main thread as this triggers a UI change
+////                dispatch_async(dispatch_get_main_queue(), ^{
+////                    
+////                    self.tradeSession.lastPrice = price;
+////                    [self updatePrice];
+////                });
+////            });
+////        });
+//    }
 }
 
 - (IBAction)keypadPressed:(id)sender {
@@ -679,12 +659,12 @@
 //        }
 
         [utils styleLoadingButton:previewOrderButton];
-        [self sendLoginReviewRequest];
+        [self sendReviewRequest];
     }
 }
 
 - (IBAction)cancelPressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [self.globalController returnToParentApp];
 }
 
 - (IBAction)portfolioLinkPressed:(id)sender {
