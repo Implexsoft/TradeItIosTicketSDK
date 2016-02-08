@@ -42,7 +42,7 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
     self.utils = [TTSDKUtils sharedUtils];
 
     self.orderTypeLabel.text = [self.utils splitCamelCase:self.orderType];
@@ -57,15 +57,15 @@
         self.orderTypeTopConstraint.constant /= 2;
     }
     
-    if (self.tradeSession.orderInfo.price.limitPrice) {
-        self.limitPrice = [self.tradeSession.orderInfo.price.limitPrice stringValue];
-        self.limitPriceField.text = self.limitPrice;
-    }
-    
-    if (self.tradeSession.orderInfo.price.stopPrice) {
-        self.stopPrice = [self.tradeSession.orderInfo.price.stopPrice stringValue];
-        self.stopPriceField.text = self.stopPrice;
-    }
+//    if (self.tradeSession.orderInfo.price.limitPrice) {
+//        self.limitPrice = [self.tradeSession.orderInfo.price.limitPrice stringValue];
+//        self.limitPriceField.text = self.limitPrice;
+//    }
+//    
+//    if (self.tradeSession.orderInfo.price.stopPrice) {
+//        self.stopPrice = [self.tradeSession.orderInfo.price.stopPrice stringValue];
+//        self.stopPriceField.text = self.stopPrice;
+//    }
     
     if ([self.orderType isEqualToString:@"limit"]) {
         self.stopPriceField.hidden = YES;
@@ -88,7 +88,7 @@
 
     TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
 
-    [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+//    [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
@@ -203,13 +203,13 @@
 }
 
 -(IBAction) submitButtonPressed:(id)sender {
-    if([self.orderType isEqualToString:@"limit"]){
-        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:[self.limitPrice doubleValue]];
-    } else if([self.orderType isEqualToString:@"stop"]){
-        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:[self.stopPrice doubleValue]];
-    } else if([self.orderType isEqualToString:@"stopLimit"]){
-        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:[self.limitPrice doubleValue] :[self.stopPrice doubleValue]];
-    }
+//    if([self.orderType isEqualToString:@"limit"]){
+//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:[self.limitPrice doubleValue]];
+//    } else if([self.orderType isEqualToString:@"stop"]){
+//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:[self.stopPrice doubleValue]];
+//    } else if([self.orderType isEqualToString:@"stopLimit"]){
+//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:[self.limitPrice doubleValue] :[self.stopPrice doubleValue]];
+//    }
 
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

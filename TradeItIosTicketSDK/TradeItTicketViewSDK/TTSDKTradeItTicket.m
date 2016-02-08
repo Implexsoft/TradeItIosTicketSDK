@@ -187,25 +187,25 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     BOOL portfolioMode = tradeSession.portfolioMode;
 
     //Get brokers
-    [tradeSession asyncGetBrokerListWithCompletionBlock:^(NSArray *brokerList){
-        if(brokerList == nil) {
-            tradeSession.brokerList = [TTSDKTradeItTicket getAvailableBrokers:tradeSession];
-        } else {
-            NSMutableArray * brokers = [[NSMutableArray alloc] init];
-
-            if(tradeSession.debugMode) {
-                NSArray * dummy  =  @[@"Dummy",@"Dummy"];
-                [brokers addObject:dummy];
-            }
-
-            for (NSDictionary * broker in brokerList) {
-                NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
-                [brokers addObject:entry];
-            }
-
-            tradeSession.brokerList = (NSArray *) brokers;
-        }
-    }];
+//    [tradeSession asyncGetBrokerListWithCompletionBlock:^(NSArray *brokerList){
+//        if(brokerList == nil) {
+//            tradeSession.brokerList = [TTSDKTradeItTicket getAvailableBrokers:tradeSession];
+//        } else {
+//            NSMutableArray * brokers = [[NSMutableArray alloc] init];
+//
+//            if(tradeSession.debugMode) {
+//                NSArray * dummy  =  @[@"Dummy",@"Dummy"];
+//                [brokers addObject:dummy];
+//            }
+//
+//            for (NSDictionary * broker in brokerList) {
+//                NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
+//                [brokers addObject:entry];
+//            }
+//
+//            tradeSession.brokerList = (NSArray *) brokers;
+//        }
+//    }];
 
     //Get Resource Bundle
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];

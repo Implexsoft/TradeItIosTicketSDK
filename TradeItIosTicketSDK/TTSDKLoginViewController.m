@@ -12,8 +12,8 @@
 #import "TradeItAuthLinkResult.h"
 #import "TradeItErrorResult.h"
 #import "TTSDKTicketController.h"
-
-#import "TradeItSuccessAuthenticationResult.h"
+#import "TradeItAuthenticationResult.h"
+#import "TradeItSecurityQuestionResult.h"
 
 @implementation TTSDKLoginViewController {
     
@@ -48,12 +48,10 @@
 
     globalController = [TTSDKTicketController globalController];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
-
     NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
 
-    if(self.addBroker == nil) {
-        emailInput.text = self.tradeSession.authenticationInfo.id;
+    if(self.addBroker == nil && globalController.currentLogin.userId) {
+        emailInput.text = globalController.currentLogin.userId;
     }
 
     if(self.cancelToParent) {
@@ -61,11 +59,7 @@
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
 
-    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [TTSDKTradeItTicket getBrokerDisplayString:broker]]];
-
-    if(![[TTSDKTradeItTicket getLinkedBrokersList] containsObject:broker]){
-        unlinkButton.hidden = YES;
-    }
+    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [globalController getBrokerDisplayString:broker]]];
 
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
@@ -89,12 +83,12 @@
     
     [self checkAuthState];
 
-    if(self.tradeSession.errorTitle) {
+    if(globalController.errorTitle) {
         if(![UIAlertController class]) {
-            [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
-                                                                            message:self.tradeSession.errorMessage
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
+                                                                            message:globalController.errorMessage
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {}];
@@ -102,18 +96,18 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }
-    
-    self.tradeSession.errorMessage = nil;
-    self.tradeSession.errorTitle = nil;
+
+    globalController.errorMessage = nil;
+    globalController.errorTitle = nil;
 }
 
 -(void) checkAuthState {
-    if(self.tradeSession.brokerSignUpComplete) {
+    if(globalController.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
 
-        if (self.tradeSession.brokerSignUpCallback) {
-            self.tradeSession.brokerSignUpCallback(res);
+        if (globalController.brokerSignUpCallback) {
+            globalController.brokerSignUpCallback(res);
         }
 
         return;
@@ -121,7 +115,7 @@
 }
 
 -(void)home:(UIBarButtonItem *)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [globalController returnToParentApp];
 }
 
 - (IBAction)linkAccountPressed:(id)sender {
@@ -134,7 +128,7 @@
     }
 
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
-        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [TTSDKTradeItTicket getBrokerUsername:self.tradeSession.broker]];
+        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [globalController getBrokerUsername:globalController.currentBroker]];
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
@@ -147,7 +141,7 @@
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        
+
     } else {
         [utils styleLoadingButton:linkAccountButton];
         [self authenticate];
@@ -155,18 +149,7 @@
 }
 
 -(IBAction) unlinkAccountPressed:(id) sender{
-    NSString * broker = self.addBroker == nil ? self.tradeSession.broker : self.addBroker;
-
-    [TTSDKTradeItTicket storeUsername:@"" andPassword:@"" forBroker:broker];
-    [TTSDKTradeItTicket removeLinkedBroker: broker];
-
-    if([self.tradeSession.broker isEqualToString:broker]) {
-        self.tradeSession.broker = nil;
-        self.tradeSession.authenticationInfo.id = @"";
-        self.tradeSession.authenticationInfo.password = @"";
-    }
-
-    [TTSDKTradeItTicket restartTicket:self.tradeSession];
+    // TODO: get rid of this
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -215,17 +198,21 @@
 }
 
 -(void) authenticateRequestReceived: (TradeItResult *) result {
+
+    NSLog(@"AUTH RESULT");
+    NSLog(@"%@", result);
+
     [utils styleMainActiveButton:linkAccountButton];
 
     if ([result isKindOfClass:TradeItErrorResult.class]) {
-        self.tradeSession.errorTitle = @"Invalid Credentials";
-        self.tradeSession.errorMessage = @"Check your username and password and try again.";
+        globalController.errorTitle = @"Invalid Credentials";
+        globalController.errorMessage = @"Check your username and password and try again.";
 
         if(![UIAlertController class]) {
-            [self showOldErrorAlert:self.tradeSession.errorTitle withMessage:self.tradeSession.errorMessage];
+            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.tradeSession.errorTitle
-                                                                            message:self.tradeSession.errorMessage
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
+                                                                            message:globalController.errorMessage
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {}];
@@ -233,11 +220,9 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
 
-        self.tradeSession.errorMessage = nil;
-        self.tradeSession.errorTitle = nil;
-
+        globalController.errorMessage = nil;
+        globalController.errorTitle = nil;
     } else if ([result isKindOfClass:TradeItSecurityQuestionResult.class]) {
-
         TradeItSecurityQuestionResult * res = (TradeItSecurityQuestionResult *)result;
 
         if (res.securityQuestionOptions != nil && res.securityQuestionOptions.count > 0) {
@@ -245,10 +230,44 @@
         } else if (res.securityQuestion != nil) {
             [self showOldSecQuestion:res.securityQuestion];
         }
-
-
     } else {
-        [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+        NSArray * accounts = [result valueForKey:@"accounts"];
+
+
+
+        if (accounts.count > 1) {
+                    if(![UIAlertController class]) {
+                        [self showOldAcctSelect: accounts];
+                    } else {
+                        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Account"
+                                                                                        message:nil
+                                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+            
+                        void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
+                            globalController.tradeRequest.accountNumber = [account valueForKey:@"accountNumber"];
+                        };
+
+                        for (NSDictionary * account in accounts) {
+                            NSString * title = [account objectForKey:@"name"];
+                            UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              handler(account);
+                                                                          }];
+                            [alert addAction:acct];
+                        }
+
+                        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }];
+                        [alert addAction:cancel];
+
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self presentViewController:alert animated:YES completion:nil];
+                        });
+                    }
+        } else {
+            [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+        }
     }
 }
 
@@ -279,9 +298,8 @@
         if(buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            [[self tradeSession] asyncSelectAccount:currentAccount andCompletionBlock:^(TradeItResult *result) {
-
-            }];
+//            [[self tradeSession] asyncSelectAccount:currentAccount andCompletionBlock:^(TradeItResult *result) {
+//            }];
         }
     }];
     
@@ -373,7 +391,7 @@
         if(buttonIndex == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            [[self tradeSession] asyncAnswerSecurityQuestion:self.currentSelection andCompletionBlock:^(TradeItResult *result) {
+            [globalController answerSecurityQuestion:self.currentSelection withCompletionBlock:^(TradeItResult *result) {
                 [self authenticateRequestReceived:result];
             }];
         }

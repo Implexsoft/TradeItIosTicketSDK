@@ -76,7 +76,7 @@ static float kMessageSeparatorHeight = 30.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
 
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
@@ -388,24 +388,24 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) sendTradeRequest {
-    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
-        [self tradeRequestRecieved:result];
-    }];
+//    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
+//        [self tradeRequestRecieved:result];
+//    }];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
     [utils styleMainActiveButton:submitOrderButton];
 
     //success
-    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
-        self.tradeSession.resultContainer.status = SUCCESS;
-        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;
-        
-        [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
-        [self performSegueWithIdentifier: @"ReviewToSuccess" sender: self];
-    }
+//    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
+//        self.tradeSession.resultContainer.status = SUCCESS;
+//        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;
+//        
+//        [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
+//        [self performSegueWithIdentifier: @"ReviewToSuccess" sender: self];
+//    }
     //error
-    else if([result isKindOfClass:[TradeItErrorResult class]]) {
+    if([result isKindOfClass:[TradeItErrorResult class]]) {
         TradeItErrorResult * error = (TradeItErrorResult *) result;
         
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
@@ -437,7 +437,7 @@ static float kMessageSeparatorHeight = 30.0f;
 
     if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
         TTSDKSuccessViewController * dest = [segue destinationViewController];
-        [dest setResult: self.successResult];
+//        [dest setResult: self.successResult];
     }
 }
 

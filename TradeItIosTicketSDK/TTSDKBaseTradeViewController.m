@@ -33,10 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
+    self.globalController = [TTSDKTicketController globalController];
+
+//    self.tradeSession = [TTSDKTicketSession globalSession];
 
     segueToLogin = @"TradeToLogin";
 }
@@ -144,13 +146,13 @@
 }
 
 -(void) setAuthentication: (NSString *) broker withPassword: (BOOL) setPassword {
-    self.tradeSession.broker = broker;
+//    self.tradeSession.broker = broker;
     TradeItAuthenticationInfo * creds = [TTSDKTradeItTicket getStoredAuthenticationForBroker: broker];
 
     if(setPassword) {
-        self.tradeSession.authenticationInfo = creds;
+//        self.tradeSession.authenticationInfo = creds;
     } else {
-        self.tradeSession.authenticationInfo.id = creds.id;
+//        self.tradeSession.authenticationInfo.id = creds.id;
     }
 }
 
@@ -167,11 +169,11 @@
 #pragma mark - Custom views
 
 - (UIView *)createPickerView {
-    if([self.lastResult isKindOfClass:[TradeItSecurityQuestionResult class]]) {
-        return [self createSecurityPickerView];
-    } else {
+//    if([self.lastResult isKindOfClass:[TradeItSecurityQuestionResult class]]) {
+//        return [self createSecurityPickerView];
+//    } else {
         return [self createAccountPickerView];
-    }
+//    }
 }
 
 -(UIView *) createPickerView: (NSString *) title {
@@ -238,7 +240,7 @@
 - (UIView *)createSecurityPickerView {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
     
-    TradeItSecurityQuestionResult * currentResult = (TradeItSecurityQuestionResult *) self.lastResult;
+//    TradeItSecurityQuestionResult * currentResult = (TradeItSecurityQuestionResult *) self.lastResult;
     
     UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
     [title setTextColor:[UIColor blackColor]];
@@ -252,7 +254,7 @@
     [question setTextAlignment:NSTextAlignmentCenter];
     [question setFont:[UIFont systemFontOfSize:12]];
     [question setNumberOfLines:0];
-    [question setText: currentResult.securityQuestion];
+//    [question setText: currentResult.securityQuestion];
     
     //resize to fit text
     CGSize requiredSize = [question sizeThatFits:CGSizeMake(270, 150)];
@@ -309,9 +311,9 @@
 
         int count = 0;
         for (NSString * broker in linkedBrokers) {
-            if([broker isEqualToString:self.tradeSession.broker]) {
-                [self.currentPicker selectRow:count inComponent:0 animated:NO];
-            }
+//            if([broker isEqualToString:self.tradeSession.broker]) {
+//                [self.currentPicker selectRow:count inComponent:0 animated:NO];
+//            }
 
             count++;
         }
@@ -327,28 +329,28 @@
     });
 }
 
--(void) showOldAcctSelect: (TradeItMultipleAccountResult *) multiAccountResult {
-    self.questionOptions = multiAccountResult.accountList;
-    self.currentAccount = self.questionOptions[0];
-
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [[self tradeSession] asyncSelectAccount:self.currentAccount andCompletionBlock:^(TradeItResult *result) {
-                [self loginReviewRequestRecieved:result];
-            }];
-        }
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
+//-(void) showOldAcctSelect: (TradeItMultipleAccountResult *) multiAccountResult {
+//    self.questionOptions = multiAccountResult.accountList;
+//    self.currentAccount = self.questionOptions[0];
+//
+//    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+//    [alert setContainerView:[self createPickerView]];
+//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+//    
+//    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+//        if(buttonIndex == 0) {
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        } else {
+//            [[self tradeSession] asyncSelectAccount:self.currentAccount andCompletionBlock:^(TradeItResult *result) {
+//                [self loginReviewRequestRecieved:result];
+//            }];
+//        }
+//    }];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [alert show];
+//    });
+//}
 
 -(void) showOldSecQuestion:(NSString *) question {
     UIAlertView * alert;
@@ -360,239 +362,239 @@
     });
 }
 
--(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult {
-    self.questionOptions = securityQuestionResult.securityQuestionOptions;
-    self.currentSelection = self.questionOptions[0];
-    
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [[self tradeSession] asyncAnswerSecurityQuestion:self.currentSelection andCompletionBlock:^(TradeItResult *result) {
-                [self loginReviewRequestRecieved:result];
-            }];
-        }
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
+//-(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult {
+//    self.questionOptions = securityQuestionResult.securityQuestionOptions;
+//    self.currentSelection = self.questionOptions[0];
+//    
+//    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+//    [alert setContainerView:[self createPickerView]];
+//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
+//    
+//    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+//        if(buttonIndex == 0) {
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        } else {
+//            [[self tradeSession] asyncAnswerSecurityQuestion:self.currentSelection andCompletionBlock:^(TradeItResult *result) {
+//                [self loginReviewRequestRecieved:result];
+//            }];
+//        }
+//    }];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [alert show];
+//    });
+//}
 
--(void) showOldOrderAction {
-    self.pickerTitles = @[@"Buy",@"Sell",@"Buy to Cover",@"Sell Short"];
-    self.pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
-    self.currentSelection = self.tradeSession.orderInfo.action;
-    
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView:@"Order Action"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 1) {
-            [self changeOrderAction: self.currentSelection];
-        }
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-        
-        if([self.tradeSession.orderInfo.action isEqualToString:@"sellShort"]){
-            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
-        } else if([self.tradeSession.orderInfo.action isEqualToString:@"buyToCover"]){
-            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
-        } else if([self.tradeSession.orderInfo.action isEqualToString:@"sell"]){
-            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
-        }
-    });
-}
+//-(void) showOldOrderAction {
+//    self.pickerTitles = @[@"Buy",@"Sell",@"Buy to Cover",@"Sell Short"];
+//    self.pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
+//    self.currentSelection = self.tradeSession.orderInfo.action;
+//    
+//    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+//    [alert setContainerView:[self createPickerView:@"Order Action"]];
+//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+//    
+//    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+//        if(buttonIndex == 1) {
+//            [self changeOrderAction: self.currentSelection];
+//        }
+//    }];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [alert show];
+//        
+//        if([self.tradeSession.orderInfo.action isEqualToString:@"sellShort"]){
+//            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
+//        } else if([self.tradeSession.orderInfo.action isEqualToString:@"buyToCover"]){
+//            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
+//        } else if([self.tradeSession.orderInfo.action isEqualToString:@"sell"]){
+//            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
+//        }
+//    });
+//}
 
--(void) showOldOrderExp {
-    self.pickerTitles = @[@"Good For The Day",@"Good Until Canceled"];
-    self.pickerValues = @[@"day",@"gtc"];
-    self.currentSelection = self.tradeSession.orderInfo.expiration;
-    
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView:@"Order Action"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 1) {
-            [self changeOrderExpiration: self.currentSelection];
-        }
-    }];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-
-        if([self.tradeSession.orderInfo.expiration isEqualToString:@"gtc"]) {
-            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
-        }
-    });
-}
+//-(void) showOldOrderExp {
+//    self.pickerTitles = @[@"Good For The Day",@"Good Until Canceled"];
+//    self.pickerValues = @[@"day",@"gtc"];
+//    self.currentSelection = self.tradeSession.orderInfo.expiration;
+//    
+//    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+//    [alert setContainerView:[self createPickerView:@"Order Action"]];
+//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+//    
+//    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+//        if(buttonIndex == 1) {
+//            [self changeOrderExpiration: self.currentSelection];
+//        }
+//    }];
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [alert show];
+//
+//        if([self.tradeSession.orderInfo.expiration isEqualToString:@"gtc"]) {
+//            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
+//        }
+//    });
+//}
 
 -(void) sendLoginReviewRequest {
-    [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
-        [self loginReviewRequestRecieved: result];
-    }];
+//    [[self tradeSession] asyncAuthenticateAndReviewWithCompletionBlock:^(TradeItResult* result){
+//        [self loginReviewRequestRecieved: result];
+//    }];
 }
 
 -(void) loginReviewRequestRecieved: (TradeItResult *) result {
     self.lastResult = result;
     
-    if ([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
-        //REVIEW
-        self.tradeSession.resultContainer.status = USER_CANCELED;
-        self.tradeSession.resultContainer.reviewResponse = (TradeItStockOrEtfTradeReviewResult *) result;
-        
-        [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
-        [self performSegueWithIdentifier: @"TradeToReview" sender: self];
-    }
-    else if ([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
-        self.tradeSession.resultContainer.status = USER_CANCELED_SECURITY;
-        
-        //SECURITY QUESTION
-        TradeItSecurityQuestionResult *securityQuestionResult = (TradeItSecurityQuestionResult *) result;
-        
-        if (securityQuestionResult.securityQuestionOptions != nil && securityQuestionResult.securityQuestionOptions.count > 0 ){
-            //MULTI
-            if(![UIAlertController class]) {
-                [self showOldMultiSelect:securityQuestionResult];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
-                                                                                message:securityQuestionResult.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                
-                for(NSString * title in securityQuestionResult.securityQuestionOptions){
-                    UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
-                                                                    handler:^(UIAlertAction * action) {
-                                                                        [[self tradeSession] asyncAnswerSecurityQuestion:title andCompletionBlock:^(TradeItResult *result) {
-                                                                             [self loginReviewRequestRecieved:result];
-                                                                        }];
-                                                                    }];
-                    [alert addAction:option];
-                }
-
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [self acknowledgeAlert];
-                                                                      }];
-                [alert addAction:cancelAction];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentViewController:alert animated:YES completion:nil];
-                }) ;
-            }
-        } else if (securityQuestionResult.securityQuestion != nil){
-            //SINGLE
-            if(![UIAlertController class]) {
-                [self showOldSecQuestion: securityQuestionResult.securityQuestion];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
-                                                                                message:securityQuestionResult.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [self dismissViewControllerAnimated:YES completion:nil];
-                                                                      }];
-                UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [[self tradeSession] asyncAnswerSecurityQuestion: [[alert textFields][0] text] andCompletionBlock:^(TradeItResult *result) { [self loginReviewRequestRecieved:result]; }];
-                                                                      }];
-                
-                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
-                [alert addAction:cancelAction];
-                [alert addAction:submitAction];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentViewController:alert animated:YES completion:nil];
-                });
-            }
-        }
-    } else if([result isKindOfClass:[TradeItMultipleAccountResult class]]){
-        //ACCOUNT SELECT
-        TradeItMultipleAccountResult * multiAccountResult = (TradeItMultipleAccountResult* ) result;
-        
-        if(![UIAlertController class]) {
-            [self showOldAcctSelect: multiAccountResult];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Account"
-                                                                            message:nil
-                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
-            
-            void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
-                [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
-                    [self loginReviewRequestRecieved:result];
-                }];
-            };
-            
-            for (NSDictionary * account in multiAccountResult.accountList) {
-                NSString * title = [account objectForKey:@"name"];
-                UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  handler(account);
-                                                              }];
-                [alert addAction:acct];
-            }
-            
-            UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [self acknowledgeAlert];
-            }];
-            [alert addAction:cancel];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:alert animated:YES completion:nil];
-            });
-        }
-    }
-    else if([result isKindOfClass:[TradeItErrorResult class]]){
-        NSString * errorMessage = @"Could Not Complete Your Order";
-        TradeItErrorResult * error = (TradeItErrorResult *) result;
-        
-        if(error.errorFields.count > 0) {
-            NSString * errorField = (NSString *) error.errorFields[0];
-            if([errorField isEqualToString:@"authenticationInfo"]) {
-                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
-                
-                self.tradeSession.resultContainer.status = AUTHENTICATION_ERROR;
-                self.tradeSession.resultContainer.errorResponse = error;
-            } else {
-                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
-            }
-        }
-        
-        if(![UIAlertController class]) {
-            [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
-                                                                            message:errorMessage
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       [self acknowledgeAlert];
-                                                                   }];
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    } else {
-        if(![UIAlertController class]) {
-            [self showOldErrorAlert:@"Could Not Complete Order" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
-                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       [self acknowledgeAlert];
-                                                                   }];
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }
+//    if ([result isKindOfClass:[TradeItStockOrEtfTradeReviewResult class]]){
+//        //REVIEW
+//        self.tradeSession.resultContainer.status = USER_CANCELED;
+//        self.tradeSession.resultContainer.reviewResponse = (TradeItStockOrEtfTradeReviewResult *) result;
+//        
+//        [self setReviewResult:(TradeItStockOrEtfTradeReviewResult *) result];
+//        [self performSegueWithIdentifier: @"TradeToReview" sender: self];
+//    }
+//    if ([result isKindOfClass:[TradeItSecurityQuestionResult class]]){
+//        self.tradeSession.resultContainer.status = USER_CANCELED_SECURITY;
+//        
+//        //SECURITY QUESTION
+//        TradeItSecurityQuestionResult *securityQuestionResult = (TradeItSecurityQuestionResult *) result;
+//        
+//        if (securityQuestionResult.securityQuestionOptions != nil && securityQuestionResult.securityQuestionOptions.count > 0 ){
+//            //MULTI
+//            if(![UIAlertController class]) {
+//                [self showOldMultiSelect:securityQuestionResult];
+//            } else {
+//                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
+//                                                                                message:securityQuestionResult.securityQuestion
+//                                                                         preferredStyle:UIAlertControllerStyleAlert];
+//                
+//                for(NSString * title in securityQuestionResult.securityQuestionOptions){
+//                    UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+//                                                                    handler:^(UIAlertAction * action) {
+//                                                                        [[self tradeSession] asyncAnswerSecurityQuestion:title andCompletionBlock:^(TradeItResult *result) {
+//                                                                             [self loginReviewRequestRecieved:result];
+//                                                                        }];
+//                                                                    }];
+//                    [alert addAction:option];
+//                }
+//
+//                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+//                                                                      handler:^(UIAlertAction * action) {
+//                                                                          [self acknowledgeAlert];
+//                                                                      }];
+//                [alert addAction:cancelAction];
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self presentViewController:alert animated:YES completion:nil];
+//                }) ;
+//            }
+//        } else if (securityQuestionResult.securityQuestion != nil){
+//            //SINGLE
+//            if(![UIAlertController class]) {
+//                [self showOldSecQuestion: securityQuestionResult.securityQuestion];
+//            } else {
+//                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
+//                                                                                message:securityQuestionResult.securityQuestion
+//                                                                         preferredStyle:UIAlertControllerStyleAlert];
+//                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+//                                                                      handler:^(UIAlertAction * action) {
+//                                                                          [self dismissViewControllerAnimated:YES completion:nil];
+//                                                                      }];
+//                UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
+//                                                                      handler:^(UIAlertAction * action) {
+//                                                                          [[self tradeSession] asyncAnswerSecurityQuestion: [[alert textFields][0] text] andCompletionBlock:^(TradeItResult *result) { [self loginReviewRequestRecieved:result]; }];
+//                                                                      }];
+//                
+//                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
+//                [alert addAction:cancelAction];
+//                [alert addAction:submitAction];
+//                
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self presentViewController:alert animated:YES completion:nil];
+//                });
+//            }
+//        }
+//    } else if([result isKindOfClass:[TradeItMultipleAccountResult class]]){
+//        //ACCOUNT SELECT
+//        TradeItMultipleAccountResult * multiAccountResult = (TradeItMultipleAccountResult* ) result;
+//        
+//        if(![UIAlertController class]) {
+//            [self showOldAcctSelect: multiAccountResult];
+//        } else {
+//            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Select Account"
+//                                                                            message:nil
+//                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+//            
+//            void (^handler)(NSDictionary * account) = ^(NSDictionary * account){
+//                [[self tradeSession] asyncSelectAccount:account andCompletionBlock:^(TradeItResult *result) {
+//                    [self loginReviewRequestRecieved:result];
+//                }];
+//            };
+//            
+//            for (NSDictionary * account in multiAccountResult.accountList) {
+//                NSString * title = [account objectForKey:@"name"];
+//                UIAlertAction * acct = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+//                                                              handler:^(UIAlertAction * action) {
+//                                                                  handler(account);
+//                                                              }];
+//                [alert addAction:acct];
+//            }
+//            
+//            UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//                [self acknowledgeAlert];
+//            }];
+//            [alert addAction:cancel];
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self presentViewController:alert animated:YES completion:nil];
+//            });
+//        }
+//    }
+//    else if([result isKindOfClass:[TradeItErrorResult class]]){
+//        NSString * errorMessage = @"Could Not Complete Your Order";
+//        TradeItErrorResult * error = (TradeItErrorResult *) result;
+//        
+//        if(error.errorFields.count > 0) {
+//            NSString * errorField = (NSString *) error.errorFields[0];
+//            if([errorField isEqualToString:@"authenticationInfo"]) {
+//                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
+//                
+//                self.tradeSession.resultContainer.status = AUTHENTICATION_ERROR;
+//                self.tradeSession.resultContainer.errorResponse = error;
+//            } else {
+//                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
+//            }
+//        }
+//        
+//        if(![UIAlertController class]) {
+//            [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
+//        } else {
+//            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+//                                                                            message:errorMessage
+//                                                                     preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                                   handler:^(UIAlertAction * action) {
+//                                                                       [self acknowledgeAlert];
+//                                                                   }];
+//            [alert addAction:defaultAction];
+//            [self presentViewController:alert animated:YES completion:nil];
+//        }
+//    } else {
+//        if(![UIAlertController class]) {
+//            [self showOldErrorAlert:@"Could Not Complete Order" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
+//        } else {
+//            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+//                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+//                                                                     preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                                   handler:^(UIAlertAction * action) {
+//                                                                       [self acknowledgeAlert];
+//                                                                   }];
+//            [alert addAction:defaultAction];
+//            [self presentViewController:alert animated:YES completion:nil];
+//        }
+//    }
 }
 
 

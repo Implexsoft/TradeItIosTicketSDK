@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSDKTicketSession.h"
-#import "TradeItStockOrEtfTradeReviewResult.h"
+//#import "TradeItStockOrEtfTradeReviewResult.h"
 
 @interface TTSDKReviewScreenViewController : UIViewController
 
 @property TTSDKTicketSession * tradeSession;
-@property TradeItStockOrEtfTradeReviewResult * result;
-@property TradeItStockOrEtfTradeSuccessResult * successResult;
+//@property TradeItStockOrEtfTradeReviewResult * result;
+//@property TradeItStockOrEtfTradeSuccessResult * successResult;
 
 @end

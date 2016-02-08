@@ -23,10 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
     utils = [TTSDKUtils sharedUtils];
     
-    [successMessage setText:[NSString stringWithFormat:@"%@", [[self result] confirmationMessage]]];
+//    [successMessage setText:[NSString stringWithFormat:@"%@", [[self result] confirmationMessage]]];
 
     [utils styleMainActiveButton:tradeButton];
 

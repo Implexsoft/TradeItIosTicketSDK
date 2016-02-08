@@ -13,10 +13,12 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TradeItErrorResult.h"
 #import "TradeItSession.h"
+#import "TradeItTradeService.h"
 
 @interface TTSDKTicketController() {
     TradeItConnector * connector;
     TradeItSession * session;
+    TradeItTradeService * tradeService;
 }
 
 @end
@@ -50,7 +52,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return self;
 }
 
-
 - (NSArray *)getDefaultBrokerList {
     NSArray * brokers = @[
                           @[@"TD Ameritrade",@"TD"],
@@ -68,6 +69,33 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return brokers;
 }
 
+
+-(NSString *) getBrokerUsername:(NSString *) broker {
+    NSDictionary *brokerUsernames = @{
+                                      @"Dummy":@"Username",
+                                      @"TD":@"User Id",
+                                      @"Robinhood":@"Username",
+                                      @"OptionsHouse":@"User Id",
+                                      @"Schwabs":@"User Id",
+                                      @"TradeStation":@"Username",
+                                      @"Etrade":@"User Id",
+                                      @"Fidelity":@"Username",
+                                      @"Scottrade":@"Account #",
+                                      @"Tradier":@"Username",
+                                      @"IB":@"Username",
+                                      };
+    
+    NSString * brokerName = [brokerUsernames valueForKey:broker];
+    
+    if (brokerName) {
+        return brokerName;
+    } else {
+        return @"Username";
+    }
+}
+
+
+
 - (BOOL)isOnboarding {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
@@ -79,6 +107,18 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     } else {
         [defaults setObject:@1 forKey:kOnboardingKey];
         return YES;
+    }
+}
+
+- (void)createInitialTradeRequest {
+    self.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
+
+    if (self.initialAction) {
+        [self.tradeRequest setOrderAction:self.initialAction];
+    }
+
+    if (self.initialSymbol) {
+        [self.tradeRequest setOrderSymbol:self.initialSymbol];
     }
 }
 
@@ -121,6 +161,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
 
         self.currentLogin = [connector saveLinkToKeychain:result withBroker:authInfo.broker];
+
         self.currentBroker = authInfo.broker;
 
         session = [[TradeItSession alloc] initWithConnector:connector];
@@ -155,6 +196,56 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }
+
+-(NSString *) getBrokerDisplayString:(NSString *) value {
+    NSArray * brokers = [self getDefaultBrokerList];
+
+    for(NSArray * broker in brokers) {
+        if([broker[1] isEqualToString:value]) {
+            return broker[0];
+        }
+    }
+    
+    return value;
+}
+
+-(NSString *) getBrokerValueString:(NSString *) displayString {
+    NSArray * brokers = [self getDefaultBrokerList];
+
+    for(NSArray * broker in brokers) {
+        if([broker[0] isEqualToString:displayString]) {
+            return broker[1];
+        }
+    }
+
+    return displayString;
+}
+
+-(NSArray *) getLinkedLogins {
+    return [connector getLinkedLogins];
+}
+
+-(void) unlinkAccounts {
+
+    NSArray * linkedLogins = [connector getLinkedLogins];
+
+    int i;
+    for (i = 0; i < linkedLogins.count; i++) {
+        NSDictionary * login = [linkedLogins objectAtIndex:i];
+        [connector unlinkBroker:[login valueForKey:@"broker"]];
+    }
+}
+
+-(void) returnToParentApp {
+    [self.parentView dismissViewControllerAnimated:NO completion:^{
+        if (self.callback) {
+            self.callback(self.resultContainer);
+        }
+    }];
+}
+
+
+
 
 
 @end

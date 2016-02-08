@@ -48,7 +48,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) viewDidLoad {
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
 
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;

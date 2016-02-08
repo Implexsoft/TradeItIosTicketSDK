@@ -10,13 +10,14 @@
 #import "TTSDKTicketSession.h"
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKUtils.h"
+#import "TTSDKTicketController.h"
 
 @interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TTSDKTicketSession * tradeSession;
 @property TradeItResult * lastResult;
-@property TradeItStockOrEtfTradeReviewResult * reviewResult;
-@property TradeItStockOrEtfTradeSuccessResult * successResult;
+//@property TradeItStockOrEtfTradeReviewResult * reviewResult;
+//@property TradeItStockOrEtfTradeSuccessResult * successResult;
 
 @property BOOL advMode;
 @property NSArray * pickerTitles;
@@ -27,13 +28,14 @@
 @property NSDictionary * currentAccount;
 
 @property TTSDKUtils * utils;
+@property TTSDKTicketController * globalController;
 
 -(void) setBroker;
 -(void) sendLoginReviewRequest;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
--(void) showOldAcctSelect: (TradeItMultipleAccountResult *) multiAccountResult;
+//-(void) showOldAcctSelect: (TradeItMultipleAccountResult *) multiAccountResult;
 -(void) showOldSecQuestion:(NSString *) question;
--(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult;
+//-(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult;
 -(void) showOldOrderAction;
 -(void) showOldOrderExp;
 -(UIView *) createPickerView;

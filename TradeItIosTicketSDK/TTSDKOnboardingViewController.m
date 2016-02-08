@@ -34,7 +34,7 @@ static int kBulletContainerTag = 2;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
 
     self.utils = [TTSDKUtils sharedUtils];
 

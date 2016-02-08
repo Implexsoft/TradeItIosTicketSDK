@@ -33,8 +33,6 @@ static NSString * CellIdentifier = @"BrokerCell";
     self.tableView.contentInset = UIEdgeInsetsZero;
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
-    self.tradeSession = [TTSDKTicketSession globalSession];
-
     globalController = [TTSDKTicketController globalController];
     brokers = globalController.brokerList;
 
@@ -113,7 +111,7 @@ static NSString * CellIdentifier = @"BrokerCell";
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [globalController returnToParentApp];
 }
 
 #pragma mark - Table view data source
@@ -142,15 +140,15 @@ static NSString * CellIdentifier = @"BrokerCell";
     if([self editMode]) {
         [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
     } else {
-        if(self.tradeSession.brokerSignUpCallback) {
+        if(globalController.brokerSignUpCallback) {
             TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
             res.success = false;
             res.errorTitle = @"Cancelled";
 
-            self.tradeSession.brokerSignUpCallback(res);
+            globalController.brokerSignUpCallback(res);
         }
-        
-        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+
+        [globalController returnToParentApp];
     }
 }
 

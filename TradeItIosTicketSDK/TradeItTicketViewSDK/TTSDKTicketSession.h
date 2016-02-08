@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItStockOrEtfTradeSession.h"
+//#import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItTicketControllerResult.h"
 #import "TradeItAuthControllerResult.h"
 
-@interface TTSDKTicketSession : TradeItStockOrEtfTradeSession
+@interface TTSDKTicketSession : NSObject
 
 @property double lastPrice;
 @property UIViewController * parentView;

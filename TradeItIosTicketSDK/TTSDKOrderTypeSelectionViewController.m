@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tradeSession = [TTSDKTicketSession globalSession];
+//    self.tradeSession = [TTSDKTicketSession globalSession];
 }
 
 #pragma mark - Navigation
@@ -41,7 +41,7 @@
 }
 
 - (IBAction)marketPressed:(id)sender {
-    self.tradeSession.orderInfo.price.type = @"market";
+//    self.tradeSession.orderInfo.price.type = @"market";
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -11,8 +11,11 @@
 #import "TradeItTicketControllerResult.h"
 #import "TradeItResult.h"
 #import "TradeItAuthenticationInfo.h"
+#import "TradeItAuthControllerResult.h"
 #import "TradeItLinkedLogin.h"
 #import "TradeItPreviewTradeOrderDetails.h"
+#import "TradeItPreviewTradeRequest.h"
+#import "TradeItPosition.h"
 
 @interface TTSDKTicketController : NSObject
 
@@ -32,22 +35,35 @@
 
 @property TradeItLinkedLogin * currentLogin;
 
-@property NSString * symbol;
-@property NSString * companyName;
-@property NSString * action;
-@property double lastPrice;
-@property NSNumber * priceChangeDollar;
-@property NSNumber * priceChangePercentage;
+@property NSString * initialSymbol;
+@property NSString * initialCompanyName;
+@property NSString * initialAction;
+@property int initialQuantity;
+@property NSString * initialExpiration;
+@property double initialLastPrice;
+@property NSNumber * initialPriceChangeDollar;
+@property NSNumber * initialPriceChangePercentage;
 
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
 
-//@property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
+@property TradeItPreviewTradeRequest * tradeRequest;
+@property TradeItPosition * position;
+@property NSString * positionCompanyName;
+
+@property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 
 + (id)globalController;
 - (id)initWithApiKey:(NSString *)apiKey;
 - (void)showTicket;
 - (void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)createInitialTradeRequest;
+- (void)unlinkAccounts;
+- (NSArray *)getLinkedLogins;
+- (NSString *)getBrokerDisplayString:(NSString *) value;
+- (NSString *)getBrokerValueString:(NSString *) displayString;
+- (void)returnToParentApp;
+- (NSString *)getBrokerUsername:(NSString *) broker;
 
 @end

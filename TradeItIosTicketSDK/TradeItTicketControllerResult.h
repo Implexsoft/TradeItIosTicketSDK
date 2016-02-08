@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "TradeItErrorResult.h"
-#import "TradeItStockOrEtfTradeReviewResult.h"
-#import "TradeItStockOrEtfTradeSuccessResult.h"
+//#import "TradeItStockOrEtfTradeReviewResult.h"
+//#import "TradeItStockOrEtfTradeSuccessResult.h"
 
 
 @interface TradeItTicketControllerResult : NSObject
@@ -44,12 +44,12 @@ enum controllerStatus {
 /**
  *  Will be set when review screen loads, will be set for some USER_CANCELED and all SUCCESS
  */
-@property TradeItStockOrEtfTradeReviewResult * reviewResponse;
+//@property TradeItStockOrEtfTradeReviewResult * reviewResponse;
 
 /**
  *  Will be set when the success screen loads
  */
-@property TradeItStockOrEtfTradeSuccessResult * successResponse;
+//@property TradeItStockOrEtfTradeSuccessResult * successResponse;
 
 
 
