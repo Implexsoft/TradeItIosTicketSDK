@@ -7,13 +7,17 @@
 //
 
 #import "TTSDKAccountSelectTableViewCell.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKAccountSelectTableViewCell()
+@interface TTSDKAccountSelectTableViewCell() {
+    TTSDKUtils * utils;
+    TTSDKTicketController * globalController;
+}
+
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
-@property TTSDKUtils * utils;
 
 @end
 
@@ -35,7 +39,8 @@
             [self setLayoutMargins:UIEdgeInsetsMake(0, 20, 0, 20)];
         }
 
-        self.utils = [TTSDKUtils sharedUtils];
+        utils = [TTSDKUtils sharedUtils];
+        globalController = [TTSDKTicketController globalController];
     }
 }
 
@@ -43,10 +48,20 @@
 //    return UIEdgeInsetsMake(0, 20, 0, 20);
 //}
 
+-(void) configureCellWithAccount:(NSDictionary *)account {
+    self.brokerLabel.text = [account valueForKey: @"name"];
+    self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
+
+    // set subtitle to formatted string
+    self.accountTypeLabel.text = @"Brokerage";
+    
+    [self insertPortfolioDetail:[account valueForKey:@"broker"]];
+}
+
 - (void)configureCell {
     // set title
     self.brokerLabel.text = @"Fidelity";
-    self.brokerLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1];
+    self.brokerLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1]; // TODO - why not do this in storyboard?
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
     // format creation date
@@ -76,10 +91,10 @@
         }
     }
 
-    UIColor * circleFill = [self.utils retrieveBrokerColorByBrokerName:broker];
+    UIColor * circleFill = [utils retrieveBrokerColorByBrokerName:broker];
 
     if (!circleLayer) {
-        circleLayer = [self.utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
+        circleLayer = [utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
     } else {
         [circleLayer setFillColor: circleFill.CGColor];
     }

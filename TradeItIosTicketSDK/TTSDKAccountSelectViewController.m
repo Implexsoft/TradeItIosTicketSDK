@@ -8,12 +8,17 @@
 
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
+#import "TTSDKTradeViewController.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKAccountSelectViewController ()
+@interface TTSDKAccountSelectViewController () {
+    TTSDKTicketController * globalController;
+    TTSDKUtils * utils;
+}
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
-@property TTSDKUtils * utils;
 
 @end
 
@@ -31,9 +36,8 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-
-
-    self.utils = [TTSDKUtils sharedUtils];
+    utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
 }
 
 -(IBAction) editBrokersPressed:(id)sender {
@@ -45,16 +49,30 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return globalController.accounts.count;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSDictionary * selectedAccount = (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row];
+
+    TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+
+    if (![selectedAccount isEqualToDictionary:globalController.currentAccount]) {
+        [globalController selectAccount: selectedAccount];
+        tradeVC.refreshAccount = YES;
+    } else {
+        tradeVC.refreshAccount = NO;
+    }
+
+    [self.navigationController popToViewController:tradeVC animated:YES];
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    // create a blank footer to remove extra separators
-    UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
-    return footerView;
+    return [self createFooterView];
 }
 
--(void) addFooter {
+-(UIView *) createFooterView {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
 
     UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x + 43, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
@@ -74,7 +92,7 @@
 
     [footerView addSubview:addAccount];
 
-    self.tableView.tableFooterView = footerView;
+    return footerView;
 }
 
 -(IBAction) addAccountPressed:(id)sender {
@@ -96,7 +114,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     }
 
-    [cell configureCell];
+    [cell configureCellWithAccount: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
 
     return cell;
 }

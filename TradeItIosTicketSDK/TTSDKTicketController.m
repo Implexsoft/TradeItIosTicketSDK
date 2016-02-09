@@ -113,8 +113,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSDictionary * initialAccount = [self attemptToRetrieveInitialAccount];
     BOOL authenticated = NO;
     if (initialAccount) {
-        [self selectAccount:initialAccount];
-
         for (TradeItLinkedLogin * login in linkedLogins) {
             if (!login) {
                 continue;
@@ -127,7 +125,11 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
 
         if (self.currentLogin) {
-            self.resultContainer.status = USER_CANCELED;
+            self.accounts = [self retrieveStoredAccounts];
+            [self selectAccount:initialAccount];
+
+            [self.resultContainer setStatus: USER_CANCELED];
+
             authenticated = YES;
         }
     }
@@ -237,6 +239,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         [acct setObject:self.currentLogin.userId forKey:@"UserId"];
         [acct setObject:[NSNumber numberWithBool:YES] forKey:@"active"];
         [acct setObject:[NSNumber numberWithBool:NO] forKey:@"lastSelected"];
+        [acct setObject:self.currentBroker forKey:@"broker"];
         [newAccounts addObject:acct];
     }
 

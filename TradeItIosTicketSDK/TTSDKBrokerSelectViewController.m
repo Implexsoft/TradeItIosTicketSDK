@@ -30,7 +30,7 @@ static NSString * kCellIdentifier = @"BrokerCell";
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.contentInset = UIEdgeInsetsZero;
+    [self.tableView setContentInset: UIEdgeInsetsZero];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
     globalController = [TTSDKTicketController globalController];
@@ -50,7 +50,6 @@ static NSString * kCellIdentifier = @"BrokerCell";
     [headerView addSubview:headerLabelView];
 
     self.tableView.tableHeaderView = headerView;
-
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -87,7 +86,7 @@ static NSString * kCellIdentifier = @"BrokerCell";
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [self presentViewController:alert animated:YES completion:nil];
             });
-            
+
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 brokers = globalController.brokerList;

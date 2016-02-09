@@ -11,5 +11,6 @@
 @interface TTSDKAccountSelectTableViewCell : UITableViewCell
 
 - (void)configureCell;
+- (void)configureCellWithAccount:(NSDictionary *)account;
 
 @end

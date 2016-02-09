@@ -104,6 +104,14 @@
     if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
     }
+
+    if (self.refreshAccount) {
+        [self refreshToNewAccount];
+    }
+}
+
+-(void) refreshToNewAccount {
+    [companyNib populateBrokerButtonTitle: [self.globalController.currentAccount valueForKey:@"broker"]];
 }
 
 -(void) configureUIForSmallScreens {

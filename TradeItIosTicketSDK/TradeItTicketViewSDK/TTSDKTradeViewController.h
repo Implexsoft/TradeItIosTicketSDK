@@ -12,4 +12,6 @@
 
 @interface TTSDKTradeViewController : TTSDKBaseTradeViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
+@property BOOL refreshAccount;
+
 @end
