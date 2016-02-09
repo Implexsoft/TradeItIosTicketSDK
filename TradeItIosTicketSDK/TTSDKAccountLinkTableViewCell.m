@@ -9,13 +9,15 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKAccountLinkTableViewCell()
+@interface TTSDKAccountLinkTableViewCell() {
+    TTSDKUtils * utils;
+    NSDictionary * accountData;
+}
 
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circleGraphic;
-@property TTSDKUtils * utils;
 
 @end
 
@@ -24,38 +26,37 @@
 -(void) awakeFromNib {
     // Initialization code
 
-    self.utils = [TTSDKUtils sharedUtils];
+    utils = [TTSDKUtils sharedUtils];
 }
 
 -(IBAction) togglePressed:(id)sender {
-    NSLog(@"setting linked inside custom object class");
     self.linked = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect)]) {
-        [self.delegate linkToggleDidSelect];
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:)]) {
+        [self.delegate linkToggleDidSelect: accountData];
     }
 }
 
 -(void) configureCellWithData:(NSDictionary *)data {
-    NSString * buyingPower = [data valueForKey:@"buyingPower"];
-    NSString * accountType = [data valueForKey:@"accountType"];
-    self.accountName = [data valueForKey:@"accountName"];
-    NSString * linkedStr = [data valueForKey:@"linked"];
+
+    accountData = data;
+
+    NSString * buyingPower = [data valueForKey:@"buyingPower"] ? [data valueForKey:@"buyingPower"] : @"100";
+    NSString * accountType = [data valueForKey:@"accountType"] ? [data valueForKey:@"accountType"] : @"Brokerage";
+    self.accountName = [data valueForKey:@"name"];
+    NSString * linkedStr = [data valueForKey:@"active"];
     self.linked = [linkedStr intValue];
 
-    NSString * broker = [data objectForKey:@"broker"];
-
-    if (!broker) {
-        broker = @"Fidelity";
-    }
+    NSString * broker = [data objectForKey:@"broker"] ? [data objectForKey:@"broker"] : @"N/A";
 
     self.toggle.on = self.linked;
     self.buyingPowerLabel.text = buyingPower;
     self.accountTypeLabel.text = accountType;
     self.accountNameLabel.text = self.accountName;
 
-    UIColor * brokerColor = [self.utils retrieveBrokerColorByBrokerName:broker];
+    UIColor * brokerColor = [utils retrieveBrokerColorByBrokerName:broker];
 
-    CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:(self.circleGraphic.frame.size.width - 1) andColor:brokerColor];
+    CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:(self.circleGraphic.frame.size.width - 1) andColor:brokerColor];
     self.circleGraphic.backgroundColor = [UIColor clearColor];
     [self.circleGraphic.layer addSublayer:circleLayer];
 }

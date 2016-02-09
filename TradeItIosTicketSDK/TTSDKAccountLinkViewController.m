@@ -7,9 +7,13 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKAccountLinkViewController ()
+@interface TTSDKAccountLinkViewController () {
+    TTSDKTicketController * globalController;
+    TTSDKUtils * utils;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property TTSDKUtils * sharedUtils;
@@ -32,9 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sharedUtils = [TTSDKUtils sharedUtils];
+    utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
 
-    [self.sharedUtils styleMainActiveButton:self.doneButton];
+    [utils styleMainActiveButton:self.doneButton];
 
     self.testingData = @[
                          [NSDictionary dictionaryWithObjectsAndKeys:
@@ -60,7 +65,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.testingData.count;
+    return globalController.accounts.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,6 +75,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier = @"AccountLink";
     TTSDKAccountLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    [cell setDelegate: self];
 
     if (cell == nil) {
         NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
@@ -79,14 +85,29 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
 
-
-    [cell configureCellWithData:[self.testingData objectAtIndex:indexPath.row]];
+    [cell configureCellWithData: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
 
     return cell;
 }
 
--(void)linkToggleDidSelect {
-    // if an account is toggled
+- (void)linkToggleDidSelect:(NSDictionary *)account {
+    NSNumber * active = [account valueForKey: @"active"];
+    NSMutableArray * mutableAccounts = [globalController.accounts mutableCopy];
+
+    int i;
+    for (i = 0; i < mutableAccounts.count; i++) {
+        NSMutableDictionary * acct = [[mutableAccounts objectAtIndex: i] mutableCopy];
+
+        if ([acct isEqualToDictionary: account]) {
+            [acct setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
+
+            [mutableAccounts setObject:acct atIndexedSubscript:i];
+
+            break;
+        }
+    }
+
+    globalController.accounts = [mutableAccounts copy];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

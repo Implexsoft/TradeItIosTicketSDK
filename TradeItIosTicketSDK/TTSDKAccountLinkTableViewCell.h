@@ -13,7 +13,7 @@
 @protocol TTSDKAccountLinkDelegate <NSObject>
 
 @required
--(void)linkToggleDidSelect;
+-(void)linkToggleDidSelect:(NSDictionary *)account;
 
 @end
 

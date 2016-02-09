@@ -15,6 +15,7 @@
 @interface TTSDKAccountSelectViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
+    NSArray * linkedAccounts;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -40,6 +41,13 @@
     globalController = [TTSDKTicketController globalController];
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    linkedAccounts = [globalController retrieveLinkedAccounts];
+    [self.tableView reloadData];
+}
+
 -(IBAction) editBrokersPressed:(id)sender {
     [self performSegueWithIdentifier:@"AccountSelectToAccountLink" sender:self];
 }
@@ -49,12 +57,12 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return globalController.accounts.count;
+    return linkedAccounts.count;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSDictionary * selectedAccount = (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row];
+    NSDictionary * selectedAccount = (NSDictionary *)[linkedAccounts objectAtIndex:indexPath.row];
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 

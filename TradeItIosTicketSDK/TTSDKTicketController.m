@@ -254,6 +254,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     self.currentAccount = account;
 }
 
+-(NSArray *) retrieveLinkedAccounts {
+    NSMutableArray * linkedAccounts = [[NSMutableArray alloc] init];
+
+    if (self.accounts.count) {
+        int i;
+        for (i = 0; i < self.accounts.count; i++) {
+            NSDictionary * account = [self.accounts objectAtIndex:i];
+            NSNumber * active = [account valueForKey: @"active"];
+
+            if ([active boolValue]) {
+                [linkedAccounts addObject: account];
+            }
+        }
+    }
+
+    return [linkedAccounts copy];
+}
+
 -(void) unlinkAccounts {
     
     NSArray * linkedLogins = [self.connector getLinkedLogins];

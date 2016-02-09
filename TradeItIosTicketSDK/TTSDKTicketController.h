@@ -56,6 +56,7 @@
 - (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)addAccounts: (NSArray *)accounts;
 - (void)selectAccount:(NSDictionary *) account;
+- (NSArray *)retrieveLinkedAccounts;
 - (void)unlinkAccounts;
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
@@ -63,7 +64,7 @@
 - (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;
 - (void)createInitialTradeRequest;
--(void) createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void)createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
 - (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
 
 @end
