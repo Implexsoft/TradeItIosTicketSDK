@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSDKTradeViewController.h"
-#import "TTSDKTicketSession.h"
 
 @interface TTSDKOrderTypeSelectionViewController : UIViewController
-
-@property TTSDKTicketSession * tradeSession;
 
 @end

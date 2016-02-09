@@ -8,8 +8,11 @@
 
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
+#import "TTSDKTicketController.h"
 
-@interface TTSDKOrderTypeSelectionViewController ()
+@interface TTSDKOrderTypeSelectionViewController () {
+    TTSDKTicketController * globalController;
+}
 
 @property NSString * orderType;
 
@@ -28,7 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tradeSession = [TTSDKTicketSession globalSession];
+
+    globalController = [TTSDKTicketController globalController];
 }
 
 #pragma mark - Navigation
@@ -41,7 +45,10 @@
 }
 
 - (IBAction)marketPressed:(id)sender {
-//    self.tradeSession.orderInfo.price.type = @"market";
+    [globalController.tradeRequest setOrderPriceType: @"market"];
+    [globalController.tradeRequest setOrderLimitPrice: nil];
+    [globalController.tradeRequest setOrderStopPrice: nil];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -51,7 +58,7 @@
 }
 
 - (IBAction)stopPressed:(id)sender {
-    self.orderType = @"stop";
+    self.orderType = @"stopMarket";
     [self performSegueWithIdentifier:@"OrderTypeSelectionToInput" sender:self];
 }
 

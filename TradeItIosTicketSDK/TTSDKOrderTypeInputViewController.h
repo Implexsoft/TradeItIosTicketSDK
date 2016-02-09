@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 
 @interface TTSDKOrderTypeInputViewController : UIViewController <UITextFieldDelegate>
 
 @property NSString * orderType;
-@property TTSDKTicketSession * tradeSession;
 
 @end

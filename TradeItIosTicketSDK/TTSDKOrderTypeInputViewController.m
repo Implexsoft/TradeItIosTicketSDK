@@ -9,13 +9,16 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
+#import "TTSDKTicketController.h"
 
-@interface TTSDKOrderTypeInputViewController ()
+@interface TTSDKOrderTypeInputViewController () {
+    TTSDKTicketController * globalController;
+    TTSDKUtils * utils;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *orderTypeLabel;
 @property (weak, nonatomic) IBOutlet UIView *keypadContainer;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property TTSDKUtils * utils;
 @property NSString * limitPrice;
 @property NSString * stopPrice;
 @property NSString * currentFocus;
@@ -42,56 +45,58 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-//    self.tradeSession = [TTSDKTicketSession globalSession];
-    self.utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
+    utils = [TTSDKUtils sharedUtils];
 
-    self.orderTypeLabel.text = [self.utils splitCamelCase:self.orderType];
+    self.orderTypeLabel.text = [utils splitCamelCase:self.orderType];
 
     self.limitPrice = nil;
     self.stopPrice = nil;
 
-    if ([self.utils isSmallScreen]) {
+    if ([utils isSmallScreen]) {
         self.limitPriceTopConstraint.constant /= 2;
         self.stopPriceTopConstraint.constant /= 2;
         self.contentHeightConstraint.constant = 300;
         self.orderTypeTopConstraint.constant /= 2;
     }
-    
-//    if (self.tradeSession.orderInfo.price.limitPrice) {
-//        self.limitPrice = [self.tradeSession.orderInfo.price.limitPrice stringValue];
-//        self.limitPriceField.text = self.limitPrice;
-//    }
-//    
-//    if (self.tradeSession.orderInfo.price.stopPrice) {
-//        self.stopPrice = [self.tradeSession.orderInfo.price.stopPrice stringValue];
-//        self.stopPriceField.text = self.stopPrice;
-//    }
-    
+
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    nf.numberStyle = NSNumberFormatterCurrencyStyle;
+
+    if (globalController.tradeRequest.orderLimitPrice) {
+        self.limitPrice = [globalController.tradeRequest.orderLimitPrice stringValue];
+        self.limitPriceField.text = [nf stringFromNumber: globalController.tradeRequest.orderLimitPrice];
+    }
+
+    if (globalController.tradeRequest.orderStopPrice) {
+        self.stopPrice = [globalController.tradeRequest.orderStopPrice stringValue];
+        self.stopPriceField.text = [nf stringFromNumber: globalController.tradeRequest.orderStopPrice];
+    }
+
     if ([self.orderType isEqualToString:@"limit"]) {
         self.stopPriceField.hidden = YES;
         self.limitPriceField.hidden = NO;
         self.limitPriceTopConstraint.constant = self.stopPriceTopConstraint.constant;
         self.currentFocus = @"limitPrice";
     }
-    
+
     if ([self.orderType isEqualToString:@"stopLimit"]) {
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = NO;
         self.currentFocus = @"stopPrice";
     }
     
-    if ([self.orderType isEqualToString:@"stop"]) {
+    if ([self.orderType isEqualToString:@"stopMarket"]) {
         self.stopPriceField.hidden = NO;
         self.limitPriceField.hidden = YES;
         self.currentFocus = @"stopPrice";
     }
 
-    TTSDKCompanyDetails * companyDetailsNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
-
-//    [companyDetailsNib populateDetailsWithSymbol:self.tradeSession.orderInfo.symbol andLastPrice:[NSNumber numberWithDouble:self.tradeSession.lastPrice] andChange:self.tradeSession.priceChangeDollar andChangePct:self.tradeSession.priceChangePercentage];
+    TTSDKCompanyDetails * companyDetailsNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
+    [companyDetailsNib populateDetailsWithSymbol:globalController.tradeRequest.orderSymbol andLastPrice:globalController.position.lastPrice andChange:globalController.position.todayGainLossDollar andChangePct:globalController.position.todayGainLossPercentage];
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
-    [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
+    [utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
 
     [self checkIfReadyToSubmit];
 }
@@ -103,7 +108,6 @@
     if (isLimit) {
         [self limitPricePressed: self];
     } else if (isStop) {
-        //[self stopPriceField];
         [self stopPricePressed: self];
     }
 
@@ -185,17 +189,17 @@
 
     if([self.orderType isEqualToString:@"limit"] && self.limitPrice){
         isReady = YES;
-    } else if([self.orderType isEqualToString:@"stop"] && self.stopPrice){
+    } else if([self.orderType isEqualToString:@"stopMarket"] && self.stopPrice){
         isReady = YES;
     } else if([self.orderType isEqualToString:@"stopLimit"] && self.limitPrice && self.stopPrice){
         isReady = YES;
     }
 
     if (isReady) {
-        [self.utils styleMainActiveButton:self.submitButton];
+        [utils styleMainActiveButton:self.submitButton];
         self.submitButton.enabled = YES;
     } else {
-        [self.utils styleMainInactiveButton:self.submitButton];
+        [utils styleMainInactiveButton:self.submitButton];
         self.submitButton.enabled = NO;
     }
 
@@ -203,13 +207,20 @@
 }
 
 -(IBAction) submitButtonPressed:(id)sender {
-//    if([self.orderType isEqualToString:@"limit"]){
-//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initLimit:[self.limitPrice doubleValue]];
-//    } else if([self.orderType isEqualToString:@"stop"]){
-//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopMarket:[self.stopPrice doubleValue]];
-//    } else if([self.orderType isEqualToString:@"stopLimit"]){
-//        self.tradeSession.orderInfo.price = [[TradeitStockOrEtfOrderPrice alloc] initStopLimit:[self.limitPrice doubleValue] :[self.stopPrice doubleValue]];
-//    }
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    nf.numberStyle = NSNumberFormatterDecimalStyle;
+
+    if([self.orderType isEqualToString:@"limit"]){
+        globalController.tradeRequest.orderPriceType = @"limit";
+        globalController.tradeRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+    } else if([self.orderType isEqualToString:@"stopMarket"]){
+        globalController.tradeRequest.orderPriceType = @"stopMarket";
+        globalController.tradeRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+    } else if([self.orderType isEqualToString:@"stopLimit"]){
+        globalController.tradeRequest.orderPriceType = @"stopLimit";
+        globalController.tradeRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+        globalController.tradeRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+    }
 
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

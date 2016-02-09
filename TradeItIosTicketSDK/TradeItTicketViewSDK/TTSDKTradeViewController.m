@@ -108,6 +108,7 @@
 
 -(void) configureUIForSmallScreens {
     uiConfigured = YES;
+
     if (keypadTopConstraint) {
         [containerView removeConstraint:keypadTopConstraint];
         NSLayoutConstraint * heightConstraint = [NSLayoutConstraint constraintWithItem:keypadContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:200];
