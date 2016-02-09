@@ -86,7 +86,7 @@
 
     TradeItPosition * position = self.globalController.position;
     [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
-    [companyNib populateBrokerButtonTitle:position.symbol];
+    [companyNib populateBrokerButtonTitle:self.globalController.currentBroker];
 
     [self setCustomEvents];
     [self refreshPressed:self];

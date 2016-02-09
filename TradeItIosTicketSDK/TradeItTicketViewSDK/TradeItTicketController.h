@@ -48,12 +48,12 @@
  *  @param symbol       The street symbol of the stock or etf to be traded
  *  @param lastPrice    Last price of the security to be traded
  *  @param action       Order action can be "buy", "sell", "sellShort", or "buyToCover"
+ *  @param quantity     Initial quantity, if set to nil will default to 1
  *  @param view         The current UIViewController of your app, on completion we dismiss the ticket and return control back to this view
  *  @param debug        Specifies whether to include the Dummy broker for testing purposes
  *  @param callback     Code block to be executed after we have returned control of the view back to you
  */
-+(void) showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback;
-
++ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback;
 
 /**
  *  Create your own instance to have more control over defaults/callbacks, after setting all properties call showTicket

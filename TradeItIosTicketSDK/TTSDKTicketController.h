@@ -40,15 +40,6 @@
 @property TradeItConnector * connector;
 @property NSDictionary * currentAccount;
 
-@property NSString * initialSymbol;
-@property NSString * initialCompanyName;
-@property NSString * initialAction;
-@property int initialQuantity;
-@property NSString * initialExpiration;
-@property double initialLastPrice;
-@property NSNumber * initialPriceChangeDollar;
-@property NSNumber * initialPriceChangePercentage;
-
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
 
@@ -65,12 +56,14 @@
 - (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)addAccounts: (NSArray *)accounts;
 - (void)selectAccount:(NSDictionary *) account;
-- (void)createInitialTradeRequest;
 - (void)unlinkAccounts;
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
 - (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;
+- (void)createInitialTradeRequest;
+-(void) createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
 
 @end

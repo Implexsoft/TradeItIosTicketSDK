@@ -268,14 +268,36 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) createInitialTradeRequest {
     self.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
-    
-    if (self.initialAction) {
-        [self.tradeRequest setOrderAction:self.initialAction];
+
+    [self.tradeRequest setOrderAction:@"buy"];
+
+    if (self.position && self.position.symbol) {
+        [self.tradeRequest setOrderSymbol: self.position.symbol];
     }
-    
-    if (self.initialSymbol) {
-        [self.tradeRequest setOrderSymbol:self.initialSymbol];
+
+    [self.tradeRequest setOrderPriceType:@"market"];
+}
+
+-(void) createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity {
+    self.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
+
+    if (action) {
+        [self.tradeRequest setOrderAction: action];
+    } else {
+        [self.tradeRequest setOrderAction: @"buy"];
     }
+
+    if (symbol) {
+        [self.tradeRequest setOrderSymbol: symbol];
+    }
+
+    if (quantity) {
+        [self.tradeRequest setOrderQuantity: quantity];
+    } else {
+        [self.tradeRequest setOrderQuantity: @1];
+    }
+
+    [self.tradeRequest setOrderPriceType: @"market"];
 }
 
 -(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
@@ -283,6 +305,18 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         completionBlock(res);
     }];
 }
+
+
+
+#pragma mark - Positions and Balances
+
+-(void) createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice {
+    self.position = [[TradeItPosition alloc] init];
+
+    [self.position setLastPrice:lastPrice];
+    [self.position setSymbol:symbol];
+}
+
 
 
 #pragma mark - Broker Utilities

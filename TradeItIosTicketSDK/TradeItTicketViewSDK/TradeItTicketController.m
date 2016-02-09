@@ -47,36 +47,32 @@
     [TradeItTicketController forceClassesIntoLinker];
 
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-    ticketController.apiKey = apiKey;
-    ticketController.callback = callback;
-    ticketController.parentView = view;
-    ticketController.debugMode = debug;
-    ticketController.portfolioMode = YES;
+
+    [ticketController setApiKey: apiKey];
+    [ticketController setCallback: callback];
+    [ticketController setParentView: view];
+    [ticketController setDebugMode: debug];
+    [ticketController setPortfolioMode: YES];
 
     [self showTicket];
 }
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
-    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol lastPrice:0 orderAction:nil viewController:view withDebug:NO onCompletion:nil];
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol lastPrice:0 orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
 }
 
-+ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
 
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-    ticketController.apiKey = apiKey;
 
-    ticketController.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
-    ticketController.tradeRequest.orderSymbol = [symbol uppercaseString];
-    ticketController.tradeRequest.orderAction = action;
-
-    ticketController.position = [[TradeItPosition alloc] init];
-    ticketController.position.lastPrice = [NSNumber numberWithDouble:lastPrice];
-
-    ticketController.callback = callback;
-    ticketController.parentView = view;
-    ticketController.debugMode = debug;
-    ticketController.portfolioMode = NO;
+    [ticketController setApiKey: apiKey];
+    [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
+    [ticketController createInitialTradeRequestWithSymbol:[symbol uppercaseString] andAction:action andQuantity:quantity];
+    [ticketController setCallback: callback];
+    [ticketController setParentView: view];
+    [ticketController setDebugMode: debug];
+    [ticketController setPortfolioMode: NO];
 
     [self showTicket];
 }
@@ -85,13 +81,12 @@
     self = [super init];
 
     if (self) {
-        TTSDKTicketController * controller = [TTSDKTicketController globalController];
-        controller.apiKey = apiKey;
-        controller.initialSymbol = [symbol uppercaseString];
-        controller.initialLastPrice = lastPrice;
-        controller.parentView = view;
-        controller.tradeRequest = [[TradeItPreviewTradeRequest alloc] init];
-        controller.position = [[TradeItPosition alloc] init];
+        TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+
+        [ticketController setApiKey:apiKey];
+        [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
+        [ticketController createInitialTradeRequest]; // will set trade request to default values
+        [ticketController setParentView:view];
     }
 
     return self;
@@ -100,71 +95,75 @@
 - (void)showTicket {
     utils = [TTSDKUtils sharedUtils];
 
-    TTSDKTicketController * controller = [TTSDKTicketController globalController];
+    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
 
     if(self.quantity > 0) {
-        controller.tradeRequest.orderQuantity = [NSNumber numberWithInt:self.quantity];
+        [ticketController.tradeRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
-        controller.tradeRequest.orderAction = self.action;
+        [ticketController.tradeRequest setOrderAction: self.action];
     }
 
     if (self.orderType != nil && ![self.orderType isEqualToString:@""]) {
-        controller.tradeRequest.orderPriceType = self.orderType;
+        [ticketController.tradeRequest setOrderPriceType: self.orderType];
     }
 
     if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
-        controller.tradeRequest.orderExpiration = self.expiration;
+        [ticketController.tradeRequest setOrderExpiration: self.expiration];
     }
 
     if(self.debugMode) {
-        controller.debugMode = YES;
+        [ticketController setDebugMode: YES];
     }
 
     if(self.onCompletion != nil) {
-        controller.callback = self.onCompletion;
+        [ticketController setCallback: self.onCompletion];
     }
 
     if(self.refreshQuote) {
-        controller.refreshQuote = self.refreshQuote;
+        [ticketController setRefreshQuote: self.refreshQuote];
     } else if(self.refreshLastPrice != nil) {
-        controller.refreshLastPrice = self.refreshLastPrice;
+        [ticketController setRefreshLastPrice: self.refreshLastPrice];
     }
 
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
-        controller.positionCompanyName = self.companyName;
+        [ticketController setPositionCompanyName: self.companyName];
     }
 
     if(self.priceChangeDollar != nil) {
-        controller.position.totalGainLossDollar = self.priceChangeDollar;
+        [ticketController.position setTotalGainLossDollar: self.priceChangeDollar];
     }
 
     if(self.priceChangePercentage != nil) {
-        controller.position.totalGainLossPercentage = self.priceChangePercentage;
+        [ticketController.position setTotalGainLossPercentage: self.priceChangePercentage];
     }
 
     [TradeItTicketController showTicket];
 }
 
 +(void) showTicket {
-    TTSDKTicketController * controller = [TTSDKTicketController globalController];
-    controller.resultContainer = [[TradeItTicketControllerResult alloc] initNoBrokerStatus];
-    [controller showTicket];
+    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+
+    [ticketController setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
+    [ticketController showTicket];
 }
 
 + (void)clearSavedData {
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+
     [ticketController unlinkAccounts];
 }
 
 + (NSArray *)getLinkedBrokers {
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+
     return [ticketController getLinkedLogins];
 }
 
 + (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+
     return [ticketController getBrokerDisplayString: brokerIdentifier];
 }
 
