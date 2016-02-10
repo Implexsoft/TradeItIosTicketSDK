@@ -34,7 +34,15 @@
 
 @implementation TTSDKPortfolioHoldingTableViewCell
 
+
+
+#pragma mark - Constants
+
 static CGFloat const kBounceValue = 20.0f;
+
+
+
+#pragma mark - Initialization
 
 - (void) awakeFromNib {
     [super awakeFromNib];
@@ -43,6 +51,10 @@ static CGFloat const kBounceValue = 20.0f;
     self.panRecognizer.delegate = self;
     [self.primaryView addGestureRecognizer:self.panRecognizer];
 }
+
+
+
+#pragma mark - Configuration
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -55,6 +67,38 @@ static CGFloat const kBounceValue = 20.0f;
 -(void) showSeparator {
     self.separatorView.hidden = NO;
 }
+
+-(void) configureCellWithData:(NSDictionary *)data {
+    NSString * symbol = [data valueForKey:@"symbol"];
+    NSString * cost = [data valueForKey:@"cost"];
+    NSString * change = [data valueForKey:@"change"];
+    
+    NSString * bid = [data valueForKey:@"bid"];
+    NSString * ask = [data valueForKey:@"ask"];
+    NSString * totalValue = [data valueForKey:@"totalValue"];
+    NSString * dailyReturn = [data valueForKey:@"dailyReturn"];
+    NSString * totalReturn = [data valueForKey:@"totalReturn"];
+    
+    self.symbolLabel.text = symbol;
+    self.costLabel.text = cost;
+    self.changeLabel.text = change;
+    
+    self.bidLabel.text = bid;
+    self.askLabel.text = ask;
+    self.totalValueLabel.text = totalValue;
+    self.dailyReturnValue.text = dailyReturn;
+    self.totalReturnValueLabel.text = totalReturn;
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+-(CGFloat) secondaryViewWidth {
+    return self.secondaryView.frame.size.width;
+}
+
+
+
+#pragma mark - Custom UI
 
 -(void) panCell:(UIPanGestureRecognizer *)recognizer {
     switch (recognizer.state) {
@@ -136,10 +180,6 @@ static CGFloat const kBounceValue = 20.0f;
     }
 }
 
--(CGFloat) secondaryViewWidth {
-    return self.secondaryView.frame.size.width;
-}
-
 -(void) updateConstraintsIfNeeded:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     float duration = 0;
     if (animated) {
@@ -187,28 +227,6 @@ static CGFloat const kBounceValue = 20.0f;
     }];
 }
 
--(void) configureCellWithData:(NSDictionary *)data {
-    NSString * symbol = [data valueForKey:@"symbol"];
-    NSString * cost = [data valueForKey:@"cost"];
-    NSString * change = [data valueForKey:@"change"];
 
-    NSString * bid = [data valueForKey:@"bid"];
-    NSString * ask = [data valueForKey:@"ask"];
-    NSString * totalValue = [data valueForKey:@"totalValue"];
-    NSString * dailyReturn = [data valueForKey:@"dailyReturn"];
-    NSString * totalReturn = [data valueForKey:@"totalReturn"];
-
-    self.symbolLabel.text = symbol;
-    self.costLabel.text = cost;
-    self.changeLabel.text = change;
-
-    self.bidLabel.text = bid;
-    self.askLabel.text = ask;
-    self.totalValueLabel.text = totalValue;
-    self.dailyReturnValue.text = dailyReturn;
-    self.totalReturnValueLabel.text = totalReturn;
-
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
 
 @end

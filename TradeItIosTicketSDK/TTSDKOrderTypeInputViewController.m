@@ -34,6 +34,10 @@
 
 @implementation TTSDKOrderTypeInputViewController
 
+
+
+#pragma mark - Orientation
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
@@ -42,6 +46,10 @@
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
+
+
+
+#pragma mark - Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -101,6 +109,10 @@
     [self checkIfReadyToSubmit];
 }
 
+
+
+#pragma mark - Delegate Methods
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     BOOL isLimit = textField == self.limitPriceField;
     BOOL isStop = textField == self.stopPriceField;
@@ -113,6 +125,10 @@
 
     return NO;
 }
+
+
+
+#pragma mark - Events
 
 - (IBAction)limitPricePressed:(id)sender {
     self.currentFocus = @"limitPrice";
@@ -137,6 +153,10 @@
         [self stopPriceChangedByProxy:key];
     }
 }
+
+
+
+#pragma mark - Keypad Events
 
 -(void) limitPriceChangedByProxy:(NSInteger) key {
     NSString * currentLimitPrice = self.limitPrice == nil ? @"" : self.limitPrice;
@@ -184,6 +204,10 @@
     [self checkIfReadyToSubmit];
 }
 
+
+
+#pragma mark - State
+
 -(BOOL) checkIfReadyToSubmit {
     BOOL isReady = NO;
 
@@ -206,6 +230,10 @@
     return isReady;
 }
 
+
+
+#pragma mark - Navigation
+
 -(IBAction) submitButtonPressed:(id)sender {
     NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
     nf.numberStyle = NSNumberFormatterDecimalStyle;
@@ -224,5 +252,7 @@
 
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
 
 @end

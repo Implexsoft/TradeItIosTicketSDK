@@ -20,6 +20,10 @@
 
 @implementation TTSDKOrderTypeSelectionViewController
 
+
+
+#pragma mark - Orientation
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
@@ -29,11 +33,17 @@
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     globalController = [TTSDKTicketController globalController];
 }
+
+
 
 #pragma mark - Navigation
 
@@ -66,5 +76,7 @@
     self.orderType = @"stopLimit";
     [self performSegueWithIdentifier:@"OrderTypeSelectionToInput" sender:self];
 }
+
+
 
 @end

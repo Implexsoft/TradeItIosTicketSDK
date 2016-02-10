@@ -19,6 +19,8 @@
 
 
 
+#pragma mark - Initialization
+
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
@@ -26,6 +28,10 @@
 
     return self;
 }
+
+
+
+#pragma mark - Configuration
 
 -(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct {
     [self populateSymbol:symbol];

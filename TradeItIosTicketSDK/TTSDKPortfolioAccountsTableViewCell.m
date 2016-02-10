@@ -14,17 +14,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
 
-
 @end
 
 @implementation TTSDKPortfolioAccountsTableViewCell
 
+
+
+#pragma mark - Initialization
+
 -(void) awakeFromNib {
+    [super awakeFromNib];
 }
 
--(void) setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
+
+
+#pragma mark - Configuration
 
 -(void) configureCellWithData:(NSDictionary *)data {
     NSString * accountName = [data valueForKey:@"acctName"];
@@ -35,5 +39,11 @@
     self.valueLabel.text = totalValue;
     self.buyingPowerLabel.text = buyingPower;
 }
+
+-(void) setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+}
+
+
 
 @end

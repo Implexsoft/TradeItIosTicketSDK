@@ -24,9 +24,6 @@
 @property NSArray * questionOptions;
 @property NSDictionary * currentAccount;
 
-@property TTSDKUtils * utils;
-@property TTSDKTicketController * globalController;
-
 -(void) sendReviewRequest;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
 -(void) showOldOrderAction;

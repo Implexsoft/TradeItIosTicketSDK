@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 
 @interface TTSDKPortfolioViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property TTSDKTicketSession * tradeSession;
 
 @end

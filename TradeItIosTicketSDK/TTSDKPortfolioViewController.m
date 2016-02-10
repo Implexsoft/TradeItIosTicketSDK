@@ -7,16 +7,19 @@
 //
 
 #import "TTSDKPortfolioViewController.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
 
-@interface TTSDKPortfolioViewController ()
+@interface TTSDKPortfolioViewController () {
+    TTSDKTicketController * globalController;
+    TTSDKUtils * utils;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
-@property TTSDKUtils * utils;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property NSArray * testAccounts;
@@ -31,12 +34,19 @@
 
 @end
 
-
 @implementation TTSDKPortfolioViewController
+
+
+
+#pragma mark - Constants
 
 static float kHoldingCellDefaultHeight = 60.0f;
 static float kHoldingCellExpandedHeight = 132.0f;
 static float kAccountCellHeight = 44.0f;
+
+
+
+#pragma mark - Orientation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -47,8 +57,12 @@ static float kAccountCellHeight = 44.0f;
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 -(void) viewDidLoad {
-//    self.tradeSession = [TTSDKTicketSession globalSession];
+    globalController = [TTSDKTicketController globalController];
 
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
@@ -152,6 +166,10 @@ static float kAccountCellHeight = 44.0f;
     [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
+
+
+#pragma mark - Table Delegate Methods
+
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     tableView.alwaysBounceVertical = NO;
     tableView.scrollEnabled = NO;
@@ -163,6 +181,49 @@ static float kAccountCellHeight = 44.0f;
         return self.testHoldings.count;
     } else {
         return self.testAccounts.count;
+    }
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString * cellIdentifier;
+    NSString * nibIdentifier;
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    
+    if ([self isHoldingsTable:tableView]) {
+        cellIdentifier = @"PortfolioHoldingIdentifier";
+        nibIdentifier = @"TTSDKPortfolioHoldingCell";
+        TTSDKPortfolioHoldingTableViewCell * cell = (TTSDKPortfolioHoldingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        }
+        
+        [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
+        
+        if (indexPath.row == 0) {
+            [cell hideSeparator];
+        } else {
+            [cell showSeparator];
+        }
+        
+        cell.clipsToBounds = YES;
+        
+        return cell;
+    } else {
+        cellIdentifier = @"PortfolioAccountIdentifier";
+        nibIdentifier = @"TTSDKPortfolioAccountCell";
+        TTSDKPortfolioAccountsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        }
+        
+        [cell configureCellWithData:[self.testAccounts objectAtIndex:indexPath.row]];
+        
+        return cell;
     }
 }
 
@@ -211,6 +272,10 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
+
+
+#pragma mark - Custom UI
+
 -(void) resizeUIComponents {
     self.holdingsHeightConstraint.constant = self.holdingsTable.contentSize.height;
     self.accountsHeightConstraint.constant = self.accountsTable.contentSize.height;
@@ -232,59 +297,17 @@ static float kAccountCellHeight = 44.0f;
     [scrollView setContentSize:contentRect.size];
 }
 
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * cellIdentifier;
-    NSString * nibIdentifier;
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-
-    if ([self isHoldingsTable:tableView]) {
-        cellIdentifier = @"PortfolioHoldingIdentifier";
-        nibIdentifier = @"TTSDKPortfolioHoldingCell";
-        TTSDKPortfolioHoldingTableViewCell * cell = (TTSDKPortfolioHoldingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
-        if (cell == nil) {
-            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        }
-
-        [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
-
-        if (indexPath.row == 0) {
-            [cell hideSeparator];
-        } else {
-            [cell showSeparator];
-        }
-
-        cell.clipsToBounds = YES;
-
-        return cell;
-    } else {
-        cellIdentifier = @"PortfolioAccountIdentifier";
-        nibIdentifier = @"TTSDKPortfolioAccountCell";
-        TTSDKPortfolioAccountsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
-        if (cell == nil) {
-            [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        }
-
-        [cell configureCellWithData:[self.testAccounts objectAtIndex:indexPath.row]];
-
-        return cell;
-    }
-}
-
 -(BOOL) isHoldingsTable:(UITableView *)tableView {
     // the accounts table tag is 0 and the holdings table tag is 1
     return tableView.tag == 1;
 }
 
 
+
 #pragma mark - Navigation
 
 - (IBAction)closePressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [globalController returnToParentApp];
 }
 
 - (IBAction)editAccountsPressed:(id)sender {

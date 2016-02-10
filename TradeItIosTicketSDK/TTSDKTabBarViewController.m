@@ -8,11 +8,11 @@
 
 #import "TTSDKTabBarViewController.h"
 
-@interface TTSDKTabBarViewController ()
-
-@end
-
 @implementation TTSDKTabBarViewController
+
+
+
+#pragma mark - Rotation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -23,9 +23,14 @@
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
+
 
 
 @end
