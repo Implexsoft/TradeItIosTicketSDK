@@ -71,9 +71,7 @@
     [self initConstraints];
     [self uiTweaks];
 
-    if (!globalController.tradeRequest) {
-        [globalController createInitialTradeRequest];
-    }
+    [globalController createInitialTradeRequest];
 
     if(globalController.tradeRequest.orderQuantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.tradeRequest.orderQuantity intValue]]];

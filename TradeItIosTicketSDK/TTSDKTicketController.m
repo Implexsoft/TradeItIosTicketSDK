@@ -78,7 +78,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     //Get brokers
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
-
         // set brokers
         if(brokerList == nil) {
             self.brokerList = [self getDefaultBrokerList];
@@ -148,6 +147,13 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         
         [self.parentView presentViewController:nav animated:YES completion:nil];
     } else {
+
+        [self createSession];
+
+        [session authenticate:self.currentLogin withCompletionBlock:^(TradeItResult * res) {
+            // nothing to do here
+        }];
+
         UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
         [tab setModalPresentationStyle:UIModalPresentationFullScreen];
 
@@ -165,20 +171,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 #pragma mark - Authentication
 
+-(void) createSession {
+    session = [[TradeItSession alloc] initWithConnector:self.connector];
+}
+
 -(void) authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     [self.connector linkBrokerWithAuthenticationInfo:authInfo andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
             completionBlock(res);
             return;
         }
-        
+
         TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
         
         self.currentLogin = [self.connector saveLinkToKeychain:result withBroker:authInfo.broker];
         
         self.currentBroker = authInfo.broker;
-        
-        session = [[TradeItSession alloc] initWithConnector:self.connector];
+
+        [self createSession];
         [session authenticate:self.currentLogin withCompletionBlock:completionBlock];
     }];
 }
@@ -303,6 +313,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         [self.tradeRequest setOrderSymbol: self.position.symbol];
     }
 
+    if (self.currentAccount) {
+        [self.tradeRequest setAccountNumber: [self.currentAccount valueForKey: @"accountNumber"]];
+    }
+
     [self.tradeRequest setOrderPriceType:@"market"];
 }
 
@@ -329,9 +343,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
+    tradeService = [[TradeItTradeService alloc] initWithSession: session];
+
     [tradeService previewTrade:self.tradeRequest withCompletionBlock:^(TradeItResult * res){
         completionBlock(res);
     }];
+}
+
+-(void) placeTrade:(void (^)(TradeItResult *)) completionBlock {
+    [tradeService placeTrade: self.placeTradeRequest withCompletionBlock: completionBlock];
 }
 
 

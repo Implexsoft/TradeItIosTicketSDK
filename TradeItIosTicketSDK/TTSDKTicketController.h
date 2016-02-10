@@ -17,6 +17,8 @@
 #import "TradeItPreviewTradeOrderDetails.h"
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
+#import "TradeItPlaceTradeRequest.h"
+#import "TradeItPlaceTradeResult.h"
 #import "TradeItPosition.h"
 
 @interface TTSDKTicketController : NSObject
@@ -45,6 +47,9 @@
 
 @property TradeItPreviewTradeRequest * tradeRequest;
 @property TradeItPosition * position;
+
+@property TradeItPlaceTradeRequest * placeTradeRequest;
+
 @property NSString * positionCompanyName;
 
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
@@ -63,6 +68,7 @@
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
 - (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
+- (void)placeTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;
 - (void)createInitialTradeRequest;
 - (void)createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;

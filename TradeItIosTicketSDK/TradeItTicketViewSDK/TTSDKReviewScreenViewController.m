@@ -8,6 +8,8 @@
 
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
+#import "TTSDKTicketController.h"
+#import "TradeItPlaceTradeResult.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKReviewScreenViewController () {
@@ -56,6 +58,9 @@
     int ackLabelsToggled;
 
     TTSDKUtils * utils;
+    TTSDKTicketController * globalController;
+
+    TradeItPlaceTradeResult * placeTradeResult;
 }
 
 @end
@@ -76,15 +81,16 @@ static float kMessageSeparatorHeight = 30.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.tradeSession = [TTSDKTicketSession globalSession];
-
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
 
     utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
 
     // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
+
+    self.reviewTradeResult = globalController.resultContainer.reviewResponse;
 
     [self updateUIWithReviewResult];
 
@@ -102,66 +108,66 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 -(void) updateUIWithReviewResult {
-//    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-//    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-//    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-//    [formatter setLocale: US];
-//
-//    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
-//    [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
-//    [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
-//    
-//    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[[self result] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-//        [self hideElement:sharesLongVL];
-//        [self hideElement:sharesLongVV];
-//    } else {
-//        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
-//    }
-//    
-//    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self result] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-//        [self hideElement:sharesShortVL];
-//        [self hideElement:sharesShortVV];
-//    } else {
-//        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"shortHoldings"]]];
-//    }
-//    
-//    if(![[[self result] orderDetails] valueForKey:@"buyingPower"] && ![[[self result] orderDetails] valueForKey:@"availableCash"]) {
-//        [self hideElement:buyingPowerVL];
-//        [self hideElement:buyingPowerVV];
-//    } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
-//        [buyingPowerLabel setText:@"Buying Power"];
-//        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
-//    } else {
-//        [buyingPowerLabel setText:@"Avail. Cash"];
-//        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"availableCash"]]];
-//    }
-//    
-//    if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
-//        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
-//    } else {
-//        [self hideElement:estimatedFeesVL];
-//        [self hideElement:estimatedFeesVV];
-//    }
-//    
-//    if([[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
-//        [estimateCostLabel setText:@"Estimated Proceeds"];
-//    } else {
-//        [estimateCostLabel setText:@"Estimated Cost"];
-//    }
-//    
-//    if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
-//        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
-//    } else {
-//        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
-//    }
-//    
-//    for(NSString * warning in [[self result] warningsList]) {
-//        [self addReviewMessage: warning];
-//    }
-//    
-//    for(NSString * warning in [[self result] ackWarningsList]) {
-//        [self addAcknowledgeMessage: warning];
-//    }
+    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setLocale: US];
+
+    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
+    [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
+    [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
+    
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+        [self hideElement:sharesLongVL];
+        [self hideElement:sharesLongVV];
+    } else {
+        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"]]];
+    }
+    
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+        [self hideElement:sharesShortVL];
+        [self hideElement:sharesShortVV];
+    } else {
+        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"]]];
+    }
+    
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] && ![[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]) {
+        [self hideElement:buyingPowerVL];
+        [self hideElement:buyingPowerVV];
+    } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]) {
+        [buyingPowerLabel setText:@"Buying Power"];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]]];
+    } else {
+        [buyingPowerLabel setText:@"Avail. Cash"];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
+    }
+    
+    if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
+        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+    } else {
+        [self hideElement:estimatedFeesVL];
+        [self hideElement:estimatedFeesVV];
+    }
+    
+    if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
+        [estimateCostLabel setText:@"Estimated Proceeds"];
+    } else {
+        [estimateCostLabel setText:@"Estimated Cost"];
+    }
+    
+    if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+    } else {
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+    }
+    
+    for(NSString * warning in [[self reviewTradeResult] warningsList]) {
+        [self addReviewMessage: warning];
+    }
+    
+    for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
+        [self addAcknowledgeMessage: warning];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -179,7 +185,7 @@ static float kMessageSeparatorHeight = 30.0f;
                                             multiplier:1
                                             constant:1];
     heightConstraint.priority = 900;
-    
+
     [self.view addConstraint:heightConstraint];
 }
 
@@ -388,6 +394,13 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) sendTradeRequest {
+
+    globalController.placeTradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
+
+    [globalController placeTrade:^(TradeItResult *result) {
+        [self tradeRequestRecieved: result];
+    }];
+
 //    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
 //        [self tradeRequestRecieved:result];
 //    }];
@@ -397,6 +410,12 @@ static float kMessageSeparatorHeight = 30.0f;
     [utils styleMainActiveButton:submitOrderButton];
 
     //success
+    if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
+        globalController.resultContainer.status = SUCCESS;
+        globalController.resultContainer.placeResponse = (TradeItPlaceTradeResult *) result;
+        [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
+    }
+
 //    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
 //        self.tradeSession.resultContainer.status = SUCCESS;
 //        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;

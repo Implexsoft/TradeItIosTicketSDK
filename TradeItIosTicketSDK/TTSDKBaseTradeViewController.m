@@ -8,6 +8,7 @@
 
 #import "TTSDKBaseTradeViewController.h"
 #import "TTSDKTradeItTicket.h"
+#import "TradeItTradeService.h"
 
 @interface TTSDKBaseTradeViewController() {
     TTSDKTicketController * globalController;
@@ -89,7 +90,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
             globalController.resultContainer.status = USER_CANCELED;
             globalController.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
-            
+
             [self performSegueWithIdentifier:@"TradeToReview" sender:self];
         } else if([res isKindOfClass:[TradeItErrorResult class]]){
             NSString * errorMessage = @"Could Not Complete Your Order";
