@@ -17,7 +17,6 @@
 
 @end
 
-
 @interface TTSDKAccountLinkTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id<TTSDKAccountLinkDelegate> delegate;

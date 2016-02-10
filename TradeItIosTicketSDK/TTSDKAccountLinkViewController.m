@@ -16,13 +16,14 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property TTSDKUtils * sharedUtils;
-
-@property NSArray * testingData;
 
 @end
 
 @implementation TTSDKAccountLinkViewController
+
+
+
+#pragma mark - Rotation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -33,6 +34,10 @@
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -40,29 +45,16 @@
     globalController = [TTSDKTicketController globalController];
 
     [utils styleMainActiveButton:self.doneButton];
-
-    self.testingData = @[
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Fidelity",@"broker",
-                          @"Fidelity*7221",@"accountName",
-                          @"Brokerage",@"accountType",
-                          @"$12,340",@"buyingPower",
-                          @"1",@"linked",
-                          nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Robinhood",@"broker",
-                          @"Robinhood*3748",@"accountName",
-                          @"IRA",@"accountType",
-                          @"$642",@"buyingPower",
-                          @"0",@"linked",
-                          nil]
-                         ];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+#pragma mark - Table Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return globalController.accounts.count;
@@ -90,6 +82,10 @@
     return cell;
 }
 
+
+
+#pragma mark - Custom Delegate Methods
+
 - (void)linkToggleDidSelect:(NSDictionary *)account {
     NSNumber * active = [account valueForKey: @"active"];
     NSMutableArray * mutableAccounts = [globalController.accounts mutableCopy];
@@ -110,6 +106,10 @@
     globalController.accounts = [mutableAccounts copy];
 }
 
+
+
+#pragma mark - Navigation
+
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -118,12 +118,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-}
 
 
 @end

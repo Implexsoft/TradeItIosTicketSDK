@@ -14,7 +14,6 @@
     NSDictionary * accountData;
 }
 
-
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circleGraphic;
@@ -23,22 +22,19 @@
 
 @implementation TTSDKAccountLinkTableViewCell
 
--(void) awakeFromNib {
-    // Initialization code
 
+
+#pragma mark - Initialization
+
+-(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
 }
 
--(IBAction) togglePressed:(id)sender {
-    self.linked = NO;
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:)]) {
-        [self.delegate linkToggleDidSelect: accountData];
-    }
-}
+
+#pragma mark - Configuration
 
 -(void) configureCellWithData:(NSDictionary *)data {
-
     accountData = data;
 
     NSString * buyingPower = [data valueForKey:@"buyingPower"] ? [data valueForKey:@"buyingPower"] : @"100";
@@ -60,5 +56,19 @@
     self.circleGraphic.backgroundColor = [UIColor clearColor];
     [self.circleGraphic.layer addSublayer:circleLayer];
 }
+
+
+
+#pragma mark - Custom Recognizers
+
+-(IBAction) togglePressed:(id)sender {
+    self.linked = NO;
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:)]) {
+        [self.delegate linkToggleDidSelect: accountData];
+    }
+}
+
+
 
 @end

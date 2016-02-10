@@ -16,7 +16,15 @@
     TTSDKTicketController * globalController;
 }
 
+
+
+#pragma mark - Constants
+
 static NSString * kCellIdentifier = @"BrokerCell";
+
+
+
+#pragma mark - Orientation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -26,6 +34,10 @@ static NSString * kCellIdentifier = @"BrokerCell";
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
+
+
+
+#pragma mark - Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -56,6 +68,31 @@ static NSString * kCellIdentifier = @"BrokerCell";
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
+
+
+
+#pragma mark - Table Delegate Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [brokers count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
+    
+    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
+    [cell configureCellWithText:displayText];
+    
+    return cell;
+}
+
+
+
+#pragma mark - Custom UI
 
 -(void) showLoadingAndWait {
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -100,45 +137,7 @@ static NSString * kCellIdentifier = @"BrokerCell";
 
 
 
-#pragma mark - iOS7 fallback
-
--(void) showOldErrorAlert {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [globalController returnToParentApp];
-}
-
-
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [brokers count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
-
-    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
-    [cell configureCellWithText:displayText];
-
-    return cell;
-}
-
-
-
-#pragma mark - events
+#pragma mark - Navigation
 
 - (IBAction)closePressed:(id)sender {
     if(globalController.brokerSignUpCallback) {
@@ -163,6 +162,24 @@ static NSString * kCellIdentifier = @"BrokerCell";
 - (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
     
 }
+
+
+
+#pragma mark - iOS7 fallback
+
+-(void) showOldErrorAlert {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [globalController returnToParentApp];
+}
+
 
 
 @end

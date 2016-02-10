@@ -10,9 +10,10 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKUtils.h"
 
-@interface TTSDKOnboardingViewController ()
+@interface TTSDKOnboardingViewController () {
+    TTSDKUtils * utils;
+}
 
-@property TTSDKUtils * utils;
 @property (weak, nonatomic) IBOutlet UIButton * brokerSelectButton;
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 
@@ -20,7 +21,15 @@
 
 @implementation TTSDKOnboardingViewController
 
+
+
+#pragma mark - Constants
+
 static int kBulletContainerTag = 2;
+
+
+
+#pragma mark - Orientation
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -31,38 +40,43 @@ static int kBulletContainerTag = 2;
     [UIView setAnimationsEnabled:YES];
 }
 
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.tradeSession = [TTSDKTicketSession globalSession];
-
-    self.utils = [TTSDKUtils sharedUtils];
+    utils = [TTSDKUtils sharedUtils];
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
-            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor:self.utils.activeButtonColor];
+            CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:view.frame.size.width andColor:utils.activeButtonColor];
             [view.layer addSublayer:circleLayer];
         }
     }
 
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [self.tradeItLabel setAttributedText:poweredBy];
 
-    [self.utils styleCustomDropdownButton:self.brokerSelectButton];
+    [utils styleCustomDropdownButton:self.brokerSelectButton];
 }
 
-- (IBAction)closePressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-}
+
 
 #pragma mark - Navigation
 
 - (IBAction)brokerSelectPressed:(id)sender {
     [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
 }
+
+- (IBAction)closePressed:(id)sender {
+    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+}
+
 
 
 @end
