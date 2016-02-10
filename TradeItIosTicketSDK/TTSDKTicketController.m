@@ -315,6 +315,29 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
+-(void) switchAccounts:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    NSString * userId = [account valueForKey: @"UserId"];
+    NSArray * linkedLogins = [self getLinkedLogins];
+    
+    TradeItLinkedLogin * newLogin;
+    
+    for (TradeItLinkedLogin * login in linkedLogins) {
+        if ([login.userId isEqualToString: userId]) {
+            newLogin = login;
+            break;
+        }
+    }
+    
+    [self selectAccount: account];
+    self.currentBroker = [account valueForKey: @"broker"];
+    self.currentLogin = newLogin;
+    [self createSession];
+
+    [session authenticate:self.currentLogin withCompletionBlock:^(TradeItResult * result) {
+        completionBlock(result);
+    }];
+}
+
 
 
 #pragma mark - Trading

@@ -64,6 +64,7 @@
 - (NSArray *)retrieveLinkedAccounts;
 - (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
+- (void)switchAccounts:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
