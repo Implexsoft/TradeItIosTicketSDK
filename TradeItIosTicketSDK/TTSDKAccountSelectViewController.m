@@ -45,6 +45,7 @@
     [super viewWillAppear:animated];
 
     linkedAccounts = [globalController retrieveLinkedAccounts];
+
     [self.tableView reloadData];
 }
 
@@ -125,6 +126,19 @@
     [cell configureCellWithAccount: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
 
     return cell;
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AccountSelectToBrokerSelect"]) {
+        UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
+
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+        TTSDKBrokerSelectViewController * brokerSelectController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
+        brokerSelectController.isModal = YES;
+
+        [dest pushViewController:brokerSelectController animated:NO];
+    }
 }
 
 

@@ -87,7 +87,7 @@
 #pragma mark - Custom Delegate Methods
 
 - (void)linkToggleDidSelect:(NSDictionary *)account {
-    NSNumber * active = [account valueForKey: @"active"];
+    BOOL active = [[account valueForKey: @"active"] boolValue];
     NSMutableArray * mutableAccounts = [globalController.accounts mutableCopy];
 
     int i;
@@ -96,14 +96,13 @@
 
         if ([acct isEqualToDictionary: account]) {
             [acct setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
-
             [mutableAccounts setObject:acct atIndexedSubscript:i];
 
             break;
         }
     }
 
-    globalController.accounts = [mutableAccounts copy];
+    [globalController updateAccounts: [mutableAccounts copy]];
 }
 
 

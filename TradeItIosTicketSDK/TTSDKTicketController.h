@@ -57,6 +57,7 @@
 - (void)addAccounts: (NSArray *)accounts;
 - (void)selectAccount:(NSDictionary *) account;
 - (NSArray *)retrieveLinkedAccounts;
+- (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;

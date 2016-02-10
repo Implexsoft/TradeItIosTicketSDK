@@ -195,8 +195,12 @@
         NSArray * accounts = [result valueForKey:@"accounts"];
         [globalController addAccounts:accounts];
         [globalController selectAccount:(NSDictionary *)[accounts lastObject]];
-        
-        [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+
+        if (self.isModal) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+        }
     }
 }
 
@@ -265,10 +269,11 @@
 
     [picker setDataSource: self];
     [picker setDelegate: self];
-    picker.showsSelectionIndicator = YES;
-    [contentView addSubview:picker];
+    [picker setShowsSelectionIndicator: YES];
 
+    [contentView addSubview: picker];
     [contentView setNeedsDisplay];
+
     return contentView;
 }
 

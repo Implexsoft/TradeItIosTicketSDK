@@ -13,4 +13,6 @@
 
 @interface TTSDKBrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
+@property BOOL isModal;
+
 @end

@@ -21,6 +21,7 @@
 #pragma mark - Constants
 
 static NSString * kCellIdentifier = @"BrokerCell";
+static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
 
 
@@ -140,6 +141,11 @@ static NSString * kCellIdentifier = @"BrokerCell";
 #pragma mark - Navigation
 
 - (IBAction)closePressed:(id)sender {
+    if (self.isModal) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+
     if(globalController.brokerSignUpCallback) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = false;
@@ -152,9 +158,12 @@ static NSString * kCellIdentifier = @"BrokerCell";
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"brokerDetailSegue"]) {
+    if([segue.identifier isEqualToString:kBrokerToLoginSegueIdentifier]) {
         NSString * selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
-        [[segue destinationViewController] setAddBroker: selectedBroker];
+
+        TTSDKLoginViewController * dest = (TTSDKLoginViewController *)[segue destinationViewController];
+        [dest setIsModal: self.isModal];
+        [dest setAddBroker: selectedBroker];
     }
 }
 

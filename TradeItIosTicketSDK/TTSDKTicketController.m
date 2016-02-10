@@ -250,6 +250,14 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [defaults synchronize];
 }
 
+-(void) updateAccounts:(NSArray *)accounts {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: accounts forKey:kAccountsKey];
+    [defaults synchronize];
+
+    self.accounts = accounts;
+}
+
 -(void) selectAccount:(NSDictionary *) account {
     self.currentAccount = account;
 }
@@ -273,7 +281,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) unlinkAccounts {
-    
     NSArray * linkedLogins = [self.connector getLinkedLogins];
     
     int i;
