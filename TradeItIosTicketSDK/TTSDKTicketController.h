@@ -73,5 +73,6 @@
 - (void)createInitialTradeRequest;
 - (void)createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
 - (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
+- (void)retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock;
 
 @end

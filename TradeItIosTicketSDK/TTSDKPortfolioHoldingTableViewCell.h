@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TradeItPosition.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell : UITableViewCell
 
--(void) configureCellWithData:(NSDictionary *)data;
+-(void) configureCellWithPosition:(TradeItPosition *)position;
 -(void) hideSeparator;
 -(void) showSeparator;
 

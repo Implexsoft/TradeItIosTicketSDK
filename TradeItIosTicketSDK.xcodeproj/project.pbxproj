@@ -44,6 +44,14 @@
 		651405481C6BB5E000C16890 /* TradeItPlaceTradeOrderInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 651405471C6BB5E000C16890 /* TradeItPlaceTradeOrderInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6514054A1C6BB60B00C16890 /* TradeItPlaceTradeOrderInfoPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 651405491C6BB60B00C16890 /* TradeItPlaceTradeOrderInfoPrice.m */; };
 		6514054C1C6BB61900C16890 /* TradeItPlaceTradeOrderInfoPrice.h in Headers */ = {isa = PBXBuildFile; fileRef = 6514054B1C6BB61900C16890 /* TradeItPlaceTradeOrderInfoPrice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6514054F1C6BC54800C16890 /* TradeItBalanceService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6514054D1C6BC54800C16890 /* TradeItBalanceService.m */; };
+		651405501C6BC54800C16890 /* TradeItPositionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6514054E1C6BC54800C16890 /* TradeItPositionService.m */; };
+		651405531C6BC55F00C16890 /* TradeItBalanceService.h in Headers */ = {isa = PBXBuildFile; fileRef = 651405511C6BC55F00C16890 /* TradeItBalanceService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		651405541C6BC55F00C16890 /* TradeItPositionService.h in Headers */ = {isa = PBXBuildFile; fileRef = 651405521C6BC55F00C16890 /* TradeItPositionService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		651405571C6BC93900C16890 /* TradeItGetPositionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 651405551C6BC93900C16890 /* TradeItGetPositionsRequest.m */; };
+		651405581C6BC93900C16890 /* TradeItGetPositionsResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 651405561C6BC93900C16890 /* TradeItGetPositionsResult.m */; };
+		6514055B1C6BC94C00C16890 /* TradeItGetPositionsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 651405591C6BC94C00C16890 /* TradeItGetPositionsRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6514055C1C6BC94C00C16890 /* TradeItGetPositionsResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 6514055A1C6BC94C00C16890 /* TradeItGetPositionsResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		652A8FFA1C68EC120097CDE2 /* TradeItBrokerListResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECDD821C65351800ABCF56 /* TradeItBrokerListResult.m */; };
 		652A8FFB1C68EC120097CDE2 /* TradeItBrokerListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECDD831C65351800ABCF56 /* TradeItBrokerListRequest.m */; };
 		652A8FFF1C68EC1A0097CDE2 /* TradeItBrokerListResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECDD861C65353D00ABCF56 /* TradeItBrokerListResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -270,6 +278,14 @@
 		651405471C6BB5E000C16890 /* TradeItPlaceTradeOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPlaceTradeOrderInfo.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPlaceTradeOrderInfo.h; sourceTree = "<group>"; };
 		651405491C6BB60B00C16890 /* TradeItPlaceTradeOrderInfoPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPlaceTradeOrderInfoPrice.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPlaceTradeOrderInfoPrice.m; sourceTree = "<group>"; };
 		6514054B1C6BB61900C16890 /* TradeItPlaceTradeOrderInfoPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPlaceTradeOrderInfoPrice.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPlaceTradeOrderInfoPrice.h; sourceTree = "<group>"; };
+		6514054D1C6BC54800C16890 /* TradeItBalanceService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItBalanceService.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItBalanceService.m; sourceTree = "<group>"; };
+		6514054E1C6BC54800C16890 /* TradeItPositionService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPositionService.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPositionService.m; sourceTree = "<group>"; };
+		651405511C6BC55F00C16890 /* TradeItBalanceService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItBalanceService.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItBalanceService.h; sourceTree = "<group>"; };
+		651405521C6BC55F00C16890 /* TradeItPositionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPositionService.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPositionService.h; sourceTree = "<group>"; };
+		651405551C6BC93900C16890 /* TradeItGetPositionsRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItGetPositionsRequest.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItGetPositionsRequest.m; sourceTree = "<group>"; };
+		651405561C6BC93900C16890 /* TradeItGetPositionsResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItGetPositionsResult.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItGetPositionsResult.m; sourceTree = "<group>"; };
+		651405591C6BC94C00C16890 /* TradeItGetPositionsRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItGetPositionsRequest.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItGetPositionsRequest.h; sourceTree = "<group>"; };
+		6514055A1C6BC94C00C16890 /* TradeItGetPositionsResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItGetPositionsResult.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItGetPositionsResult.h; sourceTree = "<group>"; };
 		652A90011C690BD30097CDE2 /* TradeItPreviewTradeResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPreviewTradeResult.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeResult.m; sourceTree = "<group>"; };
 		652A90031C690BEC0097CDE2 /* TradeItPreviewTradeResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPreviewTradeResult.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeResult.h; sourceTree = "<group>"; };
 		6536130B1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOrderTypeSelectionViewController.h; sourceTree = "<group>"; };
@@ -543,6 +559,14 @@
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
+				651405591C6BC94C00C16890 /* TradeItGetPositionsRequest.h */,
+				6514055A1C6BC94C00C16890 /* TradeItGetPositionsResult.h */,
+				651405551C6BC93900C16890 /* TradeItGetPositionsRequest.m */,
+				651405561C6BC93900C16890 /* TradeItGetPositionsResult.m */,
+				651405511C6BC55F00C16890 /* TradeItBalanceService.h */,
+				651405521C6BC55F00C16890 /* TradeItPositionService.h */,
+				6514054D1C6BC54800C16890 /* TradeItBalanceService.m */,
+				6514054E1C6BC54800C16890 /* TradeItPositionService.m */,
 				6514054B1C6BB61900C16890 /* TradeItPlaceTradeOrderInfoPrice.h */,
 				651405491C6BB60B00C16890 /* TradeItPlaceTradeOrderInfoPrice.m */,
 				651405471C6BB5E000C16890 /* TradeItPlaceTradeOrderInfo.h */,
@@ -874,7 +898,11 @@
 				652A90001C68EC1A0097CDE2 /* TradeItBrokerListRequest.h in Headers */,
 				651405481C6BB5E000C16890 /* TradeItPlaceTradeOrderInfo.h in Headers */,
 				A9C0035F1B7264A4007D15F5 /* TradeItSecurityQuestionRequest.h in Headers */,
+				6514055B1C6BC94C00C16890 /* TradeItGetPositionsRequest.h in Headers */,
+				6514055C1C6BC94C00C16890 /* TradeItGetPositionsResult.h in Headers */,
 				A9C0035D1B7264A4007D15F5 /* TradeItResult.h in Headers */,
+				651405531C6BC55F00C16890 /* TradeItBalanceService.h in Headers */,
+				651405541C6BC55F00C16890 /* TradeItPositionService.h in Headers */,
 				A9C003771B7264A4007D15F5 /* TradeItTypeDefs.h in Headers */,
 				6514054C1C6BB61900C16890 /* TradeItPlaceTradeOrderInfoPrice.h in Headers */,
 				651405401C6BA23300C16890 /* TradeItPlaceTradeResult.h in Headers */,
@@ -1112,6 +1140,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651405571C6BC93900C16890 /* TradeItGetPositionsRequest.m in Sources */,
+				651405581C6BC93900C16890 /* TradeItGetPositionsResult.m in Sources */,
+				6514054F1C6BC54800C16890 /* TradeItBalanceService.m in Sources */,
+				651405501C6BC54800C16890 /* TradeItPositionService.m in Sources */,
 				6514054A1C6BB60B00C16890 /* TradeItPlaceTradeOrderInfoPrice.m in Sources */,
 				651405461C6BB5CD00C16890 /* TradeItPlaceTradeOrderInfo.m in Sources */,
 				651405421C6BB13400C16890 /* TradeItPlaceTradeRequest.m in Sources */,

@@ -8,7 +8,9 @@
 
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 
-@interface TTSDKPortfolioHoldingTableViewCell ()
+@interface TTSDKPortfolioHoldingTableViewCell () {
+//    TradeItPosition * position;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *sellButton;
 @property (weak, nonatomic) IBOutlet UIButton *buyButton;
@@ -68,17 +70,17 @@ static CGFloat const kBounceValue = 20.0f;
     self.separatorView.hidden = NO;
 }
 
--(void) configureCellWithData:(NSDictionary *)data {
-    NSString * symbol = [data valueForKey:@"symbol"];
-    NSString * cost = [data valueForKey:@"cost"];
-    NSString * change = [data valueForKey:@"change"];
+-(void) configureCellWithPosition:(TradeItPosition *)position {
+    NSString * symbol = position.symbol;
+    NSString * cost = [position.costbasis stringValue];
+    NSString * change = [position.todayGainLossDollar stringValue];
     
-    NSString * bid = [data valueForKey:@"bid"];
-    NSString * ask = [data valueForKey:@"ask"];
-    NSString * totalValue = [data valueForKey:@"totalValue"];
-    NSString * dailyReturn = [data valueForKey:@"dailyReturn"];
-    NSString * totalReturn = [data valueForKey:@"totalReturn"];
-    
+    NSString * bid = [position.lastPrice stringValue];
+    NSString * ask = [position.lastPrice stringValue];
+    NSString * totalValue = [position.totalGainLossDollar stringValue];
+    NSString * dailyReturn = [position.todayGainLossDollar stringValue];
+    NSString * totalReturn = [position.totalGainLossDollar stringValue];
+
     self.symbolLabel.text = symbol;
     self.costLabel.text = cost;
     self.changeLabel.text = change;

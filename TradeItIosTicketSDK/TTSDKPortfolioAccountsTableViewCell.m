@@ -30,15 +30,20 @@
 
 #pragma mark - Configuration
 
--(void) configureCellWithData:(NSDictionary *)data {
-    NSString * accountName = [data valueForKey:@"acctName"];
+-(void) configureCellWithAccount:(NSDictionary *)account {
+    NSString * accountName = [account valueForKey:@"name"];
+
+    self.accountLabel.text = accountName;
+}
+
+-(void) configureCellWithDetails:(NSDictionary *)data {
     NSString * totalValue = [data valueForKey:@"totalValue"];
     NSString * buyingPower = [data valueForKey:@"buyingPower"];
 
-    self.accountLabel.text = accountName;
     self.valueLabel.text = totalValue;
     self.buyingPowerLabel.text = buyingPower;
 }
+
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

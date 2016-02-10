@@ -13,11 +13,26 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TradeItErrorResult.h"
 #import "TradeItSession.h"
+#import "TradeItAuthenticationResult.h"
 #import "TradeItTradeService.h"
+#import "TradeItPositionService.h"
+#import "TradeItGetPositionsRequest.h"
+#import "TradeItGetPositionsResult.h"
+
+typedef void(^PositionsCompletionBlock)(NSArray *);
 
 @interface TTSDKTicketController() {
     TradeItSession * session;
     TradeItTradeService * tradeService;
+
+    NSNumber * positionsTotal;
+    NSNumber * positionsCounter;
+    NSTimer * positionsTimer;
+    NSNumber * balancesTotal;
+    NSNumber * balancesCounter;
+    NSTimer * balancesTimer;
+    PositionsCompletionBlock positionsBlock;
+    NSMutableArray * accountPositionsResult;
 }
 
 @end
@@ -365,6 +380,60 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self.position setSymbol:symbol];
 }
 
+-(void) retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock {
+    NSArray * linkedLogins = [self getLinkedLogins];
+
+    NSMutableArray * positions = [[NSMutableArray alloc] init];
+
+    positionsBlock = completionBlock;
+    accountPositionsResult = [[NSMutableArray alloc] init];
+
+    positionsTotal = [NSNumber numberWithInteger: accounts.count];
+    positionsCounter = @0;
+    positionsTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkPositionsCount) userInfo:positions repeats:YES];
+
+    int i;
+    for (i = 0; i < accounts.count; i++) {
+        NSDictionary * account = (NSDictionary *)[accounts objectAtIndex: i];
+        TradeItLinkedLogin * selectedLogin;
+
+        for (TradeItLinkedLogin * login in linkedLogins) {
+            if ([login.userId isEqualToString: [account valueForKey:@"UserId"]]) {
+                selectedLogin = login;
+                break;
+            }
+        }
+
+        TradeItSession * tempSession = [[TradeItSession alloc] initWithConnector:self.connector];
+        [tempSession authenticate:selectedLogin withCompletionBlock:^(TradeItResult * result) {
+            if ([result isKindOfClass: TradeItErrorResult.class]) {
+                return;
+            } else {
+                TradeItGetPositionsRequest * tempRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber: [account valueForKey: @"accountNumber"]];
+
+                TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: tempSession];
+                [positionService getAccountPositions: tempRequest  withCompletionBlock:^(TradeItResult * result) {
+                    if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
+                        TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
+                        positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
+                        [accountPositionsResult addObjectsFromArray: positionsResult.positions];
+
+                        [positions addObject:positionsResult.positions];
+                    }
+                }];
+            }
+        }];
+    }
+}
+
+-(void)checkPositionsCount {
+    if ([positionsCounter isEqualToNumber: positionsTotal]) {
+        [positionsTimer invalidate];
+        positionsTimer = nil;
+
+        positionsBlock(accountPositionsResult);
+    }
+}
 
 
 #pragma mark - Broker Utilities

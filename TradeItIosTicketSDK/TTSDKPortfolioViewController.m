@@ -16,6 +16,8 @@
 @interface TTSDKPortfolioViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
+    NSArray * linkedAccounts;
+    NSArray * linkedPositions;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
@@ -64,6 +66,14 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewDidLoad {
     globalController = [TTSDKTicketController globalController];
 
+    linkedAccounts = [globalController retrieveLinkedAccounts];
+    linkedPositions = [[NSArray alloc] init];
+
+//    [globalController retrievePositionsFromAccounts:linkedAccounts withCompletionBlock:^(NSArray * positions){
+//        linkedPositions = positions;
+//        [self tableLoaded];
+//    }];
+
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.alwaysBounceHorizontal = NO;
@@ -71,101 +81,20 @@ static float kAccountCellHeight = 44.0f;
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, [self.scrollView.subviews firstObject].frame.size.height);
     [self.scrollView needsUpdateConstraints];
 
-    NSArray * testHoldings = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"AAPL", @"symbol",
-                          @"$4,988.04", @"cost",
-                          @"+1,346 (1.23%)", @"change",
-                          @"223.43", @"bid",
-                          @"224.34", @"ask",
-                          @"$7,023.87", @"totalValue",
-                          @"1.36%", @"dailyReturn",
-                          @"-4.32%", @"totalReturn",
-                          nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"GE", @"symbol",
-                          @"$628.63", @"cost",
-                          @"+282 (3.1%)", @"change",
-                          @"52.43", @"bid",
-                          @"51.21", @"ask",
-                          @"$735.07", @"totalValue",
-                          @"-8.1%", @"dailyReturn",
-                          @"4.29%", @"totalReturn",
-                          nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"BET", @"symbol",
-                          @"$45.54", @"cost",
-                          @"-1,823 (0.1%)", @"change",
-                          @"119.03", @"bid",
-                          @"120.74", @"ask",
-                          @"$5,988.07", @"totalValue",
-                          @"3.52%", @"dailyReturn",
-                          @"-1.89%", @"totalReturn",
-                          nil],
-                         nil];
-
-    self.testHoldings = [NSArray arrayWithObjects:
-                              [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"AAPL", @"symbol",
-                               @"$4,988.04", @"cost",
-                               @"+1,346 (1.23%)", @"change",
-                               @"223.43", @"bid",
-                               @"224.34", @"ask",
-                               @"$7,023.87", @"totalValue",
-                               @"1.36%", @"dailyReturn",
-                               @"-4.32%", @"totalReturn",
-                               nil],
-                              [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"GE", @"symbol",
-                               @"$628.63", @"cost",
-                               @"+282 (3.1%)", @"change",
-                               @"52.43", @"bid",
-                               @"51.21", @"ask",
-                               @"$735.07", @"totalValue",
-                               @"-8.1%", @"dailyReturn",
-                               @"4.29%", @"totalReturn",
-                               nil],
-                              [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"BET", @"symbol",
-                               @"$45.54", @"cost",
-                               @"-1,823 (0.1%)", @"change",
-                               @"119.03", @"bid",
-                               @"120.74", @"ask",
-                               @"$5,988.07", @"totalValue",
-                               @"3.52%", @"dailyReturn",
-                               @"-1.89%", @"totalReturn",
-                               nil],
-                              nil];
-
-    self.testAccounts = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"broker",@"Fidelity",
-                          @"accountName",@"My Fidelity Account",
-                          @"accountNumber",@"3239554",
-                          @"totalValue",@"$2,530",
-                          @"buyingPower",@"$87.23",
-                          @"holdings", testHoldings, nil],
-                          [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"broker",@"Robinhood",
-                           @"accountName",@"My Robinhood Account",
-                           @"accountNumber",@"0298384",
-                           @"totalValue",@"$73,343",
-                           @"buyingPower",@"$29.23",
-                           @"holdings", testHoldings, nil],
-                          [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"broker",@"Etrade",
-                           @"accountName",@"My Etrade Account",
-                           @"accountNumber",@"9824334",
-                           @"totalValue",@"$2,354",
-                           @"buyingPower",@"$1,293",
-                           @"holdings", testHoldings, nil],
-                          nil];
-
     self.selectedIndex = -1;
 
     [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
+
+
 }
 
+-(void)tableLoaded {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.holdingsTable reloadData];
+        [self.holdingsTable layoutIfNeeded];
+    });
+}
 
 
 #pragma mark - Table Delegate Methods
@@ -178,9 +107,9 @@ static float kAccountCellHeight = 44.0f;
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self isHoldingsTable:tableView]) {
-        return self.testHoldings.count;
+        return linkedPositions.count;
     } else {
-        return self.testAccounts.count;
+        return linkedAccounts.count;
     }
 }
 
@@ -189,7 +118,7 @@ static float kAccountCellHeight = 44.0f;
     NSString * nibIdentifier;
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-    
+
     if ([self isHoldingsTable:tableView]) {
         cellIdentifier = @"PortfolioHoldingIdentifier";
         nibIdentifier = @"TTSDKPortfolioHoldingCell";
@@ -199,30 +128,32 @@ static float kAccountCellHeight = 44.0f;
             [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         }
-        
-        [cell configureCellWithData:[self.testHoldings objectAtIndex:indexPath.row]];
-        
+
+        [cell configureCellWithPosition: (TradeItPosition *)[linkedPositions objectAtIndex: indexPath.row]];
+
         if (indexPath.row == 0) {
             [cell hideSeparator];
         } else {
             [cell showSeparator];
         }
-        
+
         cell.clipsToBounds = YES;
-        
+
         return cell;
     } else {
         cellIdentifier = @"PortfolioAccountIdentifier";
         nibIdentifier = @"TTSDKPortfolioAccountCell";
         TTSDKPortfolioAccountsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
+
         if (cell == nil) {
             [tableView registerNib:[UINib nibWithNibName:nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         }
-        
-        [cell configureCellWithData:[self.testAccounts objectAtIndex:indexPath.row]];
-        
+
+
+        [cell configureCellWithAccount:[linkedAccounts objectAtIndex:indexPath.row]];
+
+
         return cell;
     }
 }

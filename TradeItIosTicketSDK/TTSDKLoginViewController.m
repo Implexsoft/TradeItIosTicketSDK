@@ -192,7 +192,11 @@
             [self showOldSecQuestion:res.securityQuestion];
         }
     } else {
-        NSArray * accounts = [result valueForKey:@"accounts"];
+
+        TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
+
+        NSArray * accounts = authResult.accounts;
+
         [globalController addAccounts:accounts];
         [globalController selectAccount:(NSDictionary *)[accounts lastObject]];
 
