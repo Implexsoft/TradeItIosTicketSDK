@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
-#import "TTSDKTradeItTicket.h"
-
 
 @interface TTSDKAccountSelectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
-
-@property TTSDKTicketSession * tradeSession;
 
 @end

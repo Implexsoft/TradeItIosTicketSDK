@@ -7,15 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 #import "TradeItPreviewTradeResult.h"
 
 @interface TTSDKReviewScreenViewController : UIViewController
 
-@property TTSDKTicketSession * tradeSession;
 @property TradeItPreviewTradeResult * reviewTradeResult;
-
-
-//@property TradeItStockOrEtfTradeSuccessResult * successResult;
 
 @end

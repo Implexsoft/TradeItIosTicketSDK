@@ -412,27 +412,19 @@ static float kMessageSeparatorHeight = 30.0f;
     //success
     if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
         globalController.resultContainer.status = SUCCESS;
-        globalController.resultContainer.placeResponse = (TradeItPlaceTradeResult *) result;
+        globalController.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
         [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
     }
-
-//    if([result isKindOfClass:[TradeItStockOrEtfTradeSuccessResult class]]){
-//        self.tradeSession.resultContainer.status = SUCCESS;
-//        self.tradeSession.resultContainer.successResponse = (TradeItStockOrEtfTradeSuccessResult *) result;
-//        
-//        [self setSuccessResult:(TradeItStockOrEtfTradeSuccessResult *) result];
-//        [self performSegueWithIdentifier: @"ReviewToSuccess" sender: self];
-//    }
     //error
     if([result isKindOfClass:[TradeItErrorResult class]]) {
         TradeItErrorResult * error = (TradeItErrorResult *) result;
-        
+
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
         errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
-        
-        self.tradeSession.resultContainer.status = EXECUTION_ERROR;
-        self.tradeSession.resultContainer.errorResponse = error;
-        
+
+        globalController.resultContainer.status = EXECUTION_ERROR;
+        globalController.resultContainer.errorResponse = error;
+
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
@@ -448,17 +440,6 @@ static float kMessageSeparatorHeight = 30.0f;
 
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-
-    if ([segue.identifier isEqualToString:@"ReviewToSuccess"]) {
-        TTSDKSuccessViewController * dest = [segue destinationViewController];
-//        [dest setResult: self.successResult];
-    }
-}
 
 -(IBAction)ackLabelToggled:(id)sender {
     UISwitch * switchSender = sender;

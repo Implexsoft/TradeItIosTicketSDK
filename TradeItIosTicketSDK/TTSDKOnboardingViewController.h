@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketSession.h"
 
 @interface TTSDKOnboardingViewController : UIViewController
-
-@property TTSDKTicketSession * tradeSession;
 
 @end

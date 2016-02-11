@@ -52,7 +52,7 @@ enum controllerStatus {
 /**
  *  Will be set when the success screen loads
  */
-@property TradeItPlaceTradeResult * placeResponse;
+@property TradeItPlaceTradeResult * tradeResponse;
 
 
 

@@ -7,8 +7,6 @@
 //
 #import "TTSDKBaseTradeViewController.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
-#import "TTSDKTradeItTicket.h"
-
 
 @interface TTSDKTradeViewController : TTSDKBaseTradeViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 

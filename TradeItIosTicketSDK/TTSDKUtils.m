@@ -326,18 +326,6 @@ static float kDecimalSize = 5.0f;
     return [companyDetailsNib init];
 }
 
--(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-    NSArray * customAlertArray = [resourceBundle loadNibNamed:@"TTSDKCustomAlertView" owner:vc options:nil];
-
-    TTSDKCustomAlertView * customAlert = [customAlertArray firstObject];
-    CGRect frame = CGRectMake(0, 0, vc.view.frame.size.width, vc.view.frame.size.height);
-    customAlert.frame = frame;
-
-    return customAlert;
-}
-
 - (void) stopSpin {
     // set the flag to stop spinning after one last 90 degree increment
     animating = NO;

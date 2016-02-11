@@ -9,11 +9,11 @@
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
-#import "TTSDKCustomAlertView.h"
 #import "TradeItErrorResult.h"
 #import "TradeItAuthLinkResult.h"
 #import "TradeItAuthenticationResult.h"
 #import "TradeItSecurityQuestionResult.h"
+#import "TTSDKCustomIOSAlertView.h"
 
 @implementation TTSDKLoginViewController {
     __weak IBOutlet UILabel *pageTitle;

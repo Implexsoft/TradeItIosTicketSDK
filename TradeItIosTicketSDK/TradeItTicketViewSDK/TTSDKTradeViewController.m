@@ -11,6 +11,7 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
+#import "TTSDKLoginViewController.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -684,9 +685,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
+
+
+
         [[segue destinationViewController] setCancelToParent: YES];
     }
-    
+
     defaultEditingCheckComplete = NO;
 }
 

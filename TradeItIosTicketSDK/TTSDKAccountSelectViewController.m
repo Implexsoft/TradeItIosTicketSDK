@@ -9,6 +9,7 @@
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKTradeViewController.h"
+#import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 

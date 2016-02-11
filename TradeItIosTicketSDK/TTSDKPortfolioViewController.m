@@ -11,7 +11,6 @@
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
-#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTicketController * globalController;

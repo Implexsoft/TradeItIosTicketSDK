@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKCustomAlertView.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
 @interface TTSDKUtils : NSObject
@@ -46,7 +45,6 @@
 -(NSString *) splitCamelCase:(NSString *) str;
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
--(TTSDKCustomAlertView *) customAlertWithVC:(UIViewController *)vc;
 - (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color;
 -(void) styleCustomDropdownButton: (UIButton *)button;
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName;

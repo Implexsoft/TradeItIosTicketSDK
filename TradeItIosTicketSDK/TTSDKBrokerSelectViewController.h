@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTradeItTicket.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKMBProgressHUD.h"
 

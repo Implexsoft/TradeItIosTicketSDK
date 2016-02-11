@@ -7,7 +7,6 @@
 //
 
 #import "TTSDKBaseTradeViewController.h"
-#import "TTSDKTradeItTicket.h"
 #import "TradeItTradeService.h"
 
 @interface TTSDKBaseTradeViewController() {

@@ -8,10 +8,12 @@
 
 #import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKOnboardingViewController () {
     TTSDKUtils * utils;
+    TTSDKTicketController * globalController;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton * brokerSelectButton;
@@ -48,6 +50,7 @@ static int kBulletContainerTag = 2;
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
@@ -74,7 +77,7 @@ static int kBulletContainerTag = 2;
 }
 
 - (IBAction)closePressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [globalController returnToParentApp];
 }
 
 

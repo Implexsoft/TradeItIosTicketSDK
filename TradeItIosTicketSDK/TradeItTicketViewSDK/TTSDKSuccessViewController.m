@@ -43,11 +43,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.tradeSession = [TTSDKTicketSession globalSession];
     globalController = [TTSDKTicketController globalController];
     utils = [TTSDKUtils sharedUtils];
 
-    TradeItPlaceTradeResult * result = globalController.resultContainer.placeResponse;
+    TradeItPlaceTradeResult * result = globalController.resultContainer.tradeResponse;
 
     [successMessage setText: result.confirmationMessage];
 
@@ -56,8 +55,6 @@
     NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationItem setHidesBackButton:YES];
@@ -68,7 +65,7 @@
 #pragma mark - Navigation
 
 - (IBAction)closeButtonPressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+    [globalController returnToParentApp];
 }
 
 - (IBAction)tradeButtonPressed:(id)sender {

@@ -25,10 +25,8 @@
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
-#import "TTSDKCustomAlertView.h"
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKUtils.h"
-#import "TTSDKAlertView.h"
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
@@ -192,12 +190,9 @@
     [TTSDKPortfolioViewController class];
     [TTSDKPortfolioHoldingTableViewCell class];
     [TTSDKPortfolioAccountsTableViewCell class];
-    [TTSDKCustomAlertView class];
     [TTSDKTabBarViewController class];
     [TTSDKAccountLinkViewController class];
     [TTSDKAccountLinkTableViewCell class];
-
-    [TTSDKAlertView class];
 }
 @end
 

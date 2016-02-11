@@ -514,6 +514,11 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }];
 }
 
+-(void) restartTicket {
+    [self.parentView dismissViewControllerAnimated:NO completion:nil];
+    [self showTicket];
+}
+
 
 
 @end
