@@ -450,7 +450,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock {
     NSArray * linkedLogins = [self getLinkedLogins];
-
     NSMutableArray * positions = [[NSMutableArray alloc] init];
 
     positionsBlock = completionBlock;
@@ -498,7 +497,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     if ([positionsCounter isEqualToNumber: positionsTotal]) {
         [positionsTimer invalidate];
         positionsTimer = nil;
-
         positionsBlock(accountPositionsResult);
     }
 }
@@ -548,7 +546,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     } else {
         TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: session];
         TradeItGetPositionsRequest * request = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
-        
+
         [positionService getAccountPositions: request withCompletionBlock:^(TradeItResult * result) {
             if ([result isKindOfClass:TradeItGetPositionsResult.class]) {
                 self.currentPositionsResult = (TradeItGetPositionsResult *)result;

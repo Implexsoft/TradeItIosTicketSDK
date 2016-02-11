@@ -47,11 +47,6 @@
     [utils styleMainActiveButton:self.doneButton];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 #pragma mark - Table Delegate Methods
@@ -67,7 +62,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier = @"AccountLink";
     TTSDKAccountLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    [cell setDelegate: self];
 
     if (cell == nil) {
         NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
@@ -76,6 +70,8 @@
         [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountLinkCell" bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
+
+    [cell setDelegate: self];
 
     [cell configureCellWithData: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
 
@@ -90,17 +86,25 @@
     BOOL active = [[account valueForKey: @"active"] boolValue];
     NSMutableArray * mutableAccounts = [globalController.accounts mutableCopy];
 
+    NSDictionary * accountToAdd;
+    NSDictionary * accountToRemove;
+
     int i;
     for (i = 0; i < mutableAccounts.count; i++) {
-        NSMutableDictionary * acct = [[mutableAccounts objectAtIndex: i] mutableCopy];
+        NSDictionary * acct = [mutableAccounts objectAtIndex: i];
+        NSMutableDictionary * acctCopy = [acct mutableCopy];
 
         if ([acct isEqualToDictionary: account]) {
-            [acct setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
-            [mutableAccounts setObject:acct atIndexedSubscript:i];
+            [acctCopy setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
+            accountToAdd = [acctCopy copy];
+            accountToRemove = acct;
 
             break;
         }
     }
+
+    [mutableAccounts removeObject: accountToRemove];
+    [mutableAccounts addObject: accountToAdd];
 
     [globalController updateAccounts: [mutableAccounts copy]];
 }
