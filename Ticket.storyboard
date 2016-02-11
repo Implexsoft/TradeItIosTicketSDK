@@ -666,7 +666,7 @@ you want to link</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Welcome" id="Epp-1L-8un">
-                        <barButtonItem key="backBarButtonItem" title="Close" id="dsB-7B-gsS"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="dsB-7B-gsS"/>
                         <barButtonItem key="leftBarButtonItem" title="Close" id="dZv-us-ASM">
                             <connections>
                                 <action selector="closePressed:" destination="r6z-Ew-5zU" id="C1o-BN-1uG"/>

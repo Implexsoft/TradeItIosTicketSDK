@@ -46,7 +46,6 @@
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;
 - (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color;
--(void) styleCustomDropdownButton: (UIButton *)button;
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName;
 -(CGFloat) retrieveScreenHeight;
 -(BOOL) isSmallScreen;
