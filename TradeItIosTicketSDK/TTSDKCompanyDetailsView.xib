@@ -31,14 +31,14 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BR-wm-Ao4" userLabel="BrokerDetails">
+                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BR-wm-Ao4" userLabel="BrokerDetails">
                     <rect key="frame" x="200" y="0.0" width="120" height="61"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevronRight.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Vl-i8-VXV">
-                            <rect key="frame" x="109" y="10" width="11" height="21"/>
+                            <rect key="frame" x="111" y="10" width="9" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="2UM-Mu-1ie"/>
-                                <constraint firstAttribute="width" constant="11" id="ho0-lR-5DM"/>
+                                <constraint firstAttribute="width" constant="9" id="ho0-lR-5DM"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPG-hN-yxK">
@@ -48,12 +48,28 @@
                                 <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$20,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps">
+                            <rect key="frame" x="51" y="37" width="55" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
+                            <rect key="frame" x="-18" y="44" width="64" height="10"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="pm8-YV-2OE" firstAttribute="bottom" secondItem="tJl-Lq-2ps" secondAttribute="bottom" id="36R-YS-yv2"/>
+                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="leading" secondItem="pm8-YV-2OE" secondAttribute="trailing" constant="5" id="8k0-sW-x79"/>
+                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="top" secondItem="aPG-hN-yxK" secondAttribute="bottom" id="FhC-bl-pao"/>
                         <constraint firstItem="aPG-hN-yxK" firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" constant="-14" id="NRc-mU-eFZ"/>
                         <constraint firstItem="0Vl-i8-VXV" firstAttribute="centerY" secondItem="aPG-hN-yxK" secondAttribute="centerY" id="Y4n-er-jLB"/>
                         <constraint firstAttribute="width" constant="120" id="e6O-hC-Ohf"/>
+                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" id="suB-rb-fB7"/>
                         <constraint firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" id="wa3-Ym-S8E"/>
                     </constraints>
                 </view>
@@ -80,6 +96,8 @@
                 <outlet property="brokerDetails" destination="2BR-wm-Ao4" id="OzQ-Ve-4ak"/>
                 <outlet property="changeLabel" destination="O4l-GN-l0D" id="7j9-sp-F0y"/>
                 <outlet property="lastPriceLabel" destination="fbU-bz-M7M" id="VA5-ds-sXd"/>
+                <outlet property="symbolDetailLabel" destination="pm8-YV-2OE" id="Y61-Ae-Mor"/>
+                <outlet property="symbolDetailValue" destination="tJl-Lq-2ps" id="dLb-Vd-VVF"/>
                 <outlet property="symbolLabel" destination="cqV-nr-8WB" id="nrG-tP-Zoz"/>
             </connections>
             <point key="canvasLocation" x="137" y="246.5"/>

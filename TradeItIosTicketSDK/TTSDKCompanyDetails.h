@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TradeItAccountOverviewResult.h"
 
 @interface TTSDKCompanyDetails : UIView
 
@@ -15,10 +16,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *changeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *brokerButton;
 @property (weak, nonatomic) IBOutlet UIView *brokerDetails;
+@property (weak, nonatomic) IBOutlet UILabel *symbolDetailValue;
+@property (weak, nonatomic) IBOutlet UILabel *symbolDetailLabel;
 
 -(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct;
 -(void) populateSymbol: (NSString *)symbol;
 -(void) populateLastPrice: (NSNumber *)lastPrice;
 -(void) populateBrokerButtonTitle:(NSString *)broker;
+-(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned;
 
 @end

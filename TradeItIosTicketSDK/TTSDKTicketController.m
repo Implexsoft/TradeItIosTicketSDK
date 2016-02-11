@@ -17,7 +17,8 @@
 #import "TradeItTradeService.h"
 #import "TradeItPositionService.h"
 #import "TradeItGetPositionsRequest.h"
-#import "TradeItGetPositionsResult.h"
+#import "TradeItBalanceService.h"
+#import "TradeItAccountOverviewRequest.h"
 
 typedef void(^PositionsCompletionBlock)(NSArray *);
 
@@ -91,6 +92,12 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         self.connector = [[TradeItConnector alloc] initWithApiKey:self.apiKey];
     }
 
+    [self retrieveBrokers:^(void) {}];
+
+    [self launchInitialViewController];
+}
+
+-(void) retrieveBrokers:(void (^)(void)) completionBlock {
     //Get brokers
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
         // set brokers
@@ -98,21 +105,21 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             self.brokerList = [self getDefaultBrokerList];
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
-
+            
             if(self.debugMode) {
                 NSArray * dummy  =  @[@"Dummy",@"Dummy"];
                 [brokers addObject:dummy];
             }
-
+            
             for (NSDictionary * broker in brokerList) {
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
             }
-
+            
             self.brokerList = (NSArray *) brokers;
         }
 
-        [self launchInitialViewController];
+        completionBlock();
     }];
 }
 
@@ -125,7 +132,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     // Has the user authenticated before?
     NSDictionary * initialAccount = [self attemptToRetrieveInitialAccount];
-    BOOL authenticated = NO;
+    BOOL hasLinkedAccount = NO;
     if (initialAccount) {
         for (TradeItLinkedLogin * login in linkedLogins) {
             if (!login) {
@@ -144,41 +151,41 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
             [self.resultContainer setStatus: USER_CANCELED];
 
-            authenticated = YES;
+            hasLinkedAccount = YES;
         }
     }
 
-    // If user needs to authenticate, go either to onboarding or broker select
-    if (!authenticated) {
+    // If user needs to link an account, go either to onboarding or broker select
+    if (!hasLinkedAccount) {
         // The first item in the auth nav stack is the onboarding view
         UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: kAuthNavViewIdentifier];
         [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
         // If not onboarding, push the nav to the broker select view
-        if ([self isOnboarding]) {
+        if (![self isOnboarding]) {
             TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
             [nav pushViewController:initialViewController animated:NO];
         }
 
         [self.parentView presentViewController:nav animated:YES completion:nil];
     } else {
-
+        // User has a linked account, so automatically authenticate
         [self createSession];
 
         [session authenticate:self.currentLogin withCompletionBlock:^(TradeItResult * res) {
-            // nothing to do here
+            self.accounts = [self retrieveStoredAccounts];
+
+            UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
+            [tab setModalPresentationStyle:UIModalPresentationFullScreen];
+
+            if (self.portfolioMode) {
+                tab.selectedIndex = 1;
+            } else {
+                tab.selectedIndex = 0;
+            }
+
+            [self.parentView presentViewController:tab animated:YES completion:nil];
         }];
-
-        UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
-        [tab setModalPresentationStyle:UIModalPresentationFullScreen];
-
-        if (self.portfolioMode) {
-            tab.selectedIndex = 1;
-        } else {
-            tab.selectedIndex = 0;
-        }
-
-        [self.parentView presentViewController:tab animated:YES completion:nil];
     }
 }
 
@@ -224,7 +231,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(NSDictionary *) attemptToRetrieveInitialAccount {
+    // Check to see which account was last selected by user
     NSDictionary * lastSelectedAccount;
+    // If no last account is selected, then grab the last added active account
     NSDictionary * lastActiveAccount;
 
     NSArray * storedAccounts = [self retrieveStoredAccounts];
@@ -284,7 +293,43 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) selectAccount:(NSDictionary *) account {
-    self.currentAccount = account;
+    NSMutableArray * storedAccounts = [NSMutableArray arrayWithArray: [self retrieveStoredAccounts]];
+
+    NSMutableDictionary * selectedAccount;
+    NSMutableDictionary * deselectedAccount;
+
+    NSDictionary * selectedAccountToRemove;
+    NSDictionary * deselectedAccountToRemove;
+
+    for (NSDictionary * acct in storedAccounts) {
+        BOOL isLastSelected = [(NSNumber *)[acct valueForKey:@"lastSelected"] boolValue];
+
+        if ([acct isEqualToDictionary: account]) {
+            selectedAccount = [acct mutableCopy];
+            selectedAccountToRemove = acct;
+        } else if (isLastSelected) {
+            deselectedAccount = [acct mutableCopy];
+            deselectedAccountToRemove = acct;
+        }
+    }
+
+    if (deselectedAccount) {
+        [deselectedAccount setValue:[NSNumber numberWithBool: NO] forKey: @"lastSelected"];
+
+        [storedAccounts removeObject: deselectedAccountToRemove];
+        [storedAccounts addObject: deselectedAccount];
+    }
+
+    if (selectedAccount) {
+        [selectedAccount setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
+
+        [storedAccounts removeObject: selectedAccountToRemove];
+        [storedAccounts addObject: selectedAccount];
+
+        self.currentAccount = selectedAccount;
+    }
+
+    [self updateAccounts: [storedAccounts copy]];
 }
 
 -(NSArray *) retrieveLinkedAccounts {
@@ -449,12 +494,67 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
--(void)checkPositionsCount {
+-(void) checkPositionsCount {
     if ([positionsCounter isEqualToNumber: positionsTotal]) {
         [positionsTimer invalidate];
         positionsTimer = nil;
 
         positionsBlock(accountPositionsResult);
+    }
+}
+
+-(void) retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    if (!session.token) {
+        [self createSession];
+
+        [session authenticate:self.currentLogin withCompletionBlock:^(TradeItResult * res) {
+            TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: session];
+            TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: accountNumber];
+            [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
+                if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
+                    self.currentAccountOverview = (TradeItAccountOverviewResult *)result;
+                }
+                completionBlock(result);
+            }];
+
+        }];
+    } else {
+        TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: session];
+        TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: accountNumber];
+        [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
+            if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
+                self.currentAccountOverview = (TradeItAccountOverviewResult *)result;
+            }
+            completionBlock(result);
+        }];
+    }
+}
+
+-(void) retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    if (!session.token) {
+        [self createSession];
+
+        [session authenticate:self.currentLogin withCompletionBlock:^(TradeItResult * res) {
+            TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: session];
+            TradeItGetPositionsRequest * request = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+            [positionService getAccountPositions: request withCompletionBlock:^(TradeItResult * result) {
+                if ([result isKindOfClass:TradeItGetPositionsResult.class]) {
+                    self.currentPositionsResult = (TradeItGetPositionsResult *)result;
+                }
+                completionBlock(result);
+            }];
+        }];
+    } else {
+        TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: session];
+        TradeItGetPositionsRequest * request = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+        
+        [positionService getAccountPositions: request withCompletionBlock:^(TradeItResult * result) {
+            if ([result isKindOfClass:TradeItGetPositionsResult.class]) {
+                self.currentPositionsResult = (TradeItGetPositionsResult *)result;
+            }
+            completionBlock(result);
+        }];
     }
 }
 

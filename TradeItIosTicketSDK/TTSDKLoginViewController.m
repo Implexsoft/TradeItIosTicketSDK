@@ -194,7 +194,6 @@
     } else {
 
         TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
-
         NSArray * accounts = authResult.accounts;
 
         [globalController addAccounts:accounts];

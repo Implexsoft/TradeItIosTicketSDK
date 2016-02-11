@@ -20,6 +20,8 @@
 #import "TradeItPlaceTradeRequest.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TradeItPosition.h"
+#import "TradeItAccountOverviewResult.h"
+#import "TradeItGetPositionsResult.h"
 
 @interface TTSDKTicketController : NSObject
 
@@ -31,22 +33,27 @@
 @property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
 @property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
 
-@property NSArray * brokerList;
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL portfolioMode;
+
+@property NSArray * brokerList;
 @property NSString * currentBroker;
 @property NSArray * accounts;
 
 @property TradeItLinkedLogin * currentLogin;
+@property NSArray * linkedLogins;
+
 @property TradeItConnector * connector;
 @property NSDictionary * currentAccount;
+@property TradeItAccountOverviewResult * currentAccountOverview;
 
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
 
 @property TradeItPreviewTradeRequest * tradeRequest;
 @property TradeItPosition * position;
+@property TradeItGetPositionsResult * currentPositionsResult;
 
 @property TradeItPlaceTradeRequest * placeTradeRequest;
 
@@ -76,5 +83,7 @@
 - (void)createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
 - (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
 - (void)retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock;
+- (void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
 @end

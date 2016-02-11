@@ -83,9 +83,6 @@ static float kAccountCellHeight = 44.0f;
     self.selectedIndex = -1;
 
     [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
-
-
 }
 
 -(void)tableLoaded {

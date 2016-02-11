@@ -75,6 +75,25 @@
     }
 }
 
+-(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
+    if (!buyingPower && !sharesOwned) {
+        self.symbolDetailLabel.hidden = YES;
+        self.symbolDetailValue.hidden = YES;
+    } else {
+        self.symbolDetailLabel.hidden = NO;
+        self.symbolDetailValue.hidden = NO;
+
+        if (buyingPower) {
+            self.symbolDetailLabel.text = @"BUYING POWER";
+            self.symbolDetailValue.text = [NSString stringWithFormat:@"$%@", buyingPower];
+        } else if (sharesOwned) {
+            self.symbolDetailLabel.text = @"SHARES OWNED";
+            self.symbolDetailValue.text = [NSString stringWithFormat:@"%@", sharesOwned];
+        }
+    }
+
+}
+
 
 
 @end

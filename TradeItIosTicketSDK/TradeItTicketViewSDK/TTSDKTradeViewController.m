@@ -12,6 +12,7 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKLoginViewController.h"
+#import "TradeItBalanceService.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -65,7 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 
@@ -73,6 +74,16 @@
     [self uiTweaks];
 
     [globalController createInitialTradeRequest];
+
+    [self populateSymbolDetails];
+
+    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
+        [self populateSymbolDetails];
+    }];
+
+    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
+        [self populateSymbolDetails];
+    }];
 
     if(globalController.tradeRequest.orderQuantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.tradeRequest.orderQuantity intValue]]];
@@ -94,6 +105,29 @@
     [self refreshPressed:self];
 
     [self.view setNeedsDisplay];
+}
+
+-(void) populateSymbolDetails {
+    if ([globalController.tradeRequest.orderAction isEqualToString: @"buy"]) {
+        if (globalController.currentAccountOverview) {
+            [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
+        } else {
+            [companyNib populateSymbolDetail:nil andSharesOwned:nil];
+        }
+    } else {
+        if (globalController.currentPositionsResult) {
+            int shares = 0;
+            NSArray * currentPositions = globalController.currentPositionsResult.positions;
+            for (TradeItPosition * position in currentPositions) {
+                if ([position.symbol isEqualToString:globalController.tradeRequest.orderSymbol]) {
+                    shares ++;
+                }
+            }
+            [companyNib populateSymbolDetail:nil andSharesOwned:[NSNumber numberWithInt: shares]];
+        } else {
+            [companyNib populateSymbolDetail: nil andSharesOwned: nil];
+        }
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -382,6 +416,7 @@
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
     globalController.tradeRequest.orderAction = action;
+    [self populateSymbolDetails];
 }
 
 -(void) changeOrderExpiration: (NSString *) exp {

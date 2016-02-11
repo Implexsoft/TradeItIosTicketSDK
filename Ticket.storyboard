@@ -1456,7 +1456,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
-                                                        <rect key="frame" x="20" y="10" width="280" height="50"/>
+                                                        <rect key="frame" x="10" y="10" width="300" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="qfn-uP-BAz"/>
@@ -1520,8 +1520,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="OjD-iA-LDS" firstAttribute="top" secondItem="Icf-eA-afJ" secondAttribute="top" constant="10" id="N06-MK-Gwf"/>
                                                     <constraint firstItem="XLO-ms-ajL" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" id="ZFQ-2G-eb3"/>
                                                     <constraint firstAttribute="trailing" secondItem="XLO-ms-ajL" secondAttribute="trailing" id="cEo-Sd-wUC"/>
-                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" constant="20" id="gPk-5J-ZVz"/>
-                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="20" id="lvg-kT-06I"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OjD-iA-LDS" secondAttribute="trailing" constant="10" id="gPk-5J-ZVz"/>
+                                                    <constraint firstItem="OjD-iA-LDS" firstAttribute="leading" secondItem="Icf-eA-afJ" secondAttribute="leading" constant="10" id="lvg-kT-06I"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-wY-vR6" userLabel="BottomContainer">
@@ -2036,7 +2036,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wuc-R0-2HR"/>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
 </document>
