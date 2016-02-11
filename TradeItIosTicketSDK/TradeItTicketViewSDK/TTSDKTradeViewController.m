@@ -663,7 +663,6 @@
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Expiration"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-
     UIAlertAction * dayAction = [UIAlertAction actionWithTitle:@"Good For The Day" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"day"]; }];
     UIAlertAction * gtcAction = [UIAlertAction actionWithTitle:@"Good Until Canceled" style:UIAlertActionStyleDefault
@@ -682,17 +681,6 @@
     [self.view endEditing:YES];
 
     if(readyToTrade) {
-        globalController.tradeRequest.orderQuantity = [NSNumber numberWithInt:[[sharesInput text] intValue]];
-
-        if([globalController.tradeRequest.orderPriceType isEqualToString:@"stopLimit"]) {
-            globalController.tradeRequest.orderLimitPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
-            globalController.tradeRequest.orderStopPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:stopPriceInput.text]];
-        } else if([globalController.tradeRequest.orderPriceType isEqualToString:@"stopMarket"]) {
-            globalController.tradeRequest.orderStopPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
-        } else if([globalController.tradeRequest.orderPriceType isEqualToString:@"limit"]) {
-            globalController.tradeRequest.orderLimitPrice = [NSNumber numberWithDouble:[utils numberFromPriceString:limitPriceInput.text]];
-        }
-
         [utils styleLoadingButton:previewOrderButton];
         [self sendReviewRequest];
     }
@@ -720,9 +708,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
-
-
-
         [[segue destinationViewController] setCancelToParent: YES];
     }
 
