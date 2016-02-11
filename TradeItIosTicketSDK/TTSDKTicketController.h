@@ -68,6 +68,7 @@
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
+- (NSArray *)getBrokerByValueString:(NSString *) valueString;
 - (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)placeTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;

@@ -8,16 +8,20 @@
 
 #import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKLoginViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKOnboardingViewController () {
     TTSDKUtils * utils;
     TTSDKTicketController * globalController;
+    NSArray * brokers;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton * brokerSelectButton;
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
+@property (weak, nonatomic) IBOutlet UIButton *fidelityButton;
+@property (weak, nonatomic) IBOutlet UIButton *brokerSelectButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 
 @end
 
@@ -28,6 +32,7 @@
 #pragma mark - Constants
 
 static int kBulletContainerTag = 2;
+static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
 
@@ -52,6 +57,16 @@ static int kBulletContainerTag = 2;
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 
+    brokers = globalController.brokerList;
+
+    [utils styleMainActiveButton: self.brokerSelectButton];
+    [utils styleCustomDropdownButton: self.fidelityButton];
+
+    // iPhone 4s and earlier
+    if ([utils isSmallScreen]) {
+        self.brokerDetailsTopConstraint.constant = 10.0f;
+    }
+
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
             CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:view.frame.size.width andColor:utils.activeButtonColor];
@@ -64,19 +79,27 @@ static int kBulletContainerTag = 2;
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [self.tradeItLabel setAttributedText:poweredBy];
-
-    [utils styleCustomDropdownButton:self.brokerSelectButton];
 }
 
 
 
 #pragma mark - Navigation
 
-- (IBAction)brokerSelectPressed:(id)sender {
+-(IBAction) brokerSelectPressed:(id)sender {
     [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
 }
 
-- (IBAction)closePressed:(id)sender {
+-(IBAction) fidelityButtonPressed:(id)sender {
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
+
+    NSString * selectedBroker = [globalController getBrokerByValueString: @"Fidelity"][1];
+    [loginViewController setAddBroker: selectedBroker];
+
+    [self.navigationController pushViewController: loginViewController animated:YES];
+}
+
+-(IBAction) closePressed:(id)sender {
     [globalController returnToParentApp];
 }
 
