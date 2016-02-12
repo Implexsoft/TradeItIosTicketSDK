@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItAuthenticationInfo.h"
+#import "TradeItErrorResult.h"
+#import "TradeItAuthLinkResult.h"
+#import "TradeItAuthenticationResult.h"
+#import "TradeItSecurityQuestionResult.h"
 
-@interface TTSDKLoginViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
+@interface TTSDKLoginViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property BOOL cancelToParent;
 

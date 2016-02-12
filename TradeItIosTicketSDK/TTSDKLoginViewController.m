@@ -156,55 +156,48 @@
     NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
     
     self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
-    
-    [globalController authenticate:self.verifyCreds withCompletionBlock:^(TradeItResult * res){
-        [self authenticateRequestReceived: res];
+
+    [globalController.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
+        if ([res isKindOfClass:TradeItErrorResult.class]) {
+            globalController.errorTitle = @"Invalid Credentials";
+            globalController.errorMessage = @"Check your username and password and try again.";
+            
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
+            } else {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
+                                                                                message:globalController.errorMessage
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                       handler:^(UIAlertAction * action) {}];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+
+            globalController.errorMessage = nil;
+            globalController.errorTitle = nil;
+        } else {
+            TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
+            TradeItLinkedLogin * newLinkedLogin = [globalController.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
+            TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalController.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
+            
+            [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
+
+                if ([result isKindOfClass:TradeItErrorResult.class]) {
+                    
+                } else {
+                    
+                    [globalController appendSession: newSession];
+                    
+                    if (self.isModal) {
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    } else {
+                        [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+                    }
+                }
+            }];
+        }
     }];
-}
-
--(void) authenticateRequestReceived: (TradeItResult *) result {
-    [utils styleMainActiveButton:linkAccountButton];
-    
-    if ([result isKindOfClass:TradeItErrorResult.class]) {
-        globalController.errorTitle = @"Invalid Credentials";
-        globalController.errorMessage = @"Check your username and password and try again.";
-        
-        if(![UIAlertController class]) {
-            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
-                                                                            message:globalController.errorMessage
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {}];
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        
-        globalController.errorMessage = nil;
-        globalController.errorTitle = nil;
-    } else if ([result isKindOfClass:TradeItSecurityQuestionResult.class]) {
-        TradeItSecurityQuestionResult * res = (TradeItSecurityQuestionResult *)result;
-        
-        if (res.securityQuestionOptions != nil && res.securityQuestionOptions.count > 0) {
-            [self showOldMultiSelect:res];
-        } else if (res.securityQuestion != nil) {
-            [self showOldSecQuestion:res.securityQuestion];
-        }
-    } else {
-
-        TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
-        NSArray * accounts = authResult.accounts;
-
-        [globalController addAccounts:accounts];
-        [globalController selectAccount:(NSDictionary *)[accounts lastObject]];
-
-        if (self.isModal) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
-        }
-    }
 }
 
 
@@ -256,77 +249,12 @@
     });
 }
 
--(UIView *) createPickerView: (NSString *) title {
-    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-    
-    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
-    [titleLabel setTextColor:[UIColor blackColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setFont: [UIFont boldSystemFontOfSize:16.0f]];
-    [titleLabel setNumberOfLines:0];
-    [titleLabel setText: title];
-    [contentView addSubview:titleLabel];
-
-    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
-    currentPicker = picker;
-
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    [picker setShowsSelectionIndicator: YES];
-
-    [contentView addSubview: picker];
-    [contentView setNeedsDisplay];
-
-    return contentView;
-}
-
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex > 0) {
-        [globalController answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
-            [self authenticateRequestReceived:res];
-        }];
-    }
-}
-
--(void) showOldSecQuestion:(NSString *) question {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: self cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.questionOptions.count;
-}
-
--(void) showOldMultiSelect:(TradeItSecurityQuestionResult *) securityQuestionResult {
-    self.questionOptions = securityQuestionResult.securityQuestionOptions;
-    self.currentSelection = self.questionOptions[0];
-
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView: @"Security Question"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
-
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 0) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [globalController answerSecurityQuestion:self.currentSelection withCompletionBlock:^(TradeItResult *result) {
-                [self authenticateRequestReceived:result];
-            }];
-        }
-    }];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
+//    if (buttonIndex > 0) {
+//        [globalController answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
+//            [self authenticateRequestReceived:res];
+//        }];
+//    }
 }
 
 

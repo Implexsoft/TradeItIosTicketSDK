@@ -22,6 +22,7 @@
 #import "TradeItPosition.h"
 #import "TradeItAccountOverviewResult.h"
 #import "TradeItGetPositionsResult.h"
+#import "TTSDKTicketSession.h"
 
 @interface TTSDKTicketController : NSObject
 
@@ -36,6 +37,15 @@
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL portfolioMode;
+
+
+
+@property NSArray * sessions;
+@property TTSDKTicketSession * currentSession;
+
+
+
+
 
 @property NSArray * brokerList;
 @property NSString * currentBroker;
@@ -72,6 +82,9 @@
 - (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
 - (void)switchAccounts:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+
+- (void)appendSession:(TTSDKTicketSession *)session;
+
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;

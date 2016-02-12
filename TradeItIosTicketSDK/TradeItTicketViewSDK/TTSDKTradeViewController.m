@@ -73,20 +73,11 @@
     [self initConstraints];
     [self uiTweaks];
 
-    [globalController createInitialTradeRequest];
 
-    [self populateSymbolDetails];
+    [globalController.currentSession createInitialPreviewRequest];
 
-    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
-        [self populateSymbolDetails];
-    }];
-
-    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
-        [self populateSymbolDetails];
-    }];
-
-    if(globalController.tradeRequest.orderQuantity > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.tradeRequest.orderQuantity intValue]]];
+    if(globalController.currentSession.previewRequest.orderQuantity > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.currentSession.previewRequest.orderQuantity intValue]]];
     }
 
     [self updatePrice];
@@ -108,7 +99,7 @@
 }
 
 -(void) populateSymbolDetails {
-    if ([globalController.tradeRequest.orderAction isEqualToString: @"buy"]) {
+    if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
         if (globalController.currentAccountOverview) {
             [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
         } else {
@@ -133,6 +124,16 @@
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [self populateSymbolDetails];
+    
+//    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
+//        [self populateSymbolDetails];
+//    }];
+//    
+//    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
+//        [self populateSymbolDetails];
+//    }];
+
     [self changeOrderAction:globalController.tradeRequest.orderAction];
     [self changeOrderType:globalController.tradeRequest.orderPriceType];
     [self changeOrderExpiration:globalController.tradeRequest.orderExpiration];
@@ -156,7 +157,7 @@
                             multiplier:1
                             constant:0];
     zeroHeightConstraint.priority = 900;
-    
+
     fullHeightConstraint = [NSLayoutConstraint
                             constraintWithItem:limitPricesView
                             attribute:NSLayoutAttributeHeight
@@ -542,7 +543,7 @@
 #pragma mark - Events
 
 - (IBAction)symbolPressed:(id)sender {
-    [self performSegueWithIdentifier:@"TradeToSymbolSearch" sender:self];
+    //[self performSegueWithIdentifier:@"TradeToSymbolSearch" sender:self];
 }
                                           
 - (IBAction)refreshPressed:(id)sender {
