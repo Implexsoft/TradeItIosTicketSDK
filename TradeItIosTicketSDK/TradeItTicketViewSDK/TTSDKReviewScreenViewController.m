@@ -211,8 +211,6 @@ static float kMessageSeparatorHeight = 30.0f;
 
     [toggle addTarget:self action:@selector(ackLabelToggled:) forControlEvents:UIControlEventValueChanged];
 
-//    [toggle addGestureRecognizer:gestureRec];
-
     [ackLabels addObject:messageLabel];
     
     [container addSubview:toggle];
@@ -395,15 +393,11 @@ static float kMessageSeparatorHeight = 30.0f;
 
 - (void) sendTradeRequest {
 
-    globalController.placeTradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
+    globalController.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
-    [globalController placeTrade:^(TradeItResult *result) {
+    [globalController.currentSession placeTrade:^(TradeItResult *result) {
         [self tradeRequestRecieved: result];
     }];
-
-//    [[self tradeSession] asyncPlaceOrderWithCompletionBlock:^(TradeItResult *result) {
-//        [self tradeRequestRecieved:result];
-//    }];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
@@ -454,16 +448,6 @@ static float kMessageSeparatorHeight = 30.0f;
     }
 }
 
+
+
 @end
-
-
-
-
-
-
-
-
-
-
-
-

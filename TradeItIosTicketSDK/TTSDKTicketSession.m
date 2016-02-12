@@ -37,19 +37,13 @@
     return self;
 }
 
-- (void) createInitialPreviewRequest {
+- (void) createPreviewRequest {
     self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-
     [self.previewRequest setOrderAction:@"buy"];
-
-    if (self.currentAccount) {
-        [self.previewRequest setAccountNumber: [self.currentAccount valueForKey: @"accountNumber"]];
-    }
-
     [self.previewRequest setOrderPriceType:@"market"];
 }
 
-- (void) createInitialPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity {
+- (void) createPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity {
     self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
 
     if (action) {
@@ -69,10 +63,6 @@
     }
 
     [self.previewRequest setOrderPriceType: @"market"];
-}
-
-- (void) createInitialTradeRequest {
-
 }
 
 -(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {

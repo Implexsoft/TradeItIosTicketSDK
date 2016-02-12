@@ -55,9 +55,10 @@
 }
 
 - (IBAction)marketPressed:(id)sender {
-    [globalController.tradeRequest setOrderPriceType: @"market"];
-    [globalController.tradeRequest setOrderLimitPrice: nil];
-    [globalController.tradeRequest setOrderStopPrice: nil];
+
+    [globalController.currentSession.previewRequest setOrderPriceType: @"market"];
+    [globalController.currentSession.previewRequest setOrderLimitPrice: nil];
+    [globalController.currentSession.previewRequest setOrderStopPrice: nil];
 
     [self.navigationController popViewControllerAnimated:YES];
 }

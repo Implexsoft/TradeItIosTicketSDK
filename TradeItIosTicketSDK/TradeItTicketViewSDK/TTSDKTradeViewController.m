@@ -70,11 +70,24 @@
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 
+    // Session doesn't exist until authentication
+    [globalController passInitialPreviewRequestToSession];
+
+
+    if (globalController.currentAccount) {
+        globalController.currentSession.previewRequest.accountNumber = [globalController.currentAccount valueForKey:@"accountNumber"];
+    }
+
+    if (!globalController.currentSession.isAuthenticated) {
+        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
+                [self checkIfReadyToTrade];
+            }
+        }];
+    }
+
     [self initConstraints];
     [self uiTweaks];
-
-
-    [globalController.currentSession createInitialPreviewRequest];
 
     if(globalController.currentSession.previewRequest.orderQuantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.currentSession.previewRequest.orderQuantity intValue]]];
@@ -88,10 +101,6 @@
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
     companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
 
-    TradeItPosition * position = globalController.position;
-    [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
-    [companyNib populateBrokerButtonTitle:globalController.currentBroker];
-
     [self setCustomEvents];
     [self refreshPressed:self];
 
@@ -99,6 +108,10 @@
 }
 
 -(void) populateSymbolDetails {
+    TradeItPosition * position = globalController.position;
+    [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
+    [companyNib populateBrokerButtonTitle:globalController.currentSession.broker];
+
     if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
         if (globalController.currentAccountOverview) {
             [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
@@ -110,7 +123,7 @@
             int shares = 0;
             NSArray * currentPositions = globalController.currentPositionsResult.positions;
             for (TradeItPosition * position in currentPositions) {
-                if ([position.symbol isEqualToString:globalController.tradeRequest.orderSymbol]) {
+                if ([position.symbol isEqualToString:globalController.currentSession.previewRequest.orderSymbol]) {
                     shares ++;
                 }
             }
@@ -125,18 +138,18 @@
     [super viewWillAppear:animated];
 
     [self populateSymbolDetails];
-    
-//    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
-//        [self populateSymbolDetails];
-//    }];
-//    
-//    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
-//        [self populateSymbolDetails];
-//    }];
 
-    [self changeOrderAction:globalController.tradeRequest.orderAction];
-    [self changeOrderType:globalController.tradeRequest.orderPriceType];
-    [self changeOrderExpiration:globalController.tradeRequest.orderExpiration];
+    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
+        [self populateSymbolDetails];
+    }];
+
+    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
+        [self populateSymbolDetails];
+    }];
+
+    [self changeOrderAction:globalController.currentSession.previewRequest.orderAction];
+    [self changeOrderType:globalController.currentSession.previewRequest.orderPriceType];
+    [self changeOrderExpiration:globalController.currentSession.previewRequest.orderExpiration];
 
     if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
@@ -317,18 +330,18 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [globalController.tradeRequest.orderLimitPrice doubleValue];
-    double stopPrice = [globalController.tradeRequest.orderStopPrice doubleValue];
+    double limitPrice = [globalController.currentSession.previewRequest.orderLimitPrice doubleValue];
+    double stopPrice = [globalController.currentSession.previewRequest.orderStopPrice doubleValue];
 
     if(shares < 1) {
         readyNow = NO;
-    } else if([globalController.tradeRequest.orderPriceType isEqualToString:@"stopLimit"]) {
+    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
         if(limitPrice > 0 && stopPrice > 0) {
             readyNow = YES;
         }
-    } else if([globalController.tradeRequest.orderPriceType isEqualToString:@"market"]) {
+    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"market"]) {
         readyNow = YES;
-    } else if([globalController.tradeRequest.orderPriceType isEqualToString:@"stopMarket"]) {
+    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
         if(stopPrice > 0) {
             readyNow = YES;
         }
@@ -336,6 +349,10 @@
         if(limitPrice > 0) {
             readyNow = YES;
         }
+    }
+
+    if (!globalController.currentSession.isAuthenticated || !globalController.currentAccount) {
+        readyNow = NO;
     }
 
     if(readyNow) {
@@ -348,13 +365,13 @@
 }
 
 -(void) updateEstimatedCost {
-    NSInteger shares = [globalController.tradeRequest.orderQuantity integerValue];
+    NSInteger shares = [globalController.currentSession.previewRequest.orderQuantity integerValue];
     double price = [globalController.position.lastPrice doubleValue];
 
-    if([globalController.tradeRequest.orderPriceType isEqualToString:@"stopMarket"]){
-        price = [globalController.tradeRequest.orderStopPrice doubleValue];
-    } else if([globalController.tradeRequest.orderPriceType containsString:@"imit"]) {
-        price = [globalController.tradeRequest.orderLimitPrice doubleValue];
+    if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
+        price = [globalController.currentSession.previewRequest.orderStopPrice doubleValue];
+    } else if([globalController.currentSession.previewRequest.orderPriceType containsString:@"imit"]) {
+        price = [globalController.currentSession.previewRequest.orderLimitPrice doubleValue];
     }
 
     double estimatedCost = shares * price;
@@ -363,7 +380,7 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
 
-    NSString * equalitySign = [globalController.tradeRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * equalitySign = [globalController.currentSession.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
     NSString * formattedString = [NSString stringWithFormat:@"%@ %@ %@", @"Est. Cost", equalitySign, formattedNumber];
 
@@ -416,13 +433,13 @@
 
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
-    globalController.tradeRequest.orderAction = action;
+    globalController.currentSession.previewRequest.orderAction = action;
     [self populateSymbolDetails];
 }
 
 -(void) changeOrderExpiration: (NSString *) exp {
-    if([globalController.tradeRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
-        globalController.tradeRequest.orderExpiration = @"day";
+    if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
+        globalController.currentSession.previewRequest.orderExpiration = @"day";
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Expiration" withMessage:@"Market orders are Good For The Day only."];
@@ -439,10 +456,10 @@
 
     if([exp isEqualToString:@"gtc"]) {
         [orderExpirationButton setTitle:@"Good Until Canceled" forState:UIControlStateNormal];
-        globalController.tradeRequest.orderExpiration = @"gtc";
+        globalController.currentSession.previewRequest.orderExpiration = @"gtc";
     } else {
         [orderExpirationButton setTitle:@"Good For The Day" forState:UIControlStateNormal];
-        globalController.tradeRequest.orderExpiration = @"day";
+        globalController.currentSession.previewRequest.orderExpiration = @"day";
     }
 }
 
@@ -463,7 +480,7 @@
 }
 
 -(void) setToMarketOrder {
-    globalController.tradeRequest.orderPriceType = @"market";
+    globalController.currentSession.previewRequest.orderPriceType = @"market";
 
     [self changeOrderExpiration:@"day"];
     [self hideExpiration];
@@ -478,7 +495,7 @@
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.tradeRequest.orderLimitPrice]];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderLimitPrice]];
 
     [limitPriceInput sizeToFit];
     limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width;
@@ -492,7 +509,7 @@
     [limitPriceInput setHidden:YES];
     [stopPriceInput setHidden:NO];
     limitPriceInput.text = nil;
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.tradeRequest.orderStopPrice]];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderStopPrice]];
 
     [stopPriceInput sizeToFit];
     limitPricesWidthConstraint.constant = stopPriceInput.frame.size.width;
@@ -506,8 +523,8 @@
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.tradeRequest.orderLimitPrice]];
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.tradeRequest.orderStopPrice]];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderLimitPrice]];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderStopPrice]];
 
     [limitPriceInput sizeToFit];
     [stopPriceInput sizeToFit];
@@ -589,14 +606,14 @@
     NSString * newQuantityString;
     NSString * appendedString;
 
-    if (!globalController.tradeRequest.orderQuantity) {
+    if (!globalController.currentSession.previewRequest.orderQuantity) {
         if (key == 11) { // backspace
             appendedString = @"";
         } else {
             appendedString = [NSString stringWithFormat:@"%ld", (long)key];
         }
     } else {
-        currentQuantityString = [NSString stringWithFormat:@"%i", [globalController.tradeRequest.orderQuantity intValue]];
+        currentQuantityString = [NSString stringWithFormat:@"%i", [globalController.currentSession.previewRequest.orderQuantity intValue]];
         newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
 
         if (key == 11) { // backspace
@@ -606,7 +623,7 @@
         }
     }
     
-    globalController.tradeRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
+    globalController.currentSession.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
     sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
 
     [self checkIfReadyToTrade];
@@ -683,7 +700,7 @@
 
     if(readyToTrade) {
         [utils styleLoadingButton:previewOrderButton];
-        [self sendReviewRequest];
+        [self sendPreviewRequest];
     }
 }
 

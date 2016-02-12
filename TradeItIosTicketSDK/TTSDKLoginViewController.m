@@ -52,10 +52,10 @@
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 
-    NSString * broker = (self.addBroker == nil) ? globalController.currentBroker : self.addBroker;
+    NSString * broker = (self.addBroker == nil) ? globalController.currentSession.broker : self.addBroker;
 
-    if(self.addBroker == nil && globalController.currentLogin.userId) {
-        emailInput.text = globalController.currentLogin.userId;
+    if(self.addBroker == nil && globalController.currentSession.login.userId) {
+        emailInput.text = globalController.currentSession.login.userId;
     }
 
     if(self.cancelToParent) {
@@ -132,7 +132,7 @@
     }
 
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
-        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [utils getBrokerUsername:globalController.currentBroker]];
+        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [utils getBrokerUsername:globalController.currentSession.broker]];
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
@@ -153,7 +153,7 @@
 }
 
 -(void) authenticate {
-    NSString * broker = self.addBroker == nil ? globalController.currentBroker : self.addBroker;
+    NSString * broker = self.addBroker == nil ? globalController.currentSession.broker : self.addBroker;
     
     self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
 
@@ -185,10 +185,14 @@
 
                 if ([result isKindOfClass:TradeItErrorResult.class]) {
                     
-                } else {
-                    
+                } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
+
+                    TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
+
                     [globalController appendSession: newSession];
-                    
+                    [globalController addAccounts: authResult.accounts];
+                    [globalController selectAccount: [authResult.accounts lastObject]];
+
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {

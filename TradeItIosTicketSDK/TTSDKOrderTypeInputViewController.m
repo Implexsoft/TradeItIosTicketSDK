@@ -71,14 +71,14 @@
     NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
     nf.numberStyle = NSNumberFormatterCurrencyStyle;
 
-    if (globalController.tradeRequest.orderLimitPrice) {
-        self.limitPrice = [globalController.tradeRequest.orderLimitPrice stringValue];
-        self.limitPriceField.text = [nf stringFromNumber: globalController.tradeRequest.orderLimitPrice];
+    if (globalController.currentSession.previewRequest.orderLimitPrice) {
+        self.limitPrice = [globalController.currentSession.previewRequest.orderLimitPrice stringValue];
+        self.limitPriceField.text = [nf stringFromNumber: globalController.currentSession.previewRequest.orderLimitPrice];
     }
 
-    if (globalController.tradeRequest.orderStopPrice) {
-        self.stopPrice = [globalController.tradeRequest.orderStopPrice stringValue];
-        self.stopPriceField.text = [nf stringFromNumber: globalController.tradeRequest.orderStopPrice];
+    if (globalController.currentSession.previewRequest.orderStopPrice) {
+        self.stopPrice = [globalController.currentSession.previewRequest.orderStopPrice stringValue];
+        self.stopPriceField.text = [nf stringFromNumber: globalController.currentSession.previewRequest.orderStopPrice];
     }
 
     if ([self.orderType isEqualToString:@"limit"]) {
@@ -101,7 +101,7 @@
     }
 
     TTSDKCompanyDetails * companyDetailsNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
-    [companyDetailsNib populateDetailsWithSymbol:globalController.tradeRequest.orderSymbol andLastPrice:globalController.position.lastPrice andChange:globalController.position.todayGainLossDollar andChangePct:globalController.position.todayGainLossPercentage];
+    [companyDetailsNib populateDetailsWithSymbol:globalController.currentSession.previewRequest.orderSymbol andLastPrice:globalController.position.lastPrice andChange:globalController.position.todayGainLossDollar andChangePct:globalController.position.todayGainLossPercentage];
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
@@ -239,15 +239,15 @@
     nf.numberStyle = NSNumberFormatterDecimalStyle;
 
     if([self.orderType isEqualToString:@"limit"]){
-        globalController.tradeRequest.orderPriceType = @"limit";
-        globalController.tradeRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+        globalController.currentSession.previewRequest.orderPriceType = @"limit";
+        globalController.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
     } else if([self.orderType isEqualToString:@"stopMarket"]){
-        globalController.tradeRequest.orderPriceType = @"stopMarket";
-        globalController.tradeRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+        globalController.currentSession.previewRequest.orderPriceType = @"stopMarket";
+        globalController.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
     } else if([self.orderType isEqualToString:@"stopLimit"]){
-        globalController.tradeRequest.orderPriceType = @"stopLimit";
-        globalController.tradeRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
-        globalController.tradeRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+        globalController.currentSession.previewRequest.orderPriceType = @"stopLimit";
+        globalController.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+        globalController.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
     }
 
     [self.navigationController popToRootViewControllerAnimated:YES];

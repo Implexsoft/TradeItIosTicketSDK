@@ -66,7 +66,7 @@
 
     [ticketController setApiKey: apiKey];
     [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
-    [ticketController createInitialTradeRequestWithSymbol:[symbol uppercaseString] andAction:action andQuantity:quantity];
+    [ticketController createInitialPreviewRequestWithSymbol:[symbol uppercaseString] andAction:action andQuantity:quantity];
     [ticketController setCallback: callback];
     [ticketController setParentView: view];
     [ticketController setDebugMode: debug];
@@ -83,7 +83,7 @@
 
         [ticketController setApiKey:apiKey];
         [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
-        [ticketController createInitialTradeRequest]; // will set trade request to default values
+        [ticketController createInitialPreviewRequest]; // will set trade request to default values
         [ticketController setParentView:view];
     }
 
@@ -96,19 +96,19 @@
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
 
     if(self.quantity > 0) {
-        [ticketController.tradeRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+        [ticketController.initialPreviewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
-        [ticketController.tradeRequest setOrderAction: self.action];
+        [ticketController.initialPreviewRequest setOrderAction: self.action];
     }
 
     if (self.orderType != nil && ![self.orderType isEqualToString:@""]) {
-        [ticketController.tradeRequest setOrderPriceType: self.orderType];
+        [ticketController.initialPreviewRequest setOrderPriceType: self.orderType];
     }
 
     if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
-        [ticketController.tradeRequest setOrderExpiration: self.expiration];
+        [ticketController.initialPreviewRequest setOrderExpiration: self.expiration];
     }
 
     if(self.debugMode) {

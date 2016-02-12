@@ -84,8 +84,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     // Implement me in subclass
 }
 
--(void) sendReviewRequest {
-    [globalController previewTrade:^(TradeItResult * res){
+-(void) sendPreviewRequest {
+    [globalController.currentSession previewTrade:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
             globalController.resultContainer.status = USER_CANCELED;
             globalController.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
@@ -94,7 +94,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         } else if([res isKindOfClass:[TradeItErrorResult class]]){
             NSString * errorMessage = @"Could Not Complete Your Order";
             TradeItErrorResult * error = (TradeItErrorResult *)res;
-            
+
             if(error.errorFields.count > 0) {
                 NSString * errorField = (NSString *) error.errorFields[0];
                 if([errorField isEqualToString:@"authenticationInfo"]) {
@@ -201,7 +201,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) showOldOrderAction {
     self.pickerTitles = @[@"Buy",@"Sell",@"Buy to Cover",@"Sell Short"];
     self.pickerValues = @[@"buy",@"sell",@"buyToCover",@"sellShort"];
-    self.currentSelection = globalController.tradeRequest.orderAction;
+    self.currentSelection = globalController.currentSession.previewRequest.orderAction;
 
     TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Action"]];
@@ -216,11 +216,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
 
-        if([globalController.tradeRequest.orderAction isEqualToString:@"sellShort"]){
+        if([globalController.currentSession.previewRequest.orderAction isEqualToString:@"sellShort"]){
             [self.currentPicker selectRow:3 inComponent:0 animated:NO];
-        } else if([globalController.tradeRequest.orderAction isEqualToString:@"buyToCover"]){
+        } else if([globalController.currentSession.previewRequest.orderAction isEqualToString:@"buyToCover"]){
             [self.currentPicker selectRow:2 inComponent:0 animated:NO];
-        } else if([globalController.tradeRequest.orderAction isEqualToString:@"sell"]){
+        } else if([globalController.currentSession.previewRequest.orderAction isEqualToString:@"sell"]){
             [self.currentPicker selectRow:1 inComponent:0 animated:NO];
         }
     });
@@ -229,7 +229,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) showOldOrderExp {
     self.pickerTitles = @[@"Good For The Day",@"Good Until Canceled"];
     self.pickerValues = @[@"day",@"gtc"];
-    self.currentSelection = globalController.tradeRequest.orderExpiration;
+    self.currentSelection = globalController.currentSession.previewRequest.orderExpiration;
 
     TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
     [alert setContainerView:[self createPickerView:@"Order Expiration"]];
@@ -244,7 +244,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
 
-        if([globalController.tradeRequest.orderExpiration isEqualToString:@"gtc"]) {
+        if([globalController.currentSession.previewRequest.orderExpiration isEqualToString:@"gtc"]) {
             [self.currentPicker selectRow:1 inComponent:0 animated:NO];
         }
     });

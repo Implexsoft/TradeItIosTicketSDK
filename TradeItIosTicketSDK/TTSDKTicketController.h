@@ -48,10 +48,8 @@
 
 
 @property NSArray * brokerList;
-@property NSString * currentBroker;
 @property NSArray * accounts;
 
-@property TradeItLinkedLogin * currentLogin;
 @property NSArray * linkedLogins;
 
 @property TradeItConnector * connector;
@@ -61,11 +59,11 @@
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
 
-@property TradeItPreviewTradeRequest * tradeRequest;
+@property TradeItPreviewTradeRequest * initialPreviewRequest;
 @property TradeItPosition * position;
 @property TradeItGetPositionsResult * currentPositionsResult;
 
-@property TradeItPlaceTradeRequest * placeTradeRequest;
+//@property TradeItPlaceTradeRequest * placeTradeRequest;
 
 @property NSString * positionCompanyName;
 
@@ -74,29 +72,27 @@
 + (id)globalController;
 - (id)initWithApiKey:(NSString *)apiKey;
 - (void)showTicket;
-- (void)authenticate:(TradeItAuthenticationInfo *)authInfo withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
-- (void)answerSecurityQuestion:(NSString *)answer withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)addAccounts: (NSArray *)accounts;
-- (void)selectAccount:(NSDictionary *) account;
+- (void)selectAccount:(NSDictionary *)account;
 - (NSArray *)retrieveLinkedAccounts;
 - (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
 - (void)switchAccounts:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
 - (void)appendSession:(TTSDKTicketSession *)session;
+- (void)switchSessionsFromViewController:(UIViewController *)viewController withLogin:(TradeItLinkedLogin *)linkedLogin;
 
 - (NSArray *)getLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
 - (NSArray *)getBrokerByValueString:(NSString *) valueString;
-- (void)previewTrade:(void (^)(TradeItResult *)) completionBlock;
-- (void)placeTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void)returnToParentApp;
-- (void)createInitialTradeRequest;
-- (void)createInitialTradeRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void)createInitialPreviewRequest;
+- (void)createInitialPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void)passInitialPreviewRequestToSession;
 - (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
 - (void)retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock;
-- (void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
 @end

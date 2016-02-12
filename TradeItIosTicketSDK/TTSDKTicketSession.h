@@ -26,7 +26,9 @@
 
 - (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker;
 - (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
-- (void) createInitialPreviewRequest;
-- (void) createInitialPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void) createPreviewRequest;
+- (void) createPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
+- (void) previewTrade:(void (^)(TradeItResult *)) completionBlock;
+- (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
 
 @end

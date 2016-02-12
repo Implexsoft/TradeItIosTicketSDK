@@ -24,7 +24,7 @@
 @property NSArray * questionOptions;
 @property NSDictionary * currentAccount;
 
--(void) sendReviewRequest;
+-(void) sendPreviewRequest;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
 -(void) showOldOrderAction;
 -(void) showOldOrderExp;
