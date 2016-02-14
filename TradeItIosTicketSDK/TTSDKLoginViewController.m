@@ -190,12 +190,13 @@
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
 
                     [globalController addSession: newSession];
-                    [globalController addAccounts: authResult.accounts];
-                    [globalController selectSession:newSession andAccount:[authResult.accounts lastObject]];
+                    [globalController addAccounts: authResult.accounts withSession: newSession];
 
+                    // If the auth flow was triggered modally, then we don't want to automatically select it
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
+                        [globalController selectSession:newSession andAccount:[authResult.accounts lastObject]];
                         [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
                     }
                 }

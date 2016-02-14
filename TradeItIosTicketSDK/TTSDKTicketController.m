@@ -86,27 +86,18 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
-- (void) showTicket {
-    if (!self.connector) {
-        self.connector = [[TradeItConnector alloc] initWithApiKey:self.apiKey];
-    }
-
-
-
-    [self retrieveBrokers:^(void) {}];
-
-    [self launchInitialViewController];
-}
-
--(void) retrieveBrokers:(void (^)(void)) completionBlock {
+-(void) retrieveBrokers:(void (^)(NSArray *)) completionBlock {
     //Get brokers
+
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
         // set brokers
+        NSArray * brokersResult;
         if(brokerList == nil) {
-            self.brokerList = [self getDefaultBrokerList];
+            brokersResult = [self getDefaultBrokerList];
+            completionBlock(brokersResult);
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
-            
+
             if(self.debugMode) {
                 NSArray * dummy  =  @[@"Dummy",@"Dummy"];
                 [brokers addObject:dummy];
@@ -116,12 +107,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
             }
-            
-            self.brokerList = (NSArray *) brokers;
-        }
 
-        completionBlock();
+            brokersResult = [brokers copy];
+            completionBlock(brokersResult);
+        }
     }];
+}
+
+- (void) showTicket {
+    if (!self.connector) {
+        self.connector = [[TradeItConnector alloc] initWithApiKey:self.apiKey];
+        self.currentSession = [[TTSDKTicketSession alloc] initWithConnector: self.connector];
+    }
+
+    [self retrieveBrokers:^(NSArray * brokers) {
+        self.brokerList = brokers;
+    }];
+
+    [self launchInitialViewController];
 }
 
 -(void) launchInitialViewController {
@@ -232,6 +235,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSMutableArray * linkedAccounts = [[NSMutableArray alloc] init];
     NSArray * storedAccounts = [self retrieveAccounts];
 
+    NSLog(@"all stored accounts");
+    NSLog(@"%@", storedAccounts);
+
     if (storedAccounts.count) {
         int i;
         for (i = 0; i < storedAccounts.count; i++) {
@@ -247,7 +253,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return [linkedAccounts copy];
 }
 
--(void) addAccounts:(NSArray *)accounts {
+-(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session {
     NSArray * storedAccounts = [self retrieveAccounts];
 
     if (!storedAccounts) {
@@ -258,10 +264,19 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     int i;
     for (i = 0; i < accounts.count; i++) {
         NSMutableDictionary * acct = [NSMutableDictionary dictionaryWithDictionary:[accounts objectAtIndex:i]];
-        [acct setObject:self.currentSession.login.userId forKey:@"UserId"];
+
+        NSString * accountNumber = [acct valueForKey: @"accountNumber"];
+
+        NSString * displayTitle = [NSString stringWithFormat:@"%@*%@",
+                                   session.broker,
+                                   [accountNumber substringFromIndex:accountNumber.length - 4]
+                                   ];
+
+        [acct setObject: session.login.userId forKey:@"UserId"];
         [acct setObject:[NSNumber numberWithBool:YES] forKey:@"active"];
+        [acct setObject: displayTitle forKey:@"displayTitle"];
         [acct setObject:[NSNumber numberWithBool:NO] forKey:@"lastSelected"];
-        [acct setObject:self.currentSession.broker forKey:@"broker"];
+        [acct setObject: session.broker forKey:@"broker"];
         [newAccounts addObject:acct];
     }
 
@@ -283,7 +298,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSMutableArray * newSessionList = [self.sessions mutableCopy];
     [newSessionList addObject: session];
     self.sessions = [newSessionList copy];
-    self.currentSession = session;
 }
 
 -(void) unlinkAccounts {
@@ -298,7 +312,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
 
+    NSLog(@"switching accounts!");
+
     if (self.currentSession.currentAccount && [account isEqualToDictionary:self.currentSession.currentAccount]) {
+        NSLog(@"is the current account. return.");
         return;
     }
 
@@ -312,11 +329,16 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
     }
 
+    NSLog(@"is in same session?");
+    NSLog(@"current login: %@", self.currentSession.login.userId);
+    NSLog(@"new login: %@", newLogin.userId);
+
     // See whether the new account exists under the current login. If not, change sessions
     if ([newLogin.userId isEqualToString: self.currentSession.login.userId]) {
         [self selectAccount: account];
+        completionBlock(nil);
     } else {
-        [self switchSessionsFromViewController:viewController withLogin:newLogin andAccount: account];
+        [self switchSessionsFromViewController:viewController withLogin:newLogin andAccount: account withCompletionBlock:completionBlock];
     }
 }
 
@@ -360,8 +382,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self updateAccounts: [storedAccounts copy]];
 }
 
--(void) switchSessionsFromViewController:(UIViewController *)viewController withLogin:(TradeItLinkedLogin *)linkedLogin andAccount:(NSDictionary *)account {
+-(void) switchSessionsFromViewController:(UIViewController *)viewController withLogin:(TradeItLinkedLogin *)linkedLogin andAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     TTSDKTicketSession * newSession;
+
+    NSLog(@"SWITCHING SESSIONS!");
 
     for (TTSDKTicketSession * session in self.sessions) {
         if ([session.login.userId isEqualToString:linkedLogin.userId]) {
@@ -375,9 +399,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 
     if (!self.currentSession.isAuthenticated) {
-        [self.currentSession authenticateFromViewController:viewController withCompletionBlock:^(TradeItResult * res) {
-            // TODO
-        }];
+        NSLog(@"new session is not authenticated");
+        [self.currentSession authenticateFromViewController:viewController withCompletionBlock: completionBlock];
+    } else {
+        completionBlock(nil);
     }
 }
 
@@ -385,6 +410,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     self.currentSession = session;
     [self.currentSession setCurrentAccount: account];
 }
+
 
 
 #pragma mark - Trading

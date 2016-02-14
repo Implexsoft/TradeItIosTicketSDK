@@ -72,7 +72,7 @@
 - (id)initWithApiKey:(NSString *)apiKey;
 - (void)showTicket;
 - (NSArray *)retrieveAccounts;
-- (void)addAccounts: (NSArray *)accounts;
+- (void)addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
 - (void)selectAccount:(NSDictionary *)account;
 - (NSArray *)retrieveLinkedAccounts;
 - (void)updateAccounts:(NSArray *)accounts;

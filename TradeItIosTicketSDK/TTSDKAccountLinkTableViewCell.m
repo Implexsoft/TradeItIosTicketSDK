@@ -8,10 +8,12 @@
 
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
+#import "TTSDKTicketController.h"
 
 @interface TTSDKAccountLinkTableViewCell() {
     TTSDKUtils * utils;
     NSDictionary * accountData;
+    TTSDKTicketController * globalController;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
@@ -28,6 +30,7 @@
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
 }
 
 
@@ -41,11 +44,11 @@
     NSString * accountType = [data valueForKey:@"accountType"] ? [data valueForKey:@"accountType"] : @"Brokerage";
     self.accountName = [data valueForKey:@"name"];
     NSString * linkedStr = [data valueForKey:@"active"];
-    self.linked = [linkedStr intValue];
+    BOOL linked = [linkedStr boolValue];
 
     NSString * broker = [data objectForKey:@"broker"] ? [data objectForKey:@"broker"] : @"N/A";
 
-    self.toggle.on = self.linked;
+    self.toggle.on = linked;
     self.buyingPowerLabel.text = buyingPower;
     self.accountTypeLabel.text = accountType;
     self.accountNameLabel.text = self.accountName;
@@ -62,13 +65,30 @@
 #pragma mark - Custom Recognizers
 
 -(IBAction) togglePressed:(id)sender {
-    self.linked = NO;
+    // If the toggle resulted in unlinking the account, make sure the account can be unlinked
+    if (!self.toggle.on) {
+        NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
+        if (linkedAccounts.count < 2) {
+            self.toggle.on = YES;
+            [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];
+            return;
+        } else if ([accountData isEqualToDictionary:globalController.currentSession.currentAccount]) {
+            self.toggle.on = YES;
+            [self.delegate linkToggleDidNotSelect: @"This account is currently selected."];
+            return;
+        }
+    }
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:)]) {
         [self.delegate linkToggleDidSelect: accountData];
     }
 }
 
+-(void) callLinkToggleDidNotSelect {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidNotSelect:)]) {
+        [self.delegate linkToggleDidNotSelect: @""];
+    }
+}
 
 
 @end

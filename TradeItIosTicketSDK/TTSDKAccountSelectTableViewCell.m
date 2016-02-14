@@ -44,34 +44,14 @@
     }
 }
 
-//- (UIEdgeInsets)layoutMargins {
-//    return UIEdgeInsetsMake(0, 20, 0, 20);
-//}
-
 -(void) configureCellWithAccount:(NSDictionary *)account {
-    self.brokerLabel.text = [account valueForKey: @"name"];
+    self.brokerLabel.text = [account valueForKey: @"displayTitle"];
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
     // set subtitle to formatted string
     self.accountTypeLabel.text = @"Brokerage";
     
     [self insertPortfolioDetail:[account valueForKey:@"broker"]];
-}
-
-- (void)configureCell {
-    // set title
-    self.brokerLabel.text = @"Fidelity";
-    self.brokerLabel.textColor = [UIColor colorWithRed:65.0f/255.0f green:65.0f/255.0f blue:65.0f/255.0f alpha:1]; // TODO - why not do this in storyboard?
-    self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
-
-    // format creation date
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM d, yyyy"];
-
-    // set subtitle to formatted string
-    self.accountTypeLabel.text = @"Brokerage";
-
-    [self insertPortfolioDetail:self.brokerLabel.text];
 }
 
 - (void)insertPortfolioDetail:(NSString *)broker {

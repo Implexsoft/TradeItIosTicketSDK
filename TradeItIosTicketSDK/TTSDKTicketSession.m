@@ -105,9 +105,9 @@
         self.broker = self.login.broker;
         completionBlock(res);
     } else if ([res isKindOfClass:TradeItSecurityQuestionResult.class]) {
-        
+
         TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
-        
+
         if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
             if (![UIAlertController class]) {
                 [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];

@@ -14,6 +14,7 @@
 
 @required
 -(void)linkToggleDidSelect:(NSDictionary *)account;
+-(void)linkToggleDidNotSelect:(NSString *)errorMessage;
 
 @end
 
@@ -22,7 +23,6 @@
 @property (nonatomic, weak) id<TTSDKAccountLinkDelegate> delegate;
 @property (unsafe_unretained, nonatomic) IBOutlet UISwitch * toggle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountNameLabel;
-@property BOOL linked;
 @property NSString * accountName;
 
 -(void) configureCellWithData:(NSDictionary *)data;

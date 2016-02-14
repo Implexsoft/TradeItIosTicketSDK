@@ -86,6 +86,18 @@
 		6589BF8C1C64E534007E7E44 /* TradeItTradeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589BF8B1C64E534007E7E44 /* TradeItTradeService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6589BF8E1C64E8F1007E7E44 /* TradeItPreviewTradeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6589BF8D1C64E8F1007E7E44 /* TradeItPreviewTradeRequest.m */; };
 		6589BF901C64E90C007E7E44 /* TradeItPreviewTradeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589BF8F1C64E90C007E7E44 /* TradeItPreviewTradeRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A718E1C70E70A00132CDE /* TradeItSymbolLookupResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A71881C70E70A00132CDE /* TradeItSymbolLookupResult.m */; };
+		659A718F1C70E70A00132CDE /* TradeItSymbolLookupRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A71891C70E70A00132CDE /* TradeItSymbolLookupRequest.m */; };
+		659A71901C70E70A00132CDE /* TradeItSymbolLookupCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A718A1C70E70A00132CDE /* TradeItSymbolLookupCompany.m */; };
+		659A71911C70E70A00132CDE /* TradeItQuoteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A718B1C70E70A00132CDE /* TradeItQuoteResult.m */; };
+		659A71921C70E70A00132CDE /* TradeItQuoteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A718C1C70E70A00132CDE /* TradeItQuoteRequest.m */; };
+		659A71931C70E70A00132CDE /* TradeItMarketDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A718D1C70E70A00132CDE /* TradeItMarketDataService.m */; };
+		659A719D1C70E72500132CDE /* TradeItSymbolLookupResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A71971C70E72500132CDE /* TradeItSymbolLookupResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A719E1C70E72500132CDE /* TradeItSymbolLookupRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A71981C70E72500132CDE /* TradeItSymbolLookupRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A719F1C70E72500132CDE /* TradeItSymbolLookupCompany.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A71991C70E72500132CDE /* TradeItSymbolLookupCompany.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A71A01C70E72500132CDE /* TradeItQuoteResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A719A1C70E72500132CDE /* TradeItQuoteResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A71A11C70E72500132CDE /* TradeItQuoteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A719B1C70E72500132CDE /* TradeItQuoteRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		659A71A21C70E72500132CDE /* TradeItMarketDataService.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A719C1C70E72500132CDE /* TradeItMarketDataService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65A2199D1C625A5400BDCF19 /* TradeItPreviewTradeOrderDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A2199C1C625A5400BDCF19 /* TradeItPreviewTradeOrderDetails.m */; };
 		65A219A21C625A8A00BDCF19 /* TradeItPreviewTradeOrderDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A11C625A8A00BDCF19 /* TradeItPreviewTradeOrderDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65A219A51C6268E300BDCF19 /* TTSDKTicketController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A31C6268E300BDCF19 /* TTSDKTicketController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -305,6 +317,18 @@
 		6589BF8B1C64E534007E7E44 /* TradeItTradeService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItTradeService.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItTradeService.h; sourceTree = "<group>"; };
 		6589BF8D1C64E8F1007E7E44 /* TradeItPreviewTradeRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPreviewTradeRequest.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeRequest.m; sourceTree = "<group>"; };
 		6589BF8F1C64E90C007E7E44 /* TradeItPreviewTradeRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPreviewTradeRequest.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeRequest.h; sourceTree = "<group>"; };
+		659A71881C70E70A00132CDE /* TradeItSymbolLookupResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItSymbolLookupResult.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupResult.m; sourceTree = "<group>"; };
+		659A71891C70E70A00132CDE /* TradeItSymbolLookupRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItSymbolLookupRequest.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupRequest.m; sourceTree = "<group>"; };
+		659A718A1C70E70A00132CDE /* TradeItSymbolLookupCompany.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItSymbolLookupCompany.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupCompany.m; sourceTree = "<group>"; };
+		659A718B1C70E70A00132CDE /* TradeItQuoteResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItQuoteResult.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuoteResult.m; sourceTree = "<group>"; };
+		659A718C1C70E70A00132CDE /* TradeItQuoteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItQuoteRequest.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuoteRequest.m; sourceTree = "<group>"; };
+		659A718D1C70E70A00132CDE /* TradeItMarketDataService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItMarketDataService.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItMarketDataService.m; sourceTree = "<group>"; };
+		659A71971C70E72500132CDE /* TradeItSymbolLookupResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItSymbolLookupResult.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupResult.h; sourceTree = "<group>"; };
+		659A71981C70E72500132CDE /* TradeItSymbolLookupRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItSymbolLookupRequest.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupRequest.h; sourceTree = "<group>"; };
+		659A71991C70E72500132CDE /* TradeItSymbolLookupCompany.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItSymbolLookupCompany.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItSymbolLookupCompany.h; sourceTree = "<group>"; };
+		659A719A1C70E72500132CDE /* TradeItQuoteResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItQuoteResult.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuoteResult.h; sourceTree = "<group>"; };
+		659A719B1C70E72500132CDE /* TradeItQuoteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItQuoteRequest.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuoteRequest.h; sourceTree = "<group>"; };
+		659A719C1C70E72500132CDE /* TradeItMarketDataService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItMarketDataService.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItMarketDataService.h; sourceTree = "<group>"; };
 		65A2199C1C625A5400BDCF19 /* TradeItPreviewTradeOrderDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItPreviewTradeOrderDetails.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeOrderDetails.m; sourceTree = "<group>"; };
 		65A219A11C625A8A00BDCF19 /* TradeItPreviewTradeOrderDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItPreviewTradeOrderDetails.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItPreviewTradeOrderDetails.h; sourceTree = "<group>"; };
 		65A219A31C6268E300BDCF19 /* TTSDKTicketController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTicketController.h; sourceTree = "<group>"; };
@@ -538,6 +562,18 @@
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
+				659A71971C70E72500132CDE /* TradeItSymbolLookupResult.h */,
+				659A71981C70E72500132CDE /* TradeItSymbolLookupRequest.h */,
+				659A71991C70E72500132CDE /* TradeItSymbolLookupCompany.h */,
+				659A719A1C70E72500132CDE /* TradeItQuoteResult.h */,
+				659A719B1C70E72500132CDE /* TradeItQuoteRequest.h */,
+				659A719C1C70E72500132CDE /* TradeItMarketDataService.h */,
+				659A71881C70E70A00132CDE /* TradeItSymbolLookupResult.m */,
+				659A71891C70E70A00132CDE /* TradeItSymbolLookupRequest.m */,
+				659A718A1C70E70A00132CDE /* TradeItSymbolLookupCompany.m */,
+				659A718B1C70E70A00132CDE /* TradeItQuoteResult.m */,
+				659A718C1C70E70A00132CDE /* TradeItQuoteRequest.m */,
+				659A718D1C70E70A00132CDE /* TradeItMarketDataService.m */,
 				65CD04F91C6CFB740090B2F2 /* TradeItAccountOverviewRequest.h */,
 				65CD04FA1C6CFB740090B2F2 /* TradeItAccountOverviewResult.h */,
 				65CD04F21C6CFB610090B2F2 /* TradeItAccountOverviewRequest.m */,
@@ -889,6 +925,12 @@
 				651405401C6BA23300C16890 /* TradeItPlaceTradeResult.h in Headers */,
 				65A219BA1C628B6500BDCF19 /* TradeItAuthLinkResult.h in Headers */,
 				65CD04FB1C6CFB740090B2F2 /* TradeItAccountOverviewRequest.h in Headers */,
+				659A719D1C70E72500132CDE /* TradeItSymbolLookupResult.h in Headers */,
+				659A719E1C70E72500132CDE /* TradeItSymbolLookupRequest.h in Headers */,
+				659A719F1C70E72500132CDE /* TradeItSymbolLookupCompany.h in Headers */,
+				659A71A01C70E72500132CDE /* TradeItQuoteResult.h in Headers */,
+				659A71A11C70E72500132CDE /* TradeItQuoteRequest.h in Headers */,
+				659A71A21C70E72500132CDE /* TradeItMarketDataService.h in Headers */,
 				65CD04FC1C6CFB740090B2F2 /* TradeItAccountOverviewResult.h in Headers */,
 				651405441C6BB14800C16890 /* TradeItPlaceTradeRequest.h in Headers */,
 				A9C003501B7264A4007D15F5 /* TradeItEmsUtils.h in Headers */,
@@ -1120,6 +1162,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				659A718E1C70E70A00132CDE /* TradeItSymbolLookupResult.m in Sources */,
+				659A718F1C70E70A00132CDE /* TradeItSymbolLookupRequest.m in Sources */,
+				659A71901C70E70A00132CDE /* TradeItSymbolLookupCompany.m in Sources */,
+				659A71911C70E70A00132CDE /* TradeItQuoteResult.m in Sources */,
+				659A71921C70E70A00132CDE /* TradeItQuoteRequest.m in Sources */,
+				659A71931C70E70A00132CDE /* TradeItMarketDataService.m in Sources */,
 				65CD04F41C6CFB610090B2F2 /* TradeItAccountOverviewRequest.m in Sources */,
 				65CD04F51C6CFB610090B2F2 /* TradeItAccountOverviewResult.m in Sources */,
 				651405571C6BC93900C16890 /* TradeItGetPositionsRequest.m in Sources */,

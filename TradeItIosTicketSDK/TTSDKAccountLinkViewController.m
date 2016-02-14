@@ -115,6 +115,21 @@
     [globalController updateAccounts: [mutableAccounts copy]];
 }
 
+- (void)linkToggleDidNotSelect:(NSString *)errorMessage {
+    NSString * errorTitle = @"Unable to unlink account";
+    if(![UIAlertController class]) {
+        [self showOldErrorAlert: errorTitle withMessage:errorMessage];
+    } else {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle: errorTitle
+                                                                        message: errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 
 
 #pragma mark - Navigation
@@ -125,6 +140,19 @@
 
 - (IBAction)doneBarButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+#pragma mark - iOS 7 Fallbacks
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 
