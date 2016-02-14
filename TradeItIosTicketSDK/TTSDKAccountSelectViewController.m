@@ -68,13 +68,11 @@
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 
-    if (![selectedAccount isEqualToDictionary:globalController.currentAccount]) {
+    if (![selectedAccount isEqualToDictionary:globalController.currentSession.currentAccount]) {
         tradeVC.refreshAccount = YES;
-
-        [globalController switchAccounts:selectedAccount withCompletionBlock:^(TradeItResult * result) {
+        [globalController switchAccountsFromViewController:self toAccount:selectedAccount withCompletionBlock:^(TradeItResult * res){
             [self.navigationController popToViewController:tradeVC animated:YES];
         }];
-
     } else {
         tradeVC.refreshAccount = NO;
         [self.navigationController popToViewController:tradeVC animated:YES];
@@ -127,7 +125,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     }
 
-    [cell configureCellWithAccount: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
+    [cell configureCellWithAccount: (NSDictionary *)[linkedAccounts objectAtIndex:indexPath.row]];
 
     return cell;
 }

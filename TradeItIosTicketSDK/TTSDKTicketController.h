@@ -48,12 +48,11 @@
 
 
 @property NSArray * brokerList;
-@property NSArray * accounts;
 
 @property NSArray * linkedLogins;
 
 @property TradeItConnector * connector;
-@property NSDictionary * currentAccount;
+//@property NSDictionary * currentAccount;
 @property TradeItAccountOverviewResult * currentAccountOverview;
 
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
@@ -72,17 +71,18 @@
 + (id)globalController;
 - (id)initWithApiKey:(NSString *)apiKey;
 - (void)showTicket;
+- (NSArray *)retrieveAccounts;
 - (void)addAccounts: (NSArray *)accounts;
 - (void)selectAccount:(NSDictionary *)account;
 - (NSArray *)retrieveLinkedAccounts;
 - (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
-- (void)switchAccounts:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
-- (void)appendSession:(TTSDKTicketSession *)session;
-- (void)switchSessionsFromViewController:(UIViewController *)viewController withLogin:(TradeItLinkedLogin *)linkedLogin;
+- (void)addSession:(TTSDKTicketSession *)session;
+- (void)selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
 
-- (NSArray *)getLinkedLogins;
+- (NSArray *)retrieveLinkedLogins;
 - (NSString *)getBrokerDisplayString:(NSString *) value;
 - (NSString *)getBrokerValueString:(NSString *) displayString;
 - (NSArray *)getBrokerByValueString:(NSString *) valueString;

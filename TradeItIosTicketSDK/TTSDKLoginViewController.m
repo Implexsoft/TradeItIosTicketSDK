@@ -189,9 +189,9 @@
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
 
-                    [globalController appendSession: newSession];
+                    [globalController addSession: newSession];
                     [globalController addAccounts: authResult.accounts];
-                    [globalController selectAccount: [authResult.accounts lastObject]];
+                    [globalController selectSession:newSession andAccount:[authResult.accounts lastObject]];
 
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];

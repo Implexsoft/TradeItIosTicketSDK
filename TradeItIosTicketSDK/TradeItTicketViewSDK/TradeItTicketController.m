@@ -156,7 +156,7 @@
 + (NSArray *)getLinkedBrokers {
     TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
 
-    return [ticketController getLinkedLogins];
+    return [ticketController retrieveLinkedLogins];
 }
 
 + (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {

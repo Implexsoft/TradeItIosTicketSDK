@@ -13,9 +13,11 @@
 @interface TTSDKAccountLinkViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
+    NSArray * accounts;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 
 @end
 
@@ -38,7 +40,7 @@
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
@@ -47,12 +49,17 @@
     [utils styleMainActiveButton:self.doneButton];
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    accounts = [globalController retrieveAccounts];
+    [self.linkTableView reloadData];
+}
+
 
 
 #pragma mark - Table Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return globalController.accounts.count;
+    return accounts.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,8 +79,7 @@
     }
 
     [cell setDelegate: self];
-
-    [cell configureCellWithData: (NSDictionary *)[globalController.accounts objectAtIndex:indexPath.row]];
+    [cell configureCellWithData: (NSDictionary *)[accounts objectAtIndex:indexPath.row]];
 
     return cell;
 }
@@ -84,7 +90,7 @@
 
 - (void)linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
-    NSMutableArray * mutableAccounts = [globalController.accounts mutableCopy];
+    NSMutableArray * mutableAccounts = [accounts mutableCopy];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;

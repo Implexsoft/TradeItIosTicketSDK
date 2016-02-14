@@ -70,15 +70,14 @@
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 
-    // Session doesn't exist until authentication
-    [globalController passInitialPreviewRequestToSession];
-
-
-    if (globalController.currentAccount) {
-        globalController.currentSession.previewRequest.accountNumber = [globalController.currentAccount valueForKey:@"accountNumber"];
+    if (globalController.currentSession.currentAccount) {
+        globalController.currentSession.previewRequest.accountNumber = [globalController.currentSession.currentAccount valueForKey:@"accountNumber"];
     }
 
+    NSLog(@"is session authenticated?");
+    NSLog(@"%@", globalController.currentSession);
     if (!globalController.currentSession.isAuthenticated) {
+        NSLog(@"authenticating!");
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
@@ -139,11 +138,11 @@
 
     [self populateSymbolDetails];
 
-    [globalController retrieveAccountOverview: [globalController.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
+    [globalController retrieveAccountOverview: [globalController.currentSession.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
         [self populateSymbolDetails];
     }];
 
-    [globalController retrievePositionsFromAccount:globalController.currentAccount withCompletionBlock:^(TradeItResult * res) {
+    [globalController retrievePositionsFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TradeItResult * res) {
         [self populateSymbolDetails];
     }];
 
@@ -317,7 +316,7 @@
 #pragma mark - Account
 
 -(void) refreshToNewAccount {
-    [companyNib populateBrokerButtonTitle: [globalController.currentAccount valueForKey:@"broker"]];
+    [companyNib populateBrokerButtonTitle: [globalController.currentSession.currentAccount valueForKey:@"broker"]];
 }
 
 
@@ -351,7 +350,9 @@
         }
     }
 
-    if (!globalController.currentSession.isAuthenticated || !globalController.currentAccount) {
+    NSLog(@"checking ready");
+    if (!globalController.currentSession.isAuthenticated || !globalController.currentSession.currentAccount) {
+        NSLog(@"not authenticated. not ready!");
         readyNow = NO;
     }
 
