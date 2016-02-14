@@ -104,7 +104,7 @@
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
         completionBlock(res);
-    } else if ([res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+    } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
 
         TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
 

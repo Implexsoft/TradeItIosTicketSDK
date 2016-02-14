@@ -132,10 +132,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
     // Try to set an initial login with associated session and account
-    BOOL hasInitialLogin = [self attemptToSetInitialLogin];
+    BOOL initialLoginFoundAndSet = [self attemptToSetInitialLogin];
 
     // If user needs to link an account, go either to onboarding or broker select
-    if (hasInitialLogin) {
+    if (initialLoginFoundAndSet) {
         [self passInitialPreviewRequestToSession];
 
         UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
@@ -146,6 +146,8 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         } else {
             tab.selectedIndex = 0;
         }
+
+        [self authenticateSessionsInBackground];
 
         [self.parentView presentViewController:tab animated:YES completion:nil];
     } else {
@@ -235,9 +237,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSMutableArray * linkedAccounts = [[NSMutableArray alloc] init];
     NSArray * storedAccounts = [self retrieveAccounts];
 
-    NSLog(@"all stored accounts");
-    NSLog(@"%@", storedAccounts);
-
     if (storedAccounts.count) {
         int i;
         for (i = 0; i < storedAccounts.count; i++) {
@@ -284,6 +283,17 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self updateAccounts: appendedAccounts];
 }
 
+-(void) authenticateSessionsInBackground {
+    // For all sessions that are not currently selected, go ahead and authenticate to smooth user flows
+    NSString * currentUserId = self.currentSession.login ? self.currentSession.login.userId : nil;
+
+    for (TTSDKTicketSession * session in self.sessions) {
+        if (![session.login.userId isEqualToString:currentUserId]) {
+            [session authenticateFromViewController:nil withCompletionBlock:nil];
+        }
+    }
+}
+
 -(void) updateAccounts:(NSArray *)accounts {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject: accounts forKey:kAccountsKey];
@@ -312,10 +322,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
 
-    NSLog(@"switching accounts!");
-
     if (self.currentSession.currentAccount && [account isEqualToDictionary:self.currentSession.currentAccount]) {
-        NSLog(@"is the current account. return.");
         return;
     }
 
@@ -328,10 +335,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             break;
         }
     }
-
-    NSLog(@"is in same session?");
-    NSLog(@"current login: %@", self.currentSession.login.userId);
-    NSLog(@"new login: %@", newLogin.userId);
 
     // See whether the new account exists under the current login. If not, change sessions
     if ([newLogin.userId isEqualToString: self.currentSession.login.userId]) {
@@ -385,8 +388,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 -(void) switchSessionsFromViewController:(UIViewController *)viewController withLogin:(TradeItLinkedLogin *)linkedLogin andAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     TTSDKTicketSession * newSession;
 
-    NSLog(@"SWITCHING SESSIONS!");
-
     for (TTSDKTicketSession * session in self.sessions) {
         if ([session.login.userId isEqualToString:linkedLogin.userId]) {
             newSession = session;
@@ -399,7 +400,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 
     if (!self.currentSession.isAuthenticated) {
-        NSLog(@"new session is not authenticated");
         [self.currentSession authenticateFromViewController:viewController withCompletionBlock: completionBlock];
     } else {
         completionBlock(nil);

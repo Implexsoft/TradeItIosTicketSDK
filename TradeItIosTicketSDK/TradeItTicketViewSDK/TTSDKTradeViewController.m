@@ -74,10 +74,7 @@
         globalController.currentSession.previewRequest.accountNumber = [globalController.currentSession.currentAccount valueForKey:@"accountNumber"];
     }
 
-    NSLog(@"is session authenticated?");
-    NSLog(@"%@", globalController.currentSession);
     if (!globalController.currentSession.isAuthenticated) {
-        NSLog(@"authenticating!");
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
