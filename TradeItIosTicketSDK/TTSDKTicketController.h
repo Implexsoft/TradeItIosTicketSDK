@@ -95,4 +95,6 @@
 - (void)retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
+- (void)retrievePortfolioDataFromAllAccounts:(void (^)(NSArray *)) completionBlock;
+
 @end

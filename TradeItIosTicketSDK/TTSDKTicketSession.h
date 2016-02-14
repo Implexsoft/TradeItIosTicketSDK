@@ -31,4 +31,6 @@
 - (void) previewTrade:(void (^)(TradeItResult *)) completionBlock;
 - (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
 
+- (void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;
+
 @end

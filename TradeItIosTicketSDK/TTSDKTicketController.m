@@ -477,11 +477,58 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 #pragma mark - Positions and Balances
 
+-(TTSDKTicketSession *) retrieveSessionByAccount:(NSDictionary *)account {
+    NSString * accountNumber = [account valueForKey: @"UserId"];
+
+    TTSDKTicketSession * retrievedSession;
+
+    for (TTSDKTicketSession *session in self.sessions) {
+        if ([session.login.userId isEqualToString: accountNumber]) {
+            retrievedSession = session;
+            break;
+        }
+    }
+
+    return retrievedSession;
+}
+
 -(void) createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice {
     self.position = [[TradeItPosition alloc] init];
 
     [self.position setLastPrice: lastPrice];
     [self.position setSymbol: symbol];
+}
+
+-(void) retrievePortfolioDataFromAllAccounts:(void (^)(NSArray *)) completionBlock {
+    NSArray * totalAccounts = [self retrieveAccounts];
+
+    NSMutableArray * totalPositions = [[NSMutableArray alloc] init];
+//    NSMutableArray * balances = [[NSMutableArray alloc] init];
+
+    positionsBlock = completionBlock;
+    accountPositionsResult = [[NSMutableArray alloc] init];
+    positionsTotal = [NSNumber numberWithInteger: totalAccounts.count];
+    positionsCounter = @0;
+    positionsTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkPositionsCount) userInfo:totalPositions repeats:YES];
+
+    for (NSDictionary * account in totalAccounts) {
+        TTSDKTicketSession * session = [self retrieveSessionByAccount: account];
+
+        NSLog(@"GETTING POSITIONS FROM ACCOUNT");
+
+        [session getPositionsFromAccount: account withCompletionBlock:^(NSArray * positions) {
+            positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
+            [accountPositionsResult addObjectsFromArray: positions];
+        }];
+    }
+}
+
+-(void) checkPositionsCount {
+    if ([positionsCounter isEqualToNumber: positionsTotal]) {
+        [positionsTimer invalidate];
+        positionsTimer = nil;
+        positionsBlock([accountPositionsResult copy]);
+    }
 }
 
 -(void) retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock {
@@ -526,14 +573,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
                 }];
             }
         }];
-    }
-}
-
--(void) checkPositionsCount {
-    if ([positionsCounter isEqualToNumber: positionsTotal]) {
-        [positionsTimer invalidate];
-        positionsTimer = nil;
-        positionsBlock(accountPositionsResult);
     }
 }
 

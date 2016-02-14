@@ -13,6 +13,7 @@
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TradeItTradeService.h"
+#import "TradeItPositionService.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -103,7 +104,10 @@
         self.accounts = result.accounts;
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
-        completionBlock(res);
+
+        if (completionBlock) {
+            completionBlock(res);
+        }
     } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
 
         TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
@@ -198,6 +202,19 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
     });
+}
+
+-(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
+    TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+    TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
+
+    [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
+        if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
+            TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
+            completionBlock(positionsResult.positions);
+        }
+    }];
 }
 
 -(UIView *) createPickerView: (NSString *) title {

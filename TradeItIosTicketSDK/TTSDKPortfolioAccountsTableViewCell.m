@@ -31,9 +31,9 @@
 #pragma mark - Configuration
 
 -(void) configureCellWithAccount:(NSDictionary *)account {
-    NSString * accountName = [account valueForKey:@"name"];
+    NSString * displayTitle = [account valueForKey:@"displayTitle"];
 
-    self.accountLabel.text = accountName;
+    self.accountLabel.text = displayTitle;
 }
 
 -(void) configureCellWithDetails:(NSDictionary *)data {

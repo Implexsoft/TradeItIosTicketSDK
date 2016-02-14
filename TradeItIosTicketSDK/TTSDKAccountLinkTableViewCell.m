@@ -42,7 +42,7 @@
 
     NSString * buyingPower = [data valueForKey:@"buyingPower"] ? [data valueForKey:@"buyingPower"] : @"100";
     NSString * accountType = [data valueForKey:@"accountType"] ? [data valueForKey:@"accountType"] : @"Brokerage";
-    self.accountName = [data valueForKey:@"name"];
+    self.accountName = [data valueForKey:@"displayTitle"];
     NSString * linkedStr = [data valueForKey:@"active"];
     BOOL linked = [linkedStr boolValue];
 

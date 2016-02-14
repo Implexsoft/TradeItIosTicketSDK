@@ -68,10 +68,18 @@ static float kAccountCellHeight = 44.0f;
     linkedAccounts = [globalController retrieveLinkedAccounts];
     linkedPositions = [[NSArray alloc] init];
 
-//    [globalController retrievePositionsFromAccounts:linkedAccounts withCompletionBlock:^(NSArray * positions){
-//        linkedPositions = positions;
-//        [self tableLoaded];
-//    }];
+    [globalController retrievePortfolioDataFromAllAccounts:^(NSArray * positions) {
+        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+
+        for (TradeItPosition * pos in positions) {
+            [positionsHolder addObject: pos];
+        }
+
+        linkedPositions = [positionsHolder copy];
+
+        [self.holdingsTable reloadData];
+        [self reload];
+    }];
 
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
@@ -83,6 +91,10 @@ static float kAccountCellHeight = 44.0f;
     self.selectedIndex = -1;
 
     [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+-(void) reload {
+    [self.holdingsTable reloadData];
 }
 
 -(void)tableLoaded {
