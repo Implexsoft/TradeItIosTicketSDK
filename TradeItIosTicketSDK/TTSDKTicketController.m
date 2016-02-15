@@ -323,6 +323,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 -(void) switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
 
     if (self.currentSession.currentAccount && [account isEqualToDictionary:self.currentSession.currentAccount]) {
+        completionBlock(nil);
         return;
     }
 
@@ -347,16 +348,16 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) selectAccount:(NSDictionary *)account {
     NSMutableArray * storedAccounts = [NSMutableArray arrayWithArray: [self retrieveAccounts]];
-    
+
     NSMutableDictionary * selectedAccount;
     NSMutableDictionary * deselectedAccount;
-    
+
     NSDictionary * selectedAccountToRemove;
     NSDictionary * deselectedAccountToRemove;
-    
+
     for (NSDictionary * acct in storedAccounts) {
         BOOL isLastSelected = [(NSNumber *)[acct valueForKey:@"lastSelected"] boolValue];
-        
+
         if ([acct isEqualToDictionary: account]) {
             selectedAccount = [acct mutableCopy];
             selectedAccountToRemove = acct;
@@ -365,23 +366,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             deselectedAccountToRemove = acct;
         }
     }
-    
+
     if (deselectedAccount) {
         [deselectedAccount setValue:[NSNumber numberWithBool: NO] forKey: @"lastSelected"];
-        
         [storedAccounts removeObject: deselectedAccountToRemove];
         [storedAccounts addObject: deselectedAccount];
     }
-    
+
     if (selectedAccount) {
         [selectedAccount setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
-        
         [storedAccounts removeObject: selectedAccountToRemove];
         [storedAccounts addObject: selectedAccount];
 
         [self.currentSession setCurrentAccount: selectedAccount];
+        if (self.currentSession.previewRequest) {
+            self.currentSession.previewRequest.accountNumber = [selectedAccount valueForKey: @"accountNumber"];
+        }
     }
-    
+
     [self updateAccounts: [storedAccounts copy]];
 }
 
@@ -396,6 +398,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 
     if (newSession) {
+
+        TradeItPreviewTradeRequest * currentPreviewRequest = [self.currentSession.previewRequest copy];
+
+        if (!newSession.previewRequest) {
+            [newSession createPreviewRequestWithSymbol:currentPreviewRequest.orderSymbol andAction:currentPreviewRequest.orderAction andQuantity:currentPreviewRequest.orderQuantity];
+            
+            [newSession.previewRequest setAccountNumber: [account valueForKey:@"accountNumber"]];
+        }
+
         [self selectSession: newSession andAccount: account];
     }
 
@@ -493,7 +504,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice {
-    self.position = [[TradeItPosition alloc] init];
+    self.position = [[TTSDKPosition alloc] init];
 
     [self.position setLastPrice: lastPrice];
     [self.position setSymbol: symbol];
@@ -514,8 +525,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     for (NSDictionary * account in totalAccounts) {
         TTSDKTicketSession * session = [self retrieveSessionByAccount: account];
 
-        NSLog(@"GETTING POSITIONS FROM ACCOUNT");
-
         [session getPositionsFromAccount: account withCompletionBlock:^(NSArray * positions) {
             positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
             [accountPositionsResult addObjectsFromArray: positions];
@@ -526,8 +535,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 -(void) checkPositionsCount {
     if ([positionsCounter isEqualToNumber: positionsTotal]) {
         [positionsTimer invalidate];
-        positionsTimer = nil;
         positionsBlock([accountPositionsResult copy]);
+        positionsTimer = nil;
+        positionsBlock = nil;
     }
 }
 

@@ -34,6 +34,7 @@
 #pragma mark - Configuration
 
 -(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct {
+
     [self populateSymbol:symbol];
     [self populateLastPrice:lastPrice];
     [self populateChangeLabelWithChange:change andChangePct:changePct];

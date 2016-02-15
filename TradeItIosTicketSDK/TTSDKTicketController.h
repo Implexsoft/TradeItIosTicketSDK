@@ -23,6 +23,7 @@
 #import "TradeItAccountOverviewResult.h"
 #import "TradeItGetPositionsResult.h"
 #import "TTSDKTicketSession.h"
+#import "TTSDKPosition.h"
 
 @interface TTSDKTicketController : NSObject
 
@@ -59,7 +60,7 @@
 @property TradeItTicketControllerResult * resultContainer;
 
 @property TradeItPreviewTradeRequest * initialPreviewRequest;
-@property TradeItPosition * position;
+@property TTSDKPosition * position;
 @property TradeItGetPositionsResult * currentPositionsResult;
 
 //@property TradeItPlaceTradeRequest * placeTradeRequest;

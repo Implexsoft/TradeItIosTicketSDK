@@ -8,6 +8,7 @@
 
 #import "TTSDKSuccessViewController.h"
 #import "TradeItPlaceTradeResult.h"
+#import "TTSDKTradeViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
 
@@ -48,7 +49,13 @@
 
     TradeItPlaceTradeResult * result = globalController.resultContainer.tradeResponse;
 
-    [successMessage setText: result.confirmationMessage];
+    if (result.confirmationMessage) {
+        [successMessage setText: result.confirmationMessage];
+
+        NSString * symbol = globalController.currentSession.previewRequest.orderSymbol;
+        globalController.currentSession.previewRequest = nil;
+        [globalController.currentSession createPreviewRequestWithSymbol:symbol andAction:@"buy" andQuantity:@1];
+    }
 
     [utils styleMainActiveButton:tradeButton];
 

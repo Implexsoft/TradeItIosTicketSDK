@@ -30,6 +30,8 @@
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
+#import "TTSDKPosition.h"
+
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -193,7 +195,9 @@
     [TTSDKTabBarViewController class];
     [TTSDKAccountLinkViewController class];
     [TTSDKAccountLinkTableViewCell class];
+    [TTSDKPosition class];
 }
+
 @end
 
 

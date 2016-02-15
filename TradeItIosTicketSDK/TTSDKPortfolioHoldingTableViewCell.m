@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKPortfolioHoldingTableViewCell.h"
+#import "TTSDKPosition.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
 //    TradeItPosition * position;
@@ -70,21 +71,19 @@ static CGFloat const kBounceValue = 20.0f;
     self.separatorView.hidden = NO;
 }
 
--(void) configureCellWithPosition:(TradeItPosition *)position {
+-(void) configureCellWithPosition:(TTSDKPosition *)position {
     NSString * symbol = position.symbol;
-    NSString * cost = [position.costbasis stringValue];
-    NSString * change = [position.todayGainLossDollar stringValue];
-    
-    NSString * bid = [position.lastPrice stringValue];
-    NSString * ask = [position.lastPrice stringValue];
-    NSString * totalValue = [position.totalGainLossDollar stringValue];
-    NSString * dailyReturn = [position.todayGainLossDollar stringValue];
-    NSString * totalReturn = [position.totalGainLossDollar stringValue];
+    NSString * cost = [position.costbasis stringValue] ?: @"N/A";
+    NSString * change = [position.todayGainLossDollar stringValue] ?: @"N/A";
+    NSString * bid = [position.lastPrice stringValue] ?: @"N/A";
+    NSString * ask = [position.lastPrice stringValue] ?: @"N/A";
+    NSString * totalValue = [position.totalGainLossDollar stringValue] ?: @"N/A";
+    NSString * dailyReturn = [position.todayGainLossDollar stringValue] ?: @"N/A";
+    NSString * totalReturn = [position.totalGainLossDollar stringValue] ?: @"N/A";
 
     self.symbolLabel.text = symbol;
     self.costLabel.text = cost;
     self.changeLabel.text = change;
-    
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
     self.totalValueLabel.text = totalValue;

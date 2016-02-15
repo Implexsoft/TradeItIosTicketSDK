@@ -18,6 +18,7 @@
     NSArray * linkedAccounts;
     NSArray * linkedPositions;
 }
+@property (weak, nonatomic) IBOutlet UILabel *totalPortfolioValueLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneEditingBrokersButton;
@@ -71,7 +72,7 @@ static float kAccountCellHeight = 44.0f;
     [globalController retrievePortfolioDataFromAllAccounts:^(NSArray * positions) {
         NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
 
-        for (TradeItPosition * pos in positions) {
+        for (TTSDKPosition * pos in positions) {
             [positionsHolder addObject: pos];
         }
 
@@ -137,7 +138,7 @@ static float kAccountCellHeight = 44.0f;
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         }
 
-        [cell configureCellWithPosition: (TradeItPosition *)[linkedPositions objectAtIndex: indexPath.row]];
+        [cell configureCellWithPosition: (TTSDKPosition *)[linkedPositions objectAtIndex: indexPath.row]];
 
         if (indexPath.row == 0) {
             [cell hideSeparator];
@@ -158,9 +159,7 @@ static float kAccountCellHeight = 44.0f;
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         }
 
-
         [cell configureCellWithAccount:[linkedAccounts objectAtIndex:indexPath.row]];
-
 
         return cell;
     }

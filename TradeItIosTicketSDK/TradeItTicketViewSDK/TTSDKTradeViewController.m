@@ -13,6 +13,8 @@
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKLoginViewController.h"
 #import "TradeItBalanceService.h"
+#import "TTSDKPosition.h"
+#import "TradeItQuoteResult.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -78,6 +80,12 @@
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
+
+                if (globalController.position) {
+                    [globalController.position getPositionData:^(TradeItResult * result) {
+                        [self populateSymbolDetails];
+                    }];
+                }
             }
         }];
     }
@@ -104,9 +112,12 @@
 }
 
 -(void) populateSymbolDetails {
-    TradeItPosition * position = globalController.position;
-    [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
-    [companyNib populateBrokerButtonTitle:globalController.currentSession.broker];
+    TTSDKPosition * position = globalController.position;
+
+    if (position.lastPrice) {
+        [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
+        [companyNib populateBrokerButtonTitle:globalController.currentSession.broker];
+    }
 
     if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
         if (globalController.currentAccountOverview) {
@@ -347,9 +358,7 @@
         }
     }
 
-    NSLog(@"checking ready");
     if (!globalController.currentSession.isAuthenticated || !globalController.currentSession.currentAccount) {
-        NSLog(@"not authenticated. not ready!");
         readyNow = NO;
     }
 

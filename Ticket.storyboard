@@ -270,66 +270,40 @@ you want to link</string>
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL ACCOUNTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrx-kz-Ecm">
-                                                <rect key="frame" x="110" y="12" width="100" height="16"/>
+                                                <rect key="frame" x="110.5" y="12" width="99.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$240,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNP-vi-AcG">
-                                                <rect key="frame" x="92" y="52" width="136" height="36"/>
+                                                <rect key="frame" x="92.5" y="52" width="135.5" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6U-ce-TPo" userLabel="PricesView">
-                                                <rect key="frame" x="80" y="88" width="161" height="20"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+18,940 (6.24%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pe-ja-REF">
-                                                        <rect key="frame" x="0.0" y="1" width="107" height="17"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.78431372549019607" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$46,751" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkZ-QY-JWE">
-                                                        <rect key="frame" x="108" y="1" width="53" height="17"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="9pe-ja-REF" firstAttribute="leading" secondItem="I6U-ce-TPo" secondAttribute="leading" id="HiH-0Z-tbt"/>
-                                                    <constraint firstItem="KkZ-QY-JWE" firstAttribute="top" secondItem="I6U-ce-TPo" secondAttribute="top" constant="1" id="J3R-ON-96t"/>
-                                                    <constraint firstItem="9pe-ja-REF" firstAttribute="top" secondItem="I6U-ce-TPo" secondAttribute="top" constant="1" id="cYc-9d-ts7"/>
-                                                    <constraint firstAttribute="trailing" secondItem="KkZ-QY-JWE" secondAttribute="trailing" id="lR1-Dr-skm"/>
-                                                    <constraint firstAttribute="height" constant="20" id="qCN-QC-GtY"/>
-                                                    <constraint firstAttribute="width" constant="161" id="yVE-Rg-GPl"/>
-                                                </constraints>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Accounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOx-bM-KAg" userLabel="Accounts Title">
-                                                <rect key="frame" x="14" y="126" width="129" height="27"/>
+                                                <rect key="frame" x="14" y="118" width="128.5" height="26.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-wB-eVu" userLabel="Accounts Header">
-                                                <rect key="frame" x="0.0" y="161" width="320" height="20"/>
+                                                <rect key="frame" x="0.0" y="152.5" width="320" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acct name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbX-8m-fjG">
-                                                        <rect key="frame" x="14" y="3" width="56" height="14"/>
+                                                        <rect key="frame" x="14" y="3.5" width="56" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RD-Af-7fB">
-                                                        <rect key="frame" x="0.0" y="3" width="208" height="14"/>
+                                                        <rect key="frame" x="0.0" y="3.5" width="208" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buying Power" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB8-Ez-ldq">
-                                                        <rect key="frame" x="234" y="3" width="72" height="14"/>
+                                                        <rect key="frame" x="234.5" y="3.5" width="71.5" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -348,7 +322,7 @@ you want to link</string>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
-                                                <rect key="frame" x="0.0" y="181" width="320" height="40"/>
+                                                <rect key="frame" x="0.0" y="172.5" width="320" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="LbQ-2R-uD2"/>
@@ -359,7 +333,7 @@ you want to link</string>
                                                 </connections>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Holdings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tz7-G2-eSd" userLabel="Holdings Title">
-                                                <rect key="frame" x="14" y="243" width="123" height="27"/>
+                                                <rect key="frame" x="14" y="234.5" width="123" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="b7S-58-vdd"/>
                                                 </constraints>
@@ -368,22 +342,22 @@ you want to link</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDo-uD-wns" userLabel="Holdings Header">
-                                                <rect key="frame" x="0.0" y="275" width="320" height="20"/>
+                                                <rect key="frame" x="0.0" y="266.5" width="320" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sym" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRX-Fd-P2s">
-                                                        <rect key="frame" x="14" y="3" width="23" height="14"/>
+                                                        <rect key="frame" x="14" y="3.5" width="23" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cost" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuD-ce-UHq">
-                                                        <rect key="frame" x="0.0" y="3" width="208" height="14"/>
+                                                        <rect key="frame" x="0.0" y="3.5" width="208" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcp-k3-X6w">
-                                                        <rect key="frame" x="265" y="3" width="41" height="14"/>
+                                                        <rect key="frame" x="265.5" y="3.5" width="40.5" height="13.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -402,7 +376,7 @@ you want to link</string>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fj7-fD-PW3" userLabel="Holdings Table View">
-                                                <rect key="frame" x="0.0" y="295" width="320" height="60"/>
+                                                <rect key="frame" x="0.0" y="286.5" width="320" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="ieO-c3-gsK"/>
@@ -413,7 +387,7 @@ you want to link</string>
                                                 </connections>
                                             </tableView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Osj-DK-79i">
-                                                <rect key="frame" x="217" y="127" width="95" height="30"/>
+                                                <rect key="frame" x="217" y="118.5" width="95" height="30"/>
                                                 <state key="normal" title="Edit Accounts"/>
                                                 <connections>
                                                     <action selector="editAccountsPressed:" destination="QbV-2r-TI7" eventType="touchUpInside" id="7jW-S0-pM8"/>
@@ -422,7 +396,6 @@ you want to link</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="I6U-ce-TPo" firstAttribute="top" secondItem="MNP-vi-AcG" secondAttribute="bottom" id="0Ud-IJ-XNV"/>
                                             <constraint firstItem="Osj-DK-79i" firstAttribute="baseline" secondItem="ZOx-bM-KAg" secondAttribute="baseline" id="6gb-4Y-iXP"/>
                                             <constraint firstItem="TDo-uD-wns" firstAttribute="leading" secondItem="DCp-F4-9j1" secondAttribute="leading" id="8RM-8z-Lid"/>
                                             <constraint firstItem="Fj7-fD-PW3" firstAttribute="leading" secondItem="DCp-F4-9j1" secondAttribute="leading" id="9qX-8X-2zk"/>
@@ -436,14 +409,13 @@ you want to link</string>
                                             <constraint firstItem="ZOx-bM-KAg" firstAttribute="leading" secondItem="DCp-F4-9j1" secondAttribute="leading" constant="14" id="Zr2-w5-Gya"/>
                                             <constraint firstAttribute="trailing" secondItem="TDo-uD-wns" secondAttribute="trailing" id="ffu-aB-qke"/>
                                             <constraint firstItem="Vrx-kz-Ecm" firstAttribute="top" secondItem="DCp-F4-9j1" secondAttribute="top" constant="12" id="gBK-At-F6p"/>
-                                            <constraint firstItem="I6U-ce-TPo" firstAttribute="centerX" secondItem="DCp-F4-9j1" secondAttribute="centerX" id="jfa-hQ-c4o"/>
                                             <constraint firstItem="8yd-wB-eVu" firstAttribute="top" secondItem="ZOx-bM-KAg" secondAttribute="bottom" constant="8" id="jgb-DZ-CZr"/>
                                             <constraint firstItem="MNP-vi-AcG" firstAttribute="top" secondItem="Vrx-kz-Ecm" secondAttribute="bottom" constant="24" id="jhk-Mo-Cbo"/>
                                             <constraint firstItem="Vrx-kz-Ecm" firstAttribute="centerX" secondItem="DCp-F4-9j1" secondAttribute="centerX" id="jqG-0a-E2E"/>
                                             <constraint firstItem="Tz7-G2-eSd" firstAttribute="leading" secondItem="DCp-F4-9j1" secondAttribute="leading" constant="14" id="ju2-Yu-mwh"/>
-                                            <constraint firstItem="ZOx-bM-KAg" firstAttribute="top" secondItem="I6U-ce-TPo" secondAttribute="bottom" constant="18" id="op0-UC-sMD"/>
                                             <constraint firstItem="gFy-Qa-uXU" firstAttribute="top" secondItem="8yd-wB-eVu" secondAttribute="bottom" id="sQ2-La-mHM"/>
                                             <constraint firstItem="gFy-Qa-uXU" firstAttribute="leading" secondItem="DCp-F4-9j1" secondAttribute="leading" id="u3v-Ep-rsi"/>
+                                            <constraint firstItem="ZOx-bM-KAg" firstAttribute="top" secondItem="MNP-vi-AcG" secondAttribute="bottom" constant="30" id="uAL-pD-uDE"/>
                                             <constraint firstItem="MNP-vi-AcG" firstAttribute="centerX" secondItem="DCp-F4-9j1" secondAttribute="centerX" id="vaF-qr-I9z"/>
                                             <constraint firstItem="TDo-uD-wns" firstAttribute="top" secondItem="Tz7-G2-eSd" secondAttribute="bottom" constant="5" id="zHf-Ux-HQf"/>
                                         </constraints>
@@ -484,6 +456,7 @@ you want to link</string>
                         <outlet property="holdingsHeightConstraint" destination="ieO-c3-gsK" id="Pev-1l-wXR"/>
                         <outlet property="holdingsTable" destination="Fj7-fD-PW3" id="Wrl-lH-y9m"/>
                         <outlet property="scrollView" destination="wxp-Tb-Pmc" id="3W4-yK-xUw"/>
+                        <outlet property="totalPortfolioValueLabel" destination="MNP-vi-AcG" id="Cu9-qs-J57"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
                     </connections>
                 </viewController>
@@ -2038,6 +2011,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="Iho-lP-LWh"/>
     </inferredMetricsTieBreakers>
 </document>
