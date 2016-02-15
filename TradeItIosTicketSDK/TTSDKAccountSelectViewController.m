@@ -47,6 +47,16 @@
 
     linkedAccounts = [globalController retrieveLinkedAccounts];
 
+//    [globalController retrievePortfolioDataFromLinkedAccounts:^(NSArray * positions) {
+//        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+//        
+//        for (TTSDKPosition * pos in positions) {
+//            [positionsHolder addObject: pos];
+//        }
+//
+//        linkedAccounts = [positionsHolder copy];
+//    }];
+
     [self.tableView reloadData];
 }
 

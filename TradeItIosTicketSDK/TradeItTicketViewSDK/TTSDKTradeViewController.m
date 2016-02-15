@@ -15,6 +15,7 @@
 #import "TradeItBalanceService.h"
 #import "TTSDKPosition.h"
 #import "TradeItQuoteResult.h"
+#import "TTSDKAccountService.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -145,6 +146,13 @@
     [super viewWillAppear:animated];
 
     [self populateSymbolDetails];
+
+    TTSDKAccountService * acctService = [[TTSDKAccountService alloc] init];
+    [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
+
+        
+    
+    }];
 
     [globalController retrieveAccountOverview: [globalController.currentSession.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
         [self populateSymbolDetails];

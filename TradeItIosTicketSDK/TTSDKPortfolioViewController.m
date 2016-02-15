@@ -11,12 +11,15 @@
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
+#import "TTSDKAccountService.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
     NSArray * linkedAccounts;
+    NSArray * linkedBalances;
     NSArray * linkedPositions;
+    TTSDKAccountService * accountService;
 }
 @property (weak, nonatomic) IBOutlet UILabel *totalPortfolioValueLabel;
 
@@ -69,16 +72,23 @@ static float kAccountCellHeight = 44.0f;
     linkedAccounts = [globalController retrieveLinkedAccounts];
     linkedPositions = [[NSArray alloc] init];
 
-    [globalController retrievePortfolioDataFromAllAccounts:^(NSArray * positions) {
-        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+    accountService = [[TTSDKAccountService alloc] init];
 
-        for (TTSDKPosition * pos in positions) {
-            [positionsHolder addObject: pos];
+    [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
+
+        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+        for (TTSDKPosition * position in summary.positions) {
+            [positionsHolder addObject: position];
+        }
+
+        NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
+        for (TradeItAccountOverviewResult * balance in summary.balances) {
+            [balancesHolder addObject: balance];
         }
 
         linkedPositions = [positionsHolder copy];
+        linkedBalances = [balancesHolder copy];
 
-        [self.holdingsTable reloadData];
         [self reload];
     }];
 

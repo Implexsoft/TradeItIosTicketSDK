@@ -31,6 +31,8 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
 #import "TTSDKPosition.h"
+#import "TTSDKAccountService.h"
+#import "TTSDKAccountSummaryResult.h"
 
 
 @implementation TradeItTicketController {
@@ -196,6 +198,8 @@
     [TTSDKAccountLinkViewController class];
     [TTSDKAccountLinkTableViewCell class];
     [TTSDKPosition class];
+    [TTSDKAccountService class];
+    [TTSDKAccountSummaryResult class];
 }
 
 @end

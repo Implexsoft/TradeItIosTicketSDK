@@ -197,7 +197,7 @@
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
                         [globalController selectSession:newSession andAccount:[authResult.accounts lastObject]];
-                        [self performSegueWithIdentifier: @"LoginToTrade" sender: self];
+                        [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                     }
                 }
             }];
@@ -241,6 +241,14 @@
     [globalController returnToParentApp];
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"LoginToTab"]) {
+        UITabBarController * dest = (UITabBarController*)segue.destinationViewController;
+        if (globalController.portfolioMode) {
+            dest.selectedIndex = 1;
+        }
+    }
+}
 
 
 #pragma mark - iOS7 fallback

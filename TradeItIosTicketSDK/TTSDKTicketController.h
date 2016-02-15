@@ -90,12 +90,11 @@
 - (void)returnToParentApp;
 - (void)createInitialPreviewRequest;
 - (void)createInitialPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
-- (void)passInitialPreviewRequestToSession;
+- (void)passInitialPreviewRequestToSession:(TTSDKTicketSession *)session;
 - (void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
-- (void)retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock;
 - (void)retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 
-- (void)retrievePortfolioDataFromAllAccounts:(void (^)(NSArray *)) completionBlock;
+- (TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 @end

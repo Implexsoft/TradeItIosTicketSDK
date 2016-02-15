@@ -12,8 +12,6 @@
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPortfolioViewController.h"
-#import "TradeItTradeService.h"
-#import "TradeItPositionService.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -72,7 +70,6 @@
     }
 
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
-
     [tradeService previewTrade:self.previewRequest withCompletionBlock:^(TradeItResult * res){
         completionBlock(res);
     }];
@@ -206,13 +203,23 @@
 
 -(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
     TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
-
     TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
 
     [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
         if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
             TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
             completionBlock(positionsResult.positions);
+        }
+    }];
+}
+
+-(void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock {
+    TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self];
+    TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: [account valueForKey:@"accountNumber"]];
+    [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
+        if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
+            TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;
+            completionBlock(overviewResult);
         }
     }];
 }

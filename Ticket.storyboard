@@ -134,7 +134,7 @@
                         <outlet property="pageTitle" destination="lFr-FG-k7c" id="obw-e4-oD6"/>
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
                         <segue destination="ms7-Oa-HyF" kind="unwind" identifier="unwindToBrokerSelect" unwindAction="unwindToBrokerSelect:" id="2c2-FE-Lc7"/>
-                        <segue destination="Mny-9H-gjs" kind="presentation" identifier="LoginToTrade" id="SUN-bA-Ai5"/>
+                        <segue destination="Mny-9H-gjs" kind="presentation" identifier="LoginToTab" id="SUN-bA-Ai5"/>
                         <segue destination="EOX-B4-DHL" kind="show" identifier="LoginToAccountLink" id="Vdw-ys-tjA"/>
                     </connections>
                 </viewController>

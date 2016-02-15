@@ -74,7 +74,7 @@ static CGFloat const kBounceValue = 20.0f;
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
     NSString * symbol = position.symbol;
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
-    NSString * change = [position.todayGainLossDollar stringValue] ?: @"N/A";
+//    NSString * change = [position.change stringValue] ?: @"N/A";
     NSString * bid = [position.lastPrice stringValue] ?: @"N/A";
     NSString * ask = [position.lastPrice stringValue] ?: @"N/A";
     NSString * totalValue = [position.totalGainLossDollar stringValue] ?: @"N/A";
@@ -83,7 +83,7 @@ static CGFloat const kBounceValue = 20.0f;
 
     self.symbolLabel.text = symbol;
     self.costLabel.text = cost;
-    self.changeLabel.text = change;
+    self.changeLabel.text = @"N/A";
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
     self.totalValueLabel.text = totalValue;

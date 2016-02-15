@@ -20,19 +20,8 @@
 #import "TradeItBalanceService.h"
 #import "TradeItAccountOverviewRequest.h"
 
-typedef void(^PositionsCompletionBlock)(NSArray *);
-
 @interface TTSDKTicketController() {
     TradeItTradeService * tradeService;
-
-    NSNumber * positionsTotal;
-    NSNumber * positionsCounter;
-    NSTimer * positionsTimer;
-    NSNumber * balancesTotal;
-    NSNumber * balancesCounter;
-    NSTimer * balancesTimer;
-    PositionsCompletionBlock positionsBlock;
-    NSMutableArray * accountPositionsResult;
 }
 
 @end
@@ -136,8 +125,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     // If user needs to link an account, go either to onboarding or broker select
     if (initialLoginFoundAndSet) {
-        [self passInitialPreviewRequestToSession];
-
         UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
         [tab setModalPresentationStyle:UIModalPresentationFullScreen];
 
@@ -209,6 +196,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
             if ([login.userId isEqualToString: [initialAccount valueForKey: @"UserId"]]) {
                 [self.resultContainer setStatus: USER_CANCELED];
+                if (self.initialPreviewRequest) {
+                    [self passInitialPreviewRequestToSession: newSession];
+                }
                 [self selectSession: newSession andAccount: initialAccount];
                 initialLoginSet = YES;
             }
@@ -464,11 +454,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self.initialPreviewRequest setOrderPriceType: @"market"];
 }
 
--(void) passInitialPreviewRequestToSession {
-    if (self.currentSession && self.initialPreviewRequest != nil) {
-        self.currentSession.previewRequest = self.initialPreviewRequest;
-        self.initialPreviewRequest = nil;
-    }
+-(void) passInitialPreviewRequestToSession:(TTSDKTicketSession *)session {
+    session.previewRequest = self.initialPreviewRequest;
+    self.initialPreviewRequest = nil;
 }
 
 //
@@ -483,6 +471,16 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 //-(void) placeTrade:(void (^)(TradeItResult *)) completionBlock {
 //    [tradeService placeTrade: self.placeTradeRequest withCompletionBlock: completionBlock];
 //}
+
+
+-(void) retrieveCurrentAccountData {}
+
+-(void) retrieveLinkedAccountData {}
+
+-(void) retrieveAllAccountData {}
+
+-(void) allSessionsAuthenticated {}
+
 
 
 
@@ -508,82 +506,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     [self.position setLastPrice: lastPrice];
     [self.position setSymbol: symbol];
-}
-
--(void) retrievePortfolioDataFromAllAccounts:(void (^)(NSArray *)) completionBlock {
-    NSArray * totalAccounts = [self retrieveAccounts];
-
-    NSMutableArray * totalPositions = [[NSMutableArray alloc] init];
-//    NSMutableArray * balances = [[NSMutableArray alloc] init];
-
-    positionsBlock = completionBlock;
-    accountPositionsResult = [[NSMutableArray alloc] init];
-    positionsTotal = [NSNumber numberWithInteger: totalAccounts.count];
-    positionsCounter = @0;
-    positionsTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkPositionsCount) userInfo:totalPositions repeats:YES];
-
-    for (NSDictionary * account in totalAccounts) {
-        TTSDKTicketSession * session = [self retrieveSessionByAccount: account];
-
-        [session getPositionsFromAccount: account withCompletionBlock:^(NSArray * positions) {
-            positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
-            [accountPositionsResult addObjectsFromArray: positions];
-        }];
-    }
-}
-
--(void) checkPositionsCount {
-    if ([positionsCounter isEqualToNumber: positionsTotal]) {
-        [positionsTimer invalidate];
-        positionsBlock([accountPositionsResult copy]);
-        positionsTimer = nil;
-        positionsBlock = nil;
-    }
-}
-
--(void) retrievePositionsFromAccounts:(NSArray *)accounts withCompletionBlock:(void (^)(NSArray *)) completionBlock {
-    NSArray * linkedLogins = [self retrieveLinkedLogins];
-    NSMutableArray * positions = [[NSMutableArray alloc] init];
-
-    positionsBlock = completionBlock;
-    accountPositionsResult = [[NSMutableArray alloc] init];
-
-    positionsTotal = [NSNumber numberWithInteger: accounts.count];
-    positionsCounter = @0;
-    positionsTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkPositionsCount) userInfo:positions repeats:YES];
-
-    int i;
-    for (i = 0; i < accounts.count; i++) {
-        NSDictionary * account = (NSDictionary *)[accounts objectAtIndex: i];
-        TradeItLinkedLogin * selectedLogin;
-
-        for (TradeItLinkedLogin * login in linkedLogins) {
-            if ([login.userId isEqualToString: [account valueForKey:@"UserId"]]) {
-                selectedLogin = login;
-                break;
-            }
-        }
-
-        TradeItSession * tempSession = [[TradeItSession alloc] initWithConnector:self.connector];
-        [tempSession authenticate:selectedLogin withCompletionBlock:^(TradeItResult * result) {
-            if ([result isKindOfClass: TradeItErrorResult.class]) {
-                return;
-            } else {
-                TradeItGetPositionsRequest * tempRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber: [account valueForKey: @"accountNumber"]];
-
-                TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: tempSession];
-                [positionService getAccountPositions: tempRequest  withCompletionBlock:^(TradeItResult * result) {
-                    if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
-                        TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
-                        positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
-                        [accountPositionsResult addObjectsFromArray: positionsResult.positions];
-
-                        [positions addObject:positionsResult.positions];
-                    }
-                }];
-            }
-        }];
-    }
 }
 
 -(void) retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {

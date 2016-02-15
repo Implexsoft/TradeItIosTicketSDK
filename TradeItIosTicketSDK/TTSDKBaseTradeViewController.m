@@ -45,7 +45,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
     // If the initial preview request still exists, go ahead and add the request to the session
     if (globalController.initialPreviewRequest) {
-        [globalController passInitialPreviewRequestToSession];
+        [globalController passInitialPreviewRequestToSession:globalController.currentSession];
     }
 }
 

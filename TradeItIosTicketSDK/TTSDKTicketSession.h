@@ -11,6 +11,10 @@
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPlaceTradeRequest.h"
 #import "TradeItGetPositionsRequest.h"
+#import "TradeItTradeService.h"
+#import "TradeItPositionService.h"
+#import "TradeItBalanceService.h"
+#import "TradeItAccountOverviewResult.h"
 
 @interface TTSDKTicketSession : TradeItSession <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -32,5 +36,6 @@
 - (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
 
 - (void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;
+- (void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock;
 
 @end
