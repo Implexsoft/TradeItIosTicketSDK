@@ -13,7 +13,6 @@
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
-#import "TTSDKSymbolSearchViewController.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -33,6 +32,7 @@
 #import "TTSDKPosition.h"
 #import "TTSDKAccountService.h"
 #import "TTSDKAccountSummaryResult.h"
+#import "TTSDKSearchViewController.h"
 
 
 @implementation TradeItTicketController {
@@ -182,7 +182,6 @@
     [TTSDKCompanyDetails class];
     [TTSDKOrderTypeSelectionViewController class];
     [TTSDKOrderTypeInputViewController class];
-    [TTSDKSymbolSearchViewController class];
     [TTSDKAccountSelectViewController class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
@@ -200,6 +199,7 @@
     [TTSDKPosition class];
     [TTSDKAccountService class];
     [TTSDKAccountSummaryResult class];
+    [TTSDKSearchViewController class];
 }
 
 @end

@@ -459,29 +459,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     self.initialPreviewRequest = nil;
 }
 
-//
-//-(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
-//    tradeService = [[TradeItTradeService alloc] initWithSession: session];
-//
-//    [tradeService previewTrade:self.tradeRequest withCompletionBlock:^(TradeItResult * res){
-//        completionBlock(res);
-//    }];
-//}
-//
-//-(void) placeTrade:(void (^)(TradeItResult *)) completionBlock {
-//    [tradeService placeTrade: self.placeTradeRequest withCompletionBlock: completionBlock];
-//}
-
-
--(void) retrieveCurrentAccountData {}
-
--(void) retrieveLinkedAccountData {}
-
--(void) retrieveAllAccountData {}
-
--(void) allSessionsAuthenticated {}
-
-
 
 
 #pragma mark - Positions and Balances

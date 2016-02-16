@@ -101,7 +101,8 @@
     }
 
     TTSDKCompanyDetails * companyDetailsNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
-    [companyDetailsNib populateDetailsWithSymbol:globalController.currentSession.previewRequest.orderSymbol andLastPrice:globalController.position.lastPrice andChange:globalController.position.todayGainLossDollar andChangePct:globalController.position.todayGainLossPercentage];
+
+    [companyDetailsNib populateDetailsWithPosition:globalController.position];
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];

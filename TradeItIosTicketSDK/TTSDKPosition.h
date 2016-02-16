@@ -13,6 +13,7 @@
 
 @property NSNumber * change;
 @property NSNumber * changePct;
+@property NSString * companyName;
 
 -(void) getPositionData:(void (^)(TradeItResult *)) completionBlock;
 -(BOOL) isDataPopulated;

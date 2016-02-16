@@ -112,36 +112,6 @@
     [self.view setNeedsDisplay];
 }
 
--(void) populateSymbolDetails {
-    TTSDKPosition * position = globalController.position;
-
-    if (position.lastPrice) {
-        [companyNib populateDetailsWithSymbol:position.symbol andLastPrice:position.lastPrice andChange:position.todayGainLossDollar andChangePct:position.todayGainLossPercentage];
-        [companyNib populateBrokerButtonTitle:globalController.currentSession.broker];
-    }
-
-    if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
-        if (globalController.currentAccountOverview) {
-            [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
-        } else {
-            [companyNib populateSymbolDetail:nil andSharesOwned:nil];
-        }
-    } else {
-        if (globalController.currentPositionsResult) {
-            int shares = 0;
-            NSArray * currentPositions = globalController.currentPositionsResult.positions;
-            for (TradeItPosition * position in currentPositions) {
-                if ([position.symbol isEqualToString:globalController.currentSession.previewRequest.orderSymbol]) {
-                    shares ++;
-                }
-            }
-            [companyNib populateSymbolDetail:nil andSharesOwned:[NSNumber numberWithInt: shares]];
-        } else {
-            [companyNib populateSymbolDetail: nil andSharesOwned: nil];
-        }
-    }
-}
-
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
@@ -150,8 +120,6 @@
     TTSDKAccountService * acctService = [[TTSDKAccountService alloc] init];
     [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
 
-        
-    
     }];
 
     [globalController retrieveAccountOverview: [globalController.currentSession.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
@@ -172,6 +140,34 @@
 
     if (self.refreshAccount) {
         [self refreshToNewAccount];
+    }
+}
+
+-(void) populateSymbolDetails {
+    TTSDKPosition * position = globalController.position;
+
+    [companyNib populateDetailsWithPosition:position];
+    [companyNib populateBrokerButtonTitle: globalController.currentSession.broker];
+
+    if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
+        if (globalController.currentAccountOverview) {
+            [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
+        } else {
+            [companyNib populateSymbolDetail:nil andSharesOwned:nil];
+        }
+    } else {
+        if (globalController.currentPositionsResult) {
+            int shares = 0;
+            NSArray * currentPositions = globalController.currentPositionsResult.positions;
+            for (TradeItPosition * position in currentPositions) {
+                if ([position.symbol isEqualToString:globalController.currentSession.previewRequest.orderSymbol]) {
+                    shares ++;
+                }
+            }
+            [companyNib populateSymbolDetail:nil andSharesOwned:[NSNumber numberWithInt: shares]];
+        } else {
+            [companyNib populateSymbolDetail: nil andSharesOwned: nil];
+        }
     }
 }
 
@@ -575,7 +571,7 @@
 #pragma mark - Events
 
 - (IBAction)symbolPressed:(id)sender {
-    //[self performSegueWithIdentifier:@"TradeToSymbolSearch" sender:self];
+    [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
 }
                                           
 - (IBAction)refreshPressed:(id)sender {

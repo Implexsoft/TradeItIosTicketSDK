@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItAccountOverviewResult.h"
+#import "TTSDKPosition.h"
 
 @interface TTSDKCompanyDetails : UIView
 
@@ -19,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailValue;
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailLabel;
 
--(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct;
+-(void) populateDetailsWithPosition:(TTSDKPosition *)position;
 -(void) populateSymbol: (NSString *)symbol;
 -(void) populateLastPrice: (NSNumber *)lastPrice;
 -(void) populateBrokerButtonTitle:(NSString *)broker;

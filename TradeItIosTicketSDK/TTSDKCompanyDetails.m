@@ -33,13 +33,11 @@
 
 #pragma mark - Configuration
 
--(void) populateDetailsWithSymbol: (NSString *)symbol andLastPrice:(NSNumber *)lastPrice andChange:(NSNumber *)change andChangePct:(NSNumber *)changePct {
+-(void) populateDetailsWithPosition:(TTSDKPosition *)position {
 
-    [self populateSymbol:symbol];
-    [self populateLastPrice:lastPrice];
-    [self populateChangeLabelWithChange:change andChangePct:changePct];
-
-    [self setNeedsDisplay];
+    [self populateSymbol: position.symbol];
+    [self populateLastPrice: position.lastPrice];
+    [self populateChangeLabelWithChange:position.change andChangePct:position.changePct];
 }
 
 -(void) populateSymbol: (NSString *)symbol {
@@ -60,8 +58,8 @@
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    if (change != nil && changePct != nil) {
-        self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @"+3.14"), (changePct ? changePct : @"(2.53%)")];
+    if (change != nil && ![change isEqual: @0] && changePct != nil && ![changePct isEqual: @0]) {
+        self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @""), (changePct ? changePct : @"")];
         self.changeLabel.hidden = NO;
     } else {
         self.changeLabel.hidden = YES;
