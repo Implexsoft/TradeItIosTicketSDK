@@ -10,7 +10,6 @@
 
 @interface TTSDKPortfolioAccountsTableViewCell : UITableViewCell
 
--(void) configureCellWithAccount:(NSDictionary *)account;
 -(void) configureCellWithDetails:(NSDictionary *)data;
 
 @end

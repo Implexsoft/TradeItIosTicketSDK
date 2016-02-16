@@ -12,6 +12,7 @@
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TTSDKAccountService.h"
+#import "TradeItAuthenticationResult.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTicketController * globalController;
@@ -69,28 +70,34 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewDidLoad {
     globalController = [TTSDKTicketController globalController];
 
-    linkedAccounts = [globalController retrieveLinkedAccounts];
-    linkedPositions = [[NSArray alloc] init];
+    if (!globalController.currentSession.isAuthenticated) {
+        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
 
-    accountService = [[TTSDKAccountService alloc] init];
+                linkedAccounts = [globalController retrieveLinkedAccounts];
+                linkedPositions = [[NSArray alloc] init];
+                
+                accountService = [[TTSDKAccountService alloc] init];
+                [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
+                    NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+                    for (TTSDKPosition * position in summary.positions) {
+                        [positionsHolder addObject: position];
+                    }
 
-    [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
+                    NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
+                    for (NSDictionary * balance in summary.balances) {
+                        [balancesHolder addObject: balance];
+                    }
 
-        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
-        for (TTSDKPosition * position in summary.positions) {
-            [positionsHolder addObject: position];
-        }
+                    linkedPositions = [positionsHolder copy];
+                    linkedBalances = [balancesHolder copy];
 
-        NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
-        for (TradeItAccountOverviewResult * balance in summary.balances) {
-            [balancesHolder addObject: balance];
-        }
+                    [self tableLoaded];
+                }];
 
-        linkedPositions = [positionsHolder copy];
-        linkedBalances = [balancesHolder copy];
-
-        [self reload];
-    }];
+            }
+        }];
+    }
 
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
@@ -104,15 +111,11 @@ static float kAccountCellHeight = 44.0f;
     [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
--(void) reload {
-    [self.holdingsTable reloadData];
-}
-
 -(void)tableLoaded {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.holdingsTable reloadData];
-        [self.holdingsTable layoutIfNeeded];
-    });
+    [self.holdingsTable reloadData];
+    [self.holdingsTable layoutIfNeeded];
+    [self.accountsTable reloadData];
+    [self.accountsTable layoutIfNeeded];
 }
 
 
@@ -128,7 +131,7 @@ static float kAccountCellHeight = 44.0f;
     if ([self isHoldingsTable:tableView]) {
         return linkedPositions.count;
     } else {
-        return linkedAccounts.count;
+        return linkedBalances.count;
     }
 }
 
@@ -169,7 +172,7 @@ static float kAccountCellHeight = 44.0f;
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         }
 
-        [cell configureCellWithAccount:[linkedAccounts objectAtIndex:indexPath.row]];
+        [cell configureCellWithDetails:[linkedBalances objectAtIndex:indexPath.row]];
 
         return cell;
     }

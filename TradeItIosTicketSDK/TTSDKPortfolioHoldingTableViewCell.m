@@ -72,6 +72,9 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
+
+    NSLog(@"configuring cell with position");
+
     NSString * symbol = position.symbol;
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
 //    NSString * change = [position.change stringValue] ?: @"N/A";

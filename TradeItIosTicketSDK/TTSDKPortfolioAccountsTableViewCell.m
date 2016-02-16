@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKPortfolioAccountsTableViewCell.h"
+#import "TradeItAccountOverviewResult.h"
 
 @interface TTSDKPortfolioAccountsTableViewCell()
 
@@ -30,16 +31,15 @@
 
 #pragma mark - Configuration
 
--(void) configureCellWithAccount:(NSDictionary *)account {
-    NSString * displayTitle = [account valueForKey:@"displayTitle"];
+-(void) configureCellWithDetails:(NSDictionary *)data {
+
+    NSString * displayTitle = [data valueForKey:@"displayTitle"];
+
+    TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey:@"overview"];
+    NSString * totalValue = [overview.totalValue stringValue];
+    NSString * buyingPower = [overview.buyingPower stringValue];
 
     self.accountLabel.text = displayTitle;
-}
-
--(void) configureCellWithDetails:(NSDictionary *)data {
-    NSString * totalValue = [data valueForKey:@"totalValue"];
-    NSString * buyingPower = [data valueForKey:@"buyingPower"];
-
     self.valueLabel.text = totalValue;
     self.buyingPowerLabel.text = buyingPower;
 }

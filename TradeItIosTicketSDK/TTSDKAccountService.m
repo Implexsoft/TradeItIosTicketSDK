@@ -100,7 +100,9 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
 
         [session getOverviewFromAccount: account withCompletionBlock:^(TradeItAccountOverviewResult * overviewResult) {
             balancesCounter = [NSNumber numberWithInt: [balancesCounter intValue] + 1];
-            [accountBalancesResult addObject: overviewResult];
+            NSMutableDictionary * overviewDict = [NSMutableDictionary dictionaryWithDictionary:account];
+            [overviewDict setObject:overviewResult forKey:@"overview"];
+            [accountBalancesResult addObject: overviewDict];
         }];
     }
 }
