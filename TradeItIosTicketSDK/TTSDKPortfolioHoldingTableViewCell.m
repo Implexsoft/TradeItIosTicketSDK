@@ -72,23 +72,43 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
-
-    NSLog(@"configuring cell with position");
-
     NSString * symbol = position.symbol;
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
-//    NSString * change = [position.change stringValue] ?: @"N/A";
-    NSString * bid = [position.lastPrice stringValue] ?: @"N/A";
-    NSString * ask = [position.lastPrice stringValue] ?: @"N/A";
+
+    NSString * bid;
+    if (position.bid) {
+        bid = [position.bid stringValue];
+    } else {
+        bid = @"N/A";
+    }
+
+    NSString * ask;
+    if (position.ask) {
+        ask = [position.ask stringValue];
+    } else {
+        ask = @"N/A";
+    }
+
     NSString * totalValue = [position.totalGainLossDollar stringValue] ?: @"N/A";
     NSString * dailyReturn = [position.todayGainLossDollar stringValue] ?: @"N/A";
     NSString * totalReturn = [position.totalGainLossDollar stringValue] ?: @"N/A";
 
     self.symbolLabel.text = symbol;
-    self.costLabel.text = cost;
-    self.changeLabel.text = @"N/A";
+    self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
+
+    if (position.todayGainLossDollar <= 0) {
+        self.changeLabel.textColor = [UIColor redColor];
+    } else {
+        self.changeLabel.textColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0];
+    }
+    NSString * formattedChange = [NSString stringWithFormat:@"%.04f", [position.todayGainLossDollar floatValue]];
+    self.changeLabel.text = formattedChange;
+ 
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
+
+    
+
     self.totalValueLabel.text = totalValue;
     self.dailyReturnValue.text = dailyReturn;
     self.totalReturnValueLabel.text = totalReturn;

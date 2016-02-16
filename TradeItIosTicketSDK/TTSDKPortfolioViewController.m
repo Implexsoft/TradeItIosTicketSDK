@@ -73,10 +73,9 @@ static float kAccountCellHeight = 44.0f;
     if (!globalController.currentSession.isAuthenticated) {
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
-
                 linkedAccounts = [globalController retrieveLinkedAccounts];
                 linkedPositions = [[NSArray alloc] init];
-                
+
                 accountService = [[TTSDKAccountService alloc] init];
                 [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
                     NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
@@ -94,8 +93,28 @@ static float kAccountCellHeight = 44.0f;
 
                     [self tableLoaded];
                 }];
-
             }
+        }];
+    } else {
+        linkedAccounts = [globalController retrieveLinkedAccounts];
+        linkedPositions = [[NSArray alloc] init];
+        
+        accountService = [[TTSDKAccountService alloc] init];
+        [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
+            NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+            for (TTSDKPosition * position in summary.positions) {
+                [positionsHolder addObject: position];
+            }
+            
+            NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
+            for (NSDictionary * balance in summary.balances) {
+                [balancesHolder addObject: balance];
+            }
+            
+            linkedPositions = [positionsHolder copy];
+            linkedBalances = [balancesHolder copy];
+            
+            [self tableLoaded];
         }];
     }
 

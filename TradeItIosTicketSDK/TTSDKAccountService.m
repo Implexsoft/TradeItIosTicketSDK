@@ -93,9 +93,9 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
     for (NSDictionary * account in linkedAccounts) {
         TTSDKTicketSession * session = [globalController retrieveSessionByAccount: account];
 
-        [session getPositionsFromAccount: account withCompletionBlock:^(NSArray * positions) {
+        [session getPositionsFromAccount: account withCompletionBlock:^(NSArray * positionsResult) {
             positionsCounter = [NSNumber numberWithInt: [positionsCounter intValue] + 1 ];
-            [accountPositionsResult addObjectsFromArray: positions];
+            [accountPositionsResult addObjectsFromArray: positionsResult];
         }];
 
         [session getOverviewFromAccount: account withCompletionBlock:^(TradeItAccountOverviewResult * overviewResult) {
