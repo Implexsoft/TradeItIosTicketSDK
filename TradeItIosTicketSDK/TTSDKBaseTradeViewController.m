@@ -61,9 +61,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
               localizedReason:myLocalizedReasonString
                         reply:^(BOOL success, NSError *error) {
                             if (success) {
-
                                 // TODO - set initial auth state
-
                             } else {
                                 //too many tries, or cancelled by user
                                 if(error.code == -2 || error.code == -1) {

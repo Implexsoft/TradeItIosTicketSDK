@@ -6,8 +6,9 @@
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "TTSDKTicketController.h"
-
+#import "TTSDKUtils.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
@@ -113,43 +114,62 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         self.brokerList = brokers;
     }];
 
-    [self launchInitialViewController];
-}
-
--(void) launchInitialViewController {
-    // Get storyboard
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
     // Try to set an initial login with associated session and account
     BOOL initialLoginFoundAndSet = [self attemptToSetInitialLogin];
 
     // If user needs to link an account, go either to onboarding or broker select
     if (initialLoginFoundAndSet) {
-        UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
-        [tab setModalPresentationStyle:UIModalPresentationFullScreen];
-
-        if (self.portfolioMode) {
-            tab.selectedIndex = 1;
+        // Before moving forward, authenticate through touch ID
+        if ([LAContext class]) {
+            [self promptTouchId:^(BOOL success) {
+                if (success) {
+                    [self launchToTicket];
+                } else {
+                    [self launchToAuth];
+                }
+            }];
         } else {
-            tab.selectedIndex = 0;
+            [self launchToTicket];
         }
-
-        [self authenticateSessionsInBackground];
-
-        [self.parentView presentViewController:tab animated:YES completion:nil];
+        
     } else {
-        // The first item in the auth nav stack is the onboarding view
-        UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: kAuthNavViewIdentifier];
-        [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-
-        // If not onboarding, push the nav to the broker select view
-        if (![self isOnboarding]) {
-            TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-            [nav pushViewController:initialViewController animated:NO];
-        }
-
-        [self.parentView presentViewController:nav animated:YES completion:nil];
+        [self launchToAuth];
     }
+}
+
+-(void) launchToAuth {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: kAuthNavViewIdentifier];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    // If not onboarding, push the nav to the broker select view
+    if (![self isOnboarding]) {
+        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+        [nav pushViewController:initialViewController animated:NO];
+    }
+    
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) launchToTicket {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+    UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
+    [tab setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    if (self.portfolioMode) {
+        tab.selectedIndex = 1;
+    } else {
+        tab.selectedIndex = 0;
+    }
+    
+    [self authenticateSessionsInBackground];
+    
+    [self.parentView presentViewController:tab animated:YES completion:nil];
 }
 
 -(BOOL) attemptToSetInitialLogin {
@@ -211,6 +231,31 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 
 #pragma mark - Authentication
+
+-(void) promptTouchId:(void (^)(BOOL)) completionBlock {
+    LAContext * myContext = [[LAContext alloc] init];
+    NSString * myLocalizedReasonString = @"Enable Broker Login to Continue";
+
+    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+              localizedReason:myLocalizedReasonString
+                        reply:^(BOOL success, NSError *error) {
+                            if (success) {
+                                // TODO - set initial auth state
+                                completionBlock(YES);
+                            } else {
+                                //too many tries, or cancelled by user
+                                if(error.code == -2 || error.code == -1) {
+                                    [self returnToParentApp];
+                                } else if(error.code == -3) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        if (completionBlock) {
+                                            completionBlock(NO);
+                                        }
+                                    });
+                                }
+                            }
+                        }];
+}
 
 -(NSArray *) retrieveLinkedLogins {
     return [self.connector getLinkedLogins];
