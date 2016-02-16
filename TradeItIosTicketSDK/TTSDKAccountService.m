@@ -78,7 +78,6 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
     }
 }
 
-
 -(void) getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {
     NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
 

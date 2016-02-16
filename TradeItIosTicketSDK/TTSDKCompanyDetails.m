@@ -59,7 +59,19 @@
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
     if (change != nil && ![change isEqual: @0] && changePct != nil && ![changePct isEqual: @0]) {
-        self.changeLabel.text = [NSString stringWithFormat:@"%@ %@", (change ? change : @""), (changePct ? changePct : @"")];
+
+        NSString * changePrefix;
+        UIColor * changeColor;
+        if (change > 0) {
+            changePrefix = @"+";
+            changeColor = [utils gainColor];
+        } else {
+            changePrefix = @"";
+            changeColor = [utils lossColor];
+        }
+
+        self.changeLabel.text = [NSString stringWithFormat:@"%@%@ (%@%@)", changePrefix, change, changePct, @"%"];
+        self.changeLabel.textColor = changeColor;
         self.changeLabel.hidden = NO;
     } else {
         self.changeLabel.hidden = YES;

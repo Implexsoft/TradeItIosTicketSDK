@@ -17,6 +17,7 @@
 @property NSNumber * changePct;
 @property NSString * companyName;
 
+-(id) initWithPosition:(TradeItPosition *)position;
 -(void) getPositionData:(void (^)(TradeItResult *)) completionBlock;
 -(BOOL) isDataPopulated;
 

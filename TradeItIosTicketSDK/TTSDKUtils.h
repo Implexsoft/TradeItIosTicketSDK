@@ -24,6 +24,8 @@
 @property (nonatomic, retain) UIColor * fidelityColor;
 @property (nonatomic, retain) UIColor * tdColor;
 @property (nonatomic, retain) UIColor * optionshouseColor;
+@property (nonatomic, retain) UIColor * lossColor;
+@property (nonatomic, retain) UIColor * gainColor;
 
 + (id)sharedUtils;
 

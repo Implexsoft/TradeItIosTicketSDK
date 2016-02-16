@@ -168,39 +168,6 @@
     }
 }
 
--(void) showOldSecQuestion:(NSString *) question {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: delegateViewController cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
--(void) showOldMultiSelectWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andSecurityQuestionResult:(TradeItSecurityQuestionResult *)securityQuestionResult {
-    questionOptions = securityQuestionResult.securityQuestionOptions;
-    currentSelection = questionOptions[0];
-    
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView: @"Security Question"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
-    
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 0) {
-            [delegateViewController dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [self answerSecurityQuestion: currentSelection withCompletionBlock:^(TradeItResult * result) {
-                [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
-            }];
-        }
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
 -(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
     TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
     TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
@@ -208,7 +175,15 @@
     [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
         if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
             TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
-            completionBlock(positionsResult.positions);
+
+            NSMutableArray * ttsdkPositions = [[NSMutableArray alloc] init];
+
+            for (TradeItPosition * position in positionsResult.positions) {
+                TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
+                [ttsdkPositions addObject: subclassPosition];
+            }
+
+            completionBlock([ttsdkPositions copy]);
         }
     }];
 }
@@ -254,6 +229,40 @@
 
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return questionOptions.count;
+}
+
+
+-(void) showOldSecQuestion:(NSString *) question {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: delegateViewController cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+-(void) showOldMultiSelectWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andSecurityQuestionResult:(TradeItSecurityQuestionResult *)securityQuestionResult {
+    questionOptions = securityQuestionResult.securityQuestionOptions;
+    currentSelection = questionOptions[0];
+    
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView: @"Security Question"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SUBMIT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 0) {
+            [delegateViewController dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self answerSecurityQuestion: currentSelection withCompletionBlock:^(TradeItResult * result) {
+                [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+            }];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 

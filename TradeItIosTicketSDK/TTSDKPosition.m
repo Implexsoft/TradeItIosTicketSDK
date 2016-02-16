@@ -18,6 +18,24 @@
 
 @implementation TTSDKPosition
 
+
+
+-(id) initWithPosition:(TradeItPosition *)position {
+    if (self = [super init]) {
+        self.symbol = position.symbol;
+        self.symbolClass = position.symbolClass;
+        self.holdingType = position.holdingType;
+        self.costbasis = position.costbasis;
+        self.lastPrice = position.lastPrice;
+        self.quantity = position.quantity;
+        self.todayGainLossDollar = position.todayGainLossDollar;
+        self.todayGainLossPercentage = position.todayGainLossPercentage;
+        self.totalGainLossDollar = position.totalGainLossDollar;
+        self.totalGainLossPercentage = position.totalGainLossPercentage;
+    }
+    return self;
+}
+
 -(void) getPositionData:(void (^)(TradeItResult *)) completionBlock {
     TTSDKTicketController * globalController = [TTSDKTicketController globalController];
 

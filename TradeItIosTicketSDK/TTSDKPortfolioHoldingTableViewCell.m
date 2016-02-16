@@ -75,6 +75,8 @@ static CGFloat const kBounceValue = 20.0f;
     NSString * symbol = position.symbol;
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
 
+    NSLog(@"position class: %@", NSStringFromClass(position.class));
+
     NSString * bid;
     if (position.bid) {
         bid = [position.bid stringValue];
@@ -101,18 +103,16 @@ static CGFloat const kBounceValue = 20.0f;
     } else {
         self.changeLabel.textColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0];
     }
-    NSString * formattedChange = [NSString stringWithFormat:@"%.04f", [position.todayGainLossDollar floatValue]];
+    NSString * formattedChange = [NSString stringWithFormat:@"%.02f", [position.todayGainLossDollar floatValue]];
     self.changeLabel.text = formattedChange;
  
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
 
-    
-
     self.totalValueLabel.text = totalValue;
     self.dailyReturnValue.text = dailyReturn;
     self.totalReturnValueLabel.text = totalReturn;
-    
+
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

@@ -36,7 +36,14 @@
     NSString * displayTitle = [data valueForKey:@"displayTitle"];
 
     TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey:@"overview"];
-    NSString * totalValue = [overview.totalValue stringValue];
+
+    NSString * totalValue;
+    if (overview.totalValue) {
+        totalValue = [NSString stringWithFormat:@"%.02f", [overview.totalValue floatValue]];
+    } else {
+        totalValue = @"N/A";
+    }
+
     NSString * buyingPower = [overview.buyingPower stringValue];
 
     self.accountLabel.text = displayTitle;

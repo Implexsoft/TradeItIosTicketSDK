@@ -53,6 +53,17 @@
     searchController.delegate = self;
     searchController.searchResultsDataSource = self;
     searchController.searchResultsDelegate = self;
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
+                                    initWithTarget:self
+                                    action:@selector(dismissKeyboard)];
+
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)dismissKeyboard {
+    [self.searchBar resignFirstResponder];
+    [self.searchBar resignFirstResponder];
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

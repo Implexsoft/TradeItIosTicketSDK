@@ -70,54 +70,6 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewDidLoad {
     globalController = [TTSDKTicketController globalController];
 
-    if (!globalController.currentSession.isAuthenticated) {
-        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
-                linkedAccounts = [globalController retrieveLinkedAccounts];
-                linkedPositions = [[NSArray alloc] init];
-
-                accountService = [[TTSDKAccountService alloc] init];
-                [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
-                    NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
-                    for (TTSDKPosition * position in summary.positions) {
-                        [positionsHolder addObject: position];
-                    }
-
-                    NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
-                    for (NSDictionary * balance in summary.balances) {
-                        [balancesHolder addObject: balance];
-                    }
-
-                    linkedPositions = [positionsHolder copy];
-                    linkedBalances = [balancesHolder copy];
-
-                    [self tableLoaded];
-                }];
-            }
-        }];
-    } else {
-        linkedAccounts = [globalController retrieveLinkedAccounts];
-        linkedPositions = [[NSArray alloc] init];
-        
-        accountService = [[TTSDKAccountService alloc] init];
-        [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
-            NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
-            for (TTSDKPosition * position in summary.positions) {
-                [positionsHolder addObject: position];
-            }
-            
-            NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
-            for (NSDictionary * balance in summary.balances) {
-                [balancesHolder addObject: balance];
-            }
-            
-            linkedPositions = [positionsHolder copy];
-            linkedBalances = [balancesHolder copy];
-            
-            [self tableLoaded];
-        }];
-    }
-
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.alwaysBounceHorizontal = NO;
@@ -126,16 +78,46 @@ static float kAccountCellHeight = 44.0f;
     [self.scrollView needsUpdateConstraints];
 
     self.selectedIndex = -1;
-
-    [self.holdingsTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
--(void)tableLoaded {
-    [self.holdingsTable reloadData];
-    [self.holdingsTable layoutIfNeeded];
-    [self.accountsTable reloadData];
-    [self.accountsTable layoutIfNeeded];
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if (!globalController.currentSession.isAuthenticated) {
+        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
+                [self loadPortfolioData];
+            }
+        }];
+    } else {
+        [self loadPortfolioData];
+    }
 }
+
+-(void)loadPortfolioData {
+    linkedAccounts = [globalController retrieveLinkedAccounts];
+    linkedPositions = [[NSArray alloc] init];
+    
+    accountService = [[TTSDKAccountService alloc] init];
+    [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
+        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
+        for (TTSDKPosition * position in summary.positions) {
+            [positionsHolder addObject: position];
+        }
+        
+        NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
+        for (NSDictionary * balance in summary.balances) {
+            [balancesHolder addObject: balance];
+        }
+        
+        linkedPositions = [positionsHolder copy];
+        linkedBalances = [balancesHolder copy];
+
+        [self.holdingsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }];
+}
+
 
 
 #pragma mark - Table Delegate Methods
