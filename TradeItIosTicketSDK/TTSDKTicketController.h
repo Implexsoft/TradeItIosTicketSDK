@@ -79,6 +79,7 @@
 - (void)updateAccounts:(NSArray *)accounts;
 - (void)unlinkAccounts;
 - (void)switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+- (void)switchSymbolToPosition:(TTSDKPosition *)position;
 
 - (void)addSession:(TTSDKTicketSession *)session;
 - (void)selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;

@@ -52,10 +52,16 @@
                 self.lastPrice = result.lastPrice;
                 self.change = result.change;
                 self.changePct = result.pctChange;
+                self.bid = result.bidPrice;
+                self.ask = result.askPrice;
 
-                completionBlock(res);
+                if (completionBlock) {
+                    completionBlock(res);
+                }
             } else {
-                completionBlock(nil);
+                if (completionBlock) {
+                    completionBlock(nil);
+                }
             }
         }];
     }

@@ -416,6 +416,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 #pragma mark - Trading
 
+-(void) switchSymbolToPosition:(TTSDKPosition *)position {
+    self.position = nil;
+    self.position = position;
+
+    if (self.currentSession.previewRequest) {
+        self.currentSession.previewRequest.orderSymbol = position.symbol;
+    }
+}
+
 -(void) createInitialPreviewRequest {
     self.initialPreviewRequest = [[TradeItPreviewTradeRequest alloc] init];
 

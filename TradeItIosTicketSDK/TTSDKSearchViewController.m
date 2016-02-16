@@ -88,14 +88,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    globalController.position = nil;
-    globalController.position = [[TTSDKPosition alloc] init];
-    globalController.position.symbol = selectedCompany.symbol;
-    globalController.position.companyName = selectedCompany.name;
+    TTSDKPosition * newPosition = [[TTSDKPosition alloc] init];
+    newPosition.symbol = selectedCompany.symbol;
+    newPosition.companyName = selectedCompany.name;
 
-    if (globalController.currentSession.previewRequest) {
-        globalController.currentSession.previewRequest.orderSymbol = selectedCompany.symbol;
-    }
+    [globalController switchSymbolToPosition: newPosition];
 
     [globalController.position getPositionData:^(TradeItResult * result) {
         [self dismissViewControllerAnimated:YES completion:nil];

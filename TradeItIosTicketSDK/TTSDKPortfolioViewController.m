@@ -113,11 +113,26 @@ static float kAccountCellHeight = 44.0f;
         linkedPositions = [positionsHolder copy];
         linkedBalances = [balancesHolder copy];
 
+        float totalPortfolioValue = [self retrieveTotalPortfolioValue];
+        self.totalPortfolioValueLabel.text = [NSString stringWithFormat:@"$%.02f", totalPortfolioValue];
+
         [self.holdingsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
 
+-(float)retrieveTotalPortfolioValue {
+    float totalPortfolioValue = 0.0f;
+
+    for (NSDictionary * balance in linkedBalances) {
+        TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[balance valueForKey:@"overview"];
+        if (overview.totalValue) {
+            totalPortfolioValue += [overview.totalValue floatValue];
+        }
+    }
+
+    return totalPortfolioValue;
+}
 
 
 #pragma mark - Table Delegate Methods

@@ -16,6 +16,7 @@
 @property NSNumber * change;
 @property NSNumber * changePct;
 @property NSString * companyName;
+@property NSNumber * totalValue;
 
 -(id) initWithPosition:(TradeItPosition *)position;
 -(void) getPositionData:(void (^)(TradeItResult *)) completionBlock;

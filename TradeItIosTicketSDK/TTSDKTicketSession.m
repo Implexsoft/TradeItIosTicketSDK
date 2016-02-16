@@ -180,6 +180,9 @@
 
             for (TradeItPosition * position in positionsResult.positions) {
                 TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
+
+                [subclassPosition getPositionData:nil];
+
                 [ttsdkPositions addObject: subclassPosition];
             }
 

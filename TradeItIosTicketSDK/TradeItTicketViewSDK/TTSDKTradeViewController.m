@@ -169,6 +169,8 @@
             [companyNib populateSymbolDetail: nil andSharesOwned: nil];
         }
     }
+
+    [self checkIfReadyToTrade];
 }
 
 -(void) initConstraints {
@@ -391,9 +393,10 @@
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
 
-    NSString * equalitySign = [globalController.currentSession.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
     NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
-    NSString * formattedString = [NSString stringWithFormat:@"%@ %@ %@", @"Est. Cost", equalitySign, formattedNumber];
+    NSString * equalitySign = [globalController.currentSession.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * actionPostfix = ([globalController.currentSession.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
+    NSString * formattedString = [NSString stringWithFormat:@"Est. %@ %@ %@", actionPostfix, equalitySign, formattedNumber];
 
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
 

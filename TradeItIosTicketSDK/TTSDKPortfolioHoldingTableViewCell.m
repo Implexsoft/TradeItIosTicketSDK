@@ -8,9 +8,13 @@
 
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPosition.h"
+#import "TTSDKUtils.h"
+#import "TTSDKTicketController.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
-//    TradeItPosition * position;
+    TTSDKUtils * utils;
+    TTSDKPosition * currentPosition;
+    TTSDKTicketController * globalController;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *sellButton;
@@ -30,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *bidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *askLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dailyReturnValue;
 @property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
 
 @end
@@ -50,12 +53,33 @@ static CGFloat const kBounceValue = 20.0f;
 - (void) awakeFromNib {
     [super awakeFromNib];
 
+    utils = [TTSDKUtils sharedUtils];
+    globalController = [TTSDKTicketController globalController];
+
     self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
     self.panRecognizer.delegate = self;
     [self.primaryView addGestureRecognizer:self.panRecognizer];
+
+    UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
+    [self.buyButton addGestureRecognizer: buyTap];
+
+    UITapGestureRecognizer * sellTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sellSelected:)];
+    [self.sellButton addGestureRecognizer: sellTap];
 }
 
+-(IBAction) sellSelected:(id)sender {
+    [globalController switchSymbolToPosition: currentPosition];
+    if (globalController.currentSession.previewRequest) {
+        globalController.currentSession.previewRequest.orderAction = @"sell";
+    }
+}
 
+-(IBAction) buySelected:(id)sender {
+    [globalController switchSymbolToPosition: currentPosition];
+    if (globalController.currentSession.previewRequest) {
+        globalController.currentSession.previewRequest.orderAction = @"buy";
+    }
+}
 
 #pragma mark - Configuration
 
@@ -72,46 +96,69 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
-    NSString * symbol = position.symbol;
+    currentPosition = position;
+
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
 
-    NSLog(@"position class: %@", NSStringFromClass(position.class));
-
-    NSString * bid;
-    if (position.bid) {
-        bid = [position.bid stringValue];
-    } else {
-        bid = @"N/A";
-    }
-
-    NSString * ask;
-    if (position.ask) {
-        ask = [position.ask stringValue];
-    } else {
-        ask = @"N/A";
-    }
-
-    NSString * totalValue = [position.totalGainLossDollar stringValue] ?: @"N/A";
-    NSString * dailyReturn = [position.todayGainLossDollar stringValue] ?: @"N/A";
-    NSString * totalReturn = [position.totalGainLossDollar stringValue] ?: @"N/A";
-
+    // Symbol
+    NSString * symbol = position.symbol;
     self.symbolLabel.text = symbol;
     self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
-    if (position.todayGainLossDollar <= 0) {
-        self.changeLabel.textColor = [UIColor redColor];
+    // Bid and Ask
+    NSString * bid;
+    if (position.bid) {
+        bid = [NSString stringWithFormat:@"%.02f", [position.bid floatValue]];
     } else {
-        self.changeLabel.textColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0];
+        bid = @"N/A";
     }
-    NSString * formattedChange = [NSString stringWithFormat:@"%.02f", [position.todayGainLossDollar floatValue]];
-    self.changeLabel.text = formattedChange;
- 
+    NSString * ask;
+    if (position.ask) {
+        ask = [NSString stringWithFormat:@"%.02f", [position.ask floatValue]];
+    } else {
+        ask = @"N/A";
+    }
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
 
+    // Change
+    NSString * dailyChange;
+    UIColor * changeColor;
+    NSString * changePrefix;
+    if (position.todayGainLossDollar) {
+        if ([position.todayGainLossDollar floatValue] > 0) {
+            changeColor = utils.gainColor;
+            changePrefix = @"+";
+        } else {
+            changeColor = utils.lossColor;
+            changePrefix = @"";
+        }
+        dailyChange = [NSString stringWithFormat:@"%@%.02f(%.02f%@)", changePrefix, [position.todayGainLossDollar floatValue], [position.todayGainLossPercentage floatValue], @"%"];
+    } else {
+        changeColor = [UIColor lightGrayColor];
+        dailyChange = @"N/A";
+    }
+    self.changeLabel.text = dailyChange;
+    self.changeLabel.textColor = changeColor;
+
+    // Total Value
+    NSString * totalValue;
+    if (position.totalValue) {
+        totalValue = [NSString stringWithFormat:@"$%.02f", [position.totalValue floatValue]];
+    } else {
+        totalValue = @"N/A";
+    }
     self.totalValueLabel.text = totalValue;
-    self.dailyReturnValue.text = dailyReturn;
+
+    // Total Return
+    NSString * totalReturn;
+    if (position.todayGainLossDollar) {
+        totalReturn = [NSString stringWithFormat:@"%@%.02f", changePrefix, [position.todayGainLossDollar floatValue]];
+    } else {
+        totalReturn = @"N/A";
+    }
     self.totalReturnValueLabel.text = totalReturn;
+    self.totalReturnValueLabel.textColor = changeColor;
 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
