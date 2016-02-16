@@ -34,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *holdingsTable;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *holdingsHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountsHeightConstraint;
-
 @property NSInteger selectedIndex;
 @property (weak, nonatomic) IBOutlet UIButton *editAccountsButton;
 
@@ -70,6 +69,10 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewDidLoad {
     globalController = [TTSDKTicketController globalController];
 
+    if (!globalController.currentSession.previewRequest) {
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
+    }
+
     self.scrollView.scrollEnabled = YES;
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.alwaysBounceHorizontal = NO;
@@ -97,7 +100,7 @@ static float kAccountCellHeight = 44.0f;
 -(void)loadPortfolioData {
     linkedAccounts = [globalController retrieveLinkedAccounts];
     linkedPositions = [[NSArray alloc] init];
-    
+
     accountService = [[TTSDKAccountService alloc] init];
     [accountService getAccountSummaryFromLinkedAccounts:^(TTSDKAccountSummaryResult * summary) {
         NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
@@ -168,6 +171,7 @@ static float kAccountCellHeight = 44.0f;
         }
 
         [cell configureCellWithPosition: (TTSDKPosition *)[linkedPositions objectAtIndex: indexPath.row]];
+        [cell setDelegate: self];
 
         if (indexPath.row == 0) {
             [cell hideSeparator];
@@ -240,6 +244,22 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
+
+#pragma mark - Custom Delegate Methods
+
+-(void)didSelectBuy:(TTSDKPosition *)position {
+    [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
+    [self.tabBarController setSelectedIndex: 0];
+
+    [globalController switchSymbolToPosition:position withAction:@"buy"];
+}
+
+-(void)didSelectSell:(TTSDKPosition *)position {
+    [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
+    [self.tabBarController setSelectedIndex: 0];
+
+    [globalController switchSymbolToPosition:position withAction:@"sell"];
+}
 
 #pragma mark - Custom UI
 

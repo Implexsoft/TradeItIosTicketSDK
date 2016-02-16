@@ -92,7 +92,7 @@
     newPosition.symbol = selectedCompany.symbol;
     newPosition.companyName = selectedCompany.name;
 
-    [globalController switchSymbolToPosition: newPosition];
+    [globalController switchSymbolToPosition: newPosition withAction: nil];
 
     [globalController.position getPositionData:^(TradeItResult * result) {
         [self dismissViewControllerAnimated:YES completion:nil];

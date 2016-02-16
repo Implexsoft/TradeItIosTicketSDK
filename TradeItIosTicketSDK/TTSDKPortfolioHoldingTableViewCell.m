@@ -68,16 +68,14 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(IBAction) sellSelected:(id)sender {
-    [globalController switchSymbolToPosition: currentPosition];
-    if (globalController.currentSession.previewRequest) {
-        globalController.currentSession.previewRequest.orderAction = @"sell";
+    if ([self.delegate respondsToSelector:@selector(didSelectSell:)]) {
+        [self.delegate didSelectSell: currentPosition];
     }
 }
 
 -(IBAction) buySelected:(id)sender {
-    [globalController switchSymbolToPosition: currentPosition];
-    if (globalController.currentSession.previewRequest) {
-        globalController.currentSession.previewRequest.orderAction = @"buy";
+    if ([self.delegate respondsToSelector:@selector(didSelectBuy:)]) {
+        [self.delegate didSelectBuy: currentPosition];
     }
 }
 
