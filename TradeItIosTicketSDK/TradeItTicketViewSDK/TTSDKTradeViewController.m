@@ -14,7 +14,7 @@
 #import "TTSDKLoginViewController.h"
 #import "TradeItBalanceService.h"
 #import "TTSDKPosition.h"
-#import "TradeItQuoteResult.h"
+#import "TradeItQuotesResult.h"
 #import "TTSDKAccountService.h"
 
 
@@ -69,7 +69,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
 

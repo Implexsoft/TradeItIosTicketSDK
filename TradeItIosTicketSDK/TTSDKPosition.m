@@ -9,7 +9,7 @@
 #import "TTSDKPosition.h"
 #import "TradeItMarketDataService.h"
 #import "TTSDKTicketController.h"
-#import "TradeItQuoteResult.h"
+#import "TradeItQuotesResult.h"
 
 @interface TTSDKPosition() {
 }
@@ -42,21 +42,24 @@
     if (globalController.currentSession) {
         TTSDKTicketSession * session = globalController.currentSession;
         TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: session];
-        TradeItQuoteRequest * request = [[TradeItQuoteRequest alloc] initWithSymbol: self.symbol];
+        TradeItQuotesRequest * request = [[TradeItQuotesRequest alloc] initWithSymbol: self.symbol];
 
-        [marketService getQuote:request withCompletionBlock:^(TradeItResult * res) {
-            if ([res isKindOfClass:TradeItQuoteResult.class]) {
-                TradeItQuoteResult * result = (TradeItQuoteResult *)res;
+        [marketService getQuoteData:request withCompletionBlock:^(TradeItResult * res) {
+            if ([res isKindOfClass:TradeItQuotesResult.class]) {
+                TradeItQuotesResult * result = (TradeItQuotesResult *)res;
 
-                self.symbol = result.symbol;
-                self.lastPrice = result.lastPrice;
-                self.change = result.change;
-                self.changePct = result.pctChange;
-                self.bid = result.bidPrice;
-                self.ask = result.askPrice;
+
+//                NSMutableArray * quotes = [[NSMutableArray alloc] init];
+
+//                self.symbol = result.symbol;
+//                self.lastPrice = result.lastPrice;
+//                self.change = result.change;
+//                self.changePct = result.pctChange;
+//                self.bid = result.bidPrice;
+//                self.ask = result.askPrice;
 
                 if (completionBlock) {
-                    completionBlock(res);
+                    completionBlock(result);
                 }
             } else {
                 if (completionBlock) {
