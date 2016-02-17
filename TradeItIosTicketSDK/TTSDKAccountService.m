@@ -12,6 +12,7 @@
 
 
 typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
+typedef void(^BalancesCompletionBlock)(NSArray *);
 
 @interface TTSDKAccountService() {
     TTSDKTicketController * globalController;
@@ -24,7 +25,11 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
 
     NSNumber * accountsTotal;
     NSTimer * summaryTimer;
-    SummaryCompletionBlock returnBlock;
+    SummaryCompletionBlock summaryBlock;
+
+    NSTimer * balancesTimer;
+    BalancesCompletionBlock balancesBlock;
+    
 }
 
 @end
@@ -42,7 +47,7 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
 
 -(void) getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {
     TTSDKTicketSession * session = [globalController retrieveSessionByAccount: account];
-    returnBlock = completionBlock;
+    summaryBlock = completionBlock;
     accountsTotal = @1;
     positionsCounter = @0;
     balancesCounter = @0;
@@ -74,14 +79,14 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
         summary.positions = [accountPositionsResult copy];
         summary.balance = (TradeItAccountOverviewResult *)[accountBalancesResult firstObject];
 
-        returnBlock(summary);
+        summaryBlock(summary);
     }
 }
 
 -(void) getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {
     NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
 
-    returnBlock = completionBlock;
+    summaryBlock = completionBlock;
     accountPositionsResult = [[NSMutableArray alloc] init];
     accountBalancesResult = [[NSMutableArray alloc] init];
     accountsTotal = [NSNumber numberWithInteger: linkedAccounts.count];
@@ -117,10 +122,48 @@ typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
         summary.positions = [accountPositionsResult copy];
         summary.balances = [accountBalancesResult copy];
 
-        returnBlock(summary);
+        summaryBlock(summary);
     }
 }
 
+-(void) getBalancesFromLinkedAccounts:(void (^)(NSArray *)) completionBlock {
+    NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
+    [self getBalancesFromAccounts:linkedAccounts withCompletionBlock:completionBlock];
+}
+
+-(void) getBalancesFromAllAccounts:(void (^)(NSArray *)) completionBlock {
+    NSArray * allAccounts = [globalController retrieveAccounts];
+    [self getBalancesFromAccounts:allAccounts withCompletionBlock:completionBlock];
+}
+
+// private wrapper
+-(void) getBalancesFromAccounts:(NSArray *)accountsList withCompletionBlock:(void (^)(NSArray *)) completionBlock {
+    balancesBlock = completionBlock;
+    accountBalancesResult = [[NSMutableArray alloc] init];
+    accountsTotal = [NSNumber numberWithInteger: accountsList.count];
+    balancesCounter = @0;
+    summaryTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkBalancesResults) userInfo:nil repeats:YES];
+
+    for (NSDictionary * account in accountsList) {
+        TTSDKTicketSession * session = [globalController retrieveSessionByAccount: account];
+
+        [session getOverviewFromAccount: account withCompletionBlock:^(TradeItAccountOverviewResult * overviewResult) {
+            balancesCounter = [NSNumber numberWithInt: [balancesCounter intValue] + 1];
+            NSMutableDictionary * overviewDict = [NSMutableDictionary dictionaryWithDictionary:account];
+            [overviewDict setObject:overviewResult forKey:@"overview"];
+            [accountBalancesResult addObject: overviewDict];
+        }];
+    }
+}
+
+-(void) checkBalancesResults {
+    BOOL balancesComplete = [balancesCounter isEqualToNumber: accountsTotal];
+
+    if (balancesComplete) {
+        [balancesTimer invalidate];
+        balancesBlock([accountBalancesResult copy]);
+    }
+}
 
 
 @end

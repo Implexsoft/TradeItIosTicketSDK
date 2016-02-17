@@ -199,7 +199,7 @@ static float kDecimalSize = 5.0f;
     button.layer.shadowOffset = CGSizeMake(0,1);
 
     [self addGradientToButton:button];
-
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
@@ -214,11 +214,21 @@ static float kDecimalSize = 5.0f;
     [currentIndicator bringSubviewToFront:button];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     [currentIndicator startAnimating];
+}
 
-//    loadingIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"success_icon.png"]];
-//    loadingIcon.frame = CGRectMake(button.titleLabel.frame.origin.x + button.titleLabel.frame.size.width + 10.0, button.titleLabel.frame.origin.y, 20.0, 20.0);
-//    [button addSubview:loadingIcon];
-//    [self startSpin];
+-(UIView *) retrieveLoadingOverlayForView:(UIView *)view {
+    UIView * loadingView = [[UIView alloc] init];
+
+    loadingView.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    loadingView.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.4f];
+
+    UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.hidden = NO;
+    [loadingView addSubview:indicator];
+    indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - 20.0f, (loadingView.frame.size.height / 2) - 20.0f, 40.0f, 40.0f);
+    [indicator startAnimating];
+
+    return loadingView;
 }
 
 - (void) spinWithOptions: (UIViewAnimationOptions) options {

@@ -10,6 +10,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKTicketController.h"
 
+
 @interface TTSDKAccountLinkTableViewCell() {
     TTSDKUtils * utils;
     NSDictionary * accountData;
@@ -40,21 +41,19 @@
 -(void) configureCellWithData:(NSDictionary *)data {
     accountData = data;
 
-    NSString * buyingPower = [data valueForKey:@"buyingPower"] ? [data valueForKey:@"buyingPower"] : @"100";
-    NSString * accountType = [data valueForKey:@"accountType"] ? [data valueForKey:@"accountType"] : @"Brokerage";
-    self.accountName = [data valueForKey:@"displayTitle"];
+    TradeItAccountOverviewResult * overview = [data valueForKey:@"overview"];
+
+    self.accountName = [data valueForKey:@"accountNumber"];
+    self.accountNameLabel.text = self.accountName;
+    self.buyingPowerLabel.text = overview.buyingPower ? [overview.buyingPower stringValue] : @"N/A";
+
     NSString * linkedStr = [data valueForKey:@"active"];
     BOOL linked = [linkedStr boolValue];
+    self.toggle.on = linked;
 
     NSString * broker = [data objectForKey:@"broker"] ? [data objectForKey:@"broker"] : @"N/A";
-
-    self.toggle.on = linked;
-    self.buyingPowerLabel.text = buyingPower;
-    self.accountTypeLabel.text = accountType;
-    self.accountNameLabel.text = self.accountName;
-
+    self.accountTypeLabel.text = broker;
     UIColor * brokerColor = [utils retrieveBrokerColorByBrokerName:broker];
-
     CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:(self.circleGraphic.frame.size.width - 1) andColor:brokerColor];
     self.circleGraphic.backgroundColor = [UIColor clearColor];
     [self.circleGraphic.layer addSublayer:circleLayer];

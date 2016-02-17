@@ -18,6 +18,8 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sharesLabel;
 
 @end
 
@@ -44,14 +46,19 @@
     }
 }
 
--(void) configureCellWithAccount:(NSDictionary *)account {
-    self.brokerLabel.text = [account valueForKey: @"displayTitle"];
+-(void) configureCellWithAccountData:(NSDictionary *)data {
+    self.brokerLabel.text = [data valueForKey: @"accountNumber"];
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
-    // set subtitle to formatted string
-    self.accountTypeLabel.text = @"Brokerage";
-    
-    [self insertPortfolioDetail:[account valueForKey:@"broker"]];
+    NSString * broker = [data valueForKey:@"broker"];
+
+    TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey: @"overview"];
+
+    self.buyingPowerLabel.text = [overview.buyingPower stringValue];
+    self.sharesLabel.text = @"N/A";
+
+    self.accountTypeLabel.text = [globalController getBrokerDisplayString: broker];
+    [self insertPortfolioDetail: broker];
 }
 
 - (void)insertPortfolioDetail:(NSString *)broker {

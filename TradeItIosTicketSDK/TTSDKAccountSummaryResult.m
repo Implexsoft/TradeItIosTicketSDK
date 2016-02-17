@@ -10,4 +10,13 @@
 
 @implementation TTSDKAccountSummaryResult
 
+-(id)init {
+    if (self = [super init]) {
+        self.positions = [NSArray array];
+        self.balances = [NSArray array];
+    }
+
+    return self;
+}
+
 @end

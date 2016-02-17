@@ -120,7 +120,14 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     // If user needs to link an account, go either to onboarding or broker select
     if (initialLoginFoundAndSet) {
         // Before moving forward, authenticate through touch ID
-        if ([LAContext class]) {
+
+        BOOL hasTouchId = !![LAContext class];
+
+#if TARGET_IPHONE_SIMULATOR
+        hasTouchId = NO;
+#endif
+
+        if (hasTouchId) {
             [self promptTouchId:^(BOOL success) {
                 if (success) {
                     [self launchToTicket];

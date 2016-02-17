@@ -12,11 +12,15 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
+#import "TTSDKAccountService.h"
 
 @interface TTSDKAccountSelectViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
     NSArray * linkedAccounts;
+    TTSDKAccountService * accountService;
+    UIView * loadingView;
+    NSArray * accountResults;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -40,6 +44,14 @@
 
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
+    accountService = [[TTSDKAccountService alloc] init];
+    accountResults = [[NSArray alloc] init];
+
+    if (!loadingView) {
+        loadingView = [utils retrieveLoadingOverlayForView: self.view];
+        [self.view addSubview:loadingView];
+        loadingView.hidden = NO;
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -47,15 +59,14 @@
 
     linkedAccounts = [globalController retrieveLinkedAccounts];
 
-//    [globalController retrievePortfolioDataFromLinkedAccounts:^(NSArray * positions) {
-//        NSMutableArray * positionsHolder = [[NSMutableArray alloc] init];
-//        
-//        for (TTSDKPosition * pos in positions) {
-//            [positionsHolder addObject: pos];
-//        }
-//
-//        linkedAccounts = [positionsHolder copy];
-//    }];
+    [accountService getBalancesFromLinkedAccounts:^(NSArray * res) {
+        loadingView.hidden = YES;
+
+        if (res) {
+            accountResults = res;
+            [self.tableView performSelectorOnMainThread: @selector(reloadData) withObject: nil waitUntilDone: NO];
+        }
+    }];
 
     [self.tableView reloadData];
 }
@@ -69,7 +80,7 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return linkedAccounts.count;
+    return accountResults.count;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -135,7 +146,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     }
 
-    [cell configureCellWithAccount: (NSDictionary *)[linkedAccounts objectAtIndex:indexPath.row]];
+    [cell configureCellWithAccountData:(NSDictionary *)[accountResults objectAtIndex:indexPath.row]];
 
     return cell;
 }

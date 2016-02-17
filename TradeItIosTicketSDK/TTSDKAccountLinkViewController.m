@@ -9,11 +9,14 @@
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKTicketController.h"
 #import "TTSDKUtils.h"
+#import "TTSDKAccountService.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKTicketController * globalController;
     TTSDKUtils * utils;
     NSArray * accounts;
+    UIView * loadingView;
+    TTSDKAccountService * accountService;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
@@ -45,13 +48,26 @@
 
     utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
+    accountService = [[TTSDKAccountService alloc] init];
 
     [utils styleMainActiveButton:self.doneButton];
+
+    loadingView = [utils retrieveLoadingOverlayForView:self.view];
+    [self.view addSubview:loadingView];
+
+    accounts = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    accounts = [globalController retrieveAccounts];
-    [self.linkTableView reloadData];
+    loadingView.hidden = NO;
+
+    [accountService getBalancesFromAllAccounts:^(NSArray * res) {
+        if (res) {
+            accounts = res;
+            [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+        loadingView.hidden = YES;
+    }];
 }
 
 

@@ -13,5 +13,7 @@
 
 - (void)getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
 - (void)getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
+- (void)getBalancesFromLinkedAccounts:(void (^)(NSArray *)) completionBlock;
+- (void)getBalancesFromAllAccounts:(void (^)(NSArray *)) completionBlock;
 
 @end

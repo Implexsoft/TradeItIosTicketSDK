@@ -43,6 +43,7 @@
 -(void) styleMainActiveButton: (UIButton *)button;
 -(void) styleMainInactiveButton: (UIButton *)button;
 -(void) styleLoadingButton: (UIButton *)button;
+-(UIView *) retrieveLoadingOverlayForView:(UIView *)view;
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
 -(NSString *) splitCamelCase:(NSString *) str;
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;

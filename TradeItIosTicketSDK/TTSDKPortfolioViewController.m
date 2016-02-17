@@ -37,6 +37,8 @@
 @property NSInteger selectedIndex;
 @property (weak, nonatomic) IBOutlet UIButton *editAccountsButton;
 
+@property UIView * loadingView;
+
 @end
 
 @implementation TTSDKPortfolioViewController
@@ -67,7 +69,14 @@ static float kAccountCellHeight = 44.0f;
 #pragma mark - Initialization
 
 -(void) viewDidLoad {
+    utils = [TTSDKUtils sharedUtils];
     globalController = [TTSDKTicketController globalController];
+
+    if (!self.loadingView) {
+        self.loadingView = [utils retrieveLoadingOverlayForView:self.view];
+        [self.view addSubview:self.loadingView];
+    }
+    self.loadingView.hidden = NO;
 
     if (!globalController.currentSession.previewRequest) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
@@ -107,12 +116,12 @@ static float kAccountCellHeight = 44.0f;
         for (TTSDKPosition * position in summary.positions) {
             [positionsHolder addObject: position];
         }
-        
+
         NSMutableArray * balancesHolder = [[NSMutableArray alloc] init];
         for (NSDictionary * balance in summary.balances) {
             [balancesHolder addObject: balance];
         }
-        
+
         linkedPositions = [positionsHolder copy];
         linkedBalances = [balancesHolder copy];
 
@@ -121,6 +130,8 @@ static float kAccountCellHeight = 44.0f;
 
         [self.holdingsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+        self.loadingView.hidden = YES;
     }];
 }
 
