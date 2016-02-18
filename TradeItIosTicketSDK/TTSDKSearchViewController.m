@@ -16,6 +16,7 @@
 @interface TTSDKSearchViewController() {
     TTSDKTicketController * globalController;
     TradeItMarketDataService * marketService;
+    UITapGestureRecognizer * dismissalTap;
 }
 
 @property NSArray * symbolSearchResults;
@@ -53,12 +54,6 @@
     searchController.delegate = self;
     searchController.searchResultsDataSource = self;
     searchController.searchResultsDelegate = self;
-    
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
-                                    initWithTarget:self
-                                    action:@selector(dismissKeyboard)];
-
-    [self.view addGestureRecognizer:tap];
 }
 
 - (void)dismissKeyboard {
@@ -81,6 +76,7 @@
 
     cell.textLabel.text = company.symbol;
     cell.detailTextLabel.text = company.name;
+    cell.userInteractionEnabled = YES;
 
     return cell;
 }
@@ -101,10 +97,18 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
+
+    dismissalTap = [[UITapGestureRecognizer alloc]
+                    initWithTarget:self
+                    action:@selector(dismissKeyboard)];
+
+    [self.view addGestureRecognizer:dismissalTap];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
+
+    [self.view removeGestureRecognizer: dismissalTap];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
