@@ -123,15 +123,25 @@ static CGFloat const kBounceValue = 20.0f;
     NSString * dailyChange;
     UIColor * changeColor;
     NSString * changePrefix;
+    NSString * changeStr;
     if (position.todayGainLossDollar) {
         if ([position.todayGainLossDollar floatValue] > 0) {
             changeColor = utils.gainColor;
             changePrefix = @"+";
+        } else if ([position.todayGainLossDollar floatValue] == 0) {
+            changeColor = [UIColor lightGrayColor];
+            changeStr = @"N/A";
         } else {
             changeColor = utils.lossColor;
             changePrefix = @"";
         }
-        dailyChange = [NSString stringWithFormat:@"%@%.02f(%.02f%@)", changePrefix, [position.todayGainLossDollar floatValue], [position.todayGainLossPercentage floatValue], @"%"];
+
+        if (!changeStr) {
+            changeStr = [NSString stringWithFormat:@"%@%.02f(%.02f%@)", changePrefix, [position.todayGainLossDollar floatValue], [position.todayGainLossPercentage floatValue], @"%"];
+        }
+
+        dailyChange = changeStr;
+
     } else {
         changeColor = [UIColor lightGrayColor];
         dailyChange = @"N/A";
