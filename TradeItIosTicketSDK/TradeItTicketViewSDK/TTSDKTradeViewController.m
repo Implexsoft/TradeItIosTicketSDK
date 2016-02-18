@@ -78,7 +78,9 @@
     }
 
     if (!globalController.currentSession.isAuthenticated) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
 

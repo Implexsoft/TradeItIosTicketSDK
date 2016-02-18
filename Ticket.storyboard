@@ -1578,7 +1578,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scy-hx-dPx">
-                                                                <rect key="frame" x="78" y="61" width="164" height="27"/>
+                                                                <rect key="frame" x="78" y="56" width="164" height="27"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Expiration">
@@ -1617,7 +1617,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                             <constraint firstItem="4la-7L-exR" firstAttribute="centerY" secondItem="cbn-kp-Nie" secondAttribute="centerY" id="YtA-Ui-9CA"/>
                                                             <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="ZqR-ut-Emk"/>
                                                             <constraint firstAttribute="height" constant="88" id="bp9-Mu-7Wa"/>
-                                                            <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" id="fAZ-Bc-sDg"/>
+                                                            <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" constant="5" id="fAZ-Bc-sDg"/>
                                                             <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="2" id="xeI-cc-D2n"/>
                                                         </constraints>
                                                     </view>
@@ -1734,16 +1734,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onG-Du-ihr">
-                                <rect key="frame" x="126" y="132" width="68" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Market">
-                                    <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="marketPressed:" destination="5lP-jA-kx1" eventType="touchUpInside" id="ria-dN-n4W"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qo-Xe-C5u">
                                 <rect key="frame" x="106" y="191" width="109" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -1802,6 +1792,16 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <constraint firstAttribute="height" constant="39" id="auj-Em-ImF"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onG-Du-ihr">
+                                <rect key="frame" x="126" y="132" width="68" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Market">
+                                    <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="marketPressed:" destination="5lP-jA-kx1" eventType="touchUpInside" id="ria-dN-n4W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2052,7 +2052,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wuc-R0-2HR"/>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="Iho-lP-LWh"/>
     </inferredMetricsTieBreakers>
 </document>

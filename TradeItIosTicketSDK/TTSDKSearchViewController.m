@@ -12,8 +12,10 @@
 #import "TradeItSymbolLookupResult.h"
 #import "TradeItMarketDataService.h"
 #import "TTSDKTicketController.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKSearchViewController() {
+    TTSDKUtils * utils;
     TTSDKTicketController * globalController;
     TradeItMarketDataService * marketService;
     UITapGestureRecognizer * dismissalTap;
@@ -44,7 +46,7 @@
     self.symbolSearchResults = [[NSArray alloc] init];
 
     globalController = [TTSDKTicketController globalController];
-
+    utils = [TTSDKUtils sharedUtils];
     marketService = [[TradeItMarketDataService alloc] initWithSession: globalController.currentSession];
 
     UISearchDisplayController *searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
@@ -82,17 +84,32 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    TTSDKPosition * newPosition = [[TTSDKPosition alloc] init];
-    newPosition.symbol = selectedCompany.symbol;
-    newPosition.companyName = selectedCompany.name;
+    NSString * currentSymbol = globalController.currentSession.previewRequest.orderSymbol;
 
-    [globalController switchSymbolToPosition: newPosition withAction: nil];
-
-    [globalController.position getPositionData:^(TradeItQuote * quote) {
+    if (!currentSymbol || [selectedCompany.symbol isEqualToString: currentSymbol]) {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    } else {
+
+        UIView * loadingView = [utils retrieveLoadingOverlayForView:self.view];
+        [self.view addSubview: loadingView];
+        loadingView.hidden = NO;
+
+        TTSDKPosition * newPosition = [[TTSDKPosition alloc] init];
+        newPosition.symbol = selectedCompany.symbol;
+        newPosition.companyName = selectedCompany.name;
+
+        [globalController switchSymbolToPosition: newPosition withAction: nil];
+        
+        [globalController.position getPositionData:^(TradeItQuote * quote) {
+            [loadingView removeFromSuperview];
+
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -144,9 +161,11 @@
     UIView *loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
     
     [loadingView addSubview:loadingIndicator];
-    
+
     self.tableView.backgroundView = loadingView;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -157,6 +176,8 @@
 - (void)setResultsToLoaded {
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 }
 
 
