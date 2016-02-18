@@ -96,13 +96,12 @@
 
         if (buyingPower) {
             self.symbolDetailLabel.text = @"BUYING POWER";
-            self.symbolDetailValue.text = [NSString stringWithFormat:@"$%@", buyingPower];
+            self.symbolDetailValue.text = [utils formatPriceString: buyingPower];
         } else if (sharesOwned) {
             self.symbolDetailLabel.text = @"SHARES OWNED";
             self.symbolDetailValue.text = [NSString stringWithFormat:@"%@", sharesOwned];
         }
     }
-
 }
 
 

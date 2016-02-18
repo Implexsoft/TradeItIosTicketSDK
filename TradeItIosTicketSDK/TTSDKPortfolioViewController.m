@@ -125,8 +125,7 @@ static float kAccountCellHeight = 44.0f;
         linkedPositions = [positionsHolder copy];
         linkedBalances = [balancesHolder copy];
 
-        float totalPortfolioValue = [self retrieveTotalPortfolioValue];
-        self.totalPortfolioValueLabel.text = [NSString stringWithFormat:@"$%.02f", totalPortfolioValue];
+        self.totalPortfolioValueLabel.text = [utils formatPriceString: [self retrieveTotalPortfolioValue]];
 
         [self.holdingsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -135,7 +134,7 @@ static float kAccountCellHeight = 44.0f;
     }];
 }
 
--(float)retrieveTotalPortfolioValue {
+-(NSNumber *)retrieveTotalPortfolioValue {
     float totalPortfolioValue = 0.0f;
 
     for (NSDictionary * balance in linkedBalances) {
@@ -145,7 +144,7 @@ static float kAccountCellHeight = 44.0f;
         }
     }
 
-    return totalPortfolioValue;
+    return [NSNumber numberWithFloat:totalPortfolioValue];
 }
 
 
