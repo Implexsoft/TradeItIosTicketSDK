@@ -440,11 +440,16 @@ static float kMessageSeparatorHeight = 30.0f;
 
     if (switchSender.on) {
         ackLabelsToggled++;
+    } else {
+        ackLabelsToggled--;
     }
 
     if (ackLabelsToggled >= [ackLabels count]) {
         [utils styleMainActiveButton:submitOrderButton];
         submitOrderButton.enabled = YES;
+    } else {
+        [utils styleMainInactiveButton: submitOrderButton];
+        submitOrderButton.enabled = NO;
     }
 }
 
