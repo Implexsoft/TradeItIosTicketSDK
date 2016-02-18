@@ -94,7 +94,7 @@
 
     [globalController switchSymbolToPosition: newPosition withAction: nil];
 
-    [globalController.position getPositionData:^(TradeItResult * result) {
+    [globalController.position getPositionData:^(TradeItQuote * quote) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }

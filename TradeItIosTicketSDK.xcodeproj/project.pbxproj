@@ -77,6 +77,8 @@
 		655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
+		656B91241C76152500023B7F /* TradeItQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = 656B91231C76152500023B7F /* TradeItQuote.m */; };
+		656B91291C76153500023B7F /* TradeItQuote.h in Headers */ = {isa = PBXBuildFile; fileRef = 656B91281C76153500023B7F /* TradeItQuote.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657ED25D1C21FDCF00217735 /* TTSDKAccountSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */; };
 		657ED25E1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
 		657ED25F1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
@@ -313,6 +315,8 @@
 		655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKOnboardingViewController.h; sourceTree = "<group>"; };
 		655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKOnboardingViewController.m; sourceTree = "<group>"; };
 		6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevronRight@3x.png"; sourceTree = "<group>"; };
+		656B91231C76152500023B7F /* TradeItQuote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItQuote.m; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuote.m; sourceTree = "<group>"; };
+		656B91281C76153500023B7F /* TradeItQuote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItQuote.h; path = ../TradeItIosEmsApi/TradeItIosEmsApi/TradeItQuote.h; sourceTree = "<group>"; };
 		657ED25B1C21FDCF00217735 /* TTSDKAccountSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectViewController.h; sourceTree = "<group>"; };
 		657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectViewController.m; sourceTree = "<group>"; };
 		657ED2601C220A0A00217735 /* TTSDKAccountSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -579,6 +583,8 @@
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
+				656B91281C76153500023B7F /* TradeItQuote.h */,
+				656B91231C76152500023B7F /* TradeItQuote.m */,
 				651700E41C751E0800519844 /* TradeItQuotesRequest.h */,
 				651700E51C751E0800519844 /* TradeItQuotesResult.h */,
 				651700E01C751DF700519844 /* TradeItQuotesRequest.m */,
@@ -952,6 +958,7 @@
 				651405441C6BB14800C16890 /* TradeItPlaceTradeRequest.h in Headers */,
 				A9C003501B7264A4007D15F5 /* TradeItEmsUtils.h in Headers */,
 				65F240C91C4570BD00DD2309 /* TTSDKTabBarViewController.h in Headers */,
+				656B91291C76153500023B7F /* TradeItQuote.h in Headers */,
 				658CC9D71C729B34000C57E1 /* TTSDKSearchViewController.h in Headers */,
 				654C05841C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h in Headers */,
 				A9C003521B7264A4007D15F5 /* TradeItErrorResult.h in Headers */,
@@ -1182,6 +1189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656B91241C76152500023B7F /* TradeItQuote.m in Sources */,
 				651700E21C751DF700519844 /* TradeItQuotesRequest.m in Sources */,
 				651700E31C751DF700519844 /* TradeItQuotesResult.m in Sources */,
 				659A718E1C70E70A00132CDE /* TradeItSymbolLookupResult.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "TradeItPosition.h"
 #import "TradeItResult.h"
+#import "TradeItQuote.h"
 
 @interface TTSDKPosition : TradeItPosition
 
@@ -19,7 +20,7 @@
 @property NSNumber * totalValue;
 
 -(id) initWithPosition:(TradeItPosition *)position;
--(void) getPositionData:(void (^)(TradeItResult *)) completionBlock;
+-(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock;
 -(BOOL) isDataPopulated;
 
 @end

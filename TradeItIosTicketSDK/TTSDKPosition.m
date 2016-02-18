@@ -10,11 +10,7 @@
 #import "TradeItMarketDataService.h"
 #import "TTSDKTicketController.h"
 #import "TradeItQuotesResult.h"
-
-@interface TTSDKPosition() {
-}
-
-@end
+#import "TradeItQuote.h"
 
 @implementation TTSDKPosition
 
@@ -36,30 +32,30 @@
     return self;
 }
 
--(void) getPositionData:(void (^)(TradeItResult *)) completionBlock {
+-(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock {
     TTSDKTicketController * globalController = [TTSDKTicketController globalController];
 
     if (globalController.currentSession) {
         TTSDKTicketSession * session = globalController.currentSession;
         TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: session];
+
         TradeItQuotesRequest * request = [[TradeItQuotesRequest alloc] initWithSymbol: self.symbol];
 
         [marketService getQuoteData:request withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItQuotesResult.class]) {
                 TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+                TradeItQuote * quote = [[TradeItQuote alloc] initWithQuoteData: (NSDictionary *)[result.quotes objectAtIndex: 0]];
 
-
-//                NSMutableArray * quotes = [[NSMutableArray alloc] init];
-
-//                self.symbol = result.symbol;
-//                self.lastPrice = result.lastPrice;
-//                self.change = result.change;
-//                self.changePct = result.pctChange;
-//                self.bid = result.bidPrice;
-//                self.ask = result.askPrice;
+                if (quote) {
+                    self.ask = quote.askPrice;
+                    self.bid = quote.bidPrice;
+                    self.change = quote.change;
+                    self.changePct = quote.pctChange;
+                    self.lastPrice = quote.lastPrice;
+                }
 
                 if (completionBlock) {
-                    completionBlock(result);
+                    completionBlock(quote);
                 }
             } else {
                 if (completionBlock) {
@@ -83,5 +79,7 @@
 
     return populated;
 }
+
+
 
 @end

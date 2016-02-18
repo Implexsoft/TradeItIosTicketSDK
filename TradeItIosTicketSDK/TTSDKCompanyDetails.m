@@ -62,7 +62,7 @@
 
         NSString * changePrefix;
         UIColor * changeColor;
-        if (change > 0) {
+        if ([change floatValue] > 0) {
             changePrefix = @"+";
             changeColor = [utils gainColor];
         } else {
@@ -70,7 +70,7 @@
             changeColor = [utils lossColor];
         }
 
-        self.changeLabel.text = [NSString stringWithFormat:@"%@%@ (%@%@)", changePrefix, change, changePct, @"%"];
+        self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];
         self.changeLabel.textColor = changeColor;
         self.changeLabel.hidden = NO;
     } else {

@@ -83,7 +83,7 @@
                 [self checkIfReadyToTrade];
 
                 if (globalController.position) {
-                    [globalController.position getPositionData:^(TradeItResult * result) {
+                    [globalController.position getPositionData:^(TradeItQuote * quote) {
                         [self populateSymbolDetails];
                     }];
                 }
