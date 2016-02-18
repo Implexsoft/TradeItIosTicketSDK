@@ -226,7 +226,27 @@
     [utils styleBorderedFocusInput:sharesInput];
     
     previewOrderButton.clipsToBounds = YES;
+
     orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
+
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGRect bounds = CGRectMake(orderActionButton.frame.size.width - 20, (orderActionButton.frame.size.height / 2) - 4, 8, 8); // - 8
+    CGFloat radius = bounds.size.width / 2;
+    CGFloat a = radius * sqrt((CGFloat)3.0) / 2;
+    CGFloat b = radius / 2;
+    [path moveToPoint:CGPointMake(0, b)];
+    [path addLineToPoint:CGPointMake(a, -radius)];
+    [path addLineToPoint:CGPointMake(-a, -radius)];
+
+    [path closePath];
+    [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
+    shapeLayer.path = path.CGPath;
+
+    shapeLayer.strokeColor = utils.activeButtonColor.CGColor;
+    shapeLayer.fillColor = utils.activeButtonColor.CGColor;
+    
+    [orderActionButton.layer addSublayer: shapeLayer];
 }
 
 -(void) applyBorder: (UIView *) item {
@@ -239,7 +259,7 @@
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(brokerLinkPressed:)];
     tap.numberOfTapsRequired = 1;
     [companyNib.brokerButton addGestureRecognizer:tap];
-    
+
     UITapGestureRecognizer * detailsTap = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(refreshPressed:)];
