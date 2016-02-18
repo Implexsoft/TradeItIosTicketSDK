@@ -77,12 +77,16 @@
         globalController.currentSession.previewRequest.accountNumber = [globalController.currentSession.currentAccount valueForKey:@"accountNumber"];
     }
 
+    TTSDKAccountService * acctService = [[TTSDKAccountService alloc] init];
     if (!globalController.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
         [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
+                [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
+                    [self populateSymbolDetails];
+                }];
 
                 if (globalController.position) {
                     [globalController.position getPositionData:^(TradeItQuote * quote) {
@@ -90,6 +94,10 @@
                     }];
                 }
             }
+        }];
+    } else {
+        [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
+            [self populateSymbolDetails];
         }];
     }
 
@@ -119,18 +127,6 @@
 
     [self populateSymbolDetails];
 
-    TTSDKAccountService * acctService = [[TTSDKAccountService alloc] init];
-    [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
-
-    }];
-
-    [globalController retrieveAccountOverview: [globalController.currentSession.currentAccount valueForKey: @"accountNumber"] withCompletionBlock:^(TradeItResult * res) {
-        [self populateSymbolDetails];
-    }];
-
-    [globalController retrievePositionsFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TradeItResult * res) {
-        [self populateSymbolDetails];
-    }];
 
     [self changeOrderAction:globalController.currentSession.previewRequest.orderAction];
     [self changeOrderType:globalController.currentSession.previewRequest.orderPriceType];
