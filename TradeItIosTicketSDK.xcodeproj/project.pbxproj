@@ -174,6 +174,7 @@
 		65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */; };
 		65ECCAF21C125403000CE86B /* TTSDKUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* TTSDKUtils.h */; };
 		65ECCAF31C125403000CE86B /* TTSDKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKUtils.m */; };
+		65EE86101C77873900517CE9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		65F240C91C4570BD00DD2309 /* TTSDKTabBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F240C71C4570BD00DD2309 /* TTSDKTabBarViewController.h */; };
 		65F240CA1C4570BD00DD2309 /* TTSDKTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F240C81C4570BD00DD2309 /* TTSDKTabBarViewController.m */; };
 		65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */; };
@@ -187,7 +188,6 @@
 		A9A8CF911B4EFDBB000207B9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A8CF7B1B4EFDBB000207B9 /* Info.plist */; };
 		A9A8CF951B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF831B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m */; };
 		A9A8CF961B4EFDBB000207B9 /* TTSDKSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* TTSDKSuccessViewController.m */; };
-		A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A8CF881B4EFDBB000207B9 /* TradeItTicketController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9A8D0FD1B4F19D5000207B9 /* TTSDKReviewScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF831B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m */; };
 		A9A8D0FE1B4F19D5000207B9 /* TTSDKSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* TTSDKSuccessViewController.m */; };
@@ -909,8 +909,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				650C9EDB1C76932200FCABEC /* TradeItResult.h in Headers */,
 				A9A8CF991B4EFE15000207B9 /* TradeItTicketController.h in Headers */,
+				650C9EDB1C76932200FCABEC /* TradeItResult.h in Headers */,
 				650C9ECB1C76932200FCABEC /* TradeItPositionService.h in Headers */,
 				650C9EC71C76932200FCABEC /* TradeItPlaceTradeResult.h in Headers */,
 				650C9EDD1C76932200FCABEC /* TradeItSecurityQuestionRequest.h in Headers */,
@@ -1131,8 +1131,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
 				65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */,
+				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
 				A9B2D47A1B600F69008065E1 /* spinnerWhite.png in Resources */,
 				A9A8D1361B504408000207B9 /* refresh.png in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
@@ -1276,11 +1276,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6536130F1C24BC9D00E18D5C /* TTSDKOrderTypeSelectionViewController.m in Sources */,
+				65EE86101C77873900517CE9 /* TradeItTicketController.m in Sources */,
 				A9A8CF951B4EFDBB000207B9 /* TTSDKReviewScreenViewController.m in Sources */,
 				653613171C24BCE700E18D5C /* TTSDKOrderTypeInputViewController.m in Sources */,
 				A9A8CF961B4EFDBB000207B9 /* TTSDKSuccessViewController.m in Sources */,
 				657ED25F1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */,
-				A9A8CF981B4EFDBB000207B9 /* TradeItTicketController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1353,7 +1353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1390,7 +1390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

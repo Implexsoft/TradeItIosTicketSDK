@@ -166,7 +166,7 @@ you want to link</string>
                                 <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
                                 <rect key="frame" x="16" y="104" width="288" height="292"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -275,8 +275,8 @@ you want to link</string>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNP-vi-AcG">
-                                                <rect key="frame" x="92" y="52" width="136" height="36"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNP-vi-AcG">
+                                                <rect key="frame" x="160" y="52" width="0.0" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="xa6-ze-tkd"/>
                                                 </constraints>
@@ -426,19 +426,22 @@ you want to link</string>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="DCp-F4-9j1" secondAttribute="trailing" id="74R-HN-1zl"/>
+                                    <constraint firstAttribute="height" constant="480" id="7r3-0R-DKW"/>
                                     <constraint firstItem="DCp-F4-9j1" firstAttribute="centerY" secondItem="wxp-Tb-Pmc" secondAttribute="centerY" id="8vw-UR-AQp"/>
                                     <constraint firstItem="DCp-F4-9j1" firstAttribute="top" secondItem="wxp-Tb-Pmc" secondAttribute="top" id="WdF-S9-Np5"/>
                                     <constraint firstAttribute="bottom" secondItem="DCp-F4-9j1" secondAttribute="bottom" id="ael-Fq-wwI"/>
                                     <constraint firstItem="DCp-F4-9j1" firstAttribute="leading" secondItem="wxp-Tb-Pmc" secondAttribute="leading" id="uRD-KO-1S5"/>
                                     <constraint firstItem="DCp-F4-9j1" firstAttribute="centerX" secondItem="wxp-Tb-Pmc" secondAttribute="centerX" id="wzC-bf-BsZ"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="QbV-2r-TI7" id="HDk-TO-C8W"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wxp-Tb-Pmc" firstAttribute="leading" secondItem="VQr-T4-h2F" secondAttribute="leadingMargin" constant="-16" id="X5e-1X-lqh"/>
                             <constraint firstItem="wxp-Tb-Pmc" firstAttribute="top" secondItem="VQr-T4-h2F" secondAttribute="topMargin" id="otj-b2-DgS"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="wxp-Tb-Pmc" secondAttribute="bottom" id="ouz-H2-LH5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wxp-Tb-Pmc" secondAttribute="trailing" constant="-16" id="zph-re-Jx7"/>
                         </constraints>
                     </view>
@@ -459,6 +462,7 @@ you want to link</string>
                         <outlet property="holdingsHeightConstraint" destination="ieO-c3-gsK" id="Pev-1l-wXR"/>
                         <outlet property="holdingsTable" destination="Fj7-fD-PW3" id="Wrl-lH-y9m"/>
                         <outlet property="scrollView" destination="wxp-Tb-Pmc" id="3W4-yK-xUw"/>
+                        <outlet property="scrollViewHeightConstraint" destination="7r3-0R-DKW" id="JYz-QA-pXt"/>
                         <outlet property="totalPortfolioValueLabel" destination="MNP-vi-AcG" id="Cu9-qs-J57"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
                     </connections>
@@ -682,14 +686,14 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
                                 <rect key="frame" x="140" y="171" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
                                     <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
                                 <rect key="frame" x="16" y="218" width="288" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
@@ -717,7 +721,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="tradeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="4NJ-DI-xZM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
                                 <rect key="frame" x="113" y="99" width="95" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
