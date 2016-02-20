@@ -36,41 +36,13 @@
     return self;
 }
 
-- (void) createPreviewRequest {
-    self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-    [self.previewRequest setOrderAction:@"buy"];
-    [self.previewRequest setOrderPriceType:@"market"];
-}
-
-- (void) createPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity {
-    self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-
-    if (action) {
-        [self.previewRequest setOrderAction: action];
-    } else {
-        [self.previewRequest setOrderAction: @"buy"];
-    }
-
-    if (symbol) {
-        [self.previewRequest setOrderSymbol: symbol];
-    }
-
-    if (quantity) {
-        [self.previewRequest setOrderQuantity: quantity];
-    } else {
-        [self.previewRequest setOrderQuantity: @1];
-    }
-
-    [self.previewRequest setOrderPriceType: @"market"];
-}
-
--(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
-    if (!self.previewRequest) {
+-(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    if (!previewRequest) {
         return;
     }
 
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
-    [tradeService previewTrade:self.previewRequest withCompletionBlock:^(TradeItResult * res){
+    [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res){
         completionBlock(res);
     }];
 }

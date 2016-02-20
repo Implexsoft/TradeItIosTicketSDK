@@ -40,6 +40,8 @@
 
 
 
+#pragma mark - Class Initialization
+
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
 }
@@ -49,11 +51,11 @@
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
-    [ticket setApiKey: apiKey];
-    [ticket setCallback: callback];
-    [ticket setParentView: view];
-    [ticket setDebugMode: debug];
-    [ticket setPortfolioMode: YES];
+    ticket.callback = callback;
+    ticket.parentView = view;
+    ticket.debugMode = debug;
+    ticket.portfolioMode = YES;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
 
     [TradeItTicketController showTicket];
 }
@@ -67,23 +69,55 @@
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
-    [ticket setApiKey: apiKey];
-    [ticket createInitialPreviewRequestWithSymbol:[symbol uppercaseString] andAction:action andQuantity:quantity];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     [ticket setCallback: callback];
     [ticket setParentView: view];
     [ticket setDebugMode: debug];
     [ticket setPortfolioMode: NO];
+    [ticket createInitialPreviewRequest];
+
+    ticket.previewRequest.orderSymbol = [symbol uppercaseString];
+    ticket.previewRequest.orderAction = action;
+    ticket.previewRequest.orderQuantity = quantity;
 
     [TradeItTicketController showTicket];
 }
+
++(void) showTicket {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
+    [ticket showTicket];
+}
+
++ (void)clearSavedData {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    [ticket unlinkAccounts];
+}
+
++ (NSArray *)getLinkedBrokers {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+
+    return [ticket.connector getLinkedLogins];
+}
+
++ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    return [ticket getBrokerDisplayString: brokerIdentifier];
+}
+
+
+
+#pragma mark - Instance Initialization
 
 - (id)initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     self = [super init];
 
     if (self) {
         TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-        [ticket setApiKey:apiKey];
+        ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
         [ticket createInitialPreviewRequest]; // will set trade request to default values
         [ticket setParentView:view];
     }
@@ -97,19 +131,19 @@
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
     if(self.quantity > 0) {
-        [ticket.initialPreviewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+        [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
-        [ticket.initialPreviewRequest setOrderAction: self.action];
+        [ticket.previewRequest setOrderAction: self.action];
     }
 
     if (self.orderType != nil && ![self.orderType isEqualToString:@""]) {
-        [ticket.initialPreviewRequest setOrderPriceType: self.orderType];
+        [ticket.previewRequest setOrderPriceType: self.orderType];
     }
 
     if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
-        [ticket.initialPreviewRequest setOrderExpiration: self.expiration];
+        [ticket.previewRequest setOrderExpiration: self.expiration];
     }
 
     if(self.debugMode) {
@@ -120,50 +154,11 @@
         [ticket setCallback: self.onCompletion];
     }
 
-    if(self.refreshQuote) {
-        [ticket setRefreshQuote: self.refreshQuote];
-    } else if(self.refreshLastPrice != nil) {
-        [ticket setRefreshLastPrice: self.refreshLastPrice];
-    }
-
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
-        [ticket setPositionCompanyName: self.companyName];
-    }
-
-    if(self.priceChangeDollar != nil) {
-        [ticket.position setTotalGainLossDollar: self.priceChangeDollar];
-    }
-
-    if(self.priceChangePercentage != nil) {
-        [ticket.position setTotalGainLossPercentage: self.priceChangePercentage];
+//        [ticket setPositionCompanyName: self.companyName];
     }
 
     [TradeItTicketController showTicket];
-}
-
-+(void) showTicket {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
-    [ticket showTicket];
-}
-
-+ (void)clearSavedData {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-    [ticket unlinkAccounts];
-}
-
-+ (NSArray *)getLinkedBrokers {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-    return [ticket retrieveLinkedLogins];
-}
-
-+ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-    return [ticket getBrokerDisplayString: brokerIdentifier];
 }
 
 //Let me tell you a cool story about why this is here:

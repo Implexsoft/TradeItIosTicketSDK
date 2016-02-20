@@ -98,31 +98,9 @@
 @property (copy) void (^onCompletion)(TradeItTicketControllerResult * result);
 
 /**
- *  Supply a block that given a symbol will return an updated lastPrice to passed in callback
- *  if refreshQuote is supplied we will NOT use refreshLastPrice
- */
-@property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
-
-/**
- *  Supply a block that given a symbol will return an updated quote information to passed in callback
- *  if refreshQuote is supplied we will NOT use refreshLastPrice
- */
-@property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
-
-/**
  *  The full company name, to be displayed on the detail view ticket
  */
 @property (copy) NSString * companyName;
-
-/**
- *  The days change in price by dollars, both positive and negative numbers supported
- */
-@property (copy) NSNumber * priceChangeDollar;
-
-/**
- *  The days change in price by percentage, both positive and negative numbers supported
- */
-@property (copy) NSNumber * priceChangePercentage;
 
 /**
  *  Determine whether to present the ticket in portfolio mode. Default is false

@@ -27,71 +27,81 @@
 
 @interface TTSDKTradeItTicket : NSObject
 
-@property NSString * apiKey;
+@property TradeItConnector * connector;
+
+@property (nonatomic) NSArray * brokerList;
 
 @property UIViewController * parentView;
+
 @property NSString * errorTitle;
 @property NSString * errorMessage;
-@property (copy) void (^refreshLastPrice)(NSString * symbol, void(^callback)(double lastPrice));
-@property (copy) void (^refreshQuote)(NSString * symbol, void(^callback)(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime));
 
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL portfolioMode;
 
-
-
 @property NSArray * sessions;
-@property TTSDKTicketSession * currentSession;
+
+
+
+@property (nonatomic) TTSDKTicketSession * currentSession;
+@property (nonatomic, retain, getter=currentAccount) NSDictionary * currentAccount;
+@property (nonatomic, retain, getter=allAccounts) NSArray * allAccounts;
+@property (nonatomic, retain, getter=linkedAccounts) NSArray * linkedAccounts;
 
 
 
 
 
-@property NSArray * brokerList;
 
-@property NSArray * linkedLogins;
 
-@property TradeItConnector * connector;
+
+
+
+
+
 //@property NSDictionary * currentAccount;
 @property TradeItAccountOverviewResult * currentAccountOverview;
 
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property TradeItTicketControllerResult * resultContainer;
 
-@property TradeItPreviewTradeRequest * initialPreviewRequest;
+@property TradeItPreviewTradeRequest * previewRequest;
+
 @property TTSDKPosition * position;
 @property TradeItGetPositionsResult * currentPositionsResult;
-
 //@property TradeItPlaceTradeRequest * placeTradeRequest;
-
-@property NSString * positionCompanyName;
-
+//@property NSString * positionCompanyName;
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 
-+(id) globalTicket;
--(id)initWithApiKey:(NSString *)apiKey;
--(void)showTicket;
--(NSArray *)retrieveAccounts;
--(void)addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
--(void)selectAccount:(NSDictionary *)account;
--(NSArray *)retrieveLinkedAccounts;
--(void)updateAccounts:(NSArray *)accounts;
--(void)unlinkAccounts;
--(void)switchAccountsFromViewController:(UIViewController *)viewController toAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
--(void)switchSymbolToPosition:(TTSDKPosition *)position withAction:(NSString *)action;
 
+
+
++(id) globalTicket;
+-(void)showTicket;
+
+// session
 -(void)addSession:(TTSDKTicketSession *)session;
 -(void)selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
 
--(NSArray *)retrieveLinkedLogins;
+// account
+-(void)addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
+-(void) saveAccountsToUserDefaults:(NSArray *)accounts;
+-(void)unlinkAccounts;
+
+// trading
+-(void)switchSymbolToPosition:(TTSDKPosition *)position withAction:(NSString *)action;
+
+
+
+
+
 -(NSString *)getBrokerDisplayString:(NSString *) value;
 -(NSString *)getBrokerValueString:(NSString *) displayString;
 -(NSArray *)getBrokerByValueString:(NSString *) valueString;
 -(void)returnToParentApp;
 -(void)createInitialPreviewRequest;
--(void)createInitialPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
--(void)passInitialPreviewRequestToSession:(TTSDKTicketSession *)session;
+
 -(void)createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice;
 -(void)retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 -(void)retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;

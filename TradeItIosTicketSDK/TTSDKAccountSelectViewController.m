@@ -89,15 +89,8 @@
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 
-    if (![selectedAccount isEqualToDictionary:globalTicket.currentSession.currentAccount]) {
-        tradeVC.refreshAccount = YES;
-        [globalTicket switchAccountsFromViewController:self toAccount:selectedAccount withCompletionBlock:^(TradeItResult * res){
-            [self.navigationController popToViewController:tradeVC animated:YES];
-        }];
-    } else {
-        tradeVC.refreshAccount = NO;
-        [self.navigationController popToViewController:tradeVC animated:YES];
-    }
+    globalTicket.currentAccount = selectedAccount;
+    [self.navigationController popToViewController:tradeVC animated: YES];
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

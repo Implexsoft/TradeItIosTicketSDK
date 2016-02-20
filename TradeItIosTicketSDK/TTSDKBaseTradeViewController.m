@@ -42,11 +42,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [super viewDidLoad];
 
     globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    // If the initial preview request still exists, go ahead and add the request to the session
-    if (globalTicket.initialPreviewRequest) {
-        [globalTicket passInitialPreviewRequestToSession:globalTicket.currentSession];
-    }
 }
 
 -(void) checkIfAuthIsComplete {

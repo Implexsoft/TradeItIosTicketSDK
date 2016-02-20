@@ -114,9 +114,9 @@
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
 
-        if (globalTicket.brokerSignUpCallback) {
-            globalTicket.brokerSignUpCallback(res);
-        }
+//        if (globalTicket.brokerSignUpCallback) {
+//            globalTicket.brokerSignUpCallback(res);
+//        }
 
         return;
     }

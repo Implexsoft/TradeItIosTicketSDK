@@ -37,6 +37,7 @@
 
 
 static float kDecimalSize = 5.0f;
+static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 + (id)sharedUtils {
     static TTSDKUtils *sharedUtilsInstance = nil;
@@ -66,6 +67,20 @@ static float kDecimalSize = 5.0f;
     }
 
     return self;
+}
+
+-(BOOL) isOnboarding {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
+    
+    BOOL complete = (BOOL)hasCompletedOnboarding;
+    
+    if (complete) {
+        return NO;
+    } else {
+        [defaults setObject:@1 forKey:kOnboardingKey];
+        return YES;
+    }
 }
 
 -(CGFloat) retrieveScreenHeight {

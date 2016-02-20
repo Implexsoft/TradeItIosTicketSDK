@@ -24,15 +24,14 @@
 @property TradeItLinkedLogin * login;
 @property NSString * broker;
 @property BOOL isAuthenticated;
-@property TradeItPreviewTradeRequest * previewRequest;
+
 @property TradeItPlaceTradeRequest * tradeRequest;
 @property TradeItGetPositionsRequest * positionsRequest;
 
 - (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker;
 - (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
-- (void) createPreviewRequest;
-- (void) createPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity;
-- (void) previewTrade:(void (^)(TradeItResult *)) completionBlock;
+
+- (void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 - (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
 
 - (void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;

@@ -136,9 +136,7 @@
         [self configureUIForSmallScreens];
     }
 
-    if (self.refreshAccount) {
-        [self refreshToNewAccount];
-    }
+    [companyNib populateBrokerButtonTitle: [globalTicket.currentSession.currentAccount valueForKey:@"broker"]];
 }
 
 -(void) populateSymbolDetails {
@@ -346,10 +344,6 @@
 
 
 #pragma mark - Account
-
--(void) refreshToNewAccount {
-    [companyNib populateBrokerButtonTitle: [globalTicket.currentSession.currentAccount valueForKey:@"broker"]];
-}
 
 
 
@@ -598,32 +592,7 @@
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(globalTicket.refreshQuote != nil) {
-        //perform network request (most likely) off the main thread
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-            globalTicket.refreshQuote(globalTicket.position.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
-
-                //return to main thread as this triggers a UI change
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    globalTicket.position.lastPrice = [NSNumber numberWithDouble:lastPrice];
-                    globalTicket.position.todayGainLossDollar = [NSNumber numberWithDouble:priceChangeDollar];
-                    globalTicket.position.todayGainLossPercentage = [NSNumber numberWithDouble:priceChangePercentage];
-                    [self updatePrice];
-                });
-            });
-        });
-    } else if(globalTicket.refreshLastPrice != nil) {
-        //perform network request (most likely) off the main thread
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-            globalTicket.refreshLastPrice(globalTicket.position.symbol, ^(double price){
-                //return to main thread as this triggers a UI change
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    globalTicket.position.lastPrice = [NSNumber numberWithDouble:price];
-                    [self updatePrice];
-                });
-            });
-        });
-    }
+    // TODO - implement this
 }
 
 - (IBAction)keypadPressed:(id)sender {
