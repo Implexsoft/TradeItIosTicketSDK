@@ -57,7 +57,7 @@
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    linkedAccounts = [globalTicket retrieveLinkedAccounts];
+    linkedAccounts = globalTicket.linkedAccounts;
 
     [accountService getBalancesFromLinkedAccounts:^(NSArray * res) {
         loadingView.hidden = YES;

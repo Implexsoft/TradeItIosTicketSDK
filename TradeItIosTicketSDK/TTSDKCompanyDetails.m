@@ -33,11 +33,10 @@
 
 #pragma mark - Configuration
 
--(void) populateDetailsWithPosition:(TTSDKPosition *)position {
-
-    [self populateSymbol: position.symbol];
-    [self populateLastPrice: position.lastPrice];
-    [self populateChangeLabelWithChange:position.change andChangePct:position.changePct];
+-(void) populateDetailsWithQuote:(TradeItQuote *)quote {
+    [self populateSymbol: quote.symbol];
+    [self populateLastPrice: quote.lastPrice];
+    [self populateChangeLabelWithChange:quote.change andChangePct:quote.pctChange];
 }
 
 -(void) populateSymbol: (NSString *)symbol {

@@ -78,7 +78,7 @@ static float kAccountCellHeight = 44.0f;
     }
     self.loadingView.hidden = NO;
 
-    if (!globalTicket.currentSession.previewRequest) {
+    if (!globalTicket.previewRequest) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
     }
 
@@ -107,7 +107,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void)loadPortfolioData {
-    linkedAccounts = [globalTicket retrieveLinkedAccounts];
+    linkedAccounts = globalTicket.linkedAccounts;
     linkedPositions = [[NSArray alloc] init];
 
     accountService = [[TTSDKAccountService alloc] init];

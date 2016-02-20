@@ -66,20 +66,6 @@
     }
 }
 
--(BOOL) isDataPopulated {
-    BOOL populated = YES;
-
-    if (!self.lastPrice) {
-        populated = NO;
-    }
-
-    if (!self.quantity && ![self.quantity isEqualToNumber:@0]) {
-        populated = NO;
-    }
-
-    return populated;
-}
-
 
 
 @end

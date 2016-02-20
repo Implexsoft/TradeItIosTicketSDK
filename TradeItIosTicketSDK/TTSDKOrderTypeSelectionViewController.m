@@ -56,9 +56,9 @@
 
 - (IBAction)marketPressed:(id)sender {
 
-    [globalTicket.currentSession.previewRequest setOrderPriceType: @"market"];
-    [globalTicket.currentSession.previewRequest setOrderLimitPrice: nil];
-    [globalTicket.currentSession.previewRequest setOrderStopPrice: nil];
+    [globalTicket.previewRequest setOrderPriceType: @"market"];
+    [globalTicket.previewRequest setOrderLimitPrice: nil];
+    [globalTicket.previewRequest setOrderStopPrice: nil];
 
     [self.navigationController popViewControllerAnimated:YES];
 }

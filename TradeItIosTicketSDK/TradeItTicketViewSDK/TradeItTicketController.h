@@ -98,6 +98,11 @@
 @property (copy) void (^onCompletion)(TradeItTicketControllerResult * result);
 
 /**
+ *  The company symbol, to be displayed on the detail view ticket
+ */
+@property (copy) NSString * symbol;
+
+/**
  *  The full company name, to be displayed on the detail view ticket
  */
 @property (copy) NSString * companyName;

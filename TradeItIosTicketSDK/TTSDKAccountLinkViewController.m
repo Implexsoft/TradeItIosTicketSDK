@@ -128,7 +128,7 @@
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 
-    [globalTicket updateAccounts: [mutableAccounts copy]];
+    [globalTicket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
 - (void)linkToggleDidNotSelect:(NSString *)errorMessage {

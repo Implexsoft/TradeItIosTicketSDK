@@ -144,16 +144,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void)setCurrentSession:(TTSDKTicketSession *)currentSession {
-    if (self.currentSession) {
+    if (_currentSession) {
         if ([currentSession.login.userId isEqualToString:self.currentSession.login.userId]) {
             return;
         }
     }
 
-    self.currentSession.currentAccount = nil;
-    self.currentSession = currentSession;
+    _currentSession.currentAccount = nil;
+    _currentSession = currentSession;
 }
-
 
 
 
@@ -182,7 +181,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     for (NSDictionary * account in storedAccounts) {
         NSNumber * isLastSelected = [account valueForKey:@"lastSelected"];
         NSNumber * isActive = [account valueForKey:@"active"];
-        
+
         if ([isLastSelected boolValue] && [isActive boolValue]) {
             initialAccount = account;
             break;
@@ -387,33 +386,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 
 
-#pragma mark - Trading
 
--(void) switchSymbolToPosition:(TTSDKPosition *)position withAction:(NSString *)action {
-    self.position = nil;
-    self.position = position;
-
-    self.previewRequest.orderSymbol = position.symbol;
-    if (action) {
-        self.previewRequest.orderAction = action;
-    }
-}
-
--(void) createInitialPreviewRequest {
-    self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-
-    [self.previewRequest setOrderAction:@"buy"];
-
-    if (self.position && self.position.symbol) {
-        [self.previewRequest setOrderSymbol: self.position.symbol];
-    }
-
-    if (self.currentSession.currentAccount) {
-        [self.previewRequest setAccountNumber: [self.currentSession.currentAccount valueForKey: @"accountNumber"]];
-    }
-
-    [self.previewRequest setOrderPriceType:@"market"];
-}
 
 
 
@@ -432,36 +405,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 
     return retrievedSession;
-}
-
--(void) createInitialPositionWithSymbol:(NSString *)symbol andLastPrice:(NSNumber *)lastPrice {
-    self.position = [[TTSDKPosition alloc] init];
-
-    [self.position setLastPrice: lastPrice];
-    [self.position setSymbol: symbol];
-}
-
--(void) retrieveAccountOverview:(NSString *)accountNumber withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
-    TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self.currentSession];
-    TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: accountNumber];
-    [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
-        if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
-            self.currentAccountOverview = (TradeItAccountOverviewResult *)result;
-        }
-        completionBlock(result);
-    }];
-}
-
--(void) retrievePositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
-    TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self.currentSession];
-    TradeItGetPositionsRequest * request = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
-
-    [positionService getAccountPositions: request withCompletionBlock:^(TradeItResult * result) {
-        if ([result isKindOfClass:TradeItGetPositionsResult.class]) {
-            self.currentPositionsResult = (TradeItGetPositionsResult *)result;
-        }
-        completionBlock(result);
-    }];
 }
 
 
@@ -493,7 +436,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             return broker[0];
         }
     }
-    
+
     return value;
 }
 

@@ -52,9 +52,7 @@
     if (result.confirmationMessage) {
         [successMessage setText: result.confirmationMessage];
 
-        NSString * symbol = globalTicket.currentSession.previewRequest.orderSymbol;
-        globalTicket.currentSession.previewRequest = nil;
-        [globalTicket.currentSession createPreviewRequestWithSymbol:symbol andAction:@"buy" andQuantity:@1];
+        NSString * symbol = globalTicket.previewRequest.orderSymbol;
     }
 
     [utils styleMainActiveButton:tradeButton];

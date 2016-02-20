@@ -84,31 +84,18 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    NSString * currentSymbol = globalTicket.currentSession.previewRequest.orderSymbol;
+    NSString * currentSymbol = globalTicket.previewRequest.orderSymbol;
 
-    if (!currentSymbol || [selectedCompany.symbol isEqualToString: currentSymbol]) {
+    if (!currentSymbol || ![selectedCompany.symbol isEqualToString: currentSymbol]) {
+        TradeItQuote * quote = [[TradeItQuote alloc] init];
+        quote.symbol = selectedCompany.symbol;
+        quote.companyName = selectedCompany.name;
+        globalTicket.quote = quote;
+        globalTicket.previewRequest.orderSymbol = quote.symbol;
+
         [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-
-        UIView * loadingView = [utils retrieveLoadingOverlayForView:self.view];
-        [self.view addSubview: loadingView];
-        loadingView.hidden = NO;
-
-        TTSDKPosition * newPosition = [[TTSDKPosition alloc] init];
-        newPosition.symbol = selectedCompany.symbol;
-        newPosition.companyName = selectedCompany.name;
-
-        [globalTicket switchSymbolToPosition: newPosition withAction: nil];
-        
-        [globalTicket.position getPositionData:^(TradeItQuote * quote) {
-            [loadingView removeFromSuperview];
-
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
     }
 }
 

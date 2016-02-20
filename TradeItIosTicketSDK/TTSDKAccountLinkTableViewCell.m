@@ -66,7 +66,7 @@
 -(IBAction) togglePressed:(id)sender {
     // If the toggle resulted in unlinking the account, make sure the account can be unlinked
     if (!self.toggle.on) {
-        NSArray * linkedAccounts = [globalTicket retrieveLinkedAccounts];
+        NSArray * linkedAccounts = globalTicket.linkedAccounts;
         if (linkedAccounts.count < 2) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];

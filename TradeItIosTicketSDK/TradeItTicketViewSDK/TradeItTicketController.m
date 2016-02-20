@@ -56,6 +56,7 @@
     ticket.debugMode = debug;
     ticket.portfolioMode = YES;
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.quote = [[TradeItQuote alloc] init];
 
     [TradeItTicketController showTicket];
 }
@@ -74,10 +75,14 @@
     [ticket setParentView: view];
     [ticket setDebugMode: debug];
     [ticket setPortfolioMode: NO];
-    [ticket createInitialPreviewRequest];
 
+    ticket.quote = [[TradeItQuote alloc] init];
+    ticket.quote.symbol = [symbol uppercaseString];
+
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderSymbol = [symbol uppercaseString];
     ticket.previewRequest.orderAction = action;
+    ticket.previewRequest.orderPriceType = @"market";
     ticket.previewRequest.orderQuantity = quantity;
 
     [TradeItTicketController showTicket];
@@ -118,7 +123,6 @@
     if (self) {
         TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
-        [ticket createInitialPreviewRequest]; // will set trade request to default values
         [ticket setParentView:view];
     }
 
@@ -129,6 +133,12 @@
     utils = [TTSDKUtils sharedUtils];
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+
+    ticket.quote = [[TradeItQuote alloc] init];
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
+    ticket.previewRequest.orderAction = @"buy";
+    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderPriceType = @"market";
 
     if(self.quantity > 0) {
         [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
@@ -154,8 +164,12 @@
         [ticket setCallback: self.onCompletion];
     }
 
+    if (self.symbol != nil && ![self.symbol isEqualToString:@""]) {
+        ticket.quote.symbol = self.symbol;
+    }
+
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
-//        [ticket setPositionCompanyName: self.companyName];
+        ticket.quote.companyName = self.companyName;
     }
 
     [TradeItTicketController showTicket];

@@ -84,7 +84,7 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 }
 
 -(void) getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {
-    NSArray * linkedAccounts = [globalTicket retrieveLinkedAccounts];
+    NSArray * linkedAccounts = globalTicket.linkedAccounts;
 
     summaryBlock = completionBlock;
     accountPositionsResult = [[NSMutableArray alloc] init];
@@ -127,12 +127,12 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 }
 
 -(void) getBalancesFromLinkedAccounts:(void (^)(NSArray *)) completionBlock {
-    NSArray * linkedAccounts = [globalTicket retrieveLinkedAccounts];
+    NSArray * linkedAccounts = globalTicket.linkedAccounts;
     [self getBalancesFromAccounts:linkedAccounts withCompletionBlock:completionBlock];
 }
 
 -(void) getBalancesFromAllAccounts:(void (^)(NSArray *)) completionBlock {
-    NSArray * allAccounts = [globalTicket retrieveAccounts];
+    NSArray * allAccounts = globalTicket.linkedAccounts;
     [self getBalancesFromAccounts:allAccounts withCompletionBlock:completionBlock];
 }
 

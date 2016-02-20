@@ -19,8 +19,9 @@
 @property NSString * companyName;
 @property NSNumber * totalValue;
 
+@property TradeItQuote * quote;
+
 -(id) initWithPosition:(TradeItPosition *)position;
 -(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock;
--(BOOL) isDataPopulated;
 
 @end
