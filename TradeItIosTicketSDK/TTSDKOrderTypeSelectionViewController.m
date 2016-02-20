@@ -8,10 +8,10 @@
 
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKOrderTypeSelectionViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @property NSString * orderType;
@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 }
 
 
@@ -56,9 +56,9 @@
 
 - (IBAction)marketPressed:(id)sender {
 
-    [globalController.currentSession.previewRequest setOrderPriceType: @"market"];
-    [globalController.currentSession.previewRequest setOrderLimitPrice: nil];
-    [globalController.currentSession.previewRequest setOrderStopPrice: nil];
+    [globalTicket.currentSession.previewRequest setOrderPriceType: @"market"];
+    [globalTicket.currentSession.previewRequest setOrderLimitPrice: nil];
+    [globalTicket.currentSession.previewRequest setOrderStopPrice: nil];
 
     [self.navigationController popViewControllerAnimated:YES];
 }

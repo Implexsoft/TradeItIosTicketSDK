@@ -9,10 +9,10 @@
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKOrderTypeInputViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
 }
 
@@ -53,7 +53,7 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
     utils = [TTSDKUtils sharedUtils];
 
     self.orderTypeLabel.text = [utils splitCamelCase:self.orderType];
@@ -71,14 +71,14 @@
     NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
     nf.numberStyle = NSNumberFormatterCurrencyStyle;
 
-    if (globalController.currentSession.previewRequest.orderLimitPrice) {
-        self.limitPrice = [globalController.currentSession.previewRequest.orderLimitPrice stringValue];
-        self.limitPriceField.text = [nf stringFromNumber: globalController.currentSession.previewRequest.orderLimitPrice];
+    if (globalTicket.currentSession.previewRequest.orderLimitPrice) {
+        self.limitPrice = [globalTicket.currentSession.previewRequest.orderLimitPrice stringValue];
+        self.limitPriceField.text = [nf stringFromNumber: globalTicket.currentSession.previewRequest.orderLimitPrice];
     }
 
-    if (globalController.currentSession.previewRequest.orderStopPrice) {
-        self.stopPrice = [globalController.currentSession.previewRequest.orderStopPrice stringValue];
-        self.stopPriceField.text = [nf stringFromNumber: globalController.currentSession.previewRequest.orderStopPrice];
+    if (globalTicket.currentSession.previewRequest.orderStopPrice) {
+        self.stopPrice = [globalTicket.currentSession.previewRequest.orderStopPrice stringValue];
+        self.stopPriceField.text = [nf stringFromNumber: globalTicket.currentSession.previewRequest.orderStopPrice];
     }
 
     if ([self.orderType isEqualToString:@"limit"]) {
@@ -102,7 +102,7 @@
 
     TTSDKCompanyDetails * companyDetailsNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:self.companyDetails inController:self];
 
-    [companyDetailsNib populateDetailsWithPosition:globalController.position];
+    [companyDetailsNib populateDetailsWithPosition:globalTicket.position];
     companyDetailsNib.symbolLabel.tintColor = [UIColor blackColor];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:self.keypadContainer onPress:@selector(keypadPressed:) inController:self];
@@ -240,15 +240,15 @@
     nf.numberStyle = NSNumberFormatterDecimalStyle;
 
     if([self.orderType isEqualToString:@"limit"]){
-        globalController.currentSession.previewRequest.orderPriceType = @"limit";
-        globalController.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+        globalTicket.currentSession.previewRequest.orderPriceType = @"limit";
+        globalTicket.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
     } else if([self.orderType isEqualToString:@"stopMarket"]){
-        globalController.currentSession.previewRequest.orderPriceType = @"stopMarket";
-        globalController.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+        globalTicket.currentSession.previewRequest.orderPriceType = @"stopMarket";
+        globalTicket.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
     } else if([self.orderType isEqualToString:@"stopLimit"]){
-        globalController.currentSession.previewRequest.orderPriceType = @"stopLimit";
-        globalController.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
-        globalController.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
+        globalTicket.currentSession.previewRequest.orderPriceType = @"stopLimit";
+        globalTicket.currentSession.previewRequest.orderStopPrice = [nf numberFromString: self.stopPrice];
+        globalTicket.currentSession.previewRequest.orderLimitPrice = [nf numberFromString: self.limitPrice];
     }
 
     [self.navigationController popToRootViewControllerAnimated:YES];

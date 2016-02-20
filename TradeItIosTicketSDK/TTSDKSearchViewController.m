@@ -11,12 +11,12 @@
 #import "TradeItSymbolLookupCompany.h"
 #import "TradeItSymbolLookupResult.h"
 #import "TradeItMarketDataService.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKSearchViewController() {
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TradeItMarketDataService * marketService;
     UITapGestureRecognizer * dismissalTap;
 }
@@ -45,9 +45,9 @@
 -(void) viewDidLoad {
     self.symbolSearchResults = [[NSArray alloc] init];
 
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
     utils = [TTSDKUtils sharedUtils];
-    marketService = [[TradeItMarketDataService alloc] initWithSession: globalController.currentSession];
+    marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
 
     UISearchDisplayController *searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
 
@@ -87,7 +87,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    NSString * currentSymbol = globalController.currentSession.previewRequest.orderSymbol;
+    NSString * currentSymbol = globalTicket.currentSession.previewRequest.orderSymbol;
 
     if (!currentSymbol || [selectedCompany.symbol isEqualToString: currentSymbol]) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -101,9 +101,9 @@
         newPosition.symbol = selectedCompany.symbol;
         newPosition.companyName = selectedCompany.name;
 
-        [globalController switchSymbolToPosition: newPosition withAction: nil];
+        [globalTicket switchSymbolToPosition: newPosition withAction: nil];
         
-        [globalController.position getPositionData:^(TradeItQuote * quote) {
+        [globalTicket.position getPositionData:^(TradeItQuote * quote) {
             [loadingView removeFromSuperview];
 
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;

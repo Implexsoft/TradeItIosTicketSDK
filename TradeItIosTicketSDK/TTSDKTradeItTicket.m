@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
@@ -21,13 +21,13 @@
 #import "TradeItBalanceService.h"
 #import "TradeItAccountOverviewRequest.h"
 
-@interface TTSDKTicketController() {
+@interface TTSDKTradeItTicket() {
     TradeItTradeService * tradeService;
 }
 
 @end
 
-@implementation TTSDKTicketController
+@implementation TTSDKTradeItTicket
 
 static NSString * kBaseTabBarViewIdentifier = @"BASE_TAB_BAR";
 static NSString * kAuthNavViewIdentifier = @"AUTH_NAV";
@@ -39,14 +39,14 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 
-+(id) globalController {
-    static TTSDKTicketController * globalControllerInstance = nil;
++(id) globalTicket {
+    static TTSDKTradeItTicket * globalTicketInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        globalControllerInstance = [[self alloc] initWithApiKey:nil];
+        globalTicketInstance = [[self alloc] initWithApiKey:nil];
     });
 
-    return globalControllerInstance;
+    return globalTicketInstance;
 }
 
 -(id) initWithApiKey:(NSString *)apiKey {

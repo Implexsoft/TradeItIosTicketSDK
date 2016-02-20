@@ -9,12 +9,12 @@
 #import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKLoginViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKOnboardingViewController () {
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     NSArray * brokers;
 }
 
@@ -55,9 +55,9 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    brokers = globalController.brokerList;
+    brokers = globalTicket.brokerList;
 
     [utils styleMainActiveButton: self.brokerSelectButton];
     [self styleCustomDropdownButton: self.fidelityButton];
@@ -132,14 +132,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
 
-    NSString * selectedBroker = [globalController getBrokerByValueString: @"Fidelity"][1];
+    NSString * selectedBroker = [globalTicket getBrokerByValueString: @"Fidelity"][1];
     [loginViewController setAddBroker: selectedBroker];
 
     [self.navigationController pushViewController: loginViewController animated:YES];
 }
 
 -(IBAction) closePressed:(id)sender {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 

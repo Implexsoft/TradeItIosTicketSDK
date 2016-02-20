@@ -8,7 +8,7 @@
 
 #import "TTSDKPosition.h"
 #import "TradeItMarketDataService.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TradeItQuotesResult.h"
 #import "TradeItQuote.h"
 
@@ -33,10 +33,10 @@
 }
 
 -(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock {
-    TTSDKTicketController * globalController = [TTSDKTicketController globalController];
+    TTSDKTradeItTicket * globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    if (globalController.currentSession) {
-        TTSDKTicketSession * session = globalController.currentSession;
+    if (globalTicket.currentSession) {
+        TTSDKTicketSession * session = globalTicket.currentSession;
         TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: session];
 
         TradeItQuotesRequest * request = [[TradeItQuotesRequest alloc] initWithSymbol: self.symbol];

@@ -7,12 +7,12 @@
 //
 
 #import "TTSDKAccountSelectTableViewCell.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKAccountSelectTableViewCell() {
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
@@ -42,7 +42,7 @@
         }
 
         utils = [TTSDKUtils sharedUtils];
-        globalController = [TTSDKTicketController globalController];
+        globalTicket = [TTSDKTradeItTicket globalTicket];
     }
 }
 
@@ -57,7 +57,7 @@
     self.buyingPowerLabel.text = [overview.buyingPower stringValue];
     self.sharesLabel.text = @"N/A";
 
-    self.accountTypeLabel.text = [globalController getBrokerDisplayString: broker];
+    self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];
     [self insertPortfolioDetail: broker];
 }
 

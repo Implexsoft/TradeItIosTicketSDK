@@ -10,12 +10,12 @@
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAccountService.h"
 
 @interface TTSDKAccountSelectViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     NSArray * linkedAccounts;
     TTSDKAccountService * accountService;
@@ -43,7 +43,7 @@
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
     accountService = [[TTSDKAccountService alloc] init];
     accountResults = [[NSArray alloc] init];
 
@@ -57,7 +57,7 @@
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    linkedAccounts = [globalController retrieveLinkedAccounts];
+    linkedAccounts = [globalTicket retrieveLinkedAccounts];
 
     [accountService getBalancesFromLinkedAccounts:^(NSArray * res) {
         loadingView.hidden = YES;
@@ -89,9 +89,9 @@
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 
-    if (![selectedAccount isEqualToDictionary:globalController.currentSession.currentAccount]) {
+    if (![selectedAccount isEqualToDictionary:globalTicket.currentSession.currentAccount]) {
         tradeVC.refreshAccount = YES;
-        [globalController switchAccountsFromViewController:self toAccount:selectedAccount withCompletionBlock:^(TradeItResult * res){
+        [globalTicket switchAccountsFromViewController:self toAccount:selectedAccount withCompletionBlock:^(TradeItResult * res){
             [self.navigationController popToViewController:tradeVC animated:YES];
         }];
     } else {

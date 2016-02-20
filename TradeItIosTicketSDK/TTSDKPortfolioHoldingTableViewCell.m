@@ -9,12 +9,12 @@
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPosition.h"
 #import "TTSDKUtils.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
     TTSDKUtils * utils;
     TTSDKPosition * currentPosition;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *sellButton;
@@ -54,7 +54,7 @@ static CGFloat const kBounceValue = 20.0f;
     [super awakeFromNib];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
     self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
     self.panRecognizer.delegate = self;

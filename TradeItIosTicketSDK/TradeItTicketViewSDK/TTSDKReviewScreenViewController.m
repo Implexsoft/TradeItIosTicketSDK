@@ -8,7 +8,7 @@
 
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKSuccessViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKUtils.h"
 
@@ -58,7 +58,7 @@
     int ackLabelsToggled;
 
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 
     TradeItPlaceTradeResult * placeTradeResult;
 }
@@ -85,12 +85,12 @@ static float kMessageSeparatorHeight = 30.0f;
     warningLabels = [[NSMutableArray alloc] init];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
     // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
 
-    self.reviewTradeResult = globalController.resultContainer.reviewResponse;
+    self.reviewTradeResult = globalTicket.resultContainer.reviewResponse;
 
     [self updateUIWithReviewResult];
 
@@ -393,9 +393,9 @@ static float kMessageSeparatorHeight = 30.0f;
 
 - (void) sendTradeRequest {
 
-    globalController.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
+    globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
-    [globalController.currentSession placeTrade:^(TradeItResult *result) {
+    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
         [self tradeRequestRecieved: result];
     }];
 }
@@ -405,8 +405,8 @@ static float kMessageSeparatorHeight = 30.0f;
 
     //success
     if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
-        globalController.resultContainer.status = SUCCESS;
-        globalController.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
+        globalTicket.resultContainer.status = SUCCESS;
+        globalTicket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
         [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
     }
     //error
@@ -416,8 +416,8 @@ static float kMessageSeparatorHeight = 30.0f;
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
         errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
 
-        globalController.resultContainer.status = EXECUTION_ERROR;
-        globalController.resultContainer.errorResponse = error;
+        globalTicket.resultContainer.status = EXECUTION_ERROR;
+        globalTicket.resultContainer.errorResponse = error;
 
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                         message:errorMessage

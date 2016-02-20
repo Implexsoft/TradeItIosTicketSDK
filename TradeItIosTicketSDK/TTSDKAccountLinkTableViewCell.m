@@ -8,13 +8,13 @@
 
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 
 @interface TTSDKAccountLinkTableViewCell() {
     TTSDKUtils * utils;
     NSDictionary * accountData;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
@@ -31,7 +31,7 @@
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 }
 
 
@@ -66,12 +66,12 @@
 -(IBAction) togglePressed:(id)sender {
     // If the toggle resulted in unlinking the account, make sure the account can be unlinked
     if (!self.toggle.on) {
-        NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
+        NSArray * linkedAccounts = [globalTicket retrieveLinkedAccounts];
         if (linkedAccounts.count < 2) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];
             return;
-        } else if ([accountData isEqualToDictionary:globalController.currentSession.currentAccount]) {
+        } else if ([accountData isEqualToDictionary:globalTicket.currentSession.currentAccount]) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"This account is currently selected."];
             return;

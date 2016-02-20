@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKPortfolioViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
@@ -15,7 +15,7 @@
 #import "TradeItAuthenticationResult.h"
 
 @interface TTSDKPortfolioViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     NSArray * linkedAccounts;
     NSArray * linkedBalances;
@@ -70,7 +70,7 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) viewDidLoad {
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
     if (!self.loadingView) {
         self.loadingView = [utils retrieveLoadingOverlayForView:self.view];
@@ -78,7 +78,7 @@ static float kAccountCellHeight = 44.0f;
     }
     self.loadingView.hidden = NO;
 
-    if (!globalController.currentSession.previewRequest) {
+    if (!globalTicket.currentSession.previewRequest) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
     }
 
@@ -95,8 +95,8 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    if (!globalController.currentSession.isAuthenticated) {
-        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+    if (!globalTicket.currentSession.isAuthenticated) {
+        [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self loadPortfolioData];
             }
@@ -107,7 +107,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void)loadPortfolioData {
-    linkedAccounts = [globalController retrieveLinkedAccounts];
+    linkedAccounts = [globalTicket retrieveLinkedAccounts];
     linkedPositions = [[NSArray alloc] init];
 
     accountService = [[TTSDKAccountService alloc] init];
@@ -261,14 +261,14 @@ static float kAccountCellHeight = 44.0f;
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];
 
-    [globalController switchSymbolToPosition:position withAction:@"buy"];
+    [globalTicket switchSymbolToPosition:position withAction:@"buy"];
 }
 
 -(void)didSelectSell:(TTSDKPosition *)position {
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];
 
-    [globalController switchSymbolToPosition:position withAction:@"sell"];
+    [globalTicket switchSymbolToPosition:position withAction:@"sell"];
 }
 
 #pragma mark - Custom UI
@@ -304,7 +304,7 @@ static float kAccountCellHeight = 44.0f;
 #pragma mark - Navigation
 
 - (IBAction)closePressed:(id)sender {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 - (IBAction)editAccountsPressed:(id)sender {

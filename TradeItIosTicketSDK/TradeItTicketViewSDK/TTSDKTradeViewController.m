@@ -56,7 +56,7 @@
     BOOL defaultEditingCheckComplete;
     
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @end
@@ -71,32 +71,32 @@
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    if (globalController.currentSession.currentAccount) {
-        globalController.currentSession.previewRequest.accountNumber = [globalController.currentSession.currentAccount valueForKey:@"accountNumber"];
+    if (globalTicket.currentSession.currentAccount) {
+        globalTicket.currentSession.previewRequest.accountNumber = [globalTicket.currentSession.currentAccount valueForKey:@"accountNumber"];
     }
 
     TTSDKAccountService * acctService = [[TTSDKAccountService alloc] init];
-    if (!globalController.currentSession.isAuthenticated) {
+    if (!globalTicket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-        [globalController.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+        [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 [self checkIfReadyToTrade];
-                [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
+                [acctService getAccountSummaryFromAccount:globalTicket.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
                     [self populateSymbolDetails];
                 }];
 
-                if (globalController.position) {
-                    [globalController.position getPositionData:^(TradeItQuote * quote) {
+                if (globalTicket.position) {
+                    [globalTicket.position getPositionData:^(TradeItQuote * quote) {
                         [self populateSymbolDetails];
                     }];
                 }
             }
         }];
     } else {
-        [acctService getAccountSummaryFromAccount:globalController.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
+        [acctService getAccountSummaryFromAccount:globalTicket.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
             [self populateSymbolDetails];
         }];
     }
@@ -104,8 +104,8 @@
     [self initConstraints];
     [self uiTweaks];
 
-    if(globalController.currentSession.previewRequest.orderQuantity > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalController.currentSession.previewRequest.orderQuantity intValue]]];
+    if(globalTicket.currentSession.previewRequest.orderQuantity > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.currentSession.previewRequest.orderQuantity intValue]]];
     }
 
     [self updatePrice];
@@ -128,9 +128,9 @@
     [self populateSymbolDetails];
 
 
-    [self changeOrderAction:globalController.currentSession.previewRequest.orderAction];
-    [self changeOrderType:globalController.currentSession.previewRequest.orderPriceType];
-    [self changeOrderExpiration:globalController.currentSession.previewRequest.orderExpiration];
+    [self changeOrderAction:globalTicket.currentSession.previewRequest.orderAction];
+    [self changeOrderType:globalTicket.currentSession.previewRequest.orderPriceType];
+    [self changeOrderExpiration:globalTicket.currentSession.previewRequest.orderExpiration];
 
     if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
@@ -142,23 +142,23 @@
 }
 
 -(void) populateSymbolDetails {
-    TTSDKPosition * position = globalController.position;
+    TTSDKPosition * position = globalTicket.position;
 
     [companyNib populateDetailsWithPosition:position];
-    [companyNib populateBrokerButtonTitle: globalController.currentSession.broker];
+    [companyNib populateBrokerButtonTitle: globalTicket.currentSession.broker];
 
-    if ([globalController.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
-        if (globalController.currentAccountOverview) {
-            [companyNib populateSymbolDetail:globalController.currentAccountOverview.buyingPower andSharesOwned:nil];
+    if ([globalTicket.currentSession.previewRequest.orderAction isEqualToString: @"buy"]) {
+        if (globalTicket.currentAccountOverview) {
+            [companyNib populateSymbolDetail:globalTicket.currentAccountOverview.buyingPower andSharesOwned:nil];
         } else {
             [companyNib populateSymbolDetail:nil andSharesOwned:nil];
         }
     } else {
-        if (globalController.currentPositionsResult) {
+        if (globalTicket.currentPositionsResult) {
             int shares = 0;
-            NSArray * currentPositions = globalController.currentPositionsResult.positions;
+            NSArray * currentPositions = globalTicket.currentPositionsResult.positions;
             for (TradeItPosition * position in currentPositions) {
-                if ([position.symbol isEqualToString:globalController.currentSession.previewRequest.orderSymbol]) {
+                if ([position.symbol isEqualToString:globalTicket.currentSession.previewRequest.orderSymbol]) {
                     shares ++;
                 }
             }
@@ -348,7 +348,7 @@
 #pragma mark - Account
 
 -(void) refreshToNewAccount {
-    [companyNib populateBrokerButtonTitle: [globalController.currentSession.currentAccount valueForKey:@"broker"]];
+    [companyNib populateBrokerButtonTitle: [globalTicket.currentSession.currentAccount valueForKey:@"broker"]];
 }
 
 
@@ -361,18 +361,18 @@
     BOOL readyNow = NO;
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [globalController.currentSession.previewRequest.orderLimitPrice doubleValue];
-    double stopPrice = [globalController.currentSession.previewRequest.orderStopPrice doubleValue];
+    double limitPrice = [globalTicket.currentSession.previewRequest.orderLimitPrice doubleValue];
+    double stopPrice = [globalTicket.currentSession.previewRequest.orderStopPrice doubleValue];
 
     if(shares < 1) {
         readyNow = NO;
-    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
+    } else if([globalTicket.currentSession.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
         if(limitPrice > 0 && stopPrice > 0) {
             readyNow = YES;
         }
-    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"market"]) {
+    } else if([globalTicket.currentSession.previewRequest.orderPriceType isEqualToString:@"market"]) {
         readyNow = YES;
-    } else if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
+    } else if([globalTicket.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
         if(stopPrice > 0) {
             readyNow = YES;
         }
@@ -382,7 +382,7 @@
         }
     }
 
-    if (!globalController.currentSession.isAuthenticated || !globalController.currentSession.currentAccount) {
+    if (!globalTicket.currentSession.isAuthenticated || !globalTicket.currentSession.currentAccount) {
         readyNow = NO;
     }
 
@@ -396,13 +396,13 @@
 }
 
 -(void) updateEstimatedCost {
-    NSInteger shares = [globalController.currentSession.previewRequest.orderQuantity integerValue];
-    double price = [globalController.position.lastPrice doubleValue];
+    NSInteger shares = [globalTicket.currentSession.previewRequest.orderQuantity integerValue];
+    double price = [globalTicket.position.lastPrice doubleValue];
 
-    if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
-        price = [globalController.currentSession.previewRequest.orderStopPrice doubleValue];
-    } else if([globalController.currentSession.previewRequest.orderPriceType containsString:@"imit"]) {
-        price = [globalController.currentSession.previewRequest.orderLimitPrice doubleValue];
+    if([globalTicket.currentSession.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
+        price = [globalTicket.currentSession.previewRequest.orderStopPrice doubleValue];
+    } else if([globalTicket.currentSession.previewRequest.orderPriceType containsString:@"imit"]) {
+        price = [globalTicket.currentSession.previewRequest.orderLimitPrice doubleValue];
     }
 
     double estimatedCost = shares * price;
@@ -412,8 +412,8 @@
     [formatter setLocale: US];
 
     NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
-    NSString * equalitySign = [globalController.currentSession.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
-    NSString * actionPostfix = ([globalController.currentSession.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
+    NSString * equalitySign = [globalTicket.currentSession.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * actionPostfix = ([globalTicket.currentSession.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
     NSString * formattedString = [NSString stringWithFormat:@"Est. %@ %@ %@", actionPostfix, equalitySign, formattedNumber];
 
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
@@ -422,9 +422,9 @@
 }
 
 -(void) updatePrice {
-    double lastPrice = [globalController.position.lastPrice doubleValue];
-    NSNumber * changeDollar = globalController.position.todayGainLossDollar;
-    NSNumber * changePercentage = globalController.position.todayGainLossPercentage;
+    double lastPrice = [globalTicket.position.lastPrice doubleValue];
+    NSNumber * changeDollar = globalTicket.position.todayGainLossDollar;
+    NSNumber * changePercentage = globalTicket.position.todayGainLossPercentage;
 
     NSMutableAttributedString * finalString;
 
@@ -465,13 +465,13 @@
 
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
-    globalController.currentSession.previewRequest.orderAction = action;
+    globalTicket.currentSession.previewRequest.orderAction = action;
     [self populateSymbolDetails];
 }
 
 -(void) changeOrderExpiration: (NSString *) exp {
-    if([globalController.currentSession.previewRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
-        globalController.currentSession.previewRequest.orderExpiration = @"day";
+    if([globalTicket.currentSession.previewRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
+        globalTicket.currentSession.previewRequest.orderExpiration = @"day";
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Expiration" withMessage:@"Market orders are Good For The Day only."];
@@ -488,10 +488,10 @@
 
     if([exp isEqualToString:@"gtc"]) {
         [orderExpirationButton setTitle:@"Good Until Canceled" forState:UIControlStateNormal];
-        globalController.currentSession.previewRequest.orderExpiration = @"gtc";
+        globalTicket.currentSession.previewRequest.orderExpiration = @"gtc";
     } else {
         [orderExpirationButton setTitle:@"Good For The Day" forState:UIControlStateNormal];
-        globalController.currentSession.previewRequest.orderExpiration = @"day";
+        globalTicket.currentSession.previewRequest.orderExpiration = @"day";
     }
 }
 
@@ -512,7 +512,7 @@
 }
 
 -(void) setToMarketOrder {
-    globalController.currentSession.previewRequest.orderPriceType = @"market";
+    globalTicket.currentSession.previewRequest.orderPriceType = @"market";
 
     [self changeOrderExpiration:@"day"];
     [self hideExpiration];
@@ -527,7 +527,7 @@
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderLimitPrice]];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.currentSession.previewRequest.orderLimitPrice]];
 
     [limitPriceInput sizeToFit];
     limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width;
@@ -541,7 +541,7 @@
     [limitPriceInput setHidden:YES];
     [stopPriceInput setHidden:NO];
     limitPriceInput.text = nil;
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderStopPrice]];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.currentSession.previewRequest.orderStopPrice]];
 
     [stopPriceInput sizeToFit];
     limitPricesWidthConstraint.constant = stopPriceInput.frame.size.width;
@@ -555,8 +555,8 @@
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderLimitPrice]];
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalController.currentSession.previewRequest.orderStopPrice]];
+    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.currentSession.previewRequest.orderLimitPrice]];
+    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.currentSession.previewRequest.orderStopPrice]];
 
     [limitPriceInput sizeToFit];
     [stopPriceInput sizeToFit];
@@ -598,27 +598,27 @@
 - (IBAction)refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(globalController.refreshQuote != nil) {
+    if(globalTicket.refreshQuote != nil) {
         //perform network request (most likely) off the main thread
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-            globalController.refreshQuote(globalController.position.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
+            globalTicket.refreshQuote(globalTicket.position.symbol, ^(double lastPrice, double priceChangeDollar, double priceChangePercentage, NSString * quoteUpdateTime){
 
                 //return to main thread as this triggers a UI change
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    globalController.position.lastPrice = [NSNumber numberWithDouble:lastPrice];
-                    globalController.position.todayGainLossDollar = [NSNumber numberWithDouble:priceChangeDollar];
-                    globalController.position.todayGainLossPercentage = [NSNumber numberWithDouble:priceChangePercentage];
+                    globalTicket.position.lastPrice = [NSNumber numberWithDouble:lastPrice];
+                    globalTicket.position.todayGainLossDollar = [NSNumber numberWithDouble:priceChangeDollar];
+                    globalTicket.position.todayGainLossPercentage = [NSNumber numberWithDouble:priceChangePercentage];
                     [self updatePrice];
                 });
             });
         });
-    } else if(globalController.refreshLastPrice != nil) {
+    } else if(globalTicket.refreshLastPrice != nil) {
         //perform network request (most likely) off the main thread
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0),  ^(void){
-            globalController.refreshLastPrice(globalController.position.symbol, ^(double price){
+            globalTicket.refreshLastPrice(globalTicket.position.symbol, ^(double price){
                 //return to main thread as this triggers a UI change
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    globalController.position.lastPrice = [NSNumber numberWithDouble:price];
+                    globalTicket.position.lastPrice = [NSNumber numberWithDouble:price];
                     [self updatePrice];
                 });
             });
@@ -638,14 +638,14 @@
     NSString * newQuantityString;
     NSString * appendedString;
 
-    if (!globalController.currentSession.previewRequest.orderQuantity) {
+    if (!globalTicket.currentSession.previewRequest.orderQuantity) {
         if (key == 11) { // backspace
             appendedString = @"";
         } else {
             appendedString = [NSString stringWithFormat:@"%ld", (long)key];
         }
     } else {
-        currentQuantityString = [NSString stringWithFormat:@"%i", [globalController.currentSession.previewRequest.orderQuantity intValue]];
+        currentQuantityString = [NSString stringWithFormat:@"%i", [globalTicket.currentSession.previewRequest.orderQuantity intValue]];
         newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
 
         if (key == 11) { // backspace
@@ -655,7 +655,7 @@
         }
     }
     
-    globalController.currentSession.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
+    globalTicket.currentSession.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
     sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
 
     [self checkIfReadyToTrade];
@@ -737,7 +737,7 @@
 }
 
 - (IBAction)cancelPressed:(id)sender {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 - (IBAction)portfolioLinkPressed:(id)sender {

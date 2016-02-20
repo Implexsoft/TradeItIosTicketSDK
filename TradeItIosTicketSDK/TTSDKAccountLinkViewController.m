@@ -7,12 +7,12 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAccountService.h"
 
 @interface TTSDKAccountLinkViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     NSArray * accounts;
     UIView * loadingView;
@@ -47,7 +47,7 @@
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
     accountService = [[TTSDKAccountService alloc] init];
 
     [utils styleMainActiveButton:self.doneButton];
@@ -128,7 +128,7 @@
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 
-    [globalController updateAccounts: [mutableAccounts copy]];
+    [globalTicket updateAccounts: [mutableAccounts copy]];
 }
 
 - (void)linkToggleDidNotSelect:(NSString *)errorMessage {
