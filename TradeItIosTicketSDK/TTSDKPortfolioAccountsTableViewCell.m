@@ -8,8 +8,11 @@
 
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TradeItAccountOverviewResult.h"
+#import "TTSDKUtils.h"
 
-@interface TTSDKPortfolioAccountsTableViewCell()
+@interface TTSDKPortfolioAccountsTableViewCell() {
+    TTSDKUtils * utils;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
@@ -26,6 +29,7 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
+    utils = [TTSDKUtils sharedUtils];
 }
 
 
@@ -33,23 +37,21 @@
 #pragma mark - Configuration
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
-
     NSString * displayTitle = account.displayTitle;
-
     NSString * totalValue;
+
     if (account.balance.totalValue) {
         totalValue = [NSString stringWithFormat:@"%.02f", [account.balance.totalValue floatValue]];
     } else {
         totalValue = @"N/A";
     }
 
-    NSString * buyingPower = [account.balance.buyingPower stringValue];
+    NSString * buyingPower = account.balance.buyingPower ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
 
     self.accountLabel.text = displayTitle;
     self.valueLabel.text = totalValue;
     self.buyingPowerLabel.text = buyingPower;
 }
-
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

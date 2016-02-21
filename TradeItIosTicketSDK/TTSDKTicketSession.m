@@ -77,64 +77,69 @@
         if (completionBlock) {
             completionBlock(res);
         }
-    } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+    } else {
 
-        TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
+        NSLog(@"setting to needs manual auth");
+        self.needsManualAuthentication = YES;
 
-        if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
-            if (![UIAlertController class]) {
-                [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
-                                                                                message: result.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-
-                for(NSString * title in result.securityQuestionOptions){
-                    UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
-                            [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+        if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+            TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
+            
+            if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
+                if (![UIAlertController class]) {
+                    [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
+                                                                                    message: result.securityQuestion
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    for(NSString * title in result.securityQuestionOptions){
+                        UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
+                                [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                            }];
                         }];
-                    }];
-
-                    [alert addAction:option];
-                }
-                
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [delegateViewController dismissViewControllerAnimated:YES completion:nil];
-                                                                      }];
-                [alert addAction:cancelAction];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegateViewController presentViewController:alert animated:YES completion:nil];
-                });
-            }
-        } else if (result.securityQuestion != nil) {
-            if (![UIAlertController class]) {
-                [self showOldSecQuestion:result.securityQuestion];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
-                                                                                message: result.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    [delegateViewController dismissViewControllerAnimated:YES completion:nil];
-                }];
-                
-                UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
-                                                                              [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                        
+                        [alert addAction:option];
+                    }
+                    
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              [delegateViewController dismissViewControllerAnimated:YES completion:nil];
                                                                           }];
-                                                                      }];
-
-                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
-                [alert addAction:cancelAction];
-                [alert addAction:submitAction];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegateViewController presentViewController:alert animated:YES completion:nil];
-                });
+                    [alert addAction:cancelAction];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                    });
+                }
+            } else if (result.securityQuestion != nil) {
+                if (![UIAlertController class]) {
+                    [self showOldSecQuestion:result.securityQuestion];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
+                                                                                    message: result.securityQuestion
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        [delegateViewController dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                    
+                    UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
+                                                                                  [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                                                                              }];
+                                                                          }];
+                    
+                    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
+                    [alert addAction:cancelAction];
+                    [alert addAction:submitAction];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                    });
+                }
             }
         }
     }

@@ -19,6 +19,8 @@
 
 @implementation TTSDKAccountsHeaderView
 
+
+
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
 }
@@ -26,5 +28,7 @@
 -(void) populateTotalPortfolioValue:(NSNumber *)value {
     self.totalPortfolioValueLabel.text = [utils formatPriceString:value];
 }
+
+
 
 @end

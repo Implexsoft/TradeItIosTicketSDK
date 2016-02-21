@@ -60,10 +60,17 @@
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
+
     if (!session.isAuthenticated) {
-        self.balanceComplete = YES;
-        self.positionsComplete = YES;
-        self.needsAuthentication = YES;
+        // If the authentication completed, but was not successful, set to complete
+        if (session.needsManualAuthentication) {
+            self.balanceComplete = YES;
+            self.positionsComplete = YES;
+            self.needsAuthentication = YES;
+        } else {
+            [self performSelector:@selector(retrieveAccountSummaryWithCompletionBlock:) withObject:completionBlock afterDelay:0.25];
+        }
+
         return;
     }
 
@@ -80,7 +87,7 @@
             completionBlock();
         }
     }];
-    
+
     [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
         self.positionsComplete = YES;
         
