@@ -105,14 +105,14 @@ static CGFloat const kBounceValue = 20.0f;
 
     // Bid and Ask
     NSString * bid;
-    if (position.bid) {
-        bid = [NSString stringWithFormat:@"%.02f", [position.bid floatValue]];
+    if (position.quote.bidPrice) {
+        bid = [NSString stringWithFormat:@"%.02f", [position.quote.bidPrice floatValue]];
     } else {
         bid = @"N/A";
     }
     NSString * ask;
-    if (position.ask) {
-        ask = [NSString stringWithFormat:@"%.02f", [position.ask floatValue]];
+    if (position.quote.askPrice) {
+        ask = [NSString stringWithFormat:@"%.02f", [position.quote.askPrice floatValue]];
     } else {
         ask = @"N/A";
     }
@@ -161,7 +161,7 @@ static CGFloat const kBounceValue = 20.0f;
     // Total Return
     NSString * totalReturn;
     if (position.todayGainLossDollar) {
-        totalReturn = [NSString stringWithFormat:@"%@%.02f", changePrefix, [position.todayGainLossDollar floatValue]];
+        totalReturn = [NSString stringWithFormat:@"%@%.02f", changePrefix ?: @"", [position.todayGainLossDollar floatValue]];
     } else {
         totalReturn = @"N/A";
     }

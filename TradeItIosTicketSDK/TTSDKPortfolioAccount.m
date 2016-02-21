@@ -60,7 +60,6 @@
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
-
     if (!session.isAuthenticated) {
         // If the authentication completed, but was not successful, set to complete
         if (session.needsManualAuthentication) {

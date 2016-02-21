@@ -12,8 +12,6 @@
 
 @interface TTSDKPosition : TradeItPosition
 
-@property NSNumber * bid;
-@property NSNumber * ask;
 @property NSNumber * change;
 @property NSNumber * changePct;
 @property NSString * companyName;

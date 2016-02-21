@@ -28,6 +28,7 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 @implementation TTSDKPortfolioService
 
 
+
 -(id) init {
     if (self = [super init]) {
         globalTicket = [TTSDKTradeItTicket globalTicket];
@@ -68,15 +69,32 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
     NSArray * symbols = [[NSArray alloc] init];
 
+    NSCharacterSet * digits = [NSCharacterSet decimalDigitCharacterSet];
     for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
         for (TTSDKPosition *position in portfolioAccount.positions) {
-            NSArray * symArr = @[position.symbol];
-            symbols = [symbols arrayByAddingObjectsFromArray:symArr];
+            if ([position.symbol rangeOfCharacterFromSet:digits].location == NSNotFound) {
+                NSArray * symArr = @[position.symbol];
+                symbols = [symbols arrayByAddingObjectsFromArray:symArr];
+            }
         }
     }
 
+    // Note: I can't find a better/faster way to do this
     TradeItQuotesRequest * quoteRequest = [[TradeItQuotesRequest alloc] initWithSymbols:symbols];
     [marketService getQuoteData:quoteRequest withCompletionBlock:^(TradeItResult * res) {
+        if ([res isKindOfClass:TradeItQuotesResult.class]) {
+            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+
+            for (NSDictionary *quoteData in result.quotes) {
+                for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
+                    for (TTSDKPosition * position in portfolioAccount.positions) {
+                        if ([position.symbol isEqualToString:[quoteData valueForKey:@"symbol"]]) {
+                            position.quote = [[TradeItQuote alloc] initWithQuoteData:quoteData];
+                        }
+                    }
+                }
+            }
+        }
 
     }];
 }
