@@ -53,32 +53,45 @@
 }
 
 -(void) retrieveAccountSummary {
+    [self retrieveAccountSummaryWithCompletionBlock:nil];
+}
+
+-(void) retrieveAccountSummaryWithCompletionBlock:(void (^)(void)) completionBlock {
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
     if (!session.isAuthenticated) {
         self.balanceComplete = YES;
         self.positionsComplete = YES;
+        self.needsAuthentication = YES;
         return;
     }
 
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
         self.balanceComplete = YES;
-
+        
         if (overview != nil) {
             self.balance = overview;
         } else {
             self.balance = [[TradeItAccountOverviewResult alloc] init];
         }
-    }];
 
+        if (self.positionsComplete && completionBlock != nil) {
+            completionBlock();
+        }
+    }];
+    
     [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
         self.positionsComplete = YES;
-
+        
         if (positions != nil) {
             self.positions = positions;
         } else {
             self.positions = [[NSArray alloc] init];
+        }
+
+        if (self.balanceComplete && completionBlock != nil) {
+            completionBlock();
         }
     }];
 }

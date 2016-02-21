@@ -702,25 +702,54 @@
 			name = SymbolSearch;
 			sourceTree = "<group>";
 		};
-		65DD1BD11C3C80DA0032676A /* Portfolio */ = {
+		65DD1BD11C3C80DA0032676A /* PortfolioScreen */ = {
 			isa = PBXGroup;
 			children = (
+				65FC2ADB1C7A5591001FCB3E /* HoldingCell */,
+				65FC2AD71C7A5550001FCB3E /* AccountCell */,
 				65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */,
 				65DD1BD61C3C82F80032676A /* TTSDKPortfolioViewController.m */,
-				65DD1BD91C3C8C4B0032676A /* TTSDKPortfolioAccountCell.xib */,
-				654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */,
-				654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */,
-				6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */,
-				6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */,
-				6510FBC21C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m */,
+			);
+			name = PortfolioScreen;
+			sourceTree = "<group>";
+		};
+		65FC2AD71C7A5550001FCB3E /* AccountCell */ = {
+			isa = PBXGroup;
+			children = (
 				6508C4C71C7A076200612B62 /* TTSDKAccountsHeader.xib */,
 				6508C4C81C7A0AD800612B62 /* TTSDKAccountsHeaderView.h */,
 				6508C4C91C7A0AD800612B62 /* TTSDKAccountsHeaderView.m */,
+				65DD1BD91C3C8C4B0032676A /* TTSDKPortfolioAccountCell.xib */,
+				654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */,
+				654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */,
+			);
+			name = AccountCell;
+			sourceTree = "<group>";
+		};
+		65FC2ADB1C7A5591001FCB3E /* HoldingCell */ = {
+			isa = PBXGroup;
+			children = (
 				6508C4CD1C7A0E0100612B62 /* TTSDKHoldingsHeader.xib */,
 				6508C4CE1C7A0EB800612B62 /* TTSDKHoldingsHeaderView.h */,
 				6508C4CF1C7A0EB800612B62 /* TTSDKHoldingsHeaderView.m */,
+				6510FBBF1C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib */,
+				6510FBC11C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.h */,
+				6510FBC21C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m */,
 			);
-			name = Portfolio;
+			name = HoldingCell;
+			sourceTree = "<group>";
+		};
+		65FC2ADC1C7A5611001FCB3E /* PortfolioService */ = {
+			isa = PBXGroup;
+			children = (
+				659A71A71C722D3900132CDE /* TTSDKPortfolioService.h */,
+				659A71A81C722D3900132CDE /* TTSDKPortfolioService.m */,
+				6508C4C01C797D4600612B62 /* TTSDKPortfolioAccount.h */,
+				6508C4C11C797D4600612B62 /* TTSDKPortfolioAccount.m */,
+				659A71A31C713D3800132CDE /* TTSDKPosition.h */,
+				659A71A41C713D3800132CDE /* TTSDKPosition.m */,
+			);
+			name = PortfolioService;
 			sourceTree = "<group>";
 		};
 		A905D3231B629D83006B0B8C /* Utils */ = {
@@ -732,14 +761,8 @@
 				65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */,
 				65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */,
 				65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */,
-				659A71A31C713D3800132CDE /* TTSDKPosition.h */,
-				659A71A41C713D3800132CDE /* TTSDKPosition.m */,
-				659A71A71C722D3900132CDE /* TTSDKPortfolioService.h */,
-				659A71A81C722D3900132CDE /* TTSDKPortfolioService.m */,
 				659A71AB1C72359800132CDE /* TTSDKAccountSummaryResult.h */,
 				659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */,
-				6508C4C01C797D4600612B62 /* TTSDKPortfolioAccount.h */,
-				6508C4C11C797D4600612B62 /* TTSDKPortfolioAccount.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -796,9 +819,10 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
+				65FC2ADC1C7A5611001FCB3E /* PortfolioService */,
 				6588C3E11C446F0400927F72 /* TabBar */,
 				A9B2D46C1B5D88ED008065E1 /* Authentication */,
-				65DD1BD11C3C80DA0032676A /* Portfolio */,
+				65DD1BD11C3C80DA0032676A /* PortfolioScreen */,
 				A9C002B41B6EE3E9007D15F5 /* BaseTrade */,
 				A9901A421B696C1900FCC83D /* Trade */,
 				65B313FA1C23613600EBC30D /* SymbolSearch */,

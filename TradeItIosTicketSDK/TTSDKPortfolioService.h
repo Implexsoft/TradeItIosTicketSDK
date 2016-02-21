@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TTSDKAccountSummaryResult.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKPortfolioService : NSObject
 

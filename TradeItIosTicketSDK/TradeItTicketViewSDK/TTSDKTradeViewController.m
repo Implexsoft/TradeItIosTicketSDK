@@ -134,12 +134,12 @@
     [companyNib populateBrokerButtonTitle: globalTicket.currentSession.broker];
 
     if ([globalTicket.previewRequest.orderAction isEqualToString: @"buy"]) {
-        [companyNib populateSymbolDetail:self.currentAccountOverviewResult.buyingPower andSharesOwned:nil];
+        [companyNib populateSymbolDetail:self.currentPortfolioAccount.balance.buyingPower andSharesOwned:nil];
     } else {
 
         NSNumber * sharesOwned = @0;
 
-        for (TTSDKPosition * position in self.currentAccountPositions) {
+        for (TTSDKPosition * position in self.currentPortfolioAccount.positions) {
             if ([position.symbol isEqualToString:globalTicket.quote.symbol]) {
                 sharesOwned = position.quantity;
             }

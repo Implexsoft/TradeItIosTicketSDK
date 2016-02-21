@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
 
 @end
 
@@ -52,6 +53,14 @@
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+-(void) hideSeparator {
+    self.separatorView.hidden = YES;
+}
+
+-(void) showSeparator {
+    self.separatorView.hidden = NO;
 }
 
 

@@ -12,7 +12,7 @@
 #import "TTSDKTradeItTicket.h"
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
-#import "TTSDKPortfolioService.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -24,9 +24,7 @@
 @property NSString * currentSelection;
 @property NSArray * questionOptions;
 @property NSDictionary * currentAccount;
-
-@property NSArray * currentAccountPositions;
-@property TradeItAccountOverviewResult * currentAccountOverviewResult;
+@property TTSDKPortfolioAccount * currentPortfolioAccount;
 
 -(void) sendPreviewRequest;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;

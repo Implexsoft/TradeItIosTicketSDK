@@ -185,6 +185,12 @@ static float kAccountCellHeight = 44.0f;
             cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
         }
 
+        if (indexPath.row == 0) {
+            [cell hideSeparator];
+        } else {
+            [cell showSeparator];
+        }
+
         [cell configureCellWithAccount: [accountsHolder objectAtIndex: indexPath.row]];
 
         return cell;
@@ -198,6 +204,7 @@ static float kAccountCellHeight = 44.0f;
         }
 
         cell.clipsToBounds = YES;
+        cell.delegate = self;
 
         if (indexPath.row == 0) {
             [cell hideSeparator];

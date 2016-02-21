@@ -12,5 +12,7 @@
 @interface TTSDKPortfolioAccountsTableViewCell : UITableViewCell
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
+-(void) hideSeparator;
+-(void) showSeparator;
 
 @end

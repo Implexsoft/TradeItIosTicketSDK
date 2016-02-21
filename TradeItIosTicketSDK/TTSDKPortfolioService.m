@@ -8,7 +8,6 @@
 
 #import "TTSDKPortfolioService.h"
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKPortfolioAccount.h"
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
 
@@ -100,7 +99,7 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
     BOOL complete = YES;
 
     for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
-        if (![portfolioAccount dataComplete]) {
+        if (![portfolioAccount dataComplete] && ![portfolioAccount needsAuthentication]) {
             complete = NO;
         }
     }
@@ -125,10 +124,6 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
         [portfolioAccount retrieveBalance];
     }
 }
-
-
-
-
 
 
 

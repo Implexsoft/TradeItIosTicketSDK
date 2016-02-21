@@ -97,13 +97,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) retrieveAccountSummaryData {
-    TTSDKPortfolioService * portfolioService = [[TTSDKPortfolioService alloc] init];
+    self.currentPortfolioAccount = [[TTSDKPortfolioAccount alloc] initWithAccountData: globalTicket.currentAccount];
 
-//    [portfolioService getAccountSummaryFromAccount:globalTicket.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
-//        self.currentAccountPositions = summary.positions;
-//        self.currentAccountOverviewResult = summary.balance;
-//        [self populateSymbolDetails];
-//    }];
+    [self.currentPortfolioAccount retrieveAccountSummaryWithCompletionBlock:^(void){
+        [self populateSymbolDetails];
+    }];
 }
 
 -(void) populateSymbolDetails {
