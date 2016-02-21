@@ -368,7 +368,7 @@
         }
     }
 
-    if (!globalTicket.currentSession.isAuthenticated || !globalTicket.currentSession.currentAccount) {
+    if (!globalTicket.currentSession.isAuthenticated || !globalTicket.currentAccount) {
         readyNow = NO;
     }
 

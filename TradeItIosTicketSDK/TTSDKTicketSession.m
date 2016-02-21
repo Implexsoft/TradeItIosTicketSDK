@@ -69,8 +69,6 @@
 
 -(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andResult:(TradeItResult *)res {
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
-        TradeItAuthenticationResult * result = (TradeItAuthenticationResult *)res;
-        self.accounts = result.accounts;
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
 

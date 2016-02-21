@@ -47,6 +47,7 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
 -(void) getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: account];
+
     summaryBlock = completionBlock;
     accountsTotal = @1;
     positionsCounter = @0;

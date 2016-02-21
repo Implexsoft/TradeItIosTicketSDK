@@ -18,8 +18,6 @@
 
 @interface TTSDKTicketSession : TradeItSession <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property NSArray * accounts;
-@property NSDictionary * currentAccount;
 @property NSArray * positions;
 @property TradeItLinkedLogin * login;
 @property NSString * broker;

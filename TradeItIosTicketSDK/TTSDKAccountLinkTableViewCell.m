@@ -71,7 +71,7 @@
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];
             return;
-        } else if ([accountData isEqualToDictionary:globalTicket.currentSession.currentAccount]) {
+        } else if ([accountData isEqualToDictionary:globalTicket.currentAccount]) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"This account is currently selected."];
             return;

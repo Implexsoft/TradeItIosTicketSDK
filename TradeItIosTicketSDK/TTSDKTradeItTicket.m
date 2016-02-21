@@ -72,21 +72,11 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return [linkedAccounts copy];
 }
 
--(NSDictionary *)currentAccount {
-    NSDictionary * currentAccount = nil;
-
-    if (_currentSession) {
-        currentAccount = _currentSession.currentAccount;
-    }
-
-    return currentAccount;
-}
-
 -(void)setCurrentAccount:(NSDictionary *)currentAccount {
     NSDictionary * selectedAccount;
 
     // Is same account as current?
-    if (self.currentAccount){
+    if (_currentAccount){
         if ([currentAccount isEqualToDictionary: self.currentAccount]) {
             return;
         }
@@ -120,13 +110,13 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     if (deselectedAccountToAdd) {
         [deselectedAccountToAdd setValue:[NSNumber numberWithBool: NO] forKey: @"lastSelected"];
         [mutableAccounts removeObject: deselectedAccountToRemove];
-        [mutableAccounts addObject: deselectedAccountToAdd];
+        [mutableAccounts addObject: [deselectedAccountToAdd copy]];
     }
 
     if (selectedAccountToAdd) {
-        [selectedAccount setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
+        [selectedAccountToAdd setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
         [mutableAccounts removeObject: selectedAccountToRemove];
-        [mutableAccounts addObject: selectedAccountToAdd];
+        [mutableAccounts addObject: [selectedAccountToAdd copy]];
     }
 
     [self saveAccountsToUserDefaults:[mutableAccounts copy]];
@@ -134,12 +124,12 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     // If account is not in current session, change session
     if (selectedAccount) {
         TTSDKTicketSession * selectedSession = [self retrieveSessionByAccount: selectedAccount];
-        if (![selectedSession.login.userId isEqualToString:self.currentSession.login.userId]) {
+        if (![selectedSession.login.userId isEqualToString:_currentSession.login.userId]) {
             [self selectSession:selectedSession andAccount:currentAccount];
         }
 
-        self.currentAccount = selectedAccount;
-        self.previewRequest.accountNumber = [selectedAccount valueForKey:@"accountNumber"];
+        _currentAccount = selectedAccount;
+        _previewRequest.accountNumber = [selectedAccount valueForKey:@"accountNumber"];
     }
 }
 
@@ -150,7 +140,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
     }
 
-    _currentSession.currentAccount = nil;
     _currentSession = currentSession;
 }
 
@@ -334,7 +323,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account {
     self.currentSession = session;
-    self.currentSession.currentAccount = account;
+    self.currentAccount = account;
 }
 
 

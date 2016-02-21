@@ -40,7 +40,7 @@
 @property BOOL portfolioMode;
 @property NSArray * sessions;
 @property (nonatomic) TTSDKTicketSession * currentSession;
-@property (nonatomic, retain, getter=currentAccount) NSDictionary * currentAccount;
+@property (nonatomic) NSDictionary * currentAccount;
 @property (nonatomic, retain, getter=allAccounts) NSArray * allAccounts;
 @property (nonatomic, retain, getter=linkedAccounts) NSArray * linkedAccounts;
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
