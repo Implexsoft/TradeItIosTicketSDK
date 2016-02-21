@@ -34,6 +34,8 @@
 #import "TTSDKAccountSummaryResult.h"
 #import "TTSDKSearchViewController.h"
 #import "TTSDKPortfolioAccount.h"
+#import "TTSDKAccountsHeaderView.h"
+#import "TTSDKHoldingsHeaderView.h"
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -208,6 +210,8 @@
     [TTSDKAccountSummaryResult class];
     [TTSDKSearchViewController class];
     [TTSDKPortfolioAccount class];
+    [TTSDKAccountsHeaderView class];
+    [TTSDKHoldingsHeaderView class];
 }
 
 @end

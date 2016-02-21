@@ -56,6 +56,12 @@
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
+    if (!session.isAuthenticated) {
+        self.balanceComplete = YES;
+        self.positionsComplete = YES;
+        return;
+    }
+
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
         self.balanceComplete = YES;
 

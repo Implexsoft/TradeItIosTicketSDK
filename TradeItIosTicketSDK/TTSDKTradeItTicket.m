@@ -79,6 +79,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     // Create a new, unauthenticated session for all stored logins
     self.sessions = [[NSArray alloc] init];
     NSArray * linkedLogins = [self.connector getLinkedLogins];
+
     for (TradeItLinkedLogin * login in linkedLogins) {
         TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
         [self addSession: newSession];
@@ -137,12 +138,14 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) launchToTicket {
+    [self authenticateSessionsInBackground];
+
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
     UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
     [tab setModalPresentationStyle:UIModalPresentationFullScreen];
-    
+
     if (self.portfolioMode) {
         tab.selectedIndex = 1;
     } else {

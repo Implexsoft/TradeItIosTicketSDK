@@ -31,20 +31,18 @@
 
 #pragma mark - Configuration
 
--(void) configureCellWithDetails:(NSDictionary *)data {
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
 
-    NSString * displayTitle = [data valueForKey:@"displayTitle"];
-
-    TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey:@"overview"];
+    NSString * displayTitle = account.displayTitle;
 
     NSString * totalValue;
-    if (overview.totalValue) {
-        totalValue = [NSString stringWithFormat:@"%.02f", [overview.totalValue floatValue]];
+    if (account.balance.totalValue) {
+        totalValue = [NSString stringWithFormat:@"%.02f", [account.balance.totalValue floatValue]];
     } else {
         totalValue = @"N/A";
     }
 
-    NSString * buyingPower = [overview.buyingPower stringValue];
+    NSString * buyingPower = [account.balance.buyingPower stringValue];
 
     self.accountLabel.text = displayTitle;
     self.valueLabel.text = totalValue;

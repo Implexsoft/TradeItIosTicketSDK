@@ -14,8 +14,6 @@
 
 @implementation TTSDKPosition
 
-
-
 -(id) initWithPosition:(TradeItPosition *)position {
     if (self = [super init]) {
         self.symbol = position.symbol;
@@ -30,40 +28,6 @@
         self.totalGainLossPercentage = position.totalGainLossPercentage;
     }
     return self;
-}
-
--(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock {
-    TTSDKTradeItTicket * globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    if (globalTicket.currentSession) {
-        TTSDKTicketSession * session = globalTicket.currentSession;
-        TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: session];
-
-        TradeItQuotesRequest * request = [[TradeItQuotesRequest alloc] initWithSymbol: self.symbol];
-
-        [marketService getQuoteData:request withCompletionBlock:^(TradeItResult * res) {
-            if ([res isKindOfClass:TradeItQuotesResult.class]) {
-                TradeItQuotesResult * result = (TradeItQuotesResult *)res;
-                TradeItQuote * quote = [[TradeItQuote alloc] initWithQuoteData: (NSDictionary *)[result.quotes objectAtIndex: 0]];
-
-                if (quote) {
-                    self.ask = quote.askPrice;
-                    self.bid = quote.bidPrice;
-                    self.change = quote.change;
-                    self.changePct = quote.pctChange;
-                    self.lastPrice = quote.lastPrice;
-                }
-
-                if (completionBlock) {
-                    completionBlock(quote);
-                }
-            } else {
-                if (completionBlock) {
-                    completionBlock(nil);
-                }
-            }
-        }];
-    }
 }
 
 

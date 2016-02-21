@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKPortfolioAccountsTableViewCell : UITableViewCell
 
--(void) configureCellWithDetails:(NSDictionary *)data;
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
 
 @end

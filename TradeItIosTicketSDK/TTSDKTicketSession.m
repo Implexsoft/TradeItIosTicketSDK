@@ -88,14 +88,14 @@
                 UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
                                                                                 message: result.securityQuestion
                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                
+
                 for(NSString * title in result.securityQuestionOptions){
                     UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
                             [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
                         }];
                     }];
-                    
+
                     [alert addAction:option];
                 }
                 
@@ -155,9 +155,6 @@
 
             for (TradeItPosition * position in positionsResult.positions) {
                 TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
-
-                [subclassPosition getPositionData:nil];
-
                 [ttsdkPositions addObject: subclassPosition];
             }
 

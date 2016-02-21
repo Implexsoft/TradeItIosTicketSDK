@@ -15,11 +15,10 @@
 
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
 -(void) getBalancesForAccounts:(void (^)(void)) completionBlock;
+-(void) getQuotesForAccounts:(void (^)(void)) completionBlock;
 
--(void) getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
--(void) getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
--(void) getBalancesFromLinkedAccounts:(void (^)(NSArray *)) completionBlock;
--(void) getBalancesFromAllAccounts:(void (^)(NSArray *)) completionBlock;
+-(NSArray *) positionsForAccounts;
+
 -(id) initWithAccounts:(NSArray *)accounts;
 
 @end
