@@ -41,6 +41,8 @@
         return;
     }
 
+    previewRequest.token = self.token;
+
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
     [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res){
         completionBlock(res);

@@ -375,10 +375,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 
 
-
-
-
-
 #pragma mark - Positions and Balances
 
 -(TTSDKTicketSession *) retrieveSessionByAccount:(NSDictionary *)account {
