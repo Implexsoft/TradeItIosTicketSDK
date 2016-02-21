@@ -345,6 +345,7 @@
     [self updateEstimatedCost];
 
     BOOL readyNow = NO;
+
     NSInteger shares = [sharesInput.text integerValue];
 
     double limitPrice = [globalTicket.previewRequest.orderLimitPrice doubleValue];
@@ -369,6 +370,10 @@
     }
 
     if (!globalTicket.currentSession.isAuthenticated || !globalTicket.currentAccount) {
+        readyNow = NO;
+    }
+    
+    if (!globalTicket.previewRequest.orderSymbol || [globalTicket.previewRequest.orderSymbol isEqualToString:@""]) {
         readyNow = NO;
     }
 

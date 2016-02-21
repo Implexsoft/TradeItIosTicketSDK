@@ -61,6 +61,11 @@
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     ticket.quote = [[TradeItQuote alloc] init];
 
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
+    ticket.previewRequest.orderAction = @"buy";
+    ticket.previewRequest.orderPriceType = @"market";
+    ticket.previewRequest.orderQuantity = @1;
+
     [TradeItTicketController showTicket];
 }
 
