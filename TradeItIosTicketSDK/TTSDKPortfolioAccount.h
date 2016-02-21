@@ -19,13 +19,16 @@
 @property BOOL active;
 @property BOOL lastSelected;
 @property BOOL tradable;
-
+@property BOOL balanceComplete;
+@property BOOL positionsComplete;
 @property NSArray * positions;
 @property TradeItAccountOverviewResult * balance;
 
 -(BOOL) dataComplete;
 -(id) initWithAccountData:(NSDictionary *)data;
--(void) getAccountSummary;
+-(void) retrieveAccountSummary;
+-(void) retrieveBalance;
+
 -(NSDictionary *) accountData;
 
 @end

@@ -10,11 +10,11 @@
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
-    NSArray * accounts;
     UIView * loadingView;
     TTSDKPortfolioService * portfolioService;
 }
@@ -48,25 +48,22 @@
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
-    portfolioService = [[TTSDKPortfolioService alloc] init];
+
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
 
     [utils styleMainActiveButton:self.doneButton];
 
     loadingView = [utils retrieveLoadingOverlayForView:self.view];
     [self.view addSubview:loadingView];
-
-    accounts = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     loadingView.hidden = NO;
 
-    [portfolioService getBalancesFromAllAccounts:^(NSArray * res) {
-        if (res) {
-            accounts = res;
-            [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }
+    [portfolioService getBalancesForAccounts:^(void) {
         loadingView.hidden = YES;
+
+        [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
 
@@ -75,7 +72,7 @@
 #pragma mark - Table Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return accounts.count;
+    return portfolioService.accounts.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,7 +92,8 @@
     }
 
     [cell setDelegate: self];
-    [cell configureCellWithData: (NSDictionary *)[accounts objectAtIndex:indexPath.row]];
+
+    [cell configureCellWithAccount: [portfolioService.accounts objectAtIndex: indexPath.row]];
 
     return cell;
 }
@@ -106,7 +104,7 @@
 
 - (void)linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
-    NSMutableArray * mutableAccounts = [accounts mutableCopy];
+    NSMutableArray * mutableAccounts = [portfolioService.accounts mutableCopy];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;

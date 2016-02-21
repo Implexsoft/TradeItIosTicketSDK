@@ -13,9 +13,6 @@
     TTSDKTradeItTicket * globalTicket;
 }
 
-@property BOOL balanceReturned;
-@property BOOL positionsReturned;
-
 @end
 
 @implementation TTSDKPortfolioAccount
@@ -52,15 +49,15 @@
 }
 
 -(BOOL) dataComplete {
-    return self.balanceReturned && self.positionsReturned;
+    return self.balanceComplete && self.positionsComplete;
 }
 
--(void) getAccountSummary {
+-(void) retrieveAccountSummary {
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
-        self.balanceReturned = YES;
+        self.balanceComplete = YES;
 
         if (overview != nil) {
             self.balance = overview;
@@ -70,7 +67,7 @@
     }];
 
     [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
-        self.positionsReturned = YES;
+        self.positionsComplete = YES;
 
         if (positions != nil) {
             self.positions = positions;
@@ -79,6 +76,22 @@
         }
     }];
 }
+
+-(void) retrieveBalance {
+    NSDictionary * accountData = [self accountData];
+    TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
+    
+    [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
+        self.balanceComplete = YES;
+
+        if (overview != nil) {
+            self.balance = overview;
+        } else {
+            self.balance = [[TradeItAccountOverviewResult alloc] init];
+        }
+    }];
+}
+
 
 
 @end

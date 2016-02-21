@@ -80,13 +80,14 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock {
     if (!self.accounts) {
         completionBlock();
+        return;
     }
 
     dataTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkSummary) userInfo:nil repeats:YES];
     dataBlock = completionBlock;
 
     for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
-        [portfolioAccount getAccountSummary];
+        [portfolioAccount retrieveAccountSummary];
     }
 }
 
@@ -102,6 +103,21 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
     if (complete) {
         [dataTimer invalidate];
         dataBlock();
+    }
+}
+
+-(void) getBalancesForAccounts:(void (^)(void)) completionBlock {
+    if (!self.accounts) {
+        completionBlock();
+        return;
+    }
+
+    dataTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkSummary) userInfo:nil repeats:YES];
+    dataBlock = completionBlock;
+
+    for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+        portfolioAccount.positionsComplete = YES; // bypasses position retrieval
+        [portfolioAccount retrieveBalance];
     }
 }
 

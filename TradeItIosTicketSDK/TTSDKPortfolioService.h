@@ -14,6 +14,7 @@
 @property NSArray * accounts;
 
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
+-(void) getBalancesForAccounts:(void (^)(void)) completionBlock;
 
 -(void) getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
 -(void) getAccountSummaryFromLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
