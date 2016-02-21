@@ -30,9 +30,10 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
 #import "TTSDKPosition.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
 #import "TTSDKAccountSummaryResult.h"
 #import "TTSDKSearchViewController.h"
+#import "TTSDKPortfolioAccount.h"
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -203,9 +204,10 @@
     [TTSDKAccountLinkViewController class];
     [TTSDKAccountLinkTableViewCell class];
     [TTSDKPosition class];
-    [TTSDKAccountService class];
+    [TTSDKPortfolioService class];
     [TTSDKAccountSummaryResult class];
     [TTSDKSearchViewController class];
+    [TTSDKPortfolioAccount class];
 }
 
 @end

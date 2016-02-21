@@ -12,13 +12,13 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKAccountSelectViewController () {
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
-    NSArray * linkedAccounts;
-    TTSDKAccountService * accountService;
+    TTSDKPortfolioService * portfolioService;
     UIView * loadingView;
     NSArray * accountResults;
 }
@@ -44,29 +44,24 @@
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
-    accountService = [[TTSDKAccountService alloc] init];
-    accountResults = [[NSArray alloc] init];
 
     if (!loadingView) {
         loadingView = [utils retrieveLoadingOverlayForView: self.view];
         [self.view addSubview:loadingView];
         loadingView.hidden = NO;
     }
+
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
+    [portfolioService getSummaryForAccounts:^(void) {
+        loadingView.hidden = YES;
+        [self.tableView reloadData];
+    }];
+
+    accountResults = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    linkedAccounts = globalTicket.linkedAccounts;
-
-    [accountService getBalancesFromLinkedAccounts:^(NSArray * res) {
-        loadingView.hidden = YES;
-
-        if (res) {
-            accountResults = res;
-            [self.tableView performSelectorOnMainThread: @selector(reloadData) withObject: nil waitUntilDone: NO];
-        }
-    }];
 
     [self.tableView reloadData];
 }
@@ -80,16 +75,16 @@
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return accountResults.count;
+    return portfolioService.accounts.count;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
 
-    NSDictionary * selectedAccount = (NSDictionary *)[linkedAccounts objectAtIndex:indexPath.row];
+    NSDictionary * selectedAccount = [account accountData];
+    globalTicket.currentAccount = selectedAccount;
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
-
-    globalTicket.currentAccount = selectedAccount;
     [self.navigationController popToViewController:tradeVC animated: YES];
 }
 
@@ -139,7 +134,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     }
 
-    [cell configureCellWithAccountData:(NSDictionary *)[accountResults objectAtIndex:indexPath.row]];
+    TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
+    [cell configureCellWithAccount: account];
 
     return cell;
 }

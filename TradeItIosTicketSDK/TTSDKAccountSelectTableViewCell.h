@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKAccountSelectTableViewCell : UITableViewCell
 
-- (void)configureCellWithAccountData:(NSDictionary *)data;
+-(void) configureCellWithAccountData:(NSDictionary *)data;
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
 
 @end

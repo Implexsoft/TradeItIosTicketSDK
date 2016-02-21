@@ -9,14 +9,14 @@
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     NSArray * accounts;
     UIView * loadingView;
-    TTSDKAccountService * accountService;
+    TTSDKPortfolioService * portfolioService;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
@@ -48,7 +48,7 @@
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
-    accountService = [[TTSDKAccountService alloc] init];
+    portfolioService = [[TTSDKPortfolioService alloc] init];
 
     [utils styleMainActiveButton:self.doneButton];
 
@@ -61,7 +61,7 @@
 -(void) viewWillAppear:(BOOL)animated {
     loadingView.hidden = NO;
 
-    [accountService getBalancesFromAllAccounts:^(NSArray * res) {
+    [portfolioService getBalancesFromAllAccounts:^(NSArray * res) {
         if (res) {
             accounts = res;
             [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];

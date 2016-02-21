@@ -1,20 +1,23 @@
 //
-//  TTSDKAccountService.m
+//  TTSDKPortfolioService.m
 //  TradeItIosTicketSDK
 //
 //  Created by Daniel Vaughn on 2/15/16.
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKPortfolioAccount.h"
 
-
+typedef void(^DataCompletionBlock)(void);
 
 typedef void(^SummaryCompletionBlock)(TTSDKAccountSummaryResult *);
 typedef void(^BalancesCompletionBlock)(NSArray *);
 
-@interface TTSDKAccountService() {
+@interface TTSDKPortfolioService() {
+
+
     TTSDKTradeItTicket * globalTicket;
 
     NSNumber * positionsCounter;
@@ -25,17 +28,30 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
     NSNumber * accountsTotal;
     NSTimer * summaryTimer;
-    SummaryCompletionBlock summaryBlock;
 
+    SummaryCompletionBlock summaryBlock;
     NSTimer * balancesTimer;
+
     BalancesCompletionBlock balancesBlock;
-    
+
+    NSTimer * dataTimer;
+    DataCompletionBlock dataBlock;
 }
 
 @end
 
-@implementation TTSDKAccountService
+@implementation TTSDKPortfolioService
 
+
+
+// retrievePositionsAndBalancesForLinkedAccounts:(void (^)(TTSDKAccountSummaryResult *)) completionBlock;
+// retrieveBalancesForAllAccounts:(void (^)(NSArray *)) completionBlock; // for account select
+// retrieveBalancesForLinkedAccounts:(void (^)(NSArray *)) completionBlock; // for account select
+
+// retrieveSharesOwnedOfSymbol:(NSString *)symbol inAccount:(TTSDKAccount *)account;
+// retrieveTotalPositionsInAccountList:(NSArray *)accounts;
+
+// filterPositions:(NSArray *)positions byAccount:(TTSDKAccount *)account;
 
 
 -(id) init {
@@ -43,6 +59,50 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
         globalTicket = [TTSDKTradeItTicket globalTicket];
     }
     return self;
+}
+
+-(id) initWithAccounts:(NSArray *)accounts {
+    if (self = [super init]) {
+        globalTicket = [TTSDKTradeItTicket globalTicket];
+
+        NSMutableArray * portfolioAccounts = [[NSMutableArray alloc] init];
+        for (NSDictionary *accountData in accounts) {
+            TTSDKPortfolioAccount * portfolioAccount = [[TTSDKPortfolioAccount alloc] initWithAccountData: accountData];
+            [portfolioAccounts addObject:portfolioAccount];
+        }
+
+        self.accounts = portfolioAccounts;
+    }
+
+    return self;
+}
+
+-(void) getSummaryForAccounts:(void (^)(void)) completionBlock {
+    if (!self.accounts) {
+        completionBlock();
+    }
+
+    dataTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(checkSummary) userInfo:nil repeats:YES];
+    dataBlock = completionBlock;
+
+    for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+        [portfolioAccount getAccountSummary];
+    }
+}
+
+-(void) checkSummary {
+    BOOL complete = YES;
+
+    for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+        if (![portfolioAccount dataComplete]) {
+            complete = NO;
+        }
+    }
+
+    if (complete) {
+        [dataTimer invalidate];
+        dataBlock();
+    }
 }
 
 -(void) getAccountSummaryFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TTSDKAccountSummaryResult *)) completionBlock {

@@ -142,6 +142,9 @@
 
 -(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
     TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+    positionsRequest.token = self.token;
+
     TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
 
     [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
@@ -166,6 +169,9 @@
 -(void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock {
     TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self];
     TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: [account valueForKey:@"accountNumber"]];
+
+    request.token = self.token;
+
     [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
         if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
             TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;

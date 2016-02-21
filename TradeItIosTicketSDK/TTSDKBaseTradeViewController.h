@@ -12,7 +12,7 @@
 #import "TTSDKTradeItTicket.h"
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
 
 @interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 

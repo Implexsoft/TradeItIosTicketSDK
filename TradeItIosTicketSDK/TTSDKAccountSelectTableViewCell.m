@@ -54,11 +54,32 @@
 
     TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey: @"overview"];
 
-    self.buyingPowerLabel.text = [overview.buyingPower stringValue];
+    self.buyingPowerLabel.text = [overview.buyingPower stringValue] ?: @"N/A";
     self.sharesLabel.text = @"N/A";
 
     self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];
     [self insertPortfolioDetail: broker];
+}
+
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
+    self.brokerLabel.text = account.accountNumber;
+    self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
+
+    self.buyingPowerLabel.text = [account.balance.buyingPower stringValue] ?: @"N/A";
+
+    NSString * symbol = globalTicket.quote.symbol;
+    NSString * shares;
+    for (TTSDKPosition * position in account.positions) {
+        if ([position.symbol isEqualToString: symbol]) {
+            shares = [position.quantity stringValue];
+            break;
+        }
+    }
+
+    self.sharesLabel.text = shares ?: @"0";
+
+    self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: account.broker];
+    [self insertPortfolioDetail: account.broker];
 }
 
 - (void)insertPortfolioDetail:(NSString *)broker {
@@ -91,10 +112,6 @@
     }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
-}
 
 @end
