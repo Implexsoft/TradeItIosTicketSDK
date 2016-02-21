@@ -41,7 +41,7 @@
 
 
 
-#pragma mark - Initialization∫
+#pragma mark - Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -104,25 +104,24 @@
 
 - (void)linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
-    NSMutableArray * mutableAccounts = [portfolioService.accounts mutableCopy];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;
 
+    NSArray * accounts = globalTicket.allAccounts;
     int i;
-    for (i = 0; i < mutableAccounts.count; i++) {
-        NSDictionary * acct = [mutableAccounts objectAtIndex: i];
-        NSMutableDictionary * acctCopy = [acct mutableCopy];
+    for (i = 0; i < accounts.count; i++) {
+        NSDictionary * currentAccount = [accounts objectAtIndex: i];
 
-        if ([acct isEqualToDictionary: account]) {
-            [acctCopy setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
-            accountToAdd = [acctCopy copy];
-            accountToRemove = acct;
-
-            break;
+        if ([currentAccount isEqualToDictionary:account]) {
+            NSMutableDictionary *mutableAccount = [currentAccount mutableCopy];
+            [mutableAccount setValue:[NSNumber numberWithBool: !active] forKey:@"active"];
+            accountToAdd = [mutableAccount copy];
+            accountToRemove = currentAccount;
         }
     }
 
+    NSMutableArray * mutableAccounts = [accounts mutableCopy];
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 

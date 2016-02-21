@@ -64,7 +64,6 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewDidLoad {
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
 
     accountsHolder = [[NSArray alloc] init];
     positionsHolder = [[NSArray alloc] init];
@@ -79,6 +78,9 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    portfolioService = nil;
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
 
     if (!globalTicket.currentSession.isAuthenticated) {
         [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
