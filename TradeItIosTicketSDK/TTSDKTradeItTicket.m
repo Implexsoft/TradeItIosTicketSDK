@@ -145,7 +145,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void)setCurrentSession:(TTSDKTicketSession *)currentSession {
     if (_currentSession) {
-        if ([currentSession.login.userId isEqualToString:self.currentSession.login.userId]) {
+        if ([currentSession.login.userId isEqualToString:_currentSession.login.userId]) {
             return;
         }
     }

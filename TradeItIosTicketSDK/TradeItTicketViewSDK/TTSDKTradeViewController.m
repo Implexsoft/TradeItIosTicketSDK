@@ -126,7 +126,7 @@
     [self changeOrderType:globalTicket.previewRequest.orderPriceType];
     [self changeOrderExpiration:globalTicket.previewRequest.orderExpiration];
 
-    [companyNib populateBrokerButtonTitle: [globalTicket.currentSession.currentAccount valueForKey:@"broker"]];
+    [companyNib populateBrokerButtonTitle: globalTicket.currentSession.broker];
 }
 
 -(void) populateSymbolDetails {

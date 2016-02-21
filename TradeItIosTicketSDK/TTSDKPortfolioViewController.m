@@ -261,15 +261,27 @@ static float kAccountCellHeight = 44.0f;
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];
 
-    [globalTicket switchSymbolToPosition:position withAction:@"buy"];
+    globalTicket.previewRequest.orderAction = @"buy";
+    [self updateQuoteByPosition: position];
 }
 
 -(void)didSelectSell:(TTSDKPosition *)position {
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];
 
-    [globalTicket switchSymbolToPosition:position withAction:@"sell"];
+    globalTicket.previewRequest.orderAction = @"sell";
+    [self updateQuoteByPosition: position];
 }
+
+-(void) updateQuoteByPosition:(TTSDKPosition *)position {
+    globalTicket.previewRequest.orderSymbol = position.symbol;
+
+    TradeItQuote * newQuote = [[TradeItQuote alloc] init];
+    newQuote.symbol = position.symbol;
+    newQuote.companyName = position.companyName;
+}
+
+
 
 #pragma mark - Custom UI
 

@@ -100,7 +100,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     TTSDKAccountService * accountService = [[TTSDKAccountService alloc] init];
 
     [accountService getAccountSummaryFromAccount:globalTicket.currentSession.currentAccount withCompletionBlock:^(TTSDKAccountSummaryResult * summary) {
-        
         self.currentAccountPositions = summary.positions;
         self.currentAccountOverviewResult = summary.balance;
         [self populateSymbolDetails];
