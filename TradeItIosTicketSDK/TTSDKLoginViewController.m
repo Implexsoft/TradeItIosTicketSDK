@@ -176,15 +176,17 @@
 
             globalTicket.errorMessage = nil;
             globalTicket.errorTitle = nil;
+            [utils styleMainActiveButton:linkAccountButton];
         } else {
             TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
             TradeItLinkedLogin * newLinkedLogin = [globalTicket.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalTicket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
-            
-            [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
 
+            [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
+                [utils styleMainActiveButton:linkAccountButton];
+                
                 if ([result isKindOfClass:TradeItErrorResult.class]) {
-                    
+
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
@@ -224,6 +226,8 @@
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
         [utils styleMainActiveButton:linkAccountButton];
+    } else {
+        [utils styleMainInactiveButton: linkAccountButton];
     }
 
     return YES;

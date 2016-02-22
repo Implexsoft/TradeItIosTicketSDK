@@ -202,6 +202,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 }
 
 -(void) styleMainActiveButton: (UIButton *)button {
+    [self removeLoadingIndicatorFromContainer];
     button.backgroundColor = activeButtonColor;
     button.layer.borderColor = [UIColor clearColor].CGColor;
     button.layer.borderWidth = 0.0f;

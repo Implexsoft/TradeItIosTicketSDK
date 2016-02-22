@@ -98,9 +98,19 @@ static CGFloat const kBounceValue = 20.0f;
 
     NSString * cost = [position.costbasis stringValue] ?: @"N/A";
 
-    // Symbol
-    NSString * symbol = position.symbol;
-    self.symbolLabel.text = symbol;
+    NSString * quantityPostfix = @"";
+    if (position.quantity < 0) {
+        quantityPostfix = @" x%@", [position.quantity stringValue];
+    }
+
+    NSString * quantityStr = [position.quantity stringValue];
+    if ([quantityStr rangeOfString:@"."].location != NSNotFound) {
+        quantityStr = [NSString stringWithFormat:@"%.02f", fabs([position.quantity floatValue])];
+    } else {
+        quantityStr = [NSString stringWithFormat:@"%i", abs([position.quantity intValue])];
+    }
+
+    self.symbolLabel.text = [NSString stringWithFormat:@"%@ (%@%@)", position.symbol, quantityStr, quantityPostfix];
     self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
     // Bid and Ask

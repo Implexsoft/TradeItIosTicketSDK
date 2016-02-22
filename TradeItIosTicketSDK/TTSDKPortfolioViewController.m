@@ -24,7 +24,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *accountsTable;
-@property NSInteger selectedIndex;
+@property NSInteger selectedHoldingIndex;
+@property NSInteger selectedAccountIndex;
 @property UIView * loadingView;
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
@@ -72,7 +73,7 @@ static float kAccountCellHeight = 44.0f;
         [self.view addSubview:self.loadingView];
     }
     self.loadingView.hidden = NO;
-    self.selectedIndex = -1;
+    self.selectedHoldingIndex = -1;
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -156,7 +157,6 @@ static float kAccountCellHeight = 44.0f;
         }
 
         return self.holdingsHeaderNib;
-
     }
 }
 
@@ -222,25 +222,41 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
-        if (indexPath.row == self.selectedIndex) {
+
+    if (indexPath.section == 0) {
+        if (indexPath.row == self.selectedAccountIndex) {
+            self.selectedAccountIndex = -1;
+            positionsHolder = [portfolioService positionsForAccounts];
+            [self updateTableContentSize];
+            [self.accountsTable layoutIfNeeded];
+            [self.accountsTable reloadData];
+        } else {
+            self.selectedAccountIndex = indexPath.row;
+            TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
+            positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
+            [self updateTableContentSize];
+            [self.accountsTable layoutIfNeeded];
+            [self.accountsTable reloadData];
+        }
+    } else {
+        if (indexPath.row == self.selectedHoldingIndex) {
             // User taps expanded row
-            self.selectedIndex = -1;
+            self.selectedHoldingIndex = -1;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        } else if (self.selectedIndex != -1) {
+        } else if (self.selectedHoldingIndex != -1) {
             // User taps different row
-            NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedIndex inSection: 1];
-            self.selectedIndex = indexPath.row;
+            NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
+            self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
         } else {
             // User taps new row with none expanded
-            self.selectedIndex = indexPath.row;
+            self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
-    }
 
-    [self updateTableContentSize];
-    [self.accountsTable layoutIfNeeded];
+        [self updateTableContentSize];
+        [self.accountsTable layoutIfNeeded];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -251,7 +267,7 @@ static float kAccountCellHeight = 44.0f;
     if (indexPath.section == 0) {
         return kAccountCellHeight;
     } else {
-        if (self.selectedIndex == indexPath.row) {
+        if (self.selectedHoldingIndex == indexPath.row) {
             return kHoldingCellExpandedHeight;
         } else {
             return kHoldingCellDefaultHeight;

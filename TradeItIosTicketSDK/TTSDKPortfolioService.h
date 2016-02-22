@@ -12,14 +12,18 @@
 
 @interface TTSDKPortfolioService : NSObject
 
+
+
 @property NSArray * accounts;
 
+-(id) initWithAccounts:(NSArray *)accounts;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
 -(void) getBalancesForAccounts:(void (^)(void)) completionBlock;
 -(void) getQuotesForAccounts:(void (^)(void)) completionBlock;
-
 -(NSArray *) positionsForAccounts;
+-(NSArray *) filterPositionsByAccount:(TTSDKPortfolioAccount *)portfolioAccount;
+-(NSNumber *) getTotalPositionsHeld;
 
--(id) initWithAccounts:(NSArray *)accounts;
+
 
 @end

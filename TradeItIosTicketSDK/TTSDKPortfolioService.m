@@ -64,6 +64,12 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
     return positions;
 }
 
+-(NSArray *) filterPositionsByAccount:(TTSDKPortfolioAccount *)portfolioAccount {
+    NSArray * positions = portfolioAccount.positions;
+
+    return positions;
+}
+
 -(void) getQuotesForAccounts:(void (^)(void)) completionBlock {
     TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
 
@@ -141,6 +147,23 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
         portfolioAccount.positionsComplete = YES; // bypasses position retrieval
         [portfolioAccount retrieveBalance];
     }
+}
+
+-(NSNumber *) getTotalPositionsHeld {
+    NSNumber * count = @0;
+
+    if (self.accounts.count) {
+        for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
+            for (TTSDKPosition *position in portfolioAccount.positions) {
+
+                NSLog(@"cycling through each account position. symbol: %@ quantity: %@", position.symbol, [position.quantity stringValue]);
+                count = [NSNumber numberWithInt: [count intValue] + [position.quantity intValue]];
+                NSLog(@"count is now %@", [count stringValue]);
+            }
+        }
+    }
+
+    return count;
 }
 
 
