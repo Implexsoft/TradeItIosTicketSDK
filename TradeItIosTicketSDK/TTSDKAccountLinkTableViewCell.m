@@ -8,13 +8,13 @@
 
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 
 @interface TTSDKAccountLinkTableViewCell() {
     TTSDKUtils * utils;
-    NSDictionary * accountData;
-    TTSDKTicketController * globalController;
+    TTSDKPortfolioAccount * account;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
@@ -31,27 +31,25 @@
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 }
 
 
 
 #pragma mark - Configuration
 
--(void) configureCellWithData:(NSDictionary *)data {
-    accountData = data;
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)portfolioAccount {
+    account = portfolioAccount;
 
-    TradeItAccountOverviewResult * overview = [data valueForKey:@"overview"];
-
-    self.accountName = [data valueForKey:@"accountNumber"];
+    self.accountName = account.accountNumber;
     self.accountNameLabel.text = self.accountName;
-    self.buyingPowerLabel.text = overview.buyingPower ? [overview.buyingPower stringValue] : @"N/A";
 
-    NSString * linkedStr = [data valueForKey:@"active"];
-    BOOL linked = [linkedStr boolValue];
-    self.toggle.on = linked;
+    self.buyingPowerLabel.text = account.balance.buyingPower ? [account.balance.buyingPower stringValue] : @"N/A";
 
-    NSString * broker = [data objectForKey:@"broker"] ? [data objectForKey:@"broker"] : @"N/A";
+    self.toggle.on = account.active;
+
+    NSString * broker = account.broker ?: @"N/A";
+
     self.accountTypeLabel.text = broker;
     UIColor * brokerColor = [utils retrieveBrokerColorByBrokerName:broker];
     CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:(self.circleGraphic.frame.size.width - 1) andColor:brokerColor];
@@ -64,14 +62,17 @@
 #pragma mark - Custom Recognizers
 
 -(IBAction) togglePressed:(id)sender {
+
+    NSDictionary * accountData = [account accountData];
+
     // If the toggle resulted in unlinking the account, make sure the account can be unlinked
     if (!self.toggle.on) {
-        NSArray * linkedAccounts = [globalController retrieveLinkedAccounts];
+        NSArray * linkedAccounts = globalTicket.linkedAccounts;
         if (linkedAccounts.count < 2) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];
             return;
-        } else if ([accountData isEqualToDictionary:globalController.currentSession.currentAccount]) {
+        } else if ([accountData isEqualToDictionary:globalTicket.currentAccount]) {
             self.toggle.on = YES;
             [self.delegate linkToggleDidNotSelect: @"This account is currently selected."];
             return;

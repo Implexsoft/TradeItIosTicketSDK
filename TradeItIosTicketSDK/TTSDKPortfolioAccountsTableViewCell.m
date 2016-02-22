@@ -8,12 +8,18 @@
 
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TradeItAccountOverviewResult.h"
+#import "TTSDKUtils.h"
 
-@interface TTSDKPortfolioAccountsTableViewCell()
+@interface TTSDKPortfolioAccountsTableViewCell() {
+    TTSDKUtils * utils;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+
+@property TTSDKPortfolioAccount * portfolioAccount;
 
 @end
 
@@ -25,35 +31,53 @@
 
 -(void) awakeFromNib {
     [super awakeFromNib];
+    utils = [TTSDKUtils sharedUtils];
 }
 
 
 
 #pragma mark - Configuration
 
--(void) configureCellWithDetails:(NSDictionary *)data {
-
-    NSString * displayTitle = [data valueForKey:@"displayTitle"];
-
-    TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey:@"overview"];
-
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
+    NSString * displayTitle = account.displayTitle;
     NSString * totalValue;
-    if (overview.totalValue) {
-        totalValue = [NSString stringWithFormat:@"%.02f", [overview.totalValue floatValue]];
-    } else {
-        totalValue = @"N/A";
-    }
-
-    NSString * buyingPower = [overview.buyingPower stringValue];
 
     self.accountLabel.text = displayTitle;
-    self.valueLabel.text = totalValue;
-    self.buyingPowerLabel.text = buyingPower;
-}
 
+    if (account.needsAuthentication) {
+        self.authenticateView.hidden = NO;
+        UITapGestureRecognizer * authTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authSelected:)];
+        [self.authenticateView addGestureRecognizer: authTap];
+    } else {
+        if (account.balance.totalValue) {
+            totalValue = [NSString stringWithFormat:@"%.02f", [account.balance.totalValue floatValue]];
+        } else {
+            totalValue = @"N/A";
+        }
+
+        NSString * buyingPower = account.balance.buyingPower ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+
+        self.valueLabel.text = totalValue;
+        self.buyingPowerLabel.text = buyingPower;
+    }
+}
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+-(IBAction) authSelected:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didSelectAuth:)]) {
+        [self.delegate didSelectAuth: self.portfolioAccount];
+    }
+}
+
+-(void) hideSeparator {
+    self.separatorView.hidden = YES;
+}
+
+-(void) showSeparator {
+    self.separatorView.hidden = NO;
 }
 
 

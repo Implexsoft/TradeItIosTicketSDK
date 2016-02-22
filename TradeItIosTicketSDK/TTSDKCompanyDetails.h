@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailValue;
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailLabel;
 
--(void) populateDetailsWithPosition:(TTSDKPosition *)position;
+-(void) populateDetailsWithQuote:(TradeItQuote *)quote;
 -(void) populateSymbol: (NSString *)symbol;
 -(void) populateLastPrice: (NSNumber *)lastPrice;
 -(void) populateBrokerButtonTitle:(NSString *)broker;

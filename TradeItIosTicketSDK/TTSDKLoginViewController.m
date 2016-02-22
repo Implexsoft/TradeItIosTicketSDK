@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKLoginViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 #import "TradeItErrorResult.h"
 #import "TradeItAuthLinkResult.h"
@@ -25,7 +25,7 @@
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
 
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
 }
 
@@ -50,12 +50,12 @@
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    NSString * broker = (self.addBroker == nil) ? globalController.currentSession.broker : self.addBroker;
+    NSString * broker = (self.addBroker == nil) ? globalTicket.currentSession.broker : self.addBroker;
 
-    if(self.addBroker == nil && globalController.currentSession.login.userId) {
-        emailInput.text = globalController.currentSession.login.userId;
+    if(self.addBroker == nil && globalTicket.currentSession.login.userId) {
+        emailInput.text = globalTicket.currentSession.login.userId;
     }
 
     if(self.cancelToParent) {
@@ -63,7 +63,7 @@
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
 
-    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [globalController getBrokerDisplayString:broker]]];
+    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [globalTicket getBrokerDisplayString:broker]]];
 
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
@@ -82,12 +82,12 @@
     
     [self checkAuthState];
 
-    if(globalController.errorTitle) {
+    if(globalTicket.errorTitle) {
         if(![UIAlertController class]) {
-            [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
+            [self showOldErrorAlert:globalTicket.errorTitle withMessage:globalTicket.errorMessage];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
-                                                                            message:globalController.errorMessage
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalTicket.errorTitle
+                                                                            message:globalTicket.errorMessage
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {}];
@@ -96,8 +96,8 @@
         }
     }
 
-    globalController.errorMessage = nil;
-    globalController.errorTitle = nil;
+    globalTicket.errorMessage = nil;
+    globalTicket.errorTitle = nil;
 }
 
 - (void)dismissKeyboard {
@@ -110,13 +110,13 @@
 #pragma mark - Authentication
 
 -(void) checkAuthState {
-    if(globalController.brokerSignUpComplete) {
+    if(globalTicket.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
 
-        if (globalController.brokerSignUpCallback) {
-            globalController.brokerSignUpCallback(res);
-        }
+//        if (globalTicket.brokerSignUpCallback) {
+//            globalTicket.brokerSignUpCallback(res);
+//        }
 
         return;
     }
@@ -132,7 +132,7 @@
     }
 
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
-        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [utils getBrokerUsername:globalController.currentSession.broker]];
+        NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [utils getBrokerUsername:globalTicket.currentSession.broker]];
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
@@ -153,20 +153,20 @@
 }
 
 -(void) authenticate {
-    NSString * broker = self.addBroker == nil ? globalController.currentSession.broker : self.addBroker;
+    NSString * broker = self.addBroker == nil ? globalTicket.currentSession.broker : self.addBroker;
     
     self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
 
-    [globalController.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
+    [globalTicket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
-            globalController.errorTitle = @"Invalid Credentials";
-            globalController.errorMessage = @"Check your username and password and try again.";
+            globalTicket.errorTitle = @"Invalid Credentials";
+            globalTicket.errorMessage = @"Check your username and password and try again.";
             
             if(![UIAlertController class]) {
-                [self showOldErrorAlert:globalController.errorTitle withMessage:globalController.errorMessage];
+                [self showOldErrorAlert:globalTicket.errorTitle withMessage:globalTicket.errorMessage];
             } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalController.errorTitle
-                                                                                message:globalController.errorMessage
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:globalTicket.errorTitle
+                                                                                message:globalTicket.errorMessage
                                                                          preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {}];
@@ -174,12 +174,12 @@
                 [self presentViewController:alert animated:YES completion:nil];
             }
 
-            globalController.errorMessage = nil;
-            globalController.errorTitle = nil;
+            globalTicket.errorMessage = nil;
+            globalTicket.errorTitle = nil;
         } else {
             TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
-            TradeItLinkedLogin * newLinkedLogin = [globalController.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
-            TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalController.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
+            TradeItLinkedLogin * newLinkedLogin = [globalTicket.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
+            TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalTicket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
             
             [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
 
@@ -189,14 +189,22 @@
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
 
-                    [globalController addSession: newSession];
-                    [globalController addAccounts: authResult.accounts withSession: newSession];
+                    [globalTicket addSession: newSession];
+                    [globalTicket addAccounts: authResult.accounts withSession: newSession];
+
+                    NSDictionary * lastAccount = [authResult.accounts lastObject];
+                    NSDictionary * selectedAccount;
+                    for (NSDictionary *account in globalTicket.allAccounts) {
+                        if ([[lastAccount valueForKey:@"accountNumber"] isEqualToString:[account valueForKey:@"accountNumber"]]) {
+                            selectedAccount = account;
+                        }
+                    }
 
                     // If the auth flow was triggered modally, then we don't want to automatically select it
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        [globalController selectSession:newSession andAccount:[authResult.accounts lastObject]];
+                        [globalTicket selectSession:newSession andAccount:selectedAccount];
                         [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                     }
                 }
@@ -238,13 +246,13 @@
 #pragma mark - Navigation
 
 -(void)home:(UIBarButtonItem *)sender {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LoginToTab"]) {
         UITabBarController * dest = (UITabBarController*)segue.destinationViewController;
-        if (globalController.portfolioMode) {
+        if (globalTicket.portfolioMode) {
             dest.selectedIndex = 1;
         }
     }
@@ -264,7 +272,7 @@
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 //    if (buttonIndex > 0) {
-//        [globalController answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
+//        [globalTicket answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
 //            [self authenticateRequestReceived:res];
 //        }];
 //    }

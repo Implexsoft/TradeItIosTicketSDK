@@ -1,5 +1,5 @@
 //
-//  TicketController.m
+//  ticket.m
 //  TradeItTicketViewSDK
 //
 //  Created by Antonio Reyes on 7/2/15.
@@ -7,7 +7,7 @@
 //
 
 #import "TradeItTicketController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 #import "TTSDKTradeViewController.h"
 #import "TTSDKCompanyDetails.h"
@@ -30,16 +30,20 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TradeItConnector.h"
 #import "TTSDKPosition.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
 #import "TTSDKAccountSummaryResult.h"
 #import "TTSDKSearchViewController.h"
-
+#import "TTSDKPortfolioAccount.h"
+#import "TTSDKAccountsHeaderView.h"
+#import "TTSDKHoldingsHeaderView.h"
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
 }
 
 
+
+#pragma mark - Class Initialization
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
@@ -48,47 +52,86 @@
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
 
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
-    [ticketController setApiKey: apiKey];
-    [ticketController setCallback: callback];
-    [ticketController setParentView: view];
-    [ticketController setDebugMode: debug];
-    [ticketController setPortfolioMode: YES];
+    ticket.callback = callback;
+    ticket.parentView = view;
+    ticket.debugMode = debug;
+    ticket.portfolioMode = YES;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.quote = [[TradeItQuote alloc] init];
 
-    [self showTicket];
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
+    ticket.previewRequest.orderAction = @"buy";
+    ticket.previewRequest.orderPriceType = @"market";
+    ticket.previewRequest.orderQuantity = @1;
+
+    [TradeItTicketController showTicket];
 }
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
-    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol lastPrice:0 orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
 }
 
-+ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
 
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
-    [ticketController setApiKey: apiKey];
-    [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
-    [ticketController createInitialPreviewRequestWithSymbol:[symbol uppercaseString] andAction:action andQuantity:quantity];
-    [ticketController setCallback: callback];
-    [ticketController setParentView: view];
-    [ticketController setDebugMode: debug];
-    [ticketController setPortfolioMode: NO];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    [ticket setCallback: callback];
+    [ticket setParentView: view];
+    [ticket setDebugMode: debug];
+    [ticket setPortfolioMode: NO];
 
-    [self showTicket];
+    ticket.quote = [[TradeItQuote alloc] init];
+    ticket.quote.symbol = [symbol uppercaseString];
+
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
+    ticket.previewRequest.orderSymbol = [symbol uppercaseString];
+    ticket.previewRequest.orderAction = action;
+    ticket.previewRequest.orderPriceType = @"market";
+    ticket.previewRequest.orderQuantity = quantity;
+
+    [TradeItTicketController showTicket];
 }
 
-- (id)initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol lastPrice:(double) lastPrice viewController:(UIViewController *) view {
++(void) showTicket {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
+    [ticket showTicket];
+}
+
++ (void)clearSavedData {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    [ticket unlinkAccounts];
+}
+
++ (NSArray *)getLinkedBrokers {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+
+    return [ticket.connector getLinkedLogins];
+}
+
++ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    
+    return [ticket getBrokerDisplayString: brokerIdentifier];
+}
+
+
+
+#pragma mark - Instance Initialization
+
+- (id)initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     self = [super init];
 
     if (self) {
-        TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-
-        [ticketController setApiKey:apiKey];
-        [ticketController createInitialPositionWithSymbol:[symbol uppercaseString] andLastPrice:[NSNumber numberWithDouble:lastPrice]];
-        [ticketController createInitialPreviewRequest]; // will set trade request to default values
-        [ticketController setParentView:view];
+        TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+        ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+        [ticket setParentView:view];
     }
 
     return self;
@@ -97,76 +140,47 @@
 - (void)showTicket {
     utils = [TTSDKUtils sharedUtils];
 
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+
+    ticket.quote = [[TradeItQuote alloc] init];
+    ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
+    ticket.previewRequest.orderAction = @"buy";
+    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderPriceType = @"market";
 
     if(self.quantity > 0) {
-        [ticketController.initialPreviewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+        [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
-        [ticketController.initialPreviewRequest setOrderAction: self.action];
+        [ticket.previewRequest setOrderAction: self.action];
     }
 
     if (self.orderType != nil && ![self.orderType isEqualToString:@""]) {
-        [ticketController.initialPreviewRequest setOrderPriceType: self.orderType];
+        [ticket.previewRequest setOrderPriceType: self.orderType];
     }
 
     if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
-        [ticketController.initialPreviewRequest setOrderExpiration: self.expiration];
+        [ticket.previewRequest setOrderExpiration: self.expiration];
     }
 
     if(self.debugMode) {
-        [ticketController setDebugMode: YES];
+        [ticket setDebugMode: YES];
     }
 
     if(self.onCompletion != nil) {
-        [ticketController setCallback: self.onCompletion];
+        [ticket setCallback: self.onCompletion];
     }
 
-    if(self.refreshQuote) {
-        [ticketController setRefreshQuote: self.refreshQuote];
-    } else if(self.refreshLastPrice != nil) {
-        [ticketController setRefreshLastPrice: self.refreshLastPrice];
+    if (self.symbol != nil && ![self.symbol isEqualToString:@""]) {
+        ticket.quote.symbol = self.symbol;
     }
 
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
-        [ticketController setPositionCompanyName: self.companyName];
-    }
-
-    if(self.priceChangeDollar != nil) {
-        [ticketController.position setTotalGainLossDollar: self.priceChangeDollar];
-    }
-
-    if(self.priceChangePercentage != nil) {
-        [ticketController.position setTotalGainLossPercentage: self.priceChangePercentage];
+        ticket.quote.companyName = self.companyName;
     }
 
     [TradeItTicketController showTicket];
-}
-
-+(void) showTicket {
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-
-    [ticketController setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
-    [ticketController showTicket];
-}
-
-+ (void)clearSavedData {
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-
-    [ticketController unlinkAccounts];
-}
-
-+ (NSArray *)getLinkedBrokers {
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-
-    return [ticketController retrieveLinkedLogins];
-}
-
-+ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
-    TTSDKTicketController * ticketController = [TTSDKTicketController globalController];
-
-    return [ticketController getBrokerDisplayString: brokerIdentifier];
 }
 
 //Let me tell you a cool story about why this is here:
@@ -197,9 +211,12 @@
     [TTSDKAccountLinkViewController class];
     [TTSDKAccountLinkTableViewCell class];
     [TTSDKPosition class];
-    [TTSDKAccountService class];
+    [TTSDKPortfolioService class];
     [TTSDKAccountSummaryResult class];
     [TTSDKSearchViewController class];
+    [TTSDKPortfolioAccount class];
+    [TTSDKAccountsHeaderView class];
+    [TTSDKHoldingsHeaderView class];
 }
 
 @end

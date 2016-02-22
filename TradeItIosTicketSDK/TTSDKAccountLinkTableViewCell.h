@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKPortfolioAccount.h"
 
 @protocol TTSDKAccountLinkDelegate;
 
@@ -25,6 +26,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountNameLabel;
 @property NSString * accountName;
 
--(void) configureCellWithData:(NSDictionary *)data;
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)portfolioAccount;
 
 @end

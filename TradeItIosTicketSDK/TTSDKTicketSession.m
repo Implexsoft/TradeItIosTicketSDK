@@ -36,41 +36,15 @@
     return self;
 }
 
-- (void) createPreviewRequest {
-    self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-    [self.previewRequest setOrderAction:@"buy"];
-    [self.previewRequest setOrderPriceType:@"market"];
-}
-
-- (void) createPreviewRequestWithSymbol:(NSString *)symbol andAction:(NSString *)action andQuantity:(NSNumber *)quantity {
-    self.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-
-    if (action) {
-        [self.previewRequest setOrderAction: action];
-    } else {
-        [self.previewRequest setOrderAction: @"buy"];
-    }
-
-    if (symbol) {
-        [self.previewRequest setOrderSymbol: symbol];
-    }
-
-    if (quantity) {
-        [self.previewRequest setOrderQuantity: quantity];
-    } else {
-        [self.previewRequest setOrderQuantity: @1];
-    }
-
-    [self.previewRequest setOrderPriceType: @"market"];
-}
-
--(void) previewTrade:(void (^)(TradeItResult *)) completionBlock {
-    if (!self.previewRequest) {
+-(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    if (!previewRequest) {
         return;
     }
 
+    previewRequest.token = self.token;
+
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
-    [tradeService previewTrade:self.previewRequest withCompletionBlock:^(TradeItResult * res){
+    [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res){
         completionBlock(res);
     }];
 }
@@ -97,72 +71,76 @@
 
 -(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andResult:(TradeItResult *)res {
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
-        TradeItAuthenticationResult * result = (TradeItAuthenticationResult *)res;
-        self.accounts = result.accounts;
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
+
+        self.needsManualAuthentication = NO;
 
         if (completionBlock) {
             completionBlock(res);
         }
-    } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+    } else {
 
-        TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
+        self.needsManualAuthentication = YES;
 
-        if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
-            if (![UIAlertController class]) {
-                [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
-                                                                                message: result.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                
-                for(NSString * title in result.securityQuestionOptions){
-                    UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
-                            [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+        if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+            TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
+            
+            if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
+                if (![UIAlertController class]) {
+                    [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
+                                                                                    message: result.securityQuestion
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    for(NSString * title in result.securityQuestionOptions){
+                        UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
+                                [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                            }];
                         }];
+                        
+                        [alert addAction:option];
+                    }
+                    
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              [delegateViewController dismissViewControllerAnimated:YES completion:nil];
+                                                                          }];
+                    [alert addAction:cancelAction];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                    });
+                }
+            } else if (result.securityQuestion != nil) {
+                if (![UIAlertController class]) {
+                    [self showOldSecQuestion:result.securityQuestion];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
+                                                                                    message: result.securityQuestion
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        [delegateViewController dismissViewControllerAnimated:YES completion:nil];
                     }];
                     
-                    [alert addAction:option];
-                }
-                
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [delegateViewController dismissViewControllerAnimated:YES completion:nil];
-                                                                      }];
-                [alert addAction:cancelAction];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegateViewController presentViewController:alert animated:YES completion:nil];
-                });
-            }
-        } else if (result.securityQuestion != nil) {
-            if (![UIAlertController class]) {
-                [self showOldSecQuestion:result.securityQuestion];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
-                                                                                message: result.securityQuestion
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    [delegateViewController dismissViewControllerAnimated:YES completion:nil];
-                }];
-                
-                UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
-                                                                      handler:^(UIAlertAction * action) {
-                                                                          [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
-                                                                              [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                    UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {
+                                                                              [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
+                                                                                  [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                                                                              }];
                                                                           }];
-                                                                      }];
-
-                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
-                [alert addAction:cancelAction];
-                [alert addAction:submitAction];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [delegateViewController presentViewController:alert animated:YES completion:nil];
-                });
+                    
+                    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
+                    [alert addAction:cancelAction];
+                    [alert addAction:submitAction];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                    });
+                }
             }
         }
     }
@@ -170,6 +148,9 @@
 
 -(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
     TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+    positionsRequest.token = self.token;
+
     TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
 
     [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
@@ -180,9 +161,6 @@
 
             for (TradeItPosition * position in positionsResult.positions) {
                 TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
-
-                [subclassPosition getPositionData:nil];
-
                 [ttsdkPositions addObject: subclassPosition];
             }
 
@@ -194,6 +172,9 @@
 -(void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock {
     TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self];
     TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: [account valueForKey:@"accountNumber"]];
+
+    request.token = self.token;
+
     [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
         if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
             TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;

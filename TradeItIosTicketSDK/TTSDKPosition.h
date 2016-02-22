@@ -12,15 +12,13 @@
 
 @interface TTSDKPosition : TradeItPosition
 
-@property NSNumber * bid;
-@property NSNumber * ask;
 @property NSNumber * change;
 @property NSNumber * changePct;
 @property NSString * companyName;
 @property NSNumber * totalValue;
 
+@property TradeItQuote * quote;
+
 -(id) initWithPosition:(TradeItPosition *)position;
--(void) getPositionData:(void (^)(TradeItQuote *)) completionBlock;
--(BOOL) isDataPopulated;
 
 @end

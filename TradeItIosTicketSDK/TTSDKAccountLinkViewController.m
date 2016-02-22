@@ -7,16 +7,16 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-#import "TTSDKAccountService.h"
+#import "TTSDKPortfolioService.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKAccountLinkViewController () {
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
-    NSArray * accounts;
     UIView * loadingView;
-    TTSDKAccountService * accountService;
+    TTSDKPortfolioService * portfolioService;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
@@ -41,32 +41,29 @@
 
 
 
-#pragma mark - Initialization∫
+#pragma mark - Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
-    globalController = [TTSDKTicketController globalController];
-    accountService = [[TTSDKAccountService alloc] init];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
+
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
 
     [utils styleMainActiveButton:self.doneButton];
 
     loadingView = [utils retrieveLoadingOverlayForView:self.view];
     [self.view addSubview:loadingView];
-
-    accounts = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     loadingView.hidden = NO;
 
-    [accountService getBalancesFromAllAccounts:^(NSArray * res) {
-        if (res) {
-            accounts = res;
-            [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }
+    [portfolioService getBalancesForAccounts:^(void) {
         loadingView.hidden = YES;
+
+        [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
 
@@ -75,7 +72,7 @@
 #pragma mark - Table Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return accounts.count;
+    return portfolioService.accounts.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,7 +92,8 @@
     }
 
     [cell setDelegate: self];
-    [cell configureCellWithData: (NSDictionary *)[accounts objectAtIndex:indexPath.row]];
+
+    [cell configureCellWithAccount: [portfolioService.accounts objectAtIndex: indexPath.row]];
 
     return cell;
 }
@@ -106,29 +104,28 @@
 
 - (void)linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
-    NSMutableArray * mutableAccounts = [accounts mutableCopy];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;
 
+    NSArray * accounts = globalTicket.allAccounts;
     int i;
-    for (i = 0; i < mutableAccounts.count; i++) {
-        NSDictionary * acct = [mutableAccounts objectAtIndex: i];
-        NSMutableDictionary * acctCopy = [acct mutableCopy];
+    for (i = 0; i < accounts.count; i++) {
+        NSDictionary * currentAccount = [accounts objectAtIndex: i];
 
-        if ([acct isEqualToDictionary: account]) {
-            [acctCopy setValue: [NSNumber numberWithBool:!active] forKey:@"active"];
-            accountToAdd = [acctCopy copy];
-            accountToRemove = acct;
-
-            break;
+        if ([currentAccount isEqualToDictionary:account]) {
+            NSMutableDictionary *mutableAccount = [currentAccount mutableCopy];
+            [mutableAccount setValue:[NSNumber numberWithBool: !active] forKey:@"active"];
+            accountToAdd = [mutableAccount copy];
+            accountToRemove = currentAccount;
         }
     }
 
+    NSMutableArray * mutableAccounts = [accounts mutableCopy];
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 
-    [globalController updateAccounts: [mutableAccounts copy]];
+    [globalTicket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
 - (void)linkToggleDidNotSelect:(NSString *)errorMessage {

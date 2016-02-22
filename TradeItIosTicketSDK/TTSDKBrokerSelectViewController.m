@@ -8,12 +8,12 @@
 
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 }
 
 
@@ -46,8 +46,8 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     [self.tableView setContentInset: UIEdgeInsetsZero];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
-    globalController = [TTSDKTicketController globalController];
-    brokers = globalController.brokerList;
+    globalTicket = [TTSDKTradeItTicket globalTicket];
+    brokers = globalTicket.brokerList;
 
     if([brokers count] < 1){
         [self showLoadingAndWait];
@@ -100,12 +100,12 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while([globalController.brokerList count] < 1 && cycles < 10) {
+        while([globalTicket.brokerList count] < 1 && cycles < 10) {
             sleep(1);
             cycles++;
         }
 
-        if([globalController.brokerList count] < 1) {
+        if([globalTicket.brokerList count] < 1) {
             if(![UIAlertController class]) {
                 [self showOldErrorAlert];
                 return;
@@ -116,7 +116,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [globalController returnToParentApp];
+                                                                       [globalTicket returnToParentApp];
                                                                    }];
             [alert addAction:defaultAction];
 
@@ -127,7 +127,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                brokers = globalController.brokerList;
+                brokers = globalTicket.brokerList;
                 [self.tableView reloadData];
 
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
@@ -146,15 +146,15 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         return;
     }
 
-    if(globalController.brokerSignUpCallback) {
+    if(globalTicket.brokerSignUpCallback) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = false;
         res.errorTitle = @"Cancelled";
 
-        globalController.brokerSignUpCallback(res);
+        globalTicket.brokerSignUpCallback(res);
     }
 
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -186,7 +186,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 

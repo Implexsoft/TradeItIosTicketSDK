@@ -7,9 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKPortfolioAccount.h"
+
+@protocol TTSDKAccountDelegate;
+
+@protocol TTSDKAccountDelegate <NSObject>
+
+@required
+-(void)didSelectAuth:(TTSDKPortfolioAccount *)account;
+
+@end
 
 @interface TTSDKPortfolioAccountsTableViewCell : UITableViewCell
 
--(void) configureCellWithDetails:(NSDictionary *)data;
+@property (nonatomic, weak) id<TTSDKAccountDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet UIView *authenticateView;
+
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
+-(void) hideSeparator;
+-(void) showSeparator;
 
 @end

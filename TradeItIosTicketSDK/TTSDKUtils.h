@@ -29,6 +29,7 @@
 
 + (id)sharedUtils;
 
+-(BOOL) isOnboarding;
 -(NSString *) formatIntegerToReadablePrice: (NSString *)price;
 -(NSString *) formatPriceString: (NSNumber *)num;
 -(double) numberFromPriceString: (NSString *)priceString;

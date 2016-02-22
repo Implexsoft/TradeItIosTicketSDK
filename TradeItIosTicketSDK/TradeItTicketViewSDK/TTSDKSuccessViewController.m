@@ -9,12 +9,12 @@
 #import "TTSDKSuccessViewController.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKTradeViewController.h"
-#import "TTSDKTicketController.h"
+#import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
 
 @interface TTSDKSuccessViewController() {
     TTSDKUtils * utils;
-    TTSDKTicketController * globalController;
+    TTSDKTradeItTicket * globalTicket;
 
     __weak IBOutlet UIButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
@@ -44,17 +44,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    globalController = [TTSDKTicketController globalController];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
     utils = [TTSDKUtils sharedUtils];
 
-    TradeItPlaceTradeResult * result = globalController.resultContainer.tradeResponse;
+    TradeItPlaceTradeResult * result = globalTicket.resultContainer.tradeResponse;
 
     if (result.confirmationMessage) {
         [successMessage setText: result.confirmationMessage];
 
-        NSString * symbol = globalController.currentSession.previewRequest.orderSymbol;
-        globalController.currentSession.previewRequest = nil;
-        [globalController.currentSession createPreviewRequestWithSymbol:symbol andAction:@"buy" andQuantity:@1];
+        NSString * symbol = globalTicket.previewRequest.orderSymbol;
     }
 
     [utils styleMainActiveButton:tradeButton];
@@ -72,7 +70,7 @@
 #pragma mark - Navigation
 
 - (IBAction)closeButtonPressed:(id)sender {
-    [globalController returnToParentApp];
+    [globalTicket returnToParentApp];
 }
 
 - (IBAction)tradeButtonPressed:(id)sender {
