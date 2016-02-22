@@ -71,10 +71,6 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    if (globalTicket.quote.symbol == nil || [globalTicket.quote.symbol isEqualToString:@""]) {
-        [self performSegueWithIdentifier:@"TradeToSearch" sender: self];
-    }
-
     [self initConstraints];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
@@ -90,6 +86,10 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    if (globalTicket.quote.symbol == nil || [globalTicket.quote.symbol isEqualToString:@""]) {
+        [self performSegueWithIdentifier:@"TradeToSearch" sender: self];
+    }
 
     if (!globalTicket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;

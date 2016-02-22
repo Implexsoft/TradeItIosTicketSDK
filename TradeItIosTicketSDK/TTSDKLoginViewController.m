@@ -192,11 +192,19 @@
                     [globalTicket addSession: newSession];
                     [globalTicket addAccounts: authResult.accounts withSession: newSession];
 
+                    NSDictionary * lastAccount = [authResult.accounts lastObject];
+                    NSDictionary * selectedAccount;
+                    for (NSDictionary *account in globalTicket.allAccounts) {
+                        if ([[lastAccount valueForKey:@"accountNumber"] isEqualToString:[account valueForKey:@"accountNumber"]]) {
+                            selectedAccount = account;
+                        }
+                    }
+
                     // If the auth flow was triggered modally, then we don't want to automatically select it
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        [globalTicket selectSession:newSession andAccount:[authResult.accounts lastObject]];
+                        [globalTicket selectSession:newSession andAccount:selectedAccount];
                         [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                     }
                 }

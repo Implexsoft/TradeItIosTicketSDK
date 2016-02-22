@@ -293,6 +293,7 @@ you want to link</string>
                     <connections>
                         <outlet property="accountsTable" destination="gFy-Qa-uXU" id="UoM-Ml-hSi"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
+                        <segue destination="3Iv-K7-0hh" kind="presentation" identifier="PortfolioToLogin" id="b0O-lu-Vmh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXD-UY-D7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1880,5 +1881,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     <inferredMetricsTieBreakers>
         <segue reference="ujk-YM-BZG"/>
         <segue reference="Iho-lP-LWh"/>
+        <segue reference="b0O-lu-Vmh"/>
     </inferredMetricsTieBreakers>
 </document>

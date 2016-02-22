@@ -9,12 +9,11 @@
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-#import "TTSDKPortfolioHoldingTableViewCell.h"
-#import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TTSDKPortfolioService.h"
 #import "TradeItAuthenticationResult.h"
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
+#import "TTSDKLoginViewController.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -29,6 +28,8 @@
 @property UIView * loadingView;
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
+
+@property TTSDKPortfolioAccount * accountToPerformManualAuth;
 
 @end
 
@@ -286,6 +287,11 @@ static float kAccountCellHeight = 44.0f;
     globalTicket.previewRequest.orderSymbol = position.symbol;
 }
 
+-(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
+    self.accountToPerformManualAuth = account;
+    [self performSegueWithIdentifier: @"PortfolioToLogin" sender: self];
+}
+
 
 
 #pragma mark - Custom UI
@@ -310,6 +316,21 @@ static float kAccountCellHeight = 44.0f;
 
 - (IBAction)editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
+
+        // Get storyboard
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
+        TTSDKLoginViewController * loginVC = [ticket instantiateViewControllerWithIdentifier:@""];
+
+        loginVC.addBroker = self.accountToPerformManualAuth.broker;
+
+        [nav pushViewController:loginVC animated:NO];
+    }
 }
 
 

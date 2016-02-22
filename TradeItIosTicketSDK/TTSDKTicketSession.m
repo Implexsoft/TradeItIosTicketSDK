@@ -74,12 +74,13 @@
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
 
+        self.needsManualAuthentication = NO;
+
         if (completionBlock) {
             completionBlock(res);
         }
     } else {
 
-        NSLog(@"setting to needs manual auth");
         self.needsManualAuthentication = YES;
 
         if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {

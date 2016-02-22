@@ -34,6 +34,22 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C07-Go-p1A" userLabel="AuthView">
+                        <rect key="frame" x="58" y="0.0" width="262" height="43.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap to authenticate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M83-8G-fZp">
+                                <rect key="frame" x="131.5" y="13" width="122.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="M83-8G-fZp" firstAttribute="centerY" secondItem="C07-Go-p1A" secondAttribute="centerY" id="fqA-hT-z8H"/>
+                            <constraint firstAttribute="trailing" secondItem="M83-8G-fZp" secondAttribute="trailing" constant="8" id="t85-YY-pTB"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npO-XE-Gw5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,14 +65,19 @@
                     <constraint firstItem="ThJ-Fm-dLS" firstAttribute="trailing" secondItem="IyZ-jj-Bc5" secondAttribute="trailingMargin" constant="-6" id="Cet-J7-SLf"/>
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="width" secondItem="IyZ-jj-Bc5" secondAttribute="width" multiplier="0.65" id="Dgc-q7-gY6"/>
                     <constraint firstItem="ThJ-Fm-dLS" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="Jas-Zm-pc7"/>
+                    <constraint firstItem="C07-Go-p1A" firstAttribute="leading" secondItem="7tc-4J-X92" secondAttribute="trailing" id="KjX-zl-GfA"/>
                     <constraint firstItem="7tc-4J-X92" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="NP4-gy-gIP"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="Tsl-mk-hWT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="C07-Go-p1A" secondAttribute="trailing" constant="-8" id="jfl-Ms-pEX"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="C07-Go-p1A" secondAttribute="bottom" constant="-8" id="p13-a6-F8y"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="ruw-5a-QVP"/>
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="sUN-3h-HBW"/>
+                    <constraint firstItem="C07-Go-p1A" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="tzA-Lu-gly"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accountLabel" destination="7tc-4J-X92" id="Xu7-5H-WaM"/>
+                <outlet property="authenticateView" destination="C07-Go-p1A" id="MC1-h2-oDb"/>
                 <outlet property="buyingPowerLabel" destination="ThJ-Fm-dLS" id="Vjg-ZS-oxC"/>
                 <outlet property="separatorView" destination="npO-XE-Gw5" id="rTM-h4-ag1"/>
                 <outlet property="valueLabel" destination="dPb-QM-MmZ" id="XGI-QO-UEy"/>

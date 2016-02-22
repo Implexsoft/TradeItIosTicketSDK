@@ -19,8 +19,6 @@
 
 @implementation TTSDKBaseTradeViewController
 
-
-
 static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 
