@@ -51,6 +51,7 @@
         UITapGestureRecognizer * authTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authSelected:)];
         [self.authenticateView addGestureRecognizer: authTap];
     } else {
+        self.authenticateView.hidden = YES;
         if (account.balance.totalValue) {
             totalValue = [NSString stringWithFormat:@"%.02f", [account.balance.totalValue floatValue]];
         } else {

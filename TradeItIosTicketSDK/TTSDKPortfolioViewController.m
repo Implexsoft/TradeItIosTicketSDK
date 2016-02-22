@@ -29,8 +29,6 @@
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
 
-@property TTSDKPortfolioAccount * accountToPerformManualAuth;
-
 @end
 
 @implementation TTSDKPortfolioViewController
@@ -290,8 +288,12 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
-    self.accountToPerformManualAuth = account;
-    [self performSegueWithIdentifier: @"PortfolioToLogin" sender: self];
+    NSDictionary * accountData = [account accountData];
+    TTSDKTicketSession * accountSession = [globalTicket retrieveSessionByAccount: accountData];
+
+    [accountSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res){
+        [self loadPortfolioData];
+    }];
 }
 
 
@@ -318,22 +320,6 @@ static float kAccountCellHeight = 44.0f;
 
 - (IBAction)editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
-}
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
-
-        // Get storyboard
-        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
-        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-
-        TTSDKLoginViewController * loginVC = [ticket instantiateViewControllerWithIdentifier:@"LOGIN"];
-
-        loginVC.addBroker = self.accountToPerformManualAuth.broker;
-
-        [nav pushViewController:loginVC animated:NO];
-    }
 }
 
 

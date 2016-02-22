@@ -98,7 +98,7 @@
 
 +(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    
+
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
     [ticket showTicket];
 }

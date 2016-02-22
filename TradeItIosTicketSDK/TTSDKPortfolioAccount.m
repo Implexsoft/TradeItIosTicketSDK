@@ -71,6 +71,8 @@
         }
 
         return;
+    } else {
+        self.needsAuthentication = NO;
     }
 
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {

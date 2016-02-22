@@ -63,6 +63,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     // Try to find an initial account
     NSArray * storedAccounts = self.allAccounts;
+
     NSDictionary * initialAccount;
     for (NSDictionary * account in storedAccounts) {
         NSNumber * isLastSelected = [account valueForKey:@"lastSelected"];
@@ -83,7 +84,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     for (TradeItLinkedLogin * login in linkedLogins) {
         TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
         [self addSession: newSession];
-        
+
         if (initialAccount && [login.userId isEqualToString: [initialAccount valueForKey: @"UserId"]]) {
             [self selectSession: newSession andAccount: initialAccount];
         }
