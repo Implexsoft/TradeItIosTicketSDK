@@ -188,6 +188,8 @@ static float kAccountCellHeight = 44.0f;
             cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
         }
 
+        cell.delegate = self;
+
         if (indexPath.row == 0) {
             [cell hideSeparator];
         } else {
@@ -325,7 +327,8 @@ static float kAccountCellHeight = 44.0f;
         UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-        TTSDKLoginViewController * loginVC = [ticket instantiateViewControllerWithIdentifier:@""];
+
+        TTSDKLoginViewController * loginVC = [ticket instantiateViewControllerWithIdentifier:@"LOGIN"];
 
         loginVC.addBroker = self.accountToPerformManualAuth.broker;
 

@@ -51,17 +51,17 @@
         loadingView.hidden = NO;
     }
 
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
-    [portfolioService getSummaryForAccounts:^(void) {
-        loadingView.hidden = YES;
-        [self.tableView reloadData];
-    }];
-
     accountResults = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
+    [portfolioService getSummaryForAccounts:^(void) {
+        loadingView.hidden = YES;
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }];
 
     [self.tableView reloadData];
 }

@@ -702,6 +702,18 @@
 			name = SymbolSearch;
 			sourceTree = "<group>";
 		};
+		65C98C3E1C7A9AA600A2AE71 /* AccountLink */ = {
+			isa = PBXGroup;
+			children = (
+				6510F49F1C46FC94009989BD /* TTSDKAccountLinkViewController.h */,
+				6510F4A01C46FC94009989BD /* TTSDKAccountLinkViewController.m */,
+				6510F4A31C46FCA3009989BD /* TTSDKAccountLinkCell.xib */,
+				6510F4A41C47010E009989BD /* TTSDKAccountLinkTableViewCell.h */,
+				6510F4A51C47010E009989BD /* TTSDKAccountLinkTableViewCell.m */,
+			);
+			name = AccountLink;
+			sourceTree = "<group>";
+		};
 		65DD1BD11C3C80DA0032676A /* PortfolioScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,6 +840,7 @@
 				65B313FA1C23613600EBC30D /* SymbolSearch */,
 				A93B3C4B1B54649400373E1B /* CustomAlertView */,
 				A9C003861B72853E007D15F5 /* MBProgressHUD */,
+				65C98C3E1C7A9AA600A2AE71 /* AccountLink */,
 				655493121C21FCA9005D4270 /* AccountSelect */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
@@ -923,11 +936,6 @@
 				A9B2D4761B5EA92F008065E1 /* TTSDKLoginViewController.m */,
 				655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */,
 				655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */,
-				6510F49F1C46FC94009989BD /* TTSDKAccountLinkViewController.h */,
-				6510F4A01C46FC94009989BD /* TTSDKAccountLinkViewController.m */,
-				6510F4A31C46FCA3009989BD /* TTSDKAccountLinkCell.xib */,
-				6510F4A41C47010E009989BD /* TTSDKAccountLinkTableViewCell.h */,
-				6510F4A51C47010E009989BD /* TTSDKAccountLinkTableViewCell.m */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";

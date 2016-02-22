@@ -1879,8 +1879,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="Iho-lP-LWh"/>
         <segue reference="b0O-lu-Vmh"/>
+        <segue reference="ujk-YM-BZG"/>
+        <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
 </document>

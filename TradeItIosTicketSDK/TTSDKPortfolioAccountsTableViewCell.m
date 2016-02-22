@@ -42,6 +42,8 @@
     NSString * displayTitle = account.displayTitle;
     NSString * totalValue;
 
+    self.portfolioAccount = account;
+
     self.accountLabel.text = displayTitle;
 
     if (account.needsAuthentication) {
