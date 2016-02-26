@@ -7,6 +7,10 @@
 //
 
 #import "TTSDKReviewScreenViewController.h"
+#import "TTSDKSuccessViewController.h"
+#import "TTSDKTradeItTicket.h"
+#import "TradeItPlaceTradeResult.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -48,29 +52,59 @@
     __weak IBOutlet UILabel *estimatedCostValue;
     
     UIView * lastAttachedMessage;
-    NSMutableArray * ackLabels; //used for sizing
+    NSMutableArray * ackLabels; // used for sizing
+    NSMutableArray * warningLabels; // used for sizing
+
+    int ackLabelsToggled;
+
+    TTSDKUtils * utils;
+    TTSDKTradeItTicket * globalTicket;
+
+    TradeItPlaceTradeResult * placeTradeResult;
 }
 
 @end
 
+static float kMessageSeparatorHeight = 30.0f;
+
 @implementation TTSDKReviewScreenViewController
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    ackLabels = [[NSMutableArray alloc]init];
-    
-    [self setBackgroundGradient];
-    [self setTableBorders];
-    [submitOrderButton.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [submitOrderButton.layer setBorderWidth:1.0f];
-    [submitOrderButton.layer setCornerRadius:5.0f];
-    
-    //used for attaching constraints
+
+    ackLabels = [[NSMutableArray alloc] init];
+    warningLabels = [[NSMutableArray alloc] init];
+
+    utils = [TTSDKUtils sharedUtils];
+    globalTicket = [TTSDKTradeItTicket globalTicket];
+
+    // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
-    
+
+    self.reviewTradeResult = globalTicket.resultContainer.reviewResponse;
+
     [self updateUIWithReviewResult];
-    [self setContentViewHeight];
+
+    if ([ackLabels count]) {
+        [utils styleMainInactiveButton:submitOrderButton];
+        submitOrderButton.enabled = NO;
+    } else {
+        [utils styleMainActiveButton:submitOrderButton];
+    }
+
+    scrollView.alwaysBounceHorizontal = NO;
+    scrollView.alwaysBounceVertical = YES;
+
+    [self initContentViewHeight];
 }
 
 -(void) updateUIWithReviewResult {
@@ -78,61 +112,60 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
+
+    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
+    [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
+    [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
     
-    [reviewLabel setText:[[[self result] orderDetails] valueForKey:@"orderMessage"]];
-    [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"orderQuantity"]]];
-    [priceValue setText:[[[self result] orderDetails] valueForKey:@"orderPrice"]];
-    [expirationValue setText:[[[self result] orderDetails] valueForKey:@"orderExpiration"]];
-    
-    if(![[[self result] orderDetails] valueForKey:@"longHoldings"] || [[[[self result] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesLongVL];
         [self hideElement:sharesLongVV];
     } else {
-        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"longHoldings"]]];
+        [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"]]];
     }
     
-    if(![[[self result] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self result] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesShortVL];
         [self hideElement:sharesShortVV];
     } else {
-        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self result] orderDetails] valueForKey:@"shortHoldings"]]];
+        [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"]]];
     }
     
-    if(![[[self result] orderDetails] valueForKey:@"buyingPower"] && ![[[self result] orderDetails] valueForKey:@"availableCash"]) {
+    if(![[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] && ![[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]) {
         [self hideElement:buyingPowerVL];
         [self hideElement:buyingPowerVV];
-    } else if ([[[self result] orderDetails] valueForKey:@"buyingPower"]) {
+    } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]) {
         [buyingPowerLabel setText:@"Buying Power"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"buyingPower"]]];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]]];
     } else {
         [buyingPowerLabel setText:@"Avail. Cash"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"availableCash"]]];
+        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
     }
     
-    if([[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
-        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+    if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
+        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
     } else {
         [self hideElement:estimatedFeesVL];
         [self hideElement:estimatedFeesVV];
     }
     
-    if([[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self result] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
+    if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
         [estimateCostLabel setText:@"Estimated Proceeds"];
     } else {
         [estimateCostLabel setText:@"Estimated Cost"];
     }
     
-    if([[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]) {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+    if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
     } else {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self result] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
     }
     
-    for(NSString * warning in [[self result] warningsList]) {
+    for(NSString * warning in [[self reviewTradeResult] warningsList]) {
         [self addReviewMessage: warning];
     }
     
-    for(NSString * warning in [[self result] ackWarningsList]) {
+    for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
         [self addAcknowledgeMessage: warning];
     }
 }
@@ -152,65 +185,17 @@
                                             multiplier:1
                                             constant:1];
     heightConstraint.priority = 900;
-    
+
     [self.view addConstraint:heightConstraint];
 }
 
-- (void) setBackgroundGradient {
-    UIColor *topColor = [UIColor colorWithRed:48.0f/255.0f green:104.0f/255.0f blue:155.0f/255.0f alpha:1.0f];
-    UIColor *bottomColor = [UIColor colorWithRed:8.0f/255.0f green:65.0f/255.0f blue:106.0f/255.0f alpha:1.0f];
-    
-    NSArray *gradientColors = [NSArray arrayWithObjects:(id)topColor.CGColor, (id)bottomColor.CGColor, nil];
-    NSArray *gradientLocations = [NSArray arrayWithObjects:[NSNumber numberWithInt:0.0],[NSNumber numberWithInt:1.0], nil];
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = gradientColors;
-    gradientLayer.locations = gradientLocations;
-    gradientLayer.frame = self.view.frame;
-    [self.view.layer insertSublayer:gradientLayer atIndex:0];
-}
-
-- (void) setTableBorders {
-    [priceVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [priceVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [quantityVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [quantityVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [expirationVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [expirationVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesLongVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesLongVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesShortVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [sharesShortVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [buyingPowerVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [buyingPowerVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedFeesVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedFeesVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedCostVV.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    [estimatedCostVL.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-    
-    [priceVV.layer setBorderWidth:1.0f];
-    [priceVL.layer setBorderWidth:1.0f];
-    [quantityVV.layer setBorderWidth:1.0f];
-    [quantityVL.layer setBorderWidth:1.0f];
-    [expirationVV.layer setBorderWidth:1.0f];
-    [expirationVL.layer setBorderWidth:1.0f];
-    [sharesLongVV.layer setBorderWidth:1.0f];
-    [sharesLongVL.layer setBorderWidth:1.0f];
-    [sharesShortVV.layer setBorderWidth:1.0f];
-    [sharesShortVL.layer setBorderWidth:1.0f];
-    [buyingPowerVV.layer setBorderWidth:1.0f];
-    [buyingPowerVL.layer setBorderWidth:1.0f];
-    [estimatedFeesVV.layer setBorderWidth:1.0f];
-    [estimatedFeesVL.layer setBorderWidth:1.0f];
-    [estimatedCostVV.layer setBorderWidth:1.0f];
-    [estimatedCostVL.layer setBorderWidth:1.0f];
-}
-
 -(void) addReviewMessage:(NSString *) message {
-
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
-    [contentView addSubview:messageLabel];
+    messageLabel.autoresizesSubviews = YES;
+    [contentView insertSubview:messageLabel atIndex:0];
     [self addConstraintsToMessage:messageLabel];
+
+    [warningLabels addObject:messageLabel];
 }
 
 -(void) addAcknowledgeMessage:(NSString *) message {
@@ -219,27 +204,42 @@
 
     UISwitch * toggle = [[UISwitch alloc] init];
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
+    toggle.autoresizesSubviews = YES;
+    messageLabel.autoresizesSubviews = YES;
+
+    toggle.userInteractionEnabled = YES;
+
+    [toggle addTarget:self action:@selector(ackLabelToggled:) forControlEvents:UIControlEventValueChanged];
 
     [ackLabels addObject:messageLabel];
     
     [container addSubview:toggle];
     [container addSubview:messageLabel];
-    [contentView addSubview:container];
+    [contentView insertSubview:container atIndex:0];
     
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
     [self addConstraintsToMessage:container];
 }
 
+
+
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, reviewLabel.frame.size.width, CGFLOAT_MAX)];
-    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
+    CGRect labelFrame = reviewLabel.frame;
+    labelFrame.size.width = contentView.frame.size.width;
+
+    UILabel * label = [[UILabel alloc] init];
     [label setText: message];
-    [label setNumberOfLines: 0]; //0 allows unlimited lines
-    [label setTextColor: [UIColor whiteColor]];
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [label setNumberOfLines: 0]; // 0 allows unlimited lines
+    [label setTextColor: utils.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
+
+    label.frame = labelFrame;
+
     [label sizeToFit];
-    
+
     return label;
 }
 
@@ -251,9 +251,9 @@
                                          toItem:lastAttachedMessage
                                          attribute:NSLayoutAttributeBottom
                                          multiplier:1
-                                         constant:10];
+                                         constant:kMessageSeparatorHeight];
     topConstraint.priority = 900;
-    
+
     NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeLeading
@@ -263,7 +263,7 @@
                                            multiplier:1
                                            constant:0];
     leftConstraint.priority = 900;
-    
+
     NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeTrailing
@@ -273,27 +273,31 @@
                                            multiplier:1
                                            constant:0];
     rightConstraint.priority = 900;
-    
+
     lastAttachedMessage = label;
-    
+
     [self.view addConstraint:topConstraint];
     [self.view addConstraint:leftConstraint];
     [self.view addConstraint:rightConstraint];
 }
 
--(void) setContentViewHeight {
-    CGFloat scrollViewHeight = 0.0f;
-    for (UIView* view in contentView.subviews)
-    {
-        if(!(view.tag > 400 && view.tag < 409)) { //These are the label views, we don't count them since we count the value side
-            scrollViewHeight += view.frame.size.height;
-        }
+-(void) initContentViewHeight {
+    CGRect contentRect = CGRectZero;
+    for (UIView * view in [contentView subviews]) {
+        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + kMessageSeparatorHeight);
+        contentRect = CGRectUnion(contentRect, frame);
     }
-    
-    for(UIView * label in ackLabels) {
-        scrollViewHeight += label.frame.size.height;
+
+    for(UIView * aLabel in ackLabels) {
+        contentRect.size.height += aLabel.frame.size.height;
     }
-    
+
+    for(UILabel * wLabel in warningLabels) {
+        contentRect.size.height += wLabel.frame.size.height;
+    }
+
+    contentRect.size.height += 120; // extra 120 for padding
+
     NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
                                              constraintWithItem:contentView
                                              attribute:NSLayoutAttributeHeight
@@ -301,9 +305,13 @@
                                              toItem:NSLayoutAttributeNotAnAttribute
                                              attribute:NSLayoutAttributeNotAnAttribute
                                              multiplier:1
-                                             constant:scrollViewHeight + 30]; //extra 30 for padding
+                                             constant:contentRect.size.height];
     heightConstraint.priority = 900;
     [self.view addConstraint:heightConstraint];
+
+    [scrollView setContentSize:contentRect.size];
+    [scrollView layoutIfNeeded];
+    [scrollView setNeedsUpdateConstraints];
 }
 
 -(void) constrainToggle:(UISwitch *) toggle andLabel:(UILabel *) label toView:(UIView *) view {
@@ -326,7 +334,7 @@
                                                  multiplier:1
                                                  constant:0];
     toggleTopConstraint.priority = 900;
-    
+
     NSLayoutConstraint * toggleLabelConstraint = [NSLayoutConstraint
                                                 constraintWithItem:toggle
                                                 attribute:NSLayoutAttributeTrailing
@@ -336,7 +344,7 @@
                                                 multiplier:1
                                                 constant:-10];
     toggleLabelConstraint.priority = 900;
-    
+
     NSLayoutConstraint * labelTopConstraint = [NSLayoutConstraint
                                                   constraintWithItem:label
                                                   attribute:NSLayoutAttributeTop
@@ -376,38 +384,80 @@
     [self.view addConstraint:labelBottomConstraint];
 }
 
+
+#pragma mark - Trade Request
+- (IBAction)placeOrderPressed:(id)sender {
+    [utils styleLoadingButton:submitOrderButton];
+    [self sendTradeRequest];
+}
+
+- (void) sendTradeRequest {
+
+    globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
+
+    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
+        [self tradeRequestRecieved: result];
+    }];
+}
+
+- (void) tradeRequestRecieved: (TradeItResult *) result {
+    [utils styleMainActiveButton:submitOrderButton];
+
+    //success
+    if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
+        globalTicket.resultContainer.status = SUCCESS;
+        globalTicket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
+        [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
+    }
+    //error
+    if([result isKindOfClass:[TradeItErrorResult class]]) {
+        TradeItErrorResult * error = (TradeItErrorResult *) result;
+
+        NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
+        errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
+
+        globalTicket.resultContainer.status = EXECUTION_ERROR;
+        globalTicket.resultContainer.errorResponse = error;
+
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                                                                        message:errorMessage
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        alert.modalPresentationStyle = UIModalPresentationPopover;
+        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {
+                                                                   [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+        alertPresentationController.sourceView = self.view;
+        alertPresentationController.permittedArrowDirections = 0;
+        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    }
+}
+
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    if([segue.identifier isEqualToString:@"reviewToLoadingSegue"]) {
-        [[segue destinationViewController] setActionToPerform: @"sendTradeRequest"];
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
+-(IBAction)ackLabelToggled:(id)sender {
+    UISwitch * switchSender = sender;
+
+    if (switchSender.on) {
+        ackLabelsToggled++;
+    } else {
+        ackLabelsToggled--;
+    }
+
+    if (ackLabelsToggled >= [ackLabels count]) {
+        [utils styleMainActiveButton:submitOrderButton];
+        submitOrderButton.enabled = YES;
+    } else {
+        [utils styleMainInactiveButton: submitOrderButton];
+        submitOrderButton.enabled = NO;
     }
 }
 
-- (IBAction)changeClicked:(id)sender {
-    if([self.tradeSession.calcScreenStoryboardId isEqualToString:@"initalCalculatorController"]) {
-        [self performSegueWithIdentifier:@"prepareForUnwind" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"unwindToAdvCalc" sender:self];
-    }
-}
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-

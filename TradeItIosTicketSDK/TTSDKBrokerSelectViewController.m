@@ -7,75 +7,178 @@
 //
 
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKBrokerSelectTableViewCell.h"
+#import "TTSDKTradeItTicket.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
+    TTSDKTradeItTicket * globalTicket;
 }
 
-static NSString * CellIdentifier = @"BrokerCell";
+
+
+#pragma mark - Constants
+
+static NSString * kCellIdentifier = @"BrokerCell";
+static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
+
+
+
+#pragma mark - Orientation
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
+}
+
+
+
+#pragma mark - Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    
-    brokers = self.tradeSession.brokerList;
-    linkedBrokers = [TTSDKTradeItTicket getLinkedBrokersList];
-    
-    UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, -8, 0, 0);
-    
+
+    [self.tableView setContentInset: UIEdgeInsetsZero];
+    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+
+    globalTicket = [TTSDKTradeItTicket globalTicket];
+    brokers = globalTicket.brokerList;
+
     if([brokers count] < 1){
         [self showLoadingAndWait];
     }
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UILabel *headerLabelView = [[UILabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
+    headerLabelView.text = @"Link your broker account \n to enable trading";
+    headerLabelView.numberOfLines = 0;
+    headerLabelView.textAlignment = NSTextAlignmentCenter;
+    headerLabelView.backgroundColor = [UIColor whiteColor];
+    [headerView addSubview:headerLabelView];
+
+    self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
--(void) showLoadingAndWait {
+
+
+#pragma mark - Table Delegate Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [brokers count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
     
+    TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
+    [cell configureCellWithText:displayText];
+    
+    return cell;
+}
+
+
+
+#pragma mark - Custom UI
+
+-(void) showLoadingAndWait {
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
-        
-        while([self.tradeSession.brokerList count] < 1 && cycles < 10) {
+
+        while([globalTicket.brokerList count] < 1 && cycles < 10) {
             sleep(1);
             cycles++;
         }
-        
-        if([self.tradeSession.brokerList count] < 1) {
+
+        if([globalTicket.brokerList count] < 1) {
             if(![UIAlertController class]) {
                 [self showOldErrorAlert];
                 return;
             }
-            
+
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
+            alert.modalPresentationStyle = UIModalPresentationPopover;
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+                                                                       [globalTicket returnToParentApp];
                                                                    }];
             [alert addAction:defaultAction];
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [self presentViewController:alert animated:YES completion:nil];
+
+                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                alertPresentationController.sourceView = self.view;
+                alertPresentationController.permittedArrowDirections = 0;
+                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
             });
-            
+
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                brokers = self.tradeSession.brokerList;
+                brokers = globalTicket.brokerList;
                 [self.tableView reloadData];
-                
+
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }
     });
 }
+
+
+
+#pragma mark - Navigation
+
+- (IBAction)closePressed:(id)sender {
+    if (self.isModal) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+
+    if(globalTicket.brokerSignUpCallback) {
+        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
+        res.success = false;
+        res.errorTitle = @"Cancelled";
+
+        globalTicket.brokerSignUpCallback(res);
+    }
+
+    [globalTicket returnToParentApp];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:kBrokerToLoginSegueIdentifier]) {
+        NSString * selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
+
+        TTSDKLoginViewController * dest = (TTSDKLoginViewController *)[segue destinationViewController];
+        [dest setIsModal: self.isModal];
+        [dest setAddBroker: selectedBroker];
+    }
+}
+
+//placeholder action used in storyboard segue to unwind
+- (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
+    
+}
+
+
 
 #pragma mark - iOS7 fallback
 
@@ -89,77 +192,10 @@ static NSString * CellIdentifier = @"BrokerCell";
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [brokers count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
-    NSString * valueText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:1];
-    
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.textLabel.text = displayText;
-    
-    //Maybe someday we can add these back
-    //UIImage * logo = [UIImage imageNamed: [NSString stringWithFormat: @"TradeItIosTicketSDK.bundle/%@.png", valueText]];
-    //UIImage * myIcon = [TradeItTicket imageWithImage:logo scaledToWidth: 50.0f withInset: 15.0f];
-    //cell.imageView.image = myIcon;
-    
-    if([linkedBrokers containsObject:valueText]) {
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    }
-    
-    return cell;
+    [globalTicket returnToParentApp];
 }
 
 
-
-#pragma mark - events
-
-- (void)cancelButtonTapped:(id)sender {
-    if([self editMode]) {
-        [self performSegueWithIdentifier:@"brokerSelectToEdit" sender:self];
-    } else {
-        if(self.tradeSession.brokerSignUpCallback) {
-            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
-            res.success = false;
-            res.errorTitle = @"Cancelled";
-            
-            self.tradeSession.brokerSignUpCallback(res);
-        }
-        
-        [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
-    }
-}
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"brokerDetailSegue"]) {
-        [[segue destinationViewController] setAddBroker: [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1]];
-        [[segue destinationViewController] setTradeSession: self.tradeSession];
-    }
-}
-
-//placeholder action used in storyboard segue to unwind
-- (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
-    
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
 

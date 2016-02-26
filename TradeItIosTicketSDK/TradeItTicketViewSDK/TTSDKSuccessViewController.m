@@ -7,78 +7,76 @@
 //
 
 #import "TTSDKSuccessViewController.h"
+#import "TradeItPlaceTradeResult.h"
+#import "TTSDKTradeViewController.h"
+#import "TTSDKTradeItTicket.h"
+#import "TTSDKUtils.h"
 
 @interface TTSDKSuccessViewController() {
+    TTSDKUtils * utils;
+    TTSDKTradeItTicket * globalTicket;
 
+    __weak IBOutlet UIButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
-    __weak IBOutlet UILabel *tradeItLabel;
-    
 }
 
 @end
 
 @implementation TTSDKSuccessViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [successMessage setText:[NSString stringWithFormat:@"Congratulations.\r%@", [[self result] confirmationMessage]]];
-    
-    NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[TTSDKTradeItTicket logoStringLite]];
-    [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
-    [poweredBy appendAttributedString:logoString];
-    [tradeItLabel setAttributedText:poweredBy];
+
+
+#pragma mark - Orientation
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [UIView setAnimationsEnabled:NO];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [UIView setAnimationsEnabled:YES];
 }
+
+
+
+#pragma mark - Initialization
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    globalTicket = [TTSDKTradeItTicket globalTicket];
+    utils = [TTSDKUtils sharedUtils];
+
+    TradeItPlaceTradeResult * result = globalTicket.resultContainer.tradeResponse;
+
+    if (result.confirmationMessage) {
+        [successMessage setText: result.confirmationMessage];
+
+        NSString * symbol = globalTicket.previewRequest.orderSymbol;
+    }
+
+    [utils styleMainActiveButton:tradeButton];
+
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
+    [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationItem setHidesBackButton:YES];
+}
+
 
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)closeButtonPressed:(id)sender {
+    [globalTicket returnToParentApp];
 }
 
-- (IBAction)closeButtonPressed:(id)sender {
-    [TTSDKTradeItTicket returnToParentApp:self.tradeSession];
+- (IBAction)tradeButtonPressed:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
