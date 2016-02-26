@@ -103,6 +103,8 @@
 
     globalTicket.errorMessage = nil;
     globalTicket.errorTitle = nil;
+
+    [emailInput becomeFirstResponder];
 }
 
 - (void)dismissKeyboard {

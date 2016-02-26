@@ -96,7 +96,7 @@ static CGFloat const kBounceValue = 20.0f;
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
     currentPosition = position;
 
-    NSString * cost = [position.costbasis stringValue] ?: @"N/A";
+    NSString * cost = position.costbasis ? [utils formatPriceString: position.costbasis] : @"N/A";
 
     NSString * quantityPostfix = @"";
     if (position.quantity < 0) {
@@ -162,7 +162,7 @@ static CGFloat const kBounceValue = 20.0f;
     // Total Value
     NSString * totalValue;
     if (position.totalValue) {
-        totalValue = [NSString stringWithFormat:@"$%.02f", [position.totalValue floatValue]];
+        totalValue = [utils formatPriceString:position.totalValue];
     } else {
         totalValue = @"N/A";
     }

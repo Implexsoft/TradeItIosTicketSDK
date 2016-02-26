@@ -125,17 +125,17 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 #pragma mark - Navigation
 
 -(IBAction) brokerSelectPressed:(id)sender {
-    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
+    
+    NSString * selectedBroker = [globalTicket getBrokerByValueString: @"Fidelity"][1];
+    [loginViewController setAddBroker: selectedBroker];
+    
+    [self.navigationController pushViewController: loginViewController animated:YES];
 }
 
 -(IBAction) fidelityButtonPressed:(id)sender {
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
-
-    NSString * selectedBroker = [globalTicket getBrokerByValueString: @"Fidelity"][1];
-    [loginViewController setAddBroker: selectedBroker];
-
-    [self.navigationController pushViewController: loginViewController animated:YES];
+    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
 }
 
 -(IBAction) closePressed:(id)sender {

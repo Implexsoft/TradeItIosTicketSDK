@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TTSDKHoldingsHeaderView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *holdingsHeaderTitle;
 
 @end

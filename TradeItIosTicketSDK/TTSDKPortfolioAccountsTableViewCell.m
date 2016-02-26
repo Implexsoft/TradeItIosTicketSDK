@@ -53,7 +53,7 @@
     } else {
         self.authenticateView.hidden = YES;
         if (account.balance.totalValue) {
-            totalValue = [NSString stringWithFormat:@"%.02f", [account.balance.totalValue floatValue]];
+            totalValue = [utils formatPriceString:account.balance.totalValue];
         } else {
             totalValue = @"N/A";
         }

@@ -62,6 +62,9 @@
                 <constraint firstItem="cC8-A0-Gb1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="uvz-As-sVA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="holdingsHeaderTitle" destination="cC8-A0-Gb1" id="X27-Ga-nPE"/>
+            </connections>
             <point key="canvasLocation" x="161" y="249"/>
         </view>
     </objects>

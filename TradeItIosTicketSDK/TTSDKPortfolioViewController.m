@@ -29,6 +29,8 @@
 @property UIView * loadingView;
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
+@property NSString * holdingsHeaderTitle;
+@property UIView * accountsFooterView;
 
 @end
 
@@ -67,6 +69,8 @@ static float kAccountCellHeight = 44.0f;
 
     accountsHolder = [[NSArray alloc] init];
     positionsHolder = [[NSArray alloc] init];
+
+    self.holdingsHeaderTitle = @"My Holdings";
 
     if (!self.loadingView) {
         self.loadingView = [utils retrieveLoadingOverlayForView:self.view];
@@ -156,12 +160,46 @@ static float kAccountCellHeight = 44.0f;
             self.holdingsHeaderNib = (TTSDKHoldingsHeaderView *)[headerArray firstObject];
         }
 
+        self.holdingsHeaderNib.holdingsHeaderTitle.text = self.holdingsHeaderTitle;
+
         return self.holdingsHeaderNib;
     }
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+
+    if (section == 0) {
+        if (!self.accountsFooterView) {
+            UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, tableView.frame.size.width, 70.0f)];
+            footerView.backgroundColor = [UIColor whiteColor];
+            
+            NSString * buttonTitle = @"Add Account";
+
+            CGSize buttonSize = [buttonTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
+
+            UIButton * linkButton = [[UIButton alloc] initWithFrame:CGRectMake(15.0f, buttonSize.height / 2.0f, tableView.frame.size.width, buttonSize.height)];
+            [linkButton setTitle:buttonTitle forState:UIControlStateNormal];
+            linkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
+            [linkButton setTitleColor:[UIColor colorWithRed:0.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+            linkButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+
+            [footerView addSubview:linkButton];
+
+            UITapGestureRecognizer * linkTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAccountPressed:)];
+            [linkButton addGestureRecognizer: linkTap];
+
+            self.accountsFooterView = footerView;
+        }
+
+        return self.accountsFooterView;
+    } else {
+        return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    }
+}
+
+-(IBAction)addAccountPressed:(id)sender {
+    [self performSegueWithIdentifier:@"PortfolioToLogin" sender:self];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -227,6 +265,9 @@ static float kAccountCellHeight = 44.0f;
         if (indexPath.row == self.selectedAccountIndex) {
             self.selectedAccountIndex = -1;
             positionsHolder = [portfolioService positionsForAccounts];
+
+            self.holdingsHeaderTitle = @"My Holdings";
+
             [self updateTableContentSize];
             [self.accountsTable layoutIfNeeded];
             [self.accountsTable reloadData];
@@ -234,6 +275,9 @@ static float kAccountCellHeight = 44.0f;
             self.selectedAccountIndex = indexPath.row;
             TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
             positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
+
+            self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
+
             [self updateTableContentSize];
             [self.accountsTable layoutIfNeeded];
             [self.accountsTable reloadData];

@@ -18,7 +18,6 @@
     TTSDKUtils * utils;
     TTSDKTradeItTicket * globalTicket;
     TradeItMarketDataService * marketService;
-    UITapGestureRecognizer * dismissalTap;
 }
 
 @property NSArray * symbolSearchResults;
@@ -58,11 +57,6 @@
     searchController.searchResultsDelegate = self;
 }
 
-- (void)dismissKeyboard {
-    [self.searchBar resignFirstResponder];
-    [self.searchBar resignFirstResponder];
-}
-
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.symbolSearchResults.count;
 }
@@ -84,6 +78,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar resignFirstResponder];
+
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
     NSString * currentSymbol = globalTicket.previewRequest.orderSymbol;
@@ -101,18 +97,10 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
-
-    dismissalTap = [[UITapGestureRecognizer alloc]
-                    initWithTarget:self
-                    action:@selector(dismissKeyboard)];
-
-    [self.view addGestureRecognizer:dismissalTap];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
-
-    [self.view removeGestureRecognizer: dismissalTap];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
