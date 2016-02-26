@@ -93,6 +93,7 @@
                     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
+                    alert.modalPresentationStyle = UIModalPresentationPopover;
                     
                     for(NSString * title in result.securityQuestionOptions){
                         UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -112,6 +113,10 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [delegateViewController presentViewController:alert animated:YES completion:nil];
+                        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                        alertPresentationController.sourceView = viewController.view;
+                        alertPresentationController.permittedArrowDirections = 0;
+                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0, viewController.view.bounds.size.height / 2.0, 1.0, 1.0);
                     });
                 }
             } else if (result.securityQuestion != nil) {
@@ -121,6 +126,7 @@
                     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
+                    alert.modalPresentationStyle = UIModalPresentationPopover;
                     
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         [delegateViewController dismissViewControllerAnimated:YES completion:nil];
@@ -139,6 +145,10 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [delegateViewController presentViewController:alert animated:YES completion:nil];
+                        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                        alertPresentationController.sourceView = viewController.view;
+                        alertPresentationController.permittedArrowDirections = 0;
+                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0, viewController.view.bounds.size.height / 2.0, 1.0, 1.0);
                     });
                 }
             }

@@ -136,10 +136,18 @@
         UIAlertController * alert = [UIAlertController alertControllerWithTitle: errorTitle
                                                                         message: errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
+
+        alert.modalPresentationStyle = UIModalPresentationPopover;
+
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {}];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
+
+        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+        alertPresentationController.sourceView = self.view;
+        alertPresentationController.permittedArrowDirections = 0;
+        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
     }
 }
 

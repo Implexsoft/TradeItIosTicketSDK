@@ -114,6 +114,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
+            alert.modalPresentationStyle = UIModalPresentationPopover;
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
                                                                        [globalTicket returnToParentApp];
@@ -123,6 +124,11 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [self presentViewController:alert animated:YES completion:nil];
+
+                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                alertPresentationController.sourceView = self.view;
+                alertPresentationController.permittedArrowDirections = 0;
+                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
             });
 
         } else {

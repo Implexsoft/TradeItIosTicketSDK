@@ -433,10 +433,18 @@
             UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
                                                                             message:@"Market orders are Good For The Day only."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+            alert.modalPresentationStyle = UIModalPresentationPopover;
+
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
+
+            UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+            alertPresentationController.sourceView = self.view;
+            alertPresentationController.permittedArrowDirections = 0;
+            alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
         }
     }
 
@@ -601,6 +609,7 @@
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Action"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
+    alert.modalPresentationStyle = UIModalPresentationPopover;
 
     UIAlertAction * buyAction = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) { [self changeOrderAction:@"buy"]; }];
@@ -620,6 +629,11 @@
     [alert addAction:cancelAction];
 
     [self presentViewController:alert animated:YES completion:nil];
+
+    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+    alertPresentationController.sourceView = self.view;
+    alertPresentationController.permittedArrowDirections = 0;
+    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
 }
 
 - (IBAction)orderTypePressed:(id)sender {
@@ -642,6 +656,9 @@
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Expiration"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
+
+    alert.modalPresentationStyle = UIModalPresentationPopover;
+
     UIAlertAction * dayAction = [UIAlertAction actionWithTitle:@"Good For The Day" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"day"]; }];
     UIAlertAction * gtcAction = [UIAlertAction actionWithTitle:@"Good Until Canceled" style:UIAlertActionStyleDefault
@@ -654,6 +671,11 @@
     [alert addAction:cancelAction];
 
     [self presentViewController:alert animated:YES completion:nil];
+
+    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+    alertPresentationController.sourceView = self.view;
+    alertPresentationController.permittedArrowDirections = 0;
+    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
 }
 
 - (IBAction)previewOrderPressed:(id)sender {

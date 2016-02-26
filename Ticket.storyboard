@@ -1789,7 +1789,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Account Select View Controller-->
         <scene sceneID="nci-rh-nvD">
             <objects>
-                <viewController storyboardIdentifier="portfolioController" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="accountSelect" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZBU-0y-JPc"/>
                         <viewControllerLayoutGuide type="bottom" id="g7g-Tb-mQn"/>
@@ -1879,8 +1879,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b0O-lu-Vmh"/>
         <segue reference="ujk-YM-BZG"/>
-        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="qBc-9P-D9s"/>
+        <segue reference="X2r-Bb-VCg"/>
     </inferredMetricsTieBreakers>
 </document>
