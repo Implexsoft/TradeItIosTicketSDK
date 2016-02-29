@@ -169,7 +169,12 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
             }
-            
+
+            // Add Dummy broker for production testing
+            if (self.debugMode && self.connector.environment == TradeItEmsProductionEnv) {
+                [brokers addObject: @[@"Dummy Broker", @"Dummy"]];
+            }
+
             brokersResult = [brokers copy];
             completionBlock(brokersResult);
         }
