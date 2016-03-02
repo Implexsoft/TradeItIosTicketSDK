@@ -65,8 +65,12 @@
     }
 }
 
--(void) setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+-(void) configureSelectedState:(BOOL)selected {
+    if (selected) {
+        self.selectedView.hidden = NO;
+    } else {
+        self.selectedView.hidden = YES;
+    }
 }
 
 -(IBAction) authSelected:(id)sender {

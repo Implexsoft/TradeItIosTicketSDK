@@ -77,7 +77,7 @@
 
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
         self.balanceComplete = YES;
-        
+
         if (overview != nil) {
             self.balance = overview;
         } else {
@@ -91,7 +91,7 @@
 
     [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
         self.positionsComplete = YES;
-        
+
         if (positions != nil) {
             self.positions = positions;
         } else {

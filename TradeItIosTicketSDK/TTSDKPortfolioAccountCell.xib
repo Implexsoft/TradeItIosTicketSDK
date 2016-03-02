@@ -57,6 +57,13 @@
                             <constraint firstAttribute="height" constant="1" id="3Vy-gT-h0K"/>
                         </constraints>
                     </view>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-ja-Xkg" userLabel="Selected">
+                        <rect key="frame" x="4" y="0.0" width="2" height="43"/>
+                        <color key="backgroundColor" red="1" green="0.1966032003" blue="0.81267263410000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="XNQ-ET-t8i"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7tc-4J-X92" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="6" id="1Xn-Hw-TUM"/>
@@ -66,23 +73,27 @@
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="width" secondItem="IyZ-jj-Bc5" secondAttribute="width" multiplier="0.65" id="Dgc-q7-gY6"/>
                     <constraint firstItem="ThJ-Fm-dLS" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="Jas-Zm-pc7"/>
                     <constraint firstItem="C07-Go-p1A" firstAttribute="leading" secondItem="7tc-4J-X92" secondAttribute="trailing" id="KjX-zl-GfA"/>
+                    <constraint firstItem="PrF-ja-Xkg" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-4" id="MNF-ow-MVU"/>
                     <constraint firstItem="7tc-4J-X92" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="NP4-gy-gIP"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="Tsl-mk-hWT"/>
+                    <constraint firstItem="PrF-ja-Xkg" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="edF-Xm-qYH"/>
                     <constraint firstAttribute="trailingMargin" secondItem="C07-Go-p1A" secondAttribute="trailing" constant="-8" id="jfl-Ms-pEX"/>
                     <constraint firstAttribute="bottomMargin" secondItem="C07-Go-p1A" secondAttribute="bottom" constant="-8" id="p13-a6-F8y"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="ruw-5a-QVP"/>
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="sUN-3h-HBW"/>
                     <constraint firstItem="C07-Go-p1A" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="tzA-Lu-gly"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PrF-ja-Xkg" secondAttribute="bottom" constant="-8" id="zMa-YC-jIn"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accountLabel" destination="7tc-4J-X92" id="Xu7-5H-WaM"/>
                 <outlet property="authenticateView" destination="C07-Go-p1A" id="MC1-h2-oDb"/>
                 <outlet property="buyingPowerLabel" destination="ThJ-Fm-dLS" id="Vjg-ZS-oxC"/>
+                <outlet property="selectedView" destination="PrF-ja-Xkg" id="tac-Gx-gPH"/>
                 <outlet property="separatorView" destination="npO-XE-Gw5" id="rTM-h4-ag1"/>
                 <outlet property="valueLabel" destination="dPb-QM-MmZ" id="XGI-QO-UEy"/>
             </connections>
-            <point key="canvasLocation" x="678" y="424"/>
+            <point key="canvasLocation" x="550" y="585"/>
         </tableViewCell>
     </objects>
 </document>

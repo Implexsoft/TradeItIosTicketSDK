@@ -98,14 +98,14 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void)loadPortfolioData {
-    [portfolioService getSummaryForAccounts:^(void){
-        self.loadingView.hidden = YES;
-        accountsHolder = portfolioService.accounts;
-        positionsHolder = [portfolioService positionsForAccounts];
+    [portfolioService retrieveInitialSelectedAccount];
+    self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle];
 
-        [portfolioService getQuotesForAccounts:^(void) {
-            [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }];
+    [portfolioService getSummaryForAccounts:^(void) {
+        self.loadingView.hidden = YES;
+        
+        accountsHolder = portfolioService.accounts;
+        positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
 
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -232,7 +232,11 @@ static float kAccountCellHeight = 44.0f;
             [cell showSeparator];
         }
 
-        [cell configureCellWithAccount: [accountsHolder objectAtIndex: indexPath.row]];
+        TTSDKPortfolioAccount * acct = [accountsHolder objectAtIndex: indexPath.row];
+        [cell configureCellWithAccount: acct];
+
+        BOOL selected = [portfolioService.selectedAccount.accountNumber isEqualToString: acct.accountNumber];
+        [cell configureSelectedState: selected];
 
         return cell;
     } else {
@@ -260,7 +264,6 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if (indexPath.section == 0) {
         if (indexPath.row == self.selectedAccountIndex) {
             self.selectedAccountIndex = -1;
@@ -274,12 +277,12 @@ static float kAccountCellHeight = 44.0f;
         } else {
             self.selectedAccountIndex = indexPath.row;
             TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
+
+            [portfolioService selectAccount: selectedAccount.accountNumber];
             positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
 
             self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
-
             [self updateTableContentSize];
-            [self.accountsTable layoutIfNeeded];
             [self.accountsTable reloadData];
         }
     } else {
