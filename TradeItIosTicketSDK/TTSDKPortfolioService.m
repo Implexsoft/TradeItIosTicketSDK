@@ -118,7 +118,7 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
             }
         }
     }
-    
+
     // Note: I can't find a better/faster way to do this
     TradeItQuotesRequest * quoteRequest = [[TradeItQuotesRequest alloc] initWithSymbols:symbols];
     [marketService getQuoteData:quoteRequest withCompletionBlock:^(TradeItResult * res) {
@@ -141,7 +141,7 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
 -(void) getQuoteForPosition:(TTSDKPosition *)position withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
     TradeItQuotesRequest * quoteRequest = [[TradeItQuotesRequest alloc] initWithSymbol:position.symbol];
-    
+
     [marketService getQuoteData:quoteRequest withCompletionBlock:^(TradeItResult * res) {
         if (completionBlock) {
             completionBlock(res);
