@@ -263,6 +263,12 @@ static float kAccountCellHeight = 44.0f;
 
         [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row]];
 
+        if (self.selectedHoldingIndex == indexPath.row) {
+            cell.expandedView.hidden = NO;
+        } else {
+            cell.expandedView.hidden = YES;
+        }
+
         return cell;
     }
 }
@@ -312,11 +318,47 @@ static float kAccountCellHeight = 44.0f;
             [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
     }];
-
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    if (UITableViewRowAction.class) {
+        if (indexPath.section == 0) {
+            return NO;
+        } else if (indexPath.row == self.selectedHoldingIndex) {
+            return NO;
+        }
+
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewRowAction.class && indexPath.section == 1) {
+
+        UITableViewRowAction *buyAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"BUY" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [tableView setEditing:NO];
+            [self performSelector:@selector(didSelectBuy:) withObject:[positionsHolder objectAtIndex:indexPath.row] afterDelay:0];
+        }];
+        buyAction.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:100.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+
+        UITableViewRowAction *sellAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"SELL" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [tableView setEditing:NO];
+            [self performSelector:@selector(didSelectSell:) withObject:[positionsHolder objectAtIndex:indexPath.row] afterDelay:0];
+        }];
+        sellAction.backgroundColor = [UIColor colorWithRed:88.0f/255.0f green:163.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+
+
+        return @[sellAction, buyAction];
+    } else {
+        [tableView setEditing:NO];
+        return nil;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // nothing to do, but must be implemented
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -346,6 +388,7 @@ static float kAccountCellHeight = 44.0f;
 -(void)didSelectSell:(TTSDKPosition *)position {
     globalTicket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
+    
 
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];

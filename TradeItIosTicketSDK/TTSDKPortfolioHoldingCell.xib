@@ -93,7 +93,7 @@
                             <constraint firstAttribute="height" constant="1" id="Gpx-EW-qBF"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59L-m4-l5m" userLabel="ExpandedView">
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59L-m4-l5m" userLabel="ExpandedView">
                         <rect key="frame" x="0.0" y="60" width="320" height="72"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCh-fX-WQw">
@@ -193,6 +193,7 @@
                 <outlet property="buyButton" destination="0eh-7o-qMS" id="DJ4-5n-6Es"/>
                 <outlet property="changeLabel" destination="fXD-EB-vm8" id="gNI-Q6-YL4"/>
                 <outlet property="costLabel" destination="h0n-Jb-gtE" id="khT-Tj-SIZ"/>
+                <outlet property="expandedView" destination="59L-m4-l5m" id="Aky-ip-gI4"/>
                 <outlet property="primaryLeftConstraint" destination="peT-7J-2IZ" id="wxT-pI-vPD"/>
                 <outlet property="primaryRightConstraint" destination="1Vw-4V-JGD" id="1yb-t5-388"/>
                 <outlet property="primaryView" destination="0Nn-QU-80y" id="8q8-6z-k7M"/>

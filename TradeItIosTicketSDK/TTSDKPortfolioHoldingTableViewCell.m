@@ -56,9 +56,11 @@ static CGFloat const kBounceValue = 20.0f;
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
-    self.panRecognizer.delegate = self;
-    [self.primaryView addGestureRecognizer:self.panRecognizer];
+    if (!UITableViewRowAction.class) {
+        self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
+        self.panRecognizer.delegate = self;
+        [self.primaryView addGestureRecognizer:self.panRecognizer];
+    }
 
     UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
     [self.buyButton addGestureRecognizer: buyTap];
@@ -78,6 +80,8 @@ static CGFloat const kBounceValue = 20.0f;
         [self.delegate didSelectBuy: currentPosition];
     }
 }
+
+
 
 #pragma mark - Configuration
 

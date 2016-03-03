@@ -21,6 +21,7 @@
 @end
 
 @interface TTSDKPortfolioHoldingTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIView *expandedView;
 
 @property (nonatomic, weak) id<TTSDKPositionDelegate> delegate;
 
