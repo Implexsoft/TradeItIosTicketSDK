@@ -54,7 +54,7 @@
 
     TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey: @"overview"];
 
-    self.buyingPowerLabel.text = [overview.buyingPower stringValue] ?: @"N/A";
+    self.buyingPowerLabel.text = [utils formatPriceString:overview.buyingPower] ?: @"N/A";
     self.sharesLabel.text = @"N/A";
 
     self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];

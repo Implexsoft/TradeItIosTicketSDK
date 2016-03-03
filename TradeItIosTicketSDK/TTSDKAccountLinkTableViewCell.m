@@ -44,7 +44,7 @@
     self.accountName = account.accountNumber;
     self.accountNameLabel.text = self.accountName;
 
-    self.buyingPowerLabel.text = account.balance.buyingPower ? [account.balance.buyingPower stringValue] : @"N/A";
+    self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
 
     self.toggle.on = account.active;
 
