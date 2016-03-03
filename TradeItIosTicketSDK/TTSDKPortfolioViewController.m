@@ -14,6 +14,7 @@
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
 #import "TTSDKLoginViewController.h"
+#import "TradeItQuotesResult.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -99,11 +100,14 @@ static float kAccountCellHeight = 44.0f;
 
 -(void)loadPortfolioData {
     [portfolioService retrieveInitialSelectedAccount];
+
+    self.selectedAccountIndex = [portfolioService.accounts indexOfObject:portfolioService.selectedAccount];
+
     self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle];
 
     [portfolioService getSummaryForAccounts:^(void) {
         self.loadingView.hidden = YES;
-        
+
         accountsHolder = portfolioService.accounts;
         positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
 
@@ -265,16 +269,7 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == self.selectedAccountIndex) {
-            self.selectedAccountIndex = -1;
-            positionsHolder = [portfolioService positionsForAccounts];
-
-            self.holdingsHeaderTitle = @"My Holdings";
-
-            [self updateTableContentSize];
-            [self.accountsTable layoutIfNeeded];
-            [self.accountsTable reloadData];
-        } else {
+        if (indexPath.row != self.selectedAccountIndex) {
             self.selectedAccountIndex = indexPath.row;
             TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
 
@@ -295,15 +290,29 @@ static float kAccountCellHeight = 44.0f;
             NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
             self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         } else {
             // User taps new row with none expanded
             self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         }
 
         [self updateTableContentSize];
         [self.accountsTable layoutIfNeeded];
     }
+}
+
+-(void) retrieveQuoteDataForPosition:(TTSDKPosition *)position {
+    [portfolioService getQuoteForPosition:position withCompletionBlock:^(TradeItResult * res) {
+        if ([res isKindOfClass:TradeItQuotesResult.class]) {
+            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+
+            position.quote = [[TradeItQuote alloc] initWithQuoteData:[result.quotes objectAtIndex:0]];
+            [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+    }];
+
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

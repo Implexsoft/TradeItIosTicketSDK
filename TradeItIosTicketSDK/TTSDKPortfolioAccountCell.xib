@@ -59,7 +59,8 @@
                     </view>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-ja-Xkg" userLabel="Selected">
                         <rect key="frame" x="4" y="0.0" width="2" height="43"/>
-                        <color key="backgroundColor" red="1" green="0.1966032003" blue="0.81267263410000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="XNQ-ET-t8i"/>
                         </constraints>

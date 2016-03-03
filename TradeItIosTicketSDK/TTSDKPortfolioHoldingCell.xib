@@ -121,7 +121,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL VALUE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMR-pq-fRB">
-                                <rect key="frame" x="160" y="5" width="160" height="12"/>
+                                <rect key="frame" x="144" y="5" width="176" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -133,7 +133,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL RETURN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVC-Zy-1oo">
-                                <rect key="frame" x="160" y="25" width="160" height="12"/>
+                                <rect key="frame" x="144" y="25" width="176" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -160,13 +160,13 @@
                             <constraint firstItem="QPy-fi-Q14" firstAttribute="leading" secondItem="59L-m4-l5m" secondAttribute="leading" id="WYh-FM-QhT"/>
                             <constraint firstItem="QPy-fi-Q14" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.3" id="Wdg-Fl-7eQ"/>
                             <constraint firstAttribute="trailing" secondItem="vVC-Zy-1oo" secondAttribute="trailing" id="YwO-b1-Rmh"/>
-                            <constraint firstItem="WMR-pq-fRB" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.5" id="bTj-nG-MZg"/>
+                            <constraint firstItem="WMR-pq-fRB" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.55" id="bTj-nG-MZg"/>
                             <constraint firstAttribute="trailing" secondItem="WMR-pq-fRB" secondAttribute="trailing" id="gkv-qG-2Bq"/>
                             <constraint firstItem="vVC-Zy-1oo" firstAttribute="top" secondItem="Op7-hK-I8r" secondAttribute="bottom" constant="8" id="m9X-X5-vao"/>
                             <constraint firstItem="RCh-fX-WQw" firstAttribute="leading" secondItem="59L-m4-l5m" secondAttribute="leading" constant="14" id="p1G-dn-mev"/>
                             <constraint firstItem="AdA-9H-3Sc" firstAttribute="top" secondItem="RCh-fX-WQw" secondAttribute="bottom" constant="8" id="q5X-vN-o5u"/>
                             <constraint firstAttribute="trailing" secondItem="Op7-hK-I8r" secondAttribute="trailing" constant="14" id="qWA-un-ev6"/>
-                            <constraint firstItem="vVC-Zy-1oo" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.5" id="xE6-B1-Q0b"/>
+                            <constraint firstItem="vVC-Zy-1oo" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.55" id="xE6-B1-Q0b"/>
                             <constraint firstItem="7DU-6h-sO5" firstAttribute="width" secondItem="59L-m4-l5m" secondAttribute="width" multiplier="0.3" id="xHY-Hy-LoA"/>
                         </constraints>
                     </view>
