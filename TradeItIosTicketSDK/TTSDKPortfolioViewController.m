@@ -313,7 +313,6 @@ static float kAccountCellHeight = 44.0f;
     [portfolioService getQuoteForPosition:position withCompletionBlock:^(TradeItResult * res) {
         if ([res isKindOfClass:TradeItQuotesResult.class]) {
             TradeItQuotesResult * result = (TradeItQuotesResult *)res;
-
             position.quote = [[TradeItQuote alloc] initWithQuoteData:[result.quotes objectAtIndex:0]];
             [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }

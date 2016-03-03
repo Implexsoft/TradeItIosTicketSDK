@@ -135,7 +135,6 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
                 }
             }
         }
-
     }];
 }
 

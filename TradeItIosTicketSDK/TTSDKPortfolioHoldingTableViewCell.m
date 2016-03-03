@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *askLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 
 @end
 
@@ -98,8 +99,14 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
+    // Cost
     NSString * cost = position.costbasis ? [utils formatPriceString: position.costbasis] : @"N/A";
+    self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
+    NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice] : @"N/A";
+    self.lastLabel.text = lastPrice;
+
+    // Symbol and Quantity
     NSString * quantityPostfix = @"";
     if (position.quantity < 0) {
         quantityPostfix = @" x%@", [position.quantity stringValue];
@@ -111,9 +118,7 @@ static CGFloat const kBounceValue = 20.0f;
     } else {
         quantityStr = [NSString stringWithFormat:@"%i", abs([position.quantity intValue])];
     }
-
     self.symbolLabel.text = [NSString stringWithFormat:@"%@ (%@%@)", position.symbol, quantityStr, quantityPostfix];
-    self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
     // Bid and Ask
     NSString * bid;
@@ -131,6 +136,7 @@ static CGFloat const kBounceValue = 20.0f;
     self.bidLabel.text = bid;
     self.askLabel.text = ask;
 
+    // Change
     NSString * changeStr;
     UIColor * changeColor;
     NSString * changePrefix;
@@ -153,7 +159,7 @@ static CGFloat const kBounceValue = 20.0f;
             changePctStr = @"N/A";
         }
 
-        changeStr = [NSString stringWithFormat:@"%@%.02f(%@)", changePrefix, [position.quote.pctChange floatValue], changePctStr];
+        changeStr = [NSString stringWithFormat:@"%@%.02f(%@)", changePrefix, [position.quote.change floatValue], changePctStr];
     } else {
         changeColor = [UIColor lightGrayColor];
         changeStr = @"N/A";
