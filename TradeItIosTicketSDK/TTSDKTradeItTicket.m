@@ -104,9 +104,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         if (hasTouchId) {
             [self promptTouchId:^(BOOL success) {
                 if (success) {
-                    [self launchToTicket];
+                    [self performSelectorOnMainThread:@selector(launchToTicket) withObject:nil waitUntilDone:NO];
                 } else {
-                    [self launchToAuth];
+                    [self performSelectorOnMainThread:@selector(launchToAuth) withObject:nil waitUntilDone:NO];
                 }
             }];
         } else {

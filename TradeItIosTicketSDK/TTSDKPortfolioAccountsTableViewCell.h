@@ -23,8 +23,10 @@
 @property (nonatomic, weak) id<TTSDKAccountDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIView *authenticateView;
+@property (weak, nonatomic) IBOutlet UIView *selectedView;
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
+-(void) configureSelectedState:(BOOL)selected;
 -(void) hideSeparator;
 -(void) showSeparator;
 

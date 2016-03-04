@@ -19,7 +19,6 @@
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
-    UIView * loadingView;
     NSArray * accountResults;
 }
 
@@ -45,12 +44,6 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    if (!loadingView) {
-        loadingView = [utils retrieveLoadingOverlayForView: self.view];
-        [self.view addSubview:loadingView];
-        loadingView.hidden = NO;
-    }
-
     accountResults = [[NSArray alloc] init];
 }
 
@@ -59,7 +52,6 @@
 
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
     [portfolioService getSummaryForAccounts:^(void) {
-        loadingView.hidden = YES;
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 

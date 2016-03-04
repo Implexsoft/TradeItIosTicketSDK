@@ -15,15 +15,18 @@
 
 
 @property NSArray * accounts;
+@property TTSDKPortfolioAccount * selectedAccount;
 
 -(id) initWithAccounts:(NSArray *)accounts;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
+-(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock;
 -(void) getBalancesForAccounts:(void (^)(void)) completionBlock;
 -(void) getQuotesForAccounts:(void (^)(void)) completionBlock;
+-(void) getQuoteForPosition:(TTSDKPosition *)position withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 -(NSArray *) positionsForAccounts;
 -(NSArray *) filterPositionsByAccount:(TTSDKPortfolioAccount *)portfolioAccount;
--(NSNumber *) getTotalPositionsHeld;
-
+-(void) retrieveInitialSelectedAccount;
+-(void) selectAccount:(NSString *)accountNumber;
 
 
 @end

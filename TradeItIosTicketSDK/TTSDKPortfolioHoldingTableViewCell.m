@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *askLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 
 @end
 
@@ -56,9 +57,11 @@ static CGFloat const kBounceValue = 20.0f;
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
-    self.panRecognizer.delegate = self;
-    [self.primaryView addGestureRecognizer:self.panRecognizer];
+    if (!UITableViewRowAction.class) {
+        self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
+        self.panRecognizer.delegate = self;
+        [self.primaryView addGestureRecognizer:self.panRecognizer];
+    }
 
     UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
     [self.buyButton addGestureRecognizer: buyTap];
@@ -79,6 +82,8 @@ static CGFloat const kBounceValue = 20.0f;
     }
 }
 
+
+
 #pragma mark - Configuration
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -94,10 +99,14 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 -(void) configureCellWithPosition:(TTSDKPosition *)position {
-    currentPosition = position;
-
+    // Cost
     NSString * cost = position.costbasis ? [utils formatPriceString: position.costbasis] : @"N/A";
+    self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
+    NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice] : @"N/A";
+    self.lastLabel.text = lastPrice;
+
+    // Symbol and Quantity
     NSString * quantityPostfix = @"";
     if (position.quantity < 0) {
         quantityPostfix = @" x%@", [position.quantity stringValue];
@@ -109,9 +118,7 @@ static CGFloat const kBounceValue = 20.0f;
     } else {
         quantityStr = [NSString stringWithFormat:@"%i", abs([position.quantity intValue])];
     }
-
     self.symbolLabel.text = [NSString stringWithFormat:@"%@ (%@%@)", position.symbol, quantityStr, quantityPostfix];
-    self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
     // Bid and Ask
     NSString * bid;
@@ -130,55 +137,84 @@ static CGFloat const kBounceValue = 20.0f;
     self.askLabel.text = ask;
 
     // Change
-    NSString * dailyChange;
+    NSString * changeStr;
     UIColor * changeColor;
     NSString * changePrefix;
-    NSString * changeStr;
-    if (position.todayGainLossDollar) {
-        if ([position.todayGainLossDollar floatValue] > 0) {
-            changeColor = utils.gainColor;
+    if (position.quote.change != nil) {
+        if ([position.quote.change floatValue] > 0) {
             changePrefix = @"+";
-        } else if ([position.todayGainLossDollar floatValue] == 0) {
-            changeColor = [UIColor lightGrayColor];
-            changeStr = @"N/A";
-        } else {
+            changeColor = utils.gainColor;
+        } else if ([position.quote.change floatValue] < 0) {
+            changePrefix = @""; // number will already have the minus sign
             changeColor = utils.lossColor;
+        } else {
             changePrefix = @"";
+            changeColor = [UIColor lightGrayColor];
         }
 
-        if (!changeStr) {
-            changeStr = [NSString stringWithFormat:@"%@%.02f(%.02f%@)", changePrefix, [position.todayGainLossDollar floatValue], [position.todayGainLossPercentage floatValue], @"%"];
+        NSString * changePctStr;
+        if (position.quote.pctChange) {
+            changePctStr = [NSString stringWithFormat:@"%.02f%@", [position.quote.pctChange floatValue], @"%"];
+        } else {
+            changePctStr = @"N/A";
         }
 
-        dailyChange = changeStr;
-
+        changeStr = [NSString stringWithFormat:@"%@%.02f(%@)", changePrefix, [position.quote.change floatValue], changePctStr];
     } else {
         changeColor = [UIColor lightGrayColor];
-        dailyChange = @"N/A";
+        changeStr = @"N/A";
     }
-    self.changeLabel.text = dailyChange;
+    self.changeLabel.text = changeStr;
     self.changeLabel.textColor = changeColor;
 
     // Total Value
     NSString * totalValue;
-    if (position.totalValue) {
+    if (position.totalValue != nil) {
         totalValue = [utils formatPriceString:position.totalValue];
     } else {
-        totalValue = @"N/A";
+        if (position.quantity && position.quote.lastPrice) {
+            totalValue = [NSString stringWithFormat:@"%@", [utils formatPriceString: [NSNumber numberWithFloat:[position.quantity floatValue] * [position.quote.lastPrice floatValue]]]];
+        } else {
+            totalValue = @"N/A";
+        }
     }
     self.totalValueLabel.text = totalValue;
 
     // Total Return
-    NSString * totalReturn;
-    if (position.todayGainLossDollar) {
-        totalReturn = [NSString stringWithFormat:@"%@%.02f", changePrefix ?: @"", [position.todayGainLossDollar floatValue]];
+    UIColor * returnColor;
+    NSString * returnPrefix;
+    NSString * returnStr;
+    if (position.totalGainLossDollar != nil) {
+        if ([position.totalGainLossDollar floatValue] > 0) {
+            returnColor = utils.gainColor;
+            returnPrefix = @"+";
+        } else if ([position.totalGainLossDollar floatValue] == 0) {
+            returnColor = [UIColor lightGrayColor];
+            returnStr = @"N/A";
+        } else {
+            returnColor = utils.lossColor;
+            returnPrefix = @"";
+        }
+        
+        NSString * returnPctStr;
+        if (position.totalGainLossPercentage) {
+            returnPctStr = [NSString stringWithFormat:@"%.02f%@", [position.totalGainLossPercentage floatValue], @"%"];
+        } else {
+            returnPctStr = @"N/A";
+        }
+        
+        if (!returnStr) {
+            returnStr = [NSString stringWithFormat:@"%@%.02f(%@)", returnPrefix, [position.totalGainLossDollar floatValue], returnPctStr];
+        }
     } else {
-        totalReturn = @"N/A";
+        returnColor = [UIColor lightGrayColor];
+        returnStr = @"N/A";
     }
-    self.totalReturnValueLabel.text = totalReturn;
-    self.totalReturnValueLabel.textColor = changeColor;
+    self.totalReturnValueLabel.text = returnStr;
+    self.totalReturnValueLabel.textColor = returnColor;
 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    currentPosition = position; // set current position
 }
 
 -(CGFloat) secondaryViewWidth {

@@ -198,8 +198,8 @@
 -(void) uiTweaks { // things that can't be done in Storyboard
     [self applyBorder:(UIView *)sharesInput];
     [self applyBorder:(UIView *)orderActionButton];
-    
-    [utils styleBorderedFocusInput:sharesInput];
+
+    [utils styleBorderedUnfocusInput:sharesInput];
     
     previewOrderButton.clipsToBounds = YES;
 

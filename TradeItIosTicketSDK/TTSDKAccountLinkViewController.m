@@ -15,7 +15,6 @@
 @interface TTSDKAccountLinkViewController () {
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
-    UIView * loadingView;
     TTSDKPortfolioService * portfolioService;
 }
 
@@ -52,17 +51,10 @@
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
 
     [utils styleMainActiveButton:self.doneButton];
-
-    loadingView = [utils retrieveLoadingOverlayForView:self.view];
-    [self.view addSubview:loadingView];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    loadingView.hidden = NO;
-
     [portfolioService getBalancesForAccounts:^(void) {
-        loadingView.hidden = YES;
-
         [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }

@@ -27,7 +27,8 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
 @implementation TTSDKPortfolioService
 
-
+// naming it 'highlighted' to distinguish from last account selected for trading
+static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
 
 -(id) init {
     if (self = [super init]) {
@@ -50,6 +51,39 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
     }
 
     return self;
+}
+
+-(void) retrieveInitialSelectedAccount {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * lastSelected = [defaults objectForKey: kSelectedAccountKey];
+
+    if (!lastSelected) {
+        lastSelected = [(TTSDKPortfolioAccount *)[self.accounts objectAtIndex:0] accountNumber];
+    }
+
+    [self selectAccount: lastSelected];
+}
+
+-(void) selectAccount:(NSString *)accountNumber {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+
+    TTSDKPortfolioAccount * selectedAccount;
+
+    for (TTSDKPortfolioAccount * account in self.accounts) {
+        if ([account.accountNumber isEqualToString: accountNumber]) {
+            selectedAccount = account;
+            break;
+        }
+    }
+
+    if (!selectedAccount) {
+        return;
+    }
+
+    self.selectedAccount = selectedAccount;
+
+    [defaults setObject:selectedAccount.accountNumber forKey:kSelectedAccountKey];
+    [defaults synchronize];
 }
 
 -(NSArray *) positionsForAccounts {
@@ -101,7 +135,17 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
                 }
             }
         }
+    }];
+}
 
+-(void) getQuoteForPosition:(TTSDKPosition *)position withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+    TradeItMarketDataService * marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
+    TradeItQuotesRequest * quoteRequest = [[TradeItQuotesRequest alloc] initWithSymbol:position.symbol];
+
+    [marketService getQuoteData:quoteRequest withCompletionBlock:^(TradeItResult * res) {
+        if (completionBlock) {
+            completionBlock(res);
+        }
     }];
 }
 
@@ -118,6 +162,18 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
         [portfolioAccount retrieveAccountSummary];
     }
 }
+
+-(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock {
+    if (!self.selectedAccount) {
+        completionBlock();
+        return;
+    }
+
+    [self.selectedAccount retrieveAccountSummaryWithCompletionBlock: ^(void) {
+        completionBlock();
+    }];
+}
+
 
 -(void) checkSummary {
     BOOL complete = YES;
@@ -147,23 +203,6 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
         portfolioAccount.positionsComplete = YES; // bypasses position retrieval
         [portfolioAccount retrieveBalance];
     }
-}
-
--(NSNumber *) getTotalPositionsHeld {
-    NSNumber * count = @0;
-
-    if (self.accounts.count) {
-        for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
-            for (TTSDKPosition *position in portfolioAccount.positions) {
-
-                NSLog(@"cycling through each account position. symbol: %@ quantity: %@", position.symbol, [position.quantity stringValue]);
-                count = [NSNumber numberWithInt: [count intValue] + [position.quantity intValue]];
-                NSLog(@"count is now %@", [count stringValue]);
-            }
-        }
-    }
-
-    return count;
 }
 
 

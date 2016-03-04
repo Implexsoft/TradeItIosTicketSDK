@@ -14,6 +14,7 @@
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
 #import "TTSDKLoginViewController.h"
+#import "TradeItQuotesResult.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -98,14 +99,17 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void)loadPortfolioData {
-    [portfolioService getSummaryForAccounts:^(void){
-        self.loadingView.hidden = YES;
-        accountsHolder = portfolioService.accounts;
-        positionsHolder = [portfolioService positionsForAccounts];
+    [portfolioService retrieveInitialSelectedAccount];
 
-        [portfolioService getQuotesForAccounts:^(void) {
-            [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        }];
+    self.selectedAccountIndex = [portfolioService.accounts indexOfObject:portfolioService.selectedAccount];
+
+    self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle];
+
+    [portfolioService getSummaryForAccounts:^(void) {
+        self.loadingView.hidden = YES;
+
+        accountsHolder = portfolioService.accounts;
+        positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
 
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -232,7 +236,11 @@ static float kAccountCellHeight = 44.0f;
             [cell showSeparator];
         }
 
-        [cell configureCellWithAccount: [accountsHolder objectAtIndex: indexPath.row]];
+        TTSDKPortfolioAccount * acct = [accountsHolder objectAtIndex: indexPath.row];
+        [cell configureCellWithAccount: acct];
+
+        BOOL selected = [portfolioService.selectedAccount.accountNumber isEqualToString: acct.accountNumber];
+        [cell configureSelectedState: selected];
 
         return cell;
     } else {
@@ -255,31 +263,27 @@ static float kAccountCellHeight = 44.0f;
 
         [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row]];
 
+        if (self.selectedHoldingIndex == indexPath.row) {
+            cell.expandedView.hidden = NO;
+        } else {
+            cell.expandedView.hidden = YES;
+        }
+
         return cell;
     }
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if (indexPath.section == 0) {
-        if (indexPath.row == self.selectedAccountIndex) {
-            self.selectedAccountIndex = -1;
-            positionsHolder = [portfolioService positionsForAccounts];
-
-            self.holdingsHeaderTitle = @"My Holdings";
-
-            [self updateTableContentSize];
-            [self.accountsTable layoutIfNeeded];
-            [self.accountsTable reloadData];
-        } else {
+        if (indexPath.row != self.selectedAccountIndex) {
             self.selectedAccountIndex = indexPath.row;
             TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
+
+            [portfolioService selectAccount: selectedAccount.accountNumber];
             positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
 
             self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
-
             [self updateTableContentSize];
-            [self.accountsTable layoutIfNeeded];
             [self.accountsTable reloadData];
         }
     } else {
@@ -292,10 +296,12 @@ static float kAccountCellHeight = 44.0f;
             NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
             self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         } else {
             // User taps new row with none expanded
             self.selectedHoldingIndex = indexPath.row;
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         }
 
         [self updateTableContentSize];
@@ -303,8 +309,55 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
+-(void) retrieveQuoteDataForPosition:(TTSDKPosition *)position {
+    [portfolioService getQuoteForPosition:position withCompletionBlock:^(TradeItResult * res) {
+        if ([res isKindOfClass:TradeItQuotesResult.class]) {
+            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+            position.quote = [[TradeItQuote alloc] initWithQuoteData:[result.quotes objectAtIndex:0]];
+            [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+    }];
+}
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    if (UITableViewRowAction.class) {
+        if (indexPath.section == 0) {
+            return NO;
+        } else if (indexPath.row == self.selectedHoldingIndex) {
+            return NO;
+        }
+
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (UITableViewRowAction.class && indexPath.section == 1) {
+
+        UITableViewRowAction *buyAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"BUY" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [tableView setEditing:NO];
+            [self performSelector:@selector(didSelectBuy:) withObject:[positionsHolder objectAtIndex:indexPath.row] afterDelay:0];
+        }];
+        buyAction.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:100.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+
+        UITableViewRowAction *sellAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"SELL" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [tableView setEditing:NO];
+            [self performSelector:@selector(didSelectSell:) withObject:[positionsHolder objectAtIndex:indexPath.row] afterDelay:0];
+        }];
+        sellAction.backgroundColor = [UIColor colorWithRed:88.0f/255.0f green:163.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+
+
+        return @[sellAction, buyAction];
+    } else {
+        [tableView setEditing:NO];
+        return nil;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // nothing to do, but must be implemented
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -334,6 +387,7 @@ static float kAccountCellHeight = 44.0f;
 -(void)didSelectSell:(TTSDKPosition *)position {
     globalTicket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
+    
 
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];

@@ -96,7 +96,7 @@
                 <outlet property="editAccountsButton" destination="uqS-TC-kEl" id="2Ex-Qi-F0Z"/>
                 <outlet property="totalPortfolioValueLabel" destination="Kc1-zb-XGO" id="bsT-bD-foa"/>
             </connections>
-            <point key="canvasLocation" x="133" y="108.5"/>
+            <point key="canvasLocation" x="526" y="411.5"/>
         </view>
     </objects>
 </document>
