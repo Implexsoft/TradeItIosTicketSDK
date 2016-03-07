@@ -76,9 +76,13 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             initialAccount = account;
         }
     }
-    
+
     // Create a new, unauthenticated session for all stored logins
     self.sessions = [[NSArray alloc] init];
+    self.currentSession = nil;
+    self.currentAccount = nil;
+    self.previewRequest.accountNumber = nil;
+
     NSArray * linkedLogins = [self.connector getLinkedLogins];
 
     for (TradeItLinkedLogin * login in linkedLogins) {
@@ -449,7 +453,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         if (![selectedSession.login.userId isEqualToString:_currentSession.login.userId]) {
             [self selectSession:selectedSession andAccount:currentAccount];
         }
-        
+
         _currentAccount = selectedAccount;
         _previewRequest.accountNumber = [selectedAccount valueForKey:@"accountNumber"];
     }
