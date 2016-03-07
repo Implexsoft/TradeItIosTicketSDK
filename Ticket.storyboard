@@ -155,8 +155,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85X-g2-O8p">
-                                <rect key="frame" x="81" y="35" width="161" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85X-g2-O8p">
+                                <rect key="frame" x="80" y="35" width="161" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gph-az-oiE"/>
                                 </constraints>
@@ -515,15 +515,15 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
-                                <rect key="frame" x="140" y="171" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl">
+                                <rect key="frame" x="140" y="127" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
                                     <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
-                                <rect key="frame" x="16" y="218" width="288" height="130"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
+                                <rect key="frame" x="16" y="174" width="288" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
                                     <constraint firstAttribute="width" constant="288" id="Z2x-SR-q2B"/>
@@ -550,8 +550,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="tradeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="4NJ-DI-xZM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
-                                <rect key="frame" x="113" y="99" width="95" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
+                                <rect key="frame" x="113" y="55" width="95" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
                                 </constraints>
@@ -1812,16 +1812,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <constraint firstAttribute="height" constant="300" id="igy-EC-dHJ"/>
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" red="0.27257034660000001" green="1" blue="0.59955296759999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="accountCell" selectionStyle="default" indentationWidth="10" id="rAF-7j-GGL">
-                                        <rect key="frame" x="0.0" y="28" width="319" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rAF-7j-GGL" id="cPK-iT-cKT">
-                                            <rect key="frame" x="0.0" y="0.0" width="319" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="bbK-hu-Twv" id="bzP-i4-tbl"/>
                                     <outlet property="delegate" destination="bbK-hu-Twv" id="mPo-Xp-chT"/>
@@ -1879,8 +1869,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="b0O-lu-Vmh"/>
         <segue reference="qBc-9P-D9s"/>
+        <segue reference="ujk-YM-BZG"/>
+        <segue reference="X2r-Bb-VCg"/>
     </inferredMetricsTieBreakers>
 </document>

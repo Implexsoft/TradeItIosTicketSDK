@@ -51,8 +51,6 @@
 
     if (result.confirmationMessage) {
         [successMessage setText: result.confirmationMessage];
-
-        NSString * symbol = globalTicket.previewRequest.orderSymbol;
     }
 
     [utils styleMainActiveButton:tradeButton];
