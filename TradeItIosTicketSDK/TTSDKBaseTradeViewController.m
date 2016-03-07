@@ -40,6 +40,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
     globalTicket = [TTSDKTradeItTicket globalTicket];
 }

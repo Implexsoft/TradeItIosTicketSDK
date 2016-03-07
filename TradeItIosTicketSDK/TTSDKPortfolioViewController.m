@@ -65,6 +65,9 @@ static float kAccountCellHeight = 44.0f;
 #pragma mark - Initialization
 
 -(void) viewDidLoad {
+    [super viewDidLoad];
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
