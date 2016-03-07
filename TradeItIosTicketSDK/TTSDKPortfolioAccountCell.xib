@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PortfolioAccountIdentifier" id="nfH-qu-tSj" customClass="TTSDKPortfolioAccountsTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="PortfolioAccountIdentifier" id="nfH-qu-tSj" customClass="TTSDKPortfolioAccountsTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nfH-qu-tSj" id="IyZ-jj-Bc5">
@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fidelity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tc-4J-X92">
-                        <rect key="frame" x="14" y="14" width="44" height="16"/>
+                        <rect key="frame" x="6" y="14" width="44" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+18,940 (6.24%)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPb-QM-MmZ">
-                        <rect key="frame" x="0.0" y="14" width="208" height="16"/>
+                        <rect key="frame" x="-8" y="14" width="208" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -34,11 +34,11 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C07-Go-p1A" userLabel="AuthView">
-                        <rect key="frame" x="58" y="0.0" width="262" height="44"/>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C07-Go-p1A" userLabel="AuthView">
+                        <rect key="frame" x="50" y="0.0" width="270" height="43"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap to login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M83-8G-fZp">
-                                <rect key="frame" x="181" y="13" width="73" height="17"/>
+                                <rect key="frame" x="189" y="13" width="73" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -51,21 +51,23 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npO-XE-Gw5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <rect key="frame" x="-8" y="0.0" width="328" height="1"/>
                         <color key="backgroundColor" red="0.84313725490196079" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="3Vy-gT-h0K"/>
                         </constraints>
                     </view>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-ja-Xkg" userLabel="Selected">
-                        <rect key="frame" x="4" y="0.0" width="2" height="43"/>
+                        <rect key="frame" x="0.0" y="0.0" width="2" height="43"/>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="XNQ-ET-t8i"/>
                         </constraints>
+                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="7tc-4J-X92" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="6" id="1Xn-Hw-TUM"/>
                     <constraint firstAttribute="trailingMargin" secondItem="npO-XE-Gw5" secondAttribute="trailing" constant="-8" id="BC5-Qh-ci0"/>
@@ -74,10 +76,10 @@
                     <constraint firstItem="dPb-QM-MmZ" firstAttribute="width" secondItem="IyZ-jj-Bc5" secondAttribute="width" multiplier="0.65" id="Dgc-q7-gY6"/>
                     <constraint firstItem="ThJ-Fm-dLS" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="Jas-Zm-pc7"/>
                     <constraint firstItem="C07-Go-p1A" firstAttribute="leading" secondItem="7tc-4J-X92" secondAttribute="trailing" id="KjX-zl-GfA"/>
-                    <constraint firstItem="PrF-ja-Xkg" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-4" id="MNF-ow-MVU"/>
                     <constraint firstItem="7tc-4J-X92" firstAttribute="centerY" secondItem="IyZ-jj-Bc5" secondAttribute="centerY" id="NP4-gy-gIP"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="Tsl-mk-hWT"/>
                     <constraint firstItem="PrF-ja-Xkg" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="edF-Xm-qYH"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="PrF-ja-Xkg" secondAttribute="leading" id="g1j-nq-m4A"/>
                     <constraint firstAttribute="trailingMargin" secondItem="C07-Go-p1A" secondAttribute="trailing" constant="-8" id="jfl-Ms-pEX"/>
                     <constraint firstAttribute="bottomMargin" secondItem="C07-Go-p1A" secondAttribute="bottom" constant="-8" id="p13-a6-F8y"/>
                     <constraint firstItem="npO-XE-Gw5" firstAttribute="leading" secondItem="IyZ-jj-Bc5" secondAttribute="leadingMargin" constant="-8" id="ruw-5a-QVP"/>
@@ -85,6 +87,7 @@
                     <constraint firstItem="C07-Go-p1A" firstAttribute="top" secondItem="IyZ-jj-Bc5" secondAttribute="topMargin" constant="-8" id="tzA-Lu-gly"/>
                     <constraint firstAttribute="bottomMargin" secondItem="PrF-ja-Xkg" secondAttribute="bottom" constant="-8" id="zMa-YC-jIn"/>
                 </constraints>
+                <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accountLabel" destination="7tc-4J-X92" id="Xu7-5H-WaM"/>
