@@ -81,7 +81,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     self.sessions = [[NSArray alloc] init];
     self.currentSession = nil;
     self.currentAccount = nil;
-    self.previewRequest.accountNumber = nil;
+    self.previewRequest.accountNumber = @"";
 
     NSArray * linkedLogins = [self.connector getLinkedLogins];
 
@@ -94,7 +94,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
     }
 
-    if (self.currentAccount && !self.previewRequest.accountNumber) {
+    if (self.currentAccount && [self.previewRequest.accountNumber isEqualToString:@""]) {
         self.previewRequest.accountNumber = [self.currentAccount valueForKey:@"accountNumber"];
     }
 
@@ -420,7 +420,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         NSDictionary * selectedAccountToRemove;
         NSMutableDictionary * deselectedAccountToAdd;
         NSDictionary * deselectedAccountToRemove;
-        
+
         for (NSDictionary * acct in mutableAccounts) {
             BOOL isLastSelected = [(NSNumber *)[acct valueForKey:@"lastSelected"] boolValue];
             
@@ -438,18 +438,18 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
             [mutableAccounts removeObject: deselectedAccountToRemove];
             [mutableAccounts addObject: [deselectedAccountToAdd copy]];
         }
-        
+
         if (selectedAccountToAdd) {
             [selectedAccountToAdd setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
             [mutableAccounts removeObject: selectedAccountToRemove];
             [mutableAccounts addObject: [selectedAccountToAdd copy]];
         }
-    } else {
+
+    } else if (currentAccount) {
         selectedAccount = currentAccount;
         [mutableAccounts addObject: selectedAccount];
+        [self saveAccountsToUserDefaults:[mutableAccounts copy]];
     }
-
-    [self saveAccountsToUserDefaults:[mutableAccounts copy]];
 
     // If account is not in current session, change session
     if (selectedAccount) {

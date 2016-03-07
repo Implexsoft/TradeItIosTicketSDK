@@ -131,6 +131,7 @@
     if (self) {
         TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+        self.symbol = symbol;
         [ticket setParentView:view];
     }
 
@@ -173,7 +174,8 @@
     }
 
     if (self.symbol != nil && ![self.symbol isEqualToString:@""]) {
-        ticket.quote.symbol = self.symbol;
+        ticket.quote.symbol = [self.symbol uppercaseString];
+        [ticket.previewRequest setOrderSymbol: [self.symbol uppercaseString]];
     }
 
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
