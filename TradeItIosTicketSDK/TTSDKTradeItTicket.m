@@ -94,6 +94,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
     }
 
+    if (self.currentAccount && !self.previewRequest.accountNumber) {
+        self.previewRequest.accountNumber = [self.currentAccount valueForKey:@"accountNumber"];
+    }
+
     if (self.currentSession) {
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
