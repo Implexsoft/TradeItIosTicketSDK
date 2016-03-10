@@ -101,11 +101,15 @@
     NSDictionary * accountToRemove;
 
     NSArray * accounts = globalTicket.allAccounts;
+
     int i;
     for (i = 0; i < accounts.count; i++) {
         NSDictionary * currentAccount = [accounts objectAtIndex: i];
 
-        if ([currentAccount isEqualToDictionary:account]) {
+        NSString * currentAccountNumber = [currentAccount valueForKey: @"accountNumber"];
+        NSString * accountNumber = [account valueForKey: @"accountNumber"];
+
+        if ([currentAccountNumber isEqualToString: accountNumber]) {
             NSMutableDictionary *mutableAccount = [currentAccount mutableCopy];
             [mutableAccount setValue:[NSNumber numberWithBool: !active] forKey:@"active"];
             accountToAdd = [mutableAccount copy];
