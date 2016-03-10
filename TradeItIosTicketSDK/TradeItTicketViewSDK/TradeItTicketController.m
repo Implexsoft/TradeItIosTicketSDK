@@ -97,8 +97,9 @@
 }
 
 +(void) showTicket {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    [TradeItTicketController setAppearances];
 
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
     [ticket showTicket];
 }
@@ -119,6 +120,74 @@
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     
     return [ticket getBrokerDisplayString: brokerIdentifier];
+}
+
++ (void)setAppearances {
+    TTSDKUtils * utils = [TTSDKUtils sharedUtils];
+
+
+    [[UINavigationBar appearance] setTintColor:[UIColor blueColor]];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor greenColor]];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTintColor:nil];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTintColor:nil];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTintColor:utils.activeButtonColor];
+    
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTextColor:nil];
+    [[UIButton appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTintColor:utils.activeButtonColor];
+
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setBackgroundColor:nil];
+    [[UITextField appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTextColor:utils.activeButtonColor];
+    [[UIButton appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
+    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTintColor:utils.activeButtonColor];
+    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTintColor:utils.activeButtonColor];
 }
 
 
@@ -184,6 +253,8 @@
 
     [TradeItTicketController showTicket];
 }
+
+
 
 //Let me tell you a cool story about why this is here:
 //Storyboards in bundles are static, non-compilled resources
