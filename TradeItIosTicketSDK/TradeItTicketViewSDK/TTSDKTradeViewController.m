@@ -584,14 +584,16 @@
     } else {
         currentQuantityString = [NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]];
         newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
-
         if (key == 11) { // backspace
             appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
         } else {
+            if ([currentQuantityString isEqualToString:@"0"]) {
+                currentQuantityString = @"";
+            }
             appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
         }
     }
-    
+
     globalTicket.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
     sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
 
