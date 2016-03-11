@@ -296,7 +296,9 @@ static float kMessageSeparatorHeight = 30.0f;
         contentRect.size.height += wLabel.frame.size.height;
     }
 
-    contentRect.size.height += 120; // extra 120 for padding
+    if (ackLabels.count || warningLabels.count) {
+        contentRect.size.height += 80; // extra padding
+    }
 
     NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
                                              constraintWithItem:contentView
@@ -312,6 +314,12 @@ static float kMessageSeparatorHeight = 30.0f;
     [scrollView setContentSize:contentRect.size];
     [scrollView layoutIfNeeded];
     [scrollView setNeedsUpdateConstraints];
+
+    // Remove scrolling capabilities if there's no need to scroll
+    if (scrollView.frame.size.height >= scrollView.contentSize.height) {
+        scrollView.scrollEnabled = NO;
+        scrollView.bounces = NO;
+    }
 }
 
 -(void) constrainToggle:(UISwitch *) toggle andLabel:(UILabel *) label toView:(UIView *) view {
