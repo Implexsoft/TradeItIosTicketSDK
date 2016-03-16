@@ -125,10 +125,6 @@
 + (void)setAppearances {
     TTSDKUtils * utils = [TTSDKUtils sharedUtils];
 
-
-    [[UINavigationBar appearance] setTintColor:[UIColor blueColor]];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor greenColor]];
-
     [[UINavigationBar appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setBackgroundColor:nil];
     [[UITextField appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTextColor:nil];
     [[UIButton appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
