@@ -136,8 +136,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 } else {
                     errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
                 }
+            } else if (error.longMessages.count > 0) {
+                errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
             }
-            
+
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
             } else {
