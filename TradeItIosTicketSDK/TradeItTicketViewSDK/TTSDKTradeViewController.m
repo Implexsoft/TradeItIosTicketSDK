@@ -68,6 +68,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+//    orderTypeButton.backgroundColor = [UIColor yellowColor];
+
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
@@ -238,7 +240,7 @@
 -(void) applyBorder: (UIView *) item {
     item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
     item.layer.borderWidth = 1;
-    item.layer.cornerRadius = item.frame.size.height / 2;
+    item.layer.cornerRadius = 3;
 }
 
 -(void) setCustomEvents {
@@ -489,7 +491,14 @@
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
     stopPriceInput.text = nil;
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];
+
+    if (globalTicket.previewRequest.orderLimitPrice) {
+        limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];
+    } else {
+        limitPriceInput.text = @"";
+    }
+
+
 
     [limitPriceInput sizeToFit];
     limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width;
@@ -517,8 +526,21 @@
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden:NO];
     [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
+    [stopPriceInput setPlaceholder:@"Stop Price"];
+    limitPriceInput.text = @"";
+    stopPriceInput.text = @"";
+
+    if (globalTicket.previewRequest.orderLimitPrice) {
+        limitPriceInput.text = [NSString stringWithFormat:@"%@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];;
+    } else {
+        limitPriceInput.text = @"";
+    }
+
+    if (globalTicket.previewRequest.orderStopPrice) {
+        stopPriceInput.text = [NSString stringWithFormat:@"%@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
+    } else {
+        stopPriceInput.text = @"";
+    }
 
     [limitPriceInput sizeToFit];
     [stopPriceInput sizeToFit];
@@ -679,6 +701,62 @@
     alertPresentationController.permittedArrowDirections = 0;
     alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
 }
+
+-(void) showOldOrderType {
+    self.pickerTitles = @[@"Market",@"Limit",@"Stop Market",@"Stop Limit"];
+    self.pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
+    NSString * currentSelection = globalTicket.previewRequest.orderPriceType;
+
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Order Action"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [self changeOrderType: currentSelection];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+
+        if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]){
+            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
+        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
+            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
+        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"limit"]) {
+            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+//- (IBAction)orderTypePressed:(id)sender {
+//    [self.view endEditing:YES];
+//    if(![UIAlertController class]) {
+//        [self showOldOrderType];
+//        return;
+//    }
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
+//                                                                   message:nil
+//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//    UIAlertAction* marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction * action) { [self changeOrderType:@"market"]; }];
+//    UIAlertAction* limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
+//                                                        handler:^(UIAlertAction * action) { [self changeOrderType:@"limit"]; }];
+//    UIAlertAction* stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
+//    UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
+//                                                            handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
+//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+//                                                          handler:^(UIAlertAction * action) {}];
+//    [alert addAction:marketAction];
+//    [alert addAction:limitAction];
+//    [alert addAction:stopMarketAction];
+//    [alert addAction:stopLimitAction];
+//    [alert addAction:cancelAction];
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
 
 - (IBAction)previewOrderPressed:(id)sender {
     [self.view endEditing:YES];

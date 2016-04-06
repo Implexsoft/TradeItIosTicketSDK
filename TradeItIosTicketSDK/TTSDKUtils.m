@@ -297,6 +297,8 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
 
+            button.backgroundColor = [UIColor clearColor];
+
             if (button.tag == 10) { // decimal
                 if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
                     button.hidden = YES;

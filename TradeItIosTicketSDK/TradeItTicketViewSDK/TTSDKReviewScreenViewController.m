@@ -403,9 +403,11 @@ static float kMessageSeparatorHeight = 30.0f;
 
     globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
-    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
-        [self tradeRequestRecieved: result];
-    }];
+    
+
+//    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
+//        [self tradeRequestRecieved: result];
+//    }];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
@@ -416,9 +418,7 @@ static float kMessageSeparatorHeight = 30.0f;
         globalTicket.resultContainer.status = SUCCESS;
         globalTicket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
         [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
-    }
-    //error
-    if([result isKindOfClass:[TradeItErrorResult class]]) {
+    } else if([result isKindOfClass:[TradeItErrorResult class]]) { //error
         TradeItErrorResult * error = (TradeItErrorResult *) result;
 
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
