@@ -14,12 +14,13 @@
 #import "TradeItAuthenticationResult.h"
 #import "TradeItSecurityQuestionResult.h"
 #import "TTSDKCustomIOSAlertView.h"
+#import "TTSDKPrimaryButton.h"
 
 @implementation TTSDKLoginViewController {
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
     __weak IBOutlet UITextField *passwordInput;
-    __weak IBOutlet UIButton *linkAccountButton;
+    __weak IBOutlet TTSDKPrimaryButton *linkAccountButton;
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
 
     UIPickerView * currentPicker;
@@ -68,13 +69,16 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
+    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker username" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+    passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
 
-    [utils styleMainInactiveButton:linkAccountButton];
+    [linkAccountButton deactivate];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -193,15 +197,15 @@
 
             globalTicket.errorMessage = nil;
             globalTicket.errorTitle = nil;
-            [utils styleMainActiveButton:linkAccountButton];
+            [linkAccountButton activate];
         } else {
             TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
             TradeItLinkedLogin * newLinkedLogin = [globalTicket.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalTicket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
 
             [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
-                [utils styleMainActiveButton:linkAccountButton];
-                
+                [linkAccountButton activate];
+
                 if ([result isKindOfClass:TradeItErrorResult.class]) {
 
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
@@ -242,9 +246,9 @@
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
-        [utils styleMainActiveButton:linkAccountButton];
+        [linkAccountButton activate];
     } else {
-        [utils styleMainInactiveButton: linkAccountButton];
+        [linkAccountButton deactivate];
     }
 
     return YES;

@@ -206,34 +206,9 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 }
 
 -(void) styleMainActiveButton: (UIButton *)button {
-    [self removeLoadingIndicatorFromContainer];
-    button.backgroundColor = activeButtonColor;
-    button.layer.borderColor = [UIColor clearColor].CGColor;
-    button.layer.borderWidth = 0.0f;
-    button.layer.cornerRadius = button.frame.size.height / 2;
-
-    button.layer.masksToBounds = NO;
-    button.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
-    button.layer.shadowOpacity = 0.4;
-    button.layer.shadowRadius = 1;
-    button.layer.shadowOffset = CGSizeMake(0,1);
-
-    [self addGradientToButton:button];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(void) styleLoadingButton: (UIButton *)button {
-    [self removeGradientFromCurrentContainer];
-    [self removeLoadingIndicatorFromContainer];
-
-    currentIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    currentIndicator.hidden = NO;
-    [button addSubview:currentIndicator];
-    currentIndicator.frame = CGRectMake(button.titleLabel.frame.origin.x + button.titleLabel.frame.size.width + 10.0, button.titleLabel.frame.origin.y, 20.0, 20.0);
-    [currentIndicator bringSubviewToFront:button];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    [currentIndicator startAnimating];
 }
 
 -(UIView *) retrieveLoadingOverlayForView:(UIView *)view {
@@ -297,14 +272,13 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     [keypad layoutSubviews];
     [keypad layoutIfNeeded];
 
-    NSLog(@"INIT KEYPAD");
-    NSLog(@"%@", styles.pageBackgroundColor);
+    keypad.backgroundColor = [UIColor clearColor];
 
     for (int i = 0; i < [subviews count]; i++) {
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
 
-            button.backgroundColor = styles.pageBackgroundColor;
+            button.backgroundColor = [UIColor clearColor];
 
             if (button.tag == 10) { // decimal
                 if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
@@ -356,18 +330,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 }
 
 -(void) styleMainInactiveButton: (UIButton *)button {
-    [self removeGradientFromCurrentContainer];
-    [self removeLoadingIndicatorFromContainer];
-
-    button.backgroundColor = inactiveButtonColor;
-    button.layer.borderColor = [UIColor clearColor].CGColor;
-    button.layer.borderWidth = 0.0f;
-    button.layer.cornerRadius = button.frame.size.height / 2;
-
-    button.layer.shadowColor = [UIColor clearColor].CGColor;
-    button.layer.shadowOpacity = 0;
-
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {

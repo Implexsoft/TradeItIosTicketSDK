@@ -9,6 +9,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKLabel.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
@@ -54,12 +55,11 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     }
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    UILabel *headerLabelView = [[UILabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
+    headerView.backgroundColor = [UIColor clearColor];
+    TTSDKLabel *headerLabelView = [[TTSDKLabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
     headerLabelView.text = @"Link your broker account \n to enable trading";
     headerLabelView.numberOfLines = 0;
     headerLabelView.textAlignment = NSTextAlignmentCenter;
-    headerLabelView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerLabelView];
 
     self.tableView.tableHeaderView = headerView;

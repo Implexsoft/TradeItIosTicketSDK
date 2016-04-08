@@ -11,9 +11,6 @@
 
 @interface TTSDKStyles : NSObject
 
-@property UIColor * activeButtonColor;
-@property UIColor * activeButtonHighlightColor;
-@property UIColor * inactiveButtonColor;
 @property UIColor * warningColor;
 @property UIColor * lossColor;
 @property UIColor * gainColor;
@@ -22,7 +19,33 @@
 @property UIColor * navigationBarBackgroundColor;
 @property UIColor * navigationBarItemColor;
 
-+ (id)sharedStyles;
+@property UIColor * activeButtonColor;
+@property UIColor * activeButtonHighlightColor;
+@property UIColor * activeButtonBackgroundColor;
+
+@property UIColor * inactiveButtonColor;
+@property UIColor * inactiveButtonBackgroundColor;
+
+
+
+@property UIColor * activeColor;
+@property UIColor * inactiveColor;
+
+@property UIColor * primaryTextColor;
+@property UIColor * primaryTextHighlightColor;
+
+@property UIColor * smallTextColor;
+
+@property UIColor * primarySeparatorColor;
+
+@property UIColor * primaryPlaceholderColor;
+
+@property UIButton * primaryInactiveButton;
+@property UIButton * primaryActiveButton;
+
+@property UIButton * preferredBrokerButton;
+
++(id) sharedStyles;
 
 -(UIColor *) retrieveEtradeColor;
 -(UIColor *) retrieveRobinhoodColor;

@@ -76,6 +76,9 @@
     [self initConstraints];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
+
+    keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
+
     companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
 
     companyNib.backgroundColor = self.styles.pageBackgroundColor;

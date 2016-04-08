@@ -138,10 +138,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
     // If not onboarding, push the nav to the broker select view
-    if (![self.utils isOnboarding]) {
-        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-        [nav pushViewController:initialViewController animated:NO];
-    }
+//    if (![self.utils isOnboarding]) {
+//        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+//        [nav pushViewController:initialViewController animated:NO];
+//    }
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }

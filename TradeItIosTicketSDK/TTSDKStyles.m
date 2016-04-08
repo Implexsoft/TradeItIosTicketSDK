@@ -41,9 +41,46 @@
         self.lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         self.gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
 
-        self.pageBackgroundColor = [UIColor blackColor];
-        self.navigationBarBackgroundColor = [UIColor whiteColor];
-        self.navigationBarItemColor = [UIColor orangeColor];
+        self.pageBackgroundColor = [UIColor whiteColor];
+        self.navigationBarBackgroundColor = nil;
+        self.navigationBarItemColor = nil;
+
+        self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+        self.inactiveColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
+
+        self.primaryTextColor = [UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0];
+        self.primaryTextHighlightColor = [UIColor colorWithRed:180.0f/225.0f green:180.0f/225.0f blue:180.0f/225.0f alpha:1.0f];
+        self.smallTextColor = [UIColor lightGrayColor];
+
+        self.primarySeparatorColor = [UIColor lightGrayColor];
+
+        self.primaryPlaceholderColor = self.inactiveColor;
+
+        // Set default styles for primary active button
+        self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        self.primaryActiveButton.backgroundColor = self.activeColor;
+        self.primaryActiveButton.layer.borderColor = [UIColor clearColor].CGColor;
+        self.primaryActiveButton.layer.borderWidth = 0.0f;
+        self.primaryActiveButton.layer.cornerRadius = 22.0f;
+        self.primaryActiveButton.layer.masksToBounds = NO;
+        self.primaryActiveButton.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
+        self.primaryActiveButton.layer.shadowOpacity = 0.4;
+        self.primaryActiveButton.layer.shadowRadius = 1;
+        self.primaryActiveButton.layer.shadowOffset = CGSizeMake(0,1);
+        [self.primaryActiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+        // Set default styles for primary inactive button
+        self.primaryInactiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        self.primaryInactiveButton.backgroundColor = self.inactiveColor;
+        self.primaryInactiveButton.layer.borderColor = [UIColor clearColor].CGColor;
+        self.primaryInactiveButton.layer.borderWidth = 0.0f;
+        self.primaryInactiveButton.layer.cornerRadius = 22.0f;
+        self.primaryInactiveButton.layer.shadowColor = [UIColor clearColor].CGColor;
+        self.primaryInactiveButton.layer.shadowOpacity = 0;
+        [self.primaryInactiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+        // Set default styles for preferred broker button (only shown on onboarding screen)
+        self.preferredBrokerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 
         etradeColor = [UIColor colorWithRed:98.0f / 255.0f green:77.0f / 255.0f blue:160.0f / 255.0f alpha:1.0f];
         robinhoodColor = [UIColor colorWithRed:33.0f / 255.0f green:206.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];

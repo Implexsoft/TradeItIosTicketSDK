@@ -1,18 +1,14 @@
 //
-//  TTSDKViewController.m
+//  TTSDKTableViewController.m
 //  TradeItIosTicketSDK
 //
-//  Created by Daniel Vaughn on 4/6/16.
+//  Created by Daniel Vaughn on 4/8/16.
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKViewController.h"
+#import "TTSDKTableViewController.h"
 
-@interface TTSDKViewController ()
-
-@end
-
-@implementation TTSDKViewController
+@implementation TTSDKTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,11 +21,13 @@
 
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
-    [[UIButton appearanceWhenContainedIn:TTSDKViewController.class, nil] setBackgroundColor: [UIColor clearColor]];
-    [[UIBarButtonItem appearanceWhenContainedIn:TTSDKViewController.class, nil] setTintColor:[UIColor greenColor]];
+    [[UIButton appearanceWhenContainedIn: self.class, nil] setBackgroundColor: [UIColor clearColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn: self.class, nil] setTintColor:[UIColor greenColor]];
 
     self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
+
+    self.tableView.separatorColor = self.styles.primarySeparatorColor;
 }
 
 @end

@@ -35,7 +35,11 @@
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
+#import "TTSDKLabel.h"
 #import "TTSDKViewController.h"
+#import "TTSDKTableViewController.h"
+#import "TTSDKTextField.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKStyles.h"
 
 @implementation TradeItTicketController {
@@ -106,7 +110,7 @@
 
 + (void)clearSavedData {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    
+
     [ticket unlinkAccounts];
 }
 
@@ -223,7 +227,11 @@
     [TTSDKPortfolioAccount class];
     [TTSDKAccountsHeaderView class];
     [TTSDKHoldingsHeaderView class];
+    [TTSDKLabel class];
+    [TTSDKTextField class];
+    [TTSDKPrimaryButton class];
     [TTSDKViewController class];
+    [TTSDKTableViewController class];
     [TTSDKStyles class];
 }
 
