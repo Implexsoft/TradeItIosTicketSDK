@@ -8,6 +8,7 @@
 
 
 #import "TTSDKUtils.h"
+#import "TTSDKStyles.h"
 
 @interface TTSDKUtils () {
     UIButton * currentGradientContainer;
@@ -15,6 +16,7 @@
     UIActivityIndicatorView * currentIndicator;
     UIImageView * loadingIcon;
     BOOL animating;
+    TTSDKStyles * styles;
 }
 
 @end
@@ -64,6 +66,8 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         optionshouseColor = [UIColor colorWithRed:46.0f / 255.0f green:98.0f / 255.0f blue:9.0f / 255.0f alpha:1.0f];
         lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
+
+        styles = [TTSDKStyles sharedStyles];
     }
 
     return self;
@@ -293,11 +297,14 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     [keypad layoutSubviews];
     [keypad layoutIfNeeded];
 
+    NSLog(@"INIT KEYPAD");
+    NSLog(@"%@", styles.pageBackgroundColor);
+
     for (int i = 0; i < [subviews count]; i++) {
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
 
-            button.backgroundColor = [UIColor clearColor];
+            button.backgroundColor = styles.pageBackgroundColor;
 
             if (button.tag == 10) { // decimal
                 if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKViewController.h"
 
-@interface TTSDKOnboardingViewController : UIViewController
+@interface TTSDKOnboardingViewController : TTSDKViewController
 
 @end

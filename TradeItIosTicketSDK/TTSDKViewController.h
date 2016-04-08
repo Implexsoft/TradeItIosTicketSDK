@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKStyles.h"
 
 @interface TTSDKViewController : UIViewController
+
+@property TTSDKStyles * styles;
 
 @end

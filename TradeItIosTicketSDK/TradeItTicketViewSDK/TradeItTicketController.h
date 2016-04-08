@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import "TradeItStockOrEtfTradeSession.h"
 #import "TradeItTicketControllerResult.h"
 
 @interface TradeItTicketController : NSObject

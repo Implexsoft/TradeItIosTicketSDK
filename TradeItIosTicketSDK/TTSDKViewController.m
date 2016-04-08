@@ -17,7 +17,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[UIButton appearanceWhenContainedIn:[self class], nil] setBackgroundColor:[UIColor greenColor]];
+    [self setGlobalStyles];
+}
+
+-(void) setGlobalStyles {
+    self.styles = [TTSDKStyles sharedStyles];
+
+    self.view.backgroundColor = self.styles.pageBackgroundColor;
+
+    self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
+
+    
 }
 
 @end

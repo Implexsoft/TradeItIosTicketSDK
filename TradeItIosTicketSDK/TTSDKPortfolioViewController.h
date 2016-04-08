@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
+#import "TTSDKViewController.h"
 
-@interface TTSDKPortfolioViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTSDKPositionDelegate, TTSDKAccountDelegate>
+@interface TTSDKPortfolioViewController : TTSDKViewController <UITableViewDataSource, UITableViewDelegate, TTSDKPositionDelegate, TTSDKAccountDelegate>
 
 @end

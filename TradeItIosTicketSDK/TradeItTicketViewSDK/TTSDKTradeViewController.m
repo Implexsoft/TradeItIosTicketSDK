@@ -78,6 +78,8 @@
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
     companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
 
+    companyNib.backgroundColor = self.styles.pageBackgroundColor;
+
     [self uiTweaks];
 
     [self setCustomEvents];
