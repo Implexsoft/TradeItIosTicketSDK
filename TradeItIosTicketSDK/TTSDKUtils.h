@@ -13,9 +13,6 @@
 
 @interface TTSDKUtils : NSObject
 
-@property (nonatomic, retain) UIColor * activeButtonColor;
-@property (nonatomic, retain) UIColor * activeButtonHighlightColor;
-@property (nonatomic, retain) UIColor * inactiveButtonColor;
 @property (nonatomic, retain) UIColor * warningColor;
 @property (nonatomic, retain) UIColor * etradeColor;
 @property (nonatomic, retain) UIColor * robinhoodColor;
@@ -41,9 +38,6 @@
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
 -(void) styleBorderedFocusInput: (UITextField *)textField;
 -(void) styleBorderedUnfocusInput: (UITextField *)textField;
--(void) styleMainActiveButton: (UIButton *)button;
--(void) styleMainInactiveButton: (UIButton *)button;
--(void) styleLoadingButton: (UIButton *)button;
 -(UIView *) retrieveLoadingOverlayForView:(UIView *)view;
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
 -(NSString *) splitCamelCase:(NSString *) str;

@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKTradeViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -31,7 +32,7 @@
 
     __weak IBOutlet UIButton * orderExpirationButton;
 
-    __weak IBOutlet UIButton * previewOrderButton;
+    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
 
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
@@ -210,7 +211,7 @@
     
     previewOrderButton.clipsToBounds = YES;
 
-    orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
+    orderActionButton.layer.borderColor = self.styles.activeColor.CGColor;
 
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -226,9 +227,9 @@
     [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     shapeLayer.path = path.CGPath;
 
-    shapeLayer.strokeColor = utils.activeButtonColor.CGColor;
-    shapeLayer.fillColor = utils.activeButtonColor.CGColor;
-    
+    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
+    shapeLayer.fillColor = self.styles.activeColor.CGColor;
+
     [orderActionButton.layer addSublayer: shapeLayer];
 
     if(globalTicket.previewRequest.orderQuantity > 0) {
@@ -276,9 +277,9 @@
     
     CALayer * borderLayer = [CALayer layer];
     borderLayer.frame = CGRectMake(0, 0, keypadContainer.frame.size.width, 1.0f);
-    borderLayer.backgroundColor = utils.activeButtonColor.CGColor;
+    borderLayer.backgroundColor = self.styles.activeColor.CGColor;
     [keypadContainer.layer addSublayer:borderLayer];
-    
+
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:keypadContainer.bounds];
     keypadContainer.layer.masksToBounds = NO;
     keypadContainer.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -385,9 +386,9 @@
     }
 
     if(readyNow) {
-        [utils styleMainActiveButton:previewOrderButton];
+        [previewOrderButton activate];
     } else {
-        [utils styleMainInactiveButton:previewOrderButton];
+        [previewOrderButton deactivate];
     }
 
     readyToTrade = readyNow;
@@ -767,7 +768,7 @@
     [self.view endEditing:YES];
 
     if(readyToTrade) {
-        [utils styleLoadingButton:previewOrderButton];
+        [previewOrderButton enterLoadingState];
         [self sendPreviewRequest];
     }
 }
@@ -785,7 +786,7 @@
 }
 
 -(void) acknowledgeAlert {
-    [utils styleMainActiveButton:previewOrderButton];
+    [previewOrderButton activate];
 }
 
 

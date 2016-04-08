@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKOrderTypeInputViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
@@ -18,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *orderTypeLabel;
 @property (weak, nonatomic) IBOutlet UIView *keypadContainer;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *submitButton;
 @property NSString * limitPrice;
 @property NSString * stopPrice;
 @property NSString * currentFocus;
@@ -221,10 +222,10 @@
     }
 
     if (isReady) {
-        [utils styleMainActiveButton:self.submitButton];
+        [self.submitButton activate];
         self.submitButton.enabled = YES;
     } else {
-        [utils styleMainInactiveButton:self.submitButton];
+        [self.submitButton deactivate];
         self.submitButton.enabled = NO;
     }
 

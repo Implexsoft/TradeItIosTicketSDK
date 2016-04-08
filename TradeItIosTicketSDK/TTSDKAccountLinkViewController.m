@@ -11,6 +11,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
+#import "TTSDKPrimaryButton.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -18,7 +19,7 @@
     TTSDKPortfolioService * portfolioService;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 
 @end
@@ -50,7 +51,7 @@
 
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
 
-    [utils styleMainActiveButton:self.doneButton];
+    [self.doneButton activate];
 }
 
 -(void) viewWillAppear:(BOOL)animated {

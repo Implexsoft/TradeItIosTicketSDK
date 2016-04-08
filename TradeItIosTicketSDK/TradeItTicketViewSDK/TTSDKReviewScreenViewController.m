@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKReviewScreenViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TradeItPlaceTradeResult.h"
@@ -15,7 +16,7 @@
 @interface TTSDKReviewScreenViewController () {
     
     __weak IBOutlet UILabel *reviewLabel;
-    __weak IBOutlet UIButton *submitOrderButton;
+    __weak IBOutlet TTSDKPrimaryButton *submitOrderButton;
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIScrollView *scrollView;
     
@@ -95,10 +96,10 @@ static float kMessageSeparatorHeight = 30.0f;
     [self updateUIWithReviewResult];
 
     if ([ackLabels count]) {
-        [utils styleMainInactiveButton:submitOrderButton];
+        [submitOrderButton deactivate];
         submitOrderButton.enabled = NO;
     } else {
-        [utils styleMainActiveButton:submitOrderButton];
+        [submitOrderButton activate];
     }
 
     scrollView.alwaysBounceHorizontal = NO;
@@ -395,7 +396,7 @@ static float kMessageSeparatorHeight = 30.0f;
 
 #pragma mark - Trade Request
 - (IBAction)placeOrderPressed:(id)sender {
-    [utils styleLoadingButton:submitOrderButton];
+    [submitOrderButton enterLoadingState];
     [self sendTradeRequest];
 }
 
@@ -411,7 +412,7 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
-    [utils styleMainActiveButton:submitOrderButton];
+    [submitOrderButton activate];
 
     //success
     if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
@@ -458,10 +459,10 @@ static float kMessageSeparatorHeight = 30.0f;
     }
 
     if (ackLabelsToggled >= [ackLabels count]) {
-        [utils styleMainActiveButton:submitOrderButton];
+        [submitOrderButton activate];
         submitOrderButton.enabled = YES;
     } else {
-        [utils styleMainInactiveButton: submitOrderButton];
+        [submitOrderButton deactivate];
         submitOrderButton.enabled = NO;
     }
 }

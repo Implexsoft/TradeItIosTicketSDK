@@ -163,7 +163,8 @@
         }
 
     } else {
-        [utils styleLoadingButton:linkAccountButton];
+        [linkAccountButton enterLoadingState];
+
         [self authenticate];
     }
 }

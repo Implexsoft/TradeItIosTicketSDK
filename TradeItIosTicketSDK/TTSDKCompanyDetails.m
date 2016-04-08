@@ -8,9 +8,11 @@
 
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
+#import "TTSDKStyles.h"
 
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
+    TTSDKStyles * styles;
 }
 
 @end
@@ -24,6 +26,9 @@
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
+        styles = [TTSDKStyles sharedStyles];
+
+        [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
     }
 
     return self;

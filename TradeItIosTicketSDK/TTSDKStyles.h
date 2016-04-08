@@ -19,13 +19,6 @@
 @property UIColor * navigationBarBackgroundColor;
 @property UIColor * navigationBarItemColor;
 
-@property UIColor * activeButtonColor;
-@property UIColor * activeButtonHighlightColor;
-@property UIColor * activeButtonBackgroundColor;
-
-@property UIColor * inactiveButtonColor;
-@property UIColor * inactiveButtonBackgroundColor;
-
 
 
 @property UIColor * activeColor;

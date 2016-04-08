@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKSuccessViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKTradeItTicket.h"
@@ -16,7 +17,7 @@
     TTSDKUtils * utils;
     TTSDKTradeItTicket * globalTicket;
 
-    __weak IBOutlet UIButton *tradeButton;
+    __weak IBOutlet TTSDKPrimaryButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
 }
 
@@ -53,7 +54,7 @@
         [successMessage setText: result.confirmationMessage];
     }
 
-    [utils styleMainActiveButton:tradeButton];
+    [tradeButton activate];
 
     NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
