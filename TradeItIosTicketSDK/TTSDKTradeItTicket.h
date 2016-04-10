@@ -38,6 +38,8 @@
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL portfolioMode;
+@property BOOL authMode;
+
 @property NSArray * sessions;
 @property (nonatomic) TTSDKTicketSession * currentSession;
 @property (nonatomic) NSDictionary * currentAccount;
@@ -54,11 +56,12 @@
 
 // initialization
 +(id) globalTicket;
--(void) showTicket;
+-(void) launchAuthFlow;
+-(void) launchTradeOrPortfolioFlow;
 
 // authentication
 -(void) addSession:(TTSDKTicketSession *)session;
--(void) selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
+-(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 // account

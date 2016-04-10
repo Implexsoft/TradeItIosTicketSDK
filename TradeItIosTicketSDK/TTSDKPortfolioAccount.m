@@ -24,7 +24,6 @@
         self.displayTitle = [data valueForKey: @"displayTitle"];
         self.name = [data valueForKey: @"name"];
         self.active = [[data valueForKey: @"active"] boolValue];
-        self.lastSelected = [[data valueForKey: @"lastSelected"] boolValue];
         self.tradable = [[data valueForKey: @"tradable"] boolValue];
         self.broker = [data valueForKey: @"broker"];
 
@@ -40,7 +39,6 @@
     [account setObject:self.accountNumber forKey:@"accountNumber"];
     [account setObject:self.broker forKey:@"broker"];
     [account setObject:[NSNumber numberWithBool: self.active] forKey:@"active"];
-    [account setObject:[NSNumber numberWithBool: self.lastSelected] forKey:@"lastSelected"];
     [account setObject:[NSNumber numberWithBool: self.tradable] forKey:@"tradable"];
     [account setObject:self.displayTitle forKey:@"displayTitle"];
     [account setObject:self.name forKey:@"name"];

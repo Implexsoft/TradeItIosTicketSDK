@@ -223,7 +223,7 @@
                     if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        [globalTicket selectSession:newSession andAccount:selectedAccount];
+                        [globalTicket selectCurrentSession:newSession andAccount:selectedAccount];
                         [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                     }
                 }

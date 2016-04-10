@@ -754,6 +754,8 @@
 		65FC2ADC1C7A5611001FCB3E /* PortfolioService */ = {
 			isa = PBXGroup;
 			children = (
+				659A71AB1C72359800132CDE /* TTSDKAccountSummaryResult.h */,
+				659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */,
 				659A71A71C722D3900132CDE /* TTSDKPortfolioService.h */,
 				659A71A81C722D3900132CDE /* TTSDKPortfolioService.m */,
 				6508C4C01C797D4600612B62 /* TTSDKPortfolioAccount.h */,
@@ -773,8 +775,6 @@
 				65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */,
 				65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */,
 				65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */,
-				659A71AB1C72359800132CDE /* TTSDKAccountSummaryResult.h */,
-				659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";

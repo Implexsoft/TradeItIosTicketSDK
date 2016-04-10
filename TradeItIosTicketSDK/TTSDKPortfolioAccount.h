@@ -17,7 +17,6 @@
 @property NSString * name;
 @property NSString * broker;
 @property BOOL active;
-@property BOOL lastSelected;
 @property BOOL tradable;
 @property NSArray * positions;
 @property TradeItAccountOverviewResult * balance;
