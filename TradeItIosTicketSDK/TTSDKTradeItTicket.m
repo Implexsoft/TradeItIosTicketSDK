@@ -39,6 +39,7 @@ static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
 static NSString * kTradeViewIdentifier = @"TRADE";
 
 static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
+static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 
@@ -55,47 +56,41 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return globalTicketInstance;
 }
 
-- (void) showTicket {
+-(void) launchAuthFlow {
     // Immediately fire off a request for the publishers broker list
-    [self retrieveBrokers:^(NSArray * brokers) {
-        self.brokerList = brokers;
-    }];
+    [self retrieveBrokers];
 
-    // Try to find an initial account
-    NSArray * storedAccounts = self.allAccounts;
+    [self presentAuthScreen];
+}
 
-    NSDictionary * initialAccount;
-    for (NSDictionary * account in storedAccounts) {
-        NSNumber * isLastSelected = [account valueForKey:@"lastSelected"];
-        NSNumber * isActive = [account valueForKey:@"active"];
+- (void) launchTradeOrPortfolioFlow {
+    // Immediately fire off a request for the publishers broker list
+    [self retrieveBrokers];
 
-        if ([isLastSelected boolValue] && [isActive boolValue]) {
-            initialAccount = account;
-            break;
-        } else if ([isActive boolValue]) {
-            initialAccount = account;
-        }
-    }
-
-    // Create a new, unauthenticated session for all stored logins
     self.sessions = [[NSArray alloc] init];
     self.currentSession = nil;
     self.currentAccount = nil;
     self.previewRequest.accountNumber = @"";
 
-    NSArray * linkedLogins = [self.connector getLinkedLogins];
+    // Attempt to set an initial account
+    NSString * lastSelectedAccountNumber = [self getLastSelected];
 
+    if (lastSelectedAccountNumber) {
+        [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
+    } else if ([self.linkedAccounts count]) {
+        [self selectCurrentAccount: [self.linkedAccounts lastObject]];
+    }
+
+    // Create a new, unauthenticated session for all stored logins
+    NSArray * linkedLogins = [self.connector getLinkedLogins];
     for (TradeItLinkedLogin * login in linkedLogins) {
         TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
         [self addSession: newSession];
-
-        if (initialAccount && [login.userId isEqualToString: [initialAccount valueForKey: @"UserId"]]) {
-            [self selectSession: newSession andAccount: initialAccount];
+        
+        // Attempt to set an initial session
+        if (self.currentAccount && [login.userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
+            [self selectCurrentSession: newSession];
         }
-    }
-
-    if (self.currentAccount && [self.previewRequest.accountNumber isEqualToString:@""]) {
-        self.previewRequest.accountNumber = [self.currentAccount valueForKey:@"accountNumber"];
     }
 
     if (self.currentSession) {
@@ -112,24 +107,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         if (hasTouchId) {
             [self promptTouchId:^(BOOL success) {
                 if (success) {
-                    [self performSelectorOnMainThread:@selector(launchToTicket) withObject:nil waitUntilDone:NO];
+                    [self performSelectorOnMainThread:@selector(presentTradeOrPortfolioScreen) withObject:nil waitUntilDone:NO];
                 } else {
-                    [self performSelectorOnMainThread:@selector(launchToAuth) withObject:nil waitUntilDone:NO];
+                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
                 }
             }];
         } else {
-            [self launchToTicket];
+            [self presentTradeOrPortfolioScreen];
         }
         
     } else {
         // Update ticket result
         self.resultContainer.status = NO_BROKER;
 
-        [self launchToAuth];
+        [self presentAuthScreen];
     }
 }
 
--(void) launchToAuth {
+-(void) presentAuthScreen {
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
@@ -138,15 +133,15 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
     // If not onboarding, push the nav to the broker select view
-//    if (![self.utils isOnboarding]) {
-//        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-//        [nav pushViewController:initialViewController animated:NO];
-//    }
+    if (![self.utils isOnboarding]) {
+        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+        [nav pushViewController:initialViewController animated:NO];
+    }
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }
 
--(void) launchToTicket {
+-(void) presentTradeOrPortfolioScreen {
     [self authenticateSessionsInBackground];
 
     // Get storyboard
@@ -164,12 +159,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self.parentView presentViewController:tab animated:YES completion:nil];
 }
 
--(void) retrieveBrokers:(void (^)(NSArray *)) completionBlock {
+-(void) retrieveBrokers {
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
-        NSArray * brokersResult;
         if(brokerList == nil) {
-            brokersResult = [self getDefaultBrokerList];
-            completionBlock(brokersResult);
+            self.brokerList = [self getDefaultBrokerList];
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
             
@@ -183,8 +176,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
                 [brokers addObject: @[@"Dummy Broker", @"Dummy"]];
             }
 
-            brokersResult = [brokers copy];
-            completionBlock(brokersResult);
+            self.brokerList = brokers;
         }
     }];
 }
@@ -235,11 +227,14 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     self.sessions = [newSessionList copy];
 }
 
--(void) selectSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account {
-    self.currentSession = session;
-    self.currentAccount = account;
+-(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account {
+    [self selectCurrentSession: session];
+    [self selectCurrentAccount: account];
 }
 
+-(void) selectCurrentSession:(TTSDKTicketSession *)session {
+    self.currentSession = session;
+}
 
 
 #pragma mark - Accounts
@@ -262,7 +257,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         [acct setObject: session.login.userId forKey:@"UserId"];
         [acct setObject:[NSNumber numberWithBool:YES] forKey:@"active"];
         [acct setObject: displayTitle forKey:@"displayTitle"];
-        [acct setObject:[NSNumber numberWithBool:NO] forKey:@"lastSelected"];
         [acct setObject: session.broker forKey:@"broker"];
         [newAccounts addObject:acct];
     }
@@ -275,6 +269,19 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject: accounts forKey:kAccountsKey];
     [defaults synchronize];
+}
+
+-(void) setLastSelected:(NSString *)accountNumber {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: accountNumber forKey:kLastSelectedKey];
+    [defaults synchronize];
+}
+
+-(NSString *) getLastSelected {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * lastSelectedAccountNumber = [defaults objectForKey: kLastSelectedKey];
+
+    return lastSelectedAccountNumber;
 }
 
 -(void) unlinkAccounts {
@@ -396,81 +403,29 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return [linkedAccounts copy];
 }
 
--(void)setCurrentAccount:(NSDictionary *)currentAccount {
-    NSDictionary * selectedAccount;
+-(void) selectCurrentAccount:(NSDictionary *)account {
+    NSString * accountNumber = [account valueForKey:@"accountNumber"];
 
-    // Is same account as current?
-    if (_currentAccount){
-        if ([currentAccount isEqualToDictionary: self.currentAccount]) {
-            return;
-        }
-    }
-
-    NSMutableArray * mutableAccounts = [self.allAccounts mutableCopy];
-    NSArray * linkedAccounts = self.linkedAccounts;
-
-    if (linkedAccounts && linkedAccounts.count) {
-        for (NSDictionary * account in linkedAccounts) {
-            if ([currentAccount isEqualToDictionary:account]) {
-                selectedAccount = account;
-            }
-        }
-
-        NSMutableDictionary * selectedAccountToAdd;
-        NSDictionary * selectedAccountToRemove;
-        NSMutableDictionary * deselectedAccountToAdd;
-        NSDictionary * deselectedAccountToRemove;
-
-        for (NSDictionary * acct in mutableAccounts) {
-            BOOL isLastSelected = [(NSNumber *)[acct valueForKey:@"lastSelected"] boolValue];
-            
-            if ([acct isEqualToDictionary: selectedAccount]) {
-                selectedAccountToAdd = [acct mutableCopy];
-                selectedAccountToRemove = acct;
-            } else if (isLastSelected) {
-                deselectedAccountToAdd = [acct mutableCopy];
-                deselectedAccountToRemove = acct;
-            }
-        }
-
-        if (deselectedAccountToAdd) {
-            [deselectedAccountToAdd setValue:[NSNumber numberWithBool: NO] forKey: @"lastSelected"];
-            [mutableAccounts removeObject: deselectedAccountToRemove];
-            [mutableAccounts addObject: [deselectedAccountToAdd copy]];
-        }
-
-        if (selectedAccountToAdd) {
-            [selectedAccountToAdd setValue:[NSNumber numberWithBool: YES] forKey:@"lastSelected"];
-            [mutableAccounts removeObject: selectedAccountToRemove];
-            [mutableAccounts addObject: [selectedAccountToAdd copy]];
-        }
-
-    } else if (currentAccount) {
-        selectedAccount = currentAccount;
-        [mutableAccounts addObject: selectedAccount];
-        [self saveAccountsToUserDefaults:[mutableAccounts copy]];
-    }
-
-    // If account is not in current session, change session
-    if (selectedAccount) {
-        TTSDKTicketSession * selectedSession = [self retrieveSessionByAccount: selectedAccount];
-        if (![selectedSession.login.userId isEqualToString:_currentSession.login.userId]) {
-            [self selectSession:selectedSession andAccount:currentAccount];
-        }
-
-        _currentAccount = selectedAccount;
-        _previewRequest.accountNumber = [selectedAccount valueForKey:@"accountNumber"];
-    }
+    [self selectCurrentAccountByAccountNumber: accountNumber];
 }
 
--(void)setCurrentSession:(TTSDKTicketSession *)currentSession {
-    if (_currentSession) {
-        if ([currentSession.login.userId isEqualToString:_currentSession.login.userId]) {
-            return;
+-(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber {
+    // Is same account as current?
+    if ([accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]]) {
+        return;
+    }
+
+    for (NSDictionary *account in self.linkedAccounts) {
+        if ([accountNumber isEqualToString: [account valueForKey:@"accountNumber"]]) {
+            self.currentAccount = account;
         }
     }
 
-    _currentSession = currentSession;
+    [self setLastSelected: accountNumber];
+
+    if (self.previewRequest) {
+        self.previewRequest.accountNumber = accountNumber;
+    }
 }
 
 
@@ -487,7 +442,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 -(void) restartTicket {
     [self.parentView dismissViewControllerAnimated:NO completion:nil];
-    [self showTicket];
+    [self launchTradeOrPortfolioFlow];
 }
 
 

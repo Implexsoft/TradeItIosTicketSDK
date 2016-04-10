@@ -105,7 +105,12 @@
 +(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
-    [ticket showTicket];
+
+    if (ticket.authMode) {
+        [ticket launchAuthFlow];
+    } else {
+        [ticket launchTradeOrPortfolioFlow];
+    }
 }
 
 + (void)clearSavedData {

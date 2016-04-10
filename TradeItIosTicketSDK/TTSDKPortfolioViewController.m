@@ -285,7 +285,12 @@ static float kAccountCellHeight = 44.0f;
             [portfolioService selectAccount: selectedAccount.accountNumber];
             positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
 
-            self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
+            if (selectedAccount.displayTitle) {
+                self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
+            } else {
+                self.holdingsHeaderTitle = [NSString stringWithFormat:@"Holdings"];
+            }
+
             [self updateTableContentSize];
             [self.accountsTable reloadData];
         }
