@@ -20,6 +20,8 @@
 @property UIColor * navigationBarItemColor;
 @property UIColor * navigationBarTitleColor;
 
+@property UIColor * tabBarBackgroundColor;
+@property UIColor * tabBarItemColor;
 
 @property UIColor * activeColor;
 @property UIColor * inactiveColor;

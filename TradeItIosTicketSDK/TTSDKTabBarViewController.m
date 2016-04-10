@@ -7,10 +7,9 @@
 //
 
 #import "TTSDKTabBarViewController.h"
+#import "TTSDKStyles.h"
 
 @implementation TTSDKTabBarViewController
-
-
 
 #pragma mark - Rotation
 
@@ -29,6 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+
+    self.navigationController.navigationBar.backgroundColor = styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.tintColor = styles.activeColor;
+
+    [[UITabBar appearanceWhenContainedIn:self.class, nil] setTintColor: styles.tabBarItemColor];
+    [[UITabBar appearanceWhenContainedIn:self.class, nil] setBarTintColor: styles.tabBarBackgroundColor];
 }
 
 

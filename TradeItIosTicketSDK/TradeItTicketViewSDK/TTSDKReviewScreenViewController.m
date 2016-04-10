@@ -401,14 +401,11 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) sendTradeRequest {
-
     globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
-    
-
-//    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
-//        [self tradeRequestRecieved: result];
-//    }];
+    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
+        [self tradeRequestRecieved: result];
+    }];
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {

@@ -67,6 +67,9 @@
 //        self.primaryPlaceholderColor = self.inactiveColor;
         self.primaryPlaceholderColor = [UIColor whiteColor];
 
+        self.tabBarBackgroundColor = [UIColor greenColor];
+        self.tabBarItemColor = [UIColor whiteColor];
+
         // Set default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.primaryActiveButton.backgroundColor = self.activeColor;
