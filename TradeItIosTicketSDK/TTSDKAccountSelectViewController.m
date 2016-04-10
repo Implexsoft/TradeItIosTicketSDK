@@ -44,11 +44,15 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
+    [self.editBrokersButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
+
     accountResults = [[NSArray alloc] init];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    self.tableView.backgroundColor = self.styles.pageBackgroundColor;
 
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
     [portfolioService getSummaryForAccounts:^(void) {
@@ -89,8 +93,7 @@
 
     UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x + 43, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
-    addAccount.tintColor = [UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
-    [addAccount setTitleColor:[UIColor colorWithRed:0.00f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [addAccount setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
     addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [addAccount setUserInteractionEnabled:YES];
@@ -100,7 +103,7 @@
                                               action:@selector(addAccountPressed:)];
     [addAccount addGestureRecognizer:addAccountTap];
 
-    footerView.backgroundColor = [UIColor whiteColor];
+    footerView.backgroundColor = self.styles.pageBackgroundColor;
 
     [footerView addSubview:addAccount];
 
@@ -124,6 +127,8 @@
 
         [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountSelectCell" bundle:resourceBundle] forCellReuseIdentifier:accountIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
+
+        cell.backgroundColor = self.styles.pageBackgroundColor;
     }
 
     TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];

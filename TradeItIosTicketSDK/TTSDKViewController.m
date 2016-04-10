@@ -28,6 +28,9 @@
     [[UIButton appearanceWhenContainedIn:TTSDKViewController.class, nil] setBackgroundColor: [UIColor clearColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:TTSDKViewController.class, nil] setTintColor:[UIColor greenColor]];
 
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];
+
     self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 }

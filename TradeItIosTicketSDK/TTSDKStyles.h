@@ -18,7 +18,7 @@
 @property UIColor * pageBackgroundColor;
 @property UIColor * navigationBarBackgroundColor;
 @property UIColor * navigationBarItemColor;
-
+@property UIColor * navigationBarTitleColor;
 
 
 @property UIColor * activeColor;

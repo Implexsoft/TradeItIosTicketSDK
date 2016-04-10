@@ -178,7 +178,7 @@ static float kAccountCellHeight = 44.0f;
     if (section == 0) {
         if (!self.accountsFooterView) {
             UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, tableView.frame.size.width, 70.0f)];
-            footerView.backgroundColor = [UIColor whiteColor];
+            footerView.backgroundColor = self.styles.pageBackgroundColor;
             
             NSString * buttonTitle = @"Add Account";
 
@@ -188,7 +188,7 @@ static float kAccountCellHeight = 44.0f;
             [linkButton setTitle:buttonTitle forState:UIControlStateNormal];
             linkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
-            [linkButton setTitleColor:[UIColor colorWithRed:0.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+            [linkButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
             linkButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
 
             [footerView addSubview:linkButton];

@@ -41,8 +41,10 @@
 //        self.pageBackgroundColor = [UIColor whiteColor];
         self.pageBackgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
 
-        self.navigationBarBackgroundColor = nil;
+        self.navigationBarBackgroundColor = [UIColor blueColor];
         self.navigationBarItemColor = nil;
+
+        self.navigationBarTitleColor = [UIColor whiteColor];
 
 //        self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         self.activeColor = [UIColor redColor];

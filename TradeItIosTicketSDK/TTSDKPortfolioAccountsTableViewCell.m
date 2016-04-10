@@ -9,9 +9,11 @@
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TradeItAccountOverviewResult.h"
 #import "TTSDKUtils.h"
+#import "TTSDKStyles.h"
 
 @interface TTSDKPortfolioAccountsTableViewCell() {
     TTSDKUtils * utils;
+    TTSDKStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
@@ -32,6 +34,7 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     utils = [TTSDKUtils sharedUtils];
+    styles = [TTSDKStyles sharedStyles];
 }
 
 
@@ -41,6 +44,8 @@
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
     NSString * displayTitle = account.displayTitle;
     NSString * totalValue;
+
+    self.backgroundColor = styles.pageBackgroundColor;
 
     self.portfolioAccount = account;
 
