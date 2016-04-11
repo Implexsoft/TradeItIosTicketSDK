@@ -53,6 +53,7 @@
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName;
 -(CGFloat) retrieveScreenHeight;
 -(BOOL) isSmallScreen;
+-(BOOL) isLargeScreen;
 -(BOOL) hasTouchId;
 -(NSString *) getBrokerUsername:(NSString *) broker;
 

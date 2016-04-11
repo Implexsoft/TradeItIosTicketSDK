@@ -91,6 +91,10 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return ([self retrieveScreenHeight] < 500);
 }
 
+-(BOOL) isLargeScreen {
+    return ([self retrieveScreenHeight] > 735);
+}
+
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName {
     UIColor * brokerColor;
 

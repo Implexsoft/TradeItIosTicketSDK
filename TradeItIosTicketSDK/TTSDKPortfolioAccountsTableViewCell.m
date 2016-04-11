@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorLeadingConstraint;
 
 @property TTSDKPortfolioAccount * portfolioAccount;
 
@@ -32,6 +33,10 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     utils = [TTSDKUtils sharedUtils];
+
+    if ([utils isLargeScreen]) {
+        self.separatorLeadingConstraint.constant = -8;
+    }
 }
 
 
@@ -69,7 +74,7 @@
     if (selected) {
         self.selectedView.hidden = NO;
     } else {
-        self.selectedView.hidden = YES;
+        self.selectedView.hidden = NO;
     }
 }
 
