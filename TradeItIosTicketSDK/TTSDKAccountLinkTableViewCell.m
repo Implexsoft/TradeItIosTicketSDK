@@ -9,6 +9,7 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKStyles.h"
 
 
 @interface TTSDKAccountLinkTableViewCell() {
@@ -32,8 +33,16 @@
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
+
+    [self setViewStyles];
 }
 
+-(void) setViewStyles {
+    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+
+    self.backgroundColor = [UIColor clearColor];
+    [self.toggle setOnTintColor: styles.switchColor];
+}
 
 
 #pragma mark - Configuration

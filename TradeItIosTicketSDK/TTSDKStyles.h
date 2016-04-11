@@ -31,6 +31,11 @@
 
 @property UIColor * smallTextColor;
 
+@property UIColor * loadingBackgroundColor;
+@property UIColor * loadingIconColor;
+
+@property UIColor * switchColor;
+
 @property UIColor * primarySeparatorColor;
 
 @property UIColor * primaryPlaceholderColor;

@@ -203,9 +203,12 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     UIView * loadingView = [[UIView alloc] init];
 
     loadingView.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
-    loadingView.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.4f];
+    loadingView.backgroundColor = [styles.loadingBackgroundColor colorWithAlphaComponent: 0.4f];
 
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    indicator.color = [UIColor whiteColor];
+
     indicator.hidden = NO;
     [loadingView addSubview:indicator];
     indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - 20.0f, (loadingView.frame.size.height / 2) - 20.0f, 40.0f, 40.0f);

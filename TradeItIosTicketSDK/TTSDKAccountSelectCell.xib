@@ -35,7 +35,6 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brokerage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCs-P2-SgY">
                         <rect key="frame" x="31" y="27" width="70" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-nI-tU9">
@@ -100,8 +99,10 @@
             <connections>
                 <outlet property="accountTypeLabel" destination="uCs-P2-SgY" id="lAX-JU-ALl"/>
                 <outlet property="brokerLabel" destination="Gff-EA-z3u" id="n2Y-SH-kUy"/>
+                <outlet property="buyingPower" destination="5ng-Tu-kps" id="Hwl-c0-Kv1"/>
                 <outlet property="buyingPowerLabel" destination="Pnn-M4-uMZ" id="L5G-3B-o2P"/>
                 <outlet property="circle" destination="9lZ-N7-5hP" id="hXF-BL-1YA"/>
+                <outlet property="shares" destination="boH-8O-vhO" id="L5Y-fT-7h2"/>
                 <outlet property="sharesLabel" destination="Fke-es-2rY" id="WMc-jb-0t5"/>
             </connections>
             <point key="canvasLocation" x="525" y="249"/>
