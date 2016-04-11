@@ -411,17 +411,10 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(void) selectCurrentAccount:(NSDictionary *)account {
     NSString * accountNumber = [account valueForKey:@"accountNumber"];
-<<<<<<< HEAD
 
     [self selectCurrentAccountByAccountNumber: accountNumber];
 }
 
-=======
-
-    [self selectCurrentAccountByAccountNumber: accountNumber];
-}
-
->>>>>>> master
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber {
     // Is same account as current?
     if ([accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]]) {
