@@ -43,4 +43,8 @@
     self.textColor = styles.primaryTextColor;
 }
 
+- (void) drawPlaceholderInRect:(CGRect)rect {
+    [self.placeholder drawInRect:rect withAttributes:@{NSForegroundColorAttributeName: styles.smallTextColor}];
+}
+
 @end

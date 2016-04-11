@@ -12,8 +12,8 @@
 
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
-    TTSDKStyles * styles;
 }
+@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
 @end
 
@@ -26,12 +26,23 @@
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
-        styles = [TTSDKStyles sharedStyles];
-
-        [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
+        
+        [self setViewStyles];
     }
 
     return self;
+}
+
+-(void) setViewStyles {
+    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+
+    [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
+    [self.brokerButton setTitleColor:styles.primaryTextColor forState:UIControlStateNormal];
+
+    self.rightArrow.image = [self.rightArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.rightArrow.tintColor = styles.activeColor;
+
+    self.symbolDetailLabel.textColor = styles.smallTextColor;
 }
 
 

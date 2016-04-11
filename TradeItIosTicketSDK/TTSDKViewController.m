@@ -34,8 +34,6 @@
     self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 
-//    self.tabBarController.tabBar.backgroundColor = self.styles.navigationBarBackgroundColor;
-
     [[UITabBar appearanceWhenContainedIn:TTSDKViewController.class, nil] setTintColor:[UIColor redColor]];
     [[UITabBar appearanceWhenContainedIn:TTSDKViewController.class, nil] setBarTintColor:[UIColor orangeColor]];
 }

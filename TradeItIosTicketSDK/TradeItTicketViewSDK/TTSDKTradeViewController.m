@@ -69,8 +69,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    orderTypeButton.backgroundColor = [UIColor yellowColor];
-
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
@@ -84,12 +82,53 @@
 
     companyNib.backgroundColor = self.styles.pageBackgroundColor;
 
-    [self uiTweaks];
-
     [self setCustomEvents];
     [self refreshPressed:self];
 
     [self.view setNeedsDisplay];
+}
+
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    [self applyBorder:(UIView *)sharesInput];
+    [self applyBorder:(UIView *)orderActionButton];
+    
+    [utils styleBorderedUnfocusInput:sharesInput];
+    
+    previewOrderButton.clipsToBounds = YES;
+
+    orderActionButton.layer.borderColor = self.styles.activeColor.CGColor;
+    [orderActionButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGRect bounds = CGRectMake(orderActionButton.frame.size.width - 20, (orderActionButton.frame.size.height / 2) - 4, 8, 8); // - 8
+    CGFloat radius = bounds.size.width / 2;
+    CGFloat a = radius * sqrt((CGFloat)3.0) / 2;
+    CGFloat b = radius / 2;
+    [path moveToPoint:CGPointMake(0, b)];
+    [path addLineToPoint:CGPointMake(a, -radius)];
+    [path addLineToPoint:CGPointMake(-a, -radius)];
+    
+    [path closePath];
+    [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
+    shapeLayer.path = path.CGPath;
+    
+    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
+    shapeLayer.fillColor = self.styles.activeColor.CGColor;
+    
+    [orderActionButton.layer addSublayer: shapeLayer];
+    
+    if(globalTicket.previewRequest.orderQuantity > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
+    }
+    
+    [sharesInput becomeFirstResponder];
+    
+    if ([utils isSmallScreen] && !uiConfigured) {
+        [self configureUIForSmallScreens];
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -202,46 +241,6 @@
 
 
 #pragma mark - Custom UI
-
--(void) uiTweaks { // things that can't be done in Storyboard
-    [self applyBorder:(UIView *)sharesInput];
-    [self applyBorder:(UIView *)orderActionButton];
-
-    [utils styleBorderedUnfocusInput:sharesInput];
-    
-    previewOrderButton.clipsToBounds = YES;
-
-    orderActionButton.layer.borderColor = self.styles.activeColor.CGColor;
-
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    CGRect bounds = CGRectMake(orderActionButton.frame.size.width - 20, (orderActionButton.frame.size.height / 2) - 4, 8, 8); // - 8
-    CGFloat radius = bounds.size.width / 2;
-    CGFloat a = radius * sqrt((CGFloat)3.0) / 2;
-    CGFloat b = radius / 2;
-    [path moveToPoint:CGPointMake(0, b)];
-    [path addLineToPoint:CGPointMake(a, -radius)];
-    [path addLineToPoint:CGPointMake(-a, -radius)];
-
-    [path closePath];
-    [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
-    shapeLayer.path = path.CGPath;
-
-    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
-    shapeLayer.fillColor = self.styles.activeColor.CGColor;
-
-    [orderActionButton.layer addSublayer: shapeLayer];
-
-    if(globalTicket.previewRequest.orderQuantity > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
-    }
-
-    [sharesInput becomeFirstResponder];
-
-    if ([utils isSmallScreen] && !uiConfigured) {
-        [self configureUIForSmallScreens];
-    }
-}
 
 -(void) applyBorder: (UIView *) item {
     item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
