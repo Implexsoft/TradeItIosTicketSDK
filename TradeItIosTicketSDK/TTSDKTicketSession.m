@@ -83,7 +83,10 @@
 
         self.needsManualAuthentication = YES;
 
-        if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+        if (completionBlock && [res isKindOfClass:TradeItErrorResult.class]) {
+            completionBlock(res);
+
+        } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
             TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
             
             if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {

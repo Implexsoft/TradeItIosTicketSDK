@@ -134,11 +134,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // If not onboarding, push the nav to the broker select view
     if (![self.utils isOnboarding]) {
-        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-        [nav pushViewController:initialViewController animated:NO];
+        [self removeOnboardingFromNav: nav];
     }
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) removeOnboardingFromNav:(UINavigationController *)nav {
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+    TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+    [nav pushViewController:initialViewController animated:NO];
 }
 
 -(void) presentTradeOrPortfolioScreen {
