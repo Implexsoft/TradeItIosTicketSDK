@@ -15,6 +15,7 @@
 #import "TTSDKHoldingsHeaderView.h"
 #import "TTSDKLoginViewController.h"
 #import "TradeItQuotesResult.h"
+#import "TTSDKBrokerSelectViewController.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -92,8 +93,11 @@ static float kAccountCellHeight = 44.0f;
 
     if (!globalTicket.currentSession.isAuthenticated) {
         [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
+            if ([res.status isEqualToString: @"SUCCESS"]) {
                 [self loadPortfolioData];
+            } else {
+                self.loadingView.hidden = YES;
+                [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
             }
         }];
     } else {
@@ -445,6 +449,12 @@ static float kAccountCellHeight = 44.0f;
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
+        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
+        [globalTicket removeOnboardingFromNav: nav];
+    }
+}
 
 
 @end

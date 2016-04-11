@@ -77,7 +77,11 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
     }
 
     if (!selectedAccount) {
-        return;
+        if (self.accounts && [self.accounts count]) {
+            selectedAccount = [self.accounts firstObject];
+        } else {
+            return;
+        }
     }
 
     self.selectedAccount = selectedAccount;

@@ -134,11 +134,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // If not onboarding, push the nav to the broker select view
     if (![self.utils isOnboarding]) {
-        TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-        [nav pushViewController:initialViewController animated:NO];
+        [self removeOnboardingFromNav: nav];
     }
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) removeOnboardingFromNav:(UINavigationController *)nav {
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+    TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+    [nav pushViewController:initialViewController animated:NO];
 }
 
 -(void) presentTradeOrPortfolioScreen {
@@ -405,10 +411,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(void) selectCurrentAccount:(NSDictionary *)account {
     NSString * accountNumber = [account valueForKey:@"accountNumber"];
+<<<<<<< HEAD
 
     [self selectCurrentAccountByAccountNumber: accountNumber];
 }
 
+=======
+
+    [self selectCurrentAccountByAccountNumber: accountNumber];
+}
+
+>>>>>>> master
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber {
     // Is same account as current?
     if ([accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]]) {

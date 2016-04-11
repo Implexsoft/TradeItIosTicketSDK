@@ -58,6 +58,7 @@
 +(id) globalTicket;
 -(void) launchAuthFlow;
 -(void) launchTradeOrPortfolioFlow;
+-(void) removeOnboardingFromNav:(UINavigationController *)nav;
 
 // authentication
 -(void) addSession:(TTSDKTicketSession *)session;
