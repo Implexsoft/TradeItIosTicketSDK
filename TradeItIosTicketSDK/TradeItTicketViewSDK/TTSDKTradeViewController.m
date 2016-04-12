@@ -93,14 +93,14 @@
 
     [self applyBorder:(UIView *)sharesInput];
     [self applyBorder:(UIView *)orderActionButton];
-    
+
     [utils styleBorderedUnfocusInput:sharesInput];
-    
+
     previewOrderButton.clipsToBounds = YES;
 
     orderActionButton.layer.borderColor = self.styles.activeColor.CGColor;
     [orderActionButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
-    
+
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGRect bounds = CGRectMake(orderActionButton.frame.size.width - 20, (orderActionButton.frame.size.height / 2) - 4, 8, 8); // - 8
@@ -110,22 +110,24 @@
     [path moveToPoint:CGPointMake(0, b)];
     [path addLineToPoint:CGPointMake(a, -radius)];
     [path addLineToPoint:CGPointMake(-a, -radius)];
-    
+
     [path closePath];
     [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     shapeLayer.path = path.CGPath;
-    
+
     shapeLayer.strokeColor = self.styles.activeColor.CGColor;
     shapeLayer.fillColor = self.styles.activeColor.CGColor;
-    
+
     [orderActionButton.layer addSublayer: shapeLayer];
-    
+
+    [orderTypeButton setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
+
     if(globalTicket.previewRequest.orderQuantity > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
     }
-    
+
     [sharesInput becomeFirstResponder];
-    
+
     if ([utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
     }

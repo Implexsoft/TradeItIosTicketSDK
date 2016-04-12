@@ -37,11 +37,16 @@
     utils = [TTSDKUtils sharedUtils];
     styles = [TTSDKStyles sharedStyles];
 
+    [self setViewStyles];
+}
+
+-(void) setViewStyles {
+    self.selectedView.backgroundColor = styles.activeColor;
+
     if ([utils isLargeScreen]) {
         self.separatorLeadingConstraint.constant = -8;
     }
 }
-
 
 
 #pragma mark - Configuration

@@ -41,6 +41,7 @@
 //        self.pageBackgroundColor = [UIColor whiteColor];
         self.pageBackgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
 
+//        self.navigationBarBackgroundColor = nil;
         self.navigationBarBackgroundColor = [UIColor blueColor];
         self.navigationBarItemColor = nil;
 
@@ -76,7 +77,7 @@
 
 //        self.switchColor = self.gainColor;
         self.switchColor = [UIColor orangeColor];
-    
+
         // Set default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.primaryActiveButton.backgroundColor = self.activeColor;

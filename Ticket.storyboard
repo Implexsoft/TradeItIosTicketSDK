@@ -1179,7 +1179,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Navigation Controller-->
         <scene sceneID="0LB-Ic-3mz">
             <objects>
-                <navigationController id="bsj-SB-841" sceneMemberID="viewController">
+                <navigationController id="bsj-SB-841" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oyH-hr-2ox">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

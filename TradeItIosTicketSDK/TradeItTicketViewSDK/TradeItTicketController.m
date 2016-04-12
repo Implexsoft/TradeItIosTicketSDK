@@ -36,7 +36,9 @@
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
 #import "TTSDKLabel.h"
+#import "TTSDKSmallLabel.h"
 #import "TTSDKViewController.h"
+#import "TTSDKNavigationController.h"
 #import "TTSDKTableViewController.h"
 #import "TTSDKTextField.h"
 #import "TTSDKPrimaryButton.h"
@@ -233,9 +235,11 @@
     [TTSDKAccountsHeaderView class];
     [TTSDKHoldingsHeaderView class];
     [TTSDKLabel class];
+    [TTSDKSmallLabel class];
     [TTSDKTextField class];
     [TTSDKPrimaryButton class];
     [TTSDKViewController class];
+    [TTSDKNavigationController class];
     [TTSDKTableViewController class];
     [TTSDKStyles class];
 }

@@ -18,6 +18,7 @@
     TTSDKTradeItTicket * globalTicket;
 }
 
+@property (weak, nonatomic) IBOutlet UIView *separator;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circleGraphic;
@@ -42,6 +43,7 @@
 
     self.backgroundColor = [UIColor clearColor];
     [self.toggle setOnTintColor: styles.switchColor];
+    self.separator.backgroundColor = styles.smallTextColor;
 }
 
 
