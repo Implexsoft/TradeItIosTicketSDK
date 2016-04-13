@@ -148,7 +148,7 @@ static float kMessageSeparatorHeight = 30.0f;
         [self hideElement:estimatedFeesVL];
         [self hideElement:estimatedFeesVV];
     }
-    
+
     if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
         [estimateCostLabel setText:@"ESTIMATED PROCEEDS"];
     } else {

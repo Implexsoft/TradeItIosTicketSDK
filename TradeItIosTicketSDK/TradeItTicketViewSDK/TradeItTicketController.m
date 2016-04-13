@@ -58,13 +58,18 @@
     ticket.parentView = view;
     ticket.debugMode = debug;
     ticket.portfolioMode = YES;
-    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     ticket.quote = [[TradeItQuote alloc] init];
 
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = @"buy";
     ticket.previewRequest.orderPriceType = @"market";
     ticket.previewRequest.orderQuantity = @1;
+
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
 
     [TradeItTicketController showTicket];
 }
@@ -78,7 +83,6 @@
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
-    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     [ticket setCallback: callback];
     [ticket setParentView: view];
     [ticket setDebugMode: debug];
@@ -92,6 +96,12 @@
     ticket.previewRequest.orderAction = action;
     ticket.previewRequest.orderPriceType = @"market";
     ticket.previewRequest.orderQuantity = quantity;
+
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
 
     [TradeItTicketController showTicket];
 }
@@ -237,6 +247,7 @@
 
     if(self.debugMode) {
         [ticket setDebugMode: YES];
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     if(self.onCompletion != nil) {
