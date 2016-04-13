@@ -34,49 +34,29 @@
 
 - (id)init {
     if (self = [super init]) {
+
+        // State
         self.warningColor = [UIColor colorWithRed:236.0f/255.0f green:121.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
         self.lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         self.gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
+        self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+        self.inactiveColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
 
-//        self.pageBackgroundColor = [UIColor whiteColor];
-        self.pageBackgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+        // Text
+        self.primaryTextColor = [UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0];
+        self.primaryTextHighlightColor = [UIColor colorWithRed:180.0f/225.0f green:180.0f/225.0f blue:180.0f/225.0f alpha:1.0f];
+        self.smallTextColor = [UIColor lightGrayColor];
+        self.primaryPlaceholderColor = self.inactiveColor;
 
-//        self.navigationBarBackgroundColor = nil;
-        self.navigationBarBackgroundColor = [UIColor blueColor];
+        // UI Elements
+        self.primarySeparatorColor = [UIColor lightGrayColor];
+        self.tabBarBackgroundColor = nil;
+        self.tabBarItemColor = self.activeColor;
+        self.switchColor = self.gainColor;
+        self.pageBackgroundColor = [UIColor whiteColor];
+        self.navigationBarBackgroundColor = nil;
         self.navigationBarItemColor = nil;
-
-        self.navigationBarTitleColor = [UIColor whiteColor];
-
-//        self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
-        self.activeColor = [UIColor redColor];
-
-//        self.inactiveColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
-        self.inactiveColor = [UIColor greenColor];
-
-//        self.primaryTextColor = [UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0];
-        self.primaryTextColor = [UIColor greenColor];
-
-//        self.primaryTextHighlightColor = [UIColor colorWithRed:180.0f/225.0f green:180.0f/225.0f blue:180.0f/225.0f alpha:1.0f];
-        self.primaryTextHighlightColor = [UIColor yellowColor];
-
-//        self.smallTextColor = [UIColor lightGrayColor];
-        self.smallTextColor = [UIColor purpleColor];
-
-//        self.primarySeparatorColor = [UIColor lightGrayColor];
-        self.primarySeparatorColor = [UIColor orangeColor];
-
-//        self.primaryPlaceholderColor = self.inactiveColor;
-        self.primaryPlaceholderColor = [UIColor whiteColor];
-
-//        self.tabBarBackgroundColor = nil;
-        self.tabBarBackgroundColor = [UIColor greenColor];
-//        self.tabBarItemColor = self.activeColor;
-        self.tabBarItemColor = [UIColor whiteColor];
-
-        self.loadingBackgroundColor = [UIColor redColor];
-
-//        self.switchColor = self.gainColor;
-        self.switchColor = [UIColor orangeColor];
+        self.navigationBarTitleColor = self.primaryTextColor;
 
         // Set default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -104,6 +84,7 @@
         // Set default styles for preferred broker button (only shown on onboarding screen)
         self.preferredBrokerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 
+        // Brokers
         etradeColor = [UIColor colorWithRed:98.0f / 255.0f green:77.0f / 255.0f blue:160.0f / 255.0f alpha:1.0f];
         robinhoodColor = [UIColor colorWithRed:33.0f / 255.0f green:206.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];
         schwabColor = [UIColor colorWithRed:25.0f / 255.0f green:159.0f / 255.0f blue:218.0f / 255.0f alpha:1.0f];

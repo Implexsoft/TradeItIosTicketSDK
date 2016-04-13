@@ -21,9 +21,6 @@
 
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
-    [[UIButton appearanceWhenContainedIn: self.class, nil] setBackgroundColor: [UIColor clearColor]];
-    [[UIBarButtonItem appearanceWhenContainedIn: self.class, nil] setTintColor:[UIColor greenColor]];
-
     self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 
