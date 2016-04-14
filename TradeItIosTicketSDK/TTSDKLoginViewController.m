@@ -179,9 +179,18 @@
 
     [globalTicket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
-            globalTicket.errorTitle = @"Invalid Credentials";
-            globalTicket.errorMessage = @"Check your username and password and try again.";
-            
+
+            TradeItErrorResult * error = (TradeItErrorResult *)res;
+
+            NSMutableString * errorMessage = [[NSMutableString alloc] initWithString:@""];
+
+            for (NSString * message in error.longMessages) {
+                [errorMessage appendString: message];
+            }
+
+            globalTicket.errorTitle = error.shortMessage;
+            globalTicket.errorMessage = [errorMessage copy];
+
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:globalTicket.errorTitle withMessage:globalTicket.errorMessage];
             } else {
