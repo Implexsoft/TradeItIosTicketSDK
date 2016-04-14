@@ -72,7 +72,7 @@
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = @"buy";
     ticket.previewRequest.orderPriceType = @"market";
-    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderQuantity = @0;
 
     [TradeItTicketController showTicket];
 }
@@ -159,7 +159,7 @@
     ticket.quote = [[TradeItQuote alloc] init];
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = @"buy";
-    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderQuantity = @0;
     ticket.previewRequest.orderPriceType = @"market";
 
     if(self.quantity > 0) {

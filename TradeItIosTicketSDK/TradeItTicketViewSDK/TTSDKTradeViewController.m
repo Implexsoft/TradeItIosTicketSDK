@@ -88,6 +88,10 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
+    if([globalTicket.previewRequest.orderQuantity intValue] > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
+    }
+
     [self initConstraints];
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
@@ -137,10 +141,6 @@
     [orderActionButton.layer addSublayer: shapeLayer];
 
     [orderTypeButton setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
-
-    if(globalTicket.previewRequest.orderQuantity > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
-    }
 
     [sharesInput becomeFirstResponder];
 
@@ -413,6 +413,7 @@
 
 -(void) updateEstimatedCost {
     NSInteger shares = [globalTicket.previewRequest.orderQuantity integerValue];
+
     double price = [globalTicket.quote.lastPrice doubleValue];
 
     if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
