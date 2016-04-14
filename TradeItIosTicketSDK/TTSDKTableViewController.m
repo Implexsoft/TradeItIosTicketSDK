@@ -10,6 +10,26 @@
 
 @implementation TTSDKTableViewController
 
+
+
+#pragma mark - Rotation
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

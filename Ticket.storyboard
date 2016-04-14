@@ -231,7 +231,7 @@ you want to link</string>
         <!--PortfolioNav-->
         <scene sceneID="hwj-2O-7ua">
             <objects>
-                <navigationController storyboardIdentifier="PortfolioController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="McX-JL-l75" userLabel="PortfolioNav" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PortfolioController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="McX-JL-l75" userLabel="PortfolioNav" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Portfolio" image="portfolioIcon.png" selectedImage="portfolioIcon.png" id="zyv-cJ-mAp"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -477,7 +477,7 @@ you want to link</string>
         <!--Authentication Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
             <objects>
-                <navigationController storyboardIdentifier="AUTH_NAV" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" userLabel="Authentication Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AUTH_NAV" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Iv-K7-0hh" userLabel="Authentication Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SXg-ap-0ac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1160,7 +1160,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--TradeNav-->
         <scene sceneID="SqP-UT-lT4">
             <objects>
-                <navigationController storyboardIdentifier="TradeNavController" id="trO-ZN-AJm" userLabel="TradeNav" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TradeNavController" id="trO-ZN-AJm" userLabel="TradeNav" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trade" image="tradeIcon.png" selectedImage="tradeIcon.png" id="rOF-1j-wUF"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

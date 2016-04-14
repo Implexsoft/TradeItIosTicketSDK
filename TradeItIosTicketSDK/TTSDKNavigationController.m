@@ -14,6 +14,24 @@
 
 @implementation TTSDKNavigationController
 
+
+
+#pragma mark - Rotation
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [self.topViewController supportedInterfaceOrientations];
+}
+
+- (BOOL)shouldAutorotate
+{
+    return [self.topViewController shouldAutorotate];
+}
+
+
+
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
