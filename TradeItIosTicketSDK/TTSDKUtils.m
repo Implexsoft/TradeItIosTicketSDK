@@ -211,7 +211,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
-    indicator.color = [UIColor whiteColor];
+    indicator.color = styles.loadingIconColor;
 
     indicator.hidden = NO;
     [loadingView addSubview:indicator];

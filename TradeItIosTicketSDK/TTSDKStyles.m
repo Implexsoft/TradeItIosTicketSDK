@@ -58,6 +58,10 @@
         self.navigationBarItemColor = nil;
         self.navigationBarTitleColor = self.primaryTextColor;
 
+        // UI Elements - loading
+        self.loadingBackgroundColor = [UIColor whiteColor];
+        self.loadingIconColor = self.inactiveColor;
+
         // Set default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.primaryActiveButton.backgroundColor = self.activeColor;

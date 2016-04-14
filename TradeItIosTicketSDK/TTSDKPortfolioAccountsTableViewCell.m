@@ -84,7 +84,7 @@
     if (selected) {
         self.selectedView.hidden = NO;
     } else {
-        self.selectedView.hidden = NO;
+        self.selectedView.hidden = YES;
     }
 }
 

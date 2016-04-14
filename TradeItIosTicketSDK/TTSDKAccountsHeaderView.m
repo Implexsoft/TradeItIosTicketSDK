@@ -27,6 +27,8 @@
     utils = [TTSDKUtils sharedUtils];
     styles = [TTSDKStyles sharedStyles];
 
+    self.backgroundColor = styles.pageBackgroundColor;
+
     [self.editAccountsButton setTitleColor:styles.activeColor forState:UIControlStateNormal];
 }
 
