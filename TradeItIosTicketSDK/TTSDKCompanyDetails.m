@@ -59,7 +59,7 @@
     if (symbol) {
         [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
     } else {
-        [self.symbolLabel setTitle:@"N/A" forState:UIControlStateNormal];
+        [self.symbolLabel setTitle:@"No Broker" forState:UIControlStateNormal];
     }
 }
 

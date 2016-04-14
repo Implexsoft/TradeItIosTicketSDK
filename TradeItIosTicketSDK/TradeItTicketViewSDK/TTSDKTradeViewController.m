@@ -140,7 +140,7 @@
 
     [orderActionButton.layer addSublayer: shapeLayer];
 
-    [orderTypeButton setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
+    [orderTypeButton setTitleColor:self.styles.primaryTextColor forState: UIControlStateNormal];
 
     [sharesInput becomeFirstResponder];
 
@@ -151,10 +151,6 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    if (globalTicket.quote.symbol == nil || [globalTicket.quote.symbol isEqualToString:@""]) {
-        [self performSegueWithIdentifier:@"TradeToSearch" sender: self];
-    }
 
     if (!globalTicket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
