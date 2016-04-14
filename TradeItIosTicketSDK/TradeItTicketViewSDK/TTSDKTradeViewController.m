@@ -551,13 +551,13 @@
     stopPriceInput.text = @"";
 
     if (globalTicket.previewRequest.orderLimitPrice) {
-        limitPriceInput.text = [NSString stringWithFormat:@"%@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];;
+        limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];;
     } else {
         limitPriceInput.text = @"";
     }
 
     if (globalTicket.previewRequest.orderStopPrice) {
-        stopPriceInput.text = [NSString stringWithFormat:@"%@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
+        stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
     } else {
         stopPriceInput.text = @"";
     }
