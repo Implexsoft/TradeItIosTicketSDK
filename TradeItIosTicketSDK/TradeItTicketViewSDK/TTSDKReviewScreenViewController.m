@@ -117,21 +117,21 @@ static float kMessageSeparatorHeight = 30.0f;
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesLongVL];
         [self hideElement:sharesLongVV];
     } else {
         [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"]]];
     }
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesShortVL];
         [self hideElement:sharesShortVV];
     } else {
         [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"]]];
     }
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] && ![[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]) {
         [self hideElement:buyingPowerVL];
         [self hideElement:buyingPowerVV];
@@ -142,26 +142,26 @@ static float kMessageSeparatorHeight = 30.0f;
         [buyingPowerLabel setText:@"Avail. Cash"];
         [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
     }
-    
+
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
         [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
     } else {
         [self hideElement:estimatedFeesVL];
         [self hideElement:estimatedFeesVV];
     }
-    
+
     if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
         [estimateCostLabel setText:@"Estimated Proceeds"];
     } else {
         [estimateCostLabel setText:@"Estimated Cost"];
     }
-    
+
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
     } else {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
     }
-    
+
     for(NSString * warning in [[self reviewTradeResult] warningsList]) {
         [self addReviewMessage: warning];
     }
@@ -169,11 +169,6 @@ static float kMessageSeparatorHeight = 30.0f;
     for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
         [self addAcknowledgeMessage: warning];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) hideElement:(UIView *) element {
@@ -431,7 +426,6 @@ static float kMessageSeparatorHeight = 30.0f;
         alert.modalPresentationStyle = UIModalPresentationPopover;
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
-                                                                   [self dismissViewControllerAnimated:YES completion:nil];
                                                                }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
