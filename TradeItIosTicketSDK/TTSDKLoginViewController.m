@@ -22,6 +22,7 @@
     __weak IBOutlet UITextField *passwordInput;
     __weak IBOutlet TTSDKPrimaryButton *linkAccountButton;
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
+    __weak IBOutlet NSLayoutConstraint *loginButtonBottomConstraint;
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
@@ -56,6 +57,15 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
+    // Add a "textFieldDidChange" notification method to the text field control.
+    [emailInput addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
+
+    [passwordInput addTarget:self
+                   action:@selector(textFieldDidChange:)
+         forControlEvents:UIControlEventEditingChanged];
+
     NSString * broker = (self.addBroker == nil) ? globalTicket.currentSession.broker : self.addBroker;
 
     if(self.addBroker == nil && globalTicket.currentSession.login.userId) {
@@ -66,6 +76,17 @@
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
         self.navigationItem.leftBarButtonItem=newBackButton;
     }
+
+    // Listen for keyboard appearances and disappearances
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
 
     [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [globalTicket getBrokerDisplayString:broker]]];
 
@@ -277,6 +298,26 @@
     }
 
     return YES;
+}
+
+- (void)keyboardDidShow: (NSNotification *) notification {
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+
+    loginButtonBottomConstraint.constant = keyboardFrameBeginRect.size.height + 20.0f;
+}
+
+- (void)keyboardDidHide: (NSNotification *) notification {
+    loginButtonBottomConstraint.constant = 20.0f;
+}
+
+-(void) textFieldDidChange:(UITextField *)textField {
+    if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
+        [linkAccountButton activate];
+    } else {
+        [linkAccountButton deactivate];
+    }
 }
 
 
