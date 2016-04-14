@@ -76,9 +76,13 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
-
     NSDictionary * selectedAccount = [account accountData];
-    globalTicket.currentAccount = selectedAccount;
+
+    if (![account.userId isEqualToString:globalTicket.currentSession.login.userId]) {
+        [globalTicket selectCurrentSession:[globalTicket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
+    } else {
+        [globalTicket selectCurrentAccount: selectedAccount];
+    }
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
     [self.navigationController popToViewController:tradeVC animated: YES];

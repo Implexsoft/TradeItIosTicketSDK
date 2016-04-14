@@ -66,6 +66,8 @@
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 // account
+-(void) selectCurrentAccount:(NSDictionary *)account;
+-(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber;
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
 -(void) saveAccountsToUserDefaults:(NSArray *)accounts;
 -(void) unlinkAccounts;
