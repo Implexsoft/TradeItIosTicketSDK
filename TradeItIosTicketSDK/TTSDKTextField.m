@@ -41,6 +41,13 @@
     styles = [TTSDKStyles sharedStyles];
 
     self.textColor = styles.primaryTextColor;
+
+    UIView * leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.frame.size.height)];
+    leftView.backgroundColor = [UIColor clearColor];
+
+    self.leftView = leftView;
+
+    self.leftViewMode = UITextFieldViewModeAlways;
 }
 
 //- (void) drawPlaceholderInRect:(CGRect)rect {
