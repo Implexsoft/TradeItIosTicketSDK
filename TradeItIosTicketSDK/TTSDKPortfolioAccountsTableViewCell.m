@@ -43,6 +43,7 @@
 -(void) setViewStyles {
     self.selectedView.backgroundColor = styles.activeColor;
     self.separatorView.backgroundColor = styles.primarySeparatorColor;
+    self.authenticateView.backgroundColor = styles.pageBackgroundColor;
 
     if ([utils isLargeScreen]) {
         self.separatorLeadingConstraint.constant = -8;
