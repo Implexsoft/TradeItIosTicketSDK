@@ -451,8 +451,14 @@ static float kAccountCellHeight = 44.0f;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
-        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-        [globalTicket removeOnboardingFromNav: nav];
+        UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
+        
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+        
+        TTSDKBrokerSelectViewController * brokerSelectController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
+        brokerSelectController.isModal = YES;
+        
+        [dest pushViewController:brokerSelectController animated:NO];
     }
 }
 
