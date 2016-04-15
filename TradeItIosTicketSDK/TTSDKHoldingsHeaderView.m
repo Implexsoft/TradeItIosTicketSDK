@@ -7,7 +7,13 @@
 //
 
 #import "TTSDKHoldingsHeaderView.h"
+#import "TTSDKStyles.h"
 
 @implementation TTSDKHoldingsHeaderView
+
+-(void) awakeFromNib {
+    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    self.backgroundColor = styles.pageBackgroundColor;
+}
 
 @end
