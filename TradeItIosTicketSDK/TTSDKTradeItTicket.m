@@ -98,7 +98,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         self.resultContainer.status = USER_CANCELED;
 
         // Before moving forward, authenticate through touch ID
-        BOOL hasTouchId = !![LAContext class];
+        BOOL hasTouchId = [self isTouchIDAvailable];
 
 #if TARGET_IPHONE_SIMULATOR
         hasTouchId = NO;
@@ -190,6 +190,20 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 #pragma mark - Authentication
+
+- (BOOL) isTouchIDAvailable {
+    if (![LAContext class]) {
+        return NO;
+    }
+
+    LAContext *myContext = [[LAContext alloc] init];
+    NSError *authError = nil;
+    
+    if (![myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        return NO;
+    }
+    return YES;
+}
 
 -(void) promptTouchId:(void (^)(BOOL)) completionBlock {
     LAContext * myContext = [[LAContext alloc] init];
