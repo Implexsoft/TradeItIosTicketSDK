@@ -169,6 +169,39 @@
                     [self retrieveAccountSummaryData];
                     [self checkIfReadyToTrade];
                 });
+            } else if ([res isKindOfClass:TradeItErrorResult.class]) {
+                loadingView.hidden = YES;
+
+                TradeItErrorResult * error = (TradeItErrorResult *)res;
+                NSMutableString * errorMessage = [[NSMutableString alloc] init];
+
+                for (NSString * str in error.longMessages) {
+                    [errorMessage appendString:str];
+                }
+
+                if(![UIAlertController class]) {
+                    [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+                                                                                    message:errorMessage
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+
+                    alert.modalPresentationStyle = UIModalPresentationPopover;
+                    
+                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                           handler:^(UIAlertAction * action) {
+                                                                               [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
+                                                                           }];
+                    [alert addAction:defaultAction];
+
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+                    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                    alertPresentationController.sourceView = self.view;
+                    alertPresentationController.permittedArrowDirections = 0;
+                    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+                }
+
             }
         }];
     } else {

@@ -233,6 +233,28 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     self.sessions = [newSessionList copy];
 }
 
+-(void) removeSession:(TTSDKTicketSession *)session {
+    NSMutableArray * newSessionList = [self.sessions mutableCopy];
+    [newSessionList removeObject: session];
+    self.sessions = [newSessionList copy];
+}
+
+-(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts {
+    NSDictionary * keyAccount = [accounts firstObject];
+
+    BOOL isDuplicate = NO;
+
+    if (self.allAccounts && self.allAccounts.count) {
+        for (NSDictionary * acct in self.allAccounts) {
+            if ([keyAccount[@"accountNumber"] isEqualToString:acct[@"accountNumber"]]) {
+                isDuplicate = YES;
+            }
+        }
+    }
+
+    return isDuplicate;
+}
+
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account {
     [self selectCurrentSession: session];
     [self selectCurrentAccount: account];
@@ -244,6 +266,40 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 #pragma mark - Accounts
+
+
+
+-(void) replaceAccountsWithNewAccounts:(NSArray *)accounts {
+    NSMutableArray * storedAccounts = [self.allAccounts mutableCopy];
+
+    __block NSString * oldSessionUserId = nil;
+
+    if (!storedAccounts) {
+        return;
+    }
+
+    for (NSDictionary *account in accounts) {
+        [storedAccounts enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *acct, NSUInteger index, BOOL *stop) {
+            if ([acct[@"accountNumber"] isEqualToString:account[@"accountNumber"]]) {
+                oldSessionUserId = acct[@"userId"];
+                [storedAccounts removeObjectAtIndex: index];
+            }
+        }];
+    }
+
+    TTSDKTicketSession * sessionToRemove = nil;
+
+    for (TTSDKTicketSession *session in self.sessions) {
+        if ([oldSessionUserId isEqualToString:session.login.userId]) {
+            [self.connector unlinkLogin: session.login];
+            sessionToRemove = session;
+        }
+    }
+
+    [self removeSession: sessionToRemove];
+
+    [self saveAccountsToUserDefaults: storedAccounts];
+}
 
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session {
     NSArray * storedAccounts = self.allAccounts;

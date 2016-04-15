@@ -68,10 +68,6 @@
 
     NSString * broker = (self.addBroker == nil) ? globalTicket.currentSession.broker : self.addBroker;
 
-    if(self.addBroker == nil && globalTicket.currentSession.login.userId) {
-        emailInput.text = globalTicket.currentSession.login.userId;
-    }
-
     if(self.cancelToParent) {
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
         self.navigationItem.leftBarButtonItem=newBackButton;
@@ -245,6 +241,10 @@
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
+
+                    if ([globalTicket checkIsAuthenticationDuplicate:authResult.accounts]) {
+                        [globalTicket replaceAccountsWithNewAccounts: authResult.accounts];
+                    }
 
                     [globalTicket addSession: newSession];
                     [globalTicket addAccounts: authResult.accounts withSession: newSession];

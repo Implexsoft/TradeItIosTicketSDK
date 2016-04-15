@@ -61,7 +61,9 @@
 -(void) removeOnboardingFromNav:(UINavigationController *)nav;
 
 // authentication
+-(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;
 -(void) addSession:(TTSDKTicketSession *)session;
+-(void) removeSession:(TTSDKTicketSession *)session;
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
@@ -69,6 +71,7 @@
 -(void) selectCurrentAccount:(NSDictionary *)account;
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber;
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
+-(void) replaceAccountsWithNewAccounts:(NSArray *)accounts;
 -(void) saveAccountsToUserDefaults:(NSArray *)accounts;
 -(void) unlinkAccounts;
 
