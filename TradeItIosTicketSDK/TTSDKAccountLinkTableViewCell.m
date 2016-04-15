@@ -43,7 +43,7 @@
 
     self.backgroundColor = [UIColor clearColor];
     [self.toggle setOnTintColor: styles.switchColor];
-    self.separator.backgroundColor = styles.smallTextColor;
+    self.separator.backgroundColor = styles.primarySeparatorColor;
 }
 
 
