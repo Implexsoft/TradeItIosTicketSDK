@@ -50,6 +50,7 @@
 @property TradeItPreviewTradeRequest * previewRequest;
 @property TradeItQuote * quote;
 
+@property TradeItPresentationMode presentationMode;
 
 
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
@@ -57,6 +58,8 @@
 // initialization
 +(id) globalTicket;
 -(void) launchAuthFlow;
+-(void) launchTradeFlow;
+-(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
 -(void) removeOnboardingFromNav:(UINavigationController *)nav;
 

@@ -688,6 +688,8 @@
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     alert.modalPresentationStyle = UIModalPresentationPopover;
 
+    alert.view.tintColor = self.styles.activeColor;
+
     UIAlertAction * buyAction = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) { [self changeOrderAction:@"buy"]; }];
     UIAlertAction * sellAction = [UIAlertAction actionWithTitle:@"Sell" style:UIAlertActionStyleDefault

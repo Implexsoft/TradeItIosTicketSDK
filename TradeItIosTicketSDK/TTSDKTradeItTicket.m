@@ -56,11 +56,132 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     return globalTicketInstance;
 }
 
+-(void) prepareInitialFlow {
+    // Immediately fire off a request for the publishers broker list
+    [self retrieveBrokers];
+    
+    self.sessions = [[NSArray alloc] init];
+    self.currentSession = nil;
+    self.currentAccount = nil;
+    self.previewRequest.accountNumber = @"";
+    
+    // Attempt to set an initial account
+    NSString * lastSelectedAccountNumber = [self getLastSelected];
+    
+    if (lastSelectedAccountNumber) {
+        [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
+    } else if ([self.linkedAccounts count]) {
+        [self selectCurrentAccount: [self.linkedAccounts lastObject]];
+    }
+    
+    // Create a new, unauthenticated session for all stored logins
+    NSArray * linkedLogins = [self.connector getLinkedLogins];
+    for (TradeItLinkedLogin * login in linkedLogins) {
+        TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
+        [self addSession: newSession];
+        
+        // Attempt to set an initial session
+        if (self.currentAccount && [login.userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
+            [self selectCurrentSession: newSession];
+        }
+    }
+}
+
 -(void) launchAuthFlow {
     // Immediately fire off a request for the publishers broker list
     [self retrieveBrokers];
 
     [self presentAuthScreen];
+}
+
+-(void) launchPortfolioFlow {
+    [self prepareInitialFlow];
+
+    if (self.currentSession) {
+        // Update ticket result
+        self.resultContainer.status = USER_CANCELED;
+        
+        // Before moving forward, authenticate through touch ID
+        BOOL hasTouchId = [self isTouchIDAvailable];
+        
+#if TARGET_IPHONE_SIMULATOR
+        hasTouchId = NO;
+#endif
+        
+        if (hasTouchId) {
+            [self promptTouchId:^(BOOL success) {
+                if (success) {
+                    [self performSelectorOnMainThread:@selector(presentPortfolioScreen) withObject:nil waitUntilDone:NO];
+                } else {
+                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+                }
+            }];
+        } else {
+            [self presentPortfolioScreen];
+        }
+
+    } else {
+        // Update ticket result
+        self.resultContainer.status = NO_BROKER;
+        
+        [self presentAuthScreen];
+    }
+}
+
+-(void) launchTradeFlow {
+    [self prepareInitialFlow];
+
+    if (self.currentSession) {
+        // Update ticket result
+        self.resultContainer.status = USER_CANCELED;
+        
+        // Before moving forward, authenticate through touch ID
+        BOOL hasTouchId = [self isTouchIDAvailable];
+        
+#if TARGET_IPHONE_SIMULATOR
+        hasTouchId = NO;
+#endif
+        
+        if (hasTouchId) {
+            [self promptTouchId:^(BOOL success) {
+                if (success) {
+                    [self performSelectorOnMainThread:@selector(presentTradeScreen) withObject:nil waitUntilDone:NO];
+                } else {
+                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+                }
+            }];
+        } else {
+            [self presentTradeScreen];
+        }
+        
+    } else {
+        // Update ticket result
+        self.resultContainer.status = NO_BROKER;
+        
+        [self presentAuthScreen];
+    }
+}
+
+-(void) presentTradeScreen {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"TradeNavController"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) presentPortfolioScreen {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"PortfolioController"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self.parentView presentViewController:nav animated:YES completion:nil];
 }
 
 - (void) launchTradeOrPortfolioFlow {

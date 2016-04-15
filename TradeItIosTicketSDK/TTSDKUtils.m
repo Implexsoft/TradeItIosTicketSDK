@@ -270,7 +270,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     keypad.backgroundColor = [UIColor clearColor];
 
     for (int i = 0; i < [subviews count]; i++) {
-        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
+        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
 
             button.backgroundColor = [UIColor clearColor];

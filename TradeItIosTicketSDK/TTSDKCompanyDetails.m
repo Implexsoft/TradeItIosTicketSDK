@@ -12,6 +12,7 @@
 
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
+    TTSDKStyles * styles;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
@@ -34,7 +35,7 @@
 }
 
 -(void) setViewStyles {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    styles = [TTSDKStyles sharedStyles];
 
     [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
     [self.brokerButton setTitleColor:styles.primaryTextColor forState:UIControlStateNormal];
@@ -79,10 +80,10 @@
         UIColor * changeColor;
         if ([change floatValue] > 0) {
             changePrefix = @"+";
-            changeColor = [utils gainColor];
+            changeColor = styles.gainColor;
         } else {
             changePrefix = @"";
-            changeColor = [utils lossColor];
+            changeColor = styles.lossColor;
         }
 
         self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];

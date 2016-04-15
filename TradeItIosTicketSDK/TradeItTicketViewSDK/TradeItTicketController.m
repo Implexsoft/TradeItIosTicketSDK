@@ -42,7 +42,10 @@
 #import "TTSDKTableViewController.h"
 #import "TTSDKTextField.h"
 #import "TTSDKPrimaryButton.h"
+#import "TTSDKImageView.h"
 #import "TTSDKStyles.h"
+
+
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -55,6 +58,13 @@
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
+}
+
++ (void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
+    
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
 }
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -77,8 +87,22 @@
     [TradeItTicketController showTicket];
 }
 
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModePortfolio;
+
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:debug onCompletion:callback];
+}
+
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
+}
+
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
+
+    [TradeItTicketController showRestrictedTicketWithApiKey:apiKey symbol:symbol viewController:view];
 }
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -101,17 +125,41 @@
     ticket.previewRequest.orderPriceType = @"market";
     ticket.previewRequest.orderQuantity = quantity;
 
+    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
+
     [TradeItTicketController showTicket];
+}
+
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
+
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:action orderQuantity:quantity viewController:view withDebug:debug onCompletion:callback];
 }
 
 +(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
 
-    if (ticket.authMode) {
-        [ticket launchAuthFlow];
-    } else {
-        [ticket launchTradeOrPortfolioFlow];
+    switch (ticket.presentationMode) {
+        case TradeItPresentationModePortfolioOnly:
+            [ticket launchPortfolioFlow];
+            break;
+        case TradeItPresentationModePortfolio:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTrade:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTradeOnly:
+            [ticket launchTradeFlow];
+            break;
+        case TradeItPresentationModeAuth:
+            [ticket launchAuthFlow];
+            break;
+        default:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
     }
 }
 
@@ -129,7 +177,7 @@
 
 + (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    
+
     return [ticket getBrokerDisplayString: brokerIdentifier];
 }
 
@@ -162,8 +210,14 @@
     ticket.previewRequest.orderQuantity = @0;
     ticket.previewRequest.orderPriceType = @"market";
 
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
+
     if(self.quantity > 0) {
         [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+    }
+
+    if (self.presentationMode) {
+        ticket.presentationMode = self.presentationMode;
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
@@ -238,6 +292,7 @@
     [TTSDKSmallLabel class];
     [TTSDKTextField class];
     [TTSDKPrimaryButton class];
+    [TTSDKImageView class];
     [TTSDKViewController class];
     [TTSDKNavigationController class];
     [TTSDKTableViewController class];
