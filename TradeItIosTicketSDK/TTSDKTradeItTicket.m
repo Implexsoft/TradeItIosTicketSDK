@@ -51,6 +51,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     dispatch_once(&onceToken, ^{
         globalTicketInstance = [[self alloc] init];
         globalTicketInstance.utils = [TTSDKUtils sharedUtils];
+        globalTicketInstance.presentationMode = TradeItPresentationModeNone;
     });
 
     return globalTicketInstance;
@@ -185,34 +186,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 - (void) launchTradeOrPortfolioFlow {
-    // Immediately fire off a request for the publishers broker list
-    [self retrieveBrokers];
-
-    self.sessions = [[NSArray alloc] init];
-    self.currentSession = nil;
-    self.currentAccount = nil;
-    self.previewRequest.accountNumber = @"";
-
-    // Attempt to set an initial account
-    NSString * lastSelectedAccountNumber = [self getLastSelected];
-
-    if (lastSelectedAccountNumber) {
-        [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
-    } else if ([self.linkedAccounts count]) {
-        [self selectCurrentAccount: [self.linkedAccounts lastObject]];
-    }
-
-    // Create a new, unauthenticated session for all stored logins
-    NSArray * linkedLogins = [self.connector getLinkedLogins];
-    for (TradeItLinkedLogin * login in linkedLogins) {
-        TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
-        [self addSession: newSession];
-        
-        // Attempt to set an initial session
-        if (self.currentAccount && [login.userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
-            [self selectCurrentSession: newSession];
-        }
-    }
+    [self prepareInitialFlow];
 
     if (self.currentSession) {
         // Update ticket result
@@ -400,9 +374,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 
+
 #pragma mark - Accounts
-
-
 
 -(void) replaceAccountsWithNewAccounts:(NSArray *)accounts {
     NSMutableArray * storedAccounts = [self.allAccounts mutableCopy];
@@ -630,6 +603,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Navigation
 
 -(void) returnToParentApp {
+    self.presentationMode = TradeItPresentationModeNone;
+
     [self.parentView dismissViewControllerAnimated:NO completion:^{
         if (self.callback) {
             self.callback(self.resultContainer);
