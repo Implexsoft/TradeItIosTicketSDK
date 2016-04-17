@@ -43,6 +43,7 @@
 #import "TTSDKTextField.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKImageView.h"
+#import "TTSDKSearchBar.h"
 #import "TTSDKStyles.h"
 
 
@@ -321,6 +322,7 @@
     [TTSDKTextField class];
     [TTSDKPrimaryButton class];
     [TTSDKImageView class];
+    [TTSDKSearchBar class];
     [TTSDKViewController class];
     [TTSDKNavigationController class];
     [TTSDKTableViewController class];

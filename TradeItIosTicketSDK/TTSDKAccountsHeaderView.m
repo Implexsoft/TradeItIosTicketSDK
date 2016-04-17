@@ -16,6 +16,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *totalPortfolioValueLabel;
+@property (weak, nonatomic) IBOutlet UIView *header;
 
 @end
 
@@ -28,6 +29,10 @@
     styles = [TTSDKStyles sharedStyles];
 
     self.backgroundColor = styles.pageBackgroundColor;
+
+    if (styles.navigationBarBackgroundColor) {
+        self.header.backgroundColor = styles.navigationBarBackgroundColor;
+    }
 
     [self.editAccountsButton setTitleColor:styles.activeColor forState:UIControlStateNormal];
 }

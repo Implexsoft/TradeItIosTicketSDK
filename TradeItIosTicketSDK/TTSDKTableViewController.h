@@ -13,4 +13,6 @@
 
 @property TTSDKStyles * styles;
 
+-(void) setViewStyles;
+
 @end

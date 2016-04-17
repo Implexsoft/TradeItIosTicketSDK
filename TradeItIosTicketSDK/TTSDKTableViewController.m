@@ -41,7 +41,7 @@
 
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
-    self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 
     self.tableView.separatorColor = self.styles.primarySeparatorColor;

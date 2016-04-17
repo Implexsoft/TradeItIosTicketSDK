@@ -46,8 +46,7 @@
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];
-
-    self.navigationController.navigationBar.backgroundColor = self.styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 }
 

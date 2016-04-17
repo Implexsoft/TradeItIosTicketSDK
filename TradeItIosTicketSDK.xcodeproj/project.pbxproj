@@ -180,6 +180,8 @@
 		657ED25E1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
 		657ED25F1C21FDCF00217735 /* TTSDKAccountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */; };
 		657ED2631C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 657ED2611C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m */; };
+		65826F961CC41DAC00B085F8 /* TTSDKSearchBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 65826F941CC41DAC00B085F8 /* TTSDKSearchBar.h */; };
+		65826F971CC41DAC00B085F8 /* TTSDKSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 65826F951CC41DAC00B085F8 /* TTSDKSearchBar.m */; };
 		658CC9D71C729B34000C57E1 /* TTSDKSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 658CC9D51C729B34000C57E1 /* TTSDKSearchViewController.h */; };
 		658CC9D81C729B34000C57E1 /* TTSDKSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658CC9D61C729B34000C57E1 /* TTSDKSearchViewController.m */; };
 		659A71A51C713D3800132CDE /* TTSDKPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A71A31C713D3800132CDE /* TTSDKPosition.h */; };
@@ -449,6 +451,8 @@
 		657ED25C1C21FDCF00217735 /* TTSDKAccountSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectViewController.m; sourceTree = "<group>"; };
 		657ED2601C220A0A00217735 /* TTSDKAccountSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAccountSelectTableViewCell.h; sourceTree = "<group>"; };
 		657ED2611C220A0A00217735 /* TTSDKAccountSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSelectTableViewCell.m; sourceTree = "<group>"; };
+		65826F941CC41DAC00B085F8 /* TTSDKSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKSearchBar.h; sourceTree = "<group>"; };
+		65826F951CC41DAC00B085F8 /* TTSDKSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKSearchBar.m; sourceTree = "<group>"; };
 		658CC9D51C729B34000C57E1 /* TTSDKSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKSearchViewController.h; sourceTree = "<group>"; };
 		658CC9D61C729B34000C57E1 /* TTSDKSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKSearchViewController.m; sourceTree = "<group>"; };
 		659A71A31C713D3800132CDE /* TTSDKPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPosition.h; sourceTree = "<group>"; };
@@ -739,6 +743,8 @@
 				65EC07C81CBD7B3300A6B72E /* TTSDKNavigationController.m */,
 				6529357B1CC182CF00DF5922 /* TTSDKImageView.h */,
 				6529357C1CC182CF00DF5922 /* TTSDKImageView.m */,
+				65826F941CC41DAC00B085F8 /* TTSDKSearchBar.h */,
+				65826F951CC41DAC00B085F8 /* TTSDKSearchBar.m */,
 			);
 			name = AbstractViews;
 			sourceTree = "<group>";
@@ -1072,6 +1078,7 @@
 				650C9EDF1C76932200FCABEC /* TradeItSecurityQuestionResult.h in Headers */,
 				650C9EB61C76932200FCABEC /* TradeItGetPositionsRequest.h in Headers */,
 				650C9E861C76932100FCABEC /* TIEMSJSONModel.h in Headers */,
+				65826F961CC41DAC00B085F8 /* TTSDKSearchBar.h in Headers */,
 				650C9E981C76932200FCABEC /* TIEMSJSONValueTransformer.h in Headers */,
 				650C9EC11C76932200FCABEC /* TradeItPlaceTradeOrderInfo.h in Headers */,
 				650C9ED91C76932200FCABEC /* TradeItRequest.h in Headers */,
@@ -1379,6 +1386,7 @@
 				650C9EE41C76932200FCABEC /* TradeItSymbolLookupCompany.m in Sources */,
 				650C9E971C76932200FCABEC /* TIEMSJSONKeyMapper.m in Sources */,
 				650C9ECA1C76932200FCABEC /* TradeItPosition.m in Sources */,
+				65826F971CC41DAC00B085F8 /* TTSDKSearchBar.m in Sources */,
 				6529357E1CC182CF00DF5922 /* TTSDKImageView.m in Sources */,
 				650C9EA11C76932200FCABEC /* TradeItAuthenticationInfo.m in Sources */,
 				650C9E8D1C76932200FCABEC /* TIEMSJSONModelError.m in Sources */,
