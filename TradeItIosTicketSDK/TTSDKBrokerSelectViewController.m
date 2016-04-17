@@ -155,7 +155,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         return;
     }
 
-    if(globalTicket.brokerSignUpCallback) {
+    if(globalTicket.presentationMode == TradeItPresentationModeAuth && globalTicket.brokerSignUpCallback) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = false;
         res.errorTitle = @"Cancelled";

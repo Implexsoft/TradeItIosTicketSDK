@@ -56,9 +56,26 @@
 
 #pragma mark - Class Initialization
 
-+ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
++ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeAuth;
+
+    ticket.parentView = view;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = NO;
+    ticket.callback = callback;
+
+    [ticket launchAuthFlow];
+}
+
++ (void)showAuthenticationWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeAuth;
+    
+    ticket.parentView = view;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = debug;
+    ticket.callback = callback;
 
     [ticket launchAuthFlow];
 }

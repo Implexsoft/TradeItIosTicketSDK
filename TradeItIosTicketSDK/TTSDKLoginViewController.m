@@ -237,6 +237,14 @@
                 [linkAccountButton activate];
 
                 if ([result isKindOfClass:TradeItErrorResult.class]) {
+                    globalTicket.resultContainer.status = AUTHENTICATION_ERROR;
+
+                    if(globalTicket.brokerSignUpCallback) {
+                        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult: result];
+                        globalTicket.brokerSignUpCallback(res);
+                    }
+
+                    [globalTicket returnToParentApp];
 
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
 
@@ -258,7 +266,16 @@
                     }
 
                     // If the auth flow was triggered modally, then we don't want to automatically select it
-                    if (self.isModal) {
+                    if (globalTicket.presentationMode == TradeItPresentationModeAuth) {
+                        globalTicket.resultContainer.status = AUTHENTICATION_SUCCESS;
+
+                        if(globalTicket.brokerSignUpCallback) {
+                            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
+                            globalTicket.brokerSignUpCallback(res);
+                        }
+
+                        [globalTicket returnToParentApp];
+                    } else if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
                         [globalTicket selectCurrentSession:newSession andAccount:selectedAccount];

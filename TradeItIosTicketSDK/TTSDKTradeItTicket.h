@@ -45,14 +45,14 @@
 @property (nonatomic) NSDictionary * currentAccount;
 @property (nonatomic, retain, getter=allAccounts) NSArray * allAccounts;
 @property (nonatomic, retain, getter=linkedAccounts) NSArray * linkedAccounts;
-@property (copy) void (^callback)(TradeItTicketControllerResult * result);
+@property TradeItAuthControllerResult * authResultContainer;
 @property TradeItTicketControllerResult * resultContainer;
 @property TradeItPreviewTradeRequest * previewRequest;
 @property TradeItQuote * quote;
 
 @property TradeItPresentationMode presentationMode;
 
-
+@property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 
 // initialization

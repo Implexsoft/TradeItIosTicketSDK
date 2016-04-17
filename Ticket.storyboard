@@ -260,7 +260,7 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="431"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -1852,8 +1852,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ujk-YM-BZG"/>
-        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="wuc-R0-2HR"/>
         <segue reference="b0O-lu-Vmh"/>
+        <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
 </document>

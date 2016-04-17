@@ -20,6 +20,7 @@
 /**
  *  NO_BROKER is triggered if the user doesn't setup an initial broker
  *  AUTHENTICATION_ERROR triggered if, post initial setup, user fails security questions, errorResponse will be set
+ *  AUTHENTICATION_SUCCESS triggered when user completes authentication in TradeItPresentationModeAuth
  *  USER_CANCELED user leaves the ticket before sending an order, if they canceled from the review screen reviewResponse will be set
  *  USER_CANCELED_SECURITY triggered if user cancels rather than answer security question
  *  EXECUTION_ERROR user attempted to send order, it failed, errorResponse will be set
@@ -28,6 +29,7 @@
 enum controllerStatus {
     NO_BROKER,
     AUTHENTICATION_ERROR,
+    AUTHENTICATION_SUCCESS,
     USER_CANCELED,
     USER_CANCELED_SECURITY,
     EXECUTION_ERROR,

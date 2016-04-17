@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TradeItAuthenticationResult.h"
+#import "TradeItErrorResult.h"
 
 @interface TradeItAuthControllerResult : NSObject
 
 @property BOOL success;
 @property NSString * errorTitle;
 @property NSString * errorMessage;
+
+- (id)initWithResult:(TradeItResult *)result;
 
 @end
