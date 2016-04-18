@@ -36,7 +36,11 @@ static float kDisclosureWidth = 7.0f;
 
         self.backgroundColor = styles.pageBackgroundColor;
 
-        customDisclosureView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"]];
+        UIImage * disclosureImage = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"];
+        disclosureImage = [disclosureImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+        customDisclosureView = [[UIImageView alloc] initWithImage:disclosureImage];
+        customDisclosureView.tintColor = styles.activeColor;
         customDisclosureView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:customDisclosureView];
     }
