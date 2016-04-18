@@ -164,6 +164,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) presentTradeScreen {
+    [self authenticateSessionsInBackground];
+
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     
@@ -175,6 +177,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) presentPortfolioScreen {
+    [self authenticateSessionsInBackground];
+
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     
@@ -235,6 +239,24 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }
 
+-(void) presentTradeOrPortfolioScreen {
+    [self authenticateSessionsInBackground];
+    
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
+    [tab setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    if (self.presentationMode == TradeItPresentationModePortfolio || self.presentationMode == TradeItPresentationModePortfolioOnly) {
+        tab.selectedIndex = 1;
+    } else {
+        tab.selectedIndex = 0;
+    }
+    
+    [self.parentView presentViewController:tab animated:YES completion:nil];
+}
+
 -(void) removeOnboardingFromNav:(UINavigationController *)nav {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
@@ -242,22 +264,14 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     [nav pushViewController:initialViewController animated:NO];
 }
 
--(void) presentTradeOrPortfolioScreen {
-    [self authenticateSessionsInBackground];
-
-    // Get storyboard
+-(void) removeBrokerSelectFromNav:(UINavigationController *)nav {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
-    UITabBarController * tab = (UITabBarController *)[ticket instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
-    [tab setModalPresentationStyle:UIModalPresentationFullScreen];
+    TTSDKLoginViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: @"LOGIN"];
+    initialViewController.cancelToParent = YES;
+    initialViewController.isModal = YES;
 
-    if (self.portfolioMode) {
-        tab.selectedIndex = 1;
-    } else {
-        tab.selectedIndex = 0;
-    }
-
-    [self.parentView presentViewController:tab animated:YES completion:nil];
+    [nav pushViewController:initialViewController animated:NO];
 }
 
 -(void) retrieveBrokers {
@@ -270,11 +284,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             for (NSDictionary * broker in brokerList) {
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
-            }
-
-            // Add Dummy broker for production testing
-            if (self.debugMode) {
-                [brokers addObject: @[@"Dummy Broker", @"Dummy"]];
             }
 
             self.brokerList = brokers;

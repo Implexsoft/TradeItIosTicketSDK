@@ -182,9 +182,9 @@ typedef NS_ENUM(NSInteger, TradeItPresentationMode) {
 @property (copy) NSString * companyName;
 
 /**
- *  Determine whether to present the ticket in portfolio mode. Default is false
+ *  Styles object used to modify the default color scheme
  */
-@property BOOL portfolioMode;
+@property TradeItStyles * styles;
 
 /**
  *  After setting all desired properties, call this method to launch the ticket

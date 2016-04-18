@@ -281,7 +281,14 @@
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
                         [globalTicket selectCurrentSession:newSession andAccount:selectedAccount];
-                        [self performSegueWithIdentifier: @"LoginToTab" sender: self];
+
+                        if (globalTicket.presentationMode == TradeItPresentationModePortfolioOnly) {
+                            [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
+                        } else if (globalTicket.presentationMode == TradeItPresentationModeTradeOnly) {
+                            [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
+                        } else {
+                            [self performSegueWithIdentifier: @"LoginToTab" sender: self];
+                        }
                     }
                 }
             }];
@@ -344,13 +351,17 @@
 #pragma mark - Navigation
 
 -(void)home:(UIBarButtonItem *)sender {
-    [globalTicket returnToParentApp];
+    if (self.cancelToParent) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [globalTicket returnToParentApp];
+    }
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LoginToTab"]) {
         UITabBarController * dest = (UITabBarController*)segue.destinationViewController;
-        if (globalTicket.portfolioMode) {
+        if (globalTicket.presentationMode == TradeItPresentationModePortfolio || globalTicket.presentationMode == TradeItPresentationModePortfolioOnly) {
             dest.selectedIndex = 1;
         }
     }

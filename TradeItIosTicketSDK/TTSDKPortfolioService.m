@@ -187,7 +187,7 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
             complete = NO;
         }
     }
-    
+
     if (complete) {
         [dataTimer invalidate];
         dataBlock();

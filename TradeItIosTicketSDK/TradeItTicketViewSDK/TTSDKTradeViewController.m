@@ -918,34 +918,6 @@
     });
 }
 
-//- (IBAction)orderTypePressed:(id)sender {
-//    [self.view endEditing:YES];
-//    if(![UIAlertController class]) {
-//        [self showOldOrderType];
-//        return;
-//    }
-//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
-//                                                                   message:nil
-//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//    UIAlertAction* marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
-//                                                         handler:^(UIAlertAction * action) { [self changeOrderType:@"market"]; }];
-//    UIAlertAction* limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
-//                                                        handler:^(UIAlertAction * action) { [self changeOrderType:@"limit"]; }];
-//    UIAlertAction* stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
-//                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
-//    UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
-//                                                            handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
-//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-//                                                          handler:^(UIAlertAction * action) {}];
-//    [alert addAction:marketAction];
-//    [alert addAction:limitAction];
-//    [alert addAction:stopMarketAction];
-//    [alert addAction:stopLimitAction];
-//    [alert addAction:cancelAction];
-//    [self presentViewController:alert animated:YES completion:nil];
-//}
-
 - (IBAction)previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
 
@@ -977,7 +949,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
-        [[segue destinationViewController] setCancelToParent: YES];
+        UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
+        [globalTicket removeBrokerSelectFromNav: dest];
     }
 
     defaultEditingCheckComplete = NO;

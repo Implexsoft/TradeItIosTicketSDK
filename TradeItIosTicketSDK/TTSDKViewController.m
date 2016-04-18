@@ -8,9 +8,7 @@
 
 #import "TTSDKViewController.h"
 
-@interface TTSDKViewController () {
-    BOOL viewStylesCalled;
-}
+@interface TTSDKViewController()
 
 @end
 
@@ -36,17 +34,15 @@
 
 #pragma mark - Initialization
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (!viewStylesCalled) {
-        [self setViewStyles];
-        viewStylesCalled = YES;
-    }
+-(void) viewDidLoad {
+    self.styles = [TradeItStyles sharedStyles];
+
+    [super viewDidLoad];
+
+    [self setViewStyles];
 }
 
 -(void) setViewStyles {
-    self.styles = [TradeItStyles sharedStyles];
-
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];

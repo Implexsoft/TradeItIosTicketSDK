@@ -37,8 +37,6 @@
 @property NSString * errorMessage;
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
-@property BOOL portfolioMode;
-@property BOOL authMode;
 
 @property NSArray * sessions;
 @property (nonatomic) TTSDKTicketSession * currentSession;
@@ -62,6 +60,7 @@
 -(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
 -(void) removeOnboardingFromNav:(UINavigationController *)nav;
+-(void) removeBrokerSelectFromNav:(UINavigationController *)nav;
 
 // authentication
 -(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;

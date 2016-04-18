@@ -49,7 +49,6 @@
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
-    TradeItStyles * styles;
 }
 
 
@@ -57,15 +56,7 @@
 #pragma mark - Class Initialization
 
 + (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    ticket.presentationMode = TradeItPresentationModeAuth;
-
-    ticket.parentView = view;
-    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
-    ticket.debugMode = NO;
-    ticket.callback = callback;
-
-    [ticket launchAuthFlow];
+    [TradeItTicketController showAuthenticationWithApiKey:apiKey viewController:view withDebug:NO onCompletion:callback];
 }
 
 + (void)showAuthenticationWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -76,6 +67,10 @@
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     ticket.debugMode = debug;
     ticket.callback = callback;
+
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
 
     [ticket launchAuthFlow];
 }
@@ -99,7 +94,6 @@
     ticket.callback = callback;
     ticket.parentView = view;
     ticket.debugMode = debug;
-    ticket.portfolioMode = YES;
     ticket.quote = [[TradeItQuote alloc] init];
 
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
@@ -146,7 +140,6 @@
     [ticket setCallback: callback];
     [ticket setParentView: view];
     [ticket setDebugMode: debug];
-    [ticket setPortfolioMode: NO];
 
     ticket.quote = [[TradeItQuote alloc] init];
     ticket.quote.symbol = [symbol uppercaseString];
@@ -233,7 +226,7 @@
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
         self.symbol = symbol;
         [ticket setParentView:view];
-        styles = [TradeItStyles sharedStyles];
+        self.styles = [TradeItStyles sharedStyles];
     }
 
     return self;
