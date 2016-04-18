@@ -273,7 +273,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
 
             // Add Dummy broker for production testing
-            if (self.debugMode && self.connector.environment == TradeItEmsProductionEnv) {
+            if (self.debugMode) {
                 [brokers addObject: @[@"Dummy Broker", @"Dummy"]];
             }
 

@@ -136,10 +136,10 @@ static float kMessageSeparatorHeight = 30.0f;
         [self hideElement:buyingPowerVL];
         [self hideElement:buyingPowerVV];
     } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]) {
-        [buyingPowerLabel setText:@"Buying Power"];
+        [buyingPowerLabel setText:@"BUYING POWER"];
         [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]]];
     } else {
-        [buyingPowerLabel setText:@"Avail. Cash"];
+        [buyingPowerLabel setText:@"AVAIL. CASH"];
         [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
     }
 
@@ -151,9 +151,9 @@ static float kMessageSeparatorHeight = 30.0f;
     }
 
     if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
-        [estimateCostLabel setText:@"Estimated Proceeds"];
+        [estimateCostLabel setText:@"ESTIMATED PROCEEDS"];
     } else {
-        [estimateCostLabel setText:@"Estimated Cost"];
+        [estimateCostLabel setText:@"ESTIMATED COST"];
     }
 
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
