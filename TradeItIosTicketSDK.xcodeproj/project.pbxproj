@@ -192,6 +192,7 @@
 		659A71AE1C72359800132CDE /* TTSDKAccountSummaryResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */; };
 		65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		65A219A61C6268E300BDCF19 /* TTSDKTradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */; };
+		65AF4DE71CC54FB500ACB3A4 /* chevronDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65AF4DE51CC54FA800ACB3A4 /* chevronDown@3x.png */; };
 		65B314051C2377E700EBC30D /* success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B314031C2377E700EBC30D /* success_icon.png */; };
 		65CD04FF1C6D2AC50090B2F2 /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */; };
 		65CD05001C6D2AC50090B2F2 /* TTSDKTicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */; };
@@ -463,6 +464,7 @@
 		659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAccountSummaryResult.m; sourceTree = "<group>"; };
 		65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTradeItTicket.h; sourceTree = "<group>"; };
 		65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTradeItTicket.m; sourceTree = "<group>"; };
+		65AF4DE51CC54FA800ACB3A4 /* chevronDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevronDown@3x.png"; sourceTree = "<group>"; };
 		65B314031C2377E700EBC30D /* success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success_icon.png; sourceTree = "<group>"; };
 		65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTicketSession.h; sourceTree = "<group>"; };
 		65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTicketSession.m; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 			children = (
 				A9B2D4791B600F69008065E1 /* spinnerWhite.png */,
 				6557457B1C3AD5F9004BA180 /* chevronRight@3x.png */,
+				65AF4DE51CC54FA800ACB3A4 /* chevronDown@3x.png */,
 				650E2D3D1C45BE9700A3069E /* portfolioIcon@3x.png */,
 				650E2D3E1C45BE9700A3069E /* tradeIcon@3x.png */,
 				65554E501C49802100BBA6F6 /* backspace@3x.png */,
@@ -1277,6 +1280,7 @@
 				650E2D3F1C45BE9700A3069E /* portfolioIcon@3x.png in Resources */,
 				6508C4D21C7A254900612B62 /* TTSDKHoldingsHeader.xib in Resources */,
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
+				65AF4DE71CC54FB500ACB3A4 /* chevronDown@3x.png in Resources */,
 				650E2D401C45BE9700A3069E /* tradeIcon@3x.png in Resources */,
 				65554E511C49802800BBA6F6 /* backspace@3x.png in Resources */,
 				654BE36A1C4EE2E100E8510F /* chevronRight@3x.png in Resources */,

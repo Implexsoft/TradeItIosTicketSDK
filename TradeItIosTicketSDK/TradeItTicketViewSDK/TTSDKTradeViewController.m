@@ -16,6 +16,7 @@
 #import "TradeItBalanceService.h"
 #import "TTSDKPosition.h"
 #import "TradeItQuotesResult.h"
+#import "TTSDKImageView.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -33,6 +34,7 @@
 
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
 
+    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
     __weak IBOutlet UIView *containerView;
@@ -150,13 +152,13 @@
     [self styleBorderedFocusInput: sharesInput];
     [self styleBorderedUnfocusInput: limitPriceInput];
     [self styleBorderedUnfocusInput: stopPriceInput];
-
+    
     [self styleDropdownButton: orderActionButton];
     [self deactivateDropdownButton: orderActionButton];
-
+    
     [self styleDropdownButton: orderTypeButton];
     [self deactivateDropdownButton: orderTypeButton];
-
+    
     [self styleDropdownButton: orderExpirationButton];
     [self deactivateDropdownButton: orderExpirationButton];
 
@@ -164,12 +166,6 @@
 }
 
 -(void) styleDropdownButton:(UIButton *)button {
-    UIImageView * arrow = [[UIImageView alloc] initWithFrame:CGRectMake(button.frame.size.width - 16, 5, 7, button.frame.size.height - 10)];
-    arrow.image = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/chevronRight.png"];
-    arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
-    arrow.contentMode = UIViewContentModeScaleAspectFit;
-    [button addSubview: arrow];
-
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 3;
 }
@@ -722,10 +718,12 @@
 
 -(void) hideExpiration {
     orderExpirationButton.hidden = YES;
+    expirationDropdownArrow.hidden = YES;
 }
 
 -(void) showExpiration {
     orderExpirationButton.hidden = NO;
+    expirationDropdownArrow.hidden = NO;
 }
 
 

@@ -8,7 +8,9 @@
 
 #import "TTSDKViewController.h"
 
-@interface TTSDKViewController ()
+@interface TTSDKViewController () {
+    BOOL viewStylesCalled;
+}
 
 @end
 
@@ -34,10 +36,12 @@
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self setViewStyles];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!viewStylesCalled) {
+        [self setViewStyles];
+        viewStylesCalled = YES;
+    }
 }
 
 -(void) setViewStyles {
