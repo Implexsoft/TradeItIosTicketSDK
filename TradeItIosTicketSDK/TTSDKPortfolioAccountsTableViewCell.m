@@ -9,11 +9,11 @@
 #import "TTSDKPortfolioAccountsTableViewCell.h"
 #import "TradeItAccountOverviewResult.h"
 #import "TTSDKUtils.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKPortfolioAccountsTableViewCell() {
     TTSDKUtils * utils;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
@@ -35,7 +35,7 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     utils = [TTSDKUtils sharedUtils];
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     [self setViewStyles];
 }

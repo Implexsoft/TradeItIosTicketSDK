@@ -44,13 +44,12 @@
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKImageView.h"
 #import "TTSDKSearchBar.h"
-#import "TTSDKStyles.h"
 
 
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 
@@ -224,7 +223,7 @@
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
         self.symbol = symbol;
         [ticket setParentView:view];
-        styles = [TTSDKStyles sharedStyles];
+        styles = [TradeItStyles sharedStyles];
     }
 
     return self;
@@ -326,7 +325,7 @@
     [TTSDKViewController class];
     [TTSDKNavigationController class];
     [TTSDKTableViewController class];
-    [TTSDKStyles class];
+    [TradeItStyles class];
 }
 
 @end

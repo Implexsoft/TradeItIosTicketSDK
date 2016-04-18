@@ -9,7 +9,7 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 
 @interface TTSDKAccountLinkTableViewCell() {
@@ -39,7 +39,7 @@
 }
 
 -(void) setViewStyles {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
 
     self.backgroundColor = [UIColor clearColor];
     [self.toggle setOnTintColor: styles.switchColor];

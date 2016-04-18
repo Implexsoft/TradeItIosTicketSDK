@@ -8,11 +8,11 @@
 
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
@@ -35,7 +35,7 @@
 }
 
 -(void) setViewStyles {
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
     [self.brokerButton setTitleColor:styles.primaryTextColor forState:UIControlStateNormal];

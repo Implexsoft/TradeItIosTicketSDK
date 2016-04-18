@@ -9,7 +9,7 @@
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKAccountSelectTableViewCell() {
     TTSDKUtils * utils;
@@ -49,7 +49,7 @@
         self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
         self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
 
-        TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+        TradeItStyles * styles = [TradeItStyles sharedStyles];
         self.buyingPower.textColor = styles.smallTextColor;
         self.shares.textColor = styles.smallTextColor;
         self.accountTypeLabel.textColor = styles.primaryTextColor;

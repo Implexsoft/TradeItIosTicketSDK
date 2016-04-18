@@ -10,13 +10,13 @@
 #import "TTSDKPosition.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
     TTSDKUtils * utils;
     TTSDKPosition * currentPosition;
     TTSDKTradeItTicket * globalTicket;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *sellButton;
@@ -58,7 +58,7 @@ static CGFloat const kBounceValue = 20.0f;
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     if (!UITableViewRowAction.class) {
         self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];

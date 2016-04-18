@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TradeItTicketControllerResult.h"
+#import "TradeItStyles.h"
 
 typedef NS_ENUM(NSInteger, TradeItPresentationMode) {
     TradeItPresentationModeTrade,

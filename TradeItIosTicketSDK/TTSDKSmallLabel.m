@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKSmallLabel.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @implementation TTSDKSmallLabel
 
@@ -32,7 +32,7 @@
 }
 
 -(void) commonInit {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
 
     self.textColor = styles.smallTextColor;
     self.backgroundColor = [UIColor clearColor];

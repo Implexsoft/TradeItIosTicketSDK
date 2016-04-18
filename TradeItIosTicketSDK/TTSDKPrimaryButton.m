@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKPrimaryButton.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKPrimaryButton() {
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
     UIActivityIndicatorView * currentIndicator;
 }
 
@@ -39,7 +39,7 @@
 }
 
 -(void) commonInit {
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     // set to inactive by default
     [self deactivate];

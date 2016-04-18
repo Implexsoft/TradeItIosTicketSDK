@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKHoldingsHeaderView.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKHoldingsHeaderView()
 
@@ -18,7 +18,7 @@
 @implementation TTSDKHoldingsHeaderView
 
 -(void) awakeFromNib {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
     self.backgroundColor = styles.pageBackgroundColor;
     if (styles.navigationBarBackgroundColor) {
         self.header.backgroundColor = styles.navigationBarBackgroundColor;

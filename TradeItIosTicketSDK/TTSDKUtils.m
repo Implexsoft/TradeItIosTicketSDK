@@ -8,7 +8,7 @@
 
 
 #import "TTSDKUtils.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKUtils () {
     UIButton * currentGradientContainer;
@@ -16,7 +16,7 @@
     UIActivityIndicatorView * currentIndicator;
     UIImageView * loadingIcon;
     BOOL animating;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @end
@@ -61,7 +61,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
 
-        styles = [TTSDKStyles sharedStyles];
+        styles = [TradeItStyles sharedStyles];
     }
 
     return self;

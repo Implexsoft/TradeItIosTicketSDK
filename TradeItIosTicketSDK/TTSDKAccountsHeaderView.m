@@ -8,11 +8,11 @@
 
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKUtils.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKAccountsHeaderView() {
     TTSDKUtils * utils;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *totalPortfolioValueLabel;
@@ -26,7 +26,7 @@
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     self.backgroundColor = styles.pageBackgroundColor;
 

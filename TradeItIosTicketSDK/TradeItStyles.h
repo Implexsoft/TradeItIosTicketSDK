@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TTSDKStyles : NSObject
+@interface TradeItStyles : NSObject
 
 @property UIColor * warningColor;
 @property UIColor * lossColor;

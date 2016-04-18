@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKImageView.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @implementation TTSDKImageView
 
@@ -32,7 +32,7 @@
 }
 
 -(void) commonInit {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
     
     self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.tintColor = styles.activeColor;

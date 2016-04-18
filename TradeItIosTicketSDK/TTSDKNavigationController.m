@@ -39,7 +39,7 @@
 }
 
 -(void) setViewStyles {
-    self.styles = [TTSDKStyles sharedStyles];
+    self.styles = [TradeItStyles sharedStyles];
 
     self.view.backgroundColor = self.styles.pageBackgroundColor;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];

@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKSearchBar.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @implementation TTSDKSearchBar
 
@@ -16,7 +16,7 @@
 }
 
 -(void) setViewStyles {
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
 
     [[UIBarButtonItem appearanceWhenContainedIn:TTSDKSearchBar.class, nil] setTintColor:styles.activeColor];
 

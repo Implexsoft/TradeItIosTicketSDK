@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKTextField.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKTextField() {
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @end
@@ -38,7 +38,7 @@
 }
 
 -(void) commonInit {
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     self.textColor = styles.primaryTextColor;
 
@@ -50,8 +50,5 @@
     self.leftViewMode = UITextFieldViewModeAlways;
 }
 
-//- (void) drawPlaceholderInRect:(CGRect)rect {
-//    [self.placeholder drawInRect:rect withAttributes:@{NSForegroundColorAttributeName: styles.smallTextColor}];
-//}
 
 @end

@@ -7,11 +7,11 @@
 //
 
 #import "TTSDKBrokerSelectTableViewCell.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKBrokerSelectTableViewCell() {
     UIImageView * customDisclosureView;
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @end
@@ -30,7 +30,7 @@ static float kDisclosureWidth = 7.0f;
 
 - (void)awakeFromNib {
     if (self) {
-        styles = [TTSDKStyles sharedStyles];
+        styles = [TradeItStyles sharedStyles];
 
         self.textLabel.textColor = styles.primaryTextColor;
 

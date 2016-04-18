@@ -6,9 +6,9 @@
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
-@interface TTSDKStyles() {
+@interface TradeItStyles() {
     UIColor * etradeColor;
     UIColor * robinhoodColor;
     UIColor * schwabColor;
@@ -20,10 +20,10 @@
 
 @end
 
-@implementation TTSDKStyles
+@implementation TradeItStyles
 
 + (id)sharedStyles {
-    static TTSDKStyles *sharedStylesInstance = nil;
+    static TradeItStyles *sharedStylesInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedStylesInstance = [[self alloc] init];

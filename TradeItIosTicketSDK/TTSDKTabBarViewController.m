@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKTabBarViewController.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @implementation TTSDKTabBarViewController
 
@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    TTSDKStyles * styles = [TTSDKStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
 
     self.navigationController.navigationBar.backgroundColor = styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = styles.activeColor;

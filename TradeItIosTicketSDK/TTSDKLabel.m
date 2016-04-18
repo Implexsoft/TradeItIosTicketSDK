@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKLabel.h"
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKLabel() {
-    TTSDKStyles * styles;
+    TradeItStyles * styles;
 }
 
 @end
@@ -38,7 +38,7 @@
 }
 
 -(void) commonInit {
-    styles = [TTSDKStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     self.textColor = styles.primaryTextColor;
     self.backgroundColor = [UIColor clearColor];

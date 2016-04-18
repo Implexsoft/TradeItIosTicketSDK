@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKStyles.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKViewController : UIViewController
 
-@property TTSDKStyles * styles;
+@property TradeItStyles * styles;
 
 -(void) setViewStyles;
 
