@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItPreviewTradeResult.h"
+#import "TTSDKViewController.h"
 
-@interface TTSDKReviewScreenViewController : UIViewController
+@interface TTSDKReviewScreenViewController : TTSDKViewController
 
 @property TradeItPreviewTradeResult * reviewTradeResult;
 

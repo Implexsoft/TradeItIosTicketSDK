@@ -45,28 +45,36 @@
 @property (nonatomic) NSDictionary * currentAccount;
 @property (nonatomic, retain, getter=allAccounts) NSArray * allAccounts;
 @property (nonatomic, retain, getter=linkedAccounts) NSArray * linkedAccounts;
-@property (copy) void (^callback)(TradeItTicketControllerResult * result);
+@property TradeItAuthControllerResult * authResultContainer;
 @property TradeItTicketControllerResult * resultContainer;
 @property TradeItPreviewTradeRequest * previewRequest;
 @property TradeItQuote * quote;
 
+@property TradeItPresentationMode presentationMode;
 
-
+@property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 
 // initialization
 +(id) globalTicket;
 -(void) launchAuthFlow;
+-(void) launchTradeFlow;
+-(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
 -(void) removeOnboardingFromNav:(UINavigationController *)nav;
 
 // authentication
+-(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;
 -(void) addSession:(TTSDKTicketSession *)session;
+-(void) removeSession:(TTSDKTicketSession *)session;
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 // account
+-(void) selectCurrentAccount:(NSDictionary *)account;
+-(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber;
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
+-(void) replaceAccountsWithNewAccounts:(NSArray *)accounts;
 -(void) saveAccountsToUserDefaults:(NSArray *)accounts;
 -(void) unlinkAccounts;
 

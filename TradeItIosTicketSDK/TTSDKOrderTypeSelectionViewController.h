@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSDKTradeViewController.h"
+#import "TTSDKViewController.h"
 
-@interface TTSDKOrderTypeSelectionViewController : UIViewController
+@interface TTSDKOrderTypeSelectionViewController : TTSDKViewController
 
 @end

@@ -10,11 +10,13 @@
 #import "TTSDKPosition.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
     TTSDKUtils * utils;
     TTSDKPosition * currentPosition;
     TTSDKTradeItTicket * globalTicket;
+    TradeItStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *sellButton;
@@ -56,12 +58,17 @@ static CGFloat const kBounceValue = 20.0f;
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
+    styles = [TradeItStyles sharedStyles];
 
     if (!UITableViewRowAction.class) {
         self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
         self.panRecognizer.delegate = self;
         [self.primaryView addGestureRecognizer:self.panRecognizer];
     }
+
+    self.primaryView.backgroundColor = styles.pageBackgroundColor;
+    self.expandedView.backgroundColor = styles.pageBackgroundColor;
+    self.separatorView.backgroundColor = styles.primarySeparatorColor;
 
     UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
     [self.buyButton addGestureRecognizer: buyTap];
@@ -143,10 +150,10 @@ static CGFloat const kBounceValue = 20.0f;
     if (position.quote.change != nil) {
         if ([position.quote.change floatValue] > 0) {
             changePrefix = @"+";
-            changeColor = utils.gainColor;
+            changeColor = styles.gainColor;
         } else if ([position.quote.change floatValue] < 0) {
             changePrefix = @""; // number will already have the minus sign
-            changeColor = utils.lossColor;
+            changeColor = styles.lossColor;
         } else {
             changePrefix = @"";
             changeColor = [UIColor lightGrayColor];
@@ -186,13 +193,13 @@ static CGFloat const kBounceValue = 20.0f;
     NSString * returnStr;
     if (position.totalGainLossDollar != nil) {
         if ([position.totalGainLossDollar floatValue] > 0) {
-            returnColor = utils.gainColor;
+            returnColor = styles.gainColor;
             returnPrefix = @"+";
         } else if ([position.totalGainLossDollar floatValue] == 0) {
             returnColor = [UIColor lightGrayColor];
             returnStr = @"N/A";
         } else {
-            returnColor = utils.lossColor;
+            returnColor = styles.lossColor;
             returnPrefix = @"";
         }
         

@@ -9,11 +9,14 @@
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKAccountSelectTableViewCell() {
     TTSDKUtils * utils;
     TTSDKTradeItTicket * globalTicket;
 }
+@property (weak, nonatomic) IBOutlet UILabel *buyingPower;
+@property (weak, nonatomic) IBOutlet UILabel *shares;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
@@ -40,6 +43,16 @@
         if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
             [self setLayoutMargins:UIEdgeInsetsMake(0, 20, 0, 20)];
         }
+
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selected = NO;
+        self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
+        self.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+
+        TradeItStyles * styles = [TradeItStyles sharedStyles];
+        self.buyingPower.textColor = styles.smallTextColor;
+        self.shares.textColor = styles.smallTextColor;
+        self.accountTypeLabel.textColor = styles.primaryTextColor;
 
         utils = [TTSDKUtils sharedUtils];
         globalTicket = [TTSDKTradeItTicket globalTicket];

@@ -8,7 +8,6 @@
 
 #import "TradeItTicketController.h"
 #import "TTSDKTradeItTicket.h"
-
 #import "TTSDKTradeViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
@@ -36,17 +35,60 @@
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
+#import "TTSDKLabel.h"
+#import "TTSDKSmallLabel.h"
+#import "TTSDKViewController.h"
+#import "TTSDKNavigationController.h"
+#import "TTSDKTableViewController.h"
+#import "TTSDKTextField.h"
+#import "TTSDKPrimaryButton.h"
+#import "TTSDKImageView.h"
+#import "TTSDKSearchBar.h"
+
+
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
+    TradeItStyles * styles;
 }
 
 
 
 #pragma mark - Class Initialization
 
++ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeAuth;
+
+    ticket.parentView = view;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = NO;
+    ticket.callback = callback;
+
+    [ticket launchAuthFlow];
+}
+
++ (void)showAuthenticationWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeAuth;
+    
+    ticket.parentView = view;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = debug;
+    ticket.callback = callback;
+
+    [ticket launchAuthFlow];
+}
+
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
+}
+
++ (void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
+
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
 }
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -63,7 +105,11 @@
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = @"buy";
     ticket.previewRequest.orderPriceType = @"market";
-    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderQuantity = @0;
+
+    if (ticket.presentationMode == TradeItPresentationModeNone) {
+        ticket.presentationMode = TradeItPresentationModePortfolio;
+    }
 
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
 
@@ -74,8 +120,22 @@
     [TradeItTicketController showTicket];
 }
 
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
+
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:debug onCompletion:callback];
+}
+
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
+}
+
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
+
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol viewController:view];
 }
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -97,6 +157,10 @@
     ticket.previewRequest.orderPriceType = @"market";
     ticket.previewRequest.orderQuantity = quantity;
 
+    if (ticket.presentationMode == TradeItPresentationModeNone) {
+        ticket.presentationMode = TradeItPresentationModeTrade;
+    }
+
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
 
     if (debug) {
@@ -106,22 +170,42 @@
     [TradeItTicketController showTicket];
 }
 
-+(void) showTicket {
-    [TradeItTicketController setAppearances];
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
 
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:action orderQuantity:quantity viewController:view withDebug:debug onCompletion:callback];
+}
+
++(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
 
-    if (ticket.authMode) {
-        [ticket launchAuthFlow];
-    } else {
-        [ticket launchTradeOrPortfolioFlow];
+    switch (ticket.presentationMode) {
+        case TradeItPresentationModePortfolioOnly:
+            [ticket launchPortfolioFlow];
+            break;
+        case TradeItPresentationModePortfolio:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTrade:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTradeOnly:
+            [ticket launchTradeFlow];
+            break;
+        case TradeItPresentationModeAuth:
+            [ticket launchAuthFlow];
+            break;
+        default:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
     }
 }
 
 + (void)clearSavedData {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    
+
     [ticket unlinkAccounts];
 }
 
@@ -133,72 +217,8 @@
 
 + (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    
+
     return [ticket getBrokerDisplayString: brokerIdentifier];
-}
-
-+ (void)setAppearances {
-    TTSDKUtils * utils = [TTSDKUtils sharedUtils];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTintColor:nil];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKTabBarViewController class], nil] setTintColor:nil];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKPortfolioViewController class], nil] setTintColor:utils.activeButtonColor];
-    
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKAccountSelectViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKAccountLinkViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKReviewScreenViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKSuccessViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOnboardingViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKLoginViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTextColor:nil];
-    [[UIButton appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOrderTypeInputViewController class], nil] setTintColor:utils.activeButtonColor];
-
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setBackgroundColor:nil];
-    [[UITextField appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTextColor:utils.activeButtonColor];
-    [[UIButton appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTitleColor:utils.activeButtonColor forState:UIControlStateNormal];
-    [[UINavigationBar appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTintColor:utils.activeButtonColor];
-    [[UIBarButtonItem appearanceWhenContainedIn:[TTSDKOrderTypeSelectionViewController class], nil] setTintColor:utils.activeButtonColor];
 }
 
 
@@ -213,6 +233,7 @@
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
         self.symbol = symbol;
         [ticket setParentView:view];
+        styles = [TradeItStyles sharedStyles];
     }
 
     return self;
@@ -226,11 +247,15 @@
     ticket.quote = [[TradeItQuote alloc] init];
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = @"buy";
-    ticket.previewRequest.orderQuantity = @1;
+    ticket.previewRequest.orderQuantity = @0;
     ticket.previewRequest.orderPriceType = @"market";
 
     if(self.quantity > 0) {
         [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+    }
+
+    if (self.presentationMode) {
+        ticket.presentationMode = self.presentationMode;
     }
 
     if(self.action != nil && ![self.action isEqualToString:@""]) {
@@ -302,6 +327,16 @@
     [TTSDKPortfolioAccount class];
     [TTSDKAccountsHeaderView class];
     [TTSDKHoldingsHeaderView class];
+    [TTSDKLabel class];
+    [TTSDKSmallLabel class];
+    [TTSDKTextField class];
+    [TTSDKPrimaryButton class];
+    [TTSDKImageView class];
+    [TTSDKSearchBar class];
+    [TTSDKViewController class];
+    [TTSDKNavigationController class];
+    [TTSDKTableViewController class];
+    [TradeItStyles class];
 }
 
 @end

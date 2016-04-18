@@ -19,13 +19,13 @@
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <state key="normal" title="SYMBL"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-bz-M7M">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-bz-M7M" customClass="TTSDKLabel">
                     <rect key="frame" x="85" y="4" width="63" height="28"/>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00 $0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4l-GN-l0D">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00 $0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4l-GN-l0D" customClass="TTSDKLabel">
                     <rect key="frame" x="0.0" y="35" width="80" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,7 +48,7 @@
                                 <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$20,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$20,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps" customClass="TTSDKLabel">
                             <rect key="frame" x="51" y="37" width="55" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,7 +61,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="pm8-YV-2OE" firstAttribute="baseline" secondItem="tJl-Lq-2ps" secondAttribute="baseline" id="36R-YS-yv2"/>
                         <constraint firstItem="tJl-Lq-2ps" firstAttribute="leading" secondItem="pm8-YV-2OE" secondAttribute="trailing" constant="5" id="8k0-sW-x79"/>
@@ -96,6 +96,7 @@
                 <outlet property="brokerDetails" destination="2BR-wm-Ao4" id="OzQ-Ve-4ak"/>
                 <outlet property="changeLabel" destination="O4l-GN-l0D" id="7j9-sp-F0y"/>
                 <outlet property="lastPriceLabel" destination="fbU-bz-M7M" id="VA5-ds-sXd"/>
+                <outlet property="rightArrow" destination="0Vl-i8-VXV" id="NLm-xm-YnG"/>
                 <outlet property="symbolDetailLabel" destination="pm8-YV-2OE" id="Y61-Ae-Mor"/>
                 <outlet property="symbolDetailValue" destination="tJl-Lq-2ps" id="dLb-Vd-VVF"/>
                 <outlet property="symbolLabel" destination="cqV-nr-8WB" id="nrG-tP-Zoz"/>

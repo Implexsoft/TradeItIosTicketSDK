@@ -51,36 +51,30 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     dispatch_once(&onceToken, ^{
         globalTicketInstance = [[self alloc] init];
         globalTicketInstance.utils = [TTSDKUtils sharedUtils];
+        globalTicketInstance.presentationMode = TradeItPresentationModeNone;
     });
 
     return globalTicketInstance;
 }
 
--(void) launchAuthFlow {
+-(void) prepareInitialFlow {
     // Immediately fire off a request for the publishers broker list
     [self retrieveBrokers];
-
-    [self presentAuthScreen];
-}
-
-- (void) launchTradeOrPortfolioFlow {
-    // Immediately fire off a request for the publishers broker list
-    [self retrieveBrokers];
-
+    
     self.sessions = [[NSArray alloc] init];
     self.currentSession = nil;
     self.currentAccount = nil;
     self.previewRequest.accountNumber = @"";
-
+    
     // Attempt to set an initial account
     NSString * lastSelectedAccountNumber = [self getLastSelected];
-
+    
     if (lastSelectedAccountNumber) {
         [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
     } else if ([self.linkedAccounts count]) {
         [self selectCurrentAccount: [self.linkedAccounts lastObject]];
     }
-
+    
     // Create a new, unauthenticated session for all stored logins
     NSArray * linkedLogins = [self.connector getLinkedLogins];
     for (TradeItLinkedLogin * login in linkedLogins) {
@@ -92,13 +86,114 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             [self selectCurrentSession: newSession];
         }
     }
+}
+
+-(void) launchAuthFlow {
+    // Immediately fire off a request for the publishers broker list
+    [self retrieveBrokers];
+
+    [self presentAuthScreen];
+}
+
+-(void) launchPortfolioFlow {
+    [self prepareInitialFlow];
+
+    if (self.currentSession) {
+        // Update ticket result
+        self.resultContainer.status = USER_CANCELED;
+        
+        // Before moving forward, authenticate through touch ID
+        BOOL hasTouchId = [self isTouchIDAvailable];
+        
+#if TARGET_IPHONE_SIMULATOR
+        hasTouchId = NO;
+#endif
+        
+        if (hasTouchId) {
+            [self promptTouchId:^(BOOL success) {
+                if (success) {
+                    [self performSelectorOnMainThread:@selector(presentPortfolioScreen) withObject:nil waitUntilDone:NO];
+                } else {
+                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+                }
+            }];
+        } else {
+            [self presentPortfolioScreen];
+        }
+
+    } else {
+        // Update ticket result
+        self.resultContainer.status = NO_BROKER;
+        
+        [self presentAuthScreen];
+    }
+}
+
+-(void) launchTradeFlow {
+    [self prepareInitialFlow];
+
+    if (self.currentSession) {
+        // Update ticket result
+        self.resultContainer.status = USER_CANCELED;
+        
+        // Before moving forward, authenticate through touch ID
+        BOOL hasTouchId = [self isTouchIDAvailable];
+        
+#if TARGET_IPHONE_SIMULATOR
+        hasTouchId = NO;
+#endif
+        
+        if (hasTouchId) {
+            [self promptTouchId:^(BOOL success) {
+                if (success) {
+                    [self performSelectorOnMainThread:@selector(presentTradeScreen) withObject:nil waitUntilDone:NO];
+                } else {
+                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+                }
+            }];
+        } else {
+            [self presentTradeScreen];
+        }
+        
+    } else {
+        // Update ticket result
+        self.resultContainer.status = NO_BROKER;
+        
+        [self presentAuthScreen];
+    }
+}
+
+-(void) presentTradeScreen {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"TradeNavController"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+-(void) presentPortfolioScreen {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"PortfolioController"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+- (void) launchTradeOrPortfolioFlow {
+    [self prepareInitialFlow];
 
     if (self.currentSession) {
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
 
         // Before moving forward, authenticate through touch ID
-        BOOL hasTouchId = !![LAContext class];
+        BOOL hasTouchId = [self isTouchIDAvailable];
 
 #if TARGET_IPHONE_SIMULATOR
         hasTouchId = NO;
@@ -178,7 +273,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
 
             // Add Dummy broker for production testing
-            if (self.debugMode && self.connector.environment == TradeItEmsProductionEnv) {
+            if (self.debugMode) {
                 [brokers addObject: @[@"Dummy Broker", @"Dummy"]];
             }
 
@@ -190,6 +285,20 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 #pragma mark - Authentication
+
+- (BOOL) isTouchIDAvailable {
+    if (![LAContext class]) {
+        return NO;
+    }
+
+    LAContext *myContext = [[LAContext alloc] init];
+    NSError *authError = nil;
+    
+    if (![myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        return NO;
+    }
+    return YES;
+}
 
 -(void) promptTouchId:(void (^)(BOOL)) completionBlock {
     LAContext * myContext = [[LAContext alloc] init];
@@ -233,6 +342,28 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     self.sessions = [newSessionList copy];
 }
 
+-(void) removeSession:(TTSDKTicketSession *)session {
+    NSMutableArray * newSessionList = [self.sessions mutableCopy];
+    [newSessionList removeObject: session];
+    self.sessions = [newSessionList copy];
+}
+
+-(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts {
+    NSDictionary * keyAccount = [accounts firstObject];
+
+    BOOL isDuplicate = NO;
+
+    if (self.allAccounts && self.allAccounts.count) {
+        for (NSDictionary * acct in self.allAccounts) {
+            if ([keyAccount[@"accountNumber"] isEqualToString:acct[@"accountNumber"]]) {
+                isDuplicate = YES;
+            }
+        }
+    }
+
+    return isDuplicate;
+}
+
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account {
     [self selectCurrentSession: session];
     [self selectCurrentAccount: account];
@@ -243,7 +374,40 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 
+
 #pragma mark - Accounts
+
+-(void) replaceAccountsWithNewAccounts:(NSArray *)accounts {
+    NSMutableArray * storedAccounts = [self.allAccounts mutableCopy];
+
+    __block NSString * oldSessionUserId = nil;
+
+    if (!storedAccounts) {
+        return;
+    }
+
+    for (NSDictionary *account in accounts) {
+        [storedAccounts enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *acct, NSUInteger index, BOOL *stop) {
+            if ([acct[@"accountNumber"] isEqualToString:account[@"accountNumber"]]) {
+                oldSessionUserId = acct[@"userId"];
+                [storedAccounts removeObjectAtIndex: index];
+            }
+        }];
+    }
+
+    TTSDKTicketSession * sessionToRemove = nil;
+
+    for (TTSDKTicketSession *session in self.sessions) {
+        if ([oldSessionUserId isEqualToString:session.login.userId]) {
+            [self.connector unlinkLogin: session.login];
+            sessionToRemove = session;
+        }
+    }
+
+    [self removeSession: sessionToRemove];
+
+    [self saveAccountsToUserDefaults: storedAccounts];
+}
 
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session {
     NSArray * storedAccounts = self.allAccounts;
@@ -439,6 +603,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Navigation
 
 -(void) returnToParentApp {
+    self.presentationMode = TradeItPresentationModeNone;
+
     [self.parentView dismissViewControllerAnimated:NO completion:^{
         if (self.callback) {
             self.callback(self.resultContainer);

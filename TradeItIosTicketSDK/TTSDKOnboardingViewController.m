@@ -11,6 +11,7 @@
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
+#import "TTSDKPrimaryButton.h"
 
 @interface TTSDKOnboardingViewController () {
     TTSDKUtils * utils;
@@ -20,7 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 @property (weak, nonatomic) IBOutlet UIButton *fidelityButton;
-@property (weak, nonatomic) IBOutlet UIButton *brokerSelectButton;
+@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 
 @end
@@ -59,7 +60,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     brokers = globalTicket.brokerList;
 
-    [utils styleMainActiveButton: self.brokerSelectButton];
+    [self.brokerSelectButton activate];
+
     [self styleCustomDropdownButton: self.fidelityButton];
 
     // iPhone 4s and earlier
@@ -69,7 +71,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
-            CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:view.frame.size.width andColor:utils.activeButtonColor];
+            CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
             [view.layer addSublayer:circleLayer];
         }
     }
@@ -82,16 +84,16 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 }
 
 -(void) styleCustomDropdownButton: (UIButton *)button {
-    button.backgroundColor = [UIColor whiteColor];
-    button.layer.borderColor = utils.activeButtonColor.CGColor;
+    button.backgroundColor = [UIColor clearColor];
+    button.layer.borderColor = self.styles.activeColor.CGColor;
     button.layer.borderWidth = 1.5f;
     button.layer.cornerRadius = button.frame.size.height / 2;
-    [button setTitleColor:[UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+    [button setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
 
     UILabel * preferredBrokerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, button.frame.size.width / 2, 8)];
     preferredBrokerLabel.backgroundColor = [UIColor clearColor];
     preferredBrokerLabel.font = [UIFont systemFontOfSize:8.0f];
-    preferredBrokerLabel.textColor = [UIColor lightGrayColor];
+    preferredBrokerLabel.textColor = self.styles.smallTextColor;
     preferredBrokerLabel.text = @"PREFERRED BROKER";
 
     [button.titleLabel addSubview:preferredBrokerLabel];
@@ -116,8 +118,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     shapeLayer.path = path.CGPath;
 
-    shapeLayer.strokeColor = utils.activeButtonColor.CGColor;
-    shapeLayer.fillColor = utils.activeButtonColor.CGColor;
+    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
+    shapeLayer.fillColor = self.styles.activeColor.CGColor;
 
     [preferredBrokerLabel.layer addSublayer: shapeLayer];
 }

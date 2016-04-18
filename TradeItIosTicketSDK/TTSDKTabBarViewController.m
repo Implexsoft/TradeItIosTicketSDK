@@ -7,20 +7,22 @@
 //
 
 #import "TTSDKTabBarViewController.h"
+#import "TradeItStyles.h"
 
 @implementation TTSDKTabBarViewController
 
-
-
 #pragma mark - Rotation
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 
@@ -29,6 +31,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
+
+    self.navigationController.navigationBar.backgroundColor = styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.tintColor = styles.activeColor;
+
+    [[UITabBar appearanceWhenContainedIn:self.class, nil] setTintColor: styles.tabBarItemColor];
+    [[UITabBar appearanceWhenContainedIn:self.class, nil] setBarTintColor: styles.tabBarBackgroundColor];
 }
 
 

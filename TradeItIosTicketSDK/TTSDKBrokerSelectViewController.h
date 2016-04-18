@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKTableViewController.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKMBProgressHUD.h"
 
-@interface TTSDKBrokerSelectViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface TTSDKBrokerSelectViewController : TTSDKTableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property BOOL isModal;
 

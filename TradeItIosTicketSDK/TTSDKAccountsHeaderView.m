@@ -8,12 +8,15 @@
 
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKUtils.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKAccountsHeaderView() {
     TTSDKUtils * utils;
+    TradeItStyles * styles;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *totalPortfolioValueLabel;
+@property (weak, nonatomic) IBOutlet UIView *header;
 
 @end
 
@@ -23,6 +26,15 @@
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
+    styles = [TradeItStyles sharedStyles];
+
+    self.backgroundColor = styles.pageBackgroundColor;
+
+    if (styles.navigationBarBackgroundColor) {
+        self.header.backgroundColor = styles.navigationBarBackgroundColor;
+    }
+
+    [self.editAccountsButton setTitleColor:styles.activeColor forState:UIControlStateNormal];
 }
 
 -(void) populateTotalPortfolioValue:(NSNumber *)value {

@@ -22,20 +22,6 @@
 static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 
-
-#pragma mark - Rotation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
-}
-
-
-
 #pragma mark - Initialization
 
 -(void) viewDidLoad {

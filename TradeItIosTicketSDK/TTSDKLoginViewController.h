@@ -12,8 +12,9 @@
 #import "TradeItAuthLinkResult.h"
 #import "TradeItAuthenticationResult.h"
 #import "TradeItSecurityQuestionResult.h"
+#import "TTSDKViewController.h"
 
-@interface TTSDKLoginViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+@interface TTSDKLoginViewController : TTSDKViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property BOOL cancelToParent;
 

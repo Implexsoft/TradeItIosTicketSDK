@@ -14,13 +14,15 @@
 #import "TradeItAuthenticationResult.h"
 #import "TradeItSecurityQuestionResult.h"
 #import "TTSDKCustomIOSAlertView.h"
+#import "TTSDKPrimaryButton.h"
 
 @implementation TTSDKLoginViewController {
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
     __weak IBOutlet UITextField *passwordInput;
-    __weak IBOutlet UIButton *linkAccountButton;
+    __weak IBOutlet TTSDKPrimaryButton *linkAccountButton;
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
+    __weak IBOutlet NSLayoutConstraint *loginButtonBottomConstraint;
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
@@ -33,13 +35,16 @@
 
 #pragma mark - Rotation
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 
@@ -52,15 +57,33 @@
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    NSString * broker = (self.addBroker == nil) ? globalTicket.currentSession.broker : self.addBroker;
+    // Add a "textFieldDidChange" notification method to the text field control.
+    [emailInput addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
 
-    if(self.addBroker == nil && globalTicket.currentSession.login.userId) {
-        emailInput.text = globalTicket.currentSession.login.userId;
-    }
+    [passwordInput addTarget:self
+                   action:@selector(textFieldDidChange:)
+         forControlEvents:UIControlEventEditingChanged];
+
+    NSString * broker = (self.addBroker == nil) ? globalTicket.currentSession.broker : self.addBroker;
 
     if(self.cancelToParent) {
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
         self.navigationItem.leftBarButtonItem=newBackButton;
+    }
+
+    // Listen for keyboard appearances and disappearances
+    if (![utils isSmallScreen]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidShow:)
+                                                     name:UIKeyboardDidShowNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidHide:)
+                                                     name:UIKeyboardDidHideNotification
+                                                   object:nil];
     }
 
     [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [globalTicket getBrokerDisplayString:broker]]];
@@ -68,13 +91,16 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
+    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker username" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+    passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
 
-    [utils styleMainInactiveButton:linkAccountButton];
+    [linkAccountButton deactivate];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -159,7 +185,8 @@
         }
 
     } else {
-        [utils styleLoadingButton:linkAccountButton];
+        [linkAccountButton enterLoadingState];
+
         [self authenticate];
     }
 }
@@ -171,9 +198,18 @@
 
     [globalTicket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
-            globalTicket.errorTitle = @"Invalid Credentials";
-            globalTicket.errorMessage = @"Check your username and password and try again.";
-            
+
+            TradeItErrorResult * error = (TradeItErrorResult *)res;
+
+            NSMutableString * errorMessage = [[NSMutableString alloc] initWithString:@""];
+
+            for (NSString * message in error.longMessages) {
+                [errorMessage appendString: message];
+            }
+
+            globalTicket.errorTitle = error.shortMessage;
+            globalTicket.errorMessage = [errorMessage copy];
+
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:globalTicket.errorTitle withMessage:globalTicket.errorMessage];
             } else {
@@ -193,20 +229,32 @@
 
             globalTicket.errorMessage = nil;
             globalTicket.errorTitle = nil;
-            [utils styleMainActiveButton:linkAccountButton];
+            [linkAccountButton activate];
         } else {
             TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
             TradeItLinkedLogin * newLinkedLogin = [globalTicket.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:globalTicket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
 
             [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
-                [utils styleMainActiveButton:linkAccountButton];
-                
+                [linkAccountButton activate];
+
                 if ([result isKindOfClass:TradeItErrorResult.class]) {
+                    globalTicket.resultContainer.status = AUTHENTICATION_ERROR;
+
+                    if(globalTicket.brokerSignUpCallback) {
+                        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult: result];
+                        globalTicket.brokerSignUpCallback(res);
+                    }
+
+                    [globalTicket returnToParentApp];
 
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
+
+                    if ([globalTicket checkIsAuthenticationDuplicate:authResult.accounts]) {
+                        [globalTicket replaceAccountsWithNewAccounts: authResult.accounts];
+                    }
 
                     [globalTicket addSession: newSession];
                     [globalTicket addAccounts: authResult.accounts withSession: newSession];
@@ -220,7 +268,16 @@
                     }
 
                     // If the auth flow was triggered modally, then we don't want to automatically select it
-                    if (self.isModal) {
+                    if (globalTicket.presentationMode == TradeItPresentationModeAuth) {
+                        globalTicket.resultContainer.status = AUTHENTICATION_SUCCESS;
+
+                        if(globalTicket.brokerSignUpCallback) {
+                            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
+                            globalTicket.brokerSignUpCallback(res);
+                        }
+
+                        [globalTicket returnToParentApp];
+                    } else if (self.isModal) {
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
                         [globalTicket selectCurrentSession:newSession andAccount:selectedAccount];
@@ -242,9 +299,9 @@
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
-        [utils styleMainActiveButton:linkAccountButton];
+        [linkAccountButton activate];
     } else {
-        [utils styleMainInactiveButton: linkAccountButton];
+        [linkAccountButton deactivate];
     }
 
     return YES;
@@ -260,6 +317,26 @@
     }
 
     return YES;
+}
+
+- (void)keyboardDidShow: (NSNotification *) notification {
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+
+    loginButtonBottomConstraint.constant = keyboardFrameBeginRect.size.height + 20.0f;
+}
+
+- (void)keyboardDidHide: (NSNotification *) notification {
+    loginButtonBottomConstraint.constant = 20.0f;
+}
+
+-(void) textFieldDidChange:(UITextField *)textField {
+    if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
+        [linkAccountButton activate];
+    } else {
+        [linkAccountButton deactivate];
+    }
 }
 
 

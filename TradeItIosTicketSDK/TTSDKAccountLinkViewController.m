@@ -11,6 +11,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
+#import "TTSDKPrimaryButton.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKTradeItTicket * globalTicket;
@@ -18,7 +19,7 @@
     TTSDKPortfolioService * portfolioService;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 
 @end
@@ -29,13 +30,16 @@
 
 #pragma mark - Rotation
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 
@@ -50,7 +54,7 @@
 
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
 
-    [utils styleMainActiveButton:self.doneButton];
+    [self.doneButton activate];
 }
 
 -(void) viewWillAppear:(BOOL)animated {

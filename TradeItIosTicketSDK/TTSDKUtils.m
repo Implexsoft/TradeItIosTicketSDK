@@ -8,6 +8,7 @@
 
 
 #import "TTSDKUtils.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKUtils () {
     UIButton * currentGradientContainer;
@@ -15,15 +16,13 @@
     UIActivityIndicatorView * currentIndicator;
     UIImageView * loadingIcon;
     BOOL animating;
+    TradeItStyles * styles;
 }
 
 @end
 
 @implementation TTSDKUtils
 
-@synthesize activeButtonColor;
-@synthesize activeButtonHighlightColor;
-@synthesize inactiveButtonColor;
 @synthesize warningColor;
 @synthesize etradeColor;
 @synthesize robinhoodColor;
@@ -51,9 +50,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 - (id)init {
     if (self = [super init]) {
-        activeButtonColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
-        activeButtonHighlightColor = [UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0];
-        inactiveButtonColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
         warningColor = [UIColor colorWithRed:236.0f/255.0f green:121.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
         etradeColor = [UIColor colorWithRed:98.0f / 255.0f green:77.0f / 255.0f blue:160.0f / 255.0f alpha:1.0f];
         robinhoodColor = [UIColor colorWithRed:33.0f / 255.0f green:206.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];
@@ -64,6 +60,8 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         optionshouseColor = [UIColor colorWithRed:46.0f / 255.0f green:98.0f / 255.0f blue:9.0f / 255.0f alpha:1.0f];
         lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
+
+        styles = [TradeItStyles sharedStyles];
     }
 
     return self;
@@ -102,7 +100,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
         brokerColor = [self valueForKey: [NSString stringWithFormat:@"%@Color", [brokerName lowercaseString]]];
     }
     @catch (NSException *exception) {
-        brokerColor = activeButtonColor;
+        brokerColor = styles.activeColor;
     }
 
     return brokerColor;
@@ -133,35 +131,35 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 }
 
 - (void)addGradientToButton: (UIButton *)button {
-    [self removeGradientFromCurrentContainer];
-    [self removeLoadingIndicatorFromContainer];
-
-    activeButtonGradient = [CAGradientLayer layer];
-    activeButtonGradient.frame = button.bounds;
-    activeButtonGradient.colors = [NSArray arrayWithObjects:
-                                   (id)activeButtonColor.CGColor,
-                                   (id)activeButtonHighlightColor.CGColor,
-                                   nil];
-    activeButtonGradient.startPoint = CGPointMake(0, 1);
-    activeButtonGradient.endPoint = CGPointMake(1, 0);
-    activeButtonGradient.cornerRadius = button.layer.cornerRadius;
-
-    if(button.layer.sublayers.count>0) {
-        [button.layer insertSublayer:activeButtonGradient atIndex: 0];
-    }else {
-        [button.layer addSublayer:activeButtonGradient];
-    }
-
-    currentGradientContainer = button;
+//    [self removeGradientFromCurrentContainer];
+//    [self removeLoadingIndicatorFromContainer];
+//
+//    activeButtonGradient = [CAGradientLayer layer];
+//    activeButtonGradient.frame = button.bounds;
+//    activeButtonGradient.colors = [NSArray arrayWithObjects:
+//                                   (id)styles.activeColor.CGColor,
+//                                   (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
+//                                   nil];
+//    activeButtonGradient.startPoint = CGPointMake(0, 1);
+//    activeButtonGradient.endPoint = CGPointMake(1, 0);
+//    activeButtonGradient.cornerRadius = button.layer.cornerRadius;
+//
+//    if(button.layer.sublayers.count>0) {
+//        [button.layer insertSublayer:activeButtonGradient atIndex: 0];
+//    }else {
+//        [button.layer addSublayer:activeButtonGradient];
+//    }
+//
+//    currentGradientContainer = button;
 }
 
 - (void)removeGradientFromCurrentContainer {
-    if (currentGradientContainer) {
-        [activeButtonGradient removeFromSuperlayer];
-    }
-
-    activeButtonGradient = nil;
-    currentGradientContainer = nil;
+//    if (currentGradientContainer) {
+//        [activeButtonGradient removeFromSuperlayer];
+//    }
+//
+//    activeButtonGradient = nil;
+//    currentGradientContainer = nil;
 }
 
 - (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color {
@@ -173,9 +171,9 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 }
 
 - (void)removeLoadingIndicatorFromContainer {
-    if (currentIndicator) {
-        [currentIndicator removeFromSuperview];
-    }
+//    if (currentIndicator) {
+//        [currentIndicator removeFromSuperview];
+//    }
 }
 
 - (NSString *)formatIntegerToReadablePrice: (NSString *)price {
@@ -205,44 +203,16 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return formatString;
 }
 
--(void) styleMainActiveButton: (UIButton *)button {
-    [self removeLoadingIndicatorFromContainer];
-    button.backgroundColor = activeButtonColor;
-    button.layer.borderColor = [UIColor clearColor].CGColor;
-    button.layer.borderWidth = 0.0f;
-    button.layer.cornerRadius = button.frame.size.height / 2;
-
-    button.layer.masksToBounds = NO;
-    button.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
-    button.layer.shadowOpacity = 0.4;
-    button.layer.shadowRadius = 1;
-    button.layer.shadowOffset = CGSizeMake(0,1);
-
-    [self addGradientToButton:button];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-}
-
--(void) styleLoadingButton: (UIButton *)button {
-    [self removeGradientFromCurrentContainer];
-    [self removeLoadingIndicatorFromContainer];
-
-    currentIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    currentIndicator.hidden = NO;
-    [button addSubview:currentIndicator];
-    currentIndicator.frame = CGRectMake(button.titleLabel.frame.origin.x + button.titleLabel.frame.size.width + 10.0, button.titleLabel.frame.origin.y, 20.0, 20.0);
-    [currentIndicator bringSubviewToFront:button];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    [currentIndicator startAnimating];
-}
-
 -(UIView *) retrieveLoadingOverlayForView:(UIView *)view {
     UIView * loadingView = [[UIView alloc] init];
 
     loadingView.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
-    loadingView.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.4f];
+    loadingView.backgroundColor = [styles.loadingBackgroundColor colorWithAlphaComponent: 0.4f];
 
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    indicator.color = styles.loadingIconColor;
+
     indicator.hidden = NO;
     [loadingView addSubview:indicator];
     indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - 20.0f, (loadingView.frame.size.height / 2) - 20.0f, 40.0f, 40.0f);
@@ -297,27 +267,22 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     [keypad layoutSubviews];
     [keypad layoutIfNeeded];
 
+    keypad.backgroundColor = [UIColor clearColor];
+
     for (int i = 0; i < [subviews count]; i++) {
-        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"UIImageView"]) {
+        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
 
+            button.backgroundColor = [UIColor clearColor];
+
+            [button setTitleColor:styles.activeColor forState:UIControlStateNormal];
+
             if (button.tag == 10) { // decimal
-                if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
-                    button.hidden = YES;
-                    button.userInteractionEnabled = NO;
-                } else {
-                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.bounds.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
-                    CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:activeButtonColor];
+                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.frame.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
+                    CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:styles.activeColor];
                     circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
                     [circleView.layer addSublayer:circle];
                     [button addSubview:circleView];
-
-                    NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
-                    [button addConstraint:xCenterConstraint];
-                    
-                    NSLayoutConstraint *yCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-                    [button addConstraint:yCenterConstraint];
-                }
             }
 
             [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
@@ -350,24 +315,9 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     animating = NO;
 }
 
--(void) styleMainInactiveButton: (UIButton *)button {
-    [self removeGradientFromCurrentContainer];
-    [self removeLoadingIndicatorFromContainer];
-
-    button.backgroundColor = inactiveButtonColor;
-    button.layer.borderColor = [UIColor clearColor].CGColor;
-    button.layer.borderWidth = 0.0f;
-    button.layer.cornerRadius = button.frame.size.height / 2;
-
-    button.layer.shadowColor = [UIColor clearColor].CGColor;
-    button.layer.shadowOpacity = 0;
-
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-}
-
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {
-    textField.textColor = activeButtonColor;
-    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: activeButtonColor}];
+    textField.textColor = styles.activeColor;
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: styles.activeColor}];
 }
 
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder {
@@ -377,19 +327,29 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     if (x > 0) {
         textColor = [UIColor blackColor];
     } else {
-        textColor = inactiveButtonColor;
+        textColor = styles.inactiveColor;
     }
 
     textField.textColor = textColor;
     textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: textColor}];
 }
 
--(void) styleBorderedFocusInput: (UITextField *)textField {
-    textField.layer.borderColor = activeButtonColor.CGColor;
+-(void) styleBorderedFocusInput: (UIView *)input {
+    input.layer.borderColor = styles.activeColor.CGColor;
 }
 
--(void) styleBorderedUnfocusInput: (UITextField *)textField {
-    textField.layer.borderColor = inactiveButtonColor.CGColor;
+-(void) styleBorderedUnfocusInput: (UIView *)input {
+    input.layer.borderColor = styles.inactiveColor.CGColor;
+}
+
+-(void) styleDropdownButton:(UIButton *)button {
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+
+    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevronRight"]];
+    arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
+    arrow.contentMode = UIViewContentModeScaleAspectFit;
+
+    [button addSubview: arrow];
 }
 
 -(NSString *) formatPriceString: (NSNumber *)num {
@@ -432,7 +392,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
                  range:NSMakeRange(0, 5)];
     
     [text addAttribute:NSForegroundColorAttributeName
-                 value:activeButtonColor
+                 value:styles.activeColor
                  range:NSMakeRange(5, 2)];
 
     return text;

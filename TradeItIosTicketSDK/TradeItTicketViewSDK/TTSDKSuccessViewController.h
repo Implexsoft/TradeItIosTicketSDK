@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKViewController.h"
 
-@interface TTSDKSuccessViewController : UIViewController
+@interface TTSDKSuccessViewController : TTSDKViewController
 
 @end

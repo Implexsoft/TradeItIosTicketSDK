@@ -9,6 +9,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKLabel.h"
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
@@ -25,15 +26,18 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
 
 
-#pragma mark - Orientation
+#pragma mark - Rotation
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 
@@ -54,12 +58,11 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     }
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    UILabel *headerLabelView = [[UILabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
+    headerView.backgroundColor = [UIColor clearColor];
+    TTSDKLabel *headerLabelView = [[TTSDKLabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
     headerLabelView.text = @"Link your broker account \n to enable trading";
     headerLabelView.numberOfLines = 0;
     headerLabelView.textAlignment = NSTextAlignmentCenter;
-    headerLabelView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:headerLabelView];
 
     self.tableView.tableHeaderView = headerView;
@@ -152,7 +155,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         return;
     }
 
-    if(globalTicket.brokerSignUpCallback) {
+    if(globalTicket.presentationMode == TradeItPresentationModeAuth && globalTicket.brokerSignUpCallback) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = false;
         res.errorTitle = @"Cancelled";

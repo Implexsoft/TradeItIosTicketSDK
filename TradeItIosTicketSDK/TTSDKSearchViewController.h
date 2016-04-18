@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKTableViewController.h"
 
-@interface TTSDKSearchViewController : UITableViewController <UISearchDisplayDelegate>
+@interface TTSDKSearchViewController : TTSDKTableViewController <UISearchDisplayDelegate>
 
 @end

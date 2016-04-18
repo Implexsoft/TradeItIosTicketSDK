@@ -13,6 +13,7 @@
 #import "TradeItMarketDataService.h"
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
+#import "TTSDKSearchBar.h"
 
 @interface TTSDKSearchViewController() {
     TTSDKUtils * utils;
@@ -21,7 +22,7 @@
 }
 
 @property NSArray * symbolSearchResults;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet TTSDKSearchBar *searchBar;
 @property TradeItSymbolLookupRequest * searchRequest;
 
 @end
@@ -42,6 +43,8 @@
 }
 
 -(void) viewDidLoad {
+    [super viewDidLoad];
+
     self.symbolSearchResults = [[NSArray alloc] init];
 
     globalTicket = [TTSDKTradeItTicket globalTicket];
@@ -73,6 +76,10 @@
     cell.textLabel.text = company.symbol;
     cell.detailTextLabel.text = company.name;
     cell.userInteractionEnabled = YES;
+    cell.backgroundColor = self.styles.pageBackgroundColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.textColor = self.styles.primaryTextColor;
+    cell.detailTextLabel.textColor = self.styles.smallTextColor;
 
     return cell;
 }

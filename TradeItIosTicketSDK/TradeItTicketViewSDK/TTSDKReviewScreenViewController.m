@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKReviewScreenViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKTradeItTicket.h"
 #import "TradeItPlaceTradeResult.h"
@@ -15,7 +16,7 @@
 @interface TTSDKReviewScreenViewController () {
     
     __weak IBOutlet UILabel *reviewLabel;
-    __weak IBOutlet UIButton *submitOrderButton;
+    __weak IBOutlet TTSDKPrimaryButton *submitOrderButton;
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIScrollView *scrollView;
     
@@ -95,10 +96,10 @@ static float kMessageSeparatorHeight = 30.0f;
     [self updateUIWithReviewResult];
 
     if ([ackLabels count]) {
-        [utils styleMainInactiveButton:submitOrderButton];
+        [submitOrderButton deactivate];
         submitOrderButton.enabled = NO;
     } else {
-        [utils styleMainActiveButton:submitOrderButton];
+        [submitOrderButton activate];
     }
 
     scrollView.alwaysBounceHorizontal = NO;
@@ -116,21 +117,21 @@ static float kMessageSeparatorHeight = 30.0f;
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesLongVL];
         [self hideElement:sharesLongVV];
     } else {
         [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"]]];
     }
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
         [self hideElement:sharesShortVL];
         [self hideElement:sharesShortVV];
     } else {
         [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"]]];
     }
-    
+
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] && ![[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]) {
         [self hideElement:buyingPowerVL];
         [self hideElement:buyingPowerVV];
@@ -141,7 +142,7 @@ static float kMessageSeparatorHeight = 30.0f;
         [buyingPowerLabel setText:@"AVAIL. CASH"];
         [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
     }
-    
+
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
         [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
     } else {
@@ -154,13 +155,13 @@ static float kMessageSeparatorHeight = 30.0f;
     } else {
         [estimateCostLabel setText:@"ESTIMATED COST"];
     }
-    
+
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
     } else {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
     }
-    
+
     for(NSString * warning in [[self reviewTradeResult] warningsList]) {
         [self addReviewMessage: warning];
     }
@@ -168,11 +169,6 @@ static float kMessageSeparatorHeight = 30.0f;
     for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
         [self addAcknowledgeMessage: warning];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) hideElement:(UIView *) element {
@@ -395,12 +391,11 @@ static float kMessageSeparatorHeight = 30.0f;
 
 #pragma mark - Trade Request
 - (IBAction)placeOrderPressed:(id)sender {
-    [utils styleLoadingButton:submitOrderButton];
+    [submitOrderButton enterLoadingState];
     [self sendTradeRequest];
 }
 
 - (void) sendTradeRequest {
-
     globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
     [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
@@ -409,16 +404,14 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
-    [utils styleMainActiveButton:submitOrderButton];
+    [submitOrderButton activate];
 
     //success
     if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
         globalTicket.resultContainer.status = SUCCESS;
         globalTicket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
         [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
-    }
-    //error
-    if([result isKindOfClass:[TradeItErrorResult class]]) {
+    } else if([result isKindOfClass:[TradeItErrorResult class]]) { //error
         TradeItErrorResult * error = (TradeItErrorResult *) result;
 
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
@@ -433,7 +426,6 @@ static float kMessageSeparatorHeight = 30.0f;
         alert.modalPresentationStyle = UIModalPresentationPopover;
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
-                                                                   [self dismissViewControllerAnimated:YES completion:nil];
                                                                }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
@@ -458,10 +450,10 @@ static float kMessageSeparatorHeight = 30.0f;
     }
 
     if (ackLabelsToggled >= [ackLabels count]) {
-        [utils styleMainActiveButton:submitOrderButton];
+        [submitOrderButton activate];
         submitOrderButton.enabled = YES;
     } else {
-        [utils styleMainInactiveButton: submitOrderButton];
+        [submitOrderButton deactivate];
         submitOrderButton.enabled = NO;
     }
 }

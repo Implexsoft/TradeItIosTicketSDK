@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKTradeViewController.h"
+#import "TTSDKPrimaryButton.h"
 #import "TTSDKOrderTypeSelectionViewController.h"
 #import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -25,13 +26,12 @@
     __weak IBOutlet UILabel * estimatedCostLabel;
 
     __weak IBOutlet UIButton * orderTypeButton;
-    __weak IBOutlet UIView * limitPricesView;
     __weak IBOutlet UITextField *stopPriceInput;
     __weak IBOutlet UITextField *limitPriceInput;
 
     __weak IBOutlet UIButton * orderExpirationButton;
 
-    __weak IBOutlet UIButton * previewOrderButton;
+    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
 
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
@@ -48,6 +48,8 @@
 
     TTSDKCompanyDetails * companyNib;
 
+    NSString * currentFocus;
+
     BOOL uiConfigured;
     BOOL defaultEditingCheckComplete;
     
@@ -63,33 +65,135 @@
 
 
 
+#pragma mark - Rotation
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+
+
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
 
-    [self initConstraints];
+    if([globalTicket.previewRequest.orderQuantity intValue] > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
+    }
 
     [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
-    companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
 
-    [self uiTweaks];
+    keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
+
+    companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
+    companyNib.backgroundColor = self.styles.pageBackgroundColor;
 
     [self setCustomEvents];
     [self refreshPressed:self];
 
+    UITapGestureRecognizer * sharesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharesPressed:)];
+    [sharesInput addGestureRecognizer: sharesTap];
+
+    UITapGestureRecognizer * limitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(limitPressed:)];
+    [limitPriceInput addGestureRecognizer: limitTap];
+
+    UITapGestureRecognizer * stopTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stopPressed:)];
+    [stopPriceInput addGestureRecognizer: stopTap];
+
+    currentFocus = @"shares";
+    [self hideKeypadDecimal];
+
     [self.view setNeedsDisplay];
+}
+
+-(IBAction) sharesPressed:(id)sender {
+    [self styleBorderedFocusInput: sharesInput];
+    [self styleBorderedUnfocusInput: limitPriceInput];
+    [self styleBorderedUnfocusInput: stopPriceInput];
+}
+
+-(IBAction) limitPressed:(id)sender {
+    [self styleBorderedUnfocusInput: sharesInput];
+    [self styleBorderedFocusInput: limitPriceInput];
+    [self styleBorderedUnfocusInput: stopPriceInput];
+}
+
+-(IBAction) stopPressed:(id)sender {
+    [self styleBorderedUnfocusInput: sharesInput];
+    [self styleBorderedUnfocusInput: limitPriceInput];
+    [self styleBorderedFocusInput: stopPriceInput];
+}
+
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    [self applyBorder: (UIView *)sharesInput];
+    [self applyBorder: (UIView *)limitPriceInput];
+    [self applyBorder: (UIView *)stopPriceInput];
+
+    [self styleBorderedFocusInput: sharesInput];
+    [self styleBorderedUnfocusInput: limitPriceInput];
+    [self styleBorderedUnfocusInput: stopPriceInput];
+
+    [self styleDropdownButton: orderActionButton];
+    [self deactivateDropdownButton: orderActionButton];
+
+    [self styleDropdownButton: orderTypeButton];
+    [self deactivateDropdownButton: orderTypeButton];
+
+    [self styleDropdownButton: orderExpirationButton];
+    [self deactivateDropdownButton: orderExpirationButton];
+
+    previewOrderButton.clipsToBounds = YES;
+
+    if ([utils isSmallScreen] && !uiConfigured) {
+        [self configureUIForSmallScreens];
+    }
+}
+
+-(void) styleDropdownButton:(UIButton *)button {
+    UIImageView * arrow = [[UIImageView alloc] initWithFrame:CGRectMake(button.frame.size.width - 16, 5, 7, button.frame.size.height - 10)];
+    arrow.image = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/chevronRight.png"];
+    arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
+    arrow.contentMode = UIViewContentModeScaleAspectFit;
+    [button addSubview: arrow];
+
+    button.layer.borderWidth = 1;
+    button.layer.cornerRadius = 3;
+}
+
+-(void) styleBorderedFocusInput: (UIView *)input {
+    input.layer.borderColor = self.styles.activeColor.CGColor;
+}
+
+-(void) styleBorderedUnfocusInput: (UIView *)input {
+    input.layer.borderColor = self.styles.inactiveColor.CGColor;
+}
+
+-(void) activateDropdownButton:(UIButton *)button {
+    button.layer.borderColor = self.styles.activeColor.CGColor;
+    [button setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
+}
+
+-(void) deactivateDropdownButton:(UIButton *)button {
+    button.layer.borderColor = self.styles.inactiveColor.CGColor;
+    [button setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    if (globalTicket.quote.symbol == nil || [globalTicket.quote.symbol isEqualToString:@""]) {
-        [self performSegueWithIdentifier:@"TradeToSearch" sender: self];
-    }
 
     if (!globalTicket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
@@ -108,6 +212,39 @@
                     [self retrieveAccountSummaryData];
                     [self checkIfReadyToTrade];
                 });
+            } else if ([res isKindOfClass:TradeItErrorResult.class]) {
+                loadingView.hidden = YES;
+
+                TradeItErrorResult * error = (TradeItErrorResult *)res;
+                NSMutableString * errorMessage = [[NSMutableString alloc] init];
+
+                for (NSString * str in error.longMessages) {
+                    [errorMessage appendString:str];
+                }
+
+                if(![UIAlertController class]) {
+                    [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+                                                                                    message:errorMessage
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+
+                    alert.modalPresentationStyle = UIModalPresentationPopover;
+                    
+                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                           handler:^(UIAlertAction * action) {
+                                                                               [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
+                                                                           }];
+                    [alert addAction:defaultAction];
+
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+                    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                    alertPresentationController.sourceView = self.view;
+                    alertPresentationController.permittedArrowDirections = 0;
+                    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+                }
+
             }
         }];
     } else {
@@ -151,43 +288,44 @@
     [self checkIfReadyToTrade];
 }
 
--(void) initConstraints {
-    zeroHeightConstraint = [NSLayoutConstraint
-                            constraintWithItem:limitPricesView
-                            attribute:NSLayoutAttributeHeight
-                            relatedBy:NSLayoutRelationEqual
-                            toItem:NSLayoutAttributeNotAnAttribute
-                            attribute:NSLayoutAttributeHeight
-                            multiplier:1
-                            constant:0];
-    zeroHeightConstraint.priority = 900;
-
-    fullHeightConstraint = [NSLayoutConstraint
-                            constraintWithItem:limitPricesView
-                            attribute:NSLayoutAttributeHeight
-                            relatedBy:NSLayoutRelationEqual
-                            toItem:NSLayoutAttributeNotAnAttribute
-                            attribute:NSLayoutAttributeHeight
-                            multiplier:1
-                            constant:35];
-    fullHeightConstraint.priority = 900;
-}
-
 
 
 #pragma mark - Delegate Methods
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (![utils isSmallScreen]) {
-        return NO;
+
+    if (textField == sharesInput) {
+        [self styleBorderedFocusInput: sharesInput];
+        [self styleBorderedUnfocusInput: limitPriceInput];
+        [self styleBorderedUnfocusInput: stopPriceInput];
+        currentFocus = @"shares";
+        [self hideKeypadDecimal];
     }
-    
-    if ([textField.placeholder isEqualToString:@"Shares"] && defaultEditingCheckComplete) {
-        [self showKeypad];
-    } else {
-        defaultEditingCheckComplete = YES;
+
+    if (textField == limitPriceInput) {
+        [self styleBorderedUnfocusInput: sharesInput];
+        [self styleBorderedFocusInput: limitPriceInput];
+        [self styleBorderedUnfocusInput: stopPriceInput];
+        currentFocus = @"limit";
+        [self showKeypadDecimal];
     }
-    
+
+    if (textField == stopPriceInput) {
+        [self styleBorderedUnfocusInput: sharesInput];
+        [self styleBorderedUnfocusInput: limitPriceInput];
+        [self styleBorderedFocusInput: stopPriceInput];
+        currentFocus = @"stop";
+        [self showKeypadDecimal];
+    }
+
+    if ([utils isSmallScreen]) {
+        if ([textField.placeholder isEqualToString:@"Shares"] && defaultEditingCheckComplete) {
+            [self showKeypad];
+        } else {
+            defaultEditingCheckComplete = YES;
+        }
+    }
+
     return NO;
 }
 
@@ -195,50 +333,10 @@
 
 #pragma mark - Custom UI
 
--(void) uiTweaks { // things that can't be done in Storyboard
-    [self applyBorder:(UIView *)sharesInput];
-    [self applyBorder:(UIView *)orderActionButton];
-
-    [utils styleBorderedUnfocusInput:sharesInput];
-    
-    previewOrderButton.clipsToBounds = YES;
-
-    orderActionButton.layer.borderColor = utils.activeButtonColor.CGColor;
-
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    CGRect bounds = CGRectMake(orderActionButton.frame.size.width - 20, (orderActionButton.frame.size.height / 2) - 4, 8, 8); // - 8
-    CGFloat radius = bounds.size.width / 2;
-    CGFloat a = radius * sqrt((CGFloat)3.0) / 2;
-    CGFloat b = radius / 2;
-    [path moveToPoint:CGPointMake(0, b)];
-    [path addLineToPoint:CGPointMake(a, -radius)];
-    [path addLineToPoint:CGPointMake(-a, -radius)];
-
-    [path closePath];
-    [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
-    shapeLayer.path = path.CGPath;
-
-    shapeLayer.strokeColor = utils.activeButtonColor.CGColor;
-    shapeLayer.fillColor = utils.activeButtonColor.CGColor;
-    
-    [orderActionButton.layer addSublayer: shapeLayer];
-
-    if(globalTicket.previewRequest.orderQuantity > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
-    }
-
-    [sharesInput becomeFirstResponder];
-
-    if ([utils isSmallScreen] && !uiConfigured) {
-        [self configureUIForSmallScreens];
-    }
-}
-
 -(void) applyBorder: (UIView *) item {
-    item.layer.borderColor = [[UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:201.0f/255.0f alpha:1.0f] CGColor];
+    item.layer.borderColor = self.styles.inactiveColor.CGColor;
     item.layer.borderWidth = 1;
-    item.layer.cornerRadius = item.frame.size.height / 2;
+    item.layer.cornerRadius = 3;
 }
 
 -(void) setCustomEvents {
@@ -260,18 +358,18 @@
 
 -(void) configureUIForSmallScreens {
     uiConfigured = YES;
-    
+
     if (keypadTopConstraint) {
         [containerView removeConstraint:keypadTopConstraint];
         NSLayoutConstraint * heightConstraint = [NSLayoutConstraint constraintWithItem:keypadContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:200];
         [containerView addConstraint:heightConstraint];
     }
-    
+
     CALayer * borderLayer = [CALayer layer];
     borderLayer.frame = CGRectMake(0, 0, keypadContainer.frame.size.width, 1.0f);
-    borderLayer.backgroundColor = utils.activeButtonColor.CGColor;
+    borderLayer.backgroundColor = self.styles.activeColor.CGColor;
     [keypadContainer.layer addSublayer:borderLayer];
-    
+
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:keypadContainer.bounds];
     keypadContainer.layer.masksToBounds = NO;
     keypadContainer.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -298,6 +396,32 @@
         return NO;
     } else {
         return YES;
+    }
+}
+
+-(void) showKeypadDecimal {
+    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
+        if ([subview isKindOfClass:UIButton.class]) {
+            UIButton * button = (UIButton *)subview;
+
+            if (button.tag == 10) {
+                button.hidden = NO;
+                button.userInteractionEnabled = YES;
+            }
+        }
+    }
+}
+
+-(void) hideKeypadDecimal {
+    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
+        if ([subview isKindOfClass:UIButton.class]) {
+            UIButton * button = (UIButton *)subview;
+            
+            if (button.tag == 10) {
+                button.hidden = YES;
+                button.userInteractionEnabled = NO;
+            }
+        }
     }
 }
 
@@ -378,9 +502,9 @@
     }
 
     if(readyNow) {
-        [utils styleMainActiveButton:previewOrderButton];
+        [previewOrderButton activate];
     } else {
-        [utils styleMainInactiveButton:previewOrderButton];
+        [previewOrderButton deactivate];
     }
 
     readyToTrade = readyNow;
@@ -388,6 +512,7 @@
 
 -(void) updateEstimatedCost {
     NSInteger shares = [globalTicket.previewRequest.orderQuantity integerValue];
+
     double price = [globalTicket.quote.lastPrice doubleValue];
 
     if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
@@ -410,6 +535,80 @@
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
 
     [estimatedCostLabel setAttributedText:attString];
+}
+
+-(void) changeOrderQuantity:(NSInteger)key {
+    if (key == 10) { // decimal key - not allowed for quantity
+        return;
+    }
+
+    NSString * currentQuantityString;
+    NSString * newQuantityString;
+    NSString * appendedString;
+
+    if (!globalTicket.previewRequest.orderQuantity) {
+        if (key == 11) { // backspace
+            appendedString = @"";
+        } else {
+            appendedString = [NSString stringWithFormat:@"%ld", (long)key];
+        }
+    } else {
+        currentQuantityString = [NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]];
+        newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
+        if (key == 11) { // backspace
+            appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
+        } else {
+            if ([currentQuantityString isEqualToString:@"0"]) {
+                currentQuantityString = @"";
+            }
+            appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
+        }
+    }
+    
+    globalTicket.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
+    sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
+}
+
+-(void) changeOrderLimitPrice:(NSInteger)key {
+    NSString * currentLimitPrice = limitPriceInput.text;
+
+    if (key == 10 && [currentLimitPrice rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+        return;
+    }
+
+    NSString * newLimitString;
+    
+    if (key == 11) { // backspace
+        newLimitString = [currentLimitPrice substringToIndex:[currentLimitPrice length] - 1];
+    } else if (key == 10) { // decimal point
+        newLimitString = [NSString stringWithFormat:@"%@.", currentLimitPrice];
+    } else {
+        newLimitString = [NSString stringWithFormat:@"%@%li", currentLimitPrice, (long)key];
+    }
+    
+    globalTicket.previewRequest.orderLimitPrice = [NSNumber numberWithFloat:[newLimitString floatValue]];
+    limitPriceInput.text = newLimitString;
+}
+
+-(void) changeOrderStopPrice:(NSInteger)key {
+    NSString * currentStopPrice = stopPriceInput.text;
+
+    if (key == 10 && [currentStopPrice rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
+        return;
+    }
+    
+    NSString * newStopString;
+    
+    if (key == 11) { // backspace
+        newStopString = [currentStopPrice substringToIndex:[currentStopPrice length] - 1];
+    } else if (key == 10) { // decimal point
+        newStopString = [NSString stringWithFormat:@"%@.", currentStopPrice];
+    } else {
+        newStopString = [NSString stringWithFormat:@"%@%li", currentStopPrice, (long)key];
+    }
+    
+    globalTicket.previewRequest.orderStopPrice = [NSNumber numberWithFloat:[newStopString floatValue]];
+    stopPriceInput.text = newStopString;
 }
 
 -(void) changeOrderSymbol:(NSString *)symbol {
@@ -478,67 +677,51 @@
 
     [self changeOrderExpiration:@"day"];
     [self hideExpiration];
-
-    limitPriceInput.text = nil;
-    stopPriceInput.text = nil;
     [self hideLimitContainer];
+    [self hideStopContainer];
 }
 
 -(void) setToLimitOrder {
     [stopPriceInput setHidden:YES];
     [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Limit Price"];
-    stopPriceInput.text = nil;
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];
-
-    [limitPriceInput sizeToFit];
-    limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width;
 
     [self showExpiration];
-
     [self showLimitContainer];
+    [self hideStopContainer];
 }
 
 -(void) setToStopMarketOrder {
-    [limitPriceInput setHidden:YES];
-    [stopPriceInput setHidden:NO];
-    limitPriceInput.text = nil;
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
-
-    [stopPriceInput sizeToFit];
-    limitPricesWidthConstraint.constant = stopPriceInput.frame.size.width;
+    [limitPriceInput setHidden: YES];
+    [stopPriceInput setHidden: NO];
 
     [self showExpiration];
-
-    [self showLimitContainer];
+    [self hideLimitContainer];
+    [self showStopContainer];
 }
 
 -(void) setToStopLimitOrder {
     [stopPriceInput setHidden: NO];
-    [limitPriceInput setHidden:NO];
-    [limitPriceInput setPlaceholder:@"Limit Price"];
-    limitPriceInput.text = [NSString stringWithFormat:@"Limit: %@", [utils formatPriceString: globalTicket.previewRequest.orderLimitPrice]];
-    stopPriceInput.text = [NSString stringWithFormat:@"Stop: %@", [utils formatPriceString: globalTicket.previewRequest.orderStopPrice]];
-
-    [limitPriceInput sizeToFit];
-    [stopPriceInput sizeToFit];
-    limitPricesWidthConstraint.constant = limitPriceInput.frame.size.width + stopPriceInput.frame.size.width + 20.0f;
+    [limitPriceInput setHidden: NO];
 
     [self showExpiration];
-
     [self showLimitContainer];
+    [self showStopContainer];
 }
 
 -(void) hideLimitContainer {
-    [self.view removeConstraint:fullHeightConstraint];
-    [self.view addConstraint:zeroHeightConstraint];
-    [limitPriceInput setHidden:YES];
-    [stopPriceInput setHidden:YES];
+    [limitPriceInput setHidden: YES];
 }
 
 -(void) showLimitContainer {
-    [self.view removeConstraint:zeroHeightConstraint];
-    [self.view addConstraint:fullHeightConstraint];
+    [limitPriceInput setHidden: NO];
+}
+
+-(void) showStopContainer {
+    [stopPriceInput setHidden: NO];
+}
+
+-(void) hideStopContainer {
+    [stopPriceInput setHidden: YES];
 }
 
 -(void) hideExpiration {
@@ -564,41 +747,25 @@
 }
 
 - (IBAction)keypadPressed:(id)sender {
-    UIButton * button = sender;
+    UIButton * button = (UIButton *)sender;
     NSInteger key = button.tag;
 
-    if (key == 10) { // decimal key - not allowed for quantity
-        return;
+    if ([currentFocus isEqualToString: @"shares"]) {
+        [self changeOrderQuantity: key];
     }
 
-    NSString * currentQuantityString;
-    NSString * newQuantityString;
-    NSString * appendedString;
-
-    if (!globalTicket.previewRequest.orderQuantity) {
-        if (key == 11) { // backspace
-            appendedString = @"";
-        } else {
-            appendedString = [NSString stringWithFormat:@"%ld", (long)key];
-        }
-    } else {
-        currentQuantityString = [NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]];
-        newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
-        if (key == 11) { // backspace
-            appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
-        } else {
-            if ([currentQuantityString isEqualToString:@"0"]) {
-                currentQuantityString = @"";
-            }
-            appendedString = [NSString stringWithFormat:@"%@%@", currentQuantityString, newQuantityString];
-        }
+    if ([currentFocus isEqualToString: @"limit"]) {
+        [self changeOrderLimitPrice: key];
     }
 
-    globalTicket.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
-    sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
+    if ([currentFocus isEqualToString: @"stop"]) {
+        [self changeOrderStopPrice: key];
+    }
 
     [self checkIfReadyToTrade];
 }
+
+
 
 - (IBAction)orderActionPressed:(id)sender {
     [self.view endEditing:YES];
@@ -612,6 +779,8 @@
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     alert.modalPresentationStyle = UIModalPresentationPopover;
+
+    alert.view.tintColor = self.styles.activeColor;
 
     UIAlertAction * buyAction = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction * action) { [self changeOrderAction:@"buy"]; }];
@@ -640,7 +809,54 @@
 
 - (IBAction)orderTypePressed:(id)sender {
     [self.view endEditing:YES];
-    [self performSegueWithIdentifier:@"TradeToOrderTypeSelection" sender:self];
+
+    if(![UIAlertController class]) {
+        [self performSegueWithIdentifier:@"TradeToOrderTypeSelection" sender:self];
+        return;
+    }
+
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Type"
+                                                                    message:nil
+                                                             preferredStyle:UIAlertControllerStyleActionSheet];
+    alert.modalPresentationStyle = UIModalPresentationPopover;
+    alert.view.tintColor = self.styles.activeColor;
+
+    UIAlertAction * marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+                                                           globalTicket.previewRequest.orderPriceType = @"market";
+                                                           [self changeOrderType: @"market"];
+                                                       }];
+    UIAlertAction * limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * action) {
+                                                            globalTicket.previewRequest.orderPriceType = @"limit";
+                                                            [self changeOrderType: @"limit"];
+                                                        }];
+    UIAlertAction * stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 globalTicket.previewRequest.orderPriceType = @"stopMarket";
+                                                                 [self changeOrderType: @"stopMarket"];
+                                                             }];
+    UIAlertAction * stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  globalTicket.previewRequest.orderPriceType = @"stopLimit";
+                                                                  [self changeOrderType: @"stopLimit"];
+                                                              }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:marketAction];
+    [alert addAction:limitAction];
+    [alert addAction:stopMarketAction];
+    [alert addAction:stopLimitAction];
+    [alert addAction:cancelAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+    alertPresentationController.sourceView = self.view;
+    alertPresentationController.permittedArrowDirections = 0;
+    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
 }
 
 -(IBAction)brokerLinkPressed:(id)sender {
@@ -680,11 +896,67 @@
     alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
 }
 
+-(void) showOldOrderType {
+    self.pickerTitles = @[@"Market",@"Limit",@"Stop Market",@"Stop Limit"];
+    self.pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
+    NSString * currentSelection = globalTicket.previewRequest.orderPriceType;
+
+    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+    [alert setContainerView:[self createPickerView:@"Order Action"]];
+    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    
+    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+        if(buttonIndex == 1) {
+            [self changeOrderType: currentSelection];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+
+        if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]){
+            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
+        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
+            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
+        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"limit"]) {
+            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    });
+}
+
+//- (IBAction)orderTypePressed:(id)sender {
+//    [self.view endEditing:YES];
+//    if(![UIAlertController class]) {
+//        [self showOldOrderType];
+//        return;
+//    }
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Order Type"
+//                                                                   message:nil
+//                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//    UIAlertAction* marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction * action) { [self changeOrderType:@"market"]; }];
+//    UIAlertAction* limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
+//                                                        handler:^(UIAlertAction * action) { [self changeOrderType:@"limit"]; }];
+//    UIAlertAction* stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) { [self changeOrderType:@"stopMarket"]; }];
+//    UIAlertAction* stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
+//                                                            handler:^(UIAlertAction * action) { [self changeOrderType:@"stopLimit"]; }];
+//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+//                                                          handler:^(UIAlertAction * action) {}];
+//    [alert addAction:marketAction];
+//    [alert addAction:limitAction];
+//    [alert addAction:stopMarketAction];
+//    [alert addAction:stopLimitAction];
+//    [alert addAction:cancelAction];
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
+
 - (IBAction)previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
 
     if(readyToTrade) {
-        [utils styleLoadingButton:previewOrderButton];
+        [previewOrderButton enterLoadingState];
         [self sendPreviewRequest];
     }
 }
@@ -702,7 +974,7 @@
 }
 
 -(void) acknowledgeAlert {
-    [utils styleMainActiveButton:previewOrderButton];
+    [previewOrderButton activate];
 }
 
 

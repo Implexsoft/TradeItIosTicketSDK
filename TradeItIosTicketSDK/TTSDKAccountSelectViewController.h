@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKViewController.h"
 
-@interface TTSDKAccountSelectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface TTSDKAccountSelectViewController : TTSDKViewController <UITableViewDataSource,UITableViewDelegate>
 
 @end

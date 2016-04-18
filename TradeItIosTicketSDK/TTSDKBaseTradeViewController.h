@@ -13,8 +13,9 @@
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
 #import "TTSDKPortfolioAccount.h"
+#import "TTSDKViewController.h"
 
-@interface TTSDKBaseTradeViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKBaseTradeViewController : TTSDKViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TradeItResult * lastResult;
 

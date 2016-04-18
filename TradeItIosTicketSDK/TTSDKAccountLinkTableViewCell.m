@@ -9,6 +9,7 @@
 #import "TTSDKAccountLinkTableViewCell.h"
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
+#import "TradeItStyles.h"
 
 
 @interface TTSDKAccountLinkTableViewCell() {
@@ -17,6 +18,7 @@
     TTSDKTradeItTicket * globalTicket;
 }
 
+@property (weak, nonatomic) IBOutlet UIView *separator;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circleGraphic;
@@ -32,8 +34,17 @@
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
+
+    [self setViewStyles];
 }
 
+-(void) setViewStyles {
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
+
+    self.backgroundColor = [UIColor clearColor];
+    [self.toggle setOnTintColor: styles.switchColor];
+    self.separator.backgroundColor = styles.primarySeparatorColor;
+}
 
 
 #pragma mark - Configuration

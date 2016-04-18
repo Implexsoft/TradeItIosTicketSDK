@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKViewController.h"
 
-@interface TTSDKOrderTypeInputViewController : UIViewController <UITextFieldDelegate>
+@interface TTSDKOrderTypeInputViewController : TTSDKViewController <UITextFieldDelegate>
 
 @property NSString * orderType;
 

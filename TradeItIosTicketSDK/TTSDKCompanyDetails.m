@@ -8,10 +8,13 @@
 
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
+    TradeItStyles * styles;
 }
+@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
 @end
 
@@ -24,9 +27,23 @@
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
+        
+        [self setViewStyles];
     }
 
     return self;
+}
+
+-(void) setViewStyles {
+    styles = [TradeItStyles sharedStyles];
+
+    [self.symbolLabel setTitleColor:styles.activeColor forState:UIControlStateNormal];
+    [self.brokerButton setTitleColor:styles.primaryTextColor forState:UIControlStateNormal];
+
+    self.rightArrow.image = [self.rightArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.rightArrow.tintColor = styles.activeColor;
+
+    self.symbolDetailLabel.textColor = styles.smallTextColor;
 }
 
 
@@ -43,7 +60,7 @@
     if (symbol) {
         [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
     } else {
-        [self.symbolLabel setTitle:@"N/A" forState:UIControlStateNormal];
+        [self.symbolLabel setTitle:@"Select Symbol" forState:UIControlStateNormal];
     }
 }
 
@@ -63,10 +80,10 @@
         UIColor * changeColor;
         if ([change floatValue] > 0) {
             changePrefix = @"+";
-            changeColor = [utils gainColor];
+            changeColor = styles.gainColor;
         } else {
             changePrefix = @"";
-            changeColor = [utils lossColor];
+            changeColor = styles.lossColor;
         }
 
         self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];
