@@ -87,9 +87,6 @@
         self.primaryInactiveButton.layer.shadowOpacity = 0;
         [self.primaryInactiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-        // Set default styles for preferred broker button (only shown on onboarding screen)
-        self.preferredBrokerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-
         // Brokers
         etradeColor = [UIColor colorWithRed:98.0f / 255.0f green:77.0f / 255.0f blue:160.0f / 255.0f alpha:1.0f];
         robinhoodColor = [UIColor colorWithRed:33.0f / 255.0f green:206.0f / 255.0f blue:153.0f / 255.0f alpha:1.0f];

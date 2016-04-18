@@ -11,6 +11,9 @@
 
 @interface TradeItStyles : NSObject
 
+@property UIColor * activeColor;
+@property UIColor * inactiveColor;
+
 @property UIColor * warningColor;
 @property UIColor * lossColor;
 @property UIColor * gainColor;
@@ -22,9 +25,6 @@
 
 @property UIColor * tabBarBackgroundColor;
 @property UIColor * tabBarItemColor;
-
-@property UIColor * activeColor;
-@property UIColor * inactiveColor;
 
 @property UIColor * primaryTextColor;
 @property UIColor * primaryTextHighlightColor;
@@ -42,8 +42,6 @@
 
 @property UIButton * primaryInactiveButton;
 @property UIButton * primaryActiveButton;
-
-@property UIButton * preferredBrokerButton;
 
 +(id) sharedStyles;
 
