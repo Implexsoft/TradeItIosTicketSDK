@@ -278,22 +278,11 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
             [button setTitleColor:styles.activeColor forState:UIControlStateNormal];
 
             if (button.tag == 10) { // decimal
-                if ([vc.restorationIdentifier isEqualToString:@"tradeViewController"]) {
-                    button.hidden = YES;
-                    button.userInteractionEnabled = NO;
-                } else {
-                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.bounds.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
+                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.frame.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
                     CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:styles.activeColor];
                     circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
                     [circleView.layer addSublayer:circle];
                     [button addSubview:circleView];
-
-                    NSLayoutConstraint *xCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
-                    [button addConstraint:xCenterConstraint];
-                    
-                    NSLayoutConstraint *yCenterConstraint = [NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-                    [button addConstraint:yCenterConstraint];
-                }
             }
 
             [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
@@ -345,12 +334,22 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: textColor}];
 }
 
--(void) styleBorderedFocusInput: (UITextField *)textField {
-    textField.layer.borderColor = styles.activeColor.CGColor;
+-(void) styleBorderedFocusInput: (UIView *)input {
+    input.layer.borderColor = styles.activeColor.CGColor;
 }
 
--(void) styleBorderedUnfocusInput: (UITextField *)textField {
-    textField.layer.borderColor = styles.inactiveColor.CGColor;
+-(void) styleBorderedUnfocusInput: (UIView *)input {
+    input.layer.borderColor = styles.inactiveColor.CGColor;
+}
+
+-(void) styleDropdownButton:(UIButton *)button {
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+
+    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevronRight"]];
+    arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
+    arrow.contentMode = UIViewContentModeScaleAspectFit;
+
+    [button addSubview: arrow];
 }
 
 -(NSString *) formatPriceString: (NSNumber *)num {

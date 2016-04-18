@@ -36,8 +36,9 @@
 -(void) removeGradientFromCurrentContainer;
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
--(void) styleBorderedFocusInput: (UITextField *)textField;
--(void) styleBorderedUnfocusInput: (UITextField *)textField;
+-(void) styleBorderedFocusInput: (UIView *)input;
+-(void) styleBorderedUnfocusInput: (UIView *)input;
+-(void) styleDropdownButton:(UIButton *)button;
 -(UIView *) retrieveLoadingOverlayForView:(UIView *)view;
 -(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
 -(NSString *) splitCamelCase:(NSString *) str;

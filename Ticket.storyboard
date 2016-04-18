@@ -261,7 +261,7 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="431"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -1280,14 +1280,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-hm-yzr" userLabel="Container">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-hm-yzr" userLabel="Container">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlU-2P-Iay" userLabel="OrderInitial">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Icf-eA-afJ" userLabel="TopContainer">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="142.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjD-iA-LDS" userLabel="CompanyDetails">
                                                         <rect key="frame" x="10" y="10" width="300" height="50"/>
@@ -1297,22 +1297,21 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-ms-ajL" userLabel="OrderButtons">
-                                                        <rect key="frame" x="0.0" y="79" width="320" height="64"/>
+                                                        <rect key="frame" x="0.0" y="92.5" width="320" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Shares" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="feE-8H-8e0" customClass="TTSDKTextField">
-                                                                <rect key="frame" x="185" y="0.0" width="110" height="25"/>
+                                                                <rect key="frame" x="165" y="0.0" width="141" height="27"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="110" id="0XA-wH-5xx"/>
-                                                                    <constraint firstAttribute="height" constant="25" id="7yp-Kr-DUp"/>
+                                                                    <constraint firstAttribute="height" constant="27" id="7yp-Kr-DUp"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="VXZ-vQ-tdp" id="FtA-07-Fwy"/>
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-3i-W7w" customClass="TTSDKLabel">
-                                                                <rect key="frame" x="203" y="28" width="75" height="17"/>
+                                                                <rect key="frame" x="198" y="30" width="75" height="17"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="17" id="3Mx-aK-syP"/>
                                                                 </constraints>
@@ -1320,12 +1319,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLr-7y-dEH">
-                                                                <rect key="frame" x="25" y="0.0" width="140" height="25"/>
+                                                                <rect key="frame" x="14" y="0.0" width="141" height="27"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="140" id="1E4-V5-gS2"/>
-                                                                    <constraint firstAttribute="height" constant="25" id="9Xy-Aj-btn"/>
+                                                                    <constraint firstAttribute="height" constant="27" id="9Xy-Aj-btn"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Action">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1337,13 +1335,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="feE-8H-8e0" secondAttribute="trailing" constant="25" id="096-Oq-afx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="feE-8H-8e0" secondAttribute="trailing" constant="14" id="096-Oq-afx"/>
                                                             <constraint firstItem="H5Q-3i-W7w" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="3" id="2vq-VT-flg"/>
                                                             <constraint firstItem="feE-8H-8e0" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="AaQ-Qz-8nf"/>
                                                             <constraint firstItem="JLr-7y-dEH" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="FXy-nU-iAR"/>
-                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" constant="25" id="G5M-7e-aZ7"/>
+                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" constant="14" id="G5M-7e-aZ7"/>
+                                                            <constraint firstItem="feE-8H-8e0" firstAttribute="width" secondItem="XLO-ms-ajL" secondAttribute="width" multiplier="0.44" id="V9Y-ja-UGF"/>
+                                                            <constraint firstItem="JLr-7y-dEH" firstAttribute="width" secondItem="XLO-ms-ajL" secondAttribute="width" multiplier="0.44" id="ZdM-bx-Uiv"/>
                                                             <constraint firstItem="H5Q-3i-W7w" firstAttribute="centerX" secondItem="feE-8H-8e0" secondAttribute="centerX" id="s7f-VH-HiH"/>
-                                                            <constraint firstAttribute="height" constant="64" id="x3C-JF-IET"/>
+                                                            <constraint firstAttribute="height" constant="50" id="x3C-JF-IET"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1358,45 +1358,55 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-wY-vR6" userLabel="BottomContainer">
-                                                <rect key="frame" x="0.0" y="143" width="320" height="157"/>
+                                                <rect key="frame" x="0.0" y="142.5" width="320" height="157.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8x-hT-TFj" userLabel="OrderDetails">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykc-rN-Xap" userLabel="LimitPrices">
-                                                                <rect key="frame" x="45" y="35" width="230" height="30"/>
-                                                                <subviews>
-                                                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input">
-                                                                        <rect key="frame" x="151" y="5" width="79" height="20"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                                        <connections>
-                                                                            <outlet property="delegate" destination="VXZ-vQ-tdp" id="lQO-mr-iZK"/>
-                                                                        </connections>
-                                                                    </textField>
-                                                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" userLabel="Limit Price Input">
-                                                                        <rect key="frame" x="0.0" y="5" width="81" height="20"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                                        <connections>
-                                                                            <action selector="limitPriceInputPressed:" destination="VXZ-vQ-tdp" eventType="editingDidEnd" id="Xqq-hP-JND"/>
-                                                                            <outlet property="delegate" destination="VXZ-vQ-tdp" id="GFH-hi-9X5"/>
-                                                                        </connections>
-                                                                    </textField>
-                                                                </subviews>
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input" customClass="TTSDKTextField">
+                                                                <rect key="frame" x="165" y="47" width="141" height="27"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="27" id="cLo-z7-Og4"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="lQO-mr-iZK"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Limit Price" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Ej-ZVu" userLabel="Limit Price Input" customClass="TTSDKTextField">
+                                                                <rect key="frame" x="165" y="0.0" width="141" height="27"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="27" id="6L6-Gd-0oC"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                                <connections>
+                                                                    <action selector="limitPriceInputPressed:" destination="VXZ-vQ-tdp" eventType="editingDidEnd" id="Xqq-hP-JND"/>
+                                                                    <outlet property="delegate" destination="VXZ-vQ-tdp" id="GFH-hi-9X5"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-kp-Nie">
+                                                                <rect key="frame" x="14" y="0.0" width="141" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="Ykc-rN-Xap" secondAttribute="leading" id="H67-S9-Jjv"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="Hi7-00-18Q"/>
-                                                                    <constraint firstItem="pWk-Ej-ZVu" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" constant="5" id="MAD-hm-9PM"/>
-                                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="Ykc-rN-Xap" secondAttribute="top" constant="5" id="VXV-5e-hId"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" id="d2i-jm-k9T"/>
-                                                                    <constraint firstAttribute="width" constant="230" id="hHJ-qi-lal"/>
+                                                                    <constraint firstAttribute="height" constant="27" id="gdE-qt-3rL"/>
                                                                 </constraints>
-                                                            </view>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                <state key="normal" title="Order Type">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="orderTypePressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="7xZ-td-HZd"/>
+                                                                </connections>
+                                                            </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scy-hx-dPx">
-                                                                <rect key="frame" x="78" y="73" width="164" height="27"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                                <rect key="frame" x="14" y="47" width="141" height="27"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="27" id="CWb-2W-DkV"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Order Expiration">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1405,38 +1415,22 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                     <action selector="orderExpirationPressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="QUb-7j-G15"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-kp-Nie">
-                                                                <rect key="frame" x="103" y="0.0" width="115" height="27"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                                <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Order Type">
-                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="orderTypePressed:" destination="VXZ-vQ-tdp" eventType="touchUpInside" id="7xZ-td-HZd"/>
-                                                                </connections>
-                                                            </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevronRight.png" translatesAutoresizingMaskIntoConstraints="NO" id="4la-7L-exR" customClass="TTSDKImageView">
-                                                                <rect key="frame" x="227" y="3" width="11" height="21"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="11" id="1J4-sp-kk7"/>
-                                                                    <constraint firstAttribute="height" constant="21" id="CGR-XS-wg0"/>
-                                                                </constraints>
-                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="6JP-4j-43d"/>
-                                                            <constraint firstItem="4la-7L-exR" firstAttribute="leading" secondItem="cbn-kp-Nie" secondAttribute="trailing" constant="9" id="CUL-iz-Y6S"/>
-                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="NOe-p7-Vac"/>
-                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="Vxl-tM-B2M"/>
-                                                            <constraint firstItem="4la-7L-exR" firstAttribute="centerY" secondItem="cbn-kp-Nie" secondAttribute="centerY" id="YtA-Ui-9CA"/>
-                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="centerX" secondItem="Y8x-hT-TFj" secondAttribute="centerX" id="ZqR-ut-Emk"/>
+                                                            <constraint firstItem="pWk-Ej-ZVu" firstAttribute="width" secondItem="Y8x-hT-TFj" secondAttribute="width" multiplier="0.44" id="7Qb-y6-1Mt"/>
+                                                            <constraint firstItem="91y-lh-fw2" firstAttribute="width" secondItem="Y8x-hT-TFj" secondAttribute="width" multiplier="0.44" id="CAX-q8-90b"/>
+                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="20" id="KpL-xg-wzO"/>
+                                                            <constraint firstItem="pWk-Ej-ZVu" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="OTF-wK-UW6"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" constant="14" id="Vji-dS-9Mv"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="width" secondItem="Y8x-hT-TFj" secondAttribute="width" multiplier="0.44" id="b1A-A0-cFm"/>
                                                             <constraint firstAttribute="height" constant="105" id="bp9-Mu-7Wa"/>
-                                                            <constraint firstAttribute="bottom" secondItem="scy-hx-dPx" secondAttribute="bottom" constant="5" id="fAZ-Bc-sDg"/>
-                                                            <constraint firstItem="Ykc-rN-Xap" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="8" id="xeI-cc-D2n"/>
+                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="leading" secondItem="Y8x-hT-TFj" secondAttribute="leading" constant="14" id="eD7-MR-GA0"/>
+                                                            <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="Y8x-hT-TFj" secondAttribute="top" id="g4J-LO-C6l"/>
+                                                            <constraint firstItem="scy-hx-dPx" firstAttribute="width" secondItem="Y8x-hT-TFj" secondAttribute="width" multiplier="0.44" id="g53-of-Ok9"/>
+                                                            <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="20" id="mYg-U0-sGu"/>
+                                                            <constraint firstAttribute="trailing" secondItem="91y-lh-fw2" secondAttribute="trailing" constant="14" id="oMY-Cr-CSn"/>
+                                                            <constraint firstAttribute="trailing" secondItem="pWk-Ej-ZVu" secondAttribute="trailing" constant="14" id="sMD-Zo-Bee"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkT-XZ-XDB" customClass="TTSDKPrimaryButton">
@@ -1477,8 +1471,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstAttribute="trailing" secondItem="RSj-wY-vR6" secondAttribute="trailing" id="t1f-4L-3PN"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
-                                        <rect key="frame" x="0.0" y="300" width="320" height="67"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
+                                        <rect key="frame" x="0.0" y="300" width="320" height="116"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -1502,6 +1496,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstItem="hYy-hm-yzr" firstAttribute="top" secondItem="1QG-Ea-qct" secondAttribute="bottom" id="ykc-za-Qli"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Trade" id="hHX-w2-81q">
                         <barButtonItem key="backBarButtonItem" title="Back" id="xYq-dk-0jG"/>
                         <barButtonItem key="leftBarButtonItem" title="Close" id="35P-gP-XDe">
@@ -1519,8 +1514,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="keypadContainer" destination="WFw-bE-i5p" id="scM-3b-2sz"/>
                         <outlet property="keypadTopConstraint" destination="1TG-2O-Fma" id="lAL-qH-cKg"/>
                         <outlet property="limitPriceInput" destination="pWk-Ej-ZVu" id="mdb-RW-OpI"/>
-                        <outlet property="limitPricesView" destination="Ykc-rN-Xap" id="MTX-Ea-6TY"/>
-                        <outlet property="limitPricesWidthConstraint" destination="hHJ-qi-lal" id="ufv-kF-5KB"/>
                         <outlet property="orderActionButton" destination="JLr-7y-dEH" id="ALc-t4-f2d"/>
                         <outlet property="orderExpirationButton" destination="scy-hx-dPx" id="9gV-ZX-0uI"/>
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>
@@ -1853,7 +1846,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wuc-R0-2HR"/>
+        <segue reference="ujk-YM-BZG"/>
         <segue reference="b0O-lu-Vmh"/>
         <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
