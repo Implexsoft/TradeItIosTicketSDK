@@ -115,6 +115,10 @@
     currentFocus = @"shares";
     [self hideKeypadDecimal];
 
+    if ([utils isSmallScreen] && !uiConfigured) {
+        [self configureUIForSmallScreens];
+    }
+
     [self.view setNeedsDisplay];
 }
 
@@ -157,10 +161,6 @@
     [self deactivateDropdownButton: orderExpirationButton];
 
     previewOrderButton.clipsToBounds = YES;
-
-    if ([utils isSmallScreen] && !uiConfigured) {
-        [self configureUIForSmallScreens];
-    }
 }
 
 -(void) styleDropdownButton:(UIButton *)button {
@@ -294,6 +294,10 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
+    if ([utils isSmallScreen]) {
+        [self showKeypad];
+    }
+
     if (textField == sharesInput) {
         [self styleBorderedFocusInput: sharesInput];
         [self styleBorderedUnfocusInput: limitPriceInput];
@@ -316,14 +320,6 @@
         [self styleBorderedFocusInput: stopPriceInput];
         currentFocus = @"stop";
         [self showKeypadDecimal];
-    }
-
-    if ([utils isSmallScreen]) {
-        if ([textField.placeholder isEqualToString:@"Shares"] && defaultEditingCheckComplete) {
-            [self showKeypad];
-        } else {
-            defaultEditingCheckComplete = YES;
-        }
     }
 
     return NO;
@@ -433,7 +429,7 @@
     CATransform3D currentTransform = keypadContainer.layer.transform;
     [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -200.0f, 0.0f));
+                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -250.0f, 0.0f));
                          keypadContainer.layer.opacity = 1.0f;
                      }
                      completion:^(BOOL finished) {
@@ -449,7 +445,7 @@
     CATransform3D currentTransform = keypadContainer.layer.transform;
     [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 200.0f, 1.0f));
+                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 250.0f, 1.0f));
                          keypadContainer.layer.opacity = 0.0f;
                      }
                      completion:^(BOOL finished) {
