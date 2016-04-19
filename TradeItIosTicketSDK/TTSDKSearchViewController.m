@@ -51,6 +51,8 @@
     utils = [TTSDKUtils sharedUtils];
     marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
 
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     UISearchDisplayController *searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
 
     self.searchRequest = [[TradeItSymbolLookupRequest alloc] init];
