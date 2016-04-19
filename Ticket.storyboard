@@ -156,7 +156,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85X-g2-O8p" customClass="TTSDKLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85X-g2-O8p" customClass="TTSDKLabel">
                                 <rect key="frame" x="80" y="35" width="161" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gph-az-oiE"/>
@@ -167,7 +167,7 @@ you want to link</string>
                                 <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
                                 <rect key="frame" x="16" y="104" width="288" height="292"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -506,14 +506,14 @@ you want to link</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl" customClass="TTSDKImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl" customClass="TTSDKImageView">
                                 <rect key="frame" x="140" y="127" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
                                     <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
                                 <rect key="frame" x="16" y="174" width="288" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
@@ -541,7 +541,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="tradeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="4NJ-DI-xZM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
                                 <rect key="frame" x="113" y="55" width="95" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
@@ -1877,9 +1877,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="tradeIcon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uWM-4J-KHQ"/>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="X2r-Bb-VCg"/>
+        <segue reference="qBc-9P-D9s"/>
         <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
 </document>

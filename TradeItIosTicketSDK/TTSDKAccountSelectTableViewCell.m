@@ -78,7 +78,7 @@
     self.brokerLabel.text = account.accountNumber;
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
-    self.buyingPowerLabel.text = [account.balance.buyingPower stringValue] ?: @"N/A";
+    self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
 
     NSString * symbol = globalTicket.quote.symbol;
     NSString * shares;
