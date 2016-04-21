@@ -10,8 +10,6 @@
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKOrderTypeSelectionViewController.h"
-#import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -297,8 +295,6 @@
 + (void)forceClassesIntoLinker {
     [TTSDKTradeViewController class];
     [TTSDKCompanyDetails class];
-    [TTSDKOrderTypeSelectionViewController class];
-    [TTSDKOrderTypeInputViewController class];
     [TTSDKAccountSelectViewController class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];

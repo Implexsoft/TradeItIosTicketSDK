@@ -8,8 +8,6 @@
 
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPrimaryButton.h"
-#import "TTSDKOrderTypeSelectionViewController.h"
-#import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKLoginViewController.h"
