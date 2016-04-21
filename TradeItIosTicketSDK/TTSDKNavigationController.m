@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKNavigationController.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKNavigationController ()
 
@@ -15,19 +16,15 @@
 @implementation TTSDKNavigationController
 
 
-
 #pragma mark - Rotation
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return [self.topViewController supportedInterfaceOrientations];
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return [self.topViewController shouldAutorotate];
 }
-
 
 
 #pragma mark - Initialization
@@ -39,12 +36,12 @@
 }
 
 -(void) setViewStyles {
-    self.styles = [TradeItStyles sharedStyles];
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
 
-    self.view.backgroundColor = self.styles.pageBackgroundColor;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];
-    self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
-    self.navigationController.navigationBar.tintColor = self.styles.activeColor;
+    self.view.backgroundColor = styles.pageBackgroundColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : styles.navigationBarTitleColor}];
+    self.navigationController.navigationBar.barTintColor = styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.tintColor = styles.activeColor;
 }
 
 @end
