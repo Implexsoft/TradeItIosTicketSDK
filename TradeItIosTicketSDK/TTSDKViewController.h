@@ -12,7 +12,7 @@
 #import "TradeItStyles.h"
 #import "TTSDKCustomIOSAlertView.h"
 
-@interface TTSDKViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property TTSDKTradeItTicket * ticket;
 @property TTSDKUtils * utils;
@@ -24,6 +24,7 @@
 
 -(void) setViewStyles;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
+-(void) showErrorAlert:(TradeItErrorResult *)error onAccept:(void (^)(void))acceptanceBlock;
 -(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock;
 -(UIView *) createPickerView: (NSString *) title;
 

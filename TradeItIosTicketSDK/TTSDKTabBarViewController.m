@@ -11,7 +11,8 @@
 
 @implementation TTSDKTabBarViewController
 
-#pragma mark - Rotation
+
+#pragma mark Rotation
 
 - (BOOL)shouldAutorotate {
     return NO;
@@ -26,8 +27,7 @@
 }
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,7 +40,6 @@
     [[UITabBar appearanceWhenContainedIn:self.class, nil] setTintColor: styles.tabBarItemColor];
     [[UITabBar appearanceWhenContainedIn:self.class, nil] setBarTintColor: styles.tabBarBackgroundColor];
 }
-
 
 
 @end

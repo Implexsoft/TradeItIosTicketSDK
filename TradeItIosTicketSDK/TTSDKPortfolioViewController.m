@@ -35,8 +35,7 @@
 @implementation TTSDKPortfolioViewController
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static float kAccountsHeaderHeight = 165.0f;
 static float kHoldingsHeaderHeight = 75.0f;
@@ -45,21 +44,7 @@ static float kHoldingCellExpandedHeight = 132.0f;
 static float kAccountCellHeight = 44.0f;
 
 
-
-#pragma mark - Orientation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -93,42 +78,10 @@ static float kAccountCellHeight = 44.0f;
 
                 if ([res isKindOfClass:TradeItErrorResult.class]) {
                     TradeItErrorResult * error = (TradeItErrorResult *)res;
-                    
-                    NSMutableString * errorMessage = [[NSMutableString alloc] init];
-                    
-                    for (NSString * str in error.longMessages) {
-                        [errorMessage appendString:str];
-                    }
 
-                    if(![UIAlertController class]) {
-                        [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
-                    } else {
-
-                        UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
-                                                                                        message:errorMessage
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
-
-                        alert.modalPresentationStyle = UIModalPresentationPopover;
-                        
-                        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
-                                                                               handler:^(UIAlertAction * action) {
-                                                                                   [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
-                                                                               }];
-                        
-                        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                            // do nothing
-                        }];
-                        
-                        [alert addAction:defaultAction];
-                        [alert addAction:cancelAction];
-                        
-                        [self presentViewController:alert animated:YES completion:nil];
-                        
-                        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-                        alertPresentationController.sourceView = self.view;
-                        alertPresentationController.permittedArrowDirections = 0;
-                        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-                    }
+                    [self showErrorAlert:error onAccept:^(void){
+                        [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
+                    }];
                 } else {
                     [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
                 }
@@ -167,8 +120,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
-
-#pragma mark - Table Delegate Methods
+#pragma mark Table Delegate Methods
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -420,8 +372,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
-
-#pragma mark - Custom Delegate Methods
+#pragma mark Custom Delegate Methods
 
 -(void)didSelectBuy:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"buy";
@@ -458,8 +409,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
-
-#pragma mark - Custom UI
+#pragma mark Custom UI
 
 -(void)updateTableContentSize {
     CGRect contentRect = CGRectZero;
@@ -471,18 +421,8 @@ static float kAccountCellHeight = 44.0f;
     [self.accountsTable setContentSize:contentRect.size];
 }
 
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
 
-
-
-#pragma mark - Navigation
+#pragma mark Navigation
 
 - (IBAction)closePressed:(id)sender {
     [self.ticket returnToParentApp];
