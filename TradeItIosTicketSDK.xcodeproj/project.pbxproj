@@ -747,17 +747,14 @@
 				6529357C1CC182CF00DF5922 /* TTSDKImageView.m */,
 				65826F941CC41DAC00B085F8 /* TTSDKSearchBar.h */,
 				65826F951CC41DAC00B085F8 /* TTSDKSearchBar.m */,
-			);
-			name = AbstractViews;
-			sourceTree = "<group>";
-		};
-		6588C3E11C446F0400927F72 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
+				A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */,
+				A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */,
+				A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */,
+				A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */,
 				65F240C71C4570BD00DD2309 /* TTSDKTabBarViewController.h */,
 				65F240C81C4570BD00DD2309 /* TTSDKTabBarViewController.m */,
 			);
-			name = TabBar;
+			name = AbstractViews;
 			sourceTree = "<group>";
 		};
 		65B313FA1C23613600EBC30D /* SymbolSearch */ = {
@@ -846,15 +843,6 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		A93B3C4B1B54649400373E1B /* CustomAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */,
-				A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */,
-			);
-			name = CustomAlertView;
-			sourceTree = "<group>";
-		};
 		A9901A421B696C1900FCC83D /* Trade */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,15 +887,12 @@
 			isa = PBXGroup;
 			children = (
 				6574AA641CB7FE7B0003FFE9 /* AbstractViews */,
-				6588C3E11C446F0400927F72 /* TabBar */,
 				A9B2D46C1B5D88ED008065E1 /* Authentication */,
 				65FC2ADC1C7A5611001FCB3E /* PortfolioService */,
 				65DD1BD11C3C80DA0032676A /* PortfolioScreen */,
 				A9C002B41B6EE3E9007D15F5 /* BaseTrade */,
 				A9901A421B696C1900FCC83D /* Trade */,
 				65B313FA1C23613600EBC30D /* SymbolSearch */,
-				A93B3C4B1B54649400373E1B /* CustomAlertView */,
-				A9C003861B72853E007D15F5 /* MBProgressHUD */,
 				65C98C3E1C7A9AA600A2AE71 /* AccountLink */,
 				655493121C21FCA9005D4270 /* AccountSelect */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
@@ -1018,15 +1003,6 @@
 				A9C002B91B6FC507007D15F5 /* TTSDKBaseTradeViewController.m */,
 			);
 			name = BaseTrade;
-			sourceTree = "<group>";
-		};
-		A9C003861B72853E007D15F5 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */,
-				A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */,
-			);
-			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

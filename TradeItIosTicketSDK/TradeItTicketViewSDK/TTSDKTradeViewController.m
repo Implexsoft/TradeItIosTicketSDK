@@ -20,45 +20,37 @@
 
 
 @interface TTSDKTradeViewController () {
+    TTSDKUtils * utils;
+    TTSDKTradeItTicket * globalTicket;
+
     __weak IBOutlet UIView * companyDetails;
-
-    __weak IBOutlet UIButton * orderActionButton;
-    __weak IBOutlet UITextField * sharesInput;
-    __weak IBOutlet UILabel * estimatedCostLabel;
-
-    __weak IBOutlet UIButton * orderTypeButton;
-    __weak IBOutlet UITextField *stopPriceInput;
-    __weak IBOutlet UITextField *limitPriceInput;
-
-    __weak IBOutlet UIButton * orderExpirationButton;
-
-    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
-
-    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
     __weak IBOutlet UIView *containerView;
+    __weak IBOutlet UITextField * sharesInput;
+    __weak IBOutlet UITextField *stopPriceInput;
+    __weak IBOutlet UITextField *limitPriceInput;
+    __weak IBOutlet UILabel * estimatedCostLabel;
+    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
+    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
+    __weak IBOutlet UIButton * orderActionButton;
+    __weak IBOutlet UIButton * orderTypeButton;
+    __weak IBOutlet UIButton * orderExpirationButton;
+    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
+    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
+
+    UIView * keypad;
+    UIView * loadingView;
+
+    TTSDKCompanyDetails * companyNib;
 
     NSLayoutConstraint * zeroHeightConstraint;
     NSLayoutConstraint * fullHeightConstraint;
 
-    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
-    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
-
     BOOL readyToTrade;
-    UIView * keypad;
-
-    TTSDKCompanyDetails * companyNib;
+    BOOL uiConfigured;
 
     NSString * currentFocus;
-
-    BOOL uiConfigured;
-    BOOL defaultEditingCheckComplete;
-    
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
-
-    UIView * loadingView;
 }
 
 @end
@@ -66,24 +58,7 @@
 @implementation TTSDKTradeViewController
 
 
-
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
-    return NO;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -292,7 +267,7 @@
 
 
 
-#pragma mark - Delegate Methods
+#pragma mark Delegate Methods
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
@@ -329,7 +304,7 @@
 
 
 
-#pragma mark - Custom UI
+#pragma mark Custom UI
 
 -(void) applyBorder: (UIView *) item {
     item.layer.borderColor = self.styles.inactiveColor.CGColor;
@@ -387,7 +362,7 @@
 
 
 
-#pragma mark - Keypad
+#pragma mark Keypad
 
 -(BOOL) isKeypadVisible {
     if (keypadContainer.layer.opacity < 1) {
@@ -456,12 +431,7 @@
 }
 
 
-
-#pragma mark - Account
-
-
-
-#pragma mark - Order
+#pragma mark Order
 
 -(void) checkIfReadyToTrade {
     [self updateEstimatedCost];
@@ -655,6 +625,7 @@
 }
 
 -(void) changeOrderType: (NSString *) type {
+    globalTicket.previewRequest.orderPriceType = type;
     [orderTypeButton setTitle:[utils splitCamelCase:type] forState:UIControlStateNormal];
 
     if([type isEqualToString:@"limit"]){
@@ -734,7 +705,7 @@
 
 
 
-#pragma mark - Events
+#pragma mark Events
 
 - (IBAction)symbolPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
@@ -765,98 +736,34 @@
     [self checkIfReadyToTrade];
 }
 
-
-
 - (IBAction)orderActionPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self showOldOrderAction];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Action"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-
-    alert.view.tintColor = self.styles.activeColor;
-
-    UIAlertAction * buyAction = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"buy"]; }];
-    UIAlertAction * sellAction = [UIAlertAction actionWithTitle:@"Sell" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"sell"]; }];
-    UIAlertAction * sellShortAction = [UIAlertAction actionWithTitle:@"Sell Short" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"sellShort"]; }];
-    UIAlertAction * buyToCoverAction = [UIAlertAction actionWithTitle:@"Buy to Cover" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"buyToCover"]; }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:buyAction];
-    [alert addAction:sellAction];
-    [alert addAction:sellShortAction];
-    [alert addAction:buyToCoverAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
-
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    NSArray * options = @[
+                          @{@"Buy": @"buy"},
+                          @{@"Sell": @"sell"},
+                          @{@"Buy to Cover": @"buyToCover"},
+                          @{@"Sell Short": @"sellShort"}
+                          ];
+    
+    [self showPicker:@"Order Action" withSelection:globalTicket.previewRequest.orderAction andOptions:options onSelection:^(void) {
+        [self changeOrderAction: self.currentSelection];
+    }];
 }
 
 - (IBAction)orderTypePressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self performSegueWithIdentifier:@"TradeToOrderTypeSelection" sender:self];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Type"
-                                                                    message:nil
-                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-    alert.view.tintColor = self.styles.activeColor;
-
-    UIAlertAction * marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * action) {
-                                                           globalTicket.previewRequest.orderPriceType = @"market";
-                                                           [self changeOrderType: @"market"];
-                                                       }];
-    UIAlertAction * limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) {
-                                                            globalTicket.previewRequest.orderPriceType = @"limit";
-                                                            [self changeOrderType: @"limit"];
-                                                        }];
-    UIAlertAction * stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                                 globalTicket.previewRequest.orderPriceType = @"stopMarket";
-                                                                 [self changeOrderType: @"stopMarket"];
-                                                             }];
-    UIAlertAction * stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  globalTicket.previewRequest.orderPriceType = @"stopLimit";
-                                                                  [self changeOrderType: @"stopLimit"];
-                                                              }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:marketAction];
-    [alert addAction:limitAction];
-    [alert addAction:stopMarketAction];
-    [alert addAction:stopLimitAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
+    NSArray * options = @[
+                          @{@"Market": @"market"},
+                          @{@"Limit": @"limit"},
+                          @{@"Stop Market": @"stopMarket"},
+                          @{@"Stop Limit": @"stopLimit"}
+                          ];
     
-    
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    [self showPicker:@"Order Type" withSelection:globalTicket.previewRequest.orderPriceType andOptions:options onSelection:^(void){
+        [self changeOrderType: self.currentSelection];
+    }];
 }
 
 -(IBAction)brokerLinkPressed:(id)sender {
@@ -866,62 +773,14 @@
 - (IBAction)orderExpirationPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self showOldOrderExp];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Expiration"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-
-    UIAlertAction * dayAction = [UIAlertAction actionWithTitle:@"Good For The Day" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"day"]; }];
-    UIAlertAction * gtcAction = [UIAlertAction actionWithTitle:@"Good Until Canceled" style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"gtc"]; }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:dayAction];
-    [alert addAction:gtcAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
-
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-}
-
--(void) showOldOrderType {
-    self.pickerTitles = @[@"Market",@"Limit",@"Stop Market",@"Stop Limit"];
-    self.pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
-    NSString * currentSelection = globalTicket.previewRequest.orderPriceType;
-
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView:@"Order Action"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    NSArray * options = @[
+                          @{@"Good For The Day": @"day"},
+                          @{@"Good Until Canceled": @"gtc"}
+                          ];
     
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 1) {
-            [self changeOrderType: currentSelection];
-        }
+    [self showPicker:@"Order Expiration" withSelection:globalTicket.previewRequest.orderExpiration andOptions:options onSelection:^(void) {
+        [self changeOrderExpiration: self.currentSelection];
     }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-
-        if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]){
-            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
-        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
-            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
-        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"limit"]) {
-            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
-        }
-    });
 }
 
 - (IBAction)previewOrderPressed:(id)sender {
@@ -950,18 +809,14 @@
 }
 
 
-
-#pragma mark - Navigation
+#pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
         [globalTicket removeBrokerSelectFromNav: dest];
     }
-
-    defaultEditingCheckComplete = NO;
 }
-
 
 
 @end

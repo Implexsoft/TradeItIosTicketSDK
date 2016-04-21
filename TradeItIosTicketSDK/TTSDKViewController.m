@@ -8,15 +8,10 @@
 
 #import "TTSDKViewController.h"
 
-@interface TTSDKViewController()
-
-@end
-
 @implementation TTSDKViewController
 
 
-
-#pragma mark - Rotation
+#pragma mark Rotation
 
 - (BOOL)shouldAutorotate {
     return NO;
@@ -31,8 +26,7 @@
 }
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     self.styles = [TradeItStyles sharedStyles];
@@ -49,5 +43,115 @@
     self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 }
+
+
+#pragma mark - Picker
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerTitles.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.pickerTitles[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.currentSelection = self.pickerValues[row];
+}
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
+-(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock {
+    self.currentSelection = selection;
+
+    if(![UIAlertController class]) {
+        NSMutableArray * titles = [[NSMutableArray alloc] init];
+        NSMutableArray * values = [[NSMutableArray alloc] init];
+
+        for (NSDictionary *optionContainer in options) {
+            NSString * k = [optionContainer.allKeys firstObject];
+            NSString * v = optionContainer[k];
+            [titles addObject: k];
+            [values addObject: v];
+        }
+
+        self.pickerTitles = [titles copy];
+        self.pickerValues = [values copy];
+
+        TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
+        [alert setContainerView:[self createPickerView: pickerTitle]];
+        [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+        
+        [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
+            if(buttonIndex == 1) {
+                selectionBlock();
+            }
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alert show];
+        });
+    } else {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:pickerTitle
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+        alert.modalPresentationStyle = UIModalPresentationPopover;
+        alert.view.tintColor = self.styles.activeColor;
+
+        for (NSDictionary *optionContainer in options) {
+            NSString * k = [optionContainer.allKeys firstObject];
+            NSString * v = optionContainer[k];
+
+            UIAlertAction * action = [UIAlertAction actionWithTitle:k style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+                self.currentSelection = v;
+                selectionBlock();
+            }];
+
+            [alert addAction: action];
+        }
+
+        [self presentViewController:alert animated:YES completion:nil];
+
+        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+        alertPresentationController.sourceView = self.view;
+        alertPresentationController.permittedArrowDirections = 0;
+        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    }
+}
+
+-(UIView *) createPickerView: (NSString *) title {
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
+    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont: [UIFont boldSystemFontOfSize:16.0f]];
+    [titleLabel setNumberOfLines:0];
+    [titleLabel setText: title];
+    [contentView addSubview:titleLabel];
+    
+    UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
+    self.currentPicker = picker;
+    
+    [picker setDataSource: self];
+    [picker setDelegate: self];
+    picker.showsSelectionIndicator = YES;
+    [contentView addSubview:picker];
+    
+    [contentView setNeedsDisplay];
+    return contentView;
+}
+
 
 @end

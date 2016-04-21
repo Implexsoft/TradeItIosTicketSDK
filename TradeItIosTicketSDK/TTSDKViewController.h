@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "TradeItStyles.h"
+#import "TTSDKCustomIOSAlertView.h"
 
-@interface TTSDKViewController : UIViewController
+@interface TTSDKViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property TradeItStyles * styles;
+@property NSArray * pickerTitles;
+@property NSArray * pickerValues;
+@property UIPickerView * currentPicker;
+@property NSString * currentSelection;
 
 -(void) setViewStyles;
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
+-(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock;
+-(UIView *) createPickerView: (NSString *) title;
 
 @end

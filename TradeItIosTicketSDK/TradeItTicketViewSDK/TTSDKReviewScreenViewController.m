@@ -228,7 +228,7 @@ static float kMessageSeparatorHeight = 30.0f;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     [label setTranslatesAutoresizingMaskIntoConstraints: NO];
     [label setNumberOfLines: 0]; // 0 allows unlimited lines
-    [label setTextColor: utils.warningColor];
+    [label setTextColor: self.styles.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
 

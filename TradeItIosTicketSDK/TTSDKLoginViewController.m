@@ -370,15 +370,6 @@
 
 #pragma mark - iOS7 fallback
 
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 //    if (buttonIndex > 0) {
 //        [globalTicket answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){

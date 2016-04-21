@@ -165,17 +165,4 @@
 
 
 
-#pragma mark - iOS 7 Fallbacks
-
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
-
-
 @end
