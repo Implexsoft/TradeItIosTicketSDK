@@ -15,6 +15,7 @@
 #import "TTSDKPosition.h"
 #import "TradeItQuotesResult.h"
 #import "TTSDKImageView.h"
+#import "TTSDKKeypad.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -34,7 +35,7 @@
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
     __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
 
-    UIView * keypad;
+    TTSDKKeypad * keypad;
     UIView * loadingView;
 
     TTSDKCompanyDetails * companyNib;
@@ -62,7 +63,7 @@
         [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
 
-    [self.utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
+    [self initKeypad];
 
     keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
 
@@ -82,7 +83,7 @@
     [stopPriceInput addGestureRecognizer: stopTap];
 
     currentFocus = @"shares";
-    [self hideKeypadDecimal];
+    [keypad hideDecimal];
 
     if ([self.utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
@@ -257,22 +258,36 @@
     [self checkIfReadyToTrade];
 }
 
+- (void)initKeypad {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * keypadArray = [resourceBundle loadNibNamed:@"TTSDKcalc" owner:self options:nil];
+
+    keypad = [keypadArray firstObject];
+    [keypadContainer addSubview: keypad];
+    keypad.container = keypadContainer;
+
+    NSArray * subviews = keypad.subviews;
+    for (int i = 0; i < [subviews count]; i++) {
+        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
+            UIButton *button = [subviews objectAtIndex:i];
+            [button addTarget:self action:@selector(keypadPressed:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+}
 
 
 #pragma mark Delegate Methods
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-
-    if ([self.utils isSmallScreen]) {
-        [self showKeypad];
-    }
+    [keypad show];
 
     if (textField == sharesInput) {
         [self styleBorderedFocusInput: sharesInput];
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"shares";
-        [self hideKeypadDecimal];
+        [keypad hideDecimal];
     }
 
     if (textField == limitPriceInput) {
@@ -280,7 +295,7 @@
         [self styleBorderedFocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"limit";
-        [self showKeypadDecimal];
+        [keypad showDecimal];
     }
 
     if (textField == stopPriceInput) {
@@ -288,7 +303,7 @@
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedFocusInput: stopPriceInput];
         currentFocus = @"stop";
-        [self showKeypadDecimal];
+        [keypad showDecimal];
     }
 
     return NO;
@@ -343,83 +358,13 @@
     keypadContainer.layer.shadowPath = shadowPath.CGPath;
     keypadContainer.layer.zPosition = 100;
 
-    [self hideKeypad];
+    [keypad hide];
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if ([self.utils isSmallScreen]) {
-        [self hideKeypad];
+        [keypad hide];
     }
-}
-
-
-
-#pragma mark Keypad
-
--(BOOL) isKeypadVisible {
-    if (keypadContainer.layer.opacity < 1) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
--(void) showKeypadDecimal {
-    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
-        if ([subview isKindOfClass:UIButton.class]) {
-            UIButton * button = (UIButton *)subview;
-
-            if (button.tag == 10) {
-                button.hidden = NO;
-                button.userInteractionEnabled = YES;
-            }
-        }
-    }
-}
-
--(void) hideKeypadDecimal {
-    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
-        if ([subview isKindOfClass:UIButton.class]) {
-            UIButton * button = (UIButton *)subview;
-            
-            if (button.tag == 10) {
-                button.hidden = YES;
-                button.userInteractionEnabled = NO;
-            }
-        }
-    }
-}
-
--(void) showKeypad {
-    if ([self isKeypadVisible] || ![self.utils isSmallScreen]) {
-        return;
-    }
-
-    CATransform3D currentTransform = keypadContainer.layer.transform;
-    [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
-                     animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -250.0f, 0.0f));
-                         keypadContainer.layer.opacity = 1.0f;
-                     }
-                     completion:^(BOOL finished) {
-                     }
-     ];
-}
-
--(void) hideKeypad {
-    if (![self isKeypadVisible] || ![self.utils isSmallScreen]) {
-        return;
-    }
-
-    CATransform3D currentTransform = keypadContainer.layer.transform;
-    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
-                     animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 250.0f, 1.0f));
-                         keypadContainer.layer.opacity = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                     }
-     ];
 }
 
 

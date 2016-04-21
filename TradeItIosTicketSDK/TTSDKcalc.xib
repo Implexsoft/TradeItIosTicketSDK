@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TTSDKKeypad">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -146,6 +146,10 @@
                 <constraint firstItem="hkg-2b-mYj" firstAttribute="leading" secondItem="aky-5j-eWR" secondAttribute="trailing" id="yyv-tp-Ffo"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backspaceImage" destination="x3J-1o-Ku8" id="SYz-W2-lZW"/>
+                <outlet property="decimal" destination="pP4-2z-xXY" id="Iav-Zj-v2B"/>
+            </connections>
             <point key="canvasLocation" x="768" y="369"/>
         </view>
     </objects>

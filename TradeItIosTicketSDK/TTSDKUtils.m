@@ -35,7 +35,7 @@
 @synthesize gainColor;
 
 
-static float kDecimalSize = 5.0f;
+
 static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 + (id)sharedUtils {
@@ -246,47 +246,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     if (!animating) {
         animating = YES;
         [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
-    }
-}
-
-- (void)initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-    NSArray * keypadArray = [resourceBundle loadNibNamed:name owner:self options:nil];
-    
-    UIView * keypad = [keypadArray firstObject];
-    
-    CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
-    keypad.frame = frame;
-    
-    [container addSubview:keypad];
-    keypad.userInteractionEnabled = YES;
-    NSArray * subviews = keypad.subviews;
-
-    [keypad updateConstraints];
-    [keypad layoutSubviews];
-    [keypad layoutIfNeeded];
-
-    keypad.backgroundColor = [UIColor clearColor];
-
-    for (int i = 0; i < [subviews count]; i++) {
-        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
-            UIButton *button = [subviews objectAtIndex:i];
-
-            button.backgroundColor = [UIColor clearColor];
-
-            [button setTitleColor:styles.activeColor forState:UIControlStateNormal];
-
-            if (button.tag == 10) { // decimal
-                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.frame.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
-                    CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:styles.activeColor];
-                    circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
-                    [circleView.layer addSublayer:circle];
-                    [button addSubview:circleView];
-            }
-
-            [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
-        }
     }
 }
 
