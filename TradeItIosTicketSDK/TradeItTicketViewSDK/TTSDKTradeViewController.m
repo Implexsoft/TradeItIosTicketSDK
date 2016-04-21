@@ -227,11 +227,17 @@
 
                     alert.modalPresentationStyle = UIModalPresentationPopover;
                     
-                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
                                                                            handler:^(UIAlertAction * action) {
                                                                                [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
                                                                            }];
+
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        // do nothing
+                    }];
+
                     [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
 
                     [self presentViewController:alert animated:YES completion:nil];
                     

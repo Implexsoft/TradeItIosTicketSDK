@@ -97,7 +97,48 @@ static float kAccountCellHeight = 44.0f;
                 [self loadPortfolioData];
             } else {
                 self.loadingView.hidden = YES;
-                [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
+
+                if ([res isKindOfClass:TradeItErrorResult.class]) {
+                    TradeItErrorResult * error = (TradeItErrorResult *)res;
+                    
+                    NSMutableString * errorMessage = [[NSMutableString alloc] init];
+                    
+                    for (NSString * str in error.longMessages) {
+                        [errorMessage appendString:str];
+                    }
+
+                    if(![UIAlertController class]) {
+                        [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
+                    } else {
+
+                        UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+                                                                                        message:errorMessage
+                                                                                 preferredStyle:UIAlertControllerStyleAlert];
+
+                        alert.modalPresentationStyle = UIModalPresentationPopover;
+                        
+                        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
+                                                                               handler:^(UIAlertAction * action) {
+                                                                                   [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
+                                                                               }];
+                        
+                        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            // do nothing
+                        }];
+                        
+                        [alert addAction:defaultAction];
+                        [alert addAction:cancelAction];
+                        
+                        [self presentViewController:alert animated:YES completion:nil];
+                        
+                        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                        alertPresentationController.sourceView = self.view;
+                        alertPresentationController.permittedArrowDirections = 0;
+                        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+                    }
+                } else {
+                    [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
+                }
             }
         }];
     } else {
@@ -435,6 +476,15 @@ static float kAccountCellHeight = 44.0f;
     }
 
     [self.accountsTable setContentSize:contentRect.size];
+}
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 
