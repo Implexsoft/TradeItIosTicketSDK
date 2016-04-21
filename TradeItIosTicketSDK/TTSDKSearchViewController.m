@@ -11,13 +11,9 @@
 #import "TradeItSymbolLookupCompany.h"
 #import "TradeItSymbolLookupResult.h"
 #import "TradeItMarketDataService.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKSearchBar.h"
 
 @interface TTSDKSearchViewController() {
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
     TradeItMarketDataService * marketService;
 }
 
@@ -47,9 +43,7 @@
 
     self.symbolSearchResults = [[NSArray alloc] init];
 
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-    utils = [TTSDKUtils sharedUtils];
-    marketService = [[TradeItMarketDataService alloc] initWithSession: globalTicket.currentSession];
+    marketService = [[TradeItMarketDataService alloc] initWithSession: self.ticket.currentSession];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
@@ -91,14 +85,14 @@
 
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    NSString * currentSymbol = globalTicket.previewRequest.orderSymbol;
+    NSString * currentSymbol = self.ticket.previewRequest.orderSymbol;
 
     if (!currentSymbol || ![selectedCompany.symbol isEqualToString: currentSymbol]) {
         TradeItQuote * quote = [[TradeItQuote alloc] init];
         quote.symbol = selectedCompany.symbol;
         quote.companyName = selectedCompany.name;
-        globalTicket.quote = quote;
-        globalTicket.previewRequest.orderSymbol = quote.symbol;
+        self.ticket.quote = quote;
+        self.ticket.previewRequest.orderSymbol = quote.symbol;
 
         [self dismissViewControllerAnimated:YES completion:nil];
     }

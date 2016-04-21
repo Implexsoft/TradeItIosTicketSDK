@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKUtils.h"
-
 #import "TradeItStyles.h"
 #import "TTSDKCustomIOSAlertView.h"
 

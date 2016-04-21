@@ -65,15 +65,6 @@
     self.currentSelection = self.pickerValues[row];
 }
 
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
 -(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock {
     self.currentSelection = selection;
 
@@ -153,6 +144,18 @@
     
     [contentView setNeedsDisplay];
     return contentView;
+}
+
+
+#pragma mark iOS7 fallbacks
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 
