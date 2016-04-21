@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
 #import "TTSDKPortfolioAccount.h"

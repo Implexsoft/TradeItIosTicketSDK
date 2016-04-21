@@ -11,11 +11,6 @@
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
 
-@interface TTSDKBaseTradeViewController() {
-    TTSDKTradeItTicket * globalTicket;
-}
-
-@end
 
 @implementation TTSDKBaseTradeViewController
 
@@ -27,8 +22,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewDidLoad {
     [super viewDidLoad];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
-
-    globalTicket = [TTSDKTradeItTicket globalTicket];
 }
 
 -(void) checkIfAuthIsComplete {
@@ -47,7 +40,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                             } else {
                                 //too many tries, or cancelled by user
                                 if(error.code == -2 || error.code == -1) {
-                                    [globalTicket returnToParentApp];
+                                    [self.ticket returnToParentApp];
                                 } else if(error.code == -3) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
@@ -61,19 +54,19 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 #pragma mark - Order
 
 -(void) retrieveQuoteData {
-    TradeItQuote * quote = globalTicket.quote;
+    TradeItQuote * quote = self.ticket.quote;
     if (!quote.symbol) {
         return;
     }
 
-    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession:globalTicket.currentSession];
+    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession:self.ticket.currentSession];
 
     TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol:quote.symbol];
     [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItQuotesResult.class]) {
             TradeItQuotesResult * result = (TradeItQuotesResult *)res;
             TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
-            globalTicket.quote = resultQuote;
+            self.ticket.quote = resultQuote;
         }
 
         [self populateSymbolDetails];
@@ -81,7 +74,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) retrieveAccountSummaryData {
-    self.currentPortfolioAccount = [[TTSDKPortfolioAccount alloc] initWithAccountData: globalTicket.currentAccount];
+    self.currentPortfolioAccount = [[TTSDKPortfolioAccount alloc] initWithAccountData: self.ticket.currentAccount];
 
     [self.currentPortfolioAccount retrieveAccountSummaryWithCompletionBlock:^(void){
         [self populateSymbolDetails];
@@ -105,10 +98,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) sendPreviewRequest {
-    [globalTicket.currentSession previewTrade:globalTicket.previewRequest withCompletionBlock:^(TradeItResult * res){
+    [self.ticket.currentSession previewTrade:self.ticket.previewRequest withCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
-            globalTicket.resultContainer.status = USER_CANCELED;
-            globalTicket.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
+            self.ticket.resultContainer.status = USER_CANCELED;
+            self.ticket.resultContainer.reviewResponse = (TradeItPreviewTradeResult *)res;
 
             [self performSegueWithIdentifier:@"TradeToReview" sender:self];
         } else if([res isKindOfClass:[TradeItErrorResult class]]){
@@ -120,8 +113,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 if([errorField isEqualToString:@"authenticationInfo"]) {
                     errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
                     
-                    globalTicket.resultContainer.status = AUTHENTICATION_ERROR;
-                    globalTicket.resultContainer.errorResponse = error;
+                    self.ticket.resultContainer.status = AUTHENTICATION_ERROR;
+                    self.ticket.resultContainer.errorResponse = error;
                 } else {
                     errorMessage = error.longMessages.count > 0 ? [[error longMessages] componentsJoinedByString:@" "] : errorMessage;
                 }

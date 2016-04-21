@@ -29,6 +29,8 @@
 #pragma mark Initialization
 
 -(void) viewDidLoad {
+    self.ticket = [TTSDKTradeItTicket globalTicket];
+    self.utils = [TTSDKUtils sharedUtils];
     self.styles = [TradeItStyles sharedStyles];
 
     [super viewDidLoad];

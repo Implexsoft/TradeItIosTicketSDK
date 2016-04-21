@@ -10,13 +10,8 @@
 #import "TTSDKPrimaryButton.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKTradeViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 
 @interface TTSDKSuccessViewController() {
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
-
     __weak IBOutlet TTSDKPrimaryButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
 }
@@ -26,29 +21,12 @@
 @implementation TTSDKSuccessViewController
 
 
-
-#pragma mark - Orientation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-    utils = [TTSDKUtils sharedUtils];
-
-    TradeItPlaceTradeResult * result = globalTicket.resultContainer.tradeResponse;
+    TradeItPlaceTradeResult * result = self.ticket.resultContainer.tradeResponse;
 
     if (result.confirmationMessage) {
         [successMessage setText: result.confirmationMessage];
@@ -56,7 +34,7 @@
 
     [tradeButton activate];
 
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
 }
 
@@ -65,17 +43,15 @@
 }
 
 
-
-#pragma mark - Navigation
+#pragma mark Navigation
 
 - (IBAction)closeButtonPressed:(id)sender {
-    [globalTicket returnToParentApp];
+    [self.ticket returnToParentApp];
 }
 
 - (IBAction)tradeButtonPressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
 
 
 @end

@@ -7,8 +7,6 @@
 //
 
 #import "TTSDKPortfolioViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TradeItAuthenticationResult.h"
 #import "TTSDKAccountsHeaderView.h"
@@ -18,8 +16,6 @@
 #import "TTSDKBrokerSelectViewController.h"
 
 @interface TTSDKPortfolioViewController () {
-    TTSDKTradeItTicket * globalTicket;
-    TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
     NSArray * accountsHolder;
     NSArray * positionsHolder;
@@ -69,16 +65,13 @@ static float kAccountCellHeight = 44.0f;
     [super viewDidLoad];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
     accountsHolder = [[NSArray alloc] init];
     positionsHolder = [[NSArray alloc] init];
 
     self.holdingsHeaderTitle = @"My Holdings";
 
     if (!self.loadingView) {
-        self.loadingView = [utils retrieveLoadingOverlayForView:self.view];
+        self.loadingView = [self.utils retrieveLoadingOverlayForView:self.view];
         [self.view addSubview:self.loadingView];
     }
     self.loadingView.hidden = NO;
@@ -89,10 +82,10 @@ static float kAccountCellHeight = 44.0f;
     [super viewWillAppear:animated];
 
     portfolioService = nil;
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
 
-    if (!globalTicket.currentSession.isAuthenticated) {
-        [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             if ([res.status isEqualToString: @"SUCCESS"]) {
                 [self loadPortfolioData];
             } else {
@@ -431,7 +424,7 @@ static float kAccountCellHeight = 44.0f;
 #pragma mark - Custom Delegate Methods
 
 -(void)didSelectBuy:(TTSDKPosition *)position {
-    globalTicket.previewRequest.orderAction = @"buy";
+    self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
@@ -439,7 +432,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void)didSelectSell:(TTSDKPosition *)position {
-    globalTicket.previewRequest.orderAction = @"sell";
+    self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
     
 
@@ -451,13 +444,13 @@ static float kAccountCellHeight = 44.0f;
     TradeItQuote * quote = [[TradeItQuote alloc] init];
     quote.symbol = position.symbol;
     quote.companyName = position.companyName;
-    globalTicket.quote = quote;
-    globalTicket.previewRequest.orderSymbol = position.symbol;
+    self.ticket.quote = quote;
+    self.ticket.previewRequest.orderSymbol = position.symbol;
 }
 
 -(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
     NSDictionary * accountData = [account accountData];
-    TTSDKTicketSession * accountSession = [globalTicket retrieveSessionByAccount: accountData];
+    TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
 
     [accountSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res){
         [self loadPortfolioData];
@@ -492,7 +485,7 @@ static float kAccountCellHeight = 44.0f;
 #pragma mark - Navigation
 
 - (IBAction)closePressed:(id)sender {
-    [globalTicket returnToParentApp];
+    [self.ticket returnToParentApp];
 }
 
 - (IBAction)editAccountsPressed:(id)sender {

@@ -7,15 +7,11 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKPrimaryButton.h"
 
 @interface TTSDKAccountLinkViewController () {
-    TTSDKTradeItTicket * globalTicket;
-    TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
 }
 
@@ -49,10 +45,7 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.allAccounts];
 
     [self.doneButton activate];
 }
@@ -104,7 +97,7 @@
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;
 
-    NSArray * accounts = globalTicket.allAccounts;
+    NSArray * accounts = self.ticket.allAccounts;
 
     int i;
     for (i = 0; i < accounts.count; i++) {
@@ -125,7 +118,7 @@
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 
-    [globalTicket saveAccountsToUserDefaults: [mutableAccounts copy]];
+    [self.ticket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
 - (void)linkToggleDidNotSelect:(NSString *)errorMessage {

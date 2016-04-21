@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKTradeItTicket.h"
+#import "TTSDKUtils.h"
+
 #import "TradeItStyles.h"
 #import "TTSDKCustomIOSAlertView.h"
 
 @interface TTSDKViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
+@property TTSDKTradeItTicket * ticket;
+@property TTSDKUtils * utils;
 @property TradeItStyles * styles;
 @property NSArray * pickerTitles;
 @property NSArray * pickerValues;
