@@ -15,6 +15,7 @@
     TradeItStyles * styles;
     UIView * priceLoadingView;
     UIView * accountLoadingView;
+    BOOL hasSymbol;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
@@ -28,7 +29,7 @@
 -(id) init {
     if (self = [super init]) {
         utils = [TTSDKUtils sharedUtils];
-        
+        hasSymbol = YES;
         [self setViewStyles];
     }
 
@@ -65,8 +66,13 @@
 -(void) populateSymbol: (NSString *)symbol {
     if (symbol) {
         [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
+        hasSymbol = YES;
     } else {
+        hasSymbol = NO;
         [self.symbolLabel setTitle:@"Select Symbol" forState:UIControlStateNormal];
+        if (priceLoadingView) {
+            priceLoadingView.hidden = YES;
+        }
     }
 }
 
@@ -74,14 +80,19 @@
     if (lastPrice && (lastPrice > 0)) {
         self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
         priceLoadingView.hidden = YES;
+    } else {
+        self.lastPriceLabel.text = @"";
+        if (hasSymbol) {
+            priceLoadingView.hidden = NO;
+        }
     }
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
     if (change != nil && ![change isEqual: @0] && changePct != nil && ![changePct isEqual: @0]) {
-
         NSString * changePrefix;
         UIColor * changeColor;
+
         if ([change floatValue] > 0) {
             changePrefix = @"+";
             changeColor = styles.gainColor;
@@ -107,6 +118,9 @@
 -(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
     if (!buyingPower && !sharesOwned) {
         self.symbolDetailLabel.hidden = YES;
+        if (accountLoadingView) {
+            accountLoadingView.hidden = NO;
+        }
     } else {
         self.symbolDetailLabel.hidden = NO;
         [accountLoadingView removeFromSuperview];
