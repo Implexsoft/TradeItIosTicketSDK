@@ -19,12 +19,13 @@
     TTSDKPortfolioService * portfolioService;
     NSArray * accountsHolder;
     NSArray * positionsHolder;
+    BOOL initialAuthenticationComplete;
+    BOOL initialSummaryComplete;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *accountsTable;
 @property NSInteger selectedHoldingIndex;
 @property NSInteger selectedAccountIndex;
-@property UIView * loadingView;
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
 @property NSString * holdingsHeaderTitle;
@@ -54,12 +55,6 @@ static float kAccountCellHeight = 44.0f;
     positionsHolder = [[NSArray alloc] init];
 
     self.holdingsHeaderTitle = @"My Holdings";
-
-    if (!self.loadingView) {
-        self.loadingView = [self.utils retrieveLoadingOverlayForView:self.view];
-        [self.view addSubview:self.loadingView];
-    }
-    self.loadingView.hidden = NO;
     self.selectedHoldingIndex = -1;
 }
 
@@ -70,12 +65,14 @@ static float kAccountCellHeight = 44.0f;
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
 
     if (!self.ticket.currentSession.isAuthenticated) {
+        [self showLoadingAndWait];
+
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            initialAuthenticationComplete = YES;
             if ([res.status isEqualToString: @"SUCCESS"]) {
                 [self loadPortfolioData];
             } else {
-                self.loadingView.hidden = YES;
-
+                initialSummaryComplete = YES;
                 if ([res isKindOfClass:TradeItErrorResult.class]) {
                     TradeItErrorResult * error = (TradeItErrorResult *)res;
 
@@ -100,13 +97,63 @@ static float kAccountCellHeight = 44.0f;
     self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle];
 
     [portfolioService getSummaryForAccounts:^(void) {
-        self.loadingView.hidden = YES;
+        initialSummaryComplete = YES;
 
         accountsHolder = portfolioService.accounts;
         positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
 
         [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
+}
+
+-(void) showLoadingAndWait {
+    TTSDKMBProgressHUD * hud = [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    hud.labelText = @"Authenticating";
+
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        int cycles = 0;
+
+        while((!initialAuthenticationComplete || !initialSummaryComplete) && cycles < 40) {
+            if (initialAuthenticationComplete) {
+                hud.labelText = @"Retrieving Account Summary";
+            }
+            [NSThread sleepForTimeInterval:0.25f];
+            cycles++;
+        }
+
+        if(!initialAuthenticationComplete || !initialSummaryComplete) {
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
+                return;
+            }
+            
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            alert.modalPresentationStyle = UIModalPresentationPopover;
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [self.ticket returnToParentApp];
+                                                                   }];
+            [alert addAction:defaultAction];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+                [self presentViewController:alert animated:YES completion:nil];
+
+                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                alertPresentationController.sourceView = self.view;
+                alertPresentationController.permittedArrowDirections = 0;
+                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }
+    });
 }
 
 -(NSNumber *)retrieveTotalPortfolioValue {

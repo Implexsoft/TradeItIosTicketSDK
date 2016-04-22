@@ -13,6 +13,8 @@
 @interface TTSDKCompanyDetails() {
     TTSDKUtils * utils;
     TradeItStyles * styles;
+    UIView * priceLoadingView;
+    UIView * accountLoadingView;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
@@ -21,8 +23,7 @@
 @implementation TTSDKCompanyDetails
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(id) init {
     if (self = [super init]) {
@@ -44,11 +45,16 @@
     self.rightArrow.tintColor = styles.activeColor;
 
     self.symbolDetailLabel.textColor = styles.smallTextColor;
+
+    priceLoadingView = [utils retrieveLoadingOverlayForView:self.lastPriceLabel withRadius:10.0f];
+    [self.lastPriceLabel addSubview: priceLoadingView];
+
+    accountLoadingView = [utils retrieveLoadingOverlayForView:self.symbolDetailLabel withRadius: 10.0f];
+    [self.symbolDetailValue addSubview: accountLoadingView];
 }
 
 
-
-#pragma mark - Configuration
+#pragma mark Configuration
 
 -(void) populateDetailsWithQuote:(TradeItQuote *)quote {
     [self populateSymbol: quote.symbol];
@@ -67,9 +73,7 @@
 -(void) populateLastPrice: (NSNumber *)lastPrice {
     if (lastPrice && (lastPrice > 0)) {
         self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
-        self.lastPriceLabel.hidden = NO;
-    } else {
-        self.lastPriceLabel.hidden = YES;
+        priceLoadingView.hidden = YES;
     }
 }
 
@@ -89,8 +93,6 @@
         self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];
         self.changeLabel.textColor = changeColor;
         self.changeLabel.hidden = NO;
-    } else {
-        self.changeLabel.hidden = YES;
     }
 }
 
@@ -105,10 +107,9 @@
 -(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
     if (!buyingPower && !sharesOwned) {
         self.symbolDetailLabel.hidden = YES;
-        self.symbolDetailValue.hidden = YES;
     } else {
         self.symbolDetailLabel.hidden = NO;
-        self.symbolDetailValue.hidden = NO;
+        [accountLoadingView removeFromSuperview];
 
         if (buyingPower) {
             self.symbolDetailLabel.text = @"BUYING POWER";

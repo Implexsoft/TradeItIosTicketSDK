@@ -50,7 +50,6 @@
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
 }
 
-
 #pragma mark - Picker
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {

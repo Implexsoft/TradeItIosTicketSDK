@@ -11,6 +11,7 @@
 #import "TTSDKUtils.h"
 #import "TradeItStyles.h"
 #import "TTSDKCustomIOSAlertView.h"
+#import "TTSDKMBProgressHUD.h"
 
 @interface TTSDKViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 

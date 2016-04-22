@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTSDKTableViewController.h"
 #import "TTSDKLoginViewController.h"
-#import "TTSDKMBProgressHUD.h"
 
 @interface TTSDKBrokerSelectViewController : TTSDKTableViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 

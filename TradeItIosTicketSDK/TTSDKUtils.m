@@ -203,19 +203,20 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return formatString;
 }
 
--(UIView *) retrieveLoadingOverlayForView:(UIView *)view {
+-(UIView *) retrieveLoadingOverlayForView:(UIView *)view withRadius:(NSInteger)radius {
     UIView * loadingView = [[UIView alloc] init];
 
-    loadingView.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    loadingView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     loadingView.backgroundColor = [styles.loadingBackgroundColor colorWithAlphaComponent: 0.4f];
-
+    view.clipsToBounds = NO;
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
     indicator.color = styles.loadingIconColor;
 
     indicator.hidden = NO;
     [loadingView addSubview:indicator];
-    indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - 20.0f, (loadingView.frame.size.height / 2) - 20.0f, 40.0f, 40.0f);
+    loadingView.layer.zPosition = 10.0f;
+    indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - radius, (loadingView.frame.size.height / 2) - radius, radius * 2, radius * 2);
     [indicator startAnimating];
 
     return loadingView;
