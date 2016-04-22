@@ -64,8 +64,13 @@
     }
 
     [self initKeypad];
-
     keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
+
+    UIView * emptyKeypadFrame = [[UIView alloc] initWithFrame:CGRectZero]; // we need to set the input view of the text field so that the cursor shows up
+    sharesInput.inputView = emptyKeypadFrame;
+    limitPriceInput.inputView = emptyKeypadFrame;
+    stopPriceInput.inputView = emptyKeypadFrame;
+    [sharesInput becomeFirstResponder];
 
     companyNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
     companyNib.backgroundColor = self.styles.pageBackgroundColor;
@@ -96,18 +101,21 @@
     [self styleBorderedFocusInput: sharesInput];
     [self styleBorderedUnfocusInput: limitPriceInput];
     [self styleBorderedUnfocusInput: stopPriceInput];
+    [sharesInput becomeFirstResponder];
 }
 
 -(IBAction) limitPressed:(id)sender {
     [self styleBorderedUnfocusInput: sharesInput];
     [self styleBorderedFocusInput: limitPriceInput];
     [self styleBorderedUnfocusInput: stopPriceInput];
+    [limitPriceInput becomeFirstResponder];
 }
 
 -(IBAction) stopPressed:(id)sender {
     [self styleBorderedUnfocusInput: sharesInput];
     [self styleBorderedUnfocusInput: limitPriceInput];
     [self styleBorderedFocusInput: stopPriceInput];
+    [stopPriceInput becomeFirstResponder];
 }
 
 -(void) setViewStyles {
@@ -306,9 +314,20 @@
         [keypad showDecimal];
     }
 
-    return NO;
+    return YES;
 }
 
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    if ([self.utils isSmallScreen]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
+}
 
 
 #pragma mark Custom UI
@@ -357,14 +376,10 @@
     keypadContainer.layer.shadowOpacity = 0.5f;
     keypadContainer.layer.shadowPath = shadowPath.CGPath;
     keypadContainer.layer.zPosition = 100;
-
-    [keypad hide];
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if ([self.utils isSmallScreen]) {
-        [keypad hide];
-    }
+    [keypad hide];
 }
 
 

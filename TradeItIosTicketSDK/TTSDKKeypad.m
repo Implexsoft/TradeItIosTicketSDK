@@ -71,7 +71,7 @@ static float kDecimalSize = 5.0f;
     if ([self isVisible] || ![self.utils isSmallScreen]) {
         return;
     }
-    
+
     CATransform3D currentTransform = self.container.layer.transform;
     [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
@@ -84,15 +84,15 @@ static float kDecimalSize = 5.0f;
 }
 
 -(void) hide {
-    if ([self isVisible] || ![self.utils isSmallScreen]) {
+    if (![self isVisible] || ![self.utils isSmallScreen]) {
         return;
     }
 
     CATransform3D currentTransform = self.container.layer.transform;
     [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
                      animations:^{
-                         self.container.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -250.0f, 0.0f));
-                         self.container.layer.opacity = 1.0f;
+                         self.container.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 250.0f, 0.0f));
+                         self.container.layer.opacity = 0;
                      }
                      completion:^(BOOL finished) {
                      }

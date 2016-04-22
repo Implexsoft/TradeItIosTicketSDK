@@ -1393,7 +1393,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                 <connections>
-                                                                    <action selector="limitPriceInputPressed:" destination="VXZ-vQ-tdp" eventType="editingDidEnd" id="Xqq-hP-JND"/>
                                                                     <outlet property="delegate" destination="VXZ-vQ-tdp" id="GFH-hi-9X5"/>
                                                                 </connections>
                                                             </textField>
@@ -1645,7 +1644,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="X2r-Bb-VCg"/>
+        <segue reference="uWM-4J-KHQ"/>
         <segue reference="qBc-9P-D9s"/>
         <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
