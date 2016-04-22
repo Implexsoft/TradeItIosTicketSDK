@@ -396,6 +396,7 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 - (void) tradeRequestRecieved: (TradeItResult *) result {
+    [submitOrderButton exitLoadingState];
     [submitOrderButton activate];
 
     //success

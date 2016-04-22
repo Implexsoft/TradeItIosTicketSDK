@@ -169,24 +169,16 @@
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-        if (!loadingView) {
-            loadingView = [self.utils retrieveLoadingOverlayForView:self.view];
-            [self.view addSubview: loadingView];
-        }
-        loadingView.hidden = NO;
 
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    loadingView.hidden = YES;
                     [self retrieveQuoteData];
                     [self retrieveAccountSummaryData];
                     [self checkIfReadyToTrade];
                 });
             } else if ([res isKindOfClass:TradeItErrorResult.class]) {
-                loadingView.hidden = YES;
-
                 TradeItErrorResult * error = (TradeItErrorResult *)res;
                 NSMutableString * errorMessage = [[NSMutableString alloc] init];
 
@@ -740,7 +732,10 @@
 
     if(readyToTrade) {
         [previewOrderButton enterLoadingState];
-        [self sendPreviewRequest];
+        [self sendPreviewRequestWithCompletionBlock:^(TradeItResult* res) {
+            [previewOrderButton exitLoadingState];
+            [previewOrderButton activate];
+        }];
     }
 }
 

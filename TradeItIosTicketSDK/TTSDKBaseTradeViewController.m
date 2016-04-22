@@ -97,7 +97,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     // implement in sub class
 }
 
--(void) sendPreviewRequest {
+-(void) sendPreviewRequestWithCompletionBlock:(void (^)(TradeItResult *))completionBlock {
     [self.ticket.currentSession previewTrade:self.ticket.previewRequest withCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItPreviewTradeResult.class]) {
             self.ticket.resultContainer.status = USER_CANCELED;
@@ -167,6 +167,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 alertPresentationController.permittedArrowDirections = 0;
                 alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
             }
+        }
+
+        if (completionBlock) {
+            completionBlock(res);
         }
     }];
 }

@@ -221,6 +221,7 @@
 
             self.ticket.errorMessage = nil;
             self.ticket.errorTitle = nil;
+            [linkAccountButton exitLoadingState];
             [linkAccountButton activate];
         } else {
             TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
@@ -228,6 +229,7 @@
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.ticket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
 
             [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
+                [linkAccountButton exitLoadingState];
                 [linkAccountButton activate];
 
                 if ([result isKindOfClass:TradeItErrorResult.class]) {

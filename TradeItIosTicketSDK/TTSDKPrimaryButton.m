@@ -46,10 +46,8 @@
 }
 
 -(void) activate {
-    [self exitLoadingState];
-
     self.backgroundColor = styles.primaryActiveButton.backgroundColor;
-    
+
     self.layer.borderColor = styles.primaryActiveButton.layer.borderColor;
     self.layer.borderWidth = styles.primaryActiveButton.layer.borderWidth;
     self.layer.cornerRadius = styles.primaryActiveButton.layer.cornerRadius;
@@ -64,8 +62,6 @@
 }
 
 -(void) deactivate {
-    [self exitLoadingState];
-
     self.backgroundColor = styles.primaryInactiveButton.backgroundColor;
     self.layer.borderColor = styles.primaryInactiveButton.layer.borderColor;
     self.layer.borderWidth = styles.primaryInactiveButton.layer.borderWidth;
@@ -89,7 +85,7 @@
     currentIndicator.frame = CGRectMake(self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + 10.0, self.titleLabel.frame.origin.y, 20.0, 20.0);
     [currentIndicator bringSubviewToFront: self];
 
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    self.userInteractionEnabled = NO;
 
     [currentIndicator startAnimating];
 }
@@ -99,7 +95,7 @@
         [currentIndicator removeFromSuperview];
     }
 
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+    self.userInteractionEnabled = YES;
 }
 
 @end
