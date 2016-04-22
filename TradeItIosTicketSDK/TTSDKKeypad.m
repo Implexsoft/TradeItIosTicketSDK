@@ -22,7 +22,7 @@
 
 @implementation TTSDKKeypad
 
-static float kDecimalSize = 5.0f;
+//static float kDecimalSize = 5.0f;
 
 -(void) awakeFromNib {
     [super awakeFromNib];
@@ -37,12 +37,13 @@ static float kDecimalSize = 5.0f;
     self.backgroundColor = [UIColor clearColor];
     self.userInteractionEnabled = YES;
 
-    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((self.decimal.bounds.size.width / 2) - kDecimalSize, (self.decimal.frame.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
-    CAShapeLayer * circle = [self.utils retrieveCircleGraphicWithSize:5.0f andColor: self.styles.activeColor];
-    circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
-    [circleView.layer addSublayer:circle];
-
-    [self.decimal addSubview:circleView];
+//    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.decimal.frame.size.width, self.decimal.frame.size.height)];
+//    CAShapeLayer * circle = [self.utils retrieveCircleGraphicWithSize:5.0f andColor: self.styles.activeColor];
+//    circle.frame = CGRectMake(0, 0, kDecimalSize, kDecimalSize);
+//    [circleView.layer addSublayer:circle];
+//    circleView.layer = circle;
+//    circleView.backgroundColor = [UIColor colorWithRed:1.0f green:0.8f blue:0.5f alpha:0.6f];
+//    [self.decimal addSubview: circleView];
 
     [[UIButton appearanceWhenContainedIn:TTSDKKeypad.class, nil] setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
     [[UIButton appearanceWhenContainedIn:TTSDKKeypad.class, nil] setBackgroundColor:[UIColor clearColor]];
