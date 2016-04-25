@@ -11,11 +11,16 @@
 
 @interface TTSDKPortfolioAccount() {
     TTSDKTradeItTicket * globalTicket;
+    TradeItAccountOverviewResult * balanceCache;
+    NSArray * positionCache;
+    NSDate * lastLoadTime;
 }
 
 @end
 
 @implementation TTSDKPortfolioAccount
+
+static double kLoadInterval = -30.0f;
 
 -(id) initWithAccountData:(NSDictionary *)data {
     if (self = [super init]) {
@@ -73,39 +78,70 @@
         self.needsAuthentication = NO;
     }
 
-    [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
-        self.balanceComplete = YES;
+    BOOL load;
+    if (!lastLoadTime) {
+        load = YES;
+        lastLoadTime = [NSDate date];
+    } else {
+        NSDate * currentDate = [NSDate date];
+        NSTimeInterval elapsed = [currentDate timeIntervalSinceDate: lastLoadTime];
 
-        if (overview != nil) {
-            self.balance = overview;
+        if (elapsed <= kLoadInterval) {
+            load = YES;
         } else {
-            self.balance = [[TradeItAccountOverviewResult alloc] init];
+            load = NO;
         }
 
-        if (self.positionsComplete && completionBlock != nil) {
+        lastLoadTime = currentDate;
+    }
+
+    if (load) {
+        [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
+            self.balanceComplete = YES;
+            
+            if (overview != nil) {
+                self.balance = overview;
+            } else {
+                self.balance = [[TradeItAccountOverviewResult alloc] init];
+            }
+
+            balanceCache = self.balance;
+
+            if (self.positionsComplete && completionBlock != nil) {
+                completionBlock();
+            }
+        }];
+
+        [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
+            self.positionsComplete = YES;
+            
+            if (positions != nil) {
+                self.positions = positions;
+            } else {
+                self.positions = [[NSArray alloc] init];
+            }
+
+            positionCache = self.positions;
+
+            if (self.balanceComplete && completionBlock != nil) {
+                completionBlock();
+            }
+        }];
+    } else {
+        self.balance = balanceCache;
+        self.positions = positionCache;
+
+        if (completionBlock != nil) {
             completionBlock();
         }
-    }];
+    }
 
-    [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
-        self.positionsComplete = YES;
-
-        if (positions != nil) {
-            self.positions = positions;
-        } else {
-            self.positions = [[NSArray alloc] init];
-        }
-
-        if (self.balanceComplete && completionBlock != nil) {
-            completionBlock();
-        }
-    }];
 }
 
 -(void) retrieveBalance {
     NSDictionary * accountData = [self accountData];
     TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
-    
+
     [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
         self.balanceComplete = YES;
 

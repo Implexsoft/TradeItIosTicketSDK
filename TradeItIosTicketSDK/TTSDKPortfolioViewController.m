@@ -61,8 +61,10 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    portfolioService = nil;
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
+    if (!portfolioService || self.ticket.linkedAccounts.count != portfolioService.accounts.count) {
+        portfolioService = nil;
+        portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
+    }
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [self showLoadingAndWait];
@@ -108,7 +110,6 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) showLoadingAndWait {
     TTSDKMBProgressHUD * hud = [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
-
     hud.labelText = @"Authenticating";
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
