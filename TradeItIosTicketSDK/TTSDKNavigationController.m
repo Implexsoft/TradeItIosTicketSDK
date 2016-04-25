@@ -42,6 +42,8 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : styles.navigationBarTitleColor}];
     self.navigationController.navigationBar.barTintColor = styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = styles.activeColor;
+
+    [[UIBarButtonItem appearanceWhenContainedIn:TTSDKNavigationController.class, nil] setTintColor: styles.activeColor];
 }
 
 @end
