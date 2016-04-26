@@ -45,6 +45,7 @@
     
     //Value Fields
     __weak IBOutlet UILabel *quantityValue;
+    __weak IBOutlet UILabel *actionValue;
     __weak IBOutlet UILabel *priceValue;
     __weak IBOutlet UILabel *expirationValue;
     __weak IBOutlet UILabel *sharesLongValue;
@@ -115,6 +116,20 @@ static float kMessageSeparatorHeight = 30.0f;
     accountNameLabel.text = [self.ticket.currentAccount valueForKey: @"displayTitle"];
 
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
+
+    NSDictionary * actionOptions = @{
+                                     @"buy": @"Buy",
+                                     @"sell": @"Sell",
+                                     @"buyToCover": @"Buy to Cover",
+                                     @"sellShort": @"Sell Short"
+                                     };
+
+    if ([actionOptions valueForKey:self.ticket.previewRequest.orderAction] != nil) {
+        [actionValue setText: [actionOptions valueForKey:self.ticket.previewRequest.orderAction]];
+    } else {
+        [actionValue setText: @""];
+    }
+
     [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
     [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
 
