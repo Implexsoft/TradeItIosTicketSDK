@@ -91,7 +91,7 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(void)loadPortfolioData {
+-(void) loadPortfolioData {
     [portfolioService retrieveInitialSelectedAccount];
 
     self.selectedAccountIndex = [portfolioService.accounts indexOfObject:portfolioService.selectedAccount];
@@ -157,7 +157,7 @@ static float kAccountCellHeight = 44.0f;
     });
 }
 
--(NSNumber *)retrieveTotalPortfolioValue {
+-(NSNumber *) retrieveTotalPortfolioValue {
     float totalPortfolioValue = 0.0f;
 
     for (TTSDKPortfolioAccount * portfolioAccount in accountsHolder) {
@@ -243,11 +243,11 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(IBAction)addAccountPressed:(id)sender {
+-(IBAction) addAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToLogin" sender:self];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return kAccountsHeaderHeight;
     } else {
@@ -365,7 +365,7 @@ static float kAccountCellHeight = 44.0f;
     }];
 }
 
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class) {
         if (indexPath.section == 0) {
             return NO;
@@ -379,7 +379,7 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class && indexPath.section == 1) {
 
         UITableViewRowAction *buyAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"BUY" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
@@ -403,11 +403,11 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     // nothing to do, but must be implemented
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return kAccountCellHeight;
     } else {
@@ -422,7 +422,7 @@ static float kAccountCellHeight = 44.0f;
 
 #pragma mark Custom Delegate Methods
 
--(void)didSelectBuy:(TTSDKPosition *)position {
+-(void) didSelectBuy:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
@@ -430,7 +430,7 @@ static float kAccountCellHeight = 44.0f;
     [self.tabBarController setSelectedIndex: 0];
 }
 
--(void)didSelectSell:(TTSDKPosition *)position {
+-(void) didSelectSell:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
     
@@ -459,7 +459,7 @@ static float kAccountCellHeight = 44.0f;
 
 #pragma mark Custom UI
 
--(void)updateTableContentSize {
+-(void) updateTableContentSize {
     CGRect contentRect = CGRectZero;
 
     for (UIView * view in [[self.accountsTable.subviews firstObject] subviews]) {
@@ -472,15 +472,15 @@ static float kAccountCellHeight = 44.0f;
 
 #pragma mark Navigation
 
-- (IBAction)closePressed:(id)sender {
+-(IBAction) closePressed:(id)sender {
     [self.ticket returnToParentApp];
 }
 
-- (IBAction)editAccountsPressed:(id)sender {
+-(IBAction) editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
         UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
         

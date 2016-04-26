@@ -25,9 +25,6 @@
 
 @implementation TTSDKSearchViewController
 
-- (IBAction)closePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -64,7 +61,7 @@
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Company" forIndexPath:indexPath];
 
     TradeItSymbolLookupCompany * company = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
@@ -80,7 +77,7 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.searchBar resignFirstResponder];
 
     TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
@@ -98,15 +95,15 @@
     }
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+-(void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+-(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+-(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchBar.text isEqualToString:@""]) {
         [self setResultsToLoading];
         TradeItSymbolLookupRequest * lookupRequest = [[TradeItSymbolLookupRequest alloc] initWithQuery:searchBar.text];
@@ -123,16 +120,16 @@
     }
 }
 
--(void)resultsDidReturn:(NSArray *)results {
+-(void) resultsDidReturn:(NSArray *)results {
     self.symbolSearchResults = results;
     [self.tableView reloadData];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+-(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
 }
 
-- (void)setResultsToLoading {
+-(void) setResultsToLoading {
     UIActivityIndicatorView *loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     loadingIndicator.frame = CGRectMake(loadingIndicator.bounds.size.width, loadingIndicator.bounds.size.height, 20, 20);
     
@@ -146,18 +143,21 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+-(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
     [self.tableView reloadData];
 }
 
-- (void)setResultsToLoaded {
+-(void) setResultsToLoaded {
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 }
 
+-(IBAction) closePressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 @end

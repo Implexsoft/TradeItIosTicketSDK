@@ -29,8 +29,7 @@
 @implementation TTSDKPortfolioAccountsTableViewCell
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) awakeFromNib {
     [super awakeFromNib];
@@ -51,7 +50,7 @@
 }
 
 
-#pragma mark - Configuration
+#pragma mark Configuration
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
     NSString * displayTitle = account.displayTitle;
@@ -103,7 +102,6 @@
 -(void) showSeparator {
     self.separatorView.hidden = NO;
 }
-
 
 
 @end

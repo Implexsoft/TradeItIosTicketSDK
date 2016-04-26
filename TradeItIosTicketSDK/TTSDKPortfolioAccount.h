@@ -11,6 +11,7 @@
 
 @interface TTSDKPortfolioAccount : NSObject
 
+
 @property NSString * userId;
 @property NSString * accountNumber;
 @property NSString * displayTitle;
@@ -32,5 +33,6 @@
 -(void) retrieveBalance;
 -(NSDictionary *) accountData;
 -(BOOL) dataComplete;
+
 
 @end

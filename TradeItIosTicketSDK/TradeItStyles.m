@@ -38,11 +38,19 @@
         // State
         self.warningColor = [UIColor colorWithRed:236.0f/255.0f green:121.0f/255.0f blue:31.0f/255.0f alpha:1.0f];
         self.lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
-
         self.gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
-
         self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
         self.inactiveColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
+
+        // Page
+        self.pageBackgroundColor = [UIColor whiteColor];
+
+        // Navigation
+        self.navigationBarBackgroundColor = [UIColor colorWithRed:247.0f/255.0f green:247.0f/255.0f blue:247.0f/255.0f alpha:1.0];
+        self.navigationBarItemColor = nil;
+        self.navigationBarTitleColor = self.primaryTextColor;
+        self.tabBarBackgroundColor = nil;
+        self.tabBarItemColor = self.activeColor;
 
         // Text
         self.primaryTextColor = [UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0];
@@ -50,21 +58,15 @@
         self.smallTextColor = [UIColor lightGrayColor];
         self.primaryPlaceholderColor = self.inactiveColor;
 
-        // UI Elements
-        self.primarySeparatorColor = [UIColor lightGrayColor];
-        self.tabBarBackgroundColor = nil;
-        self.tabBarItemColor = self.activeColor;
-        self.switchColor = self.gainColor;
-        self.pageBackgroundColor = [UIColor whiteColor];
-        self.navigationBarBackgroundColor = [UIColor colorWithRed:247.0f/255.0f green:247.0f/255.0f blue:247.0f/255.0f alpha:1.0];
-        self.navigationBarItemColor = nil;
-        self.navigationBarTitleColor = self.primaryTextColor;
-
-        // UI Elements - loading
+        // Loading
         self.loadingBackgroundColor = [UIColor whiteColor];
         self.loadingIconColor = self.inactiveColor;
 
-        // Set default styles for primary active button
+        // Peripherals
+        self.primarySeparatorColor = [UIColor lightGrayColor];
+        self.switchColor = self.gainColor;
+
+        // Default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.primaryActiveButton.backgroundColor = self.activeColor;
         self.primaryActiveButton.layer.borderColor = [UIColor clearColor].CGColor;
@@ -77,7 +79,7 @@
         self.primaryActiveButton.layer.shadowOffset = CGSizeMake(0,1);
         [self.primaryActiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-        // Set default styles for primary inactive button
+        // Default styles for primary inactive button
         self.primaryInactiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.primaryInactiveButton.backgroundColor = self.inactiveColor;
         self.primaryInactiveButton.layer.borderColor = [UIColor clearColor].CGColor;

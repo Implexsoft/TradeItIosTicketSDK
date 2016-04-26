@@ -14,10 +14,11 @@
 
 @implementation TTSDKBaseTradeViewController
 
+
 static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +52,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 
-#pragma mark - Order
+#pragma mark Order
 
 -(void) retrieveQuoteData {
     TradeItQuote * quote = self.ticket.quote;

@@ -25,6 +25,7 @@
 
 @implementation TTSDKAccountSelectViewController
 
+
 -(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
@@ -146,7 +147,6 @@
         [dest pushViewController:brokerSelectController animated:NO];
     }
 }
-
 
 
 @end

@@ -10,6 +10,7 @@
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKLabel.h"
 
+
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
@@ -55,15 +56,15 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
 #pragma mark Table Delegate Methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [brokers count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
     
     TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
@@ -123,10 +124,9 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
-- (IBAction)closePressed:(id)sender {
+-(IBAction) closePressed:(id)sender {
     if (self.isModal) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
@@ -153,11 +153,6 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     }
 }
 
-//placeholder action used in storyboard segue to unwind
-- (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
-    
-}
-
 
 #pragma mark iOS7 fallbacks
 
@@ -166,32 +161,4 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

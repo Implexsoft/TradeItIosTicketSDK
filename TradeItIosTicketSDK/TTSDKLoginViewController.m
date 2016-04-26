@@ -14,6 +14,7 @@
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKPrimaryButton.h"
 
+
 @implementation TTSDKLoginViewController {
     __weak IBOutlet UILabel *pageTitle;
     __weak IBOutlet UITextField *emailInput;
@@ -27,21 +28,19 @@
 }
 
 
-
 #pragma mark Rotation
 
-- (BOOL)shouldAutorotate {
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
-
 
 
 #pragma mark Initialization
@@ -125,14 +124,13 @@
     [emailInput becomeFirstResponder];
 }
 
-- (void)dismissKeyboard {
+-(void) dismissKeyboard {
     [emailInput resignFirstResponder];
     [passwordInput resignFirstResponder];
 }
 
 
-
-#pragma mark - Authentication
+#pragma mark Authentication
 
 -(void) checkAuthState {
     if(self.ticket.brokerSignUpComplete) {
@@ -147,7 +145,7 @@
     }
 }
 
-- (IBAction)linkAccountPressed:(id)sender {
+-(IBAction) linkAccountPressed:(id)sender {
     if (emailInput.isFirstResponder) {
         [emailInput resignFirstResponder];
     }
@@ -291,8 +289,7 @@
 }
 
 
-
-#pragma mark - Text Editing Delegates
+#pragma mark Text Editing Delegates
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
     return YES;
@@ -320,7 +317,7 @@
     return YES;
 }
 
-- (void)keyboardDidShow: (NSNotification *) notification {
+-(void) keyboardDidShow: (NSNotification *) notification {
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
@@ -328,7 +325,7 @@
     loginButtonBottomConstraint.constant = keyboardFrameBeginRect.size.height + 20.0f;
 }
 
-- (void)keyboardDidHide: (NSNotification *) notification {
+-(void) keyboardDidHide: (NSNotification *) notification {
     loginButtonBottomConstraint.constant = 20.0f;
 }
 
@@ -341,10 +338,9 @@
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
--(void)home:(UIBarButtonItem *)sender {
+-(void) home:(UIBarButtonItem *)sender {
     if (self.cancelToParent) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
@@ -362,16 +358,11 @@
 }
 
 
-#pragma mark - iOS7 fallback
+#pragma mark iOS7 fallback
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex > 0) {
-//        [self.ticket answerSecurityQuestion:[alertView textFieldAtIndex:0].text withCompletionBlock:^(TradeItResult * res){
-//            [self authenticateRequestReceived:res];
-//        }];
-//    }
+    // nothing to do
 }
-
 
 
 @end

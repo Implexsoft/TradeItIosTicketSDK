@@ -20,7 +20,9 @@
 
 @implementation TTSDKPortfolioAccount
 
+
 static double kLoadInterval = -30.0f;
+
 
 -(id) initWithAccountData:(NSDictionary *)data {
     if (self = [super init]) {
@@ -152,7 +154,6 @@ static double kLoadInterval = -30.0f;
         }
     }];
 }
-
 
 
 @end

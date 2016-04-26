@@ -28,7 +28,8 @@
 
 @implementation TTSDKAccountSelectTableViewCell
 
-- (void)awakeFromNib {
+
+-(void) awakeFromNib {
     // Initialization code
     if (self) {
         self.contentView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -95,7 +96,7 @@
     [self insertPortfolioDetail: account.broker];
 }
 
-- (void)insertPortfolioDetail:(NSString *)broker {
+-(void) insertPortfolioDetail:(NSString *)broker {
     self.circle.backgroundColor = [UIColor clearColor];
     CGFloat alertSize = self.circle.frame.size.height - 3;
 
@@ -124,7 +125,6 @@
         [self.circle.layer addSublayer:circleLayer];
     }
 }
-
 
 
 @end

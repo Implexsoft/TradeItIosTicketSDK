@@ -40,8 +40,6 @@
 
 -(void) commonInit {
     styles = [TradeItStyles sharedStyles];
-
-    // set to inactive by default
     [self deactivate];
 }
 

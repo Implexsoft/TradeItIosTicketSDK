@@ -14,8 +14,6 @@
 
 @property NSArray * positions;
 @property NSArray * balances;
-
-// Only for requests for a single account
 @property TTSDKPosition * position;
 @property TradeItAccountOverviewResult * balance;
 

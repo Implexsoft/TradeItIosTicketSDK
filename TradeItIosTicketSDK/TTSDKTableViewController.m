@@ -11,24 +11,24 @@
 @implementation TTSDKTableViewController
 
 
-#pragma mark - Rotation
+#pragma mark Rotation
 
-- (BOOL)shouldAutorotate {
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
-#pragma mark - Initialization
+#pragma mark Initialization
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     self.ticket = [TTSDKTradeItTicket globalTicket];

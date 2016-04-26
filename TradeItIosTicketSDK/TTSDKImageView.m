@@ -11,6 +11,7 @@
 
 @implementation TTSDKImageView
 
+
 -(id) initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     
@@ -37,5 +38,6 @@
     self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.tintColor = styles.activeColor;
 }
+
 
 @end

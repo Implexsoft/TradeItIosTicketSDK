@@ -25,6 +25,7 @@
 
 @implementation TTSDKTicketSession
 
+
 - (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
     self = [super initWithConnector:connector];
 
@@ -97,7 +98,7 @@
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
-                    
+
                     for(NSString * title in result.securityQuestionOptions){
                         UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                             [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
@@ -107,13 +108,13 @@
                         
                         [alert addAction:option];
                     }
-                    
+
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
                                                                               [delegateViewController dismissViewControllerAnimated:YES completion:nil];
                                                                           }];
                     [alert addAction:cancelAction];
-                    
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [delegateViewController presentViewController:alert animated:YES completion:nil];
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;

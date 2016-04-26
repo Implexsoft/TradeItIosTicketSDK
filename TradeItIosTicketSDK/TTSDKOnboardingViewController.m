@@ -25,30 +25,27 @@
 @implementation TTSDKOnboardingViewController
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static int kBulletContainerTag = 2;
 static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
+#pragma mark Orientation
 
-#pragma mark - Orientation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     brokers = self.ticket.brokerList;
@@ -117,7 +114,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [preferredBrokerLabel.layer addSublayer: shapeLayer];
 }
 
-#pragma mark - Navigation
+
+#pragma mark Navigation
 
 -(IBAction) brokerSelectPressed:(id)sender {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
@@ -136,7 +134,6 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(IBAction) closePressed:(id)sender {
     [self.ticket returnToParentApp];
 }
-
 
 
 @end

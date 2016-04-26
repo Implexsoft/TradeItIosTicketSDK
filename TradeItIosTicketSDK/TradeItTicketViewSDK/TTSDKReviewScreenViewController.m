@@ -61,20 +61,23 @@
 
 @end
 
+
 static float kMessageSeparatorHeight = 30.0f;
+
 
 @implementation TTSDKReviewScreenViewController
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     ackLabels = [[NSMutableArray alloc] init];
@@ -208,8 +211,6 @@ static float kMessageSeparatorHeight = 30.0f;
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
     [self addConstraintsToMessage:container];
 }
-
-
 
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
     CGRect labelFrame = reviewLabel.frame;
@@ -381,13 +382,14 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 
-#pragma mark - Trade Request
-- (IBAction)placeOrderPressed:(id)sender {
+#pragma mark Trade Request
+
+-(IBAction) placeOrderPressed:(id)sender {
     [submitOrderButton enterLoadingState];
     [self sendTradeRequest];
 }
 
-- (void) sendTradeRequest {
+-(void) sendTradeRequest {
     self.ticket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
     [self.ticket.currentSession placeTrade:^(TradeItResult *result) {
@@ -395,7 +397,7 @@ static float kMessageSeparatorHeight = 30.0f;
     }];
 }
 
-- (void) tradeRequestRecieved: (TradeItResult *) result {
+-(void) tradeRequestRecieved: (TradeItResult *) result {
     [submitOrderButton exitLoadingState];
     [submitOrderButton activate];
 
@@ -430,10 +432,9 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
--(IBAction)ackLabelToggled:(id)sender {
+-(IBAction) ackLabelToggled:(id)sender {
     UISwitch * switchSender = sender;
 
     if (switchSender.on) {
@@ -450,7 +451,6 @@ static float kMessageSeparatorHeight = 30.0f;
         submitOrderButton.enabled = NO;
     }
 }
-
 
 
 @end

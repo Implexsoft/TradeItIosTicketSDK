@@ -28,8 +28,7 @@
 @implementation TTSDKAccountLinkTableViewCell
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
@@ -47,7 +46,7 @@
 }
 
 
-#pragma mark - Configuration
+#pragma mark Configuration
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)portfolioAccount {
     account = portfolioAccount;
@@ -69,11 +68,9 @@
 }
 
 
-
-#pragma mark - Custom Recognizers
+#pragma mark Custom Recognizers
 
 -(IBAction) togglePressed:(id)sender {
-
     NSDictionary * accountData = [account accountData];
 
     // If the toggle resulted in unlinking the account, make sure the account can be unlinked

@@ -27,8 +27,10 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
 @implementation TTSDKPortfolioService
 
+
 // naming it 'highlighted' to distinguish from last account selected for trading
 static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
+
 
 -(id) init {
     if (self = [super init]) {
@@ -208,7 +210,6 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
         [portfolioAccount retrieveBalance];
     }
 }
-
 
 
 @end

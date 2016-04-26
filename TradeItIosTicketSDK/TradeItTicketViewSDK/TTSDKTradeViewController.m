@@ -258,7 +258,7 @@
     [self checkIfReadyToTrade];
 }
 
-- (void)initKeypad {
+-(void) initKeypad {
     NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
     NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
     NSArray * keypadArray = [resourceBundle loadNibNamed:@"TTSDKcalc" owner:self options:nil];
@@ -279,7 +279,7 @@
 
 #pragma mark Delegate Methods
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
     [keypad show];
 
     if (textField == sharesInput) {
@@ -648,20 +648,17 @@
 }
 
 
-
 #pragma mark Events
 
-- (IBAction)symbolPressed:(id)sender {
+-(IBAction) symbolPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
 }
                                           
-- (IBAction)refreshPressed:(id)sender {
+-(IBAction) refreshPressed:(id)sender {
     [self.view endEditing:YES];
-
-    // TODO - implement this
 }
 
-- (IBAction)keypadPressed:(id)sender {
+-(IBAction) keypadPressed:(id)sender {
     UIButton * button = (UIButton *)sender;
     NSInteger key = button.tag;
 
@@ -680,7 +677,7 @@
     [self checkIfReadyToTrade];
 }
 
-- (IBAction)orderActionPressed:(id)sender {
+-(IBAction) orderActionPressed:(id)sender {
     [self.view endEditing:YES];
 
     NSArray * options = @[
@@ -695,7 +692,7 @@
     }];
 }
 
-- (IBAction)orderTypePressed:(id)sender {
+-(IBAction) orderTypePressed:(id)sender {
     [self.view endEditing:YES];
 
     NSArray * options = @[
@@ -710,11 +707,11 @@
     }];
 }
 
--(IBAction)brokerLinkPressed:(id)sender {
+-(IBAction) brokerLinkPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToAccountSelect" sender:self];
 }
 
-- (IBAction)orderExpirationPressed:(id)sender {
+-(IBAction) orderExpirationPressed:(id)sender {
     [self.view endEditing:YES];
 
     NSArray * options = @[
@@ -727,7 +724,7 @@
     }];
 }
 
-- (IBAction)previewOrderPressed:(id)sender {
+-(IBAction) previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
 
     if(readyToTrade) {
@@ -739,15 +736,15 @@
     }
 }
 
-- (IBAction)cancelPressed:(id)sender {
+-(IBAction) cancelPressed:(id)sender {
     [self.ticket returnToParentApp];
 }
 
-- (IBAction)portfolioLinkPressed:(id)sender {
+-(IBAction) portfolioLinkPressed:(id)sender {
     [self performSegueWithIdentifier:@"OrderToPortfolio" sender:self];
 }
 
-- (IBAction)editAccountsPressed:(id)sender {
+-(IBAction) editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
 }
 
@@ -758,7 +755,7 @@
 
 #pragma mark Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
         [self.ticket removeBrokerSelectFromNav: dest];

@@ -305,7 +305,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 -(void) styleDropdownButton:(UIButton *)button {
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
-    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevronRight"]];
+    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevron_right"]];
     arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
     arrow.contentMode = UIViewContentModeScaleAspectFit;
 

@@ -23,24 +23,22 @@
 @implementation TTSDKAccountLinkViewController
 
 
+#pragma mark Rotation
 
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -57,18 +55,17 @@
 }
 
 
+#pragma mark Table Delegate Methods
 
-#pragma mark - Table Delegate Methods
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return portfolioService.accounts.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier = @"AccountLink";
     TTSDKAccountLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
@@ -88,10 +85,9 @@
 }
 
 
+#pragma mark Custom Delegate Methods
 
-#pragma mark - Custom Delegate Methods
-
-- (void)linkToggleDidSelect:(NSDictionary *)account {
+-(void) linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
 
     NSDictionary * accountToAdd;
@@ -121,7 +117,7 @@
     [self.ticket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
-- (void)linkToggleDidNotSelect:(NSString *)errorMessage {
+-(void) linkToggleDidNotSelect:(NSString *)errorMessage {
     NSString * errorTitle = @"Unable to unlink account";
     if(![UIAlertController class]) {
         [self showOldErrorAlert: errorTitle withMessage:errorMessage];
@@ -145,17 +141,15 @@
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
-- (IBAction)doneButtonPressed:(id)sender {
+-(IBAction) doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)doneBarButtonPressed:(id)sender {
+-(IBAction) doneBarButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 
 @end

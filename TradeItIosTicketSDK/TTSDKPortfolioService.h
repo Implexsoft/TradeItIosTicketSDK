@@ -13,7 +13,6 @@
 @interface TTSDKPortfolioService : NSObject
 
 
-
 @property NSArray * accounts;
 @property TTSDKPortfolioAccount * selectedAccount;
 
