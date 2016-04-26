@@ -69,7 +69,6 @@ static float kAccountCellHeight = 44.0f;
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [self showLoadingAndWait];
-
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             initialAuthenticationComplete = YES;
             if ([res.status isEqualToString: @"SUCCESS"]) {
@@ -88,6 +87,8 @@ static float kAccountCellHeight = 44.0f;
             }
         }];
     } else {
+        initialAuthenticationComplete = YES;
+        [self showLoadingAndWait];
         [self loadPortfolioData];
     }
 }
@@ -111,7 +112,11 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) showLoadingAndWait {
     TTSDKMBProgressHUD * hud = [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Authenticating";
+    if (initialAuthenticationComplete) {
+        hud.labelText = @"Retrieving Account Summary";
+    } else {
+        hud.labelText = @"Authenticating";
+    }
 
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
