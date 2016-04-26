@@ -11,13 +11,12 @@
 @implementation TradeItTicketControllerResult
 
 
-- (id)initNoBrokerStatus
-{
+- (id)initNoBrokerStatus {
     self = [super init];
     if (self) {
         self.status = NO_BROKER;
     }
-    
+
     return self;
 }
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Antonio Reyes. All rights reserved.
 //
 #import "TTSDKBaseTradeViewController.h"
-#import "TTSDKOrderTypeSelectionViewController.h"
 
 @interface TTSDKTradeViewController : TTSDKBaseTradeViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 

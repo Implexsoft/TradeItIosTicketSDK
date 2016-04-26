@@ -11,11 +11,8 @@
 #import "TradeItPreviewTradeResult.h"
 #import "TradeItPlaceTradeResult.h"
 
-//#import "TradeItStockOrEtfTradeReviewResult.h"
-//#import "TradeItStockOrEtfTradeSuccessResult.h"
-
-
 @interface TradeItTicketControllerResult : NSObject
+
 
 /**
  *  NO_BROKER is triggered if the user doesn't setup an initial broker
@@ -57,7 +54,7 @@ enum controllerStatus {
 @property TradeItPlaceTradeResult * tradeResponse;
 
 
-
 - (id)initNoBrokerStatus;
+
 
 @end

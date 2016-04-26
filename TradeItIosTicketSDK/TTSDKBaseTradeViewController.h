@@ -7,31 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSDKCustomIOSAlertView.h"
-#import "TTSDKUtils.h"
-#import "TTSDKTradeItTicket.h"
 #import "TradeItPreviewTradeRequest.h"
 #import "TradeItPreviewTradeResult.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKViewController.h"
 
-@interface TTSDKBaseTradeViewController : TTSDKViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TTSDKBaseTradeViewController : TTSDKViewController
 
 @property TradeItResult * lastResult;
 
-@property NSArray * pickerTitles;
-@property NSArray * pickerValues;
-@property UIPickerView * currentPicker;
-@property NSString * currentSelection;
 @property NSArray * questionOptions;
 @property NSDictionary * currentAccount;
 @property TTSDKPortfolioAccount * currentPortfolioAccount;
 
--(void) sendPreviewRequest;
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
--(void) showOldOrderAction;
--(void) showOldOrderExp;
--(UIView *) createPickerView: (NSString *) title;
+-(void) sendPreviewRequestWithCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+
 -(void) acknowledgeAlert;
 -(void) retrieveQuoteData;
 -(void) retrieveAccountSummaryData;

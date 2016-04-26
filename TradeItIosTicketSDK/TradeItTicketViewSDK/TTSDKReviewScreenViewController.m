@@ -9,9 +9,7 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKSuccessViewController.h"
-#import "TTSDKTradeItTicket.h"
 #import "TradeItPlaceTradeResult.h"
-#import "TTSDKUtils.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -58,40 +56,37 @@
 
     int ackLabelsToggled;
 
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
-
     TradeItPlaceTradeResult * placeTradeResult;
 }
 
 @end
 
+
 static float kMessageSeparatorHeight = 30.0f;
+
 
 @implementation TTSDKReviewScreenViewController
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
     // used for attaching constraints
     lastAttachedMessage = estimatedCostVL;
 
-    self.reviewTradeResult = globalTicket.resultContainer.reviewResponse;
+    self.reviewTradeResult = self.ticket.resultContainer.reviewResponse;
 
     [self updateUIWithReviewResult];
 
@@ -217,8 +212,6 @@ static float kMessageSeparatorHeight = 30.0f;
     [self addConstraintsToMessage:container];
 }
 
-
-
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
     CGRect labelFrame = reviewLabel.frame;
     labelFrame.size.width = contentView.frame.size.width;
@@ -228,7 +221,7 @@ static float kMessageSeparatorHeight = 30.0f;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     [label setTranslatesAutoresizingMaskIntoConstraints: NO];
     [label setNumberOfLines: 0]; // 0 allows unlimited lines
-    [label setTextColor: utils.warningColor];
+    [label setTextColor: self.styles.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
 
@@ -389,27 +382,29 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 
-#pragma mark - Trade Request
-- (IBAction)placeOrderPressed:(id)sender {
+#pragma mark Trade Request
+
+-(IBAction) placeOrderPressed:(id)sender {
     [submitOrderButton enterLoadingState];
     [self sendTradeRequest];
 }
 
-- (void) sendTradeRequest {
-    globalTicket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
+-(void) sendTradeRequest {
+    self.ticket.currentSession.tradeRequest = [[TradeItPlaceTradeRequest alloc] initWithOrderId: self.reviewTradeResult.orderId];
 
-    [globalTicket.currentSession placeTrade:^(TradeItResult *result) {
+    [self.ticket.currentSession placeTrade:^(TradeItResult *result) {
         [self tradeRequestRecieved: result];
     }];
 }
 
-- (void) tradeRequestRecieved: (TradeItResult *) result {
+-(void) tradeRequestRecieved: (TradeItResult *) result {
+    [submitOrderButton exitLoadingState];
     [submitOrderButton activate];
 
     //success
     if ([result isKindOfClass: TradeItPlaceTradeResult.class]) {
-        globalTicket.resultContainer.status = SUCCESS;
-        globalTicket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
+        self.ticket.resultContainer.status = SUCCESS;
+        self.ticket.resultContainer.tradeResponse = (TradeItPlaceTradeResult *) result;
         [self performSegueWithIdentifier:@"ReviewToSuccess" sender: self];
     } else if([result isKindOfClass:[TradeItErrorResult class]]) { //error
         TradeItErrorResult * error = (TradeItErrorResult *) result;
@@ -417,8 +412,8 @@ static float kMessageSeparatorHeight = 30.0f;
         NSString * errorMessage = @"TradeIt is temporarily unavailable. Please try again in a few minutes.";
         errorMessage = [error.longMessages count] > 0 ? [error.longMessages componentsJoinedByString:@" "] : errorMessage;
 
-        globalTicket.resultContainer.status = EXECUTION_ERROR;
-        globalTicket.resultContainer.errorResponse = error;
+        self.ticket.resultContainer.status = EXECUTION_ERROR;
+        self.ticket.resultContainer.errorResponse = error;
 
         UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                         message:errorMessage
@@ -437,10 +432,9 @@ static float kMessageSeparatorHeight = 30.0f;
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
--(IBAction)ackLabelToggled:(id)sender {
+-(IBAction) ackLabelToggled:(id)sender {
     UISwitch * switchSender = sender;
 
     if (switchSender.on) {
@@ -457,7 +451,6 @@ static float kMessageSeparatorHeight = 30.0f;
         submitOrderButton.enabled = NO;
     }
 }
-
 
 
 @end

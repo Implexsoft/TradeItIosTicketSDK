@@ -7,15 +7,11 @@
 //
 
 #import "TTSDKAccountLinkViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKPrimaryButton.h"
 
 @interface TTSDKAccountLinkViewController () {
-    TTSDKTradeItTicket * globalTicket;
-    TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
 }
 
@@ -27,32 +23,27 @@
 @implementation TTSDKAccountLinkViewController
 
 
+#pragma mark Rotation
 
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.allAccounts];
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.allAccounts];
 
     [self.doneButton activate];
 }
@@ -64,18 +55,17 @@
 }
 
 
+#pragma mark Table Delegate Methods
 
-#pragma mark - Table Delegate Methods
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return portfolioService.accounts.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier = @"AccountLink";
     TTSDKAccountLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
@@ -95,16 +85,15 @@
 }
 
 
+#pragma mark Custom Delegate Methods
 
-#pragma mark - Custom Delegate Methods
-
-- (void)linkToggleDidSelect:(NSDictionary *)account {
+-(void) linkToggleDidSelect:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;
 
-    NSArray * accounts = globalTicket.allAccounts;
+    NSArray * accounts = self.ticket.allAccounts;
 
     int i;
     for (i = 0; i < accounts.count; i++) {
@@ -125,10 +114,10 @@
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
 
-    [globalTicket saveAccountsToUserDefaults: [mutableAccounts copy]];
+    [self.ticket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
-- (void)linkToggleDidNotSelect:(NSString *)errorMessage {
+-(void) linkToggleDidNotSelect:(NSString *)errorMessage {
     NSString * errorTitle = @"Unable to unlink account";
     if(![UIAlertController class]) {
         [self showOldErrorAlert: errorTitle withMessage:errorMessage];
@@ -152,30 +141,15 @@
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
-- (IBAction)doneButtonPressed:(id)sender {
+-(IBAction) doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)doneBarButtonPressed:(id)sender {
+-(IBAction) doneBarButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
-
-#pragma mark - iOS 7 Fallbacks
-
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
-
 
 
 @end

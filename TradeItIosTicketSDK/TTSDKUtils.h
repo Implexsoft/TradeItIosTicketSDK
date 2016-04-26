@@ -39,8 +39,7 @@
 -(void) styleBorderedFocusInput: (UIView *)input;
 -(void) styleBorderedUnfocusInput: (UIView *)input;
 -(void) styleDropdownButton:(UIButton *)button;
--(UIView *) retrieveLoadingOverlayForView:(UIView *)view;
--(void) initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc;
+-(UIView *) retrieveLoadingOverlayForView:(UIView *)view withRadius:(NSInteger)radius;
 -(NSString *) splitCamelCase:(NSString *) str;
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc;

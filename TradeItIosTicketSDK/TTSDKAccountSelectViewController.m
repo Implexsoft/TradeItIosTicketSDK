@@ -10,14 +10,10 @@
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKAccountSelectViewController () {
-    TTSDKTradeItTicket * globalTicket;
-    TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
     NSArray * accountResults;
 }
@@ -28,6 +24,7 @@
 @end
 
 @implementation TTSDKAccountSelectViewController
+
 
 -(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
@@ -41,9 +38,6 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
     [self.editBrokersButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
 
     accountResults = [[NSArray alloc] init];
@@ -54,7 +48,7 @@
 
     self.tableView.backgroundColor = self.styles.pageBackgroundColor;
 
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
+    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
     [portfolioService getSummaryForAccounts:^(void) {
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -78,10 +72,10 @@
     TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
     NSDictionary * selectedAccount = [account accountData];
 
-    if (![account.userId isEqualToString:globalTicket.currentSession.login.userId]) {
-        [globalTicket selectCurrentSession:[globalTicket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
+    if (![account.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+        [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
     } else {
-        [globalTicket selectCurrentAccount: selectedAccount];
+        [self.ticket selectCurrentAccount: selectedAccount];
     }
 
     TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
@@ -153,7 +147,6 @@
         [dest pushViewController:brokerSelectController animated:NO];
     }
 }
-
 
 
 @end

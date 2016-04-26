@@ -11,34 +11,34 @@
 @implementation TTSDKTableViewController
 
 
+#pragma mark Rotation
 
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
+
+    self.ticket = [TTSDKTradeItTicket globalTicket];
+    self.utils = [TTSDKUtils sharedUtils];
+    self.styles = [TradeItStyles sharedStyles];
 
     [self setViewStyles];
 }
 
 -(void) setViewStyles {
-    self.styles = [TradeItStyles sharedStyles];
-
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
     self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
@@ -46,5 +46,18 @@
 
     self.tableView.separatorColor = self.styles.primarySeparatorColor;
 }
+
+
+#pragma mark iOS7 fallbacks
+
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+    UIAlertView * alert;
+    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [alert show];
+    });
+}
+
 
 @end

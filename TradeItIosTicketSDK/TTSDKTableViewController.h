@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSDKTradeItTicket.h"
+#import "TTSDKUtils.h"
 #import "TradeItStyles.h"
 
 @interface TTSDKTableViewController : UITableViewController
 
+@property TTSDKTradeItTicket * ticket;
+@property TTSDKUtils * utils;
 @property TradeItStyles * styles;
 
 -(void) setViewStyles;
+-(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
 
 @end

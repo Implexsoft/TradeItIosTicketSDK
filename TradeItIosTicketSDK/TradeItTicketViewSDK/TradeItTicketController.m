@@ -1,5 +1,5 @@
 //
-//  ticket.m
+//  TradeItTicketController.m
 //  TradeItTicketViewSDK
 //
 //  Created by Antonio Reyes on 7/2/15.
@@ -10,8 +10,7 @@
 #import "TTSDKTradeItTicket.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKCompanyDetails.h"
-#import "TTSDKOrderTypeSelectionViewController.h"
-#import "TTSDKOrderTypeInputViewController.h"
+#import "TTSDKKeypad.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -45,18 +44,44 @@
 #import "TTSDKImageView.h"
 #import "TTSDKSearchBar.h"
 
-
-
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
 }
 
 
+#pragma mark Class Initialization
 
-#pragma mark - Class Initialization
++(void) showTicket {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
+    
+    switch (ticket.presentationMode) {
+        case TradeItPresentationModePortfolioOnly:
+            [ticket launchPortfolioFlow];
+            break;
+        case TradeItPresentationModePortfolio:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTrade:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+        case TradeItPresentationModeTradeOnly:
+            [ticket launchTradeFlow];
+            break;
+        case TradeItPresentationModeAuth:
+            [ticket launchAuthFlow];
+            break;
+        default:
+            [ticket launchTradeOrPortfolioFlow];
+            break;
+    }
+}
 
-+ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
-    [TradeItTicketController showAuthenticationWithApiKey:apiKey viewController:view withDebug:NO onCompletion:callback];
+
+#pragma mark Authentication Initialization
+
++ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
+    [TradeItTicketController showAuthenticationWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
 }
 
 + (void)showAuthenticationWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -75,15 +100,11 @@
     [ticket launchAuthFlow];
 }
 
+
+#pragma mark Portfolio Initialization
+
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
-}
-
-+ (void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
-
-    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
 }
 
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -114,6 +135,13 @@
     [TradeItTicketController showTicket];
 }
 
++ (void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModePortfolioOnly;
+    
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
+}
+
 + (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
@@ -121,15 +149,11 @@
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:debug onCompletion:callback];
 }
 
+
+#pragma mark Ticket Initialization
+
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
-}
-
-+ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    ticket.presentationMode = TradeItPresentationModeTradeOnly;
-
-    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol viewController:view];
 }
 
 + (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
@@ -163,6 +187,13 @@
     [TradeItTicketController showTicket];
 }
 
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeTradeOnly;
+    
+    [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol viewController:view];
+}
+
 + (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeTradeOnly;
@@ -170,31 +201,8 @@
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:action orderQuantity:quantity viewController:view withDebug:debug onCompletion:callback];
 }
 
-+(void) showTicket {
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
 
-    switch (ticket.presentationMode) {
-        case TradeItPresentationModePortfolioOnly:
-            [ticket launchPortfolioFlow];
-            break;
-        case TradeItPresentationModePortfolio:
-            [ticket launchTradeOrPortfolioFlow];
-            break;
-        case TradeItPresentationModeTrade:
-            [ticket launchTradeOrPortfolioFlow];
-            break;
-        case TradeItPresentationModeTradeOnly:
-            [ticket launchTradeFlow];
-            break;
-        case TradeItPresentationModeAuth:
-            [ticket launchAuthFlow];
-            break;
-        default:
-            [ticket launchTradeOrPortfolioFlow];
-            break;
-    }
-}
+#pragma mark Ticket Utilities
 
 + (void)clearSavedData {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
@@ -215,8 +223,7 @@
 }
 
 
-
-#pragma mark - Instance Initialization
+#pragma mark Instance Initialization
 
 - (id)initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     self = [super init];
@@ -285,20 +292,19 @@
 }
 
 
-
-//Let me tell you a cool story about why this is here:
-//Storyboards in bundles are static, non-compilled resources
-//Therefore when the linker goes through the library it doesn't
-//think any of the classes setup for the storyboard are in use
-//so when we actually go to load up the storyboard, it explodes
-//because all those classes aren't loaded into the app. So,
-//we simply call a lame method on every view class which forces
-//the linker to load the classes :)
+/*
+    Storyboards in bundles are static, non-compiled resources.
+    Therefore when the linker goes through the library it doesn't
+    think any of the classes setup for the storyboard are in use,
+    so when we actually go to load up the storyboard, it explodes
+    because all those classes aren't loaded into the app. So,
+    we simply call a method on every view class which forces
+    the linker to load the classes :)
+*/
 + (void)forceClassesIntoLinker {
     [TTSDKTradeViewController class];
     [TTSDKCompanyDetails class];
-    [TTSDKOrderTypeSelectionViewController class];
-    [TTSDKOrderTypeInputViewController class];
+    [TTSDKKeypad class];
     [TTSDKAccountSelectViewController class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
@@ -333,24 +339,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

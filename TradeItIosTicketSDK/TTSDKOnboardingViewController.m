@@ -9,13 +9,9 @@
 #import "TTSDKOnboardingViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKLoginViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPrimaryButton.h"
 
 @interface TTSDKOnboardingViewController () {
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
     NSArray * brokers;
 }
 
@@ -29,55 +25,49 @@
 @implementation TTSDKOnboardingViewController
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static int kBulletContainerTag = 2;
 static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
+#pragma mark Orientation
 
-#pragma mark - Orientation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+-(void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    brokers = globalTicket.brokerList;
+    brokers = self.ticket.brokerList;
 
     [self.brokerSelectButton activate];
 
     [self styleCustomDropdownButton: self.fidelityButton];
 
     // iPhone 4s and earlier
-    if ([utils isSmallScreen]) {
+    if ([self.utils isSmallScreen]) {
         self.brokerDetailsTopConstraint.constant = 10.0f;
     }
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
-            CAShapeLayer * circleLayer = [utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
+            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
             [view.layer addSublayer:circleLayer];
         }
     }
 
     NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[utils logoStringLight]];
+    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0f] range:NSMakeRange(0, 7)];
     [poweredBy appendAttributedString:logoString];
     [self.tradeItLabel setAttributedText:poweredBy];
@@ -124,13 +114,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [preferredBrokerLabel.layer addSublayer: shapeLayer];
 }
 
-#pragma mark - Navigation
+
+#pragma mark Navigation
 
 -(IBAction) brokerSelectPressed:(id)sender {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
     
-    NSString * selectedBroker = [globalTicket getBrokerByValueString: @"Fidelity"][1];
+    NSString * selectedBroker = [self.ticket getBrokerByValueString: @"Fidelity"][1];
     [loginViewController setAddBroker: selectedBroker];
     
     [self.navigationController pushViewController: loginViewController animated:YES];
@@ -141,9 +132,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 }
 
 -(IBAction) closePressed:(id)sender {
-    [globalTicket returnToParentApp];
+    [self.ticket returnToParentApp];
 }
-
 
 
 @end

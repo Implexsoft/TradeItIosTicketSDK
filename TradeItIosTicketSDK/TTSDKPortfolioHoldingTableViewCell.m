@@ -44,16 +44,14 @@
 @implementation TTSDKPortfolioHoldingTableViewCell
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static CGFloat const kBounceValue = 20.0f;
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void) awakeFromNib {
+-(void) awakeFromNib {
     [super awakeFromNib];
 
     utils = [TTSDKUtils sharedUtils];
@@ -90,8 +88,7 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 
-
-#pragma mark - Configuration
+#pragma mark Configuration
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -229,8 +226,7 @@ static CGFloat const kBounceValue = 20.0f;
 }
 
 
-
-#pragma mark - Custom UI
+#pragma mark Custom UI
 
 -(void) panCell:(UIPanGestureRecognizer *)recognizer {
     switch (recognizer.state) {
@@ -358,7 +354,6 @@ static CGFloat const kBounceValue = 20.0f;
         }];
     }];
 }
-
 
 
 @end

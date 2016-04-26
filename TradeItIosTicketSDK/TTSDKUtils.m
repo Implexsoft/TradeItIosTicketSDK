@@ -35,7 +35,7 @@
 @synthesize gainColor;
 
 
-static float kDecimalSize = 5.0f;
+
 static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 + (id)sharedUtils {
@@ -203,19 +203,20 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     return formatString;
 }
 
--(UIView *) retrieveLoadingOverlayForView:(UIView *)view {
+-(UIView *) retrieveLoadingOverlayForView:(UIView *)view withRadius:(NSInteger)radius {
     UIView * loadingView = [[UIView alloc] init];
 
-    loadingView.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    loadingView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     loadingView.backgroundColor = [styles.loadingBackgroundColor colorWithAlphaComponent: 0.4f];
-
+    view.clipsToBounds = NO;
     UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 
     indicator.color = styles.loadingIconColor;
 
     indicator.hidden = NO;
     [loadingView addSubview:indicator];
-    indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - 20.0f, (loadingView.frame.size.height / 2) - 20.0f, 40.0f, 40.0f);
+    loadingView.layer.zPosition = 10.0f;
+    indicator.frame = CGRectMake((loadingView.frame.size.width / 2) - radius, (loadingView.frame.size.height / 2) - radius, radius * 2, radius * 2);
     [indicator startAnimating];
 
     return loadingView;
@@ -246,47 +247,6 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
     if (!animating) {
         animating = YES;
         [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
-    }
-}
-
-- (void)initKeypadWithName: (NSString *)name intoContainer: (UIView *)container onPress: (SEL)pressed inController: (UIViewController *)vc {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
-    NSArray * keypadArray = [resourceBundle loadNibNamed:name owner:self options:nil];
-    
-    UIView * keypad = [keypadArray firstObject];
-    
-    CGRect frame = CGRectMake(0, 0, container.frame.size.width, container.frame.size.height);
-    keypad.frame = frame;
-    
-    [container addSubview:keypad];
-    keypad.userInteractionEnabled = YES;
-    NSArray * subviews = keypad.subviews;
-
-    [keypad updateConstraints];
-    [keypad layoutSubviews];
-    [keypad layoutIfNeeded];
-
-    keypad.backgroundColor = [UIColor clearColor];
-
-    for (int i = 0; i < [subviews count]; i++) {
-        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
-            UIButton *button = [subviews objectAtIndex:i];
-
-            button.backgroundColor = [UIColor clearColor];
-
-            [button setTitleColor:styles.activeColor forState:UIControlStateNormal];
-
-            if (button.tag == 10) { // decimal
-                    UIView * circleView = [[UIView alloc] initWithFrame:CGRectMake((button.bounds.size.width / 2) - kDecimalSize, (button.frame.size.height / 2) - kDecimalSize, kDecimalSize, kDecimalSize)];
-                    CAShapeLayer * circle = [self retrieveCircleGraphicWithSize:5.0f andColor:styles.activeColor];
-                    circle.frame = CGRectMake(-2.0f, -2.0f, kDecimalSize, kDecimalSize);
-                    [circleView.layer addSublayer:circle];
-                    [button addSubview:circleView];
-            }
-
-            [button addTarget:vc action:pressed forControlEvents:UIControlEventTouchUpInside];
-        }
     }
 }
 
@@ -345,7 +305,7 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 -(void) styleDropdownButton:(UIButton *)button {
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
-    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevronRight"]];
+    UIImageView * arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevron_right"]];
     arrow.transform = CGAffineTransformMakeRotation(M_PI_2);
     arrow.contentMode = UIViewContentModeScaleAspectFit;
 

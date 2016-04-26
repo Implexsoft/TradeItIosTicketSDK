@@ -22,7 +22,6 @@
 @property TradeItAuthenticationInfo * verifyCreds;
 
 @property NSArray * questionOptions;
-@property NSString * currentSelection;
 
 @property BOOL isModal;
 

@@ -11,6 +11,7 @@
 
 @implementation TTSDKSearchBar
 
+
 -(void) awakeFromNib {
     [self setViewStyles];
 }
@@ -34,5 +35,6 @@
     [[UITextField appearanceWhenContainedIn:TTSDKSearchBar.class, nil] setBackgroundColor:[UIColor clearColor]];
     [[UITextField appearanceWhenContainedIn:TTSDKSearchBar.class, nil] setTextColor: styles.primaryTextColor];
 }
+
 
 @end

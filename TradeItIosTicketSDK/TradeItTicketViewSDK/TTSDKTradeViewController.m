@@ -8,8 +8,6 @@
 
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPrimaryButton.h"
-#import "TTSDKOrderTypeSelectionViewController.h"
-#import "TTSDKOrderTypeInputViewController.h"
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKLoginViewController.h"
@@ -17,48 +15,38 @@
 #import "TTSDKPosition.h"
 #import "TradeItQuotesResult.h"
 #import "TTSDKImageView.h"
+#import "TTSDKKeypad.h"
 
 
 @interface TTSDKTradeViewController () {
     __weak IBOutlet UIView * companyDetails;
-
-    __weak IBOutlet UIButton * orderActionButton;
-    __weak IBOutlet UITextField * sharesInput;
-    __weak IBOutlet UILabel * estimatedCostLabel;
-
-    __weak IBOutlet UIButton * orderTypeButton;
-    __weak IBOutlet UITextField *stopPriceInput;
-    __weak IBOutlet UITextField *limitPriceInput;
-
-    __weak IBOutlet UIButton * orderExpirationButton;
-
-    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
-
-    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
     __weak IBOutlet UIView * keypadContainer;
     __weak IBOutlet UIView * orderView;
     __weak IBOutlet UIView *containerView;
+    __weak IBOutlet UITextField * sharesInput;
+    __weak IBOutlet UITextField *stopPriceInput;
+    __weak IBOutlet UITextField *limitPriceInput;
+    __weak IBOutlet UILabel * estimatedCostLabel;
+    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
+    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
+    __weak IBOutlet UIButton * orderActionButton;
+    __weak IBOutlet UIButton * orderTypeButton;
+    __weak IBOutlet UIButton * orderExpirationButton;
+    __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
+    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
+
+    TTSDKKeypad * keypad;
+    UIView * loadingView;
+
+    TTSDKCompanyDetails * companyNib;
 
     NSLayoutConstraint * zeroHeightConstraint;
     NSLayoutConstraint * fullHeightConstraint;
 
-    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
-    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
-
     BOOL readyToTrade;
-    UIView * keypad;
-
-    TTSDKCompanyDetails * companyNib;
+    BOOL uiConfigured;
 
     NSString * currentFocus;
-
-    BOOL uiConfigured;
-    BOOL defaultEditingCheckComplete;
-    
-    TTSDKUtils * utils;
-    TTSDKTradeItTicket * globalTicket;
-
-    UIView * loadingView;
 }
 
 @end
@@ -66,40 +54,25 @@
 @implementation TTSDKTradeViewController
 
 
-
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
-    return NO;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
-    if([globalTicket.previewRequest.orderQuantity intValue] > 0) {
-        [sharesInput setText:[NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]]];
+    if([self.ticket.previewRequest.orderQuantity intValue] > 0) {
+        [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
 
-    [utils initKeypadWithName:@"TTSDKcalc" intoContainer:keypadContainer onPress:@selector(keypadPressed:) inController:self];
-
+    [self initKeypad];
     keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
 
-    companyNib = [utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
+    UIView * emptyKeypadFrame = [[UIView alloc] initWithFrame:CGRectZero]; // we need to set the input view of the text field so that the cursor shows up
+    sharesInput.inputView = emptyKeypadFrame;
+    limitPriceInput.inputView = emptyKeypadFrame;
+    stopPriceInput.inputView = emptyKeypadFrame;
+    [sharesInput becomeFirstResponder];
+
+    companyNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
     companyNib.backgroundColor = self.styles.pageBackgroundColor;
 
     [self setCustomEvents];
@@ -115,9 +88,9 @@
     [stopPriceInput addGestureRecognizer: stopTap];
 
     currentFocus = @"shares";
-    [self hideKeypadDecimal];
+    [keypad hideDecimal];
 
-    if ([utils isSmallScreen] && !uiConfigured) {
+    if ([self.utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
     }
 
@@ -128,18 +101,21 @@
     [self styleBorderedFocusInput: sharesInput];
     [self styleBorderedUnfocusInput: limitPriceInput];
     [self styleBorderedUnfocusInput: stopPriceInput];
+    [sharesInput becomeFirstResponder];
 }
 
 -(IBAction) limitPressed:(id)sender {
     [self styleBorderedUnfocusInput: sharesInput];
     [self styleBorderedFocusInput: limitPriceInput];
     [self styleBorderedUnfocusInput: stopPriceInput];
+    [limitPriceInput becomeFirstResponder];
 }
 
 -(IBAction) stopPressed:(id)sender {
     [self styleBorderedUnfocusInput: sharesInput];
     [self styleBorderedUnfocusInput: limitPriceInput];
     [self styleBorderedFocusInput: stopPriceInput];
+    [stopPriceInput becomeFirstResponder];
 }
 
 -(void) setViewStyles {
@@ -191,26 +167,18 @@
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    if (!globalTicket.currentSession.isAuthenticated) {
+    if (!self.ticket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-        if (!loadingView) {
-            loadingView = [utils retrieveLoadingOverlayForView:self.view];
-            [self.view addSubview: loadingView];
-        }
-        loadingView.hidden = NO;
 
-        [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    loadingView.hidden = YES;
                     [self retrieveQuoteData];
                     [self retrieveAccountSummaryData];
                     [self checkIfReadyToTrade];
                 });
             } else if ([res isKindOfClass:TradeItErrorResult.class]) {
-                loadingView.hidden = YES;
-
                 TradeItErrorResult * error = (TradeItErrorResult *)res;
                 NSMutableString * errorMessage = [[NSMutableString alloc] init];
 
@@ -255,31 +223,31 @@
         [self checkIfReadyToTrade];
     }
 
-    if (globalTicket.currentSession.isAuthenticated) {
+    if (self.ticket.currentSession.isAuthenticated) {
         [self retrieveQuoteData];
     }
 
     [self populateSymbolDetails];
 
-    [self changeOrderAction:globalTicket.previewRequest.orderAction];
-    [self changeOrderType:globalTicket.previewRequest.orderPriceType];
-    [self changeOrderExpiration:globalTicket.previewRequest.orderExpiration];
+    [self changeOrderAction:self.ticket.previewRequest.orderAction];
+    [self changeOrderType:self.ticket.previewRequest.orderPriceType];
+    [self changeOrderExpiration:self.ticket.previewRequest.orderExpiration];
 
-    [companyNib populateBrokerButtonTitle: globalTicket.currentSession.broker];
+    [companyNib populateBrokerButtonTitle: self.ticket.currentSession.broker];
 }
 
 -(void) populateSymbolDetails {
-    [companyNib populateDetailsWithQuote:globalTicket.quote];
-    [companyNib populateBrokerButtonTitle: globalTicket.currentSession.broker];
+    [companyNib populateDetailsWithQuote:self.ticket.quote];
+    [companyNib populateBrokerButtonTitle: self.ticket.currentSession.broker];
 
-    if ([globalTicket.previewRequest.orderAction isEqualToString: @"buy"]) {
+    if ([self.ticket.previewRequest.orderAction isEqualToString: @"buy"]) {
         [companyNib populateSymbolDetail:self.currentPortfolioAccount.balance.buyingPower andSharesOwned:nil];
     } else {
 
         NSNumber * sharesOwned = @0;
 
         for (TTSDKPosition * position in self.currentPortfolioAccount.positions) {
-            if ([position.symbol isEqualToString:globalTicket.quote.symbol]) {
+            if ([position.symbol isEqualToString:self.ticket.quote.symbol]) {
                 sharesOwned = position.quantity;
             }
         }
@@ -290,22 +258,36 @@
     [self checkIfReadyToTrade];
 }
 
+-(void) initKeypad {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * keypadArray = [resourceBundle loadNibNamed:@"TTSDKcalc" owner:self options:nil];
 
+    keypad = [keypadArray firstObject];
+    [keypadContainer addSubview: keypad];
+    keypad.container = keypadContainer;
 
-#pragma mark - Delegate Methods
-
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-
-    if ([utils isSmallScreen]) {
-        [self showKeypad];
+    NSArray * subviews = keypad.subviews;
+    for (int i = 0; i < [subviews count]; i++) {
+        if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
+            UIButton *button = [subviews objectAtIndex:i];
+            [button addTarget:self action:@selector(keypadPressed:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
+}
+
+
+#pragma mark Delegate Methods
+
+-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    [keypad show];
 
     if (textField == sharesInput) {
         [self styleBorderedFocusInput: sharesInput];
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"shares";
-        [self hideKeypadDecimal];
+        [keypad hideDecimal];
     }
 
     if (textField == limitPriceInput) {
@@ -313,7 +295,7 @@
         [self styleBorderedFocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"limit";
-        [self showKeypadDecimal];
+        [keypad showDecimal];
     }
 
     if (textField == stopPriceInput) {
@@ -321,15 +303,26 @@
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedFocusInput: stopPriceInput];
         currentFocus = @"stop";
-        [self showKeypadDecimal];
+        [keypad showDecimal];
     }
 
-    return NO;
+    return YES;
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    if ([self.utils isSmallScreen]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
 }
 
 
-
-#pragma mark - Custom UI
+#pragma mark Custom UI
 
 -(void) applyBorder: (UIView *) item {
     item.layer.borderColor = self.styles.inactiveColor.CGColor;
@@ -375,93 +368,14 @@
     keypadContainer.layer.shadowOpacity = 0.5f;
     keypadContainer.layer.shadowPath = shadowPath.CGPath;
     keypadContainer.layer.zPosition = 100;
-
-    [self hideKeypad];
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if ([utils isSmallScreen]) {
-        [self hideKeypad];
-    }
+    [keypad hide];
 }
 
 
-
-#pragma mark - Keypad
-
--(BOOL) isKeypadVisible {
-    if (keypadContainer.layer.opacity < 1) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
--(void) showKeypadDecimal {
-    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
-        if ([subview isKindOfClass:UIButton.class]) {
-            UIButton * button = (UIButton *)subview;
-
-            if (button.tag == 10) {
-                button.hidden = NO;
-                button.userInteractionEnabled = YES;
-            }
-        }
-    }
-}
-
--(void) hideKeypadDecimal {
-    for (UIView *subview in [keypadContainer.subviews firstObject].subviews) {
-        if ([subview isKindOfClass:UIButton.class]) {
-            UIButton * button = (UIButton *)subview;
-            
-            if (button.tag == 10) {
-                button.hidden = YES;
-                button.userInteractionEnabled = NO;
-            }
-        }
-    }
-}
-
--(void) showKeypad {
-    if ([self isKeypadVisible] || ![utils isSmallScreen]) {
-        return;
-    }
-
-    CATransform3D currentTransform = keypadContainer.layer.transform;
-    [UIView animateWithDuration:0.5f delay:0.0 options:UIViewAnimationOptionTransitionNone
-                     animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, -250.0f, 0.0f));
-                         keypadContainer.layer.opacity = 1.0f;
-                     }
-                     completion:^(BOOL finished) {
-                     }
-     ];
-}
-
--(void) hideKeypad {
-    if (![self isKeypadVisible] || ![utils isSmallScreen]) {
-        return;
-    }
-
-    CATransform3D currentTransform = keypadContainer.layer.transform;
-    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
-                     animations:^{
-                         keypadContainer.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeTranslation(0.0f, 250.0f, 1.0f));
-                         keypadContainer.layer.opacity = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                     }
-     ];
-}
-
-
-
-#pragma mark - Account
-
-
-
-#pragma mark - Order
+#pragma mark Order
 
 -(void) checkIfReadyToTrade {
     [self updateEstimatedCost];
@@ -470,18 +384,18 @@
 
     NSInteger shares = [sharesInput.text integerValue];
 
-    double limitPrice = [globalTicket.previewRequest.orderLimitPrice doubleValue];
-    double stopPrice = [globalTicket.previewRequest.orderStopPrice doubleValue];
+    double limitPrice = [self.ticket.previewRequest.orderLimitPrice doubleValue];
+    double stopPrice = [self.ticket.previewRequest.orderStopPrice doubleValue];
 
     if(shares < 1) {
         readyNow = NO;
-    } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
+    } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
         if(limitPrice > 0 && stopPrice > 0) {
             readyNow = YES;
         }
-    } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"market"]) {
+    } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"market"]) {
         readyNow = YES;
-    } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
+    } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
         if(stopPrice > 0) {
             readyNow = YES;
         }
@@ -491,11 +405,11 @@
         }
     }
 
-    if (!globalTicket.currentSession.isAuthenticated || !globalTicket.currentAccount) {
+    if (!self.ticket.currentSession.isAuthenticated || !self.ticket.currentAccount) {
         readyNow = NO;
     }
     
-    if (!globalTicket.previewRequest.orderSymbol || [globalTicket.previewRequest.orderSymbol isEqualToString:@""]) {
+    if (!self.ticket.previewRequest.orderSymbol || [self.ticket.previewRequest.orderSymbol isEqualToString:@""]) {
         readyNow = NO;
     }
 
@@ -509,14 +423,14 @@
 }
 
 -(void) updateEstimatedCost {
-    NSInteger shares = [globalTicket.previewRequest.orderQuantity integerValue];
+    NSInteger shares = [self.ticket.previewRequest.orderQuantity integerValue];
 
-    double price = [globalTicket.quote.lastPrice doubleValue];
+    double price = [self.ticket.quote.lastPrice doubleValue];
 
-    if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
-        price = [globalTicket.previewRequest.orderStopPrice doubleValue];
-    } else if([globalTicket.previewRequest.orderPriceType containsString:@"imit"]) {
-        price = [globalTicket.previewRequest.orderLimitPrice doubleValue];
+    if([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]){
+        price = [self.ticket.previewRequest.orderStopPrice doubleValue];
+    } else if([self.ticket.previewRequest.orderPriceType containsString:@"imit"]) {
+        price = [self.ticket.previewRequest.orderLimitPrice doubleValue];
     }
 
     double estimatedCost = shares * price;
@@ -526,8 +440,8 @@
     [formatter setLocale: US];
 
     NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
-    NSString * equalitySign = [globalTicket.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
-    NSString * actionPostfix = ([globalTicket.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
+    NSString * equalitySign = [self.ticket.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
+    NSString * actionPostfix = ([self.ticket.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
     NSString * formattedString = [NSString stringWithFormat:@"Est. %@ %@ %@", actionPostfix, equalitySign, formattedNumber];
 
     NSMutableAttributedString * attString = [[NSMutableAttributedString alloc] initWithString:formattedString];
@@ -544,14 +458,14 @@
     NSString * newQuantityString;
     NSString * appendedString;
 
-    if (!globalTicket.previewRequest.orderQuantity) {
+    if (!self.ticket.previewRequest.orderQuantity) {
         if (key == 11) { // backspace
             appendedString = @"";
         } else {
             appendedString = [NSString stringWithFormat:@"%ld", (long)key];
         }
     } else {
-        currentQuantityString = [NSString stringWithFormat:@"%i", [globalTicket.previewRequest.orderQuantity intValue]];
+        currentQuantityString = [NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]];
         newQuantityString = [NSString stringWithFormat:@"%ld", (long)key];
         if (key == 11) { // backspace
             appendedString = [currentQuantityString substringToIndex:[currentQuantityString length] - 1];
@@ -563,8 +477,8 @@
         }
     }
     
-    globalTicket.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
-    sharesInput.text = [utils formatIntegerToReadablePrice:appendedString];
+    self.ticket.previewRequest.orderQuantity = [NSNumber numberWithInt:[appendedString intValue]];
+    sharesInput.text = [self.utils formatIntegerToReadablePrice:appendedString];
 }
 
 -(void) changeOrderLimitPrice:(NSInteger)key {
@@ -584,7 +498,7 @@
         newLimitString = [NSString stringWithFormat:@"%@%li", currentLimitPrice, (long)key];
     }
     
-    globalTicket.previewRequest.orderLimitPrice = [NSNumber numberWithFloat:[newLimitString floatValue]];
+    self.ticket.previewRequest.orderLimitPrice = [NSNumber numberWithFloat:[newLimitString floatValue]];
     limitPriceInput.text = newLimitString;
 }
 
@@ -605,24 +519,24 @@
         newStopString = [NSString stringWithFormat:@"%@%li", currentStopPrice, (long)key];
     }
     
-    globalTicket.previewRequest.orderStopPrice = [NSNumber numberWithFloat:[newStopString floatValue]];
+    self.ticket.previewRequest.orderStopPrice = [NSNumber numberWithFloat:[newStopString floatValue]];
     stopPriceInput.text = newStopString;
 }
 
 -(void) changeOrderSymbol:(NSString *)symbol {
-    globalTicket.previewRequest.orderSymbol = symbol;
+    self.ticket.previewRequest.orderSymbol = symbol;
     [self populateSymbolDetails];
 }
 
 -(void) changeOrderAction: (NSString *) action {
-    [orderActionButton setTitle:[utils splitCamelCase:action] forState:UIControlStateNormal];
-    globalTicket.previewRequest.orderAction = action;
+    [orderActionButton setTitle:[self.utils splitCamelCase:action] forState:UIControlStateNormal];
+    self.ticket.previewRequest.orderAction = action;
     [self populateSymbolDetails];
 }
 
 -(void) changeOrderExpiration: (NSString *) exp {
-    if([globalTicket.previewRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
-        globalTicket.previewRequest.orderExpiration = @"day";
+    if([self.ticket.previewRequest.orderPriceType isEqualToString:@"market"] && [exp isEqualToString:@"gtc"]) {
+        self.ticket.previewRequest.orderExpiration = @"day";
 
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Expiration" withMessage:@"Market orders are Good For The Day only."];
@@ -647,15 +561,16 @@
 
     if([exp isEqualToString:@"gtc"]) {
         [orderExpirationButton setTitle:@"Good Until Canceled" forState:UIControlStateNormal];
-        globalTicket.previewRequest.orderExpiration = @"gtc";
+        self.ticket.previewRequest.orderExpiration = @"gtc";
     } else {
         [orderExpirationButton setTitle:@"Good For The Day" forState:UIControlStateNormal];
-        globalTicket.previewRequest.orderExpiration = @"day";
+        self.ticket.previewRequest.orderExpiration = @"day";
     }
 }
 
 -(void) changeOrderType: (NSString *) type {
-    [orderTypeButton setTitle:[utils splitCamelCase:type] forState:UIControlStateNormal];
+    self.ticket.previewRequest.orderPriceType = type;
+    [orderTypeButton setTitle:[self.utils splitCamelCase:type] forState:UIControlStateNormal];
 
     if([type isEqualToString:@"limit"]){
         [self setToLimitOrder];
@@ -671,7 +586,7 @@
 }
 
 -(void) setToMarketOrder {
-    globalTicket.previewRequest.orderPriceType = @"market";
+    self.ticket.previewRequest.orderPriceType = @"market";
 
     [self changeOrderExpiration:@"day"];
     [self hideExpiration];
@@ -733,20 +648,25 @@
 }
 
 
+#pragma mark Events
 
-#pragma mark - Events
-
-- (IBAction)symbolPressed:(id)sender {
+-(IBAction) symbolPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
 }
                                           
-- (IBAction)refreshPressed:(id)sender {
+-(IBAction) refreshPressed:(id)sender {
     [self.view endEditing:YES];
 
-    // TODO - implement this
+    if (self.ticket.quote.symbol) {
+        self.ticket.quote.lastPrice = nil;
+        self.ticket.quote.bidPrice = nil;
+        self.ticket.quote.askPrice = nil;
+        [self populateSymbolDetails];
+        [self retrieveQuoteData];
+    }
 }
 
-- (IBAction)keypadPressed:(id)sender {
+-(IBAction) keypadPressed:(id)sender {
     UIButton * button = (UIButton *)sender;
     NSInteger key = button.tag;
 
@@ -765,183 +685,74 @@
     [self checkIfReadyToTrade];
 }
 
-
-
-- (IBAction)orderActionPressed:(id)sender {
+-(IBAction) orderActionPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self showOldOrderAction];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Action"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-
-    alert.view.tintColor = self.styles.activeColor;
-
-    UIAlertAction * buyAction = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"buy"]; }];
-    UIAlertAction * sellAction = [UIAlertAction actionWithTitle:@"Sell" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"sell"]; }];
-    UIAlertAction * sellShortAction = [UIAlertAction actionWithTitle:@"Sell Short" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"sellShort"]; }];
-    UIAlertAction * buyToCoverAction = [UIAlertAction actionWithTitle:@"Buy to Cover" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) { [self changeOrderAction:@"buyToCover"]; }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:buyAction];
-    [alert addAction:sellAction];
-    [alert addAction:sellShortAction];
-    [alert addAction:buyToCoverAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
-
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    NSArray * options = @[
+                          @{@"Buy": @"buy"},
+                          @{@"Sell": @"sell"},
+                          @{@"Buy to Cover": @"buyToCover"},
+                          @{@"Sell Short": @"sellShort"}
+                          ];
+    
+    [self showPicker:@"Order Action" withSelection:self.ticket.previewRequest.orderAction andOptions:options onSelection:^(void) {
+        [self changeOrderAction: self.currentSelection];
+    }];
 }
 
-- (IBAction)orderTypePressed:(id)sender {
+-(IBAction) orderTypePressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self performSegueWithIdentifier:@"TradeToOrderTypeSelection" sender:self];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Type"
-                                                                    message:nil
-                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-    alert.view.tintColor = self.styles.activeColor;
-
-    UIAlertAction * marketAction = [UIAlertAction actionWithTitle:@"Market" style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * action) {
-                                                           globalTicket.previewRequest.orderPriceType = @"market";
-                                                           [self changeOrderType: @"market"];
-                                                       }];
-    UIAlertAction * limitAction = [UIAlertAction actionWithTitle:@"Limit" style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) {
-                                                            globalTicket.previewRequest.orderPriceType = @"limit";
-                                                            [self changeOrderType: @"limit"];
-                                                        }];
-    UIAlertAction * stopMarketAction = [UIAlertAction actionWithTitle:@"Stop Market" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                                 globalTicket.previewRequest.orderPriceType = @"stopMarket";
-                                                                 [self changeOrderType: @"stopMarket"];
-                                                             }];
-    UIAlertAction * stopLimitAction = [UIAlertAction actionWithTitle:@"Stop Limit" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  globalTicket.previewRequest.orderPriceType = @"stopLimit";
-                                                                  [self changeOrderType: @"stopLimit"];
-                                                              }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:marketAction];
-    [alert addAction:limitAction];
-    [alert addAction:stopMarketAction];
-    [alert addAction:stopLimitAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
+    NSArray * options = @[
+                          @{@"Market": @"market"},
+                          @{@"Limit": @"limit"},
+                          @{@"Stop Market": @"stopMarket"},
+                          @{@"Stop Limit": @"stopLimit"}
+                          ];
     
-    
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+    [self showPicker:@"Order Type" withSelection:self.ticket.previewRequest.orderPriceType andOptions:options onSelection:^(void){
+        [self changeOrderType: self.currentSelection];
+    }];
 }
 
--(IBAction)brokerLinkPressed:(id)sender {
+-(IBAction) brokerLinkPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToAccountSelect" sender:self];
 }
 
-- (IBAction)orderExpirationPressed:(id)sender {
+-(IBAction) orderExpirationPressed:(id)sender {
     [self.view endEditing:YES];
 
-    if(![UIAlertController class]) {
-        [self showOldOrderExp];
-        return;
-    }
-
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Order Expiration"
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-
-    alert.modalPresentationStyle = UIModalPresentationPopover;
-
-    UIAlertAction * dayAction = [UIAlertAction actionWithTitle:@"Good For The Day" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"day"]; }];
-    UIAlertAction * gtcAction = [UIAlertAction actionWithTitle:@"Good Until Canceled" style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * action) { [self changeOrderExpiration:@"gtc"]; }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {}];
-
-    [alert addAction:dayAction];
-    [alert addAction:gtcAction];
-    [alert addAction:cancelAction];
-
-    [self presentViewController:alert animated:YES completion:nil];
-
-    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-    alertPresentationController.sourceView = self.view;
-    alertPresentationController.permittedArrowDirections = 0;
-    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-}
-
--(void) showOldOrderType {
-    self.pickerTitles = @[@"Market",@"Limit",@"Stop Market",@"Stop Limit"];
-    self.pickerValues = @[@"market",@"limit",@"stopMarket",@"stopLimit"];
-    NSString * currentSelection = globalTicket.previewRequest.orderPriceType;
-
-    TTSDKCustomIOSAlertView * alert = [[TTSDKCustomIOSAlertView alloc]init];
-    [alert setContainerView:[self createPickerView:@"Order Action"]];
-    [alert setButtonTitles:[NSMutableArray arrayWithObjects:@"CANCEL",@"SELECT",nil]];
+    NSArray * options = @[
+                          @{@"Good For The Day": @"day"},
+                          @{@"Good Until Canceled": @"gtc"}
+                          ];
     
-    [alert setOnButtonTouchUpInside:^(TTSDKCustomIOSAlertView *alertView, int buttonIndex) {
-        if(buttonIndex == 1) {
-            [self changeOrderType: currentSelection];
-        }
+    [self showPicker:@"Order Expiration" withSelection:self.ticket.previewRequest.orderExpiration andOptions:options onSelection:^(void) {
+        [self changeOrderExpiration: self.currentSelection];
     }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-
-        if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]){
-            [self.currentPicker selectRow:3 inComponent:0 animated:NO];
-        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
-            [self.currentPicker selectRow:2 inComponent:0 animated:NO];
-        } else if([globalTicket.previewRequest.orderPriceType isEqualToString:@"limit"]) {
-            [self.currentPicker selectRow:1 inComponent:0 animated:NO];
-        }
-    });
 }
 
-- (IBAction)previewOrderPressed:(id)sender {
+-(IBAction) previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
 
     if(readyToTrade) {
         [previewOrderButton enterLoadingState];
-        [self sendPreviewRequest];
+        [self sendPreviewRequestWithCompletionBlock:^(TradeItResult* res) {
+            [previewOrderButton exitLoadingState];
+            [previewOrderButton activate];
+        }];
     }
 }
 
-- (IBAction)cancelPressed:(id)sender {
-    [globalTicket returnToParentApp];
+-(IBAction) cancelPressed:(id)sender {
+    [self.ticket returnToParentApp];
 }
 
-- (IBAction)portfolioLinkPressed:(id)sender {
+-(IBAction) portfolioLinkPressed:(id)sender {
     [self performSegueWithIdentifier:@"OrderToPortfolio" sender:self];
 }
 
-- (IBAction)editAccountsPressed:(id)sender {
+-(IBAction) editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
 }
 
@@ -950,18 +761,14 @@
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"TradeToLogin"]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
-        [globalTicket removeBrokerSelectFromNav: dest];
+        [self.ticket removeBrokerSelectFromNav: dest];
     }
-
-    defaultEditingCheckComplete = NO;
 }
-
 
 
 @end

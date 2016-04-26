@@ -17,6 +17,7 @@
 
 @implementation TTSDKHoldingsHeaderView
 
+
 -(void) awakeFromNib {
     TradeItStyles * styles = [TradeItStyles sharedStyles];
     self.backgroundColor = styles.pageBackgroundColor;
@@ -24,5 +25,6 @@
         self.header.backgroundColor = styles.navigationBarBackgroundColor;
     }
 }
+
 
 @end

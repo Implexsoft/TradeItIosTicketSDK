@@ -8,41 +8,22 @@
 
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
-#import "TTSDKTradeItTicket.h"
 #import "TTSDKLabel.h"
+
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
-    TTSDKTradeItTicket * globalTicket;
 }
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static NSString * kCellIdentifier = @"BrokerCell";
 static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
 
-
-#pragma mark - Rotation
-
-- (BOOL)shouldAutorotate {
-    return NO;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -50,8 +31,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     [self.tableView setContentInset: UIEdgeInsetsZero];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-    brokers = globalTicket.brokerList;
+    brokers = self.ticket.brokerList;
 
     if([brokers count] < 1){
         [self showLoadingAndWait];
@@ -74,18 +54,17 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 
+#pragma mark Table Delegate Methods
 
-#pragma mark - Table Delegate Methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [brokers count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
     
     TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
@@ -95,22 +74,21 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 
-
-#pragma mark - Custom UI
+#pragma mark Custom UI
 
 -(void) showLoadingAndWait {
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while([globalTicket.brokerList count] < 1 && cycles < 10) {
+        while([self.ticket.brokerList count] < 1 && cycles < 10) {
             sleep(1);
             cycles++;
         }
 
-        if([globalTicket.brokerList count] < 1) {
+        if([self.ticket.brokerList count] < 1) {
             if(![UIAlertController class]) {
-                [self showOldErrorAlert];
+                [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
                 return;
             }
 
@@ -120,7 +98,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
             alert.modalPresentationStyle = UIModalPresentationPopover;
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
-                                                                       [globalTicket returnToParentApp];
+                                                                       [self.ticket returnToParentApp];
                                                                    }];
             [alert addAction:defaultAction];
 
@@ -136,7 +114,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                brokers = globalTicket.brokerList;
+                brokers = self.ticket.brokerList;
                 [self.tableView reloadData];
 
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
@@ -146,24 +124,23 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 
+#pragma mark Navigation
 
-#pragma mark - Navigation
-
-- (IBAction)closePressed:(id)sender {
+-(IBAction) closePressed:(id)sender {
     if (self.isModal) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
 
-    if(globalTicket.presentationMode == TradeItPresentationModeAuth && globalTicket.brokerSignUpCallback) {
+    if(self.ticket.presentationMode == TradeItPresentationModeAuth && self.ticket.brokerSignUpCallback) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = false;
         res.errorTitle = @"Cancelled";
 
-        globalTicket.brokerSignUpCallback(res);
+        self.ticket.brokerSignUpCallback(res);
     }
 
-    [globalTicket returnToParentApp];
+    [self.ticket returnToParentApp];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -176,55 +153,12 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     }
 }
 
-//placeholder action used in storyboard segue to unwind
-- (IBAction)unwindToBrokerSelect:(UIStoryboardSegue *)unwindSegue {
-    
-}
 
-
-
-#pragma mark - iOS7 fallback
-
--(void) showOldErrorAlert {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:@"An Error Has Occurred" message:@"TradeIt is temporarily unavailable. Please try again in a few minutes." delegate: self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
-}
+#pragma mark iOS7 fallbacks
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [globalTicket returnToParentApp];
+    [self.ticket returnToParentApp];
 }
-
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

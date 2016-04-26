@@ -19,16 +19,14 @@
 @implementation TTSDKBrokerSelectTableViewCell
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static float kDisclosureWidth = 7.0f;
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)awakeFromNib {
+-(void) awakeFromNib {
     if (self) {
         styles = [TradeItStyles sharedStyles];
 
@@ -36,7 +34,7 @@ static float kDisclosureWidth = 7.0f;
 
         self.backgroundColor = styles.pageBackgroundColor;
 
-        UIImage * disclosureImage = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/nativeArrow.png"];
+        UIImage * disclosureImage = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/native_arrow.png"];
         disclosureImage = [disclosureImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
         customDisclosureView = [[UIImageView alloc] initWithImage:disclosureImage];
@@ -46,18 +44,18 @@ static float kDisclosureWidth = 7.0f;
     }
 }
 
-- (UIEdgeInsets)layoutMargins {
+-(UIEdgeInsets) layoutMargins {
     return UIEdgeInsetsZero;
 }
 
-- (void)layoutSubviews {
+-(void) layoutSubviews {
     [super layoutSubviews];
 
     self.textLabel.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - (kDisclosureWidth * 2), 0, kDisclosureWidth, self.contentView.frame.size.height);
 }
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+-(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     if (highlighted) {
         self.textLabel.textColor = styles.primaryTextHighlightColor;
     } else {
@@ -65,7 +63,7 @@ static float kDisclosureWidth = 7.0f;
     }
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+-(void) setSelected:(BOOL)selected animated:(BOOL)animated {
     if (selected) {
         self.textLabel.textColor = styles.primaryTextHighlightColor;
     } else {
@@ -73,7 +71,7 @@ static float kDisclosureWidth = 7.0f;
     }
 }
 
-- (void)setFrame:(CGRect)frame {
+-(void) setFrame:(CGRect)frame {
     int inset = 20;
     frame.origin.x += inset;
     frame.size.width -= inset * 2;
@@ -82,13 +80,11 @@ static float kDisclosureWidth = 7.0f;
 }
 
 
+#pragma mark Configuration
 
-#pragma mark - Configuration
-
-- (void)configureCellWithText:(NSString *)text {
+-(void) configureCellWithText:(NSString *)text {
     self.textLabel.text = text;
 }
-
 
 
 @end

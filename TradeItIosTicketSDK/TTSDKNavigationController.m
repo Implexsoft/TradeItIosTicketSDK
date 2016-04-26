@@ -7,44 +7,40 @@
 //
 
 #import "TTSDKNavigationController.h"
+#import "TradeItStyles.h"
 
-@interface TTSDKNavigationController ()
-
-@end
 
 @implementation TTSDKNavigationController
 
 
+#pragma mark Rotation
 
-#pragma mark - Rotation
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return [self.topViewController supportedInterfaceOrientations];
 }
 
-- (BOOL)shouldAutorotate
-{
+-(BOOL) shouldAutorotate {
     return [self.topViewController shouldAutorotate];
 }
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
     
     [self setViewStyles];
 }
 
 -(void) setViewStyles {
-    self.styles = [TradeItStyles sharedStyles];
-
-    self.view.backgroundColor = self.styles.pageBackgroundColor;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];
-    self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
-    self.navigationController.navigationBar.tintColor = self.styles.activeColor;
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
+    self.view.backgroundColor = styles.pageBackgroundColor;
+    if (styles.navigationBarTitleColor) {
+        [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : styles.navigationBarTitleColor}];
+    }
+    self.navigationController.navigationBar.barTintColor = styles.navigationBarBackgroundColor;
+    self.navigationController.navigationBar.tintColor = styles.activeColor;
+    [[UIBarButtonItem appearanceWhenContainedIn:TTSDKNavigationController.class, nil] setTintColor: styles.activeColor];
 }
 
 @end

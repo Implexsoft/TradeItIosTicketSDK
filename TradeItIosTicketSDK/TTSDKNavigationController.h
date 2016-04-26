@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItStyles.h"
 
 @interface TTSDKNavigationController : UINavigationController
-
-@property TradeItStyles * styles;
 
 @end

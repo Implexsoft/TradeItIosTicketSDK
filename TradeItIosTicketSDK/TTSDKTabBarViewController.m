@@ -11,25 +11,25 @@
 
 @implementation TTSDKTabBarViewController
 
-#pragma mark - Rotation
 
-- (BOOL)shouldAutorotate {
+#pragma mark Rotation
+
+-(BOOL) shouldAutorotate {
     return NO;
 }
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
+#pragma mark Initialization
 
-#pragma mark - Initialization
-
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     TradeItStyles * styles = [TradeItStyles sharedStyles];
@@ -40,7 +40,6 @@
     [[UITabBar appearanceWhenContainedIn:self.class, nil] setTintColor: styles.tabBarItemColor];
     [[UITabBar appearanceWhenContainedIn:self.class, nil] setBarTintColor: styles.tabBarBackgroundColor];
 }
-
 
 
 @end

@@ -12,13 +12,14 @@
 
 @interface TTSDKPosition : TradeItPosition
 
+
 @property NSNumber * change;
 @property NSNumber * changePct;
 @property NSString * companyName;
 @property NSNumber * totalValue;
-
 @property TradeItQuote * quote;
 
 -(id) initWithPosition:(TradeItPosition *)position;
+
 
 @end

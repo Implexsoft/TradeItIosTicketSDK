@@ -14,6 +14,7 @@
 
 @implementation TTSDKPosition
 
+
 -(id) initWithPosition:(TradeItPosition *)position {
     if (self = [super init]) {
         self.symbol = position.symbol;
@@ -29,7 +30,6 @@
     }
     return self;
 }
-
 
 
 @end

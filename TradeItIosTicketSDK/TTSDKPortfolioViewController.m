@@ -7,8 +7,6 @@
 //
 
 #import "TTSDKPortfolioViewController.h"
-#import "TTSDKTradeItTicket.h"
-#import "TTSDKUtils.h"
 #import "TTSDKPortfolioService.h"
 #import "TradeItAuthenticationResult.h"
 #import "TTSDKAccountsHeaderView.h"
@@ -18,17 +16,16 @@
 #import "TTSDKBrokerSelectViewController.h"
 
 @interface TTSDKPortfolioViewController () {
-    TTSDKTradeItTicket * globalTicket;
-    TTSDKUtils * utils;
     TTSDKPortfolioService * portfolioService;
     NSArray * accountsHolder;
     NSArray * positionsHolder;
+    BOOL initialAuthenticationComplete;
+    BOOL initialSummaryComplete;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *accountsTable;
 @property NSInteger selectedHoldingIndex;
 @property NSInteger selectedAccountIndex;
-@property UIView * loadingView;
 @property TTSDKAccountsHeaderView * accountsHeaderNib;
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
 @property NSString * holdingsHeaderTitle;
@@ -39,8 +36,7 @@
 @implementation TTSDKPortfolioViewController
 
 
-
-#pragma mark - Constants
+#pragma mark Constants
 
 static float kAccountsHeaderHeight = 165.0f;
 static float kHoldingsHeaderHeight = 75.0f;
@@ -49,93 +45,43 @@ static float kHoldingCellExpandedHeight = 132.0f;
 static float kAccountCellHeight = 44.0f;
 
 
-
-#pragma mark - Orientation
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [UIView setAnimationsEnabled:NO];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [UIView setAnimationsEnabled:YES];
-}
-
-
-
-#pragma mark - Initialization
+#pragma mark Initialization
 
 -(void) viewDidLoad {
     [super viewDidLoad];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
-    utils = [TTSDKUtils sharedUtils];
-    globalTicket = [TTSDKTradeItTicket globalTicket];
-
     accountsHolder = [[NSArray alloc] init];
     positionsHolder = [[NSArray alloc] init];
 
     self.holdingsHeaderTitle = @"My Holdings";
-
-    if (!self.loadingView) {
-        self.loadingView = [utils retrieveLoadingOverlayForView:self.view];
-        [self.view addSubview:self.loadingView];
-    }
-    self.loadingView.hidden = NO;
     self.selectedHoldingIndex = -1;
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    portfolioService = nil;
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: globalTicket.linkedAccounts];
+    if (self.ticket.clearPortfolioCache || !portfolioService || (self.ticket.linkedAccounts.count != portfolioService.accounts.count)) {
+        portfolioService = nil;
+        portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
+        self.ticket.clearPortfolioCache = NO;
+    }
 
-    if (!globalTicket.currentSession.isAuthenticated) {
-        [globalTicket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [self showLoadingAndWait];
+
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            initialAuthenticationComplete = YES;
             if ([res.status isEqualToString: @"SUCCESS"]) {
                 [self loadPortfolioData];
             } else {
-                self.loadingView.hidden = YES;
-
+                initialSummaryComplete = YES;
                 if ([res isKindOfClass:TradeItErrorResult.class]) {
                     TradeItErrorResult * error = (TradeItErrorResult *)res;
-                    
-                    NSMutableString * errorMessage = [[NSMutableString alloc] init];
-                    
-                    for (NSString * str in error.longMessages) {
-                        [errorMessage appendString:str];
-                    }
 
-                    if(![UIAlertController class]) {
-                        [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
-                    } else {
-
-                        UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
-                                                                                        message:errorMessage
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
-
-                        alert.modalPresentationStyle = UIModalPresentationPopover;
-                        
-                        UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
-                                                                               handler:^(UIAlertAction * action) {
-                                                                                   [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
-                                                                               }];
-                        
-                        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                            // do nothing
-                        }];
-                        
-                        [alert addAction:defaultAction];
-                        [alert addAction:cancelAction];
-                        
-                        [self presentViewController:alert animated:YES completion:nil];
-                        
-                        UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-                        alertPresentationController.sourceView = self.view;
-                        alertPresentationController.permittedArrowDirections = 0;
-                        alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-                    }
+                    [self showErrorAlert:error onAccept:^(void){
+                        [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
+                    }];
                 } else {
                     [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
                 }
@@ -146,7 +92,7 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(void)loadPortfolioData {
+-(void) loadPortfolioData {
     [portfolioService retrieveInitialSelectedAccount];
 
     self.selectedAccountIndex = [portfolioService.accounts indexOfObject:portfolioService.selectedAccount];
@@ -154,7 +100,7 @@ static float kAccountCellHeight = 44.0f;
     self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle];
 
     [portfolioService getSummaryForAccounts:^(void) {
-        self.loadingView.hidden = YES;
+        initialSummaryComplete = YES;
 
         accountsHolder = portfolioService.accounts;
         positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
@@ -163,7 +109,56 @@ static float kAccountCellHeight = 44.0f;
     }];
 }
 
--(NSNumber *)retrieveTotalPortfolioValue {
+-(void) showLoadingAndWait {
+    TTSDKMBProgressHUD * hud = [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Authenticating";
+
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        int cycles = 0;
+
+        while((!initialAuthenticationComplete || !initialSummaryComplete) && cycles < 40) {
+            if (initialAuthenticationComplete) {
+                hud.labelText = @"Retrieving Account Summary";
+            }
+            [NSThread sleepForTimeInterval:0.25f];
+            cycles++;
+        }
+
+        if(!initialAuthenticationComplete || !initialSummaryComplete) {
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
+                return;
+            }
+            
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            alert.modalPresentationStyle = UIModalPresentationPopover;
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [self.ticket returnToParentApp];
+                                                                   }];
+            [alert addAction:defaultAction];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+                [self presentViewController:alert animated:YES completion:nil];
+
+                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                alertPresentationController.sourceView = self.view;
+                alertPresentationController.permittedArrowDirections = 0;
+                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }
+    });
+}
+
+-(NSNumber *) retrieveTotalPortfolioValue {
     float totalPortfolioValue = 0.0f;
 
     for (TTSDKPortfolioAccount * portfolioAccount in accountsHolder) {
@@ -174,8 +169,7 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
-
-#pragma mark - Table Delegate Methods
+#pragma mark Table Delegate Methods
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -250,11 +244,11 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(IBAction)addAccountPressed:(id)sender {
+-(IBAction) addAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToLogin" sender:self];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return kAccountsHeaderHeight;
     } else {
@@ -372,7 +366,7 @@ static float kAccountCellHeight = 44.0f;
     }];
 }
 
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class) {
         if (indexPath.section == 0) {
             return NO;
@@ -386,7 +380,7 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class && indexPath.section == 1) {
 
         UITableViewRowAction *buyAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"BUY" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
@@ -410,11 +404,11 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     // nothing to do, but must be implemented
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return kAccountCellHeight;
     } else {
@@ -427,19 +421,18 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
+#pragma mark Custom Delegate Methods
 
-#pragma mark - Custom Delegate Methods
-
--(void)didSelectBuy:(TTSDKPosition *)position {
-    globalTicket.previewRequest.orderAction = @"buy";
+-(void) didSelectBuy:(TTSDKPosition *)position {
+    self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];
 }
 
--(void)didSelectSell:(TTSDKPosition *)position {
-    globalTicket.previewRequest.orderAction = @"sell";
+-(void) didSelectSell:(TTSDKPosition *)position {
+    self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
     
 
@@ -451,13 +444,13 @@ static float kAccountCellHeight = 44.0f;
     TradeItQuote * quote = [[TradeItQuote alloc] init];
     quote.symbol = position.symbol;
     quote.companyName = position.companyName;
-    globalTicket.quote = quote;
-    globalTicket.previewRequest.orderSymbol = position.symbol;
+    self.ticket.quote = quote;
+    self.ticket.previewRequest.orderSymbol = position.symbol;
 }
 
 -(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
     NSDictionary * accountData = [account accountData];
-    TTSDKTicketSession * accountSession = [globalTicket retrieveSessionByAccount: accountData];
+    TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
 
     [accountSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res){
         [self loadPortfolioData];
@@ -465,10 +458,9 @@ static float kAccountCellHeight = 44.0f;
 }
 
 
+#pragma mark Custom UI
 
-#pragma mark - Custom UI
-
--(void)updateTableContentSize {
+-(void) updateTableContentSize {
     CGRect contentRect = CGRectZero;
 
     for (UIView * view in [[self.accountsTable.subviews firstObject] subviews]) {
@@ -478,28 +470,18 @@ static float kAccountCellHeight = 44.0f;
     [self.accountsTable setContentSize:contentRect.size];
 }
 
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
-    UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [alert show];
-    });
+
+#pragma mark Navigation
+
+-(IBAction) closePressed:(id)sender {
+    [self.ticket returnToParentApp];
 }
 
-
-
-#pragma mark - Navigation
-
-- (IBAction)closePressed:(id)sender {
-    [globalTicket returnToParentApp];
-}
-
-- (IBAction)editAccountsPressed:(id)sender {
+-(IBAction) editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
         UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
         
