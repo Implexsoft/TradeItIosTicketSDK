@@ -10,6 +10,7 @@
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKSuccessViewController.h"
 #import "TradeItPlaceTradeResult.h"
+#import "TTSDKSmallLabel.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -17,7 +18,9 @@
     __weak IBOutlet TTSDKPrimaryButton *submitOrderButton;
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIScrollView *scrollView;
-    
+
+    __weak IBOutlet TTSDKSmallLabel *accountNameLabel;
+
     //Field Views - needed to set the borders, sometimes collapse
     __weak IBOutlet UIView *quantityVV;
     __weak IBOutlet UIView *quantityVL;
@@ -108,6 +111,8 @@ static float kMessageSeparatorHeight = 30.0f;
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [formatter setLocale: US];
+
+    accountNameLabel.text = [self.ticket.currentAccount valueForKey: @"displayTitle"];
 
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
     [priceValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderPrice"]];
