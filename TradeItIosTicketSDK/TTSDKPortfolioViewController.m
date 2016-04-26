@@ -61,9 +61,10 @@ static float kAccountCellHeight = 44.0f;
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    if (!portfolioService || self.ticket.linkedAccounts.count != portfolioService.accounts.count) {
+    if (self.ticket.clearPortfolioCache || !portfolioService || (self.ticket.linkedAccounts.count != portfolioService.accounts.count)) {
         portfolioService = nil;
         portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
+        self.ticket.clearPortfolioCache = NO;
     }
 
     if (!self.ticket.currentSession.isAuthenticated) {

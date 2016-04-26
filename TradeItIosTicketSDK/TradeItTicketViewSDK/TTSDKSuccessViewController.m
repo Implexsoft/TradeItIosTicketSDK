@@ -28,6 +28,11 @@
 
     TradeItPlaceTradeResult * result = self.ticket.resultContainer.tradeResponse;
 
+    if (result) {
+        // tell the portfolio to reload data
+        self.ticket.clearPortfolioCache = YES;
+    }
+
     if (result.confirmationMessage) {
         [successMessage setText: result.confirmationMessage];
     }
