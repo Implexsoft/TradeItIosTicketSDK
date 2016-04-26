@@ -656,6 +656,14 @@
                                           
 -(IBAction) refreshPressed:(id)sender {
     [self.view endEditing:YES];
+
+    if (self.ticket.quote.symbol) {
+        self.ticket.quote.lastPrice = nil;
+        self.ticket.quote.bidPrice = nil;
+        self.ticket.quote.askPrice = nil;
+        [self populateSymbolDetails];
+        [self retrieveQuoteData];
+    }
 }
 
 -(IBAction) keypadPressed:(id)sender {
