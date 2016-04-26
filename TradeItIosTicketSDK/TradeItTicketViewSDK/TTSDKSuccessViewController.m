@@ -22,6 +22,9 @@
 
 
 #pragma mark Initialization
+- (IBAction)closeApp:(id)sender {
+    [self.ticket returnToParentApp];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

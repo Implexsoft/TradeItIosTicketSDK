@@ -569,7 +569,13 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Trade" id="PzJ-dQ-UiV"/>
+                    <navigationItem key="navigationItem" title="Trade" id="PzJ-dQ-UiV">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="bPX-8v-nIU">
+                            <connections>
+                                <action selector="closeApp:" destination="xhK-K9-cnI" id="lTh-Il-9tq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
