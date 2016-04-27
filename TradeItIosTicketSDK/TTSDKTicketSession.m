@@ -8,10 +8,12 @@
 
 #import "TTSDKTicketSession.h"
 #import "TradeItAuthenticationResult.h"
+
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPortfolioViewController.h"
+
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -26,7 +28,7 @@
 @implementation TTSDKTicketSession
 
 
-- (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
+-(id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
     self = [super initWithConnector:connector];
 
     if (self) {
@@ -35,6 +37,12 @@
     }
 
     return self;
+}
+
+-(void) getAdPlacement {
+
+
+
 }
 
 -(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {

@@ -9,6 +9,7 @@
 #import "TTSDKBaseTradeViewController.h"
 #import "TradeItTradeService.h"
 #import "TradeItMarketDataService.h"
+#import "TradeItPublisherService.h"
 #import "TradeItQuotesResult.h"
 
 

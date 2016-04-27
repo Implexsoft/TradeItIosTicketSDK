@@ -15,6 +15,7 @@
 #import "TradeItPositionService.h"
 #import "TradeItBalanceService.h"
 #import "TradeItAccountOverviewResult.h"
+//#import "TradeItPublisherService.h"
 
 @interface TTSDKTicketSession : TradeItSession <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -27,13 +28,13 @@
 @property TradeItPlaceTradeRequest * tradeRequest;
 @property TradeItGetPositionsRequest * positionsRequest;
 
-- (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker;
-- (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
+-(id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker;
+-(void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
 
-- (void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
-- (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
+-(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
+-(void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
 
-- (void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;
-- (void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock;
+-(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;
+-(void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock;
 
 @end
