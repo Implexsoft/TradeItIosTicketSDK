@@ -15,16 +15,17 @@
 #import "TradeItPositionService.h"
 #import "TradeItBalanceService.h"
 #import "TradeItAccountOverviewResult.h"
-//#import "TradeItPublisherService.h"
+#import "TradeItPublisherService.h"
 
 @interface TTSDKTicketSession : TradeItSession <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSArray * positions;
-@property TradeItLinkedLogin * login;
 @property NSString * broker;
+@property NSString * confirmationAdSrc;
+@property NSString * tradeAdSrc;
 @property BOOL isAuthenticated;
 @property BOOL needsManualAuthentication;
-
+@property TradeItLinkedLogin * login;
 @property TradeItPlaceTradeRequest * tradeRequest;
 @property TradeItGetPositionsRequest * positionsRequest;
 

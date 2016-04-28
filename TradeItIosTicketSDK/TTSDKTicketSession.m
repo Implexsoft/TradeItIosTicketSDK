@@ -34,15 +34,28 @@
     if (self) {
         self.login = linkedLogin;
         self.broker = broker;
+        [self getAdPlacements];
     }
 
     return self;
 }
 
--(void) getAdPlacement {
+-(void) getAdPlacements {
 
+    TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithSession: self];
 
+    TradeItAdsRequest * adRequest = [[TradeItAdsRequest alloc] initWithApiKey:self.connector.apiKey andBroker:self.broker];
 
+    [publisherService getAds:adRequest withCompletionBlock:^(TradeItResult * res){
+
+        if ([res isKindOfClass:TradeItAdsResult.class]) {
+            TradeItAdsResult * adResult = (TradeItAdsResult *)res;
+
+            self.tradeAdSrc = adResult.tradeSrc;
+            self.confirmationAdSrc = adResult.confirmationSrc;
+        }
+
+    }];
 }
 
 -(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {

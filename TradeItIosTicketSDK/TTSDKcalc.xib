@@ -80,7 +80,7 @@
                     </state>
                 </button>
                 <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backspace.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3J-1o-Ku8" customClass="TTSDKImageView">
-                    <rect key="frame" x="251" y="382" width="30" height="76"/>
+                    <rect key="frame" x="251" y="305" width="30" height="230"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="01Z-hz-mRs"/>
                     </constraints>
@@ -155,6 +155,6 @@
         </view>
     </objects>
     <resources>
-        <image name="backspace.png" width="101" height="76"/>
+        <image name="backspace.png" width="305" height="230"/>
     </resources>
 </document>

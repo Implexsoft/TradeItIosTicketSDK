@@ -34,6 +34,9 @@
     __weak IBOutlet UIButton * orderExpirationButton;
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
     __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
+    __weak IBOutlet UIWebView *ad;
+    __weak IBOutlet NSLayoutConstraint *adHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *orderHeightConstraint;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
@@ -47,6 +50,8 @@
     BOOL uiConfigured;
 
     NSString * currentFocus;
+
+    NSTimer * adTimer;
 }
 
 @end
@@ -94,7 +99,35 @@
         [self configureUIForSmallScreens];
     }
 
+    adTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(checkLoad) userInfo:nil repeats:YES];
+
     [self.view setNeedsDisplay];
+}
+
+-(void) loadAd {
+    adHeightConstraint.constant = 50.0f;
+    NSString * urlString = self.ticket.currentSession.tradeAdSrc;
+
+    NSURL * url = [NSURL URLWithString:urlString];
+    NSURLRequest * req = [NSURLRequest requestWithURL: url];
+    [ad loadRequest: req];
+
+    [self.view needsUpdateConstraints];
+    [self.view setNeedsUpdateConstraints];
+    [self.view setNeedsDisplay];
+    [keypadContainer setNeedsUpdateConstraints];
+    [keypadContainer setNeedsDisplay];
+    [keypadContainer layoutIfNeeded];
+    [self.view layoutSubviews];
+}
+
+-(void) checkLoad {
+    if (self.ticket.currentSession.tradeAdSrc) {
+        [adTimer invalidate];
+        adTimer = nil;
+
+        [self loadAd];
+    }
 }
 
 -(IBAction) sharesPressed:(id)sender {
