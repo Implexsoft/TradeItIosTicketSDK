@@ -105,6 +105,7 @@
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
                                                                        [self toggleAccount: account];
+                                                                       [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
                                                                    }];
 
             UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
@@ -189,6 +190,14 @@
 -(IBAction) doneBarButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AccountLinkToLogin"]) {
+        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
+        [self.ticket removeOnboardingFromNav:nav];
+    }
+}
+
 
 
 @end
