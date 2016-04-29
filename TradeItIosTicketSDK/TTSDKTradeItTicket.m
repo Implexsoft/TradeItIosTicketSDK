@@ -248,22 +248,24 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) presentAccountLinkScreen {
-    [self authenticateSessionsInBackground];
+    NSArray * linkedAccounts = self.linkedAccounts;
 
-    // Get storyboard
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    if (linkedAccounts && linkedAccounts.count) {
+        [self authenticateSessionsInBackground];
 
-    TTSDKAccountSelectViewController * root = (TTSDKAccountSelectViewController *)[ticket instantiateViewControllerWithIdentifier: kAccountNavViewIdentifier];
-    root.isModal = YES;
+        // Get storyboard
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController: root];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(returnToParentApp)];
-    root.navigationItem.leftBarButtonItem = cancelButton;
-    root.navigationItem.hidesBackButton = NO;
+        // Get account select navigation controller
+        UINavigationController * accountSelectNav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier:@"ACCOUNT_LINK_NAV"];
+        [accountSelectNav setModalPresentationStyle:UIModalPresentationFullScreen];
 
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+        [self configureAccountLinkNavController: accountSelectNav];
 
-    [self.parentView presentViewController:nav animated:YES completion:nil];
+        [self.parentView presentViewController:accountSelectNav animated:YES completion:nil];
+    } else {
+        [self presentAuthScreen];
+    }
 }
 
 -(void) presentTradeOrPortfolioScreen {
@@ -282,6 +284,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
     
     [self.parentView presentViewController:tab animated:YES completion:nil];
+}
+
+-(void) configureAccountLinkNavController:(UINavigationController *)nav {
+    // Set root to modal
+    TTSDKAccountSelectViewController * root = (TTSDKAccountSelectViewController *)[nav.viewControllers objectAtIndex:0];
+    root.isModal = YES;
+
+    // Set cancel button to close the app on completion
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(returnToParentApp)];
+    root.navigationItem.leftBarButtonItem = cancelButton;
+    root.navigationItem.hidesBackButton = NO;
 }
 
 -(void) removeOnboardingFromNav:(UINavigationController *)nav {

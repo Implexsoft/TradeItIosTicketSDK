@@ -101,6 +101,10 @@
     }
 }
 
+- (IBAction)closePressed:(id)sender {
+    [self.ticket returnToParentApp];
+}
+
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [self createFooterView];
 }

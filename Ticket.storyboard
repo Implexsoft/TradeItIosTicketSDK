@@ -137,6 +137,7 @@
                         <segue destination="EOX-B4-DHL" kind="show" identifier="LoginToAccountLink" id="Vdw-ys-tjA"/>
                         <segue destination="trO-ZN-AJm" kind="presentation" identifier="LoginToTradeNav" id="alq-MR-2uv"/>
                         <segue destination="McX-JL-l75" kind="presentation" identifier="LoginToPortfolioNav" id="hO5-IP-sLI"/>
+                        <segue destination="HYX-F0-TNn" kind="presentation" identifier="LoginToAccountSelect" id="0bD-ua-Qiz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nk-We-uXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -218,7 +219,7 @@ you want to link</string>
         <!--Account Link Navigation Controller-->
         <scene sceneID="yK5-Ya-ezO">
             <objects>
-                <navigationController storyboardIdentifier="ACCOUNT_LINK_NAV" id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                <navigationController id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bpk-HS-up6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1637,6 +1638,23 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             <point key="canvasLocation" x="415" y="-350"/>
         </scene>
         <!--Accounts-->
+        <scene sceneID="U8k-3z-X0B">
+            <objects>
+                <navigationController storyboardIdentifier="ACCOUNT_LINK_NAV" title="Accounts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HYX-F0-TNn" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ri5-l9-qm2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bbK-hu-Twv" kind="relationship" relationship="rootViewController" id="8yM-5R-gad"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="unJ-lx-1IO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1075" y="95"/>
+        </scene>
+        <!--Accounts-->
         <scene sceneID="nci-rh-nvD">
             <objects>
                 <viewController storyboardIdentifier="accountSelect" title="Accounts" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
@@ -1677,6 +1695,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstAttribute="trailingMargin" secondItem="caJ-Yc-a8p" secondAttribute="trailing" constant="5" id="p8I-3I-kwD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Accounts" id="To0-jd-SaS"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -1689,7 +1708,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1233" y="94"/>
+            <point key="canvasLocation" x="1490" y="95"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="mCR-6k-glU">
@@ -1719,9 +1738,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qBc-9P-D9s"/>
-        <segue reference="alq-MR-2uv"/>
-        <segue reference="X2r-Bb-VCg"/>
         <segue reference="hO5-IP-sLI"/>
+        <segue reference="X2r-Bb-VCg"/>
+        <segue reference="8yM-5R-gad"/>
+        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="alq-MR-2uv"/>
     </inferredMetricsTieBreakers>
 </document>

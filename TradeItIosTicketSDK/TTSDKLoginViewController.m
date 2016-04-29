@@ -278,6 +278,8 @@
                             [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
                         } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
                             [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
+                        } else if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+                            [self performSegueWithIdentifier:@"LoginToAccountSelect" sender:self];
                         } else {
                             [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                         }
@@ -354,6 +356,9 @@
         if (self.ticket.presentationMode == TradeItPresentationModePortfolio || self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
             dest.selectedIndex = 1;
         }
+    } else if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
+        UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
+        [self.ticket configureAccountLinkNavController: nav];
     }
 }
 

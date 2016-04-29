@@ -70,6 +70,7 @@
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 #pragma mark Accounts
+-(void) configureAccountLinkNavController:(UINavigationController *)nav;
 -(void) selectCurrentAccount:(NSDictionary *)account;
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber;
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session;
