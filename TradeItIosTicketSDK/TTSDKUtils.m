@@ -34,8 +34,7 @@
 @synthesize lossColor;
 @synthesize gainColor;
 
-
-
+static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 + (id)sharedUtils {
@@ -69,14 +68,11 @@ static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 -(BOOL) isOnboarding {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber * hasCompletedOnboarding = [defaults objectForKey:kOnboardingKey];
-    
-    BOOL complete = (BOOL)hasCompletedOnboarding;
-    
-    if (complete) {
+    NSArray * accounts = [defaults objectForKey:kAccountsKey];
+
+    if (accounts && accounts.count) {
         return NO;
     } else {
-        [defaults setObject:@1 forKey:kOnboardingKey];
         return YES;
     }
 }
