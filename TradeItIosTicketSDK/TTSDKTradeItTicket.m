@@ -32,6 +32,7 @@
 @implementation TTSDKTradeItTicket
 
 static NSString * kBaseTabBarViewIdentifier = @"BASE_TAB_BAR";
+static NSString * kAccountNavViewIdentifier = @"accountSelect";
 static NSString * kAuthNavViewIdentifier = @"AUTH_NAV";
 static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
@@ -86,6 +87,13 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             [self selectCurrentSession: newSession];
         }
     }
+}
+
+-(void) launchAccountsFlow {
+    // Immediately fire off a request for the publishers broker list
+    [self prepareInitialFlow];
+
+    [self presentAccountLinkScreen];
 }
 
 -(void) launchAuthFlow {
@@ -239,9 +247,28 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }
 
+-(void) presentAccountLinkScreen {
+    [self authenticateSessionsInBackground];
+
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+    TTSDKAccountSelectViewController * root = (TTSDKAccountSelectViewController *)[ticket instantiateViewControllerWithIdentifier: kAccountNavViewIdentifier];
+    root.isModal = YES;
+
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController: root];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(returnToParentApp)];
+    root.navigationItem.leftBarButtonItem = cancelButton;
+    root.navigationItem.hidesBackButton = NO;
+
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
 -(void) presentTradeOrPortfolioScreen {
     [self authenticateSessionsInBackground];
-    
+
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     

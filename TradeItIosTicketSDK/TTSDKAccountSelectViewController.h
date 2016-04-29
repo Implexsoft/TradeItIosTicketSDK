@@ -11,4 +11,6 @@
 
 @interface TTSDKAccountSelectViewController : TTSDKViewController <UITableViewDataSource,UITableViewDelegate>
 
+@property BOOL isModal;
+
 @end

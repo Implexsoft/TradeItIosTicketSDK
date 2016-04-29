@@ -50,6 +50,8 @@
     }
     self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
+    self.navigationController.navigationItem.leftBarButtonItem.tintColor = self.styles.activeColor;
+    self.navigationController.navigationItem.rightBarButtonItem.tintColor = self.styles.activeColor;
 }
 
 

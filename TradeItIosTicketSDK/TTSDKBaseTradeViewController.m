@@ -25,32 +25,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void) checkIfAuthIsComplete {
-    [self promptTouchId];
-}
-
--(void) promptTouchId {
-    LAContext * myContext = [[LAContext alloc] init];
-    NSString * myLocalizedReasonString = @"Enable Broker Login to Trade";
-
-    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-              localizedReason:myLocalizedReasonString
-                        reply:^(BOOL success, NSError *error) {
-                            if (success) {
-                                // TODO - set initial auth state
-                            } else {
-                                //too many tries, or cancelled by user
-                                if(error.code == -2 || error.code == -1) {
-                                    [self.ticket returnToParentApp];
-                                } else if(error.code == -3) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
-                                    });
-                                }
-                            }
-                        }];
-}
-
 
 #pragma mark Order
 

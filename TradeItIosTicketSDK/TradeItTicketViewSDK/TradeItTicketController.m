@@ -77,6 +77,25 @@
     }
 }
 
++ (void)showAccountsWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
+    [self showAccountsWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
+}
+
++ (void)showAccountsWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeAccounts;
+
+    ticket.parentView = view;
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = debug;
+    ticket.callback = nil;
+
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
+
+    [ticket launchAccountsFlow];
+}
 
 #pragma mark Authentication Initialization
 

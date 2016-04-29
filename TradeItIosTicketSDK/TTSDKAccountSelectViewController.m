@@ -49,11 +49,28 @@
     self.tableView.backgroundColor = self.styles.pageBackgroundColor;
 
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
-    [portfolioService getSummaryForAccounts:^(void) {
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }];
+
+    if (self.ticket.currentSession.isAuthenticated) {
+        [self loadAccounts];
+    } else {
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            [self loadAccounts];
+        }];
+    }
 
     [self.tableView reloadData];
+}
+
+-(void) loadAccounts {
+    [portfolioService getBalancesForAccounts:^(void) {
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }];
+}
+
+-(void) checkAuth {
+    if (self.ticket.currentSession.isAuthenticated) {
+        [self loadAccounts];
+    }
 }
 
 -(IBAction) editBrokersPressed:(id)sender {
@@ -69,17 +86,19 @@
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
-    NSDictionary * selectedAccount = [account accountData];
-
-    if (![account.userId isEqualToString:self.ticket.currentSession.login.userId]) {
-        [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
-    } else {
-        [self.ticket selectCurrentAccount: selectedAccount];
+    if (!self.isModal) {
+        TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
+        NSDictionary * selectedAccount = [account accountData];
+        
+        if (![account.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+            [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
+        } else {
+            [self.ticket selectCurrentAccount: selectedAccount];
+        }
+        
+        TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+        [self.navigationController popToViewController:tradeVC animated: YES];
     }
-
-    TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
-    [self.navigationController popToViewController:tradeVC animated: YES];
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

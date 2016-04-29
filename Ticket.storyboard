@@ -218,7 +218,7 @@ you want to link</string>
         <!--Account Link Navigation Controller-->
         <scene sceneID="yK5-Ya-ezO">
             <objects>
-                <navigationController id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ACCOUNT_LINK_NAV" id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bpk-HS-up6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1636,10 +1636,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="415" y="-350"/>
         </scene>
-        <!--Account Select View Controller-->
+        <!--Accounts-->
         <scene sceneID="nci-rh-nvD">
             <objects>
-                <viewController storyboardIdentifier="accountSelect" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="accountSelect" title="Accounts" id="bbK-hu-Twv" customClass="TTSDKAccountSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZBU-0y-JPc"/>
                         <viewControllerLayoutGuide type="bottom" id="g7g-Tb-mQn"/>
@@ -1719,9 +1719,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="alq-MR-2uv"/>
-        <segue reference="uWM-4J-KHQ"/>
         <segue reference="qBc-9P-D9s"/>
+        <segue reference="alq-MR-2uv"/>
+        <segue reference="X2r-Bb-VCg"/>
         <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
 </document>

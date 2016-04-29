@@ -52,6 +52,7 @@
 
 #pragma mark Initialization
 +(id) globalTicket;
+-(void) launchAccountsFlow;
 -(void) launchAuthFlow;
 -(void) launchTradeFlow;
 -(void) launchPortfolioFlow;
