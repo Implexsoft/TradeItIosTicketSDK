@@ -54,7 +54,7 @@
         [self loadAccounts];
     } else {
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-            [self loadAccounts];
+            [self performSelectorOnMainThread:@selector(loadAccounts) withObject:nil waitUntilDone:NO];
         }];
     }
 
@@ -89,7 +89,7 @@
     if (!self.isModal) {
         TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
         NSDictionary * selectedAccount = [account accountData];
-        
+
         if (![account.userId isEqualToString:self.ticket.currentSession.login.userId]) {
             [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccount] andAccount:selectedAccount];
         } else {
@@ -98,6 +98,8 @@
         
         TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
         [self.navigationController popToViewController:tradeVC animated: YES];
+    } else {
+        [self.tableView reloadData];
     }
 }
 
