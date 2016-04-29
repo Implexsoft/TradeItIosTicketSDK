@@ -87,8 +87,8 @@
         }
     }
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:)]) {
-        [self.delegate linkToggleDidSelect: accountData];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:forAccount:)]) {
+        [self.delegate linkToggleDidSelect:self.toggle forAccount:accountData];
     }
 }
 

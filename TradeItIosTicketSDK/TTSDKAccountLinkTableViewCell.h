@@ -14,7 +14,7 @@
 @protocol TTSDKAccountLinkDelegate <NSObject>
 
 @required
--(void)linkToggleDidSelect:(NSDictionary *)account;
+-(void)linkToggleDidSelect:(UISwitch *)toggle forAccount:(NSDictionary *)account;
 -(void)linkToggleDidNotSelect:(NSString *)errorMessage;
 
 @end

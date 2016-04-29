@@ -87,21 +87,60 @@
 
 #pragma mark Custom Delegate Methods
 
--(void) linkToggleDidSelect:(NSDictionary *)account {
+-(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(NSDictionary *)account {
+    if (!self.ticket.linkedAccounts.count) {
+        
+        NSString * errorTitle = @"No linked accounts";
+        NSString * errorMessage = @"Login with another account to continue trading";
+        
+        if(![UIAlertController class]) {
+            [self showOldErrorAlert: errorTitle withMessage:errorMessage];
+        } else {
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle: errorTitle
+                                                                            message: errorMessage
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            
+            alert.modalPresentationStyle = UIModalPresentationPopover;
+            
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [self toggleAccount: account];
+                                                                   }];
+
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                BOOL active = [[account valueForKey: @"active"] boolValue];
+                toggle.on = active;
+            }];
+
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+            alertPresentationController.sourceView = self.view;
+            alertPresentationController.permittedArrowDirections = 0;
+            alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+        }
+    } else {
+        [self toggleAccount: account];
+    }
+}
+
+-(void) toggleAccount:(NSDictionary *)account {
     BOOL active = [[account valueForKey: @"active"] boolValue];
 
     NSDictionary * accountToAdd;
     NSDictionary * accountToRemove;
-
+    
     NSArray * accounts = self.ticket.allAccounts;
-
+    
     int i;
     for (i = 0; i < accounts.count; i++) {
         NSDictionary * currentAccount = [accounts objectAtIndex: i];
-
+        
         NSString * currentAccountNumber = [currentAccount valueForKey: @"accountNumber"];
         NSString * accountNumber = [account valueForKey: @"accountNumber"];
-
+        
         if ([currentAccountNumber isEqualToString: accountNumber]) {
             NSMutableDictionary *mutableAccount = [currentAccount mutableCopy];
             [mutableAccount setValue:[NSNumber numberWithBool: !active] forKey:@"active"];
@@ -109,11 +148,11 @@
             accountToRemove = currentAccount;
         }
     }
-
+    
     NSMutableArray * mutableAccounts = [accounts mutableCopy];
     [mutableAccounts removeObject: accountToRemove];
     [mutableAccounts addObject: accountToAdd];
-
+    
     [self.ticket saveAccountsToUserDefaults: [mutableAccounts copy]];
 }
 
