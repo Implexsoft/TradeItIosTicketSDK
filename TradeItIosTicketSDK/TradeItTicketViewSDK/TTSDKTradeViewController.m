@@ -174,7 +174,6 @@
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self retrieveQuoteData];
                     [self retrieveAccountSummaryData];
                     [self checkIfReadyToTrade];
                 });
@@ -218,13 +217,8 @@
             }
         }];
     } else {
-        [self retrieveQuoteData];
         [self retrieveAccountSummaryData];
         [self checkIfReadyToTrade];
-    }
-
-    if (self.ticket.currentSession.isAuthenticated) {
-        [self retrieveQuoteData];
     }
 
     [self populateSymbolDetails];
