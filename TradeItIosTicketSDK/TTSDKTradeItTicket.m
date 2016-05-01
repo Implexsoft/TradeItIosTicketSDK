@@ -78,6 +78,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     
     // Create a new, unauthenticated session for all stored logins
     NSArray * linkedLogins = [self.connector getLinkedLogins];
+
     for (TradeItLinkedLogin * login in linkedLogins) {
         TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
         [self addSession: newSession];
@@ -392,6 +393,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) removeSession:(TTSDKTicketSession *)session {
+    [self.connector unlinkLogin: session.login];
+
     NSMutableArray * newSessionList = [self.sessions mutableCopy];
     [newSessionList removeObject: session];
     self.sessions = [newSessionList copy];
@@ -448,13 +451,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     for (TTSDKTicketSession *session in self.sessions) {
         if ([oldSessionUserId isEqualToString:session.login.userId]) {
-            [self.connector unlinkLogin: session.login];
             sessionToRemove = session;
         }
     }
 
     [self removeSession: sessionToRemove];
-
     [self saveAccountsToUserDefaults: storedAccounts];
 }
 

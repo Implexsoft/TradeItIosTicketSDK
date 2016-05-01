@@ -7,7 +7,6 @@
 //
 
 #import "TTSDKPortfolioAccount.h"
-#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioAccount() {
     TTSDKTradeItTicket * globalTicket;
@@ -35,6 +34,7 @@ static double kLoadInterval = -30.0f;
         self.broker = [data valueForKey: @"broker"];
 
         globalTicket = [TTSDKTradeItTicket globalTicket];
+        self.session = [globalTicket retrieveSessionByAccount: data];
     }
     return self;
 }
@@ -63,11 +63,10 @@ static double kLoadInterval = -30.0f;
 
 -(void) retrieveAccountSummaryWithCompletionBlock:(void (^)(void)) completionBlock {
     NSDictionary * accountData = [self accountData];
-    TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
-    if (!session.isAuthenticated) {
+    if (!self.session.isAuthenticated) {
         // If the authentication completed, but was not successful, set to complete
-        if (session.needsManualAuthentication) {
+        if (self.session.needsManualAuthentication) {
             self.balanceComplete = YES;
             self.positionsComplete = YES;
             self.needsAuthentication = YES;
@@ -98,7 +97,7 @@ static double kLoadInterval = -30.0f;
     }
 
     if (load) {
-        [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
+        [self.session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
             self.balanceComplete = YES;
             
             if (overview != nil) {
@@ -114,7 +113,7 @@ static double kLoadInterval = -30.0f;
             }
         }];
 
-        [session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
+        [self.session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
             self.positionsComplete = YES;
             
             if (positions != nil) {
@@ -142,9 +141,8 @@ static double kLoadInterval = -30.0f;
 
 -(void) retrieveBalance {
     NSDictionary * accountData = [self accountData];
-    TTSDKTicketSession * session = [globalTicket retrieveSessionByAccount: accountData];
 
-    [session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
+    [self.session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
         self.balanceComplete = YES;
 
         if (overview != nil) {

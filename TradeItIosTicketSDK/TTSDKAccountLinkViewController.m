@@ -43,12 +43,13 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.allAccounts];
-
     [self.doneButton activate];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+    //portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.allAccounts];
+    portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
+
     [portfolioService getBalancesForAccounts:^(void) {
         [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -56,6 +57,24 @@
 
 
 #pragma mark Table Delegate Methods
+
+-(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction * deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"DELETE" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+
+        TTSDKPortfolioAccount * portfolioAccount = [portfolioService.accounts objectAtIndex: indexPath.row];
+        [portfolioService deleteAccount: portfolioAccount];
+
+        [self.linkTableView beginUpdates];
+        [self.linkTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+        [self.linkTableView endUpdates];
+    }];
+
+    return @[deleteAction];
+}
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return portfolioService.accounts.count;
@@ -87,74 +106,41 @@
 
 #pragma mark Custom Delegate Methods
 
--(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(NSDictionary *)account {
-    if (!self.ticket.linkedAccounts.count) {
-        
-        NSString * errorTitle = @"No linked accounts";
-        NSString * errorMessage = @"Login with another account to continue trading";
-        
-        if(![UIAlertController class]) {
-            [self showOldErrorAlert: errorTitle withMessage:errorMessage];
-        } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle: errorTitle
-                                                                            message: errorMessage
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            
-            alert.modalPresentationStyle = UIModalPresentationPopover;
-            
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       [self toggleAccount: account];
-                                                                       [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
-                                                                   }];
+-(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(TTSDKPortfolioAccount *)account {
+    // Check to see if we're unlinking the last account
+    if (!toggle.on && self.ticket.linkedAccounts.count == 1) {
 
-            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-                BOOL active = [[account valueForKey: @"active"] boolValue];
-                toggle.on = active;
-            }];
+        // This is a bit weird, but prevents unnecessary complexity for showing alerts
+        TradeItErrorResult * error = [[TradeItErrorResult alloc] init];
+        error.shortMessage = @"Unlinking last account";
+        error.longMessages = @[@"Please login with another account to continue trading."];
 
-            [alert addAction:defaultAction];
-            [alert addAction:cancelAction];
-            [self presentViewController:alert animated:YES completion:nil];
-            
-            UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-            alertPresentationController.sourceView = self.view;
-            alertPresentationController.permittedArrowDirections = 0;
-            alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-        }
+        // Prompt the user to either login or cancel the unlink action
+        [self showErrorAlert:error onAccept:^(void){
+            [self toggleAccount: account];
+            [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+        } onCancel:^(void) {
+            toggle.on = YES;
+        }];
+
     } else {
         [self toggleAccount: account];
+
+        // Check to see if we're unlinking the current account. If so, auto-select another account
+        if ([account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
+            TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
+            NSDictionary * newAcctData = [newSelectedAccount accountData];
+            if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+                [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: newAcctData] andAccount:newAcctData];
+            } else {
+                [self.ticket selectCurrentAccount: newAcctData];
+            }
+        }
     }
 }
 
--(void) toggleAccount:(NSDictionary *)account {
-    BOOL active = [[account valueForKey: @"active"] boolValue];
-
-    NSDictionary * accountToAdd;
-    NSDictionary * accountToRemove;
-    
-    NSArray * accounts = self.ticket.allAccounts;
-    
-    int i;
-    for (i = 0; i < accounts.count; i++) {
-        NSDictionary * currentAccount = [accounts objectAtIndex: i];
-        
-        NSString * currentAccountNumber = [currentAccount valueForKey: @"accountNumber"];
-        NSString * accountNumber = [account valueForKey: @"accountNumber"];
-        
-        if ([currentAccountNumber isEqualToString: accountNumber]) {
-            NSMutableDictionary *mutableAccount = [currentAccount mutableCopy];
-            [mutableAccount setValue:[NSNumber numberWithBool: !active] forKey:@"active"];
-            accountToAdd = [mutableAccount copy];
-            accountToRemove = currentAccount;
-        }
-    }
-    
-    NSMutableArray * mutableAccounts = [accounts mutableCopy];
-    [mutableAccounts removeObject: accountToRemove];
-    [mutableAccounts addObject: accountToAdd];
-    
-    [self.ticket saveAccountsToUserDefaults: [mutableAccounts copy]];
+-(void) toggleAccount:(TTSDKPortfolioAccount *)account {
+    [portfolioService toggleAccount: account];
 }
 
 -(void) linkToggleDidNotSelect:(NSString *)errorMessage {

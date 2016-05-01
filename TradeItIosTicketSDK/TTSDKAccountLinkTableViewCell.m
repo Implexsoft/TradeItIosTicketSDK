@@ -71,24 +71,8 @@
 #pragma mark Custom Recognizers
 
 -(IBAction) togglePressed:(id)sender {
-    NSDictionary * accountData = [account accountData];
-
-    // If the toggle resulted in unlinking the account, make sure the account can be unlinked
-    if (!self.toggle.on) {
-        NSArray * linkedAccounts = globalTicket.linkedAccounts;
-        if (linkedAccounts.count < 2) {
-            self.toggle.on = YES;
-            [self.delegate linkToggleDidNotSelect: @"You must have at least one linked account to trade."];
-            return;
-        } else if ([accountData isEqualToDictionary:globalTicket.currentAccount]) {
-            self.toggle.on = YES;
-            [self.delegate linkToggleDidNotSelect: @"This account is currently selected."];
-            return;
-        }
-    }
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(linkToggleDidSelect:forAccount:)]) {
-        [self.delegate linkToggleDidSelect:self.toggle forAccount:accountData];
+        [self.delegate linkToggleDidSelect:self.toggle forAccount:account];
     }
 }
 

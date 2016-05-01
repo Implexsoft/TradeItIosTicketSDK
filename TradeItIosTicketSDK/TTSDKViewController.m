@@ -10,6 +10,7 @@
 
 @interface TTSDKViewController()
     @property (copy) void (^acceptanceBlock)();
+    @property (copy) void (^cancellationBlock)();
 @end
 
 @implementation TTSDKViewController
@@ -163,8 +164,14 @@
 #pragma mark Alert Delegate Methods
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (self.acceptanceBlock) {
-        self.acceptanceBlock();
+    if (buttonIndex == 0) {
+        if (self.acceptanceBlock) {
+            self.acceptanceBlock();
+        }
+    } else {
+        if (self.cancellationBlock) {
+            self.cancellationBlock();
+        }
     }
 }
 
@@ -172,13 +179,22 @@
 #pragma mark iOS7 fallbacks
 
 -(void) showErrorAlert:(TradeItErrorResult *)error onAccept:(void (^)(void))acceptanceBlock {
-    NSMutableString * errorMessage = [[NSMutableString alloc] init];
+    [self showErrorAlert:error onAccept:acceptanceBlock onCancel:nil];
+}
 
+-(void) showErrorAlert:(TradeItErrorResult *)error onAccept:(void (^)(void))acceptanceBlock onCancel:(void (^)(void))cancellationBlock {
+    NSMutableString * errorMessage = [[NSMutableString alloc] init];
+    
     for (NSString * str in error.longMessages) {
         [errorMessage appendString:str];
     }
 
     self.acceptanceBlock = acceptanceBlock;
+
+    self.cancellationBlock = nil; // we should reset the cancel block each time a new alert is created
+    if (cancellationBlock) {
+        self.cancellationBlock = cancellationBlock;
+    }
 
     if(![UIAlertController class]) {
         [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
@@ -189,16 +205,18 @@
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         
         alert.modalPresentationStyle = UIModalPresentationPopover;
-
+        
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
                                                                    self.acceptanceBlock();
                                                                }];
 
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            // do nothing
+            if (self.cancellationBlock) {
+                self.cancellationBlock();
+            }
         }];
-        
+
         [alert addAction:defaultAction];
         [alert addAction:cancelAction];
         
@@ -213,7 +231,15 @@
 
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
     UIAlertView * alert;
-    alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+
+    alert = [[UIAlertView alloc] initWithTitle:title
+                            message:message
+                            delegate:self
+                             cancelButtonTitle:@"OK" otherButtonTitles: nil];
+
+    if (self.cancellationBlock) {
+        [alert addButtonWithTitle: @"Cancel"];
+    }
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];

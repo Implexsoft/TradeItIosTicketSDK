@@ -16,6 +16,9 @@
 @property NSArray * accounts;
 @property TTSDKPortfolioAccount * selectedAccount;
 
++(id) serviceForAllAccounts;
++(id) serviceForLinkedAccounts;
+
 -(id) initWithAccounts:(NSArray *)accounts;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
 -(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock;
@@ -24,8 +27,9 @@
 -(void) getQuoteForPosition:(TTSDKPosition *)position withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 -(NSArray *) positionsForAccounts;
 -(NSArray *) filterPositionsByAccount:(TTSDKPortfolioAccount *)portfolioAccount;
--(void) retrieveInitialSelectedAccount;
+-(TTSDKPortfolioAccount *) retrieveAutoSelectedAccount;
 -(void) selectAccount:(NSString *)accountNumber;
-
+-(void) toggleAccount:(TTSDKPortfolioAccount *)account;
+-(void) deleteAccount:(TTSDKPortfolioAccount *)account;
 
 @end

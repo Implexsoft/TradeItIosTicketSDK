@@ -94,7 +94,8 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) loadPortfolioData {
-    [portfolioService retrieveInitialSelectedAccount];
+    TTSDKPortfolioAccount * initialAccount = [portfolioService retrieveAutoSelectedAccount];
+    [portfolioService selectAccount: initialAccount.accountNumber];
 
     self.selectedAccountIndex = [portfolioService.accounts indexOfObject:portfolioService.selectedAccount];
 

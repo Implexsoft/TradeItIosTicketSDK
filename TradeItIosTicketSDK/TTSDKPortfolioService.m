@@ -19,9 +19,11 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 @interface TTSDKPortfolioService() {
     TTSDKTradeItTicket * globalTicket;
     BalancesCompletionBlock balancesBlock;
-    NSTimer * dataTimer;
     DataCompletionBlock dataBlock;
+    NSTimer * dataTimer;
 }
+
+@property BOOL isAllAccountsService;
 
 @end
 
@@ -29,8 +31,26 @@ typedef void(^BalancesCompletionBlock)(NSArray *);
 
 
 // naming it 'highlighted' to distinguish from last account selected for trading
-static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
+static NSString * kLastHighlightedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
+static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
+static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
+
++(id) serviceForAllAccounts {
+    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
+    TTSDKPortfolioService * service = [[self alloc] initWithAccounts: allAccounts];
+
+    service.isAllAccountsService = YES;
+
+    return service;
+}
+
++(id) serviceForLinkedAccounts {
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
+    TTSDKPortfolioService * service = [[self alloc] initWithAccounts: linkedAccounts];
+
+    return service;
+}
 
 -(id) init {
     if (self = [super init]) {
@@ -55,15 +75,83 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
     return self;
 }
 
--(void) retrieveInitialSelectedAccount {
++(NSArray *)allAccounts {
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSString * lastSelected = [defaults objectForKey: kSelectedAccountKey];
+    NSArray * accounts = [defaults objectForKey: kAccountsKey];
 
-    if (!lastSelected) {
-        lastSelected = [(TTSDKPortfolioAccount *)[self.accounts objectAtIndex:0] accountNumber];
+    if (accounts == nil) {
+        accounts = [[NSArray alloc] init];
     }
 
-    [self selectAccount: lastSelected];
+    return accounts;
+}
+
++(NSArray *)linkedAccounts {
+    NSMutableArray * linkedAccounts = [[NSMutableArray alloc] init];
+    NSArray * storedAccounts = [TTSDKPortfolioService allAccounts];
+
+    int i;
+    for (i = 0; i < storedAccounts.count; i++) {
+        NSDictionary * account = [storedAccounts objectAtIndex:i];
+        NSNumber * active = [account valueForKey: @"active"];
+        
+        if ([active boolValue]) {
+            [linkedAccounts addObject: account];
+        }
+    }
+    
+    return [linkedAccounts copy];
+}
+
+-(TTSDKPortfolioAccount *) retrieveAutoSelectedAccount {
+    /*
+     Algorithm for auto account selection:
+     1. Check for last highlighted account
+     2. If it doesn't exist, check for last traded account
+     3. If that doesn't exist, find the first linked account
+     */
+
+    TTSDKPortfolioAccount * selectedAccount = nil;
+
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString * lastHighlighted = [defaults objectForKey: kLastHighlightedAccountKey];
+    NSString * lastSelected = [defaults objectForKey: kLastSelectedKey];
+
+    if (lastHighlighted) {
+        selectedAccount = [self accountByAccountNumber: lastHighlighted];
+        if (!selectedAccount || !selectedAccount.active) {
+            selectedAccount = nil;
+        }
+    }
+
+    if (!selectedAccount && lastSelected) {
+        selectedAccount = [self accountByAccountNumber: lastSelected];
+        if (!selectedAccount || !selectedAccount.active) {
+            selectedAccount = nil;
+        }
+    }
+
+    if (!selectedAccount) {
+        for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+            if (portfolioAccount.active) {
+                selectedAccount = portfolioAccount;
+            }
+        }
+    }
+
+    return selectedAccount;
+}
+
+-(TTSDKPortfolioAccount *) accountByAccountNumber:(NSString *)accountNumber {
+    TTSDKPortfolioAccount * account = nil;
+
+    for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+        if ([portfolioAccount.accountNumber isEqualToString:accountNumber]) {
+            account = portfolioAccount;
+        }
+    }
+
+    return account;
 }
 
 -(void) selectAccount:(NSString *)accountNumber {
@@ -88,7 +176,7 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
 
     self.selectedAccount = selectedAccount;
 
-    [defaults setObject:selectedAccount.accountNumber forKey:kSelectedAccountKey];
+    [defaults setObject:selectedAccount.accountNumber forKey:kLastHighlightedAccountKey];
     [defaults synchronize];
 }
 
@@ -209,6 +297,63 @@ static NSString * kSelectedAccountKey = @"TRADEIT_LAST_HIGHLIGHTED_ACCOUNT";
         portfolioAccount.positionsComplete = YES; // bypasses position retrieval
         [portfolioAccount retrieveBalance];
     }
+}
+
+-(void) toggleAccount:(TTSDKPortfolioAccount *)account {
+    BOOL active = account.active;
+
+    NSArray * accounts = self.accounts;
+
+    int i;
+    for (i = 0; i < accounts.count; i++) {
+        TTSDKPortfolioAccount * currentAccount = [accounts objectAtIndex: i];
+
+        if ([currentAccount.accountNumber isEqualToString: account.accountNumber]) {
+            currentAccount.active = !active;
+        }
+    }
+
+    [self saveToUserDefaults];
+}
+
+-(void) deleteAccount:(TTSDKPortfolioAccount *)account {
+    // First, check to see if this is the last account in its respective linked login. If so, we want to delete the session.
+    BOOL isLastAccount = YES;
+    for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
+        if ([portfolioAccount.userId isEqualToString:account.userId] && ![portfolioAccount.accountNumber isEqualToString:account.accountNumber]) {
+            isLastAccount = NO;
+        }
+    }
+
+    if (isLastAccount) {
+        // delete the session
+        [globalTicket removeSession: account.session];
+    }
+
+    // Remove account from the service accounts list
+    NSMutableArray * mutableAccounts = [self.accounts mutableCopy];
+    [mutableAccounts removeObject:account];
+    self.accounts = [mutableAccounts copy];
+
+    // Save new accounts list to user defaults
+    [self saveToUserDefaults];
+}
+
+-(void) saveToUserDefaults {
+    if (!self.isAllAccountsService) {
+        // we should never save directly to user defaults unless it we are referencing all accounts
+        return;
+    }
+
+    // Build out an array of simple dictionaries to save to user defaults
+    NSMutableArray * accountsList = [[NSMutableArray alloc] init];
+    for (TTSDKPortfolioAccount * account in self.accounts) {
+        [accountsList addObject:[account accountData]];
+    }
+
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject: [accountsList copy] forKey:kAccountsKey];
+    [defaults synchronize];
 }
 
 

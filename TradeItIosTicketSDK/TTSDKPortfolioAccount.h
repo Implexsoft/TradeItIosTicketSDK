@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TradeItAccountOverviewResult.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioAccount : NSObject
 
@@ -21,6 +22,8 @@
 @property BOOL tradable;
 @property NSArray * positions;
 @property TradeItAccountOverviewResult * balance;
+
+@property TTSDKTicketSession * session;
 
 // bools, for data retrieval
 @property BOOL balanceComplete;
