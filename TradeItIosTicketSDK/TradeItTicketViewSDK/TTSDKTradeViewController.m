@@ -27,13 +27,14 @@
     __weak IBOutlet UITextField *stopPriceInput;
     __weak IBOutlet UITextField *limitPriceInput;
     __weak IBOutlet UILabel * estimatedCostLabel;
-    __weak IBOutlet NSLayoutConstraint *keypadTopConstraint;
-    __weak IBOutlet NSLayoutConstraint *limitPricesWidthConstraint;
+    __weak IBOutlet NSLayoutConstraint * keypadTopConstraint;
+    __weak IBOutlet NSLayoutConstraint * limitPricesWidthConstraint;
+    __weak IBOutlet NSLayoutConstraint * stopPriceTopConstraint;
     __weak IBOutlet UIButton * orderActionButton;
     __weak IBOutlet UIButton * orderTypeButton;
     __weak IBOutlet UIButton * orderExpirationButton;
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
-    __weak IBOutlet TTSDKImageView *expirationDropdownArrow;
+    __weak IBOutlet TTSDKImageView * expirationDropdownArrow;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
@@ -47,6 +48,7 @@
     BOOL uiConfigured;
 
     NSString * currentFocus;
+    CGFloat initialStopPriceTopConstraintConstant;
 }
 
 @end
@@ -76,7 +78,6 @@
     companyNib.backgroundColor = self.styles.pageBackgroundColor;
 
     [self setCustomEvents];
-    [self refreshPressed:self];
 
     UITapGestureRecognizer * sharesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharesPressed:)];
     [sharesInput addGestureRecognizer: sharesTap];
@@ -95,6 +96,9 @@
     }
 
     [self.view setNeedsDisplay];
+
+    // Cache this so we don't have to hard-code the value
+    initialStopPriceTopConstraintConstant = stopPriceTopConstraint.constant;
 }
 
 -(IBAction) sharesPressed:(id)sender {
@@ -166,6 +170,8 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [self refreshPressed:self];
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
@@ -582,37 +588,56 @@
 -(void) setToMarketOrder {
     self.ticket.previewRequest.orderPriceType = @"market";
 
+    // reset stop price input position
+    stopPriceTopConstraint.constant = initialStopPriceTopConstraintConstant;
+
     [self changeOrderExpiration:@"day"];
     [self hideExpiration];
     [self hideLimitContainer];
     [self hideStopContainer];
+
+    [self performSelector:@selector(sharesPressed:) withObject:self];
 }
 
 -(void) setToLimitOrder {
     [stopPriceInput setHidden:YES];
     [limitPriceInput setHidden:NO];
 
+    // reset stop price input position
+    stopPriceTopConstraint.constant = initialStopPriceTopConstraintConstant;
+
     [self showExpiration];
     [self showLimitContainer];
     [self hideStopContainer];
+
+    [self performSelector:@selector(limitPressed:) withObject:self];
 }
 
 -(void) setToStopMarketOrder {
     [limitPriceInput setHidden: YES];
     [stopPriceInput setHidden: NO];
 
+    stopPriceTopConstraint.constant = 0;
+
     [self showExpiration];
     [self hideLimitContainer];
     [self showStopContainer];
+
+    [self performSelector:@selector(stopPressed:) withObject:self];
 }
 
 -(void) setToStopLimitOrder {
     [stopPriceInput setHidden: NO];
     [limitPriceInput setHidden: NO];
 
+    // reset stop price input position
+    stopPriceTopConstraint.constant = initialStopPriceTopConstraintConstant;
+
     [self showExpiration];
     [self showLimitContainer];
     [self showStopContainer];
+
+    [self performSelector:@selector(limitPressed:) withObject:self];
 }
 
 -(void) hideLimitContainer {
