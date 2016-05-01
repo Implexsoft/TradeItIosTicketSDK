@@ -523,11 +523,6 @@
     stopPriceInput.text = newStopString;
 }
 
--(void) changeOrderSymbol:(NSString *)symbol {
-    self.ticket.previewRequest.orderSymbol = symbol;
-    [self populateSymbolDetails];
-}
-
 -(void) changeOrderAction: (NSString *) action {
     [orderActionButton setTitle:[self.utils splitCamelCase:action] forState:UIControlStateNormal];
     self.ticket.previewRequest.orderAction = action;
@@ -680,6 +675,8 @@
         self.ticket.quote.lastPrice = nil;
         self.ticket.quote.bidPrice = nil;
         self.ticket.quote.askPrice = nil;
+        self.ticket.quote.change = nil;
+        self.ticket.quote.pctChange = nil;
         [self populateSymbolDetails];
         [self retrieveQuoteData];
     }

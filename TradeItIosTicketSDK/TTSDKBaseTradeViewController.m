@@ -29,23 +29,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 #pragma mark Order
 
 -(void) retrieveQuoteData {
-    TradeItQuote * quote = self.ticket.quote;
-    if (!quote.symbol) {
-        return;
-    }
-
-    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession:self.ticket.currentSession];
-
-    TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol:quote.symbol];
-    [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
-        if ([res isKindOfClass:TradeItQuotesResult.class]) {
-            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
-            TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
-            self.ticket.quote = resultQuote;
-        }
-
+    [self.ticket retrieveQuote:^(void) {
         [self populateSymbolDetails];
     }];
+
+    [self populateSymbolDetails];
 }
 
 -(void) retrieveAccountSummaryData {

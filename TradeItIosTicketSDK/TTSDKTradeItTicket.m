@@ -20,6 +20,8 @@
 #import "TradeItGetPositionsRequest.h"
 #import "TradeItBalanceService.h"
 #import "TradeItAccountOverviewRequest.h"
+#import "TradeItMarketDataService.h"
+#import "TradeItQuotesResult.h"
 
 @interface TTSDKTradeItTicket() {
     TradeItTradeService * tradeService;
@@ -332,6 +334,33 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }];
 }
 
+
+#pragma mark - Quote
+
+-(void) retrieveQuote:(void (^)(void))completionBlock {
+    self.loadingQuote = YES;
+
+    if (!self.quote.symbol) {
+        return;
+    }
+
+    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
+
+    TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
+    [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
+        self.loadingQuote = NO;
+
+        if ([res isKindOfClass:TradeItQuotesResult.class]) {
+            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+            TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
+            self.quote = resultQuote;
+        }
+
+        if (completionBlock) {
+            completionBlock();
+        }
+    }];
+}
 
 
 #pragma mark - Authentication

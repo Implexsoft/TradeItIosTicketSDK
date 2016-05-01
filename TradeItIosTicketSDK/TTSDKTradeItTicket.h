@@ -33,6 +33,7 @@
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL clearPortfolioCache;
+@property BOOL loadingQuote;
 @property UIViewController * parentView;
 @property NSString * errorTitle;
 @property NSString * errorMessage;
@@ -57,6 +58,9 @@
 -(void) launchTradeFlow;
 -(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
+
+#pragma mark Quote
+-(void) retrieveQuote:(void (^)(void))completionBlock;
 
 #pragma mark Authentication
 -(void) removeOnboardingFromNav:(UINavigationController *)nav;

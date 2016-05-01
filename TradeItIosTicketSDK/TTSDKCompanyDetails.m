@@ -9,13 +9,15 @@
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKUtils.h"
 #import "TradeItStyles.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKCompanyDetails() {
+    TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     TradeItStyles * styles;
     UIView * priceLoadingView;
     UIView * accountLoadingView;
-    BOOL hasSymbol;
+    UIColor * lastPriceLabelColor;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
@@ -28,8 +30,8 @@
 
 -(id) init {
     if (self = [super init]) {
+        globalTicket = [TTSDKTradeItTicket globalTicket];
         utils = [TTSDKUtils sharedUtils];
-        hasSymbol = YES;
         [self setViewStyles];
     }
 
@@ -50,6 +52,8 @@
     priceLoadingView = [utils retrieveLoadingOverlayForView:self.lastPriceLabel withRadius:10.0f];
     [self.lastPriceLabel addSubview: priceLoadingView];
 
+    lastPriceLabelColor = self.lastPriceLabel.textColor;
+
     accountLoadingView = [utils retrieveLoadingOverlayForView:self.symbolDetailLabel withRadius: 10.0f];
     [self.symbolDetailValue addSubview: accountLoadingView];
 }
@@ -64,12 +68,11 @@
 }
 
 -(void) populateSymbol: (NSString *)symbol {
-    if (symbol) {
-        [self.symbolLabel setTitle:symbol forState:UIControlStateNormal];
-        hasSymbol = YES;
+    if (globalTicket.quote.symbol) {
+        [self.symbolLabel setTitle:globalTicket.quote.symbol forState:UIControlStateNormal];
     } else {
-        hasSymbol = NO;
         [self.symbolLabel setTitle:@"Select Symbol" forState:UIControlStateNormal];
+
         if (priceLoadingView) {
             priceLoadingView.hidden = YES;
         }
@@ -77,13 +80,19 @@
 }
 
 -(void) populateLastPrice: (NSNumber *)lastPrice {
-    if (lastPrice && (lastPrice > 0)) {
-        self.lastPriceLabel.text = [utils formatPriceString:lastPrice];
+    NSNumber * theLastPrice = globalTicket.quote.lastPrice;
+    if (theLastPrice && (theLastPrice > 0)) {
+        self.lastPriceLabel.text = [utils formatPriceString:theLastPrice];
+        self.lastPriceLabel.textColor = lastPriceLabelColor;
         priceLoadingView.hidden = YES;
     } else {
-        self.lastPriceLabel.text = @"";
-        if (hasSymbol) {
+        if (globalTicket.loadingQuote) {
+            self.lastPriceLabel.text = @"";
             priceLoadingView.hidden = NO;
+        } else {
+            self.lastPriceLabel.text = @"N/A";
+            self.lastPriceLabel.textColor = styles.inactiveColor;
+            priceLoadingView.hidden = YES;
         }
     }
 }
@@ -104,6 +113,9 @@
         self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];
         self.changeLabel.textColor = changeColor;
         self.changeLabel.hidden = NO;
+    } else {
+        self.changeLabel.textColor = styles.inactiveColor;
+        self.changeLabel.text = @"";
     }
 }
 
