@@ -229,14 +229,19 @@ static float kAccountCellHeight = 44.0f;
 
             CGSize buttonSize = [buttonTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
 
-            UIButton * linkButton = [[UIButton alloc] initWithFrame:CGRectMake(15.0f, buttonSize.height / 2.0f, tableView.frame.size.width, buttonSize.height)];
+            UIButton * linkButton = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, buttonSize.width * 3, buttonSize.height * 2)];
+
+            linkButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15.0, 5.0, 0);
             [linkButton setTitle:buttonTitle forState:UIControlStateNormal];
             linkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            linkButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 
             [linkButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
             linkButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
 
             [footerView addSubview:linkButton];
+
+            [footerView layoutSubviews];
 
             UITapGestureRecognizer * linkTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAccountPressed:)];
             [linkButton addGestureRecognizer: linkTap];

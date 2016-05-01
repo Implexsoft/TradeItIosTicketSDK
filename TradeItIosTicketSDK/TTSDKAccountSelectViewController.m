@@ -114,7 +114,8 @@
 -(UIView *) createFooterView {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
 
-    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x + 43, footerView.frame.origin.y, footerView.frame.size.width / 2, footerView.frame.size.height / 2)];
+    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, footerView.frame.size.height / 2)];
+    addAccount.titleEdgeInsets = UIEdgeInsetsMake(0, 43.0, 0, 0);
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
     [addAccount setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
