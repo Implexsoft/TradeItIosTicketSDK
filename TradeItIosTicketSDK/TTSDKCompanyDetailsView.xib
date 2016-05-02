@@ -40,21 +40,23 @@
                     <rect key="frame" x="200" y="0.0" width="120" height="61"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Vl-i8-VXV">
-                            <rect key="frame" x="111" y="10" width="9" height="21"/>
+                            <rect key="frame" x="106" y="10" width="9" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="2UM-Mu-1ie"/>
                                 <constraint firstAttribute="width" constant="9" id="ho0-lR-5DM"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPG-hN-yxK">
-                            <rect key="frame" x="48" y="3" width="58" height="34"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPG-hN-yxK">
+                            <rect key="frame" x="0.0" y="3" width="120" height="34"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
                             <state key="normal" title="Fidelity">
                                 <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps" customClass="TTSDKLabel">
-                            <rect key="frame" x="106" y="37" width="0.0" height="0.0"/>
+                            <rect key="frame" x="115" y="37" width="0.0" height="0.0"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" id="R3i-mY-jD2"/>
                             </constraints>
@@ -62,8 +64,8 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
-                            <rect key="frame" x="37" y="26" width="64" height="10"/>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
+                            <rect key="frame" x="46" y="25" width="64" height="10"/>
                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -73,12 +75,13 @@
                     <constraints>
                         <constraint firstItem="pm8-YV-2OE" firstAttribute="baseline" secondItem="tJl-Lq-2ps" secondAttribute="baseline" id="36R-YS-yv2"/>
                         <constraint firstItem="tJl-Lq-2ps" firstAttribute="leading" secondItem="pm8-YV-2OE" secondAttribute="trailing" constant="5" id="8k0-sW-x79"/>
+                        <constraint firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" id="B6b-Pv-shz"/>
                         <constraint firstItem="tJl-Lq-2ps" firstAttribute="top" secondItem="aPG-hN-yxK" secondAttribute="bottom" id="FhC-bl-pao"/>
-                        <constraint firstItem="aPG-hN-yxK" firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" constant="-14" id="NRc-mU-eFZ"/>
+                        <constraint firstItem="aPG-hN-yxK" firstAttribute="leading" secondItem="2BR-wm-Ao4" secondAttribute="leading" id="XyE-Qw-LEm"/>
                         <constraint firstItem="0Vl-i8-VXV" firstAttribute="centerY" secondItem="aPG-hN-yxK" secondAttribute="centerY" id="Y4n-er-jLB"/>
                         <constraint firstAttribute="width" constant="120" id="e6O-hC-Ohf"/>
-                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" id="suB-rb-fB7"/>
-                        <constraint firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" id="wa3-Ym-S8E"/>
+                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" constant="-5" id="suB-rb-fB7"/>
+                        <constraint firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" constant="5" id="wa3-Ym-S8E"/>
                     </constraints>
                 </view>
             </subviews>
