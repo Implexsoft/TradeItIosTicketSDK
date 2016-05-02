@@ -387,9 +387,13 @@ static float kAccountCellHeight = 44.0f;
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class) {
+        TTSDKPosition * position = [positionsHolder objectAtIndex: indexPath.row];
+
         if (indexPath.section == 0) {
             return NO;
         } else if (indexPath.row == self.selectedHoldingIndex) {
+            return NO;
+        } else if (![position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
             return NO;
         }
 
@@ -401,6 +405,13 @@ static float kAccountCellHeight = 44.0f;
 
 - (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class && indexPath.section == 1) {
+        TTSDKPosition * position = [positionsHolder objectAtIndex: indexPath.row];
+
+        // Don't allow Buy or Sell on anything other than equity or etf
+        if (![position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
+            [tableView setEditing:NO];
+            return nil;
+        }
 
         UITableViewRowAction *buyAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"BUY" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [tableView setEditing:NO];
