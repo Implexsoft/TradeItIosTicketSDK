@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -21,7 +21,7 @@
                     <state key="normal" title="SYMBL"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-bz-M7M" customClass="TTSDKLabel">
-                    <rect key="frame" x="85" y="4" width="63" height="28"/>
+                    <rect key="frame" x="81" y="4" width="63" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="0EQ-x6-byB"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="63" id="7w4-9K-l6k"/>
@@ -62,7 +62,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
                             <rect key="frame" x="37" y="26" width="64" height="10"/>
                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,7 +89,7 @@
                 <constraint firstItem="cqV-nr-8WB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DA8-Xb-oL7"/>
                 <constraint firstItem="aPG-hN-yxK" firstAttribute="baseline" secondItem="cqV-nr-8WB" secondAttribute="baseline" id="NuI-vm-0rz"/>
                 <constraint firstItem="fbU-bz-M7M" firstAttribute="centerY" secondItem="cqV-nr-8WB" secondAttribute="centerY" id="StI-2F-2TV"/>
-                <constraint firstItem="fbU-bz-M7M" firstAttribute="leading" secondItem="cqV-nr-8WB" secondAttribute="trailing" constant="10" id="T4g-45-QL4"/>
+                <constraint firstItem="fbU-bz-M7M" firstAttribute="leading" secondItem="cqV-nr-8WB" secondAttribute="trailing" constant="6" id="T4g-45-QL4"/>
                 <constraint firstAttribute="trailing" secondItem="2BR-wm-Ao4" secondAttribute="trailing" id="TVv-3r-l4T"/>
                 <constraint firstItem="O4l-GN-l0D" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="atf-r3-QN7"/>
                 <constraint firstItem="2BR-wm-Ao4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cHQ-6T-2Tu"/>

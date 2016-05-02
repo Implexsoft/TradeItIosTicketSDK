@@ -57,6 +57,9 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AAPL (102)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dD-ZD-xJT" customClass="TTSDKLabel">
                                 <rect key="frame" x="14" y="22" width="71" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="czz-YH-8kc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -222,7 +225,7 @@
                 <outlet property="totalReturnValueLabel" destination="nlW-dX-x2c" id="eDD-VF-NX0"/>
                 <outlet property="totalValueLabel" destination="Op7-hK-I8r" id="8vX-5Z-IAq"/>
             </connections>
-            <point key="canvasLocation" x="242" y="597.5"/>
+            <point key="canvasLocation" x="296" y="760.5"/>
         </tableViewCell>
     </objects>
 </document>
