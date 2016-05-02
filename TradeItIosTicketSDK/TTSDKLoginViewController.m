@@ -82,7 +82,7 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
-    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker username" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[self.utils getBrokerUsername: broker] attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
     passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
@@ -244,7 +244,7 @@
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
 
-                    if ([self.ticket checkIsAuthenticationDuplicate:authResult.accounts]) {
+                    if ([self.ticket checkIsAuthenticationDuplicate: authResult.accounts]) {
                         [self.ticket replaceAccountsWithNewAccounts: authResult.accounts];
                     }
 

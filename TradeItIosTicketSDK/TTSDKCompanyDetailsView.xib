@@ -109,7 +109,7 @@
                 <outlet property="symbolDetailValue" destination="tJl-Lq-2ps" id="dLb-Vd-VVF"/>
                 <outlet property="symbolLabel" destination="cqV-nr-8WB" id="nrG-tP-Zoz"/>
             </connections>
-            <point key="canvasLocation" x="137" y="246.5"/>
+            <point key="canvasLocation" x="304" y="563.5"/>
         </view>
     </objects>
     <resources>
