@@ -233,12 +233,12 @@
     [self changeOrderType:self.ticket.previewRequest.orderPriceType];
     [self changeOrderExpiration:self.ticket.previewRequest.orderExpiration];
 
-    [companyNib populateBrokerButtonTitle: self.ticket.currentSession.broker];
+    [companyNib populateBrokerButtonTitle: [self.ticket.currentAccount valueForKey: @"displayTitle"]];
 }
 
 -(void) populateSymbolDetails {
     [companyNib populateDetailsWithQuote:self.ticket.quote];
-    [companyNib populateBrokerButtonTitle: self.ticket.currentSession.broker];
+    [companyNib populateBrokerButtonTitle: [self.ticket.currentAccount valueForKey: @"displayTitle"]];
 
     if ([self.ticket.previewRequest.orderAction isEqualToString: @"buy"]) {
         [companyNib populateSymbolDetail:self.currentPortfolioAccount.balance.buyingPower andSharesOwned:nil];
