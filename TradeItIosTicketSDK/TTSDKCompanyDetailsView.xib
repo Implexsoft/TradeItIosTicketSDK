@@ -11,9 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqV-nr-8WB">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqV-nr-8WB">
                     <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
                     <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="130" id="F4d-9R-5ks"/>
                         <constraint firstAttribute="height" constant="35" id="lyA-6I-W0m"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>

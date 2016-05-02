@@ -243,7 +243,6 @@
     if ([self.ticket.previewRequest.orderAction isEqualToString: @"buy"]) {
         [companyNib populateSymbolDetail:self.currentPortfolioAccount.balance.buyingPower andSharesOwned:nil];
     } else {
-
         NSNumber * sharesOwned = @0;
 
         for (TTSDKPosition * position in self.currentPortfolioAccount.positions) {
