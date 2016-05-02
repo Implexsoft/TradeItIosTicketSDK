@@ -1604,8 +1604,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Trade" id="hHX-w2-81q">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="xYq-dk-0jG"/>
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="35P-gP-XDe">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="xYq-dk-0jG"/>
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="35P-gP-XDe">
                             <connections>
                                 <action selector="cancelPressed:" destination="VXZ-vQ-tdp" id="QGi-Io-fm1"/>
                             </connections>
@@ -1793,10 +1793,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vdw-ys-tjA"/>
-        <segue reference="JZr-PV-7wY"/>
-        <segue reference="hO5-IP-sLI"/>
+        <segue reference="uWM-4J-KHQ"/>
         <segue reference="alq-MR-2uv"/>
         <segue reference="kyf-iM-tIO"/>
+        <segue reference="hO5-IP-sLI"/>
+        <segue reference="Iho-lP-LWh"/>
     </inferredMetricsTieBreakers>
 </document>

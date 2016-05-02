@@ -14,6 +14,7 @@
 #import "TTSDKLoginViewController.h"
 #import "TradeItQuotesResult.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKTradeViewController.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -459,8 +460,22 @@ static float kAccountCellHeight = 44.0f;
     self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
-    [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
-    [self.tabBarController setSelectedIndex: 0];
+    if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+        // Get storyboard
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+
+        // The first item in the auth nav stack is the onboarding view
+        TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
+        [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
+
+        [self.navigationController pushViewController:tradeView animated:YES];
+
+    } else {
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
+        [self.tabBarController setSelectedIndex: 0];
+    }
 }
 
 -(void) didSelectSell:(TTSDKPosition *)position {
