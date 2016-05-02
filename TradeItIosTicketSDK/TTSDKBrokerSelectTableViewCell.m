@@ -44,15 +44,10 @@ static float kDisclosureWidth = 7.0f;
     }
 }
 
--(UIEdgeInsets) layoutMargins {
-    return UIEdgeInsetsZero;
-}
-
 -(void) layoutSubviews {
     [super layoutSubviews];
 
-    self.textLabel.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
-    customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - (kDisclosureWidth * 2), 0, kDisclosureWidth, self.contentView.frame.size.height);
+    customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - (kDisclosureWidth * 3), 0, kDisclosureWidth, self.contentView.frame.size.height);
 }
 
 -(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
@@ -69,14 +64,6 @@ static float kDisclosureWidth = 7.0f;
     } else {
         self.textLabel.textColor = styles.primaryTextColor;
     }
-}
-
--(void) setFrame:(CGRect)frame {
-    int inset = 20;
-    frame.origin.x += inset;
-    frame.size.width -= inset * 2;
-    
-    [super setFrame:frame];
 }
 
 

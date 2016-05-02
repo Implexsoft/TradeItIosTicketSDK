@@ -198,6 +198,11 @@
 		65ECCAF21C125403000CE86B /* TTSDKUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 65ECCAF01C125403000CE86B /* TTSDKUtils.h */; };
 		65ECCAF31C125403000CE86B /* TTSDKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECCAF11C125403000CE86B /* TTSDKUtils.m */; };
 		65EE86101C77873900517CE9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
+		65EF35881CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EF35861CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.h */; };
+		65EF35891CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EF35871CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.m */; };
+		65EF358A1CD7E410003B6DD7 /* TTSDKBrokerSelectFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EF35821CD7DEBA003B6DD7 /* TTSDKBrokerSelectFooterView.xib */; };
+		65EF358D1CD7E908003B6DD7 /* TTSDKWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EF358B1CD7E908003B6DD7 /* TTSDKWebViewController.h */; };
+		65EF358E1CD7E908003B6DD7 /* TTSDKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EF358C1CD7E908003B6DD7 /* TTSDKWebViewController.m */; };
 		65F240C91C4570BD00DD2309 /* TTSDKTabBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F240C71C4570BD00DD2309 /* TTSDKTabBarViewController.h */; };
 		65F240CA1C4570BD00DD2309 /* TTSDKTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F240C81C4570BD00DD2309 /* TTSDKTabBarViewController.m */; };
 		65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */; };
@@ -468,6 +473,11 @@
 		65EC07C81CBD7B3300A6B72E /* TTSDKNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKNavigationController.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKNavigationController.m; sourceTree = "<group>"; };
 		65ECCAF01C125403000CE86B /* TTSDKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKUtils.h; sourceTree = "<group>"; };
 		65ECCAF11C125403000CE86B /* TTSDKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKUtils.m; sourceTree = "<group>"; };
+		65EF35821CD7DEBA003B6DD7 /* TTSDKBrokerSelectFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TTSDKBrokerSelectFooterView.xib; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKBrokerSelectFooterView.xib; sourceTree = "<group>"; };
+		65EF35861CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKBrokerSelectFooterView.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKBrokerSelectFooterView.h; sourceTree = "<group>"; };
+		65EF35871CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKBrokerSelectFooterView.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKBrokerSelectFooterView.m; sourceTree = "<group>"; };
+		65EF358B1CD7E908003B6DD7 /* TTSDKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKWebViewController.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKWebViewController.h; sourceTree = "<group>"; };
+		65EF358C1CD7E908003B6DD7 /* TTSDKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKWebViewController.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKWebViewController.m; sourceTree = "<group>"; };
 		65F240C71C4570BD00DD2309 /* TTSDKTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTabBarViewController.h; sourceTree = "<group>"; };
 		65F240C81C4570BD00DD2309 /* TTSDKTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTabBarViewController.m; sourceTree = "<group>"; };
 		65F39CCC1CC9882500BDF077 /* TTSDKKeypad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKKeypad.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKKeypad.h; sourceTree = "<group>"; };
@@ -719,6 +729,8 @@
 		6574AA641CB7FE7B0003FFE9 /* AbstractViews */ = {
 			isa = PBXGroup;
 			children = (
+				65EF358B1CD7E908003B6DD7 /* TTSDKWebViewController.h */,
+				65EF358C1CD7E908003B6DD7 /* TTSDKWebViewController.m */,
 				655E67051CB5ADDB00C3A201 /* TTSDKViewController.h */,
 				655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */,
 				6574AA681CB7FEC30003FFE9 /* TTSDKLabel.h */,
@@ -978,6 +990,9 @@
 				A9B2D4761B5EA92F008065E1 /* TTSDKLoginViewController.m */,
 				655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */,
 				655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */,
+				65EF35821CD7DEBA003B6DD7 /* TTSDKBrokerSelectFooterView.xib */,
+				65EF35861CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.h */,
+				65EF35871CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.m */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -1003,6 +1018,7 @@
 				650C9ECB1C76932200FCABEC /* TradeItPositionService.h in Headers */,
 				650C9EC71C76932200FCABEC /* TradeItPlaceTradeResult.h in Headers */,
 				650C9EDD1C76932200FCABEC /* TradeItSecurityQuestionRequest.h in Headers */,
+				65EF358D1CD7E908003B6DD7 /* TTSDKWebViewController.h in Headers */,
 				650C9ED51C76932200FCABEC /* TradeItQuotesRequest.h in Headers */,
 				652D19861CB6AEAA0090CBBF /* TradeItStyles.h in Headers */,
 				650C9EAA1C76932200FCABEC /* TradeItBalanceService.h in Headers */,
@@ -1019,6 +1035,7 @@
 				650C9EAE1C76932200FCABEC /* TradeItBrokerListResult.h in Headers */,
 				650C9ED11C76932200FCABEC /* TradeItPreviewTradeResult.h in Headers */,
 				650C9E9C1C76932200FCABEC /* TradeItAccountOverviewRequest.h in Headers */,
+				65EF35881CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.h in Headers */,
 				650C9EE11C76932200FCABEC /* TradeItSession.h in Headers */,
 				650C9ED31C76932200FCABEC /* TradeItQuote.h in Headers */,
 				650C9ECD1C76932200FCABEC /* TradeItPreviewTradeOrderDetails.h in Headers */,
@@ -1236,6 +1253,7 @@
 				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
 				6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */,
+				65EF358A1CD7E410003B6DD7 /* TTSDKBrokerSelectFooterView.xib in Resources */,
 				650E2D3F1C45BE9700A3069E /* portfolio_icon@3x.png in Resources */,
 				6508C4D21C7A254900612B62 /* TTSDKHoldingsHeader.xib in Resources */,
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
@@ -1345,6 +1363,7 @@
 				658CC9D81C729B34000C57E1 /* TTSDKSearchViewController.m in Sources */,
 				650C9EEA1C76932200FCABEC /* TradeItTradeService.m in Sources */,
 				650C9E951C76932200FCABEC /* TIEMSJSONModel+networking.m in Sources */,
+				65EF358E1CD7E908003B6DD7 /* TTSDKWebViewController.m in Sources */,
 				650C9EAB1C76932200FCABEC /* TradeItBalanceService.m in Sources */,
 				650C9EE41C76932200FCABEC /* TradeItSymbolLookupCompany.m in Sources */,
 				650C9E971C76932200FCABEC /* TIEMSJSONKeyMapper.m in Sources */,
@@ -1370,6 +1389,7 @@
 				A9A8D0FD1B4F19D5000207B9 /* TTSDKReviewScreenViewController.m in Sources */,
 				65A219A61C6268E300BDCF19 /* TTSDKTradeItTicket.m in Sources */,
 				A9A8D0FE1B4F19D5000207B9 /* TTSDKSuccessViewController.m in Sources */,
+				65EF35891CD7E321003B6DD7 /* TTSDKBrokerSelectFooterView.m in Sources */,
 				650C9EC21C76932200FCABEC /* TradeItPlaceTradeOrderInfo.m in Sources */,
 				650C9EBE1C76932200FCABEC /* TradeItLinkedLogin.m in Sources */,
 				A9C002BF1B710853007D15F5 /* TradeItIosTicketSDK.m in Sources */,

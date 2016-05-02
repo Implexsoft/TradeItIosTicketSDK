@@ -19,9 +19,11 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
+#import "TTSDKBrokerSelectFooterView.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioHoldingTableViewCell.h"
 #import "TTSDKPortfolioAccountsTableViewCell.h"
+#import "TTSDKWebViewController.h"
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKUtils.h"
 #import "TTSDKAccountLinkViewController.h"
@@ -325,11 +327,13 @@
     [TTSDKCompanyDetails class];
     [TTSDKKeypad class];
     [TTSDKAccountSelectViewController class];
+    [TTSDKWebViewController class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
     [TTSDKOnboardingViewController class];
     [TTSDKBrokerSelectViewController class];
+    [TTSDKBrokerSelectFooterView class];
     [TTSDKLoginViewController class];
     [TTSDKBrokerSelectTableViewCell class];
     [TTSDKPortfolioViewController class];

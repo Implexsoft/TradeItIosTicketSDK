@@ -19,7 +19,7 @@
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="BrokerCell" textLabel="VD5-sn-X2q" style="IBUITableViewCellStyleDefault" id="cUq-xX-cQ5" customClass="TTSDKBrokerSelectTableViewCell">
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -1711,6 +1711,59 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1490" y="95"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="CZl-Ou-ZIC">
+            <objects>
+                <viewController storyboardIdentifier="WebView" id="pzr-9H-CHV" customClass="TTSDKWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Waq-xS-9DA"/>
+                        <viewControllerLayoutGuide type="bottom" id="K1Y-8b-PGx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4WY-ao-Oee">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjU-hJ-PlW">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="13t-fM-DO8"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem id="PUQ-2k-phd">
+                                        <barButtonItem key="rightBarButtonItem" title="Close" id="2Wp-Xq-4E1">
+                                            <connections>
+                                                <action selector="closePressed:" destination="pzr-9H-CHV" id="46x-Gv-gmP"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBA-K0-gLo">
+                                <rect key="frame" x="-4" y="64" width="328" height="416"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vBA-K0-gLo" secondAttribute="trailing" constant="-20" id="450-p5-n5u"/>
+                            <constraint firstItem="sjU-hJ-PlW" firstAttribute="top" secondItem="4WY-ao-Oee" secondAttribute="topMargin" id="7nc-Dg-6tX"/>
+                            <constraint firstItem="vBA-K0-gLo" firstAttribute="top" secondItem="sjU-hJ-PlW" secondAttribute="bottom" id="7rQ-ev-inf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sjU-hJ-PlW" secondAttribute="trailing" constant="-20" id="GRi-Vu-zhi"/>
+                            <constraint firstItem="vBA-K0-gLo" firstAttribute="leading" secondItem="4WY-ao-Oee" secondAttribute="leadingMargin" constant="-20" id="Xws-l5-RgE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="vBA-K0-gLo" secondAttribute="bottom" id="fRd-68-Vqr"/>
+                            <constraint firstItem="sjU-hJ-PlW" firstAttribute="leading" secondItem="4WY-ao-Oee" secondAttribute="leadingMargin" constant="-20" id="ixq-q8-1z0"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="navBar" destination="sjU-hJ-PlW" id="2BP-Ck-wJ9"/>
+                        <outlet property="webView" destination="vBA-K0-gLo" id="tZb-TJ-XIb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nIm-Bu-rea" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-953" y="-1208"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="mCR-6k-glU">

@@ -9,11 +9,14 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TTSDKLabel.h"
+#import "TTSDKBrokerSelectFooterView.h"
+#import "TTSDKWebViewController.h"
 
 
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
+    TTSDKBrokerSelectFooterView * footerView;
 }
 
 
@@ -29,7 +32,6 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     [super viewDidLoad];
 
     [self.tableView setContentInset: UIEdgeInsetsZero];
-    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
     brokers = self.ticket.brokerList;
 
@@ -37,15 +39,6 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         [self showLoadingAndWait];
     }
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
-    headerView.backgroundColor = [UIColor clearColor];
-    TTSDKLabel *headerLabelView = [[TTSDKLabel alloc] initWithFrame:CGRectMake(0, (headerView.frame.origin.y + headerView.frame.size.height) - 60.0f, headerView.frame.size.width, 60.0f)];
-    headerLabelView.text = @"Link your broker account \n to enable trading";
-    headerLabelView.numberOfLines = 0;
-    headerLabelView.textAlignment = NSTextAlignmentCenter;
-    [headerView addSubview:headerLabelView];
-
-    self.tableView.tableHeaderView = headerView;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -69,12 +62,88 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     
     TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
     [cell configureCellWithText:displayText];
-    
+
+    if ((indexPath.row + 1) == brokers.count) {
+        [self performSelectorOnMainThread:@selector(showFooterView) withObject:nil waitUntilDone:NO];
+    }
+
     return cell;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20.0f)];
+    headerView.backgroundColor = self.styles.pageBackgroundColor;
+
+    return headerView;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.0f;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 40.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (footerView) {
+        return footerView;
+    }
+
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSArray * footerViewArray = [resourceBundle loadNibNamed:@"TTSDKBrokerSelectFooterView" owner:self options:nil];
+    
+    footerView = [footerViewArray firstObject];
+
+    UITapGestureRecognizer * helpTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(helpTapped:)];
+    [footerView.help addGestureRecognizer: helpTap];
+
+    UITapGestureRecognizer * privacyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(privacyTapped:)];
+    [footerView.privacy addGestureRecognizer: privacyTap];
+
+    UITapGestureRecognizer * termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsTapped:)];
+    [footerView.terms addGestureRecognizer: termsTap];
+
+    return footerView;
+}
+
+-(void)helpTapped:(id)sender {
+    [self showWebViewWithURL:@"https://www.trade.it/faq" andTitle:@"Help"];
+}
+
+-(void)privacyTapped:(id)sender {
+    [self showWebViewWithURL:@"https://www.trade.it/privacy" andTitle:@"Privacy"];
+}
+
+-(void)termsTapped:(id)sender {
+    [self showWebViewWithURL:@"https://www.trade.it/terms" andTitle:@"Terms"];
+}
+
+-(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // The first item in the auth nav stack is the onboarding view
+    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
+    [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+
+    webViewController.navBar.topItem.title = title;
+
+    [self presentViewController:webViewController animated:YES completion:^(void) {
+        [webViewController.webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
+    }];
+}
+
+
+
+
 
 #pragma mark Custom UI
+
+-(void) showFooterView {
+    footerView.hidden = NO;
+}
 
 -(void) showLoadingAndWait {
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
