@@ -97,6 +97,9 @@ static double kLoadInterval = -30.0f;
     }
 
     if (load) {
+        self.balanceComplete = NO;
+        self.positionsComplete = NO;
+
         [self.session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
             self.balanceComplete = YES;
             

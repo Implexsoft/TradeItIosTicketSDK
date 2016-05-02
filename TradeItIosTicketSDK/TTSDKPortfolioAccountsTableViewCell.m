@@ -91,6 +91,7 @@
 
 -(IBAction) authSelected:(id)sender {
     if ([self.delegate respondsToSelector:@selector(didSelectAuth:)]) {
+        [self configureSelectedState:YES];
         [self.delegate didSelectAuth: self.portfolioAccount];
     }
 }

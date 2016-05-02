@@ -40,6 +40,7 @@
 
 static float kAccountsHeaderHeight = 165.0f;
 static float kHoldingsHeaderHeight = 75.0f;
+static float kAccountsFooterHeight = 40.0f;
 static float kHoldingCellDefaultHeight = 60.0f;
 static float kHoldingCellExpandedHeight = 132.0f;
 static float kAccountCellHeight = 44.0f;
@@ -219,19 +220,15 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-
     if (section == 0) {
         if (!self.accountsFooterView) {
-            UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, tableView.frame.size.width, 70.0f)];
+            UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, tableView.frame.size.width, kAccountsFooterHeight)];
             footerView.backgroundColor = self.styles.pageBackgroundColor;
-            
+
             NSString * buttonTitle = @"Add Account";
 
-            CGSize buttonSize = [buttonTitle sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]}];
-
-            UIButton * linkButton = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, buttonSize.width * 3, buttonSize.height * 2)];
-
-            linkButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15.0, 5.0, 0);
+            UIButton * linkButton = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, footerView.frame.size.height)];
+            linkButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15.0, 0, 0);
             [linkButton setTitle:buttonTitle forState:UIControlStateNormal];
             linkButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             linkButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -264,6 +261,14 @@ static float kAccountCellHeight = 44.0f;
         return kAccountsHeaderHeight;
     } else {
         return kHoldingsHeaderHeight;
+    }
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return kAccountsFooterHeight;
+    } else {
+        return 0;
     }
 }
 
@@ -326,23 +331,26 @@ static float kAccountCellHeight = 44.0f;
     }
 }
 
+-(void) handleAccountSelection:(TTSDKPortfolioAccount *)selectedAccount {
+    [portfolioService selectAccount: selectedAccount.accountNumber];
+    positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
+    
+    if (selectedAccount.displayTitle) {
+        self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
+    } else {
+        self.holdingsHeaderTitle = [NSString stringWithFormat:@"Holdings"];
+    }
+    
+    [self updateTableContentSize];
+    [self.accountsTable reloadData];
+}
+
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row != self.selectedAccountIndex) {
             self.selectedAccountIndex = indexPath.row;
             TTSDKPortfolioAccount * selectedAccount = [accountsHolder objectAtIndex:indexPath.row];
-
-            [portfolioService selectAccount: selectedAccount.accountNumber];
-            positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
-
-            if (selectedAccount.displayTitle) {
-                self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", selectedAccount.displayTitle];
-            } else {
-                self.holdingsHeaderTitle = [NSString stringWithFormat:@"Holdings"];
-            }
-
-            [self updateTableContentSize];
-            [self.accountsTable reloadData];
+            [self handleAccountSelection: selectedAccount];
         }
     } else {
         if (indexPath.row == self.selectedHoldingIndex) {
@@ -460,11 +468,15 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
+    [self handleAccountSelection: account];
+
     NSDictionary * accountData = [account accountData];
     TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
 
     [accountSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res){
-        [self loadPortfolioData];
+        [portfolioService getSummaryForSelectedAccount:^(void) {
+            [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
+        }];
     }];
 }
 
