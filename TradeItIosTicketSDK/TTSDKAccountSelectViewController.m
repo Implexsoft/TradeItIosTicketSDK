@@ -47,7 +47,6 @@
     [super viewWillAppear:animated];
 
     self.tableView.backgroundColor = self.styles.pageBackgroundColor;
-
     portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
 
     if (self.ticket.currentSession.isAuthenticated) {
@@ -62,7 +61,7 @@
 }
 
 -(void) loadAccounts {
-    [portfolioService getBalancesForAccounts:^(void) {
+    [portfolioService getSummaryForAccounts:^(void) {
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
@@ -108,29 +107,24 @@
 }
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [self createFooterView];
-}
-
--(UIView *) createFooterView {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-
-    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, footerView.frame.size.height / 2)];
+    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, 30.0f)];
     addAccount.titleEdgeInsets = UIEdgeInsetsMake(0, 43.0, 0, 0);
     [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
     [addAccount setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
     [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
     addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [addAccount setUserInteractionEnabled:YES];
-
+    
     UITapGestureRecognizer * addAccountTap = [[UITapGestureRecognizer alloc]
                                               initWithTarget:self
                                               action:@selector(addAccountPressed:)];
     [addAccount addGestureRecognizer:addAccountTap];
-
+    
     footerView.backgroundColor = self.styles.pageBackgroundColor;
-
+    
     [footerView addSubview:addAccount];
-
+    
     return footerView;
 }
 
