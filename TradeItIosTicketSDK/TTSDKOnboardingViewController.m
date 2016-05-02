@@ -120,10 +120,9 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(IBAction) brokerSelectPressed:(id)sender {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
-    
-    NSString * selectedBroker = [self.ticket getBrokerByValueString: @"Fidelity"][1];
-    [loginViewController setAddBroker: selectedBroker];
-    
+
+    [loginViewController setAddBroker: @"Fidelity"];
+
     [self.navigationController pushViewController: loginViewController animated:YES];
 }
 
