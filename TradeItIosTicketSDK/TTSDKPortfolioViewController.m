@@ -387,14 +387,16 @@ static float kAccountCellHeight = 44.0f;
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class) {
-        TTSDKPosition * position = [positionsHolder objectAtIndex: indexPath.row];
-
         if (indexPath.section == 0) {
             return NO;
-        } else if (indexPath.row == self.selectedHoldingIndex) {
-            return NO;
-        } else if (![position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
-            return NO;
+        } else {
+            TTSDKPosition * position = [positionsHolder objectAtIndex: indexPath.row];
+
+            if (indexPath.row == self.selectedHoldingIndex) {
+                return NO;
+            } else if (![position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
+                return NO;
+            }
         }
 
         return YES;
