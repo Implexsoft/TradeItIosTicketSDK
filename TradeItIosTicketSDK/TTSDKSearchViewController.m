@@ -53,6 +53,12 @@
     searchController.searchResultsDelegate = self;
 }
 
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear: animated];
+
+    [self.searchBar becomeFirstResponder];
+}
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.symbolSearchResults.count;
 }
