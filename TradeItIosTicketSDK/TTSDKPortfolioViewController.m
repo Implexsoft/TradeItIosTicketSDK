@@ -343,7 +343,7 @@ static float kAccountCellHeight = 44.0f;
             [tableView beginUpdates];
 
             [CATransaction setCompletionBlock: ^{
-                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+                [tableView reloadData];
             }];
 
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -449,6 +449,13 @@ static float kAccountCellHeight = 44.0f;
     self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
+    NSDictionary * selectedAccountData = [portfolioService.selectedAccount accountData];
+    if (![portfolioService.selectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+        [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccountData] andAccount:selectedAccountData];
+    } else {
+        [self.ticket selectCurrentAccount: selectedAccountData];
+    }
+
     if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
 
@@ -470,8 +477,28 @@ static float kAccountCellHeight = 44.0f;
     self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
 
-    [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
-    [self.tabBarController setSelectedIndex: 0];
+    NSDictionary * selectedAccountData = [portfolioService.selectedAccount accountData];
+    if (![portfolioService.selectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+        [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: selectedAccountData] andAccount:selectedAccountData];
+    } else {
+        [self.ticket selectCurrentAccount: selectedAccountData];
+    }
+
+    if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
+        // Get storyboard
+        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+        
+        TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
+        [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
+        
+        [self.navigationController pushViewController:tradeView animated:YES];
+        
+    } else {
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
+        [self.tabBarController setSelectedIndex: 0];
+    }
 }
 
 -(void) updateQuoteByPosition:(TTSDKPosition *)position {
