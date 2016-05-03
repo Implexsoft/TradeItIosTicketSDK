@@ -13,6 +13,7 @@
 #import "TradeItSecurityQuestionResult.h"
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKPrimaryButton.h"
+#import "TTSDKTradeViewController.h"
 
 
 @implementation TTSDKLoginViewController {
@@ -25,6 +26,7 @@
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
+    NSArray * newAccounts;
 }
 
 
@@ -251,6 +253,8 @@
                     [self.ticket addSession: newSession];
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
+                    newAccounts = authResult.accounts;
+
                     NSDictionary * lastAccount = [authResult.accounts lastObject];
                     NSDictionary * selectedAccount;
                     for (NSDictionary *account in self.ticket.allAccounts) {
@@ -355,7 +359,16 @@
         UITabBarController * dest = (UITabBarController*)segue.destinationViewController;
         if (self.ticket.presentationMode == TradeItPresentationModePortfolio || self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
             dest.selectedIndex = 1;
+        } else {
+            dest.selectedIndex = 0;
+
+            // Trade View needs to know whether to prompt the user for account selection
+            if (newAccounts && newAccounts.count > 1) {
+                TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)dest.selectedViewController;
+                tradeViewController.multiAccountSelection = newAccounts;
+            }
         }
+
     } else if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
         [self.ticket configureAccountLinkNavController: nav];

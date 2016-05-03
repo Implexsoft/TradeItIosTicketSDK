@@ -9,4 +9,6 @@
 
 @interface TTSDKTradeViewController : TTSDKBaseTradeViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
+@property NSArray * multiAccountSelection;
+
 @end

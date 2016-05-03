@@ -223,8 +223,15 @@
             }
         }];
     } else {
-        [self retrieveAccountSummaryData];
-        [self checkIfReadyToTrade];
+
+        if (self.multiAccountSelection) {
+
+            // prompt account selection
+
+        } else {
+            [self retrieveAccountSummaryData];
+            [self checkIfReadyToTrade];
+        }
     }
 
     [self populateSymbolDetails];
