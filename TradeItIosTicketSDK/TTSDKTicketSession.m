@@ -19,6 +19,7 @@
     UIViewController * delegateViewController;
     NSString * currentSelection;
     TradeItTradeService * tradeService;
+    TTSDKUtils * utils;
 }
 
 @end
@@ -32,6 +33,7 @@
     if (self) {
         self.login = linkedLogin;
         self.broker = broker;
+        utils = [TTSDKUtils sharedUtils];
     }
 
     return self;
@@ -127,7 +129,8 @@
                 if (![UIAlertController class]) {
                     [self showOldSecQuestion:result.securityQuestion];
                 } else {
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Security Question"
+                    NSString * title = [NSString stringWithFormat:@"%@ Security Question", self.broker];
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle: title
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
