@@ -18,6 +18,7 @@
 }
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *addBrokerButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
+@property BOOL authenticated;
 
 @end
 
@@ -54,6 +55,16 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 -(void) viewWillAppear:(BOOL)animated {
     portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
 
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult *result) {
+            [self loadBalances];
+        }];
+    } else {
+        [self loadBalances];
+    }
+}
+
+-(void) loadBalances {
     [portfolioService getBalancesForAccounts:^(void) {
         [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
