@@ -61,6 +61,10 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:NO];
+    }
+
     if([self.ticket.previewRequest.orderQuantity intValue] > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
@@ -179,6 +183,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
 
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
             if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
                 dispatch_async(dispatch_get_main_queue(), ^{

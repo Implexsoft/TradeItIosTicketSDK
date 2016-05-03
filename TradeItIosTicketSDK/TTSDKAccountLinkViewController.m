@@ -108,11 +108,10 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 #pragma mark Custom Delegate Methods
 
 -(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(TTSDKPortfolioAccount *)account {
-
     // Unlinking account, so check whether it's the last account for a login
     BOOL isUnlinkingBroker = NO;
     if (!toggle.on) {
-        int accountsToUnlink;
+        int accountsToUnlink = 0;
 
         for (TTSDKPortfolioAccount * portfolioAccount in portfolioService.accounts) {
             if ([portfolioAccount.userId isEqualToString: account.userId] && portfolioAccount.active) {
@@ -139,6 +138,7 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
             if ([portfolioService linkedAccountsCount] < 1) {
                 noAccounts = YES;
+                self.ticket.sessions = [[NSArray alloc] init]; // reset the sessions
                 [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
             }
         } onCancel:^(void) {

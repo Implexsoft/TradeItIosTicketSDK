@@ -260,16 +260,6 @@
                         multiAccounts = [self buildAccountOptions:authResult.accounts];
                     }
 
-                    NSDictionary * lastAccount = [authResult.accounts lastObject];
-                    NSDictionary * selectedAccount;
-
-                    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
-                    for (NSDictionary *account in allAccounts) {
-                        if ([[lastAccount valueForKey:@"accountNumber"] isEqualToString:[account valueForKey:@"accountNumber"]]) {
-                            selectedAccount = account;
-                        }
-                    }
-
                     // If the auth flow was triggered modally, then we don't want to automatically select it
                     if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
                         self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
@@ -281,9 +271,10 @@
 
                         [self.ticket returnToParentApp];
                     } else if (self.isModal) {
+                        [self autoSelectAccount: [authResult.accounts lastObject] withSession:newSession];
                         [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        [self.ticket selectCurrentSession:newSession andAccount:selectedAccount];
+                        [self autoSelectAccount: [authResult.accounts lastObject] withSession:newSession];
 
                         if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
                             [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
@@ -299,6 +290,20 @@
             }];
         }
     }];
+}
+
+-(void) autoSelectAccount:(NSDictionary *)account withSession:(TTSDKTicketSession *)session {
+    NSDictionary * lastAccount = account;
+    NSDictionary * selectedAccount;
+
+    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
+    for (NSDictionary *account in allAccounts) {
+        if ([[lastAccount valueForKey:@"accountNumber"] isEqualToString:[account valueForKey:@"accountNumber"]]) {
+            selectedAccount = account;
+        }
+    }
+
+    [self.ticket selectCurrentSession:session andAccount:selectedAccount];
 }
 
 -(NSArray *) buildAccountOptions:(NSArray *)accounts {

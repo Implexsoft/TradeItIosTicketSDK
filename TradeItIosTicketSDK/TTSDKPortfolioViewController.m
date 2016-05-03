@@ -61,6 +61,10 @@ static float kAccountCellHeight = 44.0f;
 
     self.navigationController.navigationItem.hidesBackButton = NO;
     self.navigationItem.hidesBackButton = NO;
+
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
