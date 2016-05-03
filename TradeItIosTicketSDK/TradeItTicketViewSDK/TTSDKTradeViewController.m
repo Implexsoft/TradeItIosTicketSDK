@@ -65,35 +65,36 @@
         [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
 
-    [self initKeypad];
-    keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
-
-    UIView * emptyKeypadFrame = [[UIView alloc] initWithFrame:CGRectZero]; // we need to set the input view of the text field so that the cursor shows up
-    sharesInput.inputView = emptyKeypadFrame;
-    limitPriceInput.inputView = emptyKeypadFrame;
-    stopPriceInput.inputView = emptyKeypadFrame;
-    [sharesInput becomeFirstResponder];
-
-    companyNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
-    companyNib.backgroundColor = self.styles.pageBackgroundColor;
-
-    [self setCustomEvents];
-
-    UITapGestureRecognizer * sharesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharesPressed:)];
-    [sharesInput addGestureRecognizer: sharesTap];
-
-    UITapGestureRecognizer * limitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(limitPressed:)];
-    [limitPriceInput addGestureRecognizer: limitTap];
-
-    UITapGestureRecognizer * stopTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stopPressed:)];
-    [stopPriceInput addGestureRecognizer: stopTap];
-
-    currentFocus = @"shares";
-    [keypad hideDecimal];
-
     if ([self.utils isSmallScreen] && !uiConfigured) {
         [self configureUIForSmallScreens];
+    } else {
+        [self initKeypad];
+        keypadContainer.backgroundColor = self.styles.pageBackgroundColor;
+        
+        UIView * emptyKeypadFrame = [[UIView alloc] initWithFrame:CGRectZero]; // we need to set the input view of the text field so that the cursor shows up
+        sharesInput.inputView = emptyKeypadFrame;
+        limitPriceInput.inputView = emptyKeypadFrame;
+        stopPriceInput.inputView = emptyKeypadFrame;
+        [keypad hideDecimal];
     }
+
+    [sharesInput becomeFirstResponder];
+    
+    companyNib = [self.utils companyDetailsWithName:@"TTSDKCompanyDetailsView" intoContainer:companyDetails inController:self];
+    companyNib.backgroundColor = self.styles.pageBackgroundColor;
+    
+    [self setCustomEvents];
+    
+    UITapGestureRecognizer * sharesTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sharesPressed:)];
+    [sharesInput addGestureRecognizer: sharesTap];
+    
+    UITapGestureRecognizer * limitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(limitPressed:)];
+    [limitPriceInput addGestureRecognizer: limitTap];
+    
+    UITapGestureRecognizer * stopTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stopPressed:)];
+    [stopPriceInput addGestureRecognizer: stopTap];
+    
+    currentFocus = @"shares";
 
     [self.view setNeedsDisplay];
 
@@ -148,6 +149,7 @@
 -(void) styleDropdownButton:(UIButton *)button {
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 3;
+
 }
 
 -(void) styleBorderedFocusInput: (UIView *)input {
@@ -213,7 +215,7 @@
                     [alert addAction:cancelAction];
 
                     [self presentViewController:alert animated:YES completion:nil];
-                    
+
                     UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                     alertPresentationController.sourceView = self.view;
                     alertPresentationController.permittedArrowDirections = 0;
@@ -247,6 +249,12 @@
     [self changeOrderExpiration:self.ticket.previewRequest.orderExpiration];
 
     [companyNib populateBrokerButtonTitle: [self.ticket.currentAccount valueForKey: @"displayTitle"]];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    if (!self.ticket.previewRequest.orderSymbol) {
+        [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
+    }
 }
 
 -(void) populateSymbolDetails {
@@ -292,14 +300,16 @@
 #pragma mark Delegate Methods
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-    [keypad show];
+    if (keypad) {
+        [keypad show];
+    }
 
     if (textField == sharesInput) {
         [self styleBorderedFocusInput: sharesInput];
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"shares";
-        [keypad hideDecimal];
+        if (keypad) { [keypad hideDecimal]; }
     }
 
     if (textField == limitPriceInput) {
@@ -307,7 +317,7 @@
         [self styleBorderedFocusInput: limitPriceInput];
         [self styleBorderedUnfocusInput: stopPriceInput];
         currentFocus = @"limit";
-        [keypad showDecimal];
+        if (keypad) { [keypad showDecimal]; }
     }
 
     if (textField == stopPriceInput) {
@@ -315,7 +325,7 @@
         [self styleBorderedUnfocusInput: limitPriceInput];
         [self styleBorderedFocusInput: stopPriceInput];
         currentFocus = @"stop";
-        [keypad showDecimal];
+        if (keypad) { [keypad showDecimal]; }
     }
 
     return YES;
@@ -361,29 +371,12 @@
 
 -(void) configureUIForSmallScreens {
     uiConfigured = YES;
-
-    if (keypadTopConstraint) {
-        [containerView removeConstraint:keypadTopConstraint];
-        NSLayoutConstraint * heightConstraint = [NSLayoutConstraint constraintWithItem:keypadContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:200];
-        [containerView addConstraint:heightConstraint];
-    }
-
-    CALayer * borderLayer = [CALayer layer];
-    borderLayer.frame = CGRectMake(0, 0, keypadContainer.frame.size.width, 1.0f);
-    borderLayer.backgroundColor = self.styles.activeColor.CGColor;
-    [keypadContainer.layer addSublayer:borderLayer];
-
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:keypadContainer.bounds];
-    keypadContainer.layer.masksToBounds = NO;
-    keypadContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    keypadContainer.layer.shadowOffset = CGSizeMake(0.0f, -0.5f);
-    keypadContainer.layer.shadowOpacity = 0.5f;
-    keypadContainer.layer.shadowPath = shadowPath.CGPath;
-    keypadContainer.layer.zPosition = 100;
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [keypad hide];
+    if (keypad) {
+        [keypad hide];
+    }
 }
 
 
