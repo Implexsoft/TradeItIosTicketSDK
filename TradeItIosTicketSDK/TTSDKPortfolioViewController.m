@@ -58,6 +58,9 @@ static float kAccountCellHeight = 44.0f;
 
     self.holdingsHeaderTitle = @"My Holdings";
     self.selectedHoldingIndex = -1;
+
+    self.navigationController.navigationItem.hidesBackButton = NO;
+    self.navigationItem.hidesBackButton = NO;
 }
 
 -(void) viewWillAppear:(BOOL)animated {
