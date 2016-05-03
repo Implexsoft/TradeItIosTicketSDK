@@ -279,7 +279,7 @@
                         } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
                             [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
                         } else if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
-                            [self performSegueWithIdentifier:@"LoginToAccountSelect" sender:self];
+                            [self performSegueWithIdentifier:@"LoginToAccountLink" sender:self];
                         } else {
                             [self performSegueWithIdentifier: @"LoginToTab" sender: self];
                         }

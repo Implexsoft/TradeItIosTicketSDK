@@ -290,11 +290,10 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(void) configureAccountLinkNavController:(UINavigationController *)nav {
     // Set root to modal
     TTSDKAccountSelectViewController * root = (TTSDKAccountSelectViewController *)[nav.viewControllers objectAtIndex:0];
-    root.isModal = YES;
 
     // Set cancel button to close the app on completion
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(returnToParentApp)];
-    root.navigationItem.leftBarButtonItem = cancelButton;
+    root.navigationItem.rightBarButtonItem = cancelButton;
     root.navigationItem.hidesBackButton = NO;
 }
 

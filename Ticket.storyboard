@@ -134,7 +134,7 @@
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
                         <segue destination="ms7-Oa-HyF" kind="unwind" identifier="unwindToBrokerSelect" unwindAction="unwindToBrokerSelect:" id="2c2-FE-Lc7"/>
                         <segue destination="Mny-9H-gjs" kind="presentation" identifier="LoginToTab" id="SUN-bA-Ai5"/>
-                        <segue destination="EOX-B4-DHL" kind="show" identifier="LoginToAccountLink" id="Vdw-ys-tjA"/>
+                        <segue destination="EOX-B4-DHL" kind="presentation" identifier="LoginToAccountLink" id="Vdw-ys-tjA"/>
                         <segue destination="trO-ZN-AJm" kind="presentation" identifier="LoginToTradeNav" id="alq-MR-2uv"/>
                         <segue destination="McX-JL-l75" kind="presentation" identifier="LoginToPortfolioNav" id="hO5-IP-sLI"/>
                         <segue destination="HYX-F0-TNn" kind="presentation" identifier="LoginToAccountSelect" id="0bD-ua-Qiz"/>
@@ -220,7 +220,7 @@ you want to link</string>
         <!--Account Link Navigation Controller-->
         <scene sceneID="yK5-Ya-ezO">
             <objects>
-                <navigationController id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ACCOUNT_LINK_NAV" id="EOX-B4-DHL" userLabel="Account Link Navigation Controller" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bpk-HS-up6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1642,7 +1642,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Accounts-->
         <scene sceneID="U8k-3z-X0B">
             <objects>
-                <navigationController storyboardIdentifier="ACCOUNT_LINK_NAV" title="Accounts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HYX-F0-TNn" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                <navigationController title="Accounts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HYX-F0-TNn" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ri5-l9-qm2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1793,10 +1793,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X2r-Bb-VCg"/>
-        <segue reference="kyf-iM-tIO"/>
-        <segue reference="alq-MR-2uv"/>
+        <segue reference="JZr-PV-7wY"/>
         <segue reference="Vdw-ys-tjA"/>
+        <segue reference="alq-MR-2uv"/>
         <segue reference="hO5-IP-sLI"/>
+        <segue reference="8yM-5R-gad"/>
     </inferredMetricsTieBreakers>
 </document>
