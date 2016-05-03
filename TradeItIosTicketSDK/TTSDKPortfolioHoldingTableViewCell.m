@@ -38,6 +38,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UIButton *dropDownBuyButton;
+@property (weak, nonatomic) IBOutlet UIButton *dropDownSellButton;
 
 @end
 
@@ -70,9 +72,11 @@ static CGFloat const kBounceValue = 20.0f;
 
     UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
     [self.buyButton addGestureRecognizer: buyTap];
+    [self.dropDownBuyButton addGestureRecognizer: buyTap];
 
     UITapGestureRecognizer * sellTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sellSelected:)];
     [self.sellButton addGestureRecognizer: sellTap];
+    [self.dropDownSellButton addGestureRecognizer: sellTap];
 }
 
 -(IBAction) sellSelected:(id)sender {
@@ -109,6 +113,9 @@ static CGFloat const kBounceValue = 20.0f;
 
     NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice] : @"N/A";
     self.lastLabel.text = lastPrice;
+
+    [self.dropDownBuyButton setTitle:[NSString stringWithFormat:@"Buy %@", position.symbol] forState:UIControlStateNormal];
+    [self.dropDownSellButton setTitle:[NSString stringWithFormat:@"Sell %@", position.symbol] forState:UIControlStateNormal];
 
     // Symbol and Quantity
     NSString * quantityPostfix = @"";
