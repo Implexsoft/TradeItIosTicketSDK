@@ -114,8 +114,17 @@ static CGFloat const kBounceValue = 20.0f;
     NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice] : @"N/A";
     self.lastLabel.text = lastPrice;
 
-    [self.dropDownBuyButton setTitle:[NSString stringWithFormat:@"Buy %@", position.symbol] forState:UIControlStateNormal];
-    [self.dropDownSellButton setTitle:[NSString stringWithFormat:@"Sell %@", position.symbol] forState:UIControlStateNormal];
+    if ([position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
+        self.dropDownBuyButton.hidden = NO;
+        self.dropDownSellButton.hidden = NO;
+        [self.dropDownBuyButton setTitle:[NSString stringWithFormat:@"Buy %@", position.symbol] forState:UIControlStateNormal];
+        [self.dropDownSellButton setTitle:[NSString stringWithFormat:@"Sell %@", position.symbol] forState:UIControlStateNormal];
+    } else {
+        self.dropDownBuyButton.hidden = YES;
+        self.dropDownSellButton.hidden = YES;
+        [self.dropDownBuyButton setTitle:@"Buy" forState:UIControlStateNormal];
+        [self.dropDownSellButton setTitle:@"Sell" forState:UIControlStateNormal];
+    }
 
     // Symbol and Quantity
     NSString * quantityPostfix = @"";
