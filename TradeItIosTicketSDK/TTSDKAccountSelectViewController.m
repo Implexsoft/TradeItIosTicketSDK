@@ -19,7 +19,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *editBrokersButton;
 
 @end
 
@@ -37,8 +36,6 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-
-    [self.editBrokersButton setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
 
     accountResults = [[NSArray alloc] init];
 }
@@ -61,7 +58,7 @@
 }
 
 -(void) loadAccounts {
-    [portfolioService getSummaryForAccounts:^(void) {
+    [portfolioService getBalancesForAccounts:^(void) {
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
 }
@@ -70,10 +67,6 @@
     if (self.ticket.currentSession.isAuthenticated) {
         [self loadAccounts];
     }
-}
-
--(IBAction) editBrokersPressed:(id)sender {
-    [self performSegueWithIdentifier:@"AccountSelectToAccountLink" sender:self];
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
@@ -106,30 +99,34 @@
     [self.ticket returnToParentApp];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0f;
+}
+
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView * footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-    UIButton * addAccount = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, 30.0f)];
-    addAccount.titleEdgeInsets = UIEdgeInsetsMake(0, 43.0, 0, 0);
-    [addAccount setTitle:@"Add Account" forState:UIControlStateNormal];
-    [addAccount setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
-    [addAccount.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
-    addAccount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [addAccount setUserInteractionEnabled:YES];
+    UIButton * editAccounts = [[UIButton alloc] initWithFrame:CGRectMake(footerView.frame.origin.x, footerView.frame.origin.y, footerView.frame.size.width, 30.0f)];
+    editAccounts.titleEdgeInsets = UIEdgeInsetsMake(0, 28.0, 0, 0);
+    [editAccounts setTitle:@"Edit Accounts" forState:UIControlStateNormal];
+    [editAccounts setTitleColor:self.styles.activeColor forState:UIControlStateNormal];
+    [editAccounts.titleLabel setFont: [UIFont systemFontOfSize:15.0f]];
+    editAccounts.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [editAccounts setUserInteractionEnabled:YES];
     
-    UITapGestureRecognizer * addAccountTap = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer * editAccountsTap = [[UITapGestureRecognizer alloc]
                                               initWithTarget:self
-                                              action:@selector(addAccountPressed:)];
-    [addAccount addGestureRecognizer:addAccountTap];
+                                              action:@selector(editAccountsPressed:)];
+    [editAccounts addGestureRecognizer:editAccountsTap];
     
     footerView.backgroundColor = self.styles.pageBackgroundColor;
     
-    [footerView addSubview:addAccount];
+    [footerView addSubview:editAccounts];
     
     return footerView;
 }
 
--(IBAction) addAccountPressed:(id)sender {
-    [self performSegueWithIdentifier:@"AccountSelectToBrokerSelect" sender:self];
+-(IBAction) editAccountsPressed:(id)sender {
+    [self performSegueWithIdentifier:@"AccountSelectToAccountLink" sender:self];
 }
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

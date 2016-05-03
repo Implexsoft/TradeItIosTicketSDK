@@ -15,14 +15,11 @@
     TTSDKUtils * utils;
     TTSDKTradeItTicket * globalTicket;
 }
-@property (weak, nonatomic) IBOutlet UILabel *buyingPower;
-@property (weak, nonatomic) IBOutlet UILabel *shares;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIView * circle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * brokerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sharesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *buyingPower;
 
 @end
 
@@ -52,7 +49,6 @@
 
         TradeItStyles * styles = [TradeItStyles sharedStyles];
         self.buyingPower.textColor = styles.smallTextColor;
-        self.shares.textColor = styles.smallTextColor;
         self.accountTypeLabel.textColor = styles.primaryTextColor;
 
         utils = [TTSDKUtils sharedUtils];
@@ -69,10 +65,8 @@
     TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey: @"overview"];
 
     self.buyingPowerLabel.text = [utils formatPriceString:overview.buyingPower] ?: @"N/A";
-    self.sharesLabel.text = @"N/A";
 
     self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];
-    [self insertPortfolioDetail: broker];
 }
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
@@ -90,40 +84,7 @@
         }
     }
 
-    self.sharesLabel.text = shares ?: @"0";
-
     self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: account.broker];
-    [self insertPortfolioDetail: account.broker];
-}
-
--(void) insertPortfolioDetail:(NSString *)broker {
-    self.circle.backgroundColor = [UIColor clearColor];
-    CGFloat alertSize = self.circle.frame.size.height - 3;
-
-    CAShapeLayer *circleLayer;
-
-    BOOL isNewLayer = YES;
-
-    for (id item in self.circle.layer.sublayers) {
-        if ([NSStringFromClass([item class]) isEqualToString:@"CAShapeLayer"]) {
-            circleLayer = item;
-            isNewLayer = NO;
-
-            break;
-        }
-    }
-
-    UIColor * circleFill = [utils retrieveBrokerColorByBrokerName:broker];
-
-    if (!circleLayer) {
-        circleLayer = [utils retrieveCircleGraphicWithSize:alertSize andColor:circleFill];
-    } else {
-        [circleLayer setFillColor: circleFill.CGColor];
-    }
-
-    if (isNewLayer) {
-        [self.circle.layer addSublayer:circleLayer];
-    }
 }
 
 

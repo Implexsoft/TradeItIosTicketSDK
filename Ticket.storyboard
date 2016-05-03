@@ -1668,15 +1668,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-Yc-a8p">
-                                <rect key="frame" x="216" y="84" width="83" height="30"/>
-                                <state key="normal" title="Edit Brokers"/>
-                                <connections>
-                                    <action selector="editBrokersPressed:" destination="bbK-hu-Twv" eventType="touchUpInside" id="986-Hh-gUW"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select account to trade with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8n-Df-4Rn" customClass="TTSDKLabel">
+                                <rect key="frame" x="52" y="92" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
-                                <rect key="frame" x="0.0" y="150" width="319" height="300"/>
+                                <rect key="frame" x="0.0" y="141" width="319" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="igy-EC-dHJ"/>
@@ -1690,11 +1689,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="caJ-Yc-a8p" secondAttribute="bottom" constant="36" id="FXm-bO-Nwe"/>
+                            <constraint firstItem="Spr-uL-UE8" firstAttribute="top" secondItem="d8n-Df-4Rn" secondAttribute="bottom" constant="28" id="I03-3d-Q3G"/>
                             <constraint firstItem="Spr-uL-UE8" firstAttribute="leading" secondItem="A6a-Bv-pob" secondAttribute="leadingMargin" constant="-16" id="WIS-z7-059"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Spr-uL-UE8" secondAttribute="trailing" constant="-15" id="WbP-at-SHM"/>
-                            <constraint firstItem="caJ-Yc-a8p" firstAttribute="top" secondItem="ZBU-0y-JPc" secondAttribute="bottom" constant="20" id="ZlZ-yi-tPu"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="caJ-Yc-a8p" secondAttribute="trailing" constant="5" id="p8I-3I-kwD"/>
+                            <constraint firstItem="d8n-Df-4Rn" firstAttribute="top" secondItem="ZBU-0y-JPc" secondAttribute="bottom" constant="28" id="i0f-dI-QZy"/>
+                            <constraint firstItem="d8n-Df-4Rn" firstAttribute="centerX" secondItem="A6a-Bv-pob" secondAttribute="centerX" id="iYH-ve-fnu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Accounts" id="To0-jd-SaS"/>
@@ -1702,7 +1701,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="editBrokersButton" destination="caJ-Yc-a8p" id="thV-1A-LKk"/>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="AccountSelectToBrokerSelect" id="X2r-Bb-VCg"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="AccountSelectToAccountLink" id="qBc-9P-D9s"/>
@@ -1794,9 +1792,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="b0O-lu-Vmh"/>
-        <segue reference="hO5-IP-sLI"/>
-        <segue reference="Iho-lP-LWh"/>
+        <segue reference="X2r-Bb-VCg"/>
         <segue reference="8yM-5R-gad"/>
+        <segue reference="qBc-9P-D9s"/>
+        <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
 </document>
