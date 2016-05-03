@@ -18,6 +18,8 @@
 
 +(id) serviceForAllAccounts;
 +(id) serviceForLinkedAccounts;
++(NSArray *)allAccounts;
++(NSArray *)linkedAccounts;
 
 -(id) initWithAccounts:(NSArray *)accounts;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
@@ -30,6 +32,8 @@
 -(TTSDKPortfolioAccount *) retrieveAutoSelectedAccount;
 -(void) selectAccount:(NSString *)accountNumber;
 -(void) toggleAccount:(TTSDKPortfolioAccount *)account;
+-(void) deleteAccounts:(NSString *)userId;
 -(void) deleteAccount:(TTSDKPortfolioAccount *)account;
+-(int) linkedAccountsCount;
 
 @end

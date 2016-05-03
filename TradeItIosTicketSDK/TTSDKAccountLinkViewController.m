@@ -14,6 +14,7 @@
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKPortfolioService * portfolioService;
+    BOOL noAccounts;
 }
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *addBrokerButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
@@ -65,24 +66,6 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
     return 0.0f;
 }
 
--(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
--(NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction * deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"DELETE" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-
-        TTSDKPortfolioAccount * portfolioAccount = [portfolioService.accounts objectAtIndex: indexPath.row];
-        [portfolioService deleteAccount: portfolioAccount];
-
-        [self.linkTableView beginUpdates];
-        [self.linkTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-        [self.linkTableView endUpdates];
-    }];
-
-    return @[deleteAction];
-}
-
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return portfolioService.accounts.count;
 }
@@ -114,22 +97,38 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 #pragma mark Custom Delegate Methods
 
 -(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(TTSDKPortfolioAccount *)account {
-    // Check to see if we're unlinking the last account
-    if (!toggle.on && self.ticket.linkedAccounts.count == 1) {
 
+    // Unlinking account, so check whether it's the last account for a login
+    BOOL isUnlinkingBroker = YES;
+    if (!toggle.on) {
+        for (TTSDKPortfolioAccount * portfolioAccount in portfolioService.accounts) {
+            if ([portfolioAccount.userId isEqualToString: account.userId] && (![portfolioAccount.accountNumber isEqualToString: account.accountNumber]) && portfolioAccount.active) {
+                isUnlinkingBroker = NO;
+            }
+        }
+    }
+
+    if (isUnlinkingBroker) {
         // This is a bit weird, but prevents unnecessary complexity for showing alerts
         TradeItErrorResult * error = [[TradeItErrorResult alloc] init];
-        error.shortMessage = @"Unlinking last account";
-        error.longMessages = @[@"Please login with another account to continue trading."];
+        error.shortMessage = [NSString stringWithFormat:@"Unlink %@", account.broker];
+        error.longMessages = @[ [NSString stringWithFormat:@"Deselecting all the accounts for %@ will automatically delete this broker and its associated data.", account.broker], @"Tap \"Add Broker\" to bring it back"];
 
         // Prompt the user to either login or cancel the unlink action
         [self showErrorAlert:error onAccept:^(void){
             [self toggleAccount: account];
-            [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+
+            [portfolioService deleteAccounts: account.userId];
+
+            [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+            if ([portfolioService linkedAccountsCount] < 1) {
+                noAccounts = YES;
+                [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+            }
         } onCancel:^(void) {
             toggle.on = YES;
         }];
-
     } else {
         [self toggleAccount: account];
 
@@ -193,6 +192,9 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
         TTSDKBrokerSelectViewController * brokerSelect = (TTSDKBrokerSelectViewController *) [nav.viewControllers objectAtIndex:0];
         brokerSelect.isModal = YES;
+        if (noAccounts) {
+            brokerSelect.closeToParent = YES;
+        }
     }
 }
 

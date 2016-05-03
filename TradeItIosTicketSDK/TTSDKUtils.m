@@ -9,6 +9,7 @@
 
 #import "TTSDKUtils.h"
 #import "TradeItStyles.h"
+#import "TTSDKPortfolioService.h"
 
 @interface TTSDKUtils () {
     UIButton * currentGradientContainer;
@@ -66,10 +67,9 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(BOOL) isOnboarding {
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSArray * accounts = [defaults objectForKey:kAccountsKey];
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
-    if (accounts && accounts.count) {
+    if (linkedAccounts && linkedAccounts.count) {
         return NO;
     } else {
         return YES;

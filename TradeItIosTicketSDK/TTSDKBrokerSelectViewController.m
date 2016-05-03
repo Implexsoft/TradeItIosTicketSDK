@@ -205,6 +205,11 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 #pragma mark Navigation
 
 -(IBAction) closePressed:(id)sender {
+    if (self.closeToParent) {
+        [self.ticket returnToParentApp];
+        return;
+    }
+
     if (self.isModal) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;

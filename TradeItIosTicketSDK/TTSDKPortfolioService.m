@@ -316,6 +316,30 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self saveToUserDefaults];
 }
 
+-(void) deleteAccounts:(NSString *)userId {
+    NSMutableArray * keptAccounts = [[NSMutableArray alloc] init];
+
+    int numAccountsToDelete = 0;
+    TTSDKTicketSession * session;
+    for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
+        if (![portfolioAccount.userId isEqualToString:userId]) {
+            [keptAccounts addObject: portfolioAccount];
+        } else {
+            numAccountsToDelete++;
+            session = portfolioAccount.session;
+        }
+    }
+
+    if (numAccountsToDelete == 1 && session) {
+        [globalTicket removeSession: session];
+    }
+
+    self.accounts = [keptAccounts copy];
+
+    // Save new accounts list to user defaults
+    [self saveToUserDefaults];
+}
+
 -(void) deleteAccount:(TTSDKPortfolioAccount *)account {
     // First, check to see if this is the last account in its respective linked login. If so, we want to delete the session.
     BOOL isLastAccount = YES;
@@ -337,6 +361,18 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
     // Save new accounts list to user defaults
     [self saveToUserDefaults];
+}
+
+-(int) linkedAccountsCount {
+    int n = 0;
+
+    for (TTSDKPortfolioAccount * portfolioAccount in self.accounts) {
+        if (portfolioAccount.active) {
+            n++;
+        }
+    }
+
+    return n;
 }
 
 -(void) saveToUserDefaults {
