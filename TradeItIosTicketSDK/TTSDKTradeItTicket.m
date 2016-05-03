@@ -40,10 +40,8 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
 static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
 static NSString * kTradeViewIdentifier = @"TRADE";
-
 static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
-
 
 
 #pragma mark - Initialization
@@ -63,21 +61,21 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(void) prepareInitialFlow {
     // Immediately fire off a request for the publishers broker list
     [self retrieveBrokers];
-    
+
     self.sessions = [[NSArray alloc] init];
     self.currentSession = nil;
     self.currentAccount = nil;
     self.previewRequest.accountNumber = @"";
-    
+
     // Attempt to set an initial account
     NSString * lastSelectedAccountNumber = [self getLastSelected];
-    
+
     if (lastSelectedAccountNumber) {
         [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
     } else if ([self.linkedAccounts count]) {
         [self selectCurrentAccount: [self.linkedAccounts lastObject]];
     }
-    
+
     // Create a new, unauthenticated session for all stored logins
     NSArray * linkedLogins = [self.connector getLinkedLogins];
 

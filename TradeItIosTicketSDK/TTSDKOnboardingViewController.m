@@ -16,9 +16,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
-@property (weak, nonatomic) IBOutlet UIButton *fidelityButton;
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 
 @end
 
@@ -52,12 +52,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     [self.brokerSelectButton activate];
 
-    [self styleCustomDropdownButton: self.fidelityButton];
+    [self styleCustomDropdownButton: self.preferredBrokerButton];
 
     // iPhone 4s and earlier
     if ([self.utils isSmallScreen]) {
         self.brokerDetailsTopConstraint.constant = 10.0f;
     }
+
+    self.currentSelection = @"Fidelity";
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
@@ -83,7 +85,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     UILabel * preferredBrokerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, button.frame.size.width / 2, 8)];
     preferredBrokerLabel.backgroundColor = [UIColor clearColor];
     preferredBrokerLabel.font = [UIFont systemFontOfSize:8.0f];
-    preferredBrokerLabel.textColor = self.styles.smallTextColor;
+    preferredBrokerLabel.textColor = [UIColor clearColor]; // temporarily removing preferred broker
     preferredBrokerLabel.text = @"PREFERRED BROKER";
 
     [button.titleLabel addSubview:preferredBrokerLabel];
@@ -92,11 +94,11 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     preferredBrokerLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem: button.titleLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel attribute:NSLayoutAttributeLeadingMargin relatedBy:NSLayoutRelationEqual toItem: button.titleLabel attribute: NSLayoutAttributeTrailingMargin multiplier:1.0 constant:20.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel attribute:NSLayoutAttributeTrailingMargin relatedBy:NSLayoutRelationEqual toItem: button attribute: NSLayoutAttributeTrailingMargin multiplier:1.0 constant:-30.0]];
 
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     UIBezierPath *path = [UIBezierPath bezierPath];
-    CGRect bounds = CGRectMake(preferredBrokerLabel.frame.size.width - 8, 0, 8, 8);
+    CGRect bounds = CGRectMake(preferredBrokerLabel.frame.size.width - 9, 0, 8, 8);
     CGFloat radius = bounds.size.width / 2;
     CGFloat a = radius * sqrt((CGFloat)3.0) / 2;
     CGFloat b = radius / 2;
@@ -118,16 +120,31 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 #pragma mark Navigation
 
 -(IBAction) brokerSelectPressed:(id)sender {
+    [self selectBroker: self.currentSelection];
+}
+
+-(void)selectBroker:(NSString *)broker {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
-
-    [loginViewController setAddBroker: @"Fidelity"];
-
+    [loginViewController setAddBroker: broker];
     [self.navigationController pushViewController: loginViewController animated:YES];
 }
 
--(IBAction) fidelityButtonPressed:(id)sender {
-    [self performSegueWithIdentifier:@"OnboardingToBrokerSelect" sender:self];
+- (IBAction)preferredBrokerPressed:(id)sender {
+    if (!self.ticket.brokerList) {
+        return;
+    }
+
+    NSMutableArray * optionsArray = [[NSMutableArray alloc] init];
+
+    for (NSArray * broker in self.ticket.brokerList) {
+        NSDictionary * brokerDict = @{broker[0]: broker[1]};
+        [optionsArray addObject:brokerDict];
+    }
+
+    [self showPicker:@"Select account to trade with" withSelection:@"Fidelity" andOptions:[optionsArray copy] onSelection:^(void){
+        [self.preferredBrokerButton setTitle:self.currentSelection forState:UIControlStateNormal];
+    }];
 }
 
 -(IBAction) closePressed:(id)sender {
