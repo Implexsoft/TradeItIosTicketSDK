@@ -13,5 +13,6 @@
 
 -(void) configureCellWithAccountData:(NSDictionary *)data;
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
+-(void) configureSelectedState:(BOOL)selected;
 
 @end

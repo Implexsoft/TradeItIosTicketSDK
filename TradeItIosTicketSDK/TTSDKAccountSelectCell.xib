@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="c2l-JH-mBf" id="ezp-v6-Vbg">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fidelity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gff-EA-z3u" customClass="TTSDKLabel">
@@ -29,10 +29,10 @@
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-nI-tU9">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmL-nI-tU9" userLabel="DetailView">
                         <rect key="frame" x="176" y="2" width="144" height="56"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ng-Tu-kps">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ng-Tu-kps">
                                 <rect key="frame" x="60" y="12" width="64" height="10"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
@@ -40,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$1,255" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pnn-M4-uMZ" customClass="TTSDKLabel">
-                                <rect key="frame" x="84" y="27.5" width="40" height="15"/>
+                                <rect key="frame" x="84" y="28" width="40" height="15"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,6 +53,13 @@
                             <constraint firstAttribute="trailing" secondItem="5ng-Tu-kps" secondAttribute="trailing" constant="20" id="pOj-Il-8J7"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zG4-DC-8ku" userLabel="SelectionView">
+                        <rect key="frame" x="8" y="-3" width="2" height="66"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="Xia-1i-aJy"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Gff-EA-z3u" firstAttribute="top" secondItem="ezp-v6-Vbg" secondAttribute="topMargin" id="196-FG-2el"/>
@@ -60,12 +67,15 @@
                     <constraint firstItem="zmL-nI-tU9" firstAttribute="width" secondItem="ezp-v6-Vbg" secondAttribute="width" multiplier="0.45" id="8hG-QU-feb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="zmL-nI-tU9" secondAttribute="trailing" constant="-8" id="Lmx-we-uAc"/>
                     <constraint firstItem="uCs-P2-SgY" firstAttribute="leading" secondItem="Gff-EA-z3u" secondAttribute="leading" id="Ube-HU-UVD"/>
+                    <constraint firstItem="zG4-DC-8ku" firstAttribute="leading" secondItem="ezp-v6-Vbg" secondAttribute="leadingMargin" id="dUv-35-VhB"/>
                     <constraint firstItem="5ng-Tu-kps" firstAttribute="baseline" secondItem="Gff-EA-z3u" secondAttribute="baseline" id="hBf-IL-DKT"/>
                     <constraint firstAttribute="bottomMargin" secondItem="zmL-nI-tU9" secondAttribute="bottom" constant="-8" id="iM8-97-xxn"/>
+                    <constraint firstItem="zG4-DC-8ku" firstAttribute="top" secondItem="ezp-v6-Vbg" secondAttribute="topMargin" constant="-13" id="kBC-Kg-sZB"/>
                     <constraint firstItem="Gff-EA-z3u" firstAttribute="leading" secondItem="ezp-v6-Vbg" secondAttribute="leadingMargin" constant="8" id="m4y-ry-JBG"/>
                     <constraint firstItem="Pnn-M4-uMZ" firstAttribute="baseline" secondItem="uCs-P2-SgY" secondAttribute="baseline" id="mHC-lp-cMf"/>
                     <constraint firstItem="uCs-P2-SgY" firstAttribute="top" secondItem="Gff-EA-z3u" secondAttribute="bottom" constant="2" id="pY0-pn-Xra"/>
                     <constraint firstItem="zmL-nI-tU9" firstAttribute="leading" secondItem="Gff-EA-z3u" secondAttribute="trailing" constant="5" id="uJz-Mm-Gi3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="zG4-DC-8ku" secondAttribute="bottom" constant="-13" id="uc6-iz-bME"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -73,8 +83,9 @@
                 <outlet property="brokerLabel" destination="Gff-EA-z3u" id="n2Y-SH-kUy"/>
                 <outlet property="buyingPower" destination="5ng-Tu-kps" id="Hwl-c0-Kv1"/>
                 <outlet property="buyingPowerLabel" destination="Pnn-M4-uMZ" id="L5G-3B-o2P"/>
+                <outlet property="selectionView" destination="zG4-DC-8ku" id="EUL-GE-DLU"/>
             </connections>
-            <point key="canvasLocation" x="828" y="581"/>
+            <point key="canvasLocation" x="983" y="602"/>
         </tableViewCell>
     </objects>
 </document>

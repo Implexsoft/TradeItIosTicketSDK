@@ -20,6 +20,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPower;
+@property (weak, nonatomic) IBOutlet UIView *selectionView;
 
 @end
 
@@ -50,6 +51,7 @@
         TradeItStyles * styles = [TradeItStyles sharedStyles];
         self.buyingPower.textColor = styles.smallTextColor;
         self.accountTypeLabel.textColor = styles.primaryTextColor;
+        self.selectionView.backgroundColor = styles.activeColor;
 
         utils = [TTSDKUtils sharedUtils];
         globalTicket = [TTSDKTradeItTicket globalTicket];
@@ -67,6 +69,14 @@
     self.buyingPowerLabel.text = [utils formatPriceString:overview.buyingPower] ?: @"N/A";
 
     self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];
+}
+
+-(void) configureSelectedState:(BOOL)selected {
+    if (selected) {
+        self.selectionView.hidden = NO;
+    } else {
+        self.selectionView.hidden = YES;
+    }
 }
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {

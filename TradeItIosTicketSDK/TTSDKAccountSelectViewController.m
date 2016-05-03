@@ -149,6 +149,12 @@
     TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
     [cell configureCellWithAccount: account];
 
+    if (self.ticket.currentAccount && [[self.ticket.currentAccount valueForKey:@"accountNumber"] isEqualToString: account.accountNumber]) {
+        [cell configureSelectedState:YES];
+    } else {
+        [cell configureSelectedState:NO];
+    }
+
     return cell;
 }
 
