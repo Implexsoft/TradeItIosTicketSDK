@@ -39,6 +39,16 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         [self showLoadingAndWait];
     }
 
+    if (self.isModal) {
+        self.navigationItem.hidesBackButton = YES;
+        self.navigationController.navigationItem.hidesBackButton = YES;
+        [self.navigationController.navigationItem setHidesBackButton:YES animated:YES];
+        [self.navigationController.navigationItem setHidesBackButton:YES];
+        [self.navigationItem setHidesBackButton:YES animated:YES];
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationController.navigationItem.leftBarButtonItem = nil;
+    }
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 

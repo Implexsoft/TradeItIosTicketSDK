@@ -45,7 +45,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select Your Broker" id="qfr-Pn-H7b">
                         <barButtonItem key="backBarButtonItem" title="Back" id="uEO-UX-Xcf"/>
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="GV0-St-g7D">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="GV0-St-g7D">
                             <connections>
                                 <action selector="closePressed:" destination="V42-ok-rVA" id="juZ-Pu-isF"/>
                             </connections>
@@ -283,7 +283,7 @@ you want to link</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="jz8-Jg-IW6">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="jz8-Jg-IW6">
                             <connections>
                                 <action selector="closePressed:" destination="QbV-2r-TI7" id="eAi-r4-KY6"/>
                             </connections>
@@ -459,7 +459,7 @@ you want to link</string>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Welcome" id="Epp-1L-8un">
                         <barButtonItem key="backBarButtonItem" title="Back" id="dsB-7B-gsS"/>
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="dZv-us-ASM">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="dZv-us-ASM">
                             <connections>
                                 <action selector="closePressed:" destination="r6z-Ew-5zU" id="C1o-BN-1uG"/>
                             </connections>
@@ -572,7 +572,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Trade" id="PzJ-dQ-UiV">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="bPX-8v-nIU">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="bPX-8v-nIU">
                             <connections>
                                 <action selector="closeApp:" destination="xhK-K9-cnI" id="lTh-Il-9tq"/>
                             </connections>
@@ -1322,7 +1322,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Trade" id="wZI-PU-SM3">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="cSr-u0-kbR">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="cSr-u0-kbR">
                             <connections>
                                 <action selector="closePressed:" destination="Kx2-Fj-r79" id="dFz-ie-RTI"/>
                             </connections>
@@ -1793,10 +1793,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JZr-PV-7wY"/>
-        <segue reference="Vdw-ys-tjA"/>
         <segue reference="alq-MR-2uv"/>
+        <segue reference="b0O-lu-Vmh"/>
         <segue reference="hO5-IP-sLI"/>
+        <segue reference="Iho-lP-LWh"/>
         <segue reference="8yM-5R-gad"/>
     </inferredMetricsTieBreakers>
 </document>
