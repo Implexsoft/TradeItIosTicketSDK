@@ -14,8 +14,7 @@
 @interface TTSDKAccountLinkViewController () {
     TTSDKPortfolioService * portfolioService;
 }
-
-@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *doneButton;
+@property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *addBrokerButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 
 @end
@@ -43,11 +42,13 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    [self.doneButton activate];
+    [self.addBrokerButton activate];
+
+    UITapGestureRecognizer * addBrokerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addBrokerButtonPressed:)];
+    [self.addBrokerButton addGestureRecognizer: addBrokerTap];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    //portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.allAccounts];
     portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
 
     [portfolioService getBalancesForAccounts:^(void) {
@@ -57,6 +58,10 @@
 
 
 #pragma mark Table Delegate Methods
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0f;
+}
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
@@ -169,8 +174,8 @@
 
 #pragma mark Navigation
 
--(IBAction) doneButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+-(IBAction) addBrokerButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
 }
 
 -(IBAction) doneBarButtonPressed:(id)sender {
@@ -180,7 +185,7 @@
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AccountLinkToLogin"]) {
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-        [self.ticket removeOnboardingFromNav:nav];
+        [self.ticket removeOnboardingFromNav:nav isModal:YES];
     }
 }
 

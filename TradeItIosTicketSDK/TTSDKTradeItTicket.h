@@ -63,7 +63,7 @@
 -(void) retrieveQuote:(void (^)(void))completionBlock;
 
 #pragma mark Authentication
--(void) removeOnboardingFromNav:(UINavigationController *)nav;
+-(void) removeOnboardingFromNav:(UINavigationController *)nav isModal:(BOOL)isModal;
 -(void) removeBrokerSelectFromNav:(UINavigationController *)nav;
 -(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;
 

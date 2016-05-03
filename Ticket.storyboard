@@ -157,19 +157,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85X-g2-O8p" customClass="TTSDKLabel">
-                                <rect key="frame" x="80" y="79" width="161" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="gph-az-oiE"/>
-                                </constraints>
-                                <string key="text">Select the accounts
-you want to link</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
-                                <rect key="frame" x="16" y="148" width="288" height="248"/>
+                                <rect key="frame" x="16" y="74" width="288" height="322"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="zTt-u9-UeG" id="Qru-fo-lnP"/>
@@ -182,10 +171,7 @@ you want to link</string>
                                     <constraint firstAttribute="height" constant="44" id="L6T-gJ-edn"/>
                                     <constraint firstAttribute="width" constant="200" id="Pcr-Hs-ZIy"/>
                                 </constraints>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="doneButtonPressed:" destination="zTt-u9-UeG" eventType="touchUpInside" id="NQn-xJ-ts7"/>
-                                </connections>
+                                <state key="normal" title="Add Broker"/>
                             </button>
                         </subviews>
                         <constraints>
@@ -193,14 +179,12 @@ you want to link</string>
                             <constraint firstItem="Xds-Dm-uUT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="MT5-Xl-j77"/>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leadingMargin" id="QPB-sr-rbj"/>
                             <constraint firstItem="tQF-xg-0Di" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" constant="20" id="SIV-eO-Yp3"/>
-                            <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="85X-g2-O8p" secondAttribute="bottom" constant="25" id="dvd-Oy-nch"/>
-                            <constraint firstItem="85X-g2-O8p" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" constant="15" id="hDL-tx-znf"/>
+                            <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" constant="10" id="iLg-jG-dL8"/>
                             <constraint firstItem="Xds-Dm-uUT" firstAttribute="top" secondItem="28t-JE-dnw" secondAttribute="bottom" constant="20" id="oew-hW-jRD"/>
-                            <constraint firstItem="85X-g2-O8p" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="yVp-By-UvV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KeN-dP-HQo">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="q1R-Zk-w9B">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="q1R-Zk-w9B">
                             <connections>
                                 <action selector="doneBarButtonPressed:" destination="zTt-u9-UeG" id="tfU-Hl-gUn"/>
                             </connections>
@@ -208,7 +192,7 @@ you want to link</string>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="doneButton" destination="Xds-Dm-uUT" id="oJh-74-o8M"/>
+                        <outlet property="addBrokerButton" destination="Xds-Dm-uUT" id="QbQ-OR-zHU"/>
                         <outlet property="linkTableView" destination="28t-JE-dnw" id="nBf-sf-mLz"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="AccountLinkToLogin" id="JZr-PV-7wY"/>
                     </connections>
@@ -1791,10 +1775,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="alq-MR-2uv"/>
-        <segue reference="X2r-Bb-VCg"/>
-        <segue reference="8yM-5R-gad"/>
+        <segue reference="JZr-PV-7wY"/>
         <segue reference="qBc-9P-D9s"/>
+        <segue reference="8yM-5R-gad"/>
+        <segue reference="alq-MR-2uv"/>
         <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -242,7 +242,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // If not onboarding, push the nav to the broker select view
     if (![self.utils isOnboarding]) {
-        [self removeOnboardingFromNav: nav];
+        [self removeOnboardingFromNav: nav isModal: NO];
     }
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
@@ -297,10 +297,15 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     root.navigationItem.hidesBackButton = NO;
 }
 
--(void) removeOnboardingFromNav:(UINavigationController *)nav {
+-(void) removeOnboardingFromNav:(UINavigationController *)nav isModal:(BOOL)isModal {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
     TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
+
+    if (isModal) {
+        initialViewController.isModal = isModal;
+    }
+
     [nav pushViewController:initialViewController animated:NO];
 }
 
