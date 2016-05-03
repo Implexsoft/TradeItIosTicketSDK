@@ -20,6 +20,13 @@
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     <state key="normal" title="SYMBL"/>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vAT-qZ-9p4">
+                    <rect key="frame" x="77" y="6" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="Joy-Uz-me8"/>
+                        <constraint firstAttribute="height" constant="20" id="Xrd-dh-ecn"/>
+                    </constraints>
+                </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-bz-M7M" customClass="TTSDKLabel">
                     <rect key="frame" x="81" y="4" width="63" height="28"/>
                     <constraints>
@@ -55,32 +62,43 @@
                                 <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps" customClass="TTSDKLabel">
-                            <rect key="frame" x="115" y="37" width="0.0" height="0.0"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
+                            <rect key="frame" x="1" y="44" width="64" height="10"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-Lq-2ps" customClass="TTSDKLabel">
+                            <rect key="frame" x="70" y="37" width="30" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" id="R3i-mY-jD2"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="hgf-fP-q00"/>
+                                <constraint firstAttribute="height" constant="20" id="ovW-Zc-C54"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUYING POWER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm8-YV-2OE">
-                            <rect key="frame" x="46" y="25" width="64" height="10"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VnX-Dl-1Za">
+                            <rect key="frame" x="70" y="38" width="14" height="14"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="14" id="VHQ-rZ-MUc"/>
+                                <constraint firstAttribute="height" constant="14" id="qJk-Oe-3cN"/>
+                            </constraints>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="pm8-YV-2OE" firstAttribute="baseline" secondItem="tJl-Lq-2ps" secondAttribute="baseline" id="36R-YS-yv2"/>
+                        <constraint firstItem="pm8-YV-2OE" firstAttribute="baseline" secondItem="tJl-Lq-2ps" secondAttribute="baseline" constant="-1" id="36R-YS-yv2"/>
                         <constraint firstItem="tJl-Lq-2ps" firstAttribute="leading" secondItem="pm8-YV-2OE" secondAttribute="trailing" constant="5" id="8k0-sW-x79"/>
                         <constraint firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" id="B6b-Pv-shz"/>
                         <constraint firstItem="tJl-Lq-2ps" firstAttribute="top" secondItem="aPG-hN-yxK" secondAttribute="bottom" id="FhC-bl-pao"/>
+                        <constraint firstItem="VnX-Dl-1Za" firstAttribute="leading" secondItem="tJl-Lq-2ps" secondAttribute="leading" id="R51-my-TNI"/>
+                        <constraint firstItem="VnX-Dl-1Za" firstAttribute="baseline" secondItem="pm8-YV-2OE" secondAttribute="baseline" id="WEG-qQ-g6s"/>
                         <constraint firstItem="aPG-hN-yxK" firstAttribute="leading" secondItem="2BR-wm-Ao4" secondAttribute="leading" id="XyE-Qw-LEm"/>
                         <constraint firstItem="0Vl-i8-VXV" firstAttribute="centerY" secondItem="aPG-hN-yxK" secondAttribute="centerY" id="Y4n-er-jLB"/>
                         <constraint firstAttribute="width" constant="120" id="e6O-hC-Ohf"/>
-                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" constant="-5" id="suB-rb-fB7"/>
+                        <constraint firstItem="tJl-Lq-2ps" firstAttribute="trailing" secondItem="aPG-hN-yxK" secondAttribute="trailing" constant="-20" id="suB-rb-fB7"/>
                         <constraint firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" constant="5" id="wa3-Ym-S8E"/>
                     </constraints>
                 </view>
@@ -94,9 +112,11 @@
                 <constraint firstItem="fbU-bz-M7M" firstAttribute="centerY" secondItem="cqV-nr-8WB" secondAttribute="centerY" id="StI-2F-2TV"/>
                 <constraint firstItem="fbU-bz-M7M" firstAttribute="leading" secondItem="cqV-nr-8WB" secondAttribute="trailing" constant="6" id="T4g-45-QL4"/>
                 <constraint firstAttribute="trailing" secondItem="2BR-wm-Ao4" secondAttribute="trailing" id="TVv-3r-l4T"/>
+                <constraint firstItem="vAT-qZ-9p4" firstAttribute="baseline" secondItem="cqV-nr-8WB" secondAttribute="baseline" id="UEh-lq-E1K"/>
                 <constraint firstItem="O4l-GN-l0D" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="atf-r3-QN7"/>
                 <constraint firstItem="2BR-wm-Ao4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cHQ-6T-2Tu"/>
                 <constraint firstItem="cqV-nr-8WB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cbB-FR-rDE"/>
+                <constraint firstItem="vAT-qZ-9p4" firstAttribute="leading" secondItem="cqV-nr-8WB" secondAttribute="trailing" constant="2" id="eet-M5-dgz"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -105,14 +125,16 @@
             <connections>
                 <outlet property="brokerButton" destination="aPG-hN-yxK" id="YTe-Ef-lOb"/>
                 <outlet property="brokerDetails" destination="2BR-wm-Ao4" id="OzQ-Ve-4ak"/>
+                <outlet property="buyingPowerLoadingIndicator" destination="VnX-Dl-1Za" id="mLs-RK-Y8Q"/>
                 <outlet property="changeLabel" destination="O4l-GN-l0D" id="7j9-sp-F0y"/>
                 <outlet property="lastPriceLabel" destination="fbU-bz-M7M" id="VA5-ds-sXd"/>
+                <outlet property="lastPriceLoadingIndicator" destination="vAT-qZ-9p4" id="8z0-jd-pjT"/>
                 <outlet property="rightArrow" destination="0Vl-i8-VXV" id="NLm-xm-YnG"/>
                 <outlet property="symbolDetailLabel" destination="pm8-YV-2OE" id="Y61-Ae-Mor"/>
                 <outlet property="symbolDetailValue" destination="tJl-Lq-2ps" id="dLb-Vd-VVF"/>
                 <outlet property="symbolLabel" destination="cqV-nr-8WB" id="nrG-tP-Zoz"/>
             </connections>
-            <point key="canvasLocation" x="304" y="563.5"/>
+            <point key="canvasLocation" x="691" y="608.5"/>
         </view>
     </objects>
     <resources>

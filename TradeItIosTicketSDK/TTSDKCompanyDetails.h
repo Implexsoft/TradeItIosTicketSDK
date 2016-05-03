@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIView *brokerDetails;
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailValue;
 @property (weak, nonatomic) IBOutlet UILabel *symbolDetailLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *lastPriceLoadingIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buyingPowerLoadingIndicator;
 
 -(void) populateDetailsWithQuote:(TradeItQuote *)quote;
 -(void) populateSymbol: (NSString *)symbol;

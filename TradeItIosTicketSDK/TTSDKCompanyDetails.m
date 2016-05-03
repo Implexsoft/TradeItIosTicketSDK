@@ -15,10 +15,10 @@
     TTSDKTradeItTicket * globalTicket;
     TTSDKUtils * utils;
     TradeItStyles * styles;
-    UIView * priceLoadingView;
     UIView * accountLoadingView;
     UIColor * lastPriceLabelColor;
 }
+
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
 @end
@@ -38,6 +38,18 @@
     return self;
 }
 
+-(void) awakeFromNib {
+    self.lastPriceLoadingIndicator.layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+    self.lastPriceLoadingIndicator.transform = CGAffineTransformMakeScale(0.65, 0.65);
+    self.lastPriceLoadingIndicator.hidden = YES;
+    [self.lastPriceLoadingIndicator startAnimating];
+
+    self.buyingPowerLoadingIndicator.layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+    self.buyingPowerLoadingIndicator.transform = CGAffineTransformMakeScale(0.5, 0.5);
+    self.buyingPowerLoadingIndicator.hidden = YES;
+    [self.buyingPowerLoadingIndicator startAnimating];
+}
+
 -(void) setViewStyles {
     styles = [TradeItStyles sharedStyles];
 
@@ -49,13 +61,7 @@
 
     self.symbolDetailLabel.textColor = styles.smallTextColor;
 
-    priceLoadingView = [utils retrieveLoadingOverlayForView:self.lastPriceLabel withRadius:10.0f];
-    [self.lastPriceLabel addSubview: priceLoadingView];
-
     lastPriceLabelColor = self.lastPriceLabel.textColor;
-
-    accountLoadingView = [utils retrieveLoadingOverlayForView:self.symbolDetailLabel withRadius: 10.0f];
-    [self.symbolDetailValue addSubview: accountLoadingView];
 }
 
 
@@ -73,8 +79,8 @@
     } else {
         [self.symbolLabel setTitle:@"Select Symbol" forState:UIControlStateNormal];
 
-        if (priceLoadingView) {
-            priceLoadingView.hidden = YES;
+        if (self.lastPriceLoadingIndicator) {
+            self.lastPriceLoadingIndicator.hidden = YES;
         }
     }
 }
@@ -84,15 +90,15 @@
     if (theLastPrice && (theLastPrice > 0)) {
         self.lastPriceLabel.text = [utils formatPriceString:theLastPrice];
         self.lastPriceLabel.textColor = lastPriceLabelColor;
-        priceLoadingView.hidden = YES;
+        self.lastPriceLoadingIndicator.hidden = YES;
     } else {
         if (globalTicket.loadingQuote) {
             self.lastPriceLabel.text = @"";
-            priceLoadingView.hidden = NO;
+            self.lastPriceLoadingIndicator.hidden = NO;
         } else {
             self.lastPriceLabel.text = @"N/A";
             self.lastPriceLabel.textColor = styles.inactiveColor;
-            priceLoadingView.hidden = YES;
+            self.lastPriceLoadingIndicator.hidden = YES;
         }
     }
 }
@@ -129,13 +135,13 @@
 
 -(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
     if (!buyingPower && !sharesOwned) {
-        self.symbolDetailLabel.hidden = YES;
-        if (accountLoadingView) {
-            accountLoadingView.hidden = NO;
+        if (self.buyingPowerLoadingIndicator) {
+            self.symbolDetailValue.hidden = YES;
+            self.buyingPowerLoadingIndicator.hidden = NO;
         }
     } else {
-        self.symbolDetailLabel.hidden = NO;
-        [accountLoadingView removeFromSuperview];
+        self.symbolDetailValue.hidden = NO;
+        self.buyingPowerLoadingIndicator.hidden = YES;
 
         if (buyingPower) {
             self.symbolDetailLabel.text = @"BUYING POWER";
