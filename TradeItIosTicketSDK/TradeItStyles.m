@@ -40,6 +40,7 @@
         self.lossColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:0.0f alpha:1.0f];
         self.gainColor = [UIColor colorWithRed:0.0f green:200.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
         self.activeColor = [UIColor colorWithRed:38.0f/255.0f green:142.0f/255.0f blue:255.0f/255.0f alpha:1.0];
+        self.secondaryActiveColor = [UIColor colorWithRed:81.0f / 255.0f green:136.0f / 255.0f blue:184.0f / 255.0f alpha:1.0f];
         self.inactiveColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
 
         // Page
@@ -68,15 +69,15 @@
 
         // Default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        self.primaryActiveButton.backgroundColor = self.activeColor;
+        self.primaryActiveButton.backgroundColor = [UIColor colorWithRed:81.0f/255.0f green:136.0f/255.0f blue:184.0f/255.0f alpha:1.0]; //self.activeColor
         self.primaryActiveButton.layer.borderColor = [UIColor clearColor].CGColor;
         self.primaryActiveButton.layer.borderWidth = 0.0f;
-        self.primaryActiveButton.layer.cornerRadius = 22.0f;
+        self.primaryActiveButton.layer.cornerRadius = 5.0f;
         self.primaryActiveButton.layer.masksToBounds = NO;
-        self.primaryActiveButton.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
-        self.primaryActiveButton.layer.shadowOpacity = 0.4;
-        self.primaryActiveButton.layer.shadowRadius = 1;
-        self.primaryActiveButton.layer.shadowOffset = CGSizeMake(0,1);
+//        self.primaryActiveButton.layer.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:40.0f/255.0f blue:40.0f/255.0f alpha:1.0f].CGColor;
+//        self.primaryActiveButton.layer.shadowOpacity = 0.4;
+//        self.primaryActiveButton.layer.shadowRadius = 1;
+//        self.primaryActiveButton.layer.shadowOffset = CGSizeMake(0,1);
         [self.primaryActiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
         // Default styles for primary inactive button
@@ -84,9 +85,9 @@
         self.primaryInactiveButton.backgroundColor = self.inactiveColor;
         self.primaryInactiveButton.layer.borderColor = [UIColor clearColor].CGColor;
         self.primaryInactiveButton.layer.borderWidth = 0.0f;
-        self.primaryInactiveButton.layer.cornerRadius = 22.0f;
-        self.primaryInactiveButton.layer.shadowColor = [UIColor clearColor].CGColor;
-        self.primaryInactiveButton.layer.shadowOpacity = 0;
+        self.primaryInactiveButton.layer.cornerRadius = 5.0f;
+//        self.primaryInactiveButton.layer.shadowColor = [UIColor clearColor].CGColor;
+//        self.primaryInactiveButton.layer.shadowOpacity = 0;
         [self.primaryInactiveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
         // Brokers

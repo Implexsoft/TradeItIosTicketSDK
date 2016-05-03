@@ -75,8 +75,12 @@ static float kAccountCellHeight = 44.0f;
     }
 
     if (!self.ticket.currentSession.isAuthenticated) {
+
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
+
         [self showLoadingAndWait];
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
             initialAuthenticationComplete = YES;
             if ([res.status isEqualToString: @"SUCCESS"]) {
                 [self loadPortfolioData];

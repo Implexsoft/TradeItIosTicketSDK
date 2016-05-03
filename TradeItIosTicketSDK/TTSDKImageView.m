@@ -36,7 +36,7 @@
     TradeItStyles * styles = [TradeItStyles sharedStyles];
     
     self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.tintColor = styles.activeColor;
+    self.tintColor = styles.secondaryActiveColor;
 }
 
 

@@ -13,6 +13,7 @@
 
 #pragma mark State Colors
 @property UIColor * activeColor;
+@property UIColor * secondaryActiveColor;
 @property UIColor * inactiveColor;
 @property UIColor * warningColor;
 @property UIColor * lossColor;
