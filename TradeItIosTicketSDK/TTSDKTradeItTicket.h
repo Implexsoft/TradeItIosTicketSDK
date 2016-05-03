@@ -70,6 +70,7 @@
 -(void) addSession:(TTSDKTicketSession *)session;
 -(void) removeSession:(TTSDKTicketSession *)session;
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;
+-(void) selectCurrentSession:(TTSDKTicketSession *)session;
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 #pragma mark Accounts

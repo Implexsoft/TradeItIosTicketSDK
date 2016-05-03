@@ -14,6 +14,7 @@
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKTradeViewController.h"
+#import "TTSDKNavigationController.h"
 
 
 @implementation TTSDKLoginViewController {
@@ -26,7 +27,8 @@
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
-    NSArray * newAccounts;
+    NSArray * multiAccounts;
+    NSString * selectedBroker;
 }
 
 
@@ -59,7 +61,7 @@
                    action:@selector(textFieldDidChange:)
          forControlEvents:UIControlEventEditingChanged];
 
-    NSString * broker = (self.addBroker == nil) ? self.ticket.currentSession.broker : self.addBroker;
+    selectedBroker = (self.addBroker == nil) ? self.ticket.currentSession.broker : self.addBroker;
 
     if(self.cancelToParent) {
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
@@ -79,12 +81,12 @@
                                                    object:nil];
     }
 
-    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [self.ticket getBrokerDisplayString:broker]]];
+    [pageTitle setText:[NSString stringWithFormat:@"Log in to %@", [self.ticket getBrokerDisplayString:selectedBroker]]];
 
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
-    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[self.utils getBrokerUsername: broker] attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+    emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[self.utils getBrokerUsername: selectedBroker] attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
     passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]
@@ -184,9 +186,9 @@
 }
 
 -(void) authenticate {
-    NSString * broker = self.addBroker == nil ? self.ticket.currentSession.broker : self.addBroker;
+    selectedBroker = self.addBroker == nil ? self.ticket.currentSession.broker : self.addBroker;
 
-    self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:broker];
+    self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:selectedBroker];
 
     [self.ticket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
         if ([res isKindOfClass:TradeItErrorResult.class]) {
@@ -253,7 +255,9 @@
                     [self.ticket addSession: newSession];
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
-                    newAccounts = authResult.accounts;
+                    if (authResult.accounts.count > 1) {
+                        multiAccounts = [self buildAccountOptions:authResult.accounts];
+                    }
 
                     NSDictionary * lastAccount = [authResult.accounts lastObject];
                     NSDictionary * selectedAccount;
@@ -294,6 +298,23 @@
     }];
 }
 
+-(NSArray *) buildAccountOptions:(NSArray *)accounts {
+    NSMutableArray * multiAccountsArray = [[NSMutableArray alloc] init];
+
+    for (NSDictionary * acct in accounts) {
+        NSString * accountNumber = [acct valueForKey:@"accountNumber"];
+        NSString * displayTitle = [NSString stringWithFormat:@"%@*%@",
+                                   selectedBroker,
+                                   [accountNumber substringFromIndex:accountNumber.length - 4]
+                                   ];
+
+        NSDictionary * option = @{displayTitle: accountNumber};
+
+        [multiAccountsArray addObject:option];
+    }
+
+    return [multiAccountsArray copy];
+}
 
 #pragma mark Text Editing Delegates
 
@@ -363,15 +384,23 @@
             dest.selectedIndex = 0;
 
             // Trade View needs to know whether to prompt the user for account selection
-            if (newAccounts && newAccounts.count > 1) {
-                TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)dest.selectedViewController;
-                tradeViewController.multiAccountSelection = newAccounts;
+            if (multiAccounts) {
+                TTSDKNavigationController * tradeNav = (TTSDKNavigationController *)dest.selectedViewController;
+                TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)[tradeNav.viewControllers objectAtIndex:0];
+                tradeViewController.multiAccountSelection = multiAccounts;
             }
         }
 
     } else if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
         [self.ticket configureAccountLinkNavController: nav];
+    } else if ([segue.identifier isEqualToString:@"LoginToTradeNav"]) {
+        // Trade View needs to know whether to prompt the user for account selection
+        if (multiAccounts) {
+            TTSDKNavigationController * tradeNav = (TTSDKNavigationController *)segue.destinationViewController;
+            TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)[tradeNav.viewControllers objectAtIndex:0];
+            tradeViewController.multiAccountSelection = multiAccounts;
+        }
     }
 }
 

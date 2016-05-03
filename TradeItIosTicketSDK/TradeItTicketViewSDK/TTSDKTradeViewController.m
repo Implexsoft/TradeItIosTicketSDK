@@ -225,9 +225,15 @@
     } else {
 
         if (self.multiAccountSelection) {
-
             // prompt account selection
+            NSArray * options = [self.multiAccountSelection copy];
+            self.multiAccountSelection = nil;
 
+            [self showPicker:@"Select account to trade it" withSelection:nil andOptions:options onSelection:^(void) {
+                [self.ticket selectCurrentAccountByAccountNumber: self.currentSelection];
+                [self populateSymbolDetails];
+                [self retrieveAccountSummaryData];
+            }];
         } else {
             [self retrieveAccountSummaryData];
             [self checkIfReadyToTrade];
