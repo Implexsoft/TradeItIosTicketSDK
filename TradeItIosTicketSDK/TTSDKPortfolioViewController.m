@@ -336,7 +336,20 @@ static float kAccountCellHeight = 44.0f;
             // User taps different row
             NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
             self.selectedHoldingIndex = indexPath.row;
+
+            [CATransaction begin];
+            [tableView beginUpdates];
+
+            [CATransaction setCompletionBlock: ^{
+                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+            }];
+
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            [tableView endUpdates];
+            
+            [CATransaction commit];
+
             [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         } else {
             // User taps new row with none expanded
