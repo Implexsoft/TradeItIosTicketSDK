@@ -10,6 +10,7 @@
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKPrimaryButton.h"
+#import "TTSDKBrokerSelectViewController.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -21,6 +22,7 @@
 
 @implementation TTSDKAccountLinkViewController
 
+static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
 #pragma mark Rotation
 
@@ -179,16 +181,20 @@
 }
 
 -(IBAction) doneBarButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+        [self.ticket returnToParentApp];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AccountLinkToLogin"]) {
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-        [self.ticket removeOnboardingFromNav:nav isModal:YES];
+        TTSDKBrokerSelectViewController * brokerSelect = (TTSDKBrokerSelectViewController *) [nav.viewControllers objectAtIndex:0];
+        brokerSelect.isModal = YES;
     }
 }
-
 
 
 @end

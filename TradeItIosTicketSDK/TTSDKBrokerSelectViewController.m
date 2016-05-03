@@ -133,8 +133,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 -(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    
-    // The first item in the auth nav stack is the onboarding view
+
     TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
     [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
 

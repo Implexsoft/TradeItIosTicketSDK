@@ -35,7 +35,6 @@
 @synthesize gainColor;
 
 static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
-static NSString * kOnboardingKey = @"HAS_COMPLETED_ONBOARDING";
 
 + (id)sharedUtils {
     static TTSDKUtils *sharedUtilsInstance = nil;

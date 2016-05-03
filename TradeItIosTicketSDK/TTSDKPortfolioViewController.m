@@ -466,7 +466,6 @@ static float kAccountCellHeight = 44.0f;
         // Get storyboard
         UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
-        // The first item in the auth nav stack is the onboarding view
         TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
         [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
 
@@ -481,7 +480,6 @@ static float kAccountCellHeight = 44.0f;
 -(void) didSelectSell:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
-    
 
     [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
     [self.tabBarController setSelectedIndex: 0];

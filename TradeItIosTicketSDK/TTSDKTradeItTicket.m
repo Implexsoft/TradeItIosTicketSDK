@@ -36,7 +36,7 @@
 static NSString * kBaseTabBarViewIdentifier = @"BASE_TAB_BAR";
 static NSString * kAccountNavViewIdentifier = @"accountSelect";
 static NSString * kAuthNavViewIdentifier = @"AUTH_NAV";
-static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
+static NSString * kOnboardingNavViewIdentifier = @"ONBOARDING_NAV";
 static NSString * kOnboardingViewIdentifier = @"ONBOARDING";
 static NSString * kPortfolioViewIdentifier = @"PORTFOLIO";
 static NSString * kTradeViewIdentifier = @"TRADE";
@@ -177,8 +177,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    
-    // The first item in the auth nav stack is the onboarding view
+
     UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"TradeNavController"];
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
     
@@ -190,8 +189,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    
-    // The first item in the auth nav stack is the onboarding view
+
     UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: @"PortfolioController"];
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
     
@@ -236,14 +234,16 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
-    // The first item in the auth nav stack is the onboarding view
-    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: kAuthNavViewIdentifier];
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-
-    // If not onboarding, push the nav to the broker select view
-    if (![self.utils isOnboarding]) {
-        [self removeOnboardingFromNav: nav isModal: NO];
+    // If onboarding, use onboarding nav controller
+    NSString * navIdentifier;
+    if ([self.utils isOnboarding]) {
+        navIdentifier = kOnboardingNavViewIdentifier;
+    } else {
+        navIdentifier = kAuthNavViewIdentifier;
     }
+
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: navIdentifier];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
     [self.parentView presentViewController:nav animated:YES completion:nil];
 }
@@ -295,18 +295,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(returnToParentApp)];
     root.navigationItem.rightBarButtonItem = cancelButton;
     root.navigationItem.hidesBackButton = NO;
-}
-
--(void) removeOnboardingFromNav:(UINavigationController *)nav isModal:(BOOL)isModal {
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
-    TTSDKBrokerSelectViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: kBrokerSelectViewIdentifier];
-
-    if (isModal) {
-        initialViewController.isModal = isModal;
-    }
-
-    [nav pushViewController:initialViewController animated:NO];
 }
 
 -(void) removeBrokerSelectFromNav:(UINavigationController *)nav {
