@@ -44,7 +44,7 @@
     [super viewWillAppear:animated];
 
     self.tableView.backgroundColor = self.styles.pageBackgroundColor;
-    portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: self.ticket.linkedAccounts];
+    portfolioService = [TTSDKPortfolioService serviceForLinkedAccounts];
 
     if (self.ticket.currentSession.isAuthenticated) {
         [self loadAccounts];

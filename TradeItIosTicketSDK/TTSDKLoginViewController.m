@@ -15,6 +15,7 @@
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKNavigationController.h"
+#import "TTSDKPortfolioService.h"
 
 
 @implementation TTSDKLoginViewController {
@@ -261,7 +262,9 @@
 
                     NSDictionary * lastAccount = [authResult.accounts lastObject];
                     NSDictionary * selectedAccount;
-                    for (NSDictionary *account in self.ticket.allAccounts) {
+
+                    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
+                    for (NSDictionary *account in allAccounts) {
                         if ([[lastAccount valueForKey:@"accountNumber"] isEqualToString:[account valueForKey:@"accountNumber"]]) {
                             selectedAccount = account;
                         }

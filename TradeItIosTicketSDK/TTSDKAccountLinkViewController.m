@@ -110,13 +110,17 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 -(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(TTSDKPortfolioAccount *)account {
 
     // Unlinking account, so check whether it's the last account for a login
-    BOOL isUnlinkingBroker = YES;
+    BOOL isUnlinkingBroker = NO;
     if (!toggle.on) {
+        int accountsToUnlink;
+
         for (TTSDKPortfolioAccount * portfolioAccount in portfolioService.accounts) {
-            if ([portfolioAccount.userId isEqualToString: account.userId] && (![portfolioAccount.accountNumber isEqualToString: account.accountNumber]) && portfolioAccount.active) {
-                isUnlinkingBroker = NO;
+            if ([portfolioAccount.userId isEqualToString: account.userId] && portfolioAccount.active) {
+                accountsToUnlink++;
             }
         }
+
+        isUnlinkingBroker = accountsToUnlink < 2;
     }
 
     if (isUnlinkingBroker) {

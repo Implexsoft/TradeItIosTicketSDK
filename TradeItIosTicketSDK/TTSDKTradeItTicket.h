@@ -27,9 +27,6 @@
 
 @interface TTSDKTradeItTicket : NSObject
 
-
-@property (nonatomic, retain, getter=allAccounts) NSArray * allAccounts;
-@property (nonatomic, retain, getter=linkedAccounts) NSArray * linkedAccounts;
 @property BOOL brokerSignUpComplete;
 @property BOOL debugMode;
 @property BOOL clearPortfolioCache;

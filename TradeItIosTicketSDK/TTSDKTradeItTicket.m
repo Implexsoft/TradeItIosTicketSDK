@@ -22,6 +22,7 @@
 #import "TradeItAccountOverviewRequest.h"
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
+#import "TTSDKPortfolioService.h"
 
 @interface TTSDKTradeItTicket() {
     TradeItTradeService * tradeService;
@@ -69,11 +70,14 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // Attempt to set an initial account
     NSString * lastSelectedAccountNumber = [self getLastSelected];
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
     if (lastSelectedAccountNumber) {
         [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
-    } else if ([self.linkedAccounts count]) {
-        [self selectCurrentAccount: [self.linkedAccounts lastObject]];
+    }
+
+    if (!self.currentAccount && linkedAccounts.count) {
+        [self selectCurrentAccount: [linkedAccounts lastObject]];
     }
 
     // Create a new, unauthenticated session for all stored logins
@@ -82,7 +86,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     for (TradeItLinkedLogin * login in linkedLogins) {
         TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
         [self addSession: newSession];
-        
+
         // Attempt to set an initial session
         if (self.currentAccount && [login.userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
             [self selectCurrentSession: newSession];
@@ -249,7 +253,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) presentAccountLinkScreen {
-    NSArray * linkedAccounts = self.linkedAccounts;
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
     if (linkedAccounts && linkedAccounts.count) {
         [self authenticateSessionsInBackground];
@@ -424,8 +428,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     BOOL isDuplicate = NO;
 
-    if (self.allAccounts && self.allAccounts.count) {
-        for (NSDictionary * acct in self.allAccounts) {
+    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
+    if (allAccounts && allAccounts.count) {
+        for (NSDictionary * acct in allAccounts) {
             if ([keyAccount[@"accountNumber"] isEqualToString:acct[@"accountNumber"]]) {
                 isDuplicate = YES;
             }
@@ -449,7 +454,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Accounts
 
 -(void) replaceAccountsWithNewAccounts:(NSArray *)accounts {
-    NSMutableArray * storedAccounts = [self.allAccounts mutableCopy];
+    NSMutableArray * storedAccounts = [[TTSDKPortfolioService allAccounts] mutableCopy];
 
     __block NSString * oldSessionUserId = nil;
 
@@ -479,7 +484,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) addAccounts:(NSArray *)accounts withSession:(TTSDKTicketSession *)session {
-    NSArray * storedAccounts = self.allAccounts;
+    NSArray * storedAccounts = [TTSDKPortfolioService allAccounts];
 
     NSMutableArray * newAccounts = [[NSMutableArray alloc] init];
     int i;
@@ -610,38 +615,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     return selectedBroker;
 }
 
-
-
-#pragma mark - Getter and Setter Overrides
-
--(NSArray *)allAccounts {
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSArray * accounts = [defaults objectForKey:kAccountsKey];
-    
-    if (!accounts) {
-        accounts = [[NSArray alloc] init];
-    }
-    
-    return accounts;
-}
-
--(NSArray *)linkedAccounts {
-    NSMutableArray * linkedAccounts = [[NSMutableArray alloc] init];
-    
-    NSArray * storedAccounts = self.allAccounts;
-    int i;
-    for (i = 0; i < storedAccounts.count; i++) {
-        NSDictionary * account = [storedAccounts objectAtIndex:i];
-        NSNumber * active = [account valueForKey: @"active"];
-        
-        if ([active boolValue]) {
-            [linkedAccounts addObject: account];
-        }
-    }
-    
-    return [linkedAccounts copy];
-}
-
 -(void) selectCurrentAccount:(NSDictionary *)account {
     NSString * accountNumber = [account valueForKey:@"accountNumber"];
 
@@ -654,7 +627,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         return;
     }
 
-    for (NSDictionary *account in self.linkedAccounts) {
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
+
+    for (NSDictionary *account in linkedAccounts) {
         if ([accountNumber isEqualToString: [account valueForKey:@"accountNumber"]]) {
             self.currentAccount = account;
         }
