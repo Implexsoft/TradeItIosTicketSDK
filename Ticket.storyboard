@@ -1588,11 +1588,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </constraints>
                                                     </imageView>
                                                     <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input" customClass="TTSDKTextField">
-                                                        <rect key="frame" x="197" y="108" width="113" height="44"/>
+                                                        <rect key="frame" x="197" y="98" width="113" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="QaO-hP-P8l"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="VXZ-vQ-tdp" id="lQO-mr-iZK"/>
@@ -1607,6 +1607,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="cbn-kp-Nie" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" constant="10" id="7Gc-X3-JV1"/>
                                                     <constraint firstItem="KgD-Vr-tlg" firstAttribute="trailing" secondItem="JLr-7y-dEH" secondAttribute="trailing" constant="-14" id="87I-EQ-vIA"/>
                                                     <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="cbn-kp-Nie" secondAttribute="trailing" constant="10" id="8AV-vk-IGt"/>
+                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="54" id="8iK-MX-Vad"/>
                                                     <constraint firstItem="JLr-7y-dEH" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="A2i-OY-kg9"/>
                                                     <constraint firstAttribute="trailing" secondItem="pWk-Ej-ZVu" secondAttribute="trailing" constant="10" id="Dzy-0T-fhL"/>
                                                     <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="JLr-7y-dEH" secondAttribute="bottom" constant="10" id="G7c-rg-jvA"/>
@@ -1614,7 +1615,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="cbn-kp-Nie" firstAttribute="width" secondItem="XLO-ms-ajL" secondAttribute="width" multiplier="0.6" constant="-15" id="H4K-hB-kS4"/>
                                                     <constraint firstItem="OEa-vm-esj" firstAttribute="trailing" secondItem="scy-hx-dPx" secondAttribute="trailing" constant="-14" id="Ks0-tp-emE"/>
                                                     <constraint firstAttribute="trailing" secondItem="feE-8H-8e0" secondAttribute="trailing" constant="10" id="KxR-Gc-unN"/>
-                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="pWk-Ej-ZVu" secondAttribute="bottom" constant="10" id="NtC-en-gtV"/>
                                                     <constraint firstItem="KgD-Vr-tlg" firstAttribute="centerY" secondItem="JLr-7y-dEH" secondAttribute="centerY" id="NuW-ph-Jzx"/>
                                                     <constraint firstItem="scy-hx-dPx" firstAttribute="top" secondItem="cbn-kp-Nie" secondAttribute="bottom" constant="10" id="QDM-30-dWf"/>
                                                     <constraint firstItem="feE-8H-8e0" firstAttribute="leading" secondItem="JLr-7y-dEH" secondAttribute="trailing" constant="10" id="atT-yf-8LU"/>
@@ -1726,6 +1726,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
+                        <outlet property="stopPriceTopConstraint" destination="8iK-MX-Vad" id="U3C-FK-tK3"/>
                         <segue destination="tvV-A4-qDa" kind="show" identifier="TradeToReview" id="rFw-Bc-wS6"/>
                         <segue destination="bbK-hu-Twv" kind="show" identifier="TradeToAccountSelect" id="kyf-iM-tIO"/>
                         <segue destination="bsj-SB-841" kind="presentation" identifier="TradeToSearch" id="HeB-kZ-GOW"/>

@@ -124,7 +124,7 @@ static float kMessageSeparatorHeight = 30.0f;
 
     accountNameLabel.text = [self.ticket.currentAccount valueForKey: @"displayTitle"];
 
-    accountLabel.text = [self.ticket.currentAccount valueForKey: @"broker"];
+    accountLabel.text = [[self.ticket.currentAccount valueForKey: @"broker"] uppercaseString];
     accountValue.text = [self.ticket.currentAccount valueForKey: @"accountNumber"];
 
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
