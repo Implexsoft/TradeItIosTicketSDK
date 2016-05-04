@@ -21,7 +21,7 @@
 @property TTSDKPortfolioAccount * currentPortfolioAccount;
 
 -(void) sendPreviewRequestWithCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
-
+-(void) waitForQuotes;
 -(void) acknowledgeAlert;
 -(void) retrieveQuoteData;
 -(void) retrieveAccountSummaryData;

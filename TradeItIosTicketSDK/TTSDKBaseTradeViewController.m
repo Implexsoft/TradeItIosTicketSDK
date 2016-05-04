@@ -11,6 +11,11 @@
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
 
+@interface TTSDKBaseTradeViewController()
+
+@property NSTimer * quoteTimer;
+
+@end
 
 @implementation TTSDKBaseTradeViewController
 
@@ -23,6 +28,17 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewDidLoad {
     [super viewDidLoad];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
+}
+
+-(void) waitForQuotes {
+    self.quoteTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(checkQuotes:) userInfo:nil repeats:YES];
+}
+
+-(void) checkQuotes:(id)sender {
+    if (!self.ticket.loadingQuote) {
+        [self populateSymbolDetails];
+        [self.quoteTimer invalidate];
+    }
 }
 
 

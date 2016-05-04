@@ -176,7 +176,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self refreshPressed:self];
+    if (self.ticket.loadingQuote) {
+        [self waitForQuotes];
+    } else {
+        [self refreshPressed: self];
+    }
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
