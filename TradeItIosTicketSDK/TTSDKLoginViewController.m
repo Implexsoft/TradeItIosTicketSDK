@@ -269,8 +269,9 @@
                     [self.ticket addSession: newSession];
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
-                    if (authResult.accounts.count > 1) {
-                        multiAccounts = [self buildAccountOptions:authResult.accounts];
+                    NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
+                    if (newLinkedAccounts.count > 1) {
+                        multiAccounts = [self buildAccountOptions: newLinkedAccounts];
                     }
 
                     // If the auth flow was triggered modally, then we don't want to automatically select it
