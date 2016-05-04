@@ -295,7 +295,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     for (int i = 0; i < [subviews count]; i++) {
         if (![NSStringFromClass([[subviews objectAtIndex:i] class]) isEqualToString:@"TTSDKImageView"]) {
             UIButton *button = [subviews objectAtIndex:i];
-            NSLog(@"adding keypressed event");
             [button addTarget:self action:@selector(keypadPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
@@ -398,34 +397,28 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     double stopPrice = [self.ticket.previewRequest.orderStopPrice doubleValue];
 
     if(shares < 1) {
-        NSLog(@"nready shares");
         readyNow = NO;
     } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
         if(!limitPrice || !stopPrice) {
-        NSLog(@"nready stop limit");
             readyNow = NO;
         }
     } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"market"]) {
         //readyNow = YES;
     } else if([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopMarket"]) {
         if(!stopPrice) {
-        NSLog(@"nready stop market");
             readyNow = NO;
         }
     } else {
         if(!limitPrice) {
-                    NSLog(@"nready limit");
             readyNow = NO;
         }
     }
 
     if (!self.ticket.currentSession.isAuthenticated || !self.ticket.currentAccount) {
-                NSLog(@"nready auth or acct");
         readyNow = NO;
     }
     
     if (!self.ticket.previewRequest.orderSymbol || [self.ticket.previewRequest.orderSymbol isEqualToString:@""]) {
-                NSLog(@"nready symbol");
         readyNow = NO;
     }
 
@@ -699,22 +692,18 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(IBAction) keypadPressed:(id)sender {
-    NSLog(@"key pressed");
     UIButton * button = (UIButton *)sender;
     NSInteger key = button.tag;
 
     if ([currentFocus isEqualToString: @"shares"]) {
-        NSLog(@"change qu");
         [self changeOrderQuantity: key];
     }
 
     if ([currentFocus isEqualToString: @"limit"]) {
-        NSLog(@"change l");
         [self changeOrderLimitPrice: key];
     }
 
     if ([currentFocus isEqualToString: @"stop"]) {
-        NSLog(@"change s");
         [self changeOrderStopPrice: key];
     }
 

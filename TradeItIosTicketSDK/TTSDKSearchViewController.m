@@ -154,7 +154,6 @@
 }
 
 -(IBAction) closePressed:(id)sender {
-
     if (self.noSymbol && self.rootTabBar) {
         self.noSymbol = NO; // reset
         self.rootTabBar.selectedIndex = 1; // this sets the tab bar to the portfolio
