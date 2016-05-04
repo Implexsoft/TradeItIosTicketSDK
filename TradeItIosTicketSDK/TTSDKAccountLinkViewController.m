@@ -63,6 +63,7 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
 -(void) viewWillAppear:(BOOL)animated {
     portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
+    [self.linkTableView reloadData];
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult *result) {

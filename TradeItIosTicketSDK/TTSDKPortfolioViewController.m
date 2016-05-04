@@ -69,6 +69,7 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.accountsTable reloadData];
 
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
