@@ -1389,7 +1389,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <!--Navigation Controller-->
         <scene sceneID="0LB-Ic-3mz">
             <objects>
-                <navigationController id="bsj-SB-841" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="symbolSearch" id="bsj-SB-841" customClass="TTSDKNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oyH-hr-2ox">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1403,7 +1403,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
             </objects>
             <point key="canvasLocation" x="1241" y="-1168"/>
         </scene>
-        <!--Trade-->
+        <!--Search-->
         <scene sceneID="pV2-rc-4J8">
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="Kx2-Fj-r79" customClass="TTSDKSearchViewController" sceneMemberID="viewController">
@@ -1450,8 +1450,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <outlet property="delegate" destination="Kx2-Fj-r79" id="jsS-Fz-3t2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Trade" id="wZI-PU-SM3">
-                        <barButtonItem key="rightBarButtonItem" title="Close" id="cSr-u0-kbR">
+                    <navigationItem key="navigationItem" title="Search" id="wZI-PU-SM3">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="cSr-u0-kbR">
                             <connections>
                                 <action selector="closePressed:" destination="Kx2-Fj-r79" id="dFz-ie-RTI"/>
                             </connections>
@@ -1889,9 +1889,9 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="uWM-4J-KHQ"/>
+        <segue reference="b0O-lu-Vmh"/>
         <segue reference="hO5-IP-sLI"/>
-        <segue reference="Vdw-ys-tjA"/>
+        <segue reference="Iho-lP-LWh"/>
         <segue reference="kyf-iM-tIO"/>
     </inferredMetricsTieBreakers>
 </document>

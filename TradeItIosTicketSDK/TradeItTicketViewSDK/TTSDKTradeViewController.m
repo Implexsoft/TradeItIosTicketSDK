@@ -16,6 +16,7 @@
 #import "TradeItQuotesResult.h"
 #import "TTSDKImageView.h"
 #import "TTSDKKeypad.h"
+#import "TTSDKSearchViewController.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -52,6 +53,8 @@
 
 @implementation TTSDKTradeViewController
 
+static NSString * kSearchSegueIdentifier = @"TradeToSearch";
+static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 #pragma mark Initialization
 
@@ -205,7 +208,7 @@
                     
                     UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
                                                                            handler:^(UIAlertAction * action) {
-                                                                               [self performSegueWithIdentifier:@"TradeToLogin" sender:self];
+                                                                               [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
                                                                            }];
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -254,7 +257,7 @@
 
 -(void) viewDidAppear:(BOOL)animated {
     if (!self.ticket.previewRequest.orderSymbol) {
-        [self performSegueWithIdentifier:@"TradeToSearch" sender:self];
+        [self performSegueWithIdentifier:kSearchSegueIdentifier sender:self];
     }
 }
 
@@ -797,9 +800,16 @@
 #pragma mark Navigation
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"TradeToLogin"]) {
+    if([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
         [self.ticket removeBrokerSelectFromNav: dest];
+    } else if ([segue.identifier isEqualToString:kSearchSegueIdentifier]) {
+        if (!self.ticket.previewRequest.orderSymbol) {
+            UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
+            TTSDKSearchViewController * search = (TTSDKSearchViewController *)[nav.viewControllers objectAtIndex:0];
+            search.noSymbol = YES;
+            search.rootTabBar = self.tabBarController;
+        }
     }
 }
 

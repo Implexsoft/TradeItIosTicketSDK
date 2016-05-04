@@ -11,4 +11,8 @@
 
 @interface TTSDKSearchViewController : TTSDKTableViewController <UISearchDisplayDelegate>
 
+@property BOOL noSymbol;
+
+@property UITabBarController * rootTabBar;
+
 @end

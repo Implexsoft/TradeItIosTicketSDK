@@ -101,14 +101,6 @@
     }
 }
 
--(void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = YES;
-}
-
--(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = NO;
-}
-
 -(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchBar.text isEqualToString:@""]) {
         [self setResultsToLoading];
@@ -162,6 +154,12 @@
 }
 
 -(IBAction) closePressed:(id)sender {
+
+    if (self.noSymbol && self.rootTabBar) {
+        self.noSymbol = NO; // reset
+        self.rootTabBar.selectedIndex = 1; // this sets the tab bar to the portfolio
+    }
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
