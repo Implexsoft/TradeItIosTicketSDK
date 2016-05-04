@@ -747,6 +747,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(IBAction) previewOrderPressed:(id)sender {
     [self.view endEditing:YES];
 
+    // always do this to be sure
+    if (self.ticket.currentAccount) {
+        self.ticket.previewRequest.accountNumber = [self.ticket.currentAccount valueForKey:@"accountNumber"];
+    }
+
     if(readyToTrade) {
         [previewOrderButton enterLoadingState];
         [self sendPreviewRequestWithCompletionBlock:^(TradeItResult* res) {
