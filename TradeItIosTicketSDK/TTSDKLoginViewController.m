@@ -270,40 +270,52 @@
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
                     NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
-                    if (newLinkedAccounts.count > 1) {
+                    if (newLinkedAccounts.count > 1 && (self.ticket.presentationMode == TradeItPresentationModeTrade || self.ticket.presentationMode == TradeItPresentationModeTradeOnly)) {
+
                         multiAccounts = [self buildAccountOptions: newLinkedAccounts];
-                    }
+                        [self showPicker:@"Select account to trade it" withSelection:nil andOptions:multiAccounts onSelection:^(void) {
+                            [self.ticket selectCurrentAccountByAccountNumber: self.currentSelection];
+                            [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
+                        }];
 
-                    // If the auth flow was triggered modally, then we don't want to automatically select it
-                    if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
-                        self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
-
-                        if(self.ticket.brokerSignUpCallback) {
-                            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
-                            self.ticket.brokerSignUpCallback(res);
-                        }
-
-                        [self.ticket returnToParentApp];
-                    } else if (self.isModal) {
-                        [self autoSelectAccount: [authResult.accounts lastObject] withSession:newSession];
-                        [self dismissViewControllerAnimated:YES completion:nil];
                     } else {
-                        [self autoSelectAccount: [authResult.accounts lastObject] withSession:newSession];
 
-                        if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
-                            [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
-                        } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
-                            [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
-                        } else if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
-                            [self performSegueWithIdentifier:@"LoginToAccountLink" sender:self];
-                        } else {
-                            [self performSegueWithIdentifier: @"LoginToTab" sender: self];
-                        }
+                        [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
+
                     }
                 }
             }];
         }
     }];
+}
+
+-(void) completeAuthenticationAndClose:(TradeItAuthenticationResult *)result account:(NSArray *)accounts session:(TTSDKTicketSession *)session {
+    // TODO - refactor to avoid duplication
+    if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
+        self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
+        
+        if(self.ticket.brokerSignUpCallback) {
+            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
+            self.ticket.brokerSignUpCallback(res);
+        }
+
+        [self.ticket returnToParentApp];
+    } else if (self.isModal) {
+        [self autoSelectAccount: [accounts lastObject] withSession:session];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self autoSelectAccount: [accounts lastObject] withSession:session];
+        
+        if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+            [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
+        } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
+            [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
+        } else if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+            [self performSegueWithIdentifier:@"LoginToAccountLink" sender:self];
+        } else {
+            [self performSegueWithIdentifier: @"LoginToTab" sender: self];
+        }
+    }
 }
 
 -(void) autoSelectAccount:(NSDictionary *)account withSession:(TTSDKTicketSession *)session {
@@ -326,7 +338,7 @@
     for (NSDictionary * acct in accounts) {
         NSString * accountNumber = [acct valueForKey:@"accountNumber"];
         NSString * displayTitle = [NSString stringWithFormat:@"%@*%@",
-                                   selectedBroker,
+                                   [acct valueForKey:@"broker"],
                                    [accountNumber substringFromIndex:accountNumber.length - 4]
                                    ];
 
@@ -404,25 +416,11 @@
             dest.selectedIndex = 1;
         } else {
             dest.selectedIndex = 0;
-
-            // Trade View needs to know whether to prompt the user for account selection
-            if (multiAccounts) {
-                TTSDKNavigationController * tradeNav = (TTSDKNavigationController *)dest.selectedViewController;
-                TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)[tradeNav.viewControllers objectAtIndex:0];
-                tradeViewController.multiAccountSelection = multiAccounts;
-            }
         }
 
     } else if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
         [self.ticket configureAccountLinkNavController: nav];
-    } else if ([segue.identifier isEqualToString:@"LoginToTradeNav"]) {
-        // Trade View needs to know whether to prompt the user for account selection
-        if (multiAccounts) {
-            TTSDKNavigationController * tradeNav = (TTSDKNavigationController *)segue.destinationViewController;
-            TTSDKTradeViewController * tradeViewController = (TTSDKTradeViewController *)[tradeNav.viewControllers objectAtIndex:0];
-            tradeViewController.multiAccountSelection = multiAccounts;
-        }
     }
 }
 
