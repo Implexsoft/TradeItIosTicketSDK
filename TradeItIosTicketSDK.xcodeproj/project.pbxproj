@@ -167,6 +167,7 @@
 		655E67081CB5ADDB00C3A201 /* TTSDKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */; };
 		6568863B1CDA25D70082D96E /* indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 656886391CDA25D70082D96E /* indicator.png */; };
 		656886401CDA31E70082D96E /* success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6568863F1CDA31E70082D96E /* success_icon.png */; };
+		656886421CDA56400082D96E /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 656886411CDA56400082D96E /* lock.png */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
 		6570D23F1CBD3BF0004232AA /* TTSDKSmallLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6570D23D1CBD3BF0004232AA /* TTSDKSmallLabel.h */; };
 		6570D2401CBD3BF0004232AA /* TTSDKSmallLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6570D23E1CBD3BF0004232AA /* TTSDKSmallLabel.m */; };
@@ -448,6 +449,7 @@
 		655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKViewController.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKViewController.m; sourceTree = "<group>"; };
 		656886391CDA25D70082D96E /* indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator.png; sourceTree = "<group>"; };
 		6568863F1CDA31E70082D96E /* success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success_icon.png; sourceTree = "<group>"; };
+		656886411CDA56400082D96E /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		6570D23D1CBD3BF0004232AA /* TTSDKSmallLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKSmallLabel.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKSmallLabel.h; sourceTree = "<group>"; };
 		6570D23E1CBD3BF0004232AA /* TTSDKSmallLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKSmallLabel.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKSmallLabel.m; sourceTree = "<group>"; };
 		6574AA681CB7FEC30003FFE9 /* TTSDKLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKLabel.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKLabel.h; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				656886411CDA56400082D96E /* lock.png */,
 				6568863F1CDA31E70082D96E /* success_icon.png */,
 				656886391CDA25D70082D96E /* indicator.png */,
 				6557457B1C3AD5F9004BA180 /* chevron_right.png */,
@@ -1285,6 +1288,7 @@
 				65AF4DE71CC54FB500ACB3A4 /* chevron_down.png in Resources */,
 				650E2D401C45BE9700A3069E /* trade_icon@3x.png in Resources */,
 				65554E511C49802800BBA6F6 /* backspace.png in Resources */,
+				656886421CDA56400082D96E /* lock.png in Resources */,
 				6568863B1CDA25D70082D96E /* indicator.png in Resources */,
 				654BE36A1C4EE2E100E8510F /* chevron_right.png in Resources */,
 				6508C4CC1C7A0BD800612B62 /* TTSDKAccountsHeader.xib in Resources */,

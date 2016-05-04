@@ -159,7 +159,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while([self.ticket.brokerList count] < 1 && cycles < 10) {
+        while([self.ticket.brokerList count] < 1 && cycles < 15) {
             sleep(1);
             cycles++;
         }

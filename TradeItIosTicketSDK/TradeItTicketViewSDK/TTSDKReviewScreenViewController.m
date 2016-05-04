@@ -42,7 +42,9 @@
     //Labels that change
     __weak IBOutlet UILabel *buyingPowerLabel;
     __weak IBOutlet UILabel *estimateCostLabel;
-    
+    __weak IBOutlet UILabel *accountLabel;
+    __weak IBOutlet UILabel *accountValue;
+
     //Value Fields
     __weak IBOutlet UILabel *quantityValue;
     __weak IBOutlet UILabel *actionValue;
@@ -121,6 +123,9 @@ static float kMessageSeparatorHeight = 30.0f;
     [formatter setLocale: US];
 
     accountNameLabel.text = [self.ticket.currentAccount valueForKey: @"displayTitle"];
+
+    accountLabel.text = [self.ticket.currentAccount valueForKey: @"broker"];
+    accountValue.text = [self.ticket.currentAccount valueForKey: @"accountNumber"];
 
     [quantityValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"orderQuantity"]]];
 

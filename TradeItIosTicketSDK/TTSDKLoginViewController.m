@@ -87,9 +87,6 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
-    emailInput.layer.borderColor = self.styles.inactiveColor.CGColor;
-    passwordInput.layer.borderColor = self.styles.inactiveColor.CGColor;
-
     emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[self.utils getBrokerUsername: selectedBroker] attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
     passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
 
@@ -102,9 +99,20 @@
     [linkAccountButton deactivate];
 }
 
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    emailInput.layer.borderColor = self.styles.inactiveColor.CGColor;
+    emailInput.layer.borderWidth = 1.0f;
+    emailInput.layer.shadowOpacity = 0.0f;
+    passwordInput.layer.borderColor = self.styles.inactiveColor.CGColor;
+    passwordInput.layer.borderWidth = 1.0f;
+    passwordInput.layer.shadowOpacity = 0.0f;
+}
+
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     [self checkAuthState];
 
     if(self.ticket.errorTitle) {
