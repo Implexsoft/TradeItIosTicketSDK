@@ -141,8 +141,13 @@
 }
 
 -(void) dismissKeyboard {
-    [emailInput resignFirstResponder];
-    [passwordInput resignFirstResponder];
+    if (emailInput.isFirstResponder) {
+        [emailInput resignFirstResponder];
+    }
+    
+    if (passwordInput.isFirstResponder) {
+        [passwordInput resignFirstResponder];
+    }
 }
 
 
@@ -162,14 +167,6 @@
 }
 
 -(IBAction) linkAccountPressed:(id)sender {
-    if (emailInput.isFirstResponder) {
-        [emailInput resignFirstResponder];
-    }
-    
-    if (passwordInput.isFirstResponder) {
-        [passwordInput resignFirstResponder];
-    }
-
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
         NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [self.utils getBrokerUsername: self.ticket.currentSession.broker]];
 
@@ -235,6 +232,9 @@
 
             self.ticket.errorMessage = nil;
             self.ticket.errorTitle = nil;
+
+            [self dismissKeyboard];
+
             [linkAccountButton exitLoadingState];
             [linkAccountButton activate];
         } else {
@@ -243,6 +243,8 @@
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.ticket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
 
             [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
+                [self dismissKeyboard];
+
                 [linkAccountButton exitLoadingState];
                 [linkAccountButton activate];
 
