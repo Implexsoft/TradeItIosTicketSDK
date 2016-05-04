@@ -186,23 +186,12 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-Dm-uUT" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="23" y="416" width="170" height="44"/>
+                                <rect key="frame" x="50" y="416" width="220" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="L6T-gJ-edn"/>
-                                    <constraint firstAttribute="width" constant="170" id="Pcr-Hs-ZIy"/>
+                                    <constraint firstAttribute="width" constant="220" id="Pcr-Hs-ZIy"/>
                                 </constraints>
                                 <state key="normal" title="Add Broker"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pKp-nb-EcD">
-                                <rect key="frame" x="217" y="416" width="80" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="M8G-wQ-kJ3"/>
-                                    <constraint firstAttribute="width" constant="80" id="f3M-r9-2S7"/>
-                                </constraints>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="donePressed:" destination="zTt-u9-UeG" eventType="touchUpInside" id="2f4-6p-iL0"/>
-                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -210,12 +199,10 @@
                             <constraint firstItem="u95-Pe-KDT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="GhX-Nf-Pye"/>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leadingMargin" constant="-8" id="QPB-sr-rbj"/>
                             <constraint firstItem="tQF-xg-0Di" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" constant="20" id="SIV-eO-Yp3"/>
-                            <constraint firstItem="pKp-nb-EcD" firstAttribute="trailing" secondItem="28t-JE-dnw" secondAttribute="trailing" constant="-15" id="Sch-al-UdG"/>
-                            <constraint firstItem="pKp-nb-EcD" firstAttribute="centerY" secondItem="Xds-Dm-uUT" secondAttribute="centerY" id="d8s-ji-xi9"/>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="u95-Pe-KDT" secondAttribute="bottom" constant="28" id="fhq-O7-bjz"/>
-                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="leading" secondItem="28t-JE-dnw" secondAttribute="leading" constant="15" id="l2O-7C-JPr"/>
                             <constraint firstItem="Xds-Dm-uUT" firstAttribute="top" secondItem="28t-JE-dnw" secondAttribute="bottom" constant="20" id="oew-hW-jRD"/>
                             <constraint firstItem="u95-Pe-KDT" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" constant="28" id="wgr-nW-rzm"/>
+                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="xDR-5I-XXz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KeN-dP-HQo">
@@ -228,7 +215,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="addBrokerButton" destination="Xds-Dm-uUT" id="QbQ-OR-zHU"/>
-                        <outlet property="doneButton" destination="pKp-nb-EcD" id="0cZ-pj-w2U"/>
                         <outlet property="linkTableView" destination="28t-JE-dnw" id="nBf-sf-mLz"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="AccountLinkToLogin" id="JZr-PV-7wY"/>
                     </connections>
@@ -1792,14 +1778,16 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstItem="d8n-Df-4Rn" firstAttribute="centerX" secondItem="A6a-Bv-pob" secondAttribute="centerX" id="iYH-ve-fnu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Accounts" id="To0-jd-SaS"/>
+                    <navigationItem key="navigationItem" title="Accounts" id="To0-jd-SaS">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="USU-K9-fPa"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Spr-uL-UE8" id="Zo0-wf-mmL"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="AccountSelectToBrokerSelect" id="X2r-Bb-VCg"/>
-                        <segue destination="EOX-B4-DHL" kind="presentation" identifier="AccountSelectToAccountLink" id="qBc-9P-D9s"/>
+                        <segue destination="zTt-u9-UeG" kind="show" identifier="AccountSelectToAccountLink" id="cfc-P1-7W5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQy-gO-SDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1888,10 +1876,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="X2r-Bb-VCg"/>
+        <segue reference="8yM-5R-gad"/>
+        <segue reference="cfc-P1-7W5"/>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="b0O-lu-Vmh"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
-        <segue reference="kyf-iM-tIO"/>
     </inferredMetricsTieBreakers>
 </document>

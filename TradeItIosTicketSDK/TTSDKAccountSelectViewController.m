@@ -87,9 +87,8 @@
         } else {
             [self.ticket selectCurrentAccount: selectedAccount];
         }
-        
-        TTSDKTradeViewController * tradeVC = (TTSDKTradeViewController *)[self.navigationController.viewControllers objectAtIndex:0];
-        [self.navigationController popToViewController:tradeVC animated: YES];
+
+        [self.navigationController popViewControllerAnimated: YES];
     } else {
         [self.tableView reloadData];
     }
