@@ -31,6 +31,7 @@
 @property BOOL debugMode;
 @property BOOL clearPortfolioCache;
 @property BOOL loadingQuote;
+@property NSDate * lastUsed;
 @property UIViewController * parentView;
 @property NSString * errorTitle;
 @property NSString * errorMessage;

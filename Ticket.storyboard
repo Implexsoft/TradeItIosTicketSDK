@@ -177,7 +177,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
                                 <rect key="frame" x="8" y="141" width="304" height="255"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -185,7 +185,7 @@
                                     <outlet property="delegate" destination="zTt-u9-UeG" id="5Pn-Bm-zJU"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-Dm-uUT" customClass="TTSDKPrimaryButton">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-Dm-uUT" customClass="TTSDKPrimaryButton">
                                 <rect key="frame" x="50" y="416" width="220" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="L6T-gJ-edn"/>
@@ -608,7 +608,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1j-0F-nO9" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="50" y="379" width="220" height="44"/>
+                                <rect key="frame" x="50" y="357" width="220" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="CcK-YY-RIm"/>
                                     <constraint firstAttribute="height" constant="44" id="vEa-7G-s1D"/>
@@ -630,7 +630,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="8" id="1Ou-ey-1gP"/>
+                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="30" id="1Ou-ey-1gP"/>
                             <constraint firstItem="V1j-0F-nO9" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="I90-0X-SNx"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>

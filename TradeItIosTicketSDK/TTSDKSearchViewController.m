@@ -162,5 +162,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.ticket.lastUsed = [NSDate date];
+}
+
 
 @end

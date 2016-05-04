@@ -25,11 +25,12 @@
 
 
 #pragma mark Initialization
-- (IBAction)closeApp:(id)sender {
+
+-(IBAction) closeApp:(id)sender {
     [self.ticket returnToParentApp];
 }
 
-- (void)viewDidLoad {
+-(void) viewDidLoad {
     [super viewDidLoad];
 
     TradeItPlaceTradeResult * result = self.ticket.resultContainer.tradeResponse;
@@ -59,18 +60,22 @@
     successMessage.textColor = [UIColor whiteColor];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+-(void) viewWillAppear:(BOOL)animated {
     [self.navigationItem setHidesBackButton:YES];
 }
 
 
 #pragma mark Navigation
 
-- (IBAction)closeButtonPressed:(id)sender {
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+}
+
+-(IBAction) closeButtonPressed:(id)sender {
     [self.ticket returnToParentApp];
 }
 
-- (IBAction)tradeButtonPressed:(id)sender {
+-(IBAction) tradeButtonPressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

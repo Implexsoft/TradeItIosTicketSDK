@@ -466,6 +466,10 @@ static float kMessageSeparatorHeight = 30.0f;
 
 #pragma mark Navigation
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+}
+
 -(IBAction) ackLabelToggled:(id)sender {
     UISwitch * switchSender = sender;
 

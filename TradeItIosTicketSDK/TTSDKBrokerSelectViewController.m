@@ -227,6 +227,8 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
     if([segue.identifier isEqualToString:kBrokerToLoginSegueIdentifier]) {
         NSString * selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
 

@@ -556,6 +556,8 @@ static float kAccountCellHeight = 44.0f;
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
     if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
         UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
         

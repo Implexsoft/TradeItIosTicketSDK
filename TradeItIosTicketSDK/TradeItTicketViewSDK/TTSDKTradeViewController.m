@@ -785,6 +785,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 #pragma mark Navigation
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
     if([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
         [self.ticket removeBrokerSelectFromNav: dest];

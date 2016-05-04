@@ -26,6 +26,7 @@
 
 @interface TTSDKTradeItTicket() {
     TradeItTradeService * tradeService;
+
 }
 
 @property TTSDKUtils * utils;
@@ -68,8 +69,15 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         [self retrieveBrokers];
     }
 
+    BOOL elapsed = NO;
+    if (self.lastUsed) {
+        if ((fabs([self.lastUsed timeIntervalSinceNow]) > 10)) {
+            elapsed = YES;
+        }
+    }
+
     // If any sessions are in memory at this point, we know that we are simply reopening the ticket
-    if (!self.sessions) {
+    if (!self.sessions || elapsed) {
         self.sessions = [[NSArray alloc] init];
         self.currentSession = nil;
         self.currentAccount = nil;
@@ -78,15 +86,15 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Attempt to set an initial account
         NSString * lastSelectedAccountNumber = [self getLastSelected];
         NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
-        
+
         if (lastSelectedAccountNumber) {
             [self selectCurrentAccountByAccountNumber: lastSelectedAccountNumber];
         }
-        
+
         if (!self.currentAccount && linkedAccounts.count) {
             [self selectCurrentAccount: [linkedAccounts lastObject]];
         }
-        
+
         // Create a new, unauthenticated session for all stored logins
         NSArray * linkedLogins = [self.connector getLinkedLogins];
 
@@ -106,6 +114,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     } else {
         [self retrieveQuote:^(void) {}];
     }
+
+    self.lastUsed = [NSDate date];
 }
 
 

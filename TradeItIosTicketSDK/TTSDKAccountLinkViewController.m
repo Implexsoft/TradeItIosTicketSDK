@@ -221,6 +221,8 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
     if ([segue.identifier isEqualToString:@"AccountLinkToLogin"]) {
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
         TTSDKBrokerSelectViewController * brokerSelect = (TTSDKBrokerSelectViewController *) [nav.viewControllers objectAtIndex:0];

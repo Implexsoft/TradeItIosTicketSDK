@@ -59,5 +59,11 @@
     });
 }
 
+#pragma mark Navigation
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.ticket.lastUsed = [NSDate date];
+}
+
 
 @end
