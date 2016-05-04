@@ -67,12 +67,6 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
             [view.layer addSublayer:circleLayer];
         }
     }
-
-    NSMutableAttributedString * poweredBy = [[NSMutableAttributedString alloc]initWithString:@"powered by "];
-    NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
-    [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0f] range:NSMakeRange(0, 7)];
-    [poweredBy appendAttributedString:logoString];
-    [self.tradeItLabel setAttributedText:poweredBy];
 }
 
 -(void) styleCustomDropdownButton: (UIButton *)button {
@@ -143,8 +137,16 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     }
 
     [self showPicker:@"Select account to trade with" withSelection:@"Fidelity" andOptions:[optionsArray copy] onSelection:^(void){
-        [self.preferredBrokerButton setTitle:self.currentSelection forState:UIControlStateNormal];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self populateBrokerButton];
+        });
     }];
+}
+
+-(void) populateBrokerButton {
+    [UIView setAnimationsEnabled:NO];
+    [self.preferredBrokerButton setTitle:self.currentSelection forState:UIControlStateNormal];
+    [UIView setAnimationsEnabled:YES];
 }
 
 -(IBAction) closePressed:(id)sender {
