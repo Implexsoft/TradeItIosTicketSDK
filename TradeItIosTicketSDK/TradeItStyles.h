@@ -14,6 +14,7 @@
 #pragma mark State Colors
 @property UIColor * activeColor;
 @property UIColor * secondaryActiveColor;
+@property UIColor * secondaryDarkActiveColor;
 @property UIColor * inactiveColor;
 @property UIColor * warningColor;
 @property UIColor * lossColor;
@@ -21,6 +22,7 @@
 
 #pragma mark Page Colors
 @property UIColor * pageBackgroundColor;
+@property UIColor * darkPageBackgroundColor;
 
 #pragma mark Navigation Colors
 @property UIColor * navigationBarBackgroundColor;

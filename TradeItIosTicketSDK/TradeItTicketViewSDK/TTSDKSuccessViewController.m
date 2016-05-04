@@ -10,10 +10,13 @@
 #import "TTSDKPrimaryButton.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKTradeViewController.h"
+#import "TTSDKImageView.h"
 
 @interface TTSDKSuccessViewController() {
     __weak IBOutlet TTSDKPrimaryButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
+    __weak IBOutlet TTSDKImageView * successImage;
+    __weak IBOutlet UILabel *confirmTitle;
 }
 
 @end
@@ -44,6 +47,16 @@
 
     NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
+}
+
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    self.view.backgroundColor = self.styles.darkPageBackgroundColor;
+    [successImage setTintColor:self.styles.gainColor];
+
+    confirmTitle.textColor = [UIColor whiteColor];
+    successMessage.textColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -21,8 +21,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorLeadingConstraint;
-
 @property TTSDKPortfolioAccount * portfolioAccount;
+
+@property UIFont * defaultAccountFont;
+@property CGFloat defaultAccountFontSize;
 
 @end
 
@@ -40,7 +42,10 @@
 }
 
 -(void) setViewStyles {
-    self.selectedView.backgroundColor = styles.activeColor;
+    self.defaultAccountFont = self.accountLabel.font;
+    self.defaultAccountFontSize = self.accountLabel.font.pointSize;
+
+    self.selectedView.backgroundColor = [UIColor clearColor];
     self.separatorView.backgroundColor = styles.primarySeparatorColor;
     self.authenticateView.backgroundColor = styles.pageBackgroundColor;
 
@@ -84,8 +89,10 @@
 -(void) configureSelectedState:(BOOL)selected {
     if (selected) {
         self.selectedView.hidden = NO;
+        [self.accountLabel setFont: [UIFont fontWithName: [NSString stringWithFormat:@"%@-Semibold",self.defaultAccountFont] size: self.defaultAccountFontSize] ];
     } else {
         self.selectedView.hidden = YES;
+        [self.accountLabel setFont:self.defaultAccountFont];
     }
 }
 

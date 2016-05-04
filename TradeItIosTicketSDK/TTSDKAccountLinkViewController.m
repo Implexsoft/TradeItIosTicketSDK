@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *addBrokerButton;
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 @property BOOL authenticated;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
@@ -50,6 +51,14 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
     UITapGestureRecognizer * addBrokerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addBrokerButtonPressed:)];
     [self.addBrokerButton addGestureRecognizer: addBrokerTap];
+}
+
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.doneButton.backgroundColor = self.styles.secondaryDarkActiveColor;
+    self.doneButton.layer.cornerRadius = 5.0f;
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -192,6 +201,14 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
 -(IBAction) addBrokerButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+}
+
+- (IBAction)donePressed:(id)sender {
+    if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+        [self.ticket returnToParentApp];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(IBAction) doneBarButtonPressed:(id)sender {

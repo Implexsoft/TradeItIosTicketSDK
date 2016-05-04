@@ -22,9 +22,9 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+18,940 (6.24%)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPb-QM-MmZ" customClass="TTSDKSmallLabel">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+18,940 (6.24%)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPb-QM-MmZ" customClass="TTSDKLabel">
                         <rect key="frame" x="0.0" y="14" width="208" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -38,8 +38,8 @@
                         <rect key="frame" x="58" y="0.0" width="262" height="43"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap to login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M83-8G-fZp" customClass="TTSDKLabel">
-                                <rect key="frame" x="181" y="13" width="73" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="178" y="13" width="76" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -52,17 +52,28 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npO-XE-Gw5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.84313725490196079" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="3Vy-gT-h0K"/>
                         </constraints>
                     </view>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-ja-Xkg" userLabel="Selected">
-                        <rect key="frame" x="4" y="0.0" width="2" height="43"/>
+                        <rect key="frame" x="4" y="0.0" width="10" height="43"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indicator.png" translatesAutoresizingMaskIntoConstraints="NO" id="myf-1w-7wB">
+                                <rect key="frame" x="-1" y="0.0" width="10" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="iI3-De-LXG"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="2" id="XNQ-ET-t8i"/>
+                            <constraint firstItem="myf-1w-7wB" firstAttribute="leading" secondItem="PrF-ja-Xkg" secondAttribute="leading" constant="-1" id="Juf-fU-gwx"/>
+                            <constraint firstAttribute="width" constant="10" id="XNQ-ET-t8i"/>
+                            <constraint firstItem="myf-1w-7wB" firstAttribute="top" secondItem="PrF-ja-Xkg" secondAttribute="top" id="eSA-gj-iJZ"/>
+                            <constraint firstAttribute="bottom" secondItem="myf-1w-7wB" secondAttribute="bottom" id="ejL-84-iY6"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
                     </view>
@@ -100,4 +111,7 @@
             <point key="canvasLocation" x="614" y="841"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="indicator.png" width="39" height="72"/>
+    </resources>
 </document>

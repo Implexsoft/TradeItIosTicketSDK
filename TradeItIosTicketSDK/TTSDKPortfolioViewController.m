@@ -39,11 +39,11 @@
 
 #pragma mark Constants
 
-static float kAccountsHeaderHeight = 165.0f;
-static float kHoldingsHeaderHeight = 75.0f;
+static float kAccountsHeaderHeight = 135.0f;
+static float kHoldingsHeaderHeight = 65.0f;
 static float kAccountsFooterHeight = 15.0f;
-static float kHoldingCellDefaultHeight = 60.0f;
-static float kHoldingCellExpandedHeight = 155.0f;
+static float kHoldingCellDefaultHeight = 44.0f;
+static float kHoldingCellExpandedHeight = 164.0f;
 static float kAccountCellHeight = 44.0f;
 
 

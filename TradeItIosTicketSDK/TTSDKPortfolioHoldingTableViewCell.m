@@ -70,6 +70,9 @@ static CGFloat const kBounceValue = 20.0f;
     self.expandedView.backgroundColor = styles.pageBackgroundColor;
     self.separatorView.backgroundColor = styles.primarySeparatorColor;
 
+    self.dropDownBuyButton.layer.cornerRadius = 5.0f;
+    self.dropDownSellButton.layer.cornerRadius = 5.0f;
+
     UITapGestureRecognizer * buyTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buySelected:)];
     [self.buyButton addGestureRecognizer: buyTap];
     [self.dropDownBuyButton addGestureRecognizer: buyTap];

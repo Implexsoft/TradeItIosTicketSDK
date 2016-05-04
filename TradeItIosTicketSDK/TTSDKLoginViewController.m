@@ -87,6 +87,9 @@
     [emailInput setDelegate:self];
     [passwordInput setDelegate:self];
 
+    emailInput.layer.borderColor = self.styles.inactiveColor.CGColor;
+    passwordInput.layer.borderColor = self.styles.inactiveColor.CGColor;
+
     emailInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:[self.utils getBrokerUsername: selectedBroker] attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
     passwordInput.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Broker password" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
 

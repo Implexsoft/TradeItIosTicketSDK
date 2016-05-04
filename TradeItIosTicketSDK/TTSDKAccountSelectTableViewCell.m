@@ -51,7 +51,7 @@
         TradeItStyles * styles = [TradeItStyles sharedStyles];
         self.buyingPower.textColor = styles.smallTextColor;
         self.accountTypeLabel.textColor = styles.primaryTextColor;
-        self.selectionView.backgroundColor = styles.activeColor;
+        self.selectionView.backgroundColor = [UIColor clearColor];
 
         utils = [TTSDKUtils sharedUtils];
         globalTicket = [TTSDKTradeItTicket globalTicket];

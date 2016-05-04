@@ -165,6 +165,8 @@
 		6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */; };
 		655E67071CB5ADDB00C3A201 /* TTSDKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655E67051CB5ADDB00C3A201 /* TTSDKViewController.h */; };
 		655E67081CB5ADDB00C3A201 /* TTSDKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */; };
+		6568863B1CDA25D70082D96E /* indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 656886391CDA25D70082D96E /* indicator.png */; };
+		656886401CDA31E70082D96E /* success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6568863F1CDA31E70082D96E /* success_icon.png */; };
 		6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508F5791C15F71800DB78F1 /* TTSDKcalc.xib */; };
 		6570D23F1CBD3BF0004232AA /* TTSDKSmallLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6570D23D1CBD3BF0004232AA /* TTSDKSmallLabel.h */; };
 		6570D2401CBD3BF0004232AA /* TTSDKSmallLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6570D23E1CBD3BF0004232AA /* TTSDKSmallLabel.m */; };
@@ -193,7 +195,6 @@
 		65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		65A219A61C6268E300BDCF19 /* TTSDKTradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */; };
 		65AF4DE71CC54FB500ACB3A4 /* chevron_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 65AF4DE51CC54FA800ACB3A4 /* chevron_down.png */; };
-		65B314051C2377E700EBC30D /* success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B314031C2377E700EBC30D /* success_icon.png */; };
 		65CD04FF1C6D2AC50090B2F2 /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */; };
 		65CD05001C6D2AC50090B2F2 /* TTSDKTicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */; };
 		65DD1BD71C3C82F80032676A /* TTSDKPortfolioViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */; };
@@ -445,6 +446,8 @@
 		6557457B1C3AD5F9004BA180 /* chevron_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron_right.png; sourceTree = "<group>"; };
 		655E67051CB5ADDB00C3A201 /* TTSDKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKViewController.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKViewController.h; sourceTree = "<group>"; };
 		655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKViewController.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKViewController.m; sourceTree = "<group>"; };
+		656886391CDA25D70082D96E /* indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator.png; sourceTree = "<group>"; };
+		6568863F1CDA31E70082D96E /* success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success_icon.png; sourceTree = "<group>"; };
 		6570D23D1CBD3BF0004232AA /* TTSDKSmallLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKSmallLabel.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKSmallLabel.h; sourceTree = "<group>"; };
 		6570D23E1CBD3BF0004232AA /* TTSDKSmallLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKSmallLabel.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKSmallLabel.m; sourceTree = "<group>"; };
 		6574AA681CB7FEC30003FFE9 /* TTSDKLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKLabel.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKLabel.h; sourceTree = "<group>"; };
@@ -472,7 +475,6 @@
 		65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTradeItTicket.h; sourceTree = "<group>"; };
 		65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTradeItTicket.m; sourceTree = "<group>"; };
 		65AF4DE51CC54FA800ACB3A4 /* chevron_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron_down.png; sourceTree = "<group>"; };
-		65B314031C2377E700EBC30D /* success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success_icon.png; sourceTree = "<group>"; };
 		65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTicketSession.h; sourceTree = "<group>"; };
 		65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTicketSession.m; sourceTree = "<group>"; };
 		65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioViewController.h; sourceTree = "<group>"; };
@@ -986,12 +988,13 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6568863F1CDA31E70082D96E /* success_icon.png */,
+				656886391CDA25D70082D96E /* indicator.png */,
 				6557457B1C3AD5F9004BA180 /* chevron_right.png */,
 				65AF4DE51CC54FA800ACB3A4 /* chevron_down.png */,
 				650E2D3D1C45BE9700A3069E /* portfolio_icon@3x.png */,
 				650E2D3E1C45BE9700A3069E /* trade_icon@3x.png */,
 				65554E501C49802100BBA6F6 /* backspace.png */,
-				65B314031C2377E700EBC30D /* success_icon.png */,
 				653666C11C0F7FCC00DB4D34 /* native_arrow.png */,
 			);
 			name = Images;
@@ -1270,6 +1273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656886401CDA31E70082D96E /* success_icon.png in Resources */,
 				65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */,
 				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
@@ -1281,10 +1285,10 @@
 				65AF4DE71CC54FB500ACB3A4 /* chevron_down.png in Resources */,
 				650E2D401C45BE9700A3069E /* trade_icon@3x.png in Resources */,
 				65554E511C49802800BBA6F6 /* backspace.png in Resources */,
+				6568863B1CDA25D70082D96E /* indicator.png in Resources */,
 				654BE36A1C4EE2E100E8510F /* chevron_right.png in Resources */,
 				6508C4CC1C7A0BD800612B62 /* TTSDKAccountsHeader.xib in Resources */,
 				653666C31C0F814400DB4D34 /* native_arrow.png in Resources */,
-				65B314051C2377E700EBC30D /* success_icon.png in Resources */,
 				6510F4A81C4710CE009989BD /* TTSDKAccountLinkCell.xib in Resources */,
 				650FED3C1C330C0A005CBABA /* TTSDKAccountSelectCell.xib in Resources */,
 			);

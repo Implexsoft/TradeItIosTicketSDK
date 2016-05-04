@@ -27,9 +27,6 @@
     __weak IBOutlet UITextField *stopPriceInput;
     __weak IBOutlet UITextField *limitPriceInput;
     __weak IBOutlet UILabel * estimatedCostLabel;
-    __weak IBOutlet NSLayoutConstraint * keypadTopConstraint;
-    __weak IBOutlet NSLayoutConstraint * limitPricesWidthConstraint;
-    __weak IBOutlet NSLayoutConstraint * stopPriceTopConstraint;
     __weak IBOutlet UIButton * orderActionButton;
     __weak IBOutlet UIButton * orderTypeButton;
     __weak IBOutlet UIButton * orderExpirationButton;
@@ -41,8 +38,11 @@
 
     TTSDKCompanyDetails * companyNib;
 
-    NSLayoutConstraint * zeroHeightConstraint;
-    NSLayoutConstraint * fullHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint * keypadTopConstraint;
+    __weak IBOutlet NSLayoutConstraint * stopPriceTopConstraint;
+    //    __weak IBOutlet NSLayoutConstraint * limitPricesWidthConstraint;
+//    NSLayoutConstraint * zeroHeightConstraint;
+//    NSLayoutConstraint * fullHeightConstraint;
 
     BOOL readyToTrade;
     BOOL uiConfigured;

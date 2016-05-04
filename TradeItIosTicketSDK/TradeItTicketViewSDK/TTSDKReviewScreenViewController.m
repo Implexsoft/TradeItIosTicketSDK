@@ -107,6 +107,13 @@ static float kMessageSeparatorHeight = 30.0f;
     [self initContentViewHeight];
 }
 
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    contentView.backgroundColor = self.styles.darkPageBackgroundColor;
+    self.view.backgroundColor = self.styles.darkPageBackgroundColor;
+}
+
 -(void) updateUIWithReviewResult {
     NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];

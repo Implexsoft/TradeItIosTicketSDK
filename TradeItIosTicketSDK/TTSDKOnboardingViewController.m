@@ -79,7 +79,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     button.backgroundColor = [UIColor clearColor];
     button.layer.borderColor = self.styles.activeColor.CGColor;
     button.layer.borderWidth = 1.5f;
-    button.layer.cornerRadius = button.frame.size.height / 2;
+    button.layer.cornerRadius = 5.0f;
     [button setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
 
     UILabel * preferredBrokerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, button.frame.size.width / 2, 8)];
