@@ -48,7 +48,17 @@
 
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
     [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res){
-        completionBlock(res);
+        if ([res isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *)res;
+
+            if ([error.code isEqualToNumber:@600]) {
+                self.needsManualAuthentication = YES;
+            }
+
+            completionBlock(res);
+        } else {
+            completionBlock(res);
+        }
     }];
 }
 
@@ -65,6 +75,8 @@
         return;
     }
 
+    self.authenticating = YES;
+
     delegateViewController = viewController;
 
     [self authenticate:self.login withCompletionBlock:^(TradeItResult * res) {
@@ -73,6 +85,8 @@
 }
 
 -(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andResult:(TradeItResult *)res {
+    self.authenticating = NO;
+
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
@@ -126,6 +140,7 @@
                     });
                 }
             } else if (result.securityQuestion != nil) {
+
                 if (![UIAlertController class]) {
                     [self showOldSecQuestion:result.securityQuestion];
                 } else {
@@ -149,7 +164,7 @@
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
                     [alert addAction:cancelAction];
                     [alert addAction:submitAction];
-                    
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [delegateViewController presentViewController:alert animated:YES completion:nil];
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
@@ -182,6 +197,14 @@
             }
 
             completionBlock([ttsdkPositions copy]);
+        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *)result;
+
+            if ([error.code isEqualToNumber:@600]) {
+                self.needsManualAuthentication = YES;
+            }
+
+            completionBlock(nil);
         }
     }];
 }
@@ -196,6 +219,14 @@
         if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
             TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;
             completionBlock(overviewResult);
+        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *)result;
+
+            if ([error.code isEqualToNumber:@600]) {
+                self.needsManualAuthentication = YES;
+            }
+
+            completionBlock(nil);
         }
     }];
 }

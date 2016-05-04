@@ -89,7 +89,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         
         // Create a new, unauthenticated session for all stored logins
         NSArray * linkedLogins = [self.connector getLinkedLogins];
-        
+
         for (TradeItLinkedLogin * login in linkedLogins) {
             TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
             [self addSession: newSession];
@@ -100,7 +100,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
         }
 
+        [self retrieveQuote:^(void) {}];
+
         [self authenticateSessionsInBackground];
+    } else {
+        [self retrieveQuote:^(void) {}];
     }
 }
 
@@ -108,9 +112,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow: auth
 
 -(void) launchAuthFlow {
-    // Immediately fire off a request for the publishers broker list
     [self retrieveBrokers];
-    
+
     [self presentAuthScreen];
 }
 
@@ -125,7 +128,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     } else {
         navIdentifier = kAuthNavViewIdentifier;
     }
-    
+
     UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: navIdentifier];
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
 
@@ -144,10 +147,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(void) presentAccountLinkScreen {
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
-    
+
     if (linkedAccounts && linkedAccounts.count) {
-//        [self authenticateSessionsInBackground];
-        
         // Get storyboard
         UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
         
@@ -156,7 +157,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         [accountSelectNav setModalPresentationStyle:UIModalPresentationFullScreen];
         
         [self configureAccountLinkNavController: accountSelectNav];
-        
+
         [self.parentView presentViewController:accountSelectNav animated:YES completion:nil];
     } else {
         [self presentAuthScreen];
@@ -355,9 +356,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(void) authenticateSessionsInBackground {
     // For all sessions except current one, go ahead and authenticate for smoother user flows
     NSString * currentUserId = self.currentSession.login ? self.currentSession.login.userId : nil;
-    
+
     for (TTSDKTicketSession * session in self.sessions) {
-        if (![session.login.userId isEqualToString:currentUserId]) {
+        if (![session.login.userId isEqualToString:currentUserId] && !session.authenticating) {
             [session authenticateFromViewController:nil withCompletionBlock:nil];
         }
     }
@@ -365,9 +366,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts {
     NSDictionary * keyAccount = [accounts firstObject];
-    
+
     BOOL isDuplicate = NO;
-    
+
     NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
     if (allAccounts && allAccounts.count) {
         for (NSDictionary * acct in allAccounts) {
@@ -411,7 +412,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(void) retrieveQuote:(void (^)(void))completionBlock {
     self.loadingQuote = YES;
-    
+
     if (!self.quote.symbol) {
         return;
     }
@@ -421,7 +422,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
     [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
         self.loadingQuote = NO;
-        
+
         if ([res isKindOfClass:TradeItQuotesResult.class]) {
             TradeItQuotesResult * result = (TradeItQuotesResult *)res;
             TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];

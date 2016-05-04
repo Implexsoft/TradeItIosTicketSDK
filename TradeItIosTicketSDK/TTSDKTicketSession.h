@@ -23,6 +23,7 @@
 @property NSString * broker;
 @property BOOL isAuthenticated;
 @property BOOL needsManualAuthentication;
+@property BOOL authenticating;
 
 @property TradeItPlaceTradeRequest * tradeRequest;
 @property TradeItGetPositionsRequest * positionsRequest;

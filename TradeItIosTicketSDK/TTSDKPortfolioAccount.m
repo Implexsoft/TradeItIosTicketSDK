@@ -102,7 +102,7 @@ static double kLoadInterval = -30.0f;
 
         [self.session getOverviewFromAccount: accountData withCompletionBlock:^(TradeItAccountOverviewResult * overview) {
             self.balanceComplete = YES;
-            
+
             if (overview != nil) {
                 self.balance = overview;
             } else {
