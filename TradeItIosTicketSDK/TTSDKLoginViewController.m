@@ -213,22 +213,9 @@
             self.ticket.errorTitle = error.shortMessage;
             self.ticket.errorMessage = [errorMessage copy];
 
-            if(![UIAlertController class]) {
-                [self showOldErrorAlert:self.ticket.errorTitle withMessage:self.ticket.errorMessage];
-            } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.ticket.errorTitle
-                                                                                message:self.ticket.errorMessage
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                alert.modalPresentationStyle = UIModalPresentationPopover;
-                UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                       handler:^(UIAlertAction * action) {}];
-                [alert addAction:defaultAction];
-                [self presentViewController:alert animated:YES completion:nil];
-                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-                alertPresentationController.sourceView = self.view;
-                alertPresentationController.permittedArrowDirections = 0;
-                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-            }
+            [self showErrorAlert:error onAccept:^(void) {
+                // do nothing
+            }];
 
             self.ticket.errorMessage = nil;
             self.ticket.errorTitle = nil;
@@ -257,6 +244,18 @@
                     }
 
                     [self.ticket returnToParentApp];
+
+                    TradeItErrorResult * error = (TradeItErrorResult *)result;
+
+                    [self showErrorAlert:error onAccept:^(void) {
+                        if (self.isModal) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        } else if (self.navigationController) {
+                            [self.navigationController popViewControllerAnimated:YES];
+                        } else {
+                            [self.ticket returnToParentApp];
+                        }
+                    }];
 
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
 

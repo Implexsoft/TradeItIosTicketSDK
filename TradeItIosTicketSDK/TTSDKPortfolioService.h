@@ -32,7 +32,7 @@
 -(TTSDKPortfolioAccount *) retrieveAutoSelectedAccount;
 -(void) selectAccount:(NSString *)accountNumber;
 -(void) toggleAccount:(TTSDKPortfolioAccount *)account;
--(void) deleteAccounts:(NSString *)userId;
+-(void) deleteAccounts:(NSString *)userId session:(TTSDKTicketSession *)session;
 -(void) deleteAccount:(TTSDKPortfolioAccount *)account;
 -(int) linkedAccountsCount;
 

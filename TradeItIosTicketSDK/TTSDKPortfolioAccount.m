@@ -10,9 +10,11 @@
 
 @interface TTSDKPortfolioAccount() {
     TTSDKTradeItTicket * globalTicket;
+
+    // Cache for balances and positions
     TradeItAccountOverviewResult * balanceCache;
     NSArray * positionCache;
-    NSDate * lastLoadTime;
+    NSDate * lastLoadTime; // used to determine when to reload this accounts data
 }
 
 @end
@@ -22,6 +24,8 @@
 
 static double kLoadInterval = -30.0f;
 
+
+#pragma Mark Initialization
 
 -(id) initWithAccountData:(NSDictionary *)data {
     if (self = [super init]) {
@@ -39,6 +43,9 @@ static double kLoadInterval = -30.0f;
     return self;
 }
 
+
+#pragma Mark User Defaults prep
+
 -(NSDictionary *) accountData {
     NSMutableDictionary * account = [[NSMutableDictionary alloc] init];
 
@@ -53,6 +60,9 @@ static double kLoadInterval = -30.0f;
     return [account copy];
 }
 
+
+#pragma Mark Data retrieval
+
 -(BOOL) dataComplete {
     return self.balanceComplete && self.positionsComplete;
 }
@@ -66,12 +76,15 @@ static double kLoadInterval = -30.0f;
 
     // If the session was authenticated in the background, we don't alert users on failed authentications. So we need to prevent unauthenticated calls.
     if (!self.session.isAuthenticated) {
-        // If the authentication was successful, set the flags to completed so it returns immediately
-
+        // If the authentication was unsuccessful, set the flags to completed so it returns immediately
         if (self.session.needsManualAuthentication) {
             self.balanceComplete = YES;
             self.positionsComplete = YES;
             self.needsAuthentication = YES;
+
+            if (completionBlock) {
+                completionBlock();
+            }
         } else {
             [self performSelector:@selector(retrieveAccountSummaryWithCompletionBlock:) withObject:completionBlock afterDelay:0.25];
         }
@@ -89,7 +102,7 @@ static double kLoadInterval = -30.0f;
         NSDate * currentDate = [NSDate date];
         NSTimeInterval elapsed = [currentDate timeIntervalSinceDate: lastLoadTime];
 
-        if (elapsed <= kLoadInterval) {
+        if (fabs(elapsed) >= kLoadInterval) {
             load = YES;
         } else {
             load = NO;
@@ -141,7 +154,6 @@ static double kLoadInterval = -30.0f;
             completionBlock();
         }
     }
-
 }
 
 -(void) retrieveBalance {

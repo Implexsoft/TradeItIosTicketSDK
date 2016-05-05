@@ -104,7 +104,7 @@
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    if (change != nil && changePct != nil) { //&& ![changePct isEqual: @0] && ![change isEqual: @0]
+    if (change != nil && changePct != nil) {
         NSString * changePrefix;
         UIColor * changeColor;
 
@@ -138,10 +138,15 @@
 
 -(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
     if (!buyingPower && !sharesOwned) {
-        if (self.buyingPowerLoadingIndicator) {
+        if (globalTicket.loadingQuote || globalTicket.currentSession.authenticating) {
             self.symbolDetailValue.hidden = YES;
             self.buyingPowerLoadingIndicator.hidden = NO;
+        } else {
+            self.buyingPowerLoadingIndicator.hidden = YES;
+            self.symbolDetailValue.hidden = NO;
+            self.symbolDetailValue.text = @"N/A";
         }
+
     } else {
         self.symbolDetailValue.hidden = NO;
         self.buyingPowerLoadingIndicator.hidden = YES;

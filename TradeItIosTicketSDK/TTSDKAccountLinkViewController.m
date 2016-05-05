@@ -152,7 +152,9 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         [self showErrorAlert:error onAccept:^(void){
             [self toggleAccount: account];
 
-            [portfolioService deleteAccounts: account.userId];
+            TTSDKTicketSession * sessionToDelete = [self.ticket retrieveSessionByAccount:[account accountData]];
+
+            [portfolioService deleteAccounts: account.userId session: sessionToDelete];
 
             [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
@@ -166,16 +168,17 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         }];
     } else {
         [self toggleAccount: account];
+    }
 
-        // Check to see if we're unlinking the current account. If so, auto-select another account
-        if (!toggle.on && [account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
-            TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
-            NSDictionary * newAcctData = [newSelectedAccount accountData];
-            if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
-                [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: newAcctData] andAccount:newAcctData];
-            } else {
-                [self.ticket selectCurrentAccount: newAcctData];
-            }
+    // Check to see if we're unlinking the current account. If so, auto-select another account
+    if ([account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
+        TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
+
+        NSDictionary * newAcctData = [newSelectedAccount accountData];
+        if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+            [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: newAcctData] andAccount:newAcctData];
+        } else {
+            [self.ticket selectCurrentAccount: newAcctData];
         }
     }
 }

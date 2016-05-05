@@ -77,6 +77,7 @@
 
 - (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
     if (!self.login) {
+        self.authenticating = NO;
         return;
     }
 

@@ -79,7 +79,7 @@ static float kAccountCellHeight = 44.0f;
         self.ticket.clearPortfolioCache = NO;
     }
 
-    if (!self.ticket.currentSession.isAuthenticated || self.ticket.currentSession.needsAuthentication) {
+    if ((!self.ticket.currentSession.isAuthenticated || self.ticket.currentSession.needsAuthentication) && !self.ticket.currentSession.authenticating) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
 
         [self showLoadingAndWait];

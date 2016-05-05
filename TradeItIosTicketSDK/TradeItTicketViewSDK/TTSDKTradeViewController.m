@@ -182,7 +182,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         [self refreshPressed: self];
     }
 
-    if (!self.ticket.currentSession.isAuthenticated) {
+    if (!self.ticket.currentSession.isAuthenticated && !self.ticket.currentSession.authenticating) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
 
         [self authenticate];

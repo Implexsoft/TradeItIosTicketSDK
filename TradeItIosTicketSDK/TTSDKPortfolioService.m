@@ -316,23 +316,19 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [self saveToUserDefaults];
 }
 
--(void) deleteAccounts:(NSString *)userId {
+-(void) deleteAccounts:(NSString *)userId session:(TTSDKTicketSession *)session {
     NSMutableArray * keptAccounts = [[NSMutableArray alloc] init];
 
     int numAccountsToDelete = 0;
-    TTSDKTicketSession * session;
     for (TTSDKPortfolioAccount *portfolioAccount in self.accounts) {
         if (![portfolioAccount.userId isEqualToString:userId]) {
             [keptAccounts addObject: portfolioAccount];
         } else {
             numAccountsToDelete++;
-            session = portfolioAccount.session;
         }
     }
 
-    if (session) {
-        [globalTicket removeSession: session];
-    }
+    [globalTicket removeSession: session];
 
     self.accounts = [keptAccounts copy];
 
