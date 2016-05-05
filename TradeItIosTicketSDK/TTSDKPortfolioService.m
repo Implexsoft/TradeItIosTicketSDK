@@ -330,7 +330,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
     }
 
-    if (numAccountsToDelete == 1 && session) {
+    if (session) {
         [globalTicket removeSession: session];
     }
 

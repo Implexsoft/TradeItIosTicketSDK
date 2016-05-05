@@ -64,6 +64,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow
 
 -(void) prepareInitialFlow {
+    self.loadingQuote = NO;
+
     // Immediately fire off a request for the publishers broker list
     if (!self.brokerList) {
         [self retrieveBrokers];
@@ -77,7 +79,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
 
     // If any sessions are in memory at this point, we know that we are simply reopening the ticket
-    if (!self.sessions || elapsed) {
+    if ((!self.sessions || !self.sessions.count) || elapsed) {
         self.sessions = [[NSArray alloc] init];
         self.currentSession = nil;
         self.currentAccount = nil;
@@ -108,7 +110,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
         }
 
-        [self retrieveQuote:^(void) {}];
+        if (self.currentSession) {
+            [self retrieveQuote:^(void) {}];
+        }
 
         [self authenticateSessionsInBackground];
     } else {
@@ -184,24 +188,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
         
-        // Before moving forward, authenticate through touch ID
-        BOOL hasTouchId = [self isTouchIDAvailable];
-        
-#if TARGET_IPHONE_SIMULATOR
-        hasTouchId = NO;
-#endif
-        
-        if (hasTouchId) {
-            [self promptTouchId:^(BOOL success) {
-                if (success) {
-                    [self performSelectorOnMainThread:@selector(presentPortfolioScreen) withObject:nil waitUntilDone:NO];
-                } else {
-                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
-                }
-            }];
-        } else {
-            [self presentPortfolioScreen];
-        }
+        [self attemptTouchId:^(void) {
+                [self performSelectorOnMainThread:@selector(presentPortfolioScreen) withObject:nil waitUntilDone:NO];
+        } onFailure:^(void) {
+                [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+        }];
 
     } else {
         // Update ticket result
@@ -230,26 +221,13 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     if (self.currentSession) {
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
-        
-        // Before moving forward, authenticate through touch ID
-        BOOL hasTouchId = [self isTouchIDAvailable];
-        
-#if TARGET_IPHONE_SIMULATOR
-        hasTouchId = NO;
-#endif
-        
-        if (hasTouchId) {
-            [self promptTouchId:^(BOOL success) {
-                if (success) {
-                    [self performSelectorOnMainThread:@selector(presentTradeScreen) withObject:nil waitUntilDone:NO];
-                } else {
-                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
-                }
-            }];
-        } else {
-            [self presentTradeScreen];
-        }
-        
+
+        [self attemptTouchId:^(void){
+            [self performSelectorOnMainThread:@selector(presentTradeScreen) withObject:nil waitUntilDone:NO];
+        } onFailure:^(void){
+            [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+        }];
+
     } else {
         // Update ticket result
         self.resultContainer.status = NO_BROKER;
@@ -278,24 +256,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
 
-        // Before moving forward, authenticate through touch ID
-        BOOL hasTouchId = [self isTouchIDAvailable];
-
-#if TARGET_IPHONE_SIMULATOR
-        hasTouchId = NO;
-#endif
-
-        if (hasTouchId) {
-            [self promptTouchId:^(BOOL success) {
-                if (success) {
-                    [self performSelectorOnMainThread:@selector(presentTradeOrPortfolioScreen) withObject:nil waitUntilDone:NO];
-                } else {
-                    [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
-                }
-            }];
-        } else {
-            [self presentTradeOrPortfolioScreen];
-        }
+        [self attemptTouchId:^(void){
+            [self performSelectorOnMainThread:@selector(presentTradeOrPortfolioScreen) withObject:nil waitUntilDone:NO];
+        } onFailure:^(void){
+            [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
+        }];
         
     } else {
         // Update ticket result
@@ -323,6 +288,33 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 #pragma mark - Authentication
+
+-(void) attemptTouchId:(void (^)(void)) successBlock onFailure:(void (^)(void)) failureBlock {
+    // Before moving forward, authenticate through touch ID
+    BOOL hasTouchId = [self isTouchIDAvailable];
+    
+#if TARGET_IPHONE_SIMULATOR
+    hasTouchId = NO;
+#endif
+    
+    if (hasTouchId) {
+        [self promptTouchId:^(BOOL success) {
+            if (success) {
+                if (successBlock) {
+                    successBlock();
+                }
+            } else {
+                if (failureBlock) {
+                    failureBlock();
+                }
+            }
+        }];
+    } else {
+        if (successBlock) {
+            successBlock();
+        }
+    }
+}
 
 - (BOOL) isTouchIDAvailable {
     if (![LAContext class]) {
@@ -428,22 +420,26 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         return;
     }
 
-    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
-    
-    TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
-    [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
-        self.loadingQuote = NO;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
 
-        if ([res isKindOfClass:TradeItQuotesResult.class]) {
-            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
-            TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
-            self.quote = resultQuote;
-        }
-        
-        if (completionBlock) {
-            completionBlock();
-        }
-    }];
+        TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
+
+        [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
+            self.loadingQuote = NO;
+
+            if ([res isKindOfClass:TradeItQuotesResult.class]) {
+                TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+                TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
+                self.quote = resultQuote;
+            }
+
+            if (completionBlock) {
+                completionBlock();
+            }
+        }];
+    });
 }
 
 
@@ -681,6 +677,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) returnToParentApp {
+    self.lastUsed = [NSDate date];
+
     self.presentationMode = TradeItPresentationModeNone;
 
     [self.parentView dismissViewControllerAnimated:NO completion:^{

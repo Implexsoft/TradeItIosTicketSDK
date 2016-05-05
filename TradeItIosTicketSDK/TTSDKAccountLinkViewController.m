@@ -68,6 +68,8 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+    portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
+
     [self.linkTableView reloadData];
 
     if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
@@ -125,8 +127,6 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 }
 
 -(void) loadBalances {
-    portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
-
     [portfolioService getBalancesForAccounts:^(void) {
         [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -172,6 +172,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 -(void) linkToggleDidSelect:(UISwitch *)toggle forAccount:(TTSDKPortfolioAccount *)account {
     // Unlinking account, so check whether it's the last account for a login
     BOOL isUnlinkingBroker = NO;
+
     if (!toggle.on) {
         int accountsToUnlink = 0;
 
@@ -210,7 +211,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         [self toggleAccount: account];
 
         // Check to see if we're unlinking the current account. If so, auto-select another account
-        if ([account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
+        if (!toggle.on && [account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
             TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
             NSDictionary * newAcctData = [newSelectedAccount accountData];
             if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
