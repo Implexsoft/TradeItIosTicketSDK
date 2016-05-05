@@ -70,7 +70,7 @@
 @end
 
 
-static float kMessageSeparatorHeight = -18.0f;
+static float kMessageSeparatorHeight = -15.0f;
 
 
 @implementation TTSDKReviewScreenViewController
@@ -92,7 +92,7 @@ static float kMessageSeparatorHeight = -18.0f;
     warningLabels = [[NSMutableArray alloc] init];
 
     // used for attaching constraints
-    lastAttachedMessage = accountLabelContainer; //estimatedCostVL
+    lastAttachedMessage = accountLabelContainer;
 
     self.reviewTradeResult = self.ticket.resultContainer.reviewResponse;
 
@@ -114,7 +114,7 @@ static float kMessageSeparatorHeight = -18.0f;
 -(void) setViewStyles {
     [super setViewStyles];
 
-    contentView.backgroundColor = self.styles.darkPageBackgroundColor;
+    contentView.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = self.styles.darkPageBackgroundColor;
 }
 
@@ -191,12 +191,12 @@ static float kMessageSeparatorHeight = -18.0f;
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
     }
 
-    for(NSString * warning in [[self reviewTradeResult] warningsList]) {
-        [self addReviewMessage: warning];
-    }
-    
     for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
         [self addAcknowledgeMessage: warning];
+    }
+
+    for(NSString * warning in [[self reviewTradeResult] warningsList]) {
+        [self addReviewMessage: warning];
     }
 }
 
@@ -215,7 +215,7 @@ static float kMessageSeparatorHeight = -18.0f;
 }
 
 -(void) addReviewMessage:(NSString *) message {
-    UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
+    UILabel * messageLabel = [self createAndSizeMessageUILabel:message toggle: NO];
     messageLabel.autoresizesSubviews = YES;
     [contentView insertSubview:messageLabel atIndex:0];
 
@@ -229,7 +229,7 @@ static float kMessageSeparatorHeight = -18.0f;
     [container setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     UISwitch * toggle = [[UISwitch alloc] init];
-    UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
+    UILabel * messageLabel = [self createAndSizeMessageUILabel:message toggle: YES];
     toggle.autoresizesSubviews = YES;
     messageLabel.autoresizesSubviews = YES;
 
@@ -238,16 +238,17 @@ static float kMessageSeparatorHeight = -18.0f;
     [toggle addTarget:self action:@selector(ackLabelToggled:) forControlEvents:UIControlEventValueChanged];
 
     [ackLabels addObject:messageLabel];
-    
+
     [container addSubview:toggle];
     [container addSubview:messageLabel];
     [contentView insertSubview:container atIndex:0];
 
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
+
     [self addConstraintsToMessage:container];
 }
 
--(UILabel *) createAndSizeMessageUILabel: (NSString *) message {
+-(UILabel *) createAndSizeMessageUILabel: (NSString *) message toggle:(BOOL)toggle {
     CGRect labelFrame = reviewLabel.frame;
     labelFrame.size.width = contentView.frame.size.width;
 
@@ -300,9 +301,9 @@ static float kMessageSeparatorHeight = -18.0f;
 
     lastAttachedMessage = label;
 
-    [self.view addConstraint:topConstraint];
-    [self.view addConstraint:leftConstraint];
-    [self.view addConstraint:rightConstraint];
+    [self.view addConstraint: topConstraint];
+    [self.view addConstraint: leftConstraint];
+    [self.view addConstraint: rightConstraint];
 }
 
 -(void) initContentViewHeight {
@@ -321,7 +322,7 @@ static float kMessageSeparatorHeight = -18.0f;
     }
 
     if (ackLabels.count || warningLabels.count) { // extra padding
-        contentRect.size.height += 80;
+        contentRect.size.height += 50;
 
         if (ackLabels.count) {
             contentRect.size.height += 40;
