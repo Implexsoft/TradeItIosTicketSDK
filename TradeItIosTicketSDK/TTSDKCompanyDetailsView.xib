@@ -48,12 +48,11 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPG-hN-yxK">
-                            <rect key="frame" x="180" y="0.0" width="140" height="28"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPG-hN-yxK">
+                            <rect key="frame" x="153" y="0.0" width="167" height="28"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="JLi-E4-73Q"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="Uvz-8G-P6D"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
@@ -108,6 +107,7 @@
                         <constraint firstAttribute="trailing" secondItem="0Vl-i8-VXV" secondAttribute="trailing" constant="10" id="TA7-0m-QSB"/>
                         <constraint firstItem="vAT-qZ-9p4" firstAttribute="baseline" secondItem="cqV-nr-8WB" secondAttribute="baseline" id="VP9-QK-YzF"/>
                         <constraint firstAttribute="trailing" secondItem="tJl-Lq-2ps" secondAttribute="trailing" constant="10" id="aJn-YQ-OsL"/>
+                        <constraint firstItem="aPG-hN-yxK" firstAttribute="leading" secondItem="fbU-bz-M7M" secondAttribute="trailing" id="bQg-A5-JzJ"/>
                         <constraint firstItem="O4l-GN-l0D" firstAttribute="top" secondItem="cqV-nr-8WB" secondAttribute="bottom" id="bq3-ik-bEh"/>
                         <constraint firstItem="aPG-hN-yxK" firstAttribute="top" secondItem="2BR-wm-Ao4" secondAttribute="top" id="cNY-hy-bwy"/>
                         <constraint firstItem="cqV-nr-8WB" firstAttribute="top" secondItem="2BR-wm-Ao4" secondAttribute="top" id="eQz-yt-a1L"/>
