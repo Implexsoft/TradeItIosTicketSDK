@@ -104,16 +104,19 @@
 }
 
 -(void) populateChangeLabelWithChange: (NSNumber *)change andChangePct: (NSNumber *)changePct {
-    if (change != nil && ![change isEqual: @0] && changePct != nil && ![changePct isEqual: @0]) {
+    if (change != nil && changePct != nil) { //&& ![changePct isEqual: @0] && ![change isEqual: @0]
         NSString * changePrefix;
         UIColor * changeColor;
 
         if ([change floatValue] > 0) {
             changePrefix = @"+";
             changeColor = styles.gainColor;
-        } else {
+        } else if ([change floatValue] < 0) {
             changePrefix = @"";
             changeColor = styles.lossColor;
+        } else {
+            changePrefix = @"";
+            changeColor = styles.inactiveColor;
         }
 
         self.changeLabel.text = [NSString stringWithFormat:@"%@%.02f (%.02f%@)", changePrefix, [change floatValue], [changePct floatValue], @"%"];

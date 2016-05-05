@@ -27,6 +27,7 @@
 @implementation TTSDKAccountLinkViewController
 
 static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
+static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
 #pragma mark Rotation
 
@@ -67,12 +68,56 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
     [self.linkTableView reloadData];
 
-    if (!self.ticket.currentSession.isAuthenticated) {
-        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult *result) {
-            [self loadBalances];
+    if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+        
+        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+            [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self loadBalances];
+                });
+            } else if ([res isKindOfClass:TradeItErrorResult.class]) {
+                TradeItErrorResult * error = (TradeItErrorResult *)res;
+                NSMutableString * errorMessage = [[NSMutableString alloc] init];
+                
+                for (NSString * str in error.longMessages) {
+                    [errorMessage appendString:str];
+                }
+                
+                if(![UIAlertController class]) {
+                    [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
+                } else {
+                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+                                                                                    message:errorMessage
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    alert.modalPresentationStyle = UIModalPresentationPopover;
+                    
+                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
+                                                                           handler:^(UIAlertAction * action) {
+                                                                               [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
+                                                                           }];
+
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        [self.ticket returnToParentApp];
+                    }];
+
+                    [alert addAction:defaultAction];
+                    [alert addAction:cancelAction];
+
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+                    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                    alertPresentationController.sourceView = self.view;
+                    alertPresentationController.permittedArrowDirections = 0;
+                    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+                }
+                
+            }
         }];
     } else {
         [self loadBalances];
@@ -80,6 +125,8 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 }
 
 -(void) loadBalances {
+    portfolioService = [TTSDKPortfolioService serviceForAllAccounts];
+
     [portfolioService getBalancesForAccounts:^(void) {
         [self.linkTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
@@ -154,7 +201,7 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
             if ([portfolioService linkedAccountsCount] < 1) {
                 noAccounts = YES;
                 self.ticket.sessions = [[NSArray alloc] init]; // reset the sessions
-                [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+                [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
             }
         } onCancel:^(void) {
             toggle.on = YES;
@@ -206,7 +253,7 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 #pragma mark Navigation
 
 -(IBAction) addBrokerButtonPressed:(id)sender {
-    [self performSegueWithIdentifier:@"AccountLinkToLogin" sender:self];
+    [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
 }
 
 - (IBAction)donePressed:(id)sender {
@@ -228,7 +275,7 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if ([segue.identifier isEqualToString:@"AccountLinkToLogin"]) {
+    if ([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
         UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
         TTSDKBrokerSelectViewController * brokerSelect = (TTSDKBrokerSelectViewController *) [nav.viewControllers objectAtIndex:0];
         brokerSelect.isModal = YES;
