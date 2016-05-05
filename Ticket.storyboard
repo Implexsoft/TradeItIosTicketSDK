@@ -686,8 +686,15 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zC-UW-bGD" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="314"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orh-R1-aNi" userLabel="WarningView">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="MEH-NX-OMA"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRR-rq-m9h" userLabel="Account">
-                                                <rect key="frame" x="10" y="0.0" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="-136" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="401" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="osf-bz-Yr3" userLabel="accountVL">
                                                         <rect key="frame" x="2" y="15" width="150" height="15"/>
@@ -745,7 +752,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZA-af-Bnu" userLabel="Quantity">
-                                                <rect key="frame" x="10" y="45" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="-91" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="401" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-A1-8XI" userLabel="quantityVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -802,7 +809,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UlL-i1-ZGF" userLabel="Action">
-                                                <rect key="frame" x="10" y="90" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="-46" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="402" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iB2-IO-FOT" userLabel="actionVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -860,7 +867,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EfQ-8p-GfE" userLabel="Price">
-                                                <rect key="frame" x="10" y="135" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="-1" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="402" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3T-bR-uu4" userLabel="priveVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -918,7 +925,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYt-tU-1GA" userLabel="Expiration">
-                                                <rect key="frame" x="10" y="180" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="44" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="403" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFe-O1-1Gn" userLabel="expirationVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -977,7 +984,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVY-Au-dkb" userLabel="SharesLong">
-                                                <rect key="frame" x="10" y="225" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="89" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="404" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7Q-eh-Zwu" userLabel="sharesLongVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -1034,7 +1041,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JA8-2S-mgy" userLabel="SharesShort">
-                                                <rect key="frame" x="10" y="270" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="134" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="405" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qf-cg-QJV" userLabel="sharesShortVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -1091,7 +1098,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgf-fK-tbV" userLabel="BuyingPower">
-                                                <rect key="frame" x="10" y="315" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="179" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="406" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hi1-2h-Bnj" userLabel="buyingPowerVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -1148,7 +1155,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wd-Mz-AHq" userLabel="Fees">
-                                                <rect key="frame" x="10" y="360" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="224" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="407" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBz-tH-gGY" userLabel="estimatedFeesVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -1205,7 +1212,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4le-xT-1XR" userLabel="EstCost">
-                                                <rect key="frame" x="10" y="405" width="300" height="45"/>
+                                                <rect key="frame" x="10" y="269" width="300" height="45"/>
                                                 <subviews>
                                                     <view tag="408" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwJ-kc-Qhf" userLabel="estimatedCostVL">
                                                         <rect key="frame" x="2" y="15" width="148" height="15"/>
@@ -1264,6 +1271,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Orh-R1-aNi" secondAttribute="trailing" id="070-Zl-ABg"/>
                                             <constraint firstAttribute="trailing" secondItem="4le-xT-1XR" secondAttribute="trailing" constant="10" id="0mb-HT-sZ8"/>
                                             <constraint firstItem="JA8-2S-mgy" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="2Mg-vU-Wmn"/>
                                             <constraint firstAttribute="trailing" secondItem="UYt-tU-1GA" secondAttribute="trailing" constant="10" id="3sx-el-GVD"/>
@@ -1276,16 +1284,18 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                             <constraint firstItem="kZA-af-Bnu" firstAttribute="top" secondItem="NRR-rq-m9h" secondAttribute="bottom" id="H5J-6T-d5U"/>
                                             <constraint firstItem="UlL-i1-ZGF" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="IZb-G7-Hyk"/>
                                             <constraint firstAttribute="trailing" secondItem="kZA-af-Bnu" secondAttribute="trailing" constant="10" id="Kw8-dm-1ei"/>
+                                            <constraint firstItem="Orh-R1-aNi" firstAttribute="top" secondItem="9zC-UW-bGD" secondAttribute="top" id="MPz-Ga-pY5"/>
                                             <constraint firstItem="UYt-tU-1GA" firstAttribute="top" secondItem="EfQ-8p-GfE" secondAttribute="bottom" id="S84-6m-oRM"/>
                                             <constraint firstItem="UYt-tU-1GA" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="Sdv-s3-rKY"/>
+                                            <constraint firstItem="Orh-R1-aNi" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" id="URD-1i-r8V"/>
                                             <constraint firstAttribute="trailing" secondItem="JA8-2S-mgy" secondAttribute="trailing" constant="10" id="Uer-E9-50r"/>
                                             <constraint firstItem="NRR-rq-m9h" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="Uqt-Sz-5S3"/>
                                             <constraint firstAttribute="trailing" secondItem="jgf-fK-tbV" secondAttribute="trailing" constant="10" id="XMU-bU-Ktt"/>
                                             <constraint firstItem="jgf-fK-tbV" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="YgQ-EG-Mah"/>
                                             <constraint firstItem="4le-xT-1XR" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="aS7-jC-CIQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="4le-xT-1XR" secondAttribute="bottom" id="aoH-vn-4Cf"/>
                                             <constraint firstAttribute="trailing" secondItem="UlL-i1-ZGF" secondAttribute="trailing" constant="10" id="dwW-5M-zM4"/>
                                             <constraint firstItem="kZA-af-Bnu" firstAttribute="leading" secondItem="9zC-UW-bGD" secondAttribute="leading" constant="10" id="e6S-2z-lQi"/>
-                                            <constraint firstItem="NRR-rq-m9h" firstAttribute="top" secondItem="9zC-UW-bGD" secondAttribute="top" id="ehQ-gh-E34"/>
                                             <constraint firstAttribute="trailing" secondItem="NRR-rq-m9h" secondAttribute="trailing" constant="10" id="fL3-Ch-iuf"/>
                                             <constraint firstItem="4le-xT-1XR" firstAttribute="top" secondItem="0Wd-Mz-AHq" secondAttribute="bottom" id="hIl-3u-XiM"/>
                                             <constraint firstAttribute="trailing" secondItem="IVY-Au-dkb" secondAttribute="trailing" constant="10" id="jj6-Nh-oVV"/>
@@ -1336,6 +1346,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="accountLabel" destination="I3n-bM-DJs" id="gxE-vs-vX9"/>
+                        <outlet property="accountLabelContainer" destination="NRR-rq-m9h" id="xwj-Kd-XAa"/>
                         <outlet property="accountValue" destination="vgb-Q5-b6T" id="S6r-kz-pON"/>
                         <outlet property="actionValue" destination="3Gm-8c-r0I" id="sjH-av-lUH"/>
                         <outlet property="buyingPowerLabel" destination="MWT-es-3Il" id="CwJ-W5-duv"/>
@@ -1367,6 +1378,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="sharesShortVV" destination="ZL5-9e-Iac" id="suf-99-kb8"/>
                         <outlet property="sharesShortValue" destination="yzJ-yB-9tb" id="1fO-P0-OnJ"/>
                         <outlet property="submitOrderButton" destination="f0e-uA-x4B" id="qsK-jO-XnA"/>
+                        <outlet property="warningView" destination="Orh-R1-aNi" id="eqA-vz-bu8"/>
                         <segue destination="xhK-K9-cnI" kind="show" identifier="ReviewToSuccess" id="YNX-r4-12o"/>
                     </connections>
                 </viewController>
@@ -1595,7 +1607,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                         </constraints>
                                                     </imageView>
                                                     <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stop Price" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91y-lh-fw2" userLabel="Stop Price Input" customClass="TTSDKTextField">
-                                                        <rect key="frame" x="197" y="98" width="113" height="44"/>
+                                                        <rect key="frame" x="197" y="108" width="113" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="QaO-hP-P8l"/>
                                                         </constraints>
@@ -1614,7 +1626,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                                     <constraint firstItem="cbn-kp-Nie" firstAttribute="leading" secondItem="XLO-ms-ajL" secondAttribute="leading" constant="10" id="7Gc-X3-JV1"/>
                                                     <constraint firstItem="KgD-Vr-tlg" firstAttribute="trailing" secondItem="JLr-7y-dEH" secondAttribute="trailing" constant="-14" id="87I-EQ-vIA"/>
                                                     <constraint firstItem="pWk-Ej-ZVu" firstAttribute="leading" secondItem="cbn-kp-Nie" secondAttribute="trailing" constant="10" id="8AV-vk-IGt"/>
-                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="54" id="8iK-MX-Vad"/>
+                                                    <constraint firstItem="91y-lh-fw2" firstAttribute="top" secondItem="feE-8H-8e0" secondAttribute="bottom" constant="64" id="8iK-MX-Vad"/>
                                                     <constraint firstItem="JLr-7y-dEH" firstAttribute="top" secondItem="XLO-ms-ajL" secondAttribute="top" id="A2i-OY-kg9"/>
                                                     <constraint firstAttribute="trailing" secondItem="pWk-Ej-ZVu" secondAttribute="trailing" constant="10" id="Dzy-0T-fhL"/>
                                                     <constraint firstItem="cbn-kp-Nie" firstAttribute="top" secondItem="JLr-7y-dEH" secondAttribute="bottom" constant="10" id="G7c-rg-jvA"/>
@@ -1711,6 +1723,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Trade" id="hHX-w2-81q">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="94o-Fr-Rfu"/>
                         <barButtonItem key="rightBarButtonItem" title="Close" id="35P-gP-XDe">
                             <connections>
                                 <action selector="cancelPressed:" destination="VXZ-vQ-tdp" id="QGi-Io-fm1"/>
@@ -1898,10 +1911,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X2r-Bb-VCg"/>
-        <segue reference="8yM-5R-gad"/>
-        <segue reference="cfc-P1-7W5"/>
         <segue reference="alq-MR-2uv"/>
+        <segue reference="uWM-4J-KHQ"/>
+        <segue reference="kyf-iM-tIO"/>
+        <segue reference="cfc-P1-7W5"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
     </inferredMetricsTieBreakers>

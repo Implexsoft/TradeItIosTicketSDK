@@ -612,7 +612,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [limitPriceInput setHidden: YES];
     [stopPriceInput setHidden: NO];
 
-    stopPriceTopConstraint.constant = 0;
+    stopPriceTopConstraint.constant = 10.0f;
 
     [self showExpiration];
     [self hideLimitContainer];

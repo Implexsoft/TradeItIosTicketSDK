@@ -19,6 +19,7 @@
     __weak IBOutlet UIView *contentView;
     __weak IBOutlet UIScrollView *scrollView;
 
+    __weak IBOutlet UIView *accountLabelContainer;
     __weak IBOutlet TTSDKSmallLabel *accountNameLabel;
 
     //Field Views - needed to set the borders, sometimes collapse
@@ -38,7 +39,8 @@
     __weak IBOutlet UIView *estimatedFeesVL;
     __weak IBOutlet UIView *estimatedCostVV;
     __weak IBOutlet UIView *estimatedCostVL;
-    
+    __weak IBOutlet UIView *warningView;
+
     //Labels that change
     __weak IBOutlet UILabel *buyingPowerLabel;
     __weak IBOutlet UILabel *estimateCostLabel;
@@ -68,7 +70,7 @@
 @end
 
 
-static float kMessageSeparatorHeight = 30.0f;
+static float kMessageSeparatorHeight = -18.0f;
 
 
 @implementation TTSDKReviewScreenViewController
@@ -90,7 +92,7 @@ static float kMessageSeparatorHeight = 30.0f;
     warningLabels = [[NSMutableArray alloc] init];
 
     // used for attaching constraints
-    lastAttachedMessage = estimatedCostVL;
+    lastAttachedMessage = accountLabelContainer; //estimatedCostVL
 
     self.reviewTradeResult = self.ticket.resultContainer.reviewResponse;
 
@@ -216,6 +218,7 @@ static float kMessageSeparatorHeight = 30.0f;
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message];
     messageLabel.autoresizesSubviews = YES;
     [contentView insertSubview:messageLabel atIndex:0];
+
     [self addConstraintsToMessage:messageLabel];
 
     [warningLabels addObject:messageLabel];
@@ -239,7 +242,7 @@ static float kMessageSeparatorHeight = 30.0f;
     [container addSubview:toggle];
     [container addSubview:messageLabel];
     [contentView insertSubview:container atIndex:0];
-    
+
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
     [self addConstraintsToMessage:container];
 }
@@ -267,10 +270,10 @@ static float kMessageSeparatorHeight = 30.0f;
 -(void) addConstraintsToMessage:(UIView *) label {
     NSLayoutConstraint * topConstraint = [NSLayoutConstraint
                                          constraintWithItem:label
-                                         attribute:NSLayoutAttributeTop
+                                         attribute:NSLayoutAttributeBottom
                                          relatedBy:NSLayoutRelationEqual
                                          toItem:lastAttachedMessage
-                                         attribute:NSLayoutAttributeBottom
+                                         attribute:NSLayoutAttributeTop
                                          multiplier:1
                                          constant:kMessageSeparatorHeight];
     topConstraint.priority = 900;
@@ -282,7 +285,7 @@ static float kMessageSeparatorHeight = 30.0f;
                                            toItem:contentView
                                            attribute:NSLayoutAttributeLeadingMargin
                                            multiplier:1
-                                           constant:0];
+                                           constant:3];
     leftConstraint.priority = 900;
 
     NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
@@ -292,7 +295,7 @@ static float kMessageSeparatorHeight = 30.0f;
                                            toItem:contentView
                                            attribute:NSLayoutAttributeTrailingMargin
                                            multiplier:1
-                                           constant:0];
+                                           constant:-3];
     rightConstraint.priority = 900;
 
     lastAttachedMessage = label;
@@ -305,7 +308,7 @@ static float kMessageSeparatorHeight = 30.0f;
 -(void) initContentViewHeight {
     CGRect contentRect = CGRectZero;
     for (UIView * view in [contentView subviews]) {
-        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + kMessageSeparatorHeight);
+        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + fabs(kMessageSeparatorHeight));
         contentRect = CGRectUnion(contentRect, frame);
     }
 
@@ -317,8 +320,12 @@ static float kMessageSeparatorHeight = 30.0f;
         contentRect.size.height += wLabel.frame.size.height;
     }
 
-    if (ackLabels.count || warningLabels.count) {
-        contentRect.size.height += 80; // extra padding
+    if (ackLabels.count || warningLabels.count) { // extra padding
+        contentRect.size.height += 80;
+
+        if (ackLabels.count) {
+            contentRect.size.height += 40;
+        }
     }
 
     NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
@@ -351,7 +358,7 @@ static float kMessageSeparatorHeight = 30.0f;
                                              toItem:view
                                              attribute:NSLayoutAttributeLeading
                                              multiplier:1
-                                             constant:0];
+                                             constant:3];
     toggleLeftConstraint.priority = 900;
     
     NSLayoutConstraint * toggleTopConstraint = [NSLayoutConstraint
