@@ -342,30 +342,37 @@ static float kAccountCellHeight = 44.0f;
         if (indexPath.row == self.selectedHoldingIndex) {
             // User taps expanded row
             self.selectedHoldingIndex = -1;
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+            [UIView setAnimationsEnabled: NO];
+            [tableView beginUpdates];
+            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView endUpdates];
+            [UIView setAnimationsEnabled: YES];
+
+            [self.accountsTable endUpdates];
         } else if (self.selectedHoldingIndex != -1) {
             // User taps different row
             NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
             self.selectedHoldingIndex = indexPath.row;
 
-            [CATransaction begin];
+            [UIView setAnimationsEnabled: NO];
             [tableView beginUpdates];
 
-            [CATransaction setCompletionBlock: ^{
-                [tableView reloadData];
-            }];
-
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
-            
+            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationNone];
             [tableView endUpdates];
-            
-            [CATransaction commit];
+            [UIView setAnimationsEnabled: YES];
 
             [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         } else {
             // User taps new row with none expanded
             self.selectedHoldingIndex = indexPath.row;
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+            [UIView setAnimationsEnabled: NO];
+            [tableView beginUpdates];
+            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [tableView endUpdates];
+            [UIView setAnimationsEnabled: YES];
+
             [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         }
 

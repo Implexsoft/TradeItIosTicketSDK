@@ -77,7 +77,7 @@
     if (globalTicket.quote.symbol) {
         [self.symbolLabel setTitle:globalTicket.quote.symbol forState:UIControlStateNormal];
     } else {
-        [self.symbolLabel setTitle:@"Select Symbol" forState:UIControlStateNormal];
+        [self.symbolLabel setTitle:@"N/A" forState:UIControlStateNormal];
 
         if (self.lastPriceLoadingIndicator) {
             self.lastPriceLoadingIndicator.hidden = YES;
