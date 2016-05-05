@@ -67,6 +67,56 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
             [view.layer addSublayer:circleLayer];
         }
     }
+
+    if (!brokers) {
+        [self showLoadingAndWait];
+    }
+}
+
+-(void) showLoadingAndWait {
+    [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        int cycles = 0;
+        
+        while([self.ticket.brokerList count] < 1 && cycles < 15) {
+            sleep(1);
+            cycles++;
+        }
+        
+        if([self.ticket.brokerList count] < 1) {
+            if(![UIAlertController class]) {
+                [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
+                return;
+            }
+
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            alert.modalPresentationStyle = UIModalPresentationPopover;
+            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction * action) {
+                                                                       [self.ticket returnToParentApp];
+                                                                   }];
+            [alert addAction:defaultAction];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+                [self presentViewController:alert animated:YES completion:nil];
+                
+                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+                alertPresentationController.sourceView = self.view;
+                alertPresentationController.permittedArrowDirections = 0;
+                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                brokers = self.ticket.brokerList;
+                
+                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }
+    });
 }
 
 -(void) styleCustomDropdownButton: (UIButton *)button {
