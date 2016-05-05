@@ -461,6 +461,7 @@ static float kMessageSeparatorHeight = -15.0f;
         alert.modalPresentationStyle = UIModalPresentationPopover;
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
+                                                                   [self performSelectorOnMainThread:@selector(navigateBackToTrade) withObject:nil waitUntilDone:NO];
                                                                }];
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
@@ -473,6 +474,10 @@ static float kMessageSeparatorHeight = -15.0f;
 
 
 #pragma mark Navigation
+
+-(void) navigateBackToTrade {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
