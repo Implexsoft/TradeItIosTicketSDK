@@ -355,12 +355,18 @@ static float kAccountCellHeight = 44.0f;
             NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedHoldingIndex inSection: 1];
             self.selectedHoldingIndex = indexPath.row;
 
+            [CATransaction begin];
             [UIView setAnimationsEnabled: NO];
             [tableView beginUpdates];
+
+            [CATransaction setCompletionBlock: ^{
+                [tableView reloadData];
+            }];
 
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationNone];
             [tableView endUpdates];
             [UIView setAnimationsEnabled: YES];
+            [CATransaction commit];
 
             [self retrieveQuoteDataForPosition:[positionsHolder objectAtIndex:indexPath.row]];
         } else {
