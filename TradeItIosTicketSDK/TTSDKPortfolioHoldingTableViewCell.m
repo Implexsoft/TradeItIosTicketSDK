@@ -11,6 +11,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKTradeItTicket.h"
 #import "TradeItStyles.h"
+#import "TTSDKLabel.h"
 
 @interface TTSDKPortfolioHoldingTableViewCell () {
     TTSDKUtils * utils;
@@ -38,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *askLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalValueLabel;
+@property (weak, nonatomic) IBOutlet TTSDKLabel *totalReturnLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalReturnValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 @property (weak, nonatomic) IBOutlet UIButton *dropDownBuyButton;
@@ -236,16 +238,21 @@ static CGFloat const kBounceValue = 20.0f;
         returnStr = @"N/A";
     }
 
-    CGSize returnBoundingBox = [returnStr sizeWithFont:self.totalReturnValueLabel.font];
+    self.totalReturnValueLabel.text = returnStr;
+    self.totalReturnValueLabel.textColor = returnColor;
 
-    if (returnBoundingBox.width > 70.0f) {
+    [self.totalReturnValueLabel sizeToFit];
+
+    // Here we need to see whether the total return value collides with its label. If so, we want to move it down to the next line
+    CGRect totalReturnLabelRect = self.totalReturnLabel.frame;
+    CGFloat totalReturnLabelOffset = totalReturnLabelRect.origin.x + self.totalReturnLabel.intrinsicContentSize.width;
+    CGFloat totalReturnValueLabelOffset = self.totalReturnValueLabel.frame.origin.x;
+
+    if (totalReturnLabelOffset > totalReturnValueLabelOffset) {
         self.totalReturnVerticalConstraint.constant = 20.0f;
     } else {
         self.totalReturnVerticalConstraint.constant = 0.0f;
     }
-
-    self.totalReturnValueLabel.text = returnStr;
-    self.totalReturnValueLabel.textColor = returnColor;
 
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     currentPosition = position; // set current position

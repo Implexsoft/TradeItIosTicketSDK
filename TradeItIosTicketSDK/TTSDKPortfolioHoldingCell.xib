@@ -295,6 +295,7 @@
                 <outlet property="sellButton" destination="efO-vF-Uhp" id="kGY-TR-fhf"/>
                 <outlet property="separatorView" destination="ZtO-yq-JC5" id="Mnh-Dd-yAJ"/>
                 <outlet property="symbolLabel" destination="7dD-ZD-xJT" id="Wry-5k-ve4"/>
+                <outlet property="totalReturnLabel" destination="vVC-Zy-1oo" id="V59-Z9-gRD"/>
                 <outlet property="totalReturnValueLabel" destination="nlW-dX-x2c" id="eDD-VF-NX0"/>
                 <outlet property="totalReturnVerticalConstraint" destination="0yn-56-Q8D" id="yDV-1X-kGf"/>
                 <outlet property="totalValueLabel" destination="Op7-hK-I8r" id="8vX-5Z-IAq"/>
