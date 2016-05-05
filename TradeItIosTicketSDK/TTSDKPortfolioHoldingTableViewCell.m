@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
 @property (nonatomic, assign) CGPoint panStartPoint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalReturnVerticalConstraint;
+
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *costLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changeLabel;
@@ -61,9 +63,9 @@ static CGFloat const kBounceValue = 20.0f;
     styles = [TradeItStyles sharedStyles];
 
     if (!UITableViewRowAction.class) {
-        self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panCell:)];
+        self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget: self action: @selector(panCell:)];
         self.panRecognizer.delegate = self;
-        [self.primaryView addGestureRecognizer:self.panRecognizer];
+        [self.primaryView addGestureRecognizer: self.panRecognizer];
     }
 
     self.primaryView.backgroundColor = styles.pageBackgroundColor;
@@ -233,6 +235,15 @@ static CGFloat const kBounceValue = 20.0f;
         returnColor = [UIColor lightGrayColor];
         returnStr = @"N/A";
     }
+
+    CGSize returnBoundingBox = [returnStr sizeWithFont:self.totalReturnValueLabel.font];
+
+    if (returnBoundingBox.width > 70.0f) {
+        self.totalReturnVerticalConstraint.constant = 20.0f;
+    } else {
+        self.totalReturnVerticalConstraint.constant = 0.0f;
+    }
+
     self.totalReturnValueLabel.text = returnStr;
     self.totalReturnValueLabel.textColor = returnColor;
 
