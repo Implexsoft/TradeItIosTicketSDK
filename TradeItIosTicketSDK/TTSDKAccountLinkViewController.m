@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *linkTableView;
 @property BOOL authenticated;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
 
 @end
 
@@ -55,6 +56,10 @@ static NSString * kBrokerSelectViewIdentifier = @"BROKER_SELECT";
 
 -(void) setViewStyles {
     [super setViewStyles];
+
+    if (self.pushed) {
+        [self.doneBarButton setTintColor:[UIColor clearColor]];
+    }
 
     [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.doneButton.backgroundColor = self.styles.secondaryDarkActiveColor;

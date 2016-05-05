@@ -424,9 +424,10 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     self.loadingQuote = YES;
 
     if (!self.quote.symbol) {
+        self.loadingQuote = NO;
         return;
     }
-    
+
     TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
     
     TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];

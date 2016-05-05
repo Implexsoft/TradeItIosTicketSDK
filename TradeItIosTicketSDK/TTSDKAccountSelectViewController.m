@@ -12,6 +12,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
+#import "TTSDKAccountLinkViewController.h"
 
 @interface TTSDKAccountSelectViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -169,6 +170,9 @@
         brokerSelectController.isModal = YES;
 
         [dest pushViewController:brokerSelectController animated:NO];
+    } else if ([segue.identifier isEqualToString:@"AccountSelectToAccountLink"]) {
+        TTSDKAccountLinkViewController * dest = (TTSDKAccountLinkViewController *)segue.destinationViewController;
+        dest.pushed = YES;
     }
 }
 

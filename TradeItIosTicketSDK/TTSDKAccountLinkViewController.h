@@ -12,4 +12,6 @@
 
 @interface TTSDKAccountLinkViewController : TTSDKViewController <UITableViewDataSource, UITableViewDelegate, TTSDKAccountLinkDelegate>
 
+@property BOOL pushed;
+
 @end
