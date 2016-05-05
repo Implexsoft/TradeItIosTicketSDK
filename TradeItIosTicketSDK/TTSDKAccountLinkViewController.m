@@ -73,54 +73,11 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self.linkTableView reloadData];
 
     if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-        
-        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-            [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-            if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self loadBalances];
-                });
-            } else if ([res isKindOfClass:TradeItErrorResult.class]) {
-                TradeItErrorResult * error = (TradeItErrorResult *)res;
-                NSMutableString * errorMessage = [[NSMutableString alloc] init];
-                
-                for (NSString * str in error.longMessages) {
-                    [errorMessage appendString:str];
-                }
-                
-                if(![UIAlertController class]) {
-                    [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
-                } else {
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
-                                                                                    message:errorMessage
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    alert.modalPresentationStyle = UIModalPresentationPopover;
-                    
-                    UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
-                                                                           handler:^(UIAlertAction * action) {
-                                                                               [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
-                                                                           }];
 
-                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        [self.ticket returnToParentApp];
-                    }];
-
-                    [alert addAction:defaultAction];
-                    [alert addAction:cancelAction];
-
-                    [self presentViewController:alert animated:YES completion:nil];
-                    
-                    UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-                    alertPresentationController.sourceView = self.view;
-                    alertPresentationController.permittedArrowDirections = 0;
-                    alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-                }
-                
-            }
+        [self authenticate:^(TradeItResult * res) {
+            [self loadBalances];
         }];
+
     } else {
         [self loadBalances];
     }

@@ -22,7 +22,8 @@
 @property TradeItLinkedLogin * login;
 @property NSString * broker;
 @property BOOL isAuthenticated;
-@property BOOL needsManualAuthentication;
+@property BOOL needsAuthentication; // needs to be authenticated
+@property BOOL needsManualAuthentication; // needs the user to re-link
 @property BOOL authenticating;
 
 @property TradeItPlaceTradeRequest * tradeRequest;

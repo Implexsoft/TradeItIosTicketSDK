@@ -29,5 +29,6 @@
 -(void) showErrorAlert:(TradeItErrorResult *)error onAccept:(void (^)(void))acceptanceBlock onCancel:(void (^)(void))cancellationBlock;
 -(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock;
 -(UIView *) createPickerView: (NSString *) title;
+-(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock;
 
 @end

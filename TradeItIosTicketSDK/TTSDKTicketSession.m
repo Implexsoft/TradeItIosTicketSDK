@@ -52,11 +52,16 @@
             TradeItErrorResult * error = (TradeItErrorResult *)res;
 
             if ([error.code isEqualToNumber:@600]) {
+                self.needsAuthentication = YES;
+            } else if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
             }
 
             completionBlock(res);
         } else {
+            self.needsManualAuthentication = NO;
+            self.needsAuthentication = NO;
+
             completionBlock(res);
         }
     }];
@@ -91,6 +96,7 @@
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
 
+        self.needsAuthentication = NO;
         self.needsManualAuthentication = NO;
 
         if (completionBlock) {
@@ -98,14 +104,14 @@
         }
     } else {
 
-        self.needsManualAuthentication = YES;
+        self.needsAuthentication = YES;
 
         if (completionBlock && [res isKindOfClass:TradeItErrorResult.class]) {
             completionBlock(res);
 
         } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
             TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
-            
+
             if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
                 if (![UIAlertController class]) {
                     [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
@@ -201,6 +207,8 @@
             TradeItErrorResult * error = (TradeItErrorResult *)result;
 
             if ([error.code isEqualToNumber:@600]) {
+                self.needsAuthentication = YES;
+            } else if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
             }
 
@@ -223,6 +231,8 @@
             TradeItErrorResult * error = (TradeItErrorResult *)result;
 
             if ([error.code isEqualToNumber:@600]) {
+                self.needsAuthentication = YES;
+            } else if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
             }
 

@@ -20,6 +20,7 @@
 @property NSDictionary * currentAccount;
 @property TTSDKPortfolioAccount * currentPortfolioAccount;
 
+-(void) authenticate;
 -(void) sendPreviewRequestWithCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
 -(void) waitForQuotes;
 -(void) acknowledgeAlert;

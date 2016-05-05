@@ -64,8 +64,10 @@ static double kLoadInterval = -30.0f;
 -(void) retrieveAccountSummaryWithCompletionBlock:(void (^)(void)) completionBlock {
     NSDictionary * accountData = [self accountData];
 
+    // If the session was authenticated in the background, we don't alert users on failed authentications. So we need to prevent unauthenticated calls.
     if (!self.session.isAuthenticated) {
-        // If the authentication completed, but was not successful, set to complete
+        // If the authentication was successful, set the flags to completed so it returns immediately
+
         if (self.session.needsManualAuthentication) {
             self.balanceComplete = YES;
             self.positionsComplete = YES;

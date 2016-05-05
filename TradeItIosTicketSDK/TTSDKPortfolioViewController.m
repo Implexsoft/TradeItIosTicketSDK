@@ -80,27 +80,13 @@ static float kAccountCellHeight = 44.0f;
     }
 
     if (!self.ticket.currentSession.isAuthenticated) {
-
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
 
         [self showLoadingAndWait];
-        [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-            [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
-            initialAuthenticationComplete = YES;
-            if ([res.status isEqualToString: @"SUCCESS"]) {
-                [self loadPortfolioData];
-            } else {
-                initialSummaryComplete = YES;
-                if ([res isKindOfClass:TradeItErrorResult.class]) {
-                    TradeItErrorResult * error = (TradeItErrorResult *)res;
 
-                    [self showErrorAlert:error onAccept:^(void){
-                        [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
-                    }];
-                } else {
-                    [self performSelectorOnMainThread:@selector(addAccountPressed:) withObject:self waitUntilDone:NO];
-                }
-            }
+        [self authenticate:^(TradeItResult * res) {
+            initialAuthenticationComplete = YES;
+            [self loadPortfolioData];
         }];
     } else {
         initialAuthenticationComplete = YES;

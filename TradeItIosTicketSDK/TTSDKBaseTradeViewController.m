@@ -41,6 +41,20 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     }
 }
 
+-(void) checkIfReadyToTrade {
+    // implement in subclass
+}
+
+
+#pragma mark Authentication
+
+-(void) authenticate {
+    [self authenticate:^(TradeItResult * res) {
+        [self retrieveAccountSummaryData];
+        [self checkIfReadyToTrade];
+    }];
+}
+
 
 #pragma mark Order
 
@@ -56,7 +70,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     self.currentPortfolioAccount = [[TTSDKPortfolioAccount alloc] initWithAccountData: self.ticket.currentAccount];
 
     [self.currentPortfolioAccount retrieveAccountSummaryWithCompletionBlock:^(void){
-        [self populateSymbolDetails];
+        [self performSelectorOnMainThread:@selector(populateSymbolDetails) withObject:nil waitUntilDone:NO];
+
+        if (self.ticket.currentSession.needsAuthentication) {
+            [self authenticate];
+        }
     }];
 }
 
@@ -152,6 +170,15 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             completionBlock(res);
         }
     }];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
+    if([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
+        UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
+        [self.ticket removeBrokerSelectFromNav: dest];
+    }
 }
 
 
