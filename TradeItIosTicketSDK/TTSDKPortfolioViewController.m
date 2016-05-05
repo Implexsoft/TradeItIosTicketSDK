@@ -79,7 +79,7 @@ static float kAccountCellHeight = 44.0f;
         self.ticket.clearPortfolioCache = NO;
     }
 
-    if (!self.ticket.currentSession.isAuthenticated) {
+    if (!self.ticket.currentSession.isAuthenticated || self.ticket.currentSession.needsAuthentication) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
 
         [self showLoadingAndWait];
@@ -104,12 +104,20 @@ static float kAccountCellHeight = 44.0f;
     self.holdingsHeaderTitle = [NSString stringWithFormat:@"%@ Holdings", portfolioService.selectedAccount.displayTitle ?: @""];
 
     [portfolioService getSummaryForAccounts:^(void) {
-        initialSummaryComplete = YES;
-
-        accountsHolder = portfolioService.accounts;
-        positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
-
-        [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        if (self.ticket.currentSession.needsAuthentication) {
+            initialAuthenticationComplete = NO;
+            [self authenticate:^(TradeItResult * res) {
+                initialAuthenticationComplete = YES;
+                [self performSelector:@selector(loadPortfolioData) withObject:nil];
+            }];
+        } else {
+            initialSummaryComplete = YES;
+            
+            accountsHolder = portfolioService.accounts;
+            positionsHolder = [portfolioService filterPositionsByAccount: portfolioService.selectedAccount];
+            
+            [self.accountsTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
     }];
 }
 

@@ -99,7 +99,7 @@
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     [self.ticket returnToParentApp];
                 }];
-                
+
                 [alert addAction:defaultAction];
                 [alert addAction:cancelAction];
                 
