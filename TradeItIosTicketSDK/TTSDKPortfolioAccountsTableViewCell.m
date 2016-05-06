@@ -68,7 +68,7 @@
 
     self.accountLabel.text = displayTitle;
 
-    if (!account.needsAuthentication) {
+    if (account.needsAuthentication) {
         self.authenticateView.hidden = NO;
 
         if (!authTap) {
