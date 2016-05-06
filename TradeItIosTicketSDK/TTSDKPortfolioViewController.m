@@ -132,7 +132,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while((!initialAuthenticationComplete || !initialSummaryComplete) && cycles < 80) {
+        while((!initialAuthenticationComplete || !initialSummaryComplete) && cycles < 200) {
             if (initialAuthenticationComplete) {
                 hud.labelText = @"Retrieving Account Summary";
             }

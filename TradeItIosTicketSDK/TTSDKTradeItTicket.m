@@ -71,6 +71,8 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         [self retrieveBrokers];
     }
 
+    [self removeDuplicateLinkedLogins];
+
     BOOL elapsed = NO;
     if (self.lastUsed) {
         if ((fabs([self.lastUsed timeIntervalSinceNow]) > 10)) {
@@ -407,6 +409,58 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(void) selectCurrentSession:(TTSDKTicketSession *)session {
     self.currentSession = session;
+}
+
+// There was an error in an earlier built of the SDK that allowed "ghost" linked logins to remain in user accounts. This should only be called once per user
+-(void) removeDuplicateLinkedLogins {
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * methodKey = @"TRADEIT_REMOVE_DUPLICATE_HAS_RUN";
+
+    // Only need to run this function once, so we store a flag in user defaults
+    BOOL removed = [userDefaults boolForKey: methodKey];
+    if (removed) {
+        return;
+    }
+
+    // Go ahead and store the flag
+    [userDefaults setBool:YES forKey: methodKey];
+    [userDefaults synchronize];
+
+    // If there are no linked logins, no need to go further
+    NSArray * linkedLogins = [self.connector getLinkedLogins];
+    if ((!linkedLogins || !linkedLogins.count)) {
+        return;
+    }
+
+    // If there *are* linked logins, but no accounts, then we need to remove all of them
+    NSArray * allAccounts = [TTSDKPortfolioService allAccounts];
+    if (!allAccounts || !allAccounts.count) {
+        for (TradeItLinkedLogin * ll in linkedLogins) {
+            [self.connector unlinkLogin: ll];
+        }
+
+        return;
+    }
+
+    // If there are linked logins and accounts, do a comparison
+    NSMutableArray * loginsToRemove = [[NSMutableArray alloc] init];
+    for (TradeItLinkedLogin * linkedLogin in linkedLogins) {
+        BOOL hasAccountReference = NO;
+
+        for (NSDictionary * acct in allAccounts) {
+            if ([linkedLogin.userId isEqualToString: [acct valueForKey: @"UserId"]]) {
+                hasAccountReference = YES;
+            }
+        }
+
+        if (!hasAccountReference) {
+            [loginsToRemove addObject: linkedLogin];
+        }
+    }
+
+    for (TradeItLinkedLogin * loginToRemove in loginsToRemove) {
+        [self.connector unlinkLogin: loginToRemove];
+    }
 }
 
 
