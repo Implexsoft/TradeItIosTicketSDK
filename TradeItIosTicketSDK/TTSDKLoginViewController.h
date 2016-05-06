@@ -23,6 +23,6 @@
 @property NSString * addBroker;
 @property NSArray * questionOptions;
 
-@property void (^onCompletion)(TradeItResult *);
+@property (nonatomic,strong) void (^onCompletion)(TradeItResult *);
 
 @end
