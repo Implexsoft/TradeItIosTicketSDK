@@ -76,6 +76,10 @@ static double kLoadInterval = -30.0f;
 
     // If the session was authenticated in the background, we don't alert users on failed authentications. So we need to prevent unauthenticated calls.
     if (!self.session.isAuthenticated) {
+        if (!self.session.authenticating) {
+            self.needsAuthentication = YES;
+        }
+
         // If the authentication was unsuccessful, set the flags to completed so it returns immediately
         if (self.session.needsManualAuthentication) {
             self.balanceComplete = YES;
@@ -85,7 +89,7 @@ static double kLoadInterval = -30.0f;
             if (completionBlock) {
                 completionBlock();
             }
-        } else {
+        } else if (!self.needsAuthentication) {
             [self performSelector:@selector(retrieveAccountSummaryWithCompletionBlock:) withObject:completionBlock afterDelay:0.25];
         }
 
