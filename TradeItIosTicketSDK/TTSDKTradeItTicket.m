@@ -671,7 +671,12 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(NSString *) getBrokerDisplayString:(NSString *) value {
-    NSArray * brokers = [self getDefaultBrokerList];
+    NSArray * brokers;
+    if (self.brokerList) {
+        brokers = self.brokerList;
+    } else {
+        brokers = [self getDefaultBrokerList];
+    }
 
     for(NSArray * broker in brokers) {
         if([broker[1] isEqualToString:value]) {
@@ -683,7 +688,12 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(NSString *) getBrokerValueString:(NSString *) displayString {
-    NSArray * brokers = [self getDefaultBrokerList];
+    NSArray * brokers;
+    if (self.brokerList) {
+        brokers = self.brokerList;
+    } else {
+        brokers = [self getDefaultBrokerList];
+    }
 
     for(NSArray * broker in brokers) {
         if([broker[0] isEqualToString:displayString]) {
@@ -697,7 +707,14 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(NSArray *) getBrokerByValueString:(NSString *) valueString {
     NSArray * selectedBroker;
 
-    for (NSArray * broker in self.brokerList) {
+    NSArray * brokers;
+    if (self.brokerList) {
+        brokers = self.brokerList;
+    } else {
+        brokers = [self getDefaultBrokerList];
+    }
+
+    for (NSArray * broker in brokers) {
         if ([broker[1] isEqualToString:valueString]) {
             selectedBroker = broker;
             break;
