@@ -22,6 +22,7 @@
 +(NSArray *)linkedAccounts;
 
 -(id) initWithAccounts:(NSArray *)accounts;
+-(TTSDKPortfolioAccount *) accountByAccountNumber:(NSString *)accountNumber;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
 -(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock;
 -(void) getBalancesForAccounts:(void (^)(void)) completionBlock;

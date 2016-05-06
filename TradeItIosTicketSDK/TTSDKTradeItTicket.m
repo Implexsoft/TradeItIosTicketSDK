@@ -666,11 +666,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     root.navigationItem.hidesBackButton = NO;
 }
 
--(void) removeBrokerSelectFromNav:(UINavigationController *)nav {
+-(void) removeBrokerSelectFromNav:(UINavigationController *)nav cancelToParent:(BOOL)cancelToParent {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     
     TTSDKLoginViewController * initialViewController = [ticket instantiateViewControllerWithIdentifier: @"LOGIN"];
-    initialViewController.cancelToParent = YES;
+    initialViewController.cancelToParent = cancelToParent;
     initialViewController.isModal = YES;
     
     [nav pushViewController:initialViewController animated:NO];

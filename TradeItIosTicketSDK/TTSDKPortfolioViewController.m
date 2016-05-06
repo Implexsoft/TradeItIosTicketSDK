@@ -22,6 +22,7 @@
     NSArray * positionsHolder;
     BOOL initialAuthenticationComplete;
     BOOL initialSummaryComplete;
+    NSString * addBroker;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *accountsTable;
@@ -45,6 +46,7 @@ static float kAccountsFooterHeight = 15.0f;
 static float kHoldingCellDefaultHeight = 44.0f;
 static float kHoldingCellExpandedHeight = 164.0f;
 static float kAccountCellHeight = 44.0f;
+static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 
 #pragma mark Initialization
@@ -228,10 +230,6 @@ static float kAccountCellHeight = 44.0f;
 
 -(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-}
-
--(IBAction) addAccountPressed:(id)sender {
-    [self performSegueWithIdentifier:@"PortfolioToLogin" sender:self];
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -529,11 +527,18 @@ static float kAccountCellHeight = 44.0f;
     NSDictionary * accountData = [account accountData];
     TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
 
-    [self authenticateSession:accountSession cancelToParent:NO broker:[accountSession broker] withCompletionBlock:^(TradeItResult * res){
-        [portfolioService getSummaryForSelectedAccount:^(void) {
-            [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
+    self.ticket.clearPortfolioCache = YES; // since it's a new authentication, we'll want to go ahead and clear the portfolio cache
+
+    if (accountSession.needsManualAuthentication) {
+        addBroker = [accountSession broker];
+        [self performSegueWithIdentifier:kPortfolioToLoginSegueIdentifier sender:self];
+    } else {
+        [self authenticateSession:accountSession cancelToParent:NO broker:[accountSession broker] withCompletionBlock:^(TradeItResult * res){
+            [portfolioService getSummaryForSelectedAccount:^(void) {
+                [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
+            }];
         }];
-    }];
+    }
 }
 
 
@@ -563,15 +568,27 @@ static float kAccountCellHeight = 44.0f;
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if ([segue.identifier isEqualToString:@"PortfolioToLogin"]) {
-        UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
-        
+    if ([segue.identifier isEqualToString: kPortfolioToLoginSegueIdentifier]) {
+        UINavigationController * loginNav = (UINavigationController *)[segue destinationViewController];
+
         UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-        
-        TTSDKBrokerSelectViewController * brokerSelectController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
-        brokerSelectController.isModal = YES;
-        
-        [dest pushViewController:brokerSelectController animated:NO];
+        TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: @"LOGIN"];
+        [loginViewController setAddBroker: addBroker];
+        loginViewController.reAuthenticate = YES;
+        loginViewController.isModal = YES;
+        [loginNav pushViewController: loginViewController animated:YES];
+
+        addBroker = nil; // immediately reset
+
+        // If the current account needs authentication to continue, we should cancel to parent app
+        BOOL cancelToParent;
+        if (self.ticket.currentSession.needsManualAuthentication) {
+            cancelToParent = YES;
+        } else {
+            cancelToParent = NO;
+        }
+
+        [self.ticket removeBrokerSelectFromNav: loginNav cancelToParent: cancelToParent];
     }
 }
 

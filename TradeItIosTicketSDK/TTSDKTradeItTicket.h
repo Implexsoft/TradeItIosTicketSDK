@@ -61,7 +61,7 @@
 -(void) retrieveQuote:(void (^)(void))completionBlock;
 
 #pragma mark Authentication
--(void) removeBrokerSelectFromNav:(UINavigationController *)nav;
+-(void) removeBrokerSelectFromNav:(UINavigationController *)nav cancelToParent:(BOOL)cancelToParent;
 -(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;
 
 #pragma mark Sessions

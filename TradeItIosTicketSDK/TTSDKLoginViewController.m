@@ -64,9 +64,12 @@
 
     selectedBroker = (self.addBroker == nil) ? self.ticket.currentSession.broker : self.addBroker;
 
-    if(self.cancelToParent) {
-        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
-        self.navigationItem.leftBarButtonItem=newBackButton;
+    if(self.cancelToParent || self.reAuthenticate) {
+        self.navigationItem.hidesBackButton = YES;
+        self.navigationController.navigationItem.hidesBackButton = YES;
+
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
+        self.navigationItem.rightBarButtonItem=closeButton;
     }
 
     // Listen for keyboard appearances and disappearances
@@ -269,11 +272,21 @@
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
                     NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
-                    if (newLinkedAccounts.count > 1 && (self.ticket.presentationMode == TradeItPresentationModeTrade || self.ticket.presentationMode == TradeItPresentationModeTradeOnly)) {
+                    if (!self.reAuthenticate && newLinkedAccounts.count > 1 && (self.ticket.presentationMode == TradeItPresentationModeTrade || self.ticket.presentationMode == TradeItPresentationModeTradeOnly || self.ticket.presentationMode == TradeItPresentationModePortfolio)) {
 
                         multiAccounts = [self buildAccountOptions: newLinkedAccounts];
                         [self showPicker:@"Select account to trade it" withSelection:nil andOptions:multiAccounts onSelection:^(void) {
-                            [self.ticket selectCurrentAccountByAccountNumber: self.currentSelection];
+
+                            NSDictionary * selectedAccount;
+                            for (NSDictionary *newLinkedAccount in newLinkedAccounts) {
+                                if ([[newLinkedAccount valueForKey:@"UserId"] isEqualToString: newSession.login.userId]) {
+                                    selectedAccount = newLinkedAccount;
+                                }
+                            }
+
+                            TTSDKTicketSession * selectedSession = [self.ticket retrieveSessionByAccount: selectedAccount];
+                            [self.ticket selectCurrentSession:selectedSession andAccount:selectedAccount];
+
                             [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
                         }];
 
@@ -301,10 +314,11 @@
         [self.ticket returnToParentApp];
     } else if (self.isModal) {
         [self autoSelectAccount: [accounts lastObject] withSession:session];
+
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self autoSelectAccount: [accounts lastObject] withSession:session];
-        
+
         if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
             [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
         } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
@@ -402,9 +416,9 @@
 
 -(void) home:(UIBarButtonItem *)sender {
     if (self.cancelToParent) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
         [self.ticket returnToParentApp];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

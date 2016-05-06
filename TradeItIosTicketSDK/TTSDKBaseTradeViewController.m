@@ -177,7 +177,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
     if([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
         UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
-        [self.ticket removeBrokerSelectFromNav: dest];
+        [self.ticket removeBrokerSelectFromNav: dest cancelToParent: YES];
     }
 }
 

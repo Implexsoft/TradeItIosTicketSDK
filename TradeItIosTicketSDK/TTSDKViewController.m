@@ -96,12 +96,11 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                                                                            UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
                                                                            UINavigationController * loginNav = [ticket instantiateViewControllerWithIdentifier: kLoginNavIdentifier];
-                                                                           [self.ticket removeBrokerSelectFromNav: loginNav];
+                                                                           [self.ticket removeBrokerSelectFromNav: loginNav cancelToParent:cancelToParent];
 
                                                                            TTSDKLoginViewController * login = (TTSDKLoginViewController *)[loginNav.viewControllers lastObject];
-                                                                           login.cancelToParent = cancelToParent;
                                                                            login.addBroker = broker;
-                                                                           login.isModal = YES;
+                                                                           login.reAuthenticate = YES;
 
                                                                            [self presentViewController:loginNav animated:YES completion:nil];
                                                                        }];

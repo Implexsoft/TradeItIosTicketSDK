@@ -105,10 +105,10 @@
     } else {
 
         self.needsAuthentication = YES;
-        
+
         if ([res isKindOfClass:TradeItErrorResult.class]) {
             TradeItErrorResult * error = (TradeItErrorResult *) res;
-            if ([error.code isEqualToNumber:@600] || [error.code isEqualToNumber:@700]) {
+            if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
             }
             

@@ -16,13 +16,11 @@
 
 @interface TTSDKLoginViewController : TTSDKViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
-@property BOOL cancelToParent;
-
-@property NSString * addBroker;
 @property TradeItAuthenticationInfo * verifyCreds;
-
-@property NSArray * questionOptions;
-
 @property BOOL isModal;
+@property BOOL cancelToParent;
+@property BOOL reAuthenticate;
+@property NSString * addBroker;
+@property NSArray * questionOptions;
 
 @end
