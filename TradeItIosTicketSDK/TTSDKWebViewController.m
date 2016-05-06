@@ -15,7 +15,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) webViewDidStartLoad:(UIWebView *)webView {
+-(void) viewDidLoad {
     self.navBar.topItem.title = @"Loading...";
 }
 
