@@ -161,9 +161,9 @@
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
 
-//        if (self.ticket.brokerSignUpCallback) {
-//            self.ticket.brokerSignUpCallback(res);
-//        }
+        if (self.ticket.brokerSignUpCallback) {
+            self.ticket.brokerSignUpCallback(res);
+        }
 
         return;
     }
@@ -272,19 +272,20 @@
                     [self.ticket addAccounts: authResult.accounts withSession: newSession];
 
                     NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
-                    if (!self.reAuthenticate && newLinkedAccounts.count > 1 && (self.ticket.presentationMode == TradeItPresentationModeTrade || self.ticket.presentationMode == TradeItPresentationModeTradeOnly || self.ticket.presentationMode == TradeItPresentationModePortfolio)) {
+
+                    if (!self.reAuthenticate && newLinkedAccounts.count > 1 && (self.ticket.presentationMode != TradeItPresentationModeAuth && self.ticket.presentationMode != TradeItPresentationModeAccounts)) {
 
                         multiAccounts = [self buildAccountOptions: newLinkedAccounts];
                         [self showPicker:@"Select account to trade it" withSelection:nil andOptions:multiAccounts onSelection:^(void) {
-
                             NSDictionary * selectedAccount;
                             for (NSDictionary *newLinkedAccount in newLinkedAccounts) {
-                                if ([[newLinkedAccount valueForKey:@"UserId"] isEqualToString: newSession.login.userId]) {
+                                if ([[newLinkedAccount valueForKey:@"accountNumber"] isEqualToString: self.currentSelection]) {
                                     selectedAccount = newLinkedAccount;
                                 }
                             }
 
                             TTSDKTicketSession * selectedSession = [self.ticket retrieveSessionByAccount: selectedAccount];
+
                             [self.ticket selectCurrentSession:selectedSession andAccount:selectedAccount];
 
                             [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
@@ -313,7 +314,9 @@
 
         [self.ticket returnToParentApp];
     } else if (self.isModal) {
-        [self autoSelectAccount: [accounts lastObject] withSession:session];
+        if (!multiAccounts) {
+            [self autoSelectAccount: [accounts lastObject] withSession:session];
+        }
 
         [self dismissViewControllerAnimated:YES completion:^(void){
             if(self.onCompletion) {
