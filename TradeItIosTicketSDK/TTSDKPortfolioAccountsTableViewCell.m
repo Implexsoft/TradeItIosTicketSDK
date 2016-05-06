@@ -14,6 +14,7 @@
 @interface TTSDKPortfolioAccountsTableViewCell() {
     TTSDKUtils * utils;
     TradeItStyles * styles;
+    UITapGestureRecognizer * authTap;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
@@ -67,11 +68,18 @@
 
     self.accountLabel.text = displayTitle;
 
-    if (account.needsAuthentication) {
+    if (!account.needsAuthentication) {
         self.authenticateView.hidden = NO;
-        UITapGestureRecognizer * authTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authSelected:)];
-        [self.authenticateView addGestureRecognizer: authTap];
+
+        if (!authTap) {
+            authTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authSelected:)];
+            [self.authenticateView addGestureRecognizer: authTap];
+        }
     } else {
+        if (authTap) {
+            [self.authenticateView removeGestureRecognizer: authTap];
+        }
+
         self.authenticateView.hidden = YES;
         if (account.balance.totalValue) {
             totalValue = [utils formatPriceString:account.balance.totalValue];

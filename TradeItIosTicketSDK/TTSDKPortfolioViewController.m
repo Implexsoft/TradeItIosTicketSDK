@@ -51,16 +51,12 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
     accountsHolder = [[NSArray alloc] init];
     positionsHolder = [[NSArray alloc] init];
 
     self.holdingsHeaderTitle = @"My Holdings";
     self.selectedHoldingIndex = -1;
-
-    self.navigationController.navigationItem.hidesBackButton = NO;
-    self.navigationItem.hidesBackButton = NO;
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
@@ -69,6 +65,7 @@ static float kAccountCellHeight = 44.0f;
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self.accountsTable reloadData];
 
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
@@ -85,6 +82,7 @@ static float kAccountCellHeight = 44.0f;
         [self showLoadingAndWait];
 
         [self authenticate:^(TradeItResult * res) {
+            [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
             initialAuthenticationComplete = YES;
             [self loadPortfolioData];
         }];
