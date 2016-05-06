@@ -11,17 +11,16 @@
 @implementation TTSDKWebViewController
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) webViewDidStartLoad:(UIWebView *)webView {
+    self.navBar.topItem.title = @"Loading...";
+}
+
+-(void) webViewDidFinishLoad:(UIWebView *)webView {
+    self.navBar.topItem.title = self.pageTitle;
 }
 
 

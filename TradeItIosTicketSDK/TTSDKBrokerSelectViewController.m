@@ -137,7 +137,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
     [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
 
-    webViewController.navBar.topItem.title = title;
+    webViewController.pageTitle = title;
 
     [self presentViewController:webViewController animated:YES completion:^(void) {
         [webViewController.webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
