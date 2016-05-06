@@ -457,7 +457,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     for (NSDictionary *account in accounts) {
         [storedAccounts enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *acct, NSUInteger index, BOOL *stop) {
             if ([acct[@"accountNumber"] isEqualToString:account[@"accountNumber"]]) {
-                oldSessionUserId = acct[@"userId"];
+                oldSessionUserId = acct[@"UserId"];
                 [storedAccounts removeObjectAtIndex: index];
             }
         }];
