@@ -76,8 +76,7 @@
 }
 
 - (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
-    if (!self.login) {
-        self.authenticating = NO;
+    if (!self.login || self.authenticating) {
         return;
     }
 
@@ -86,13 +85,13 @@
     delegateViewController = viewController;
 
     [self authenticate:self.login withCompletionBlock:^(TradeItResult * res) {
+        self.authenticating = NO;
+
         [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:res];
     }];
 }
 
 -(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andResult:(TradeItResult *)res {
-    self.authenticating = NO;
-
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
         self.isAuthenticated = YES;
         self.broker = self.login.broker;

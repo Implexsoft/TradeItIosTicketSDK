@@ -16,6 +16,7 @@
 
 @implementation TTSDKViewController
 
+static NSString * kLoginNavIdentifier = @"AUTH_NAV";
 
 #pragma mark Rotation
 
@@ -89,11 +90,14 @@
                                                                        handler:^(UIAlertAction * action) {
                                                                            UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
 
-                                                                           TTSDKLoginViewController * login = [ticket instantiateViewControllerWithIdentifier: @"LOGIN"];
+                                                                           UINavigationController * loginNav = [ticket instantiateViewControllerWithIdentifier: kLoginNavIdentifier];
+                                                                           [self.ticket removeBrokerSelectFromNav: loginNav];
+
+                                                                           TTSDKLoginViewController * login = (TTSDKLoginViewController *)[loginNav.viewControllers lastObject];
                                                                            login.cancelToParent = YES;
                                                                            login.isModal = YES;
 
-                                                                           [self presentViewController:login animated:YES completion:nil];
+                                                                           [self presentViewController:loginNav animated:YES completion:nil];
                                                                        }];
 
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
