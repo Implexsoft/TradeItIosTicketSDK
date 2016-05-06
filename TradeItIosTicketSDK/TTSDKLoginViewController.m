@@ -424,8 +424,10 @@
 -(void) home:(UIBarButtonItem *)sender {
     if (self.cancelToParent) {
         [self.ticket returnToParentApp];
-    } else {
+    } else if (self.isModal) {
         [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.ticket returnToParentApp];
     }
 }
 
