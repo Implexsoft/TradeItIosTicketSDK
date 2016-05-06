@@ -101,12 +101,16 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                                                                            TTSDKLoginViewController * login = (TTSDKLoginViewController *)[loginNav.viewControllers lastObject];
                                                                            login.addBroker = broker;
                                                                            login.reAuthenticate = YES;
+                                                                           login.isModal = YES;
+                                                                           login.onCompletion = completionBlock;
 
                                                                            [self presentViewController:loginNav animated:YES completion:nil];
                                                                        }];
 
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    [self.ticket returnToParentApp];
+                    if (cancelToParent) {
+                        [self.ticket returnToParentApp];
+                    }
                 }];
 
                 [alert addAction:defaultAction];

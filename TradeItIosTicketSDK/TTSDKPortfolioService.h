@@ -25,6 +25,7 @@
 -(TTSDKPortfolioAccount *) accountByAccountNumber:(NSString *)accountNumber;
 -(void) getSummaryForAccounts:(void (^)(void)) completionBlock;
 -(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock;
+-(void) getSummaryForAccount:(TTSDKPortfolioAccount *) account withCompletionBlock:(void (^)(void)) completionBlock;
 -(void) getBalancesForAccounts:(void (^)(void)) completionBlock;
 -(void) getQuotesForAccounts:(void (^)(void)) completionBlock;
 -(void) getQuoteForPosition:(TTSDKPosition *)position withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;

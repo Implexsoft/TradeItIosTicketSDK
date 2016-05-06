@@ -315,7 +315,11 @@
     } else if (self.isModal) {
         [self autoSelectAccount: [accounts lastObject] withSession:session];
 
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^(void){
+            if(self.onCompletion) {
+                self.onCompletion(result);
+            }
+        }];
     } else {
         [self autoSelectAccount: [accounts lastObject] withSession:session];
 

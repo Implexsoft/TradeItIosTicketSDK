@@ -258,13 +258,21 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(void) getSummaryForSelectedAccount:(void (^)(void)) completionBlock {
-    if (!self.selectedAccount) {
-        completionBlock();
+    [self getSummaryForAccount:self.selectedAccount withCompletionBlock:completionBlock];
+}
+
+-(void) getSummaryForAccount:(TTSDKPortfolioAccount *) account withCompletionBlock:(void (^)(void)) completionBlock {
+    if (!account) {
+        if(completionBlock) {
+            completionBlock();
+        }
         return;
     }
-
-    [self.selectedAccount retrieveAccountSummaryWithCompletionBlock: ^(void) {
-        completionBlock();
+    
+    [account retrieveAccountSummaryWithCompletionBlock: ^(void) {
+        if(completionBlock) {
+            completionBlock();
+        }
     }];
 }
 

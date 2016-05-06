@@ -534,7 +534,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         [self performSegueWithIdentifier:kPortfolioToLoginSegueIdentifier sender:self];
     } else {
         [self authenticateSession:accountSession cancelToParent:NO broker:[accountSession broker] withCompletionBlock:^(TradeItResult * res){
-            [portfolioService getSummaryForSelectedAccount:^(void) {
+            [portfolioService getSummaryForAccount: account withCompletionBlock:^(void) {
                 [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
             }];
         }];
