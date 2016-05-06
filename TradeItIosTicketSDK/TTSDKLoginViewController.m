@@ -246,12 +246,12 @@
                         self.ticket.brokerSignUpCallback(res);
                     }
 
-                    [self.ticket returnToParentApp];
-
                     TradeItErrorResult * error = (TradeItErrorResult *)result;
 
                     [self showErrorAlert:error onAccept:^(void) {
-                        if (self.isModal) {
+                        if (self.cancelToParent) {
+                            [self.ticket returnToParentApp];
+                        } else if (self.isModal) {
                             [self dismissViewControllerAnimated:YES completion:nil];
                         } else if (self.navigationController) {
                             [self.navigationController popViewControllerAnimated:YES];

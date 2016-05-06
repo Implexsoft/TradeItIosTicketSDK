@@ -241,7 +241,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         TTSDKBrokerSelectViewController * brokerSelect = (TTSDKBrokerSelectViewController *) [nav.viewControllers objectAtIndex:0];
         brokerSelect.isModal = YES;
         if (noAccounts) {
-            brokerSelect.closeToParent = YES;
+            brokerSelect.cancelToParent = YES;
         }
     }
 }

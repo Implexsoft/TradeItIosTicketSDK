@@ -205,7 +205,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 #pragma mark Navigation
 
 -(IBAction) closePressed:(id)sender {
-    if (self.closeToParent) {
+    if (self.cancelToParent) {
         [self.ticket returnToParentApp];
         return;
     }
@@ -235,6 +235,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         TTSDKLoginViewController * dest = (TTSDKLoginViewController *)[segue destinationViewController];
         [dest setIsModal: self.isModal];
         [dest setAddBroker: selectedBroker];
+        [dest setCancelToParent: self.cancelToParent];
     }
 }
 
