@@ -30,5 +30,6 @@
 -(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock;
 -(UIView *) createPickerView: (NSString *) title;
 -(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock;
+-(void) authenticateSession:(TTSDKTicketSession *) session cancelToParent:(BOOL) cancelToParent broker:(NSString *) broker withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
 
 @end

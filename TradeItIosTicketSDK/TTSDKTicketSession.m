@@ -105,9 +105,16 @@
     } else {
 
         self.needsAuthentication = YES;
-
-        if (completionBlock && [res isKindOfClass:TradeItErrorResult.class]) {
-            completionBlock(res);
+        
+        if ([res isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *) res;
+            if ([error.code isEqualToNumber:@600] || [error.code isEqualToNumber:@700]) {
+                self.needsManualAuthentication = YES;
+            }
+            
+            if(completionBlock) {
+                completionBlock(res);
+            }
 
         } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
             TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;

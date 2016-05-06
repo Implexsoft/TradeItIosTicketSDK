@@ -59,7 +59,12 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
 
 
 -(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock {
-    [self.ticket.currentSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
+    [self authenticateSession:self.ticket.currentSession cancelToParent:YES broker:NULL withCompletionBlock:completionBlock];
+}
+
+-(void) authenticateSession:(TTSDKTicketSession *) session cancelToParent:(BOOL) cancelToParent broker:(NSString *) broker withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
+    
+    [session authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
         [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES]; // sometimes we need to disable the portfolio link during authentication, so unset it
 
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
@@ -94,7 +99,8 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                                                                            [self.ticket removeBrokerSelectFromNav: loginNav];
 
                                                                            TTSDKLoginViewController * login = (TTSDKLoginViewController *)[loginNav.viewControllers lastObject];
-                                                                           login.cancelToParent = YES;
+                                                                           login.cancelToParent = cancelToParent;
+                                                                           login.addBroker = broker;
                                                                            login.isModal = YES;
 
                                                                            [self presentViewController:loginNav animated:YES completion:nil];

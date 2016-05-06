@@ -531,7 +531,7 @@ static float kAccountCellHeight = 44.0f;
     NSDictionary * accountData = [account accountData];
     TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
 
-    [accountSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res){
+    [self authenticateSession:accountSession cancelToParent:NO broker:[accountSession broker] withCompletionBlock:^(TradeItResult * res){
         [portfolioService getSummaryForSelectedAccount:^(void) {
             [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
         }];
