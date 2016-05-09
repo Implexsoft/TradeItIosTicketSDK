@@ -159,7 +159,7 @@
             </objects>
             <point key="canvasLocation" x="-7" y="483"/>
         </scene>
-        <!--Account Link View Controller-->
+        <!--Accounts-->
         <scene sceneID="Bkj-Re-flQ">
             <objects>
                 <viewController id="zTt-u9-UeG" customClass="TTSDKAccountLinkViewController" sceneMemberID="viewController">
@@ -171,14 +171,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select accounts to link" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u95-Pe-KDT">
-                                <rect key="frame" x="74" y="92" width="173" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="28t-JE-dnw">
-                                <rect key="frame" x="8" y="141" width="304" height="206"/>
+                                <rect key="frame" x="8" y="64" width="304" height="283"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="zTt-u9-UeG" id="Qru-fo-lnP"/>
@@ -195,17 +189,15 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" id="31z-nN-u2x"/>
                             <constraint firstAttribute="trailingMargin" secondItem="28t-JE-dnw" secondAttribute="trailing" constant="-8" id="CIv-ds-dU5"/>
-                            <constraint firstItem="u95-Pe-KDT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="GhX-Nf-Pye"/>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leadingMargin" constant="-8" id="QPB-sr-rbj"/>
                             <constraint firstItem="tQF-xg-0Di" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" constant="20" id="SIV-eO-Yp3"/>
-                            <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="u95-Pe-KDT" secondAttribute="bottom" constant="28" id="fhq-O7-bjz"/>
                             <constraint firstItem="Xds-Dm-uUT" firstAttribute="top" secondItem="28t-JE-dnw" secondAttribute="bottom" constant="20" id="oew-hW-jRD"/>
-                            <constraint firstItem="u95-Pe-KDT" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" constant="28" id="wgr-nW-rzm"/>
                             <constraint firstItem="Xds-Dm-uUT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="xDR-5I-XXz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KeN-dP-HQo">
+                    <navigationItem key="navigationItem" title="Accounts" id="KeN-dP-HQo">
                         <barButtonItem key="rightBarButtonItem" title="Close" id="q1R-Zk-w9B">
                             <connections>
                                 <action selector="doneBarButtonPressed:" destination="zTt-u9-UeG" id="tfU-Hl-gUn"/>
@@ -1915,11 +1907,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Iho-lP-LWh"/>
-        <segue reference="hO5-IP-sLI"/>
-        <segue reference="b0O-lu-Vmh"/>
-        <segue reference="alq-MR-2uv"/>
-        <segue reference="kyf-iM-tIO"/>
         <segue reference="cfc-P1-7W5"/>
+        <segue reference="kyf-iM-tIO"/>
+        <segue reference="alq-MR-2uv"/>
+        <segue reference="JZr-PV-7wY"/>
+        <segue reference="hO5-IP-sLI"/>
+        <segue reference="Iho-lP-LWh"/>
     </inferredMetricsTieBreakers>
 </document>
