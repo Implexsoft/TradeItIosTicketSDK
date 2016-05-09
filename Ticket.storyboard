@@ -32,9 +32,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="NtF-Vh-6FT" kind="show" identifier="BrokerSelectToLogin" id="wuc-R0-2HR"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -53,6 +50,10 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="NtF-Vh-6FT" kind="show" identifier="BrokerSelectToLogin" id="yIw-Go-gdq"/>
+                        <segue destination="p9a-Bu-SDP" kind="show" identifier="BrokerSelectToBrokerCenter" id="mX5-hx-zdn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -553,6 +554,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJc-zt-7Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-420" y="1086"/>
+        </scene>
+        <!--Broker Center View Controller-->
+        <scene sceneID="Gja-p0-QBh">
+            <objects>
+                <tableViewController id="p9a-Bu-SDP" userLabel="Broker Center View Controller" customClass="TTSDKBrokerCenterViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tKG-9M-2Sn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lVh-5A-FgF">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lVh-5A-FgF" id="2oQ-cW-50g">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="p9a-Bu-SDP" id="kqg-Rx-BvQ"/>
+                            <outlet property="delegate" destination="p9a-Bu-SDP" id="gk4-WU-Qdi"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Open an account" id="Fdy-uA-p9g"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dcj-eT-MWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-420" y="1696"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="l7S-IR-msb">
+            <objects>
+                <navigationController storyboardIdentifier="brokerCenterNav" id="fP8-Px-0VH" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yzd-i2-Hdb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="p9a-Bu-SDP" kind="relationship" relationship="rootViewController" id="dYF-7w-adj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L51-Sm-iCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-834" y="1696"/>
         </scene>
         <!--Authentication Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
@@ -1915,10 +1963,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Iho-lP-LWh"/>
-        <segue reference="hO5-IP-sLI"/>
-        <segue reference="b0O-lu-Vmh"/>
         <segue reference="alq-MR-2uv"/>
+        <segue reference="b0O-lu-Vmh"/>
+        <segue reference="hO5-IP-sLI"/>
+        <segue reference="Iho-lP-LWh"/>
+        <segue reference="mX5-hx-zdn"/>
         <segue reference="kyf-iM-tIO"/>
         <segue reference="cfc-P1-7W5"/>
     </inferredMetricsTieBreakers>

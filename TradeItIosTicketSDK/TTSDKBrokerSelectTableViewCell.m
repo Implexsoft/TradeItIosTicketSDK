@@ -69,8 +69,12 @@ static float kDisclosureWidth = 7.0f;
 
 #pragma mark Configuration
 
--(void) configureCellWithText:(NSString *)text {
+-(void) configureCellWithText:(NSString *)text isOpenAccountCell:(BOOL)isOpenAccountCell {
     self.textLabel.text = text;
+
+    if (isOpenAccountCell) {
+        self.textLabel.textColor = styles.activeColor;
+    }
 }
 
 

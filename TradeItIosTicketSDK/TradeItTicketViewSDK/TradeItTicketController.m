@@ -11,6 +11,10 @@
 #import "TTSDKTradeViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKKeypad.h"
+#import "TTSDKBrokerCenterViewController.h"
+#import "TTSDKBrokerCenterTableViewCell.h"
+#import "TTSDKAdService.h"
+#import "TTSDKAttributedLabel.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -328,6 +332,10 @@
     [TTSDKKeypad class];
     [TTSDKAccountSelectViewController class];
     [TTSDKWebViewController class];
+    [TTSDKBrokerCenterViewController class];
+    [TTSDKBrokerCenterTableViewCell class];
+    [TTSDKAdService class];
+    [TTSDKAttributedLabel class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];
