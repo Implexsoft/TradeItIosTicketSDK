@@ -138,8 +138,8 @@ static CGFloat kExpandedHeight = 330.0f;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    NSDictionary * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
-    [cell configureWithData: brokerCenterItem];
+    TradeItBrokerCenterBroker * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
+    [cell configureWithBroker: brokerCenterItem];
     UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
 
     if (img) {
@@ -156,13 +156,12 @@ static CGFloat kExpandedHeight = 330.0f;
     //get the cell which is selected
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     
-    //set tempView color of selected cell bcoz when cell selected all view color is gone
+    //set tempView color of selected cell because when cell is selected, all view color is gone
     UIView *tempView=[selectedCell viewWithTag:3];
-    //set your color whatever you want
-    
     NSDictionary * data = (NSDictionary *)[self.brokerCenterData objectAtIndex:indexPath.row];
     tempView.backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
     tempView.opaque = YES;
+    tempView.alpha = 1.0f;
 
     if (self.selectedIndex == -1) { // user taps row with none currently expanded
         self.selectedIndex = indexPath.row;

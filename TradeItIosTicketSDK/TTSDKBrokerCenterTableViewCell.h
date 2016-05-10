@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TradeItBrokerCenterBroker.h"
 
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
 +(UIColor *) colorFromArray:(NSArray *)colorArray;
--(void) configureWithData:(NSDictionary *)data;
+-(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker;
 -(void) configureSelectedState:(BOOL)selected;
 -(void) addImage:(UIImage *)img;
 

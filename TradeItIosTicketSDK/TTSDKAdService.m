@@ -43,8 +43,8 @@
         TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
         self.brokerCenterBrokers = result.brokers;
 
-        for (NSDictionary * broker in result.brokers) {
-            NSMutableDictionary * logoItem = [[broker valueForKey:@"logo"] mutableCopy];
+        for (TradeItBrokerCenterBroker * broker in result.brokers) {
+            NSMutableDictionary * logoItem = [broker.logo mutableCopy];
             logoItem[@"broker"] = [broker valueForKey:@"broker"];
 
             [imageLoadingQueue addObject:[logoItem copy]];
@@ -87,8 +87,9 @@
 
     NSString * logoSrc = [logoItem valueForKey:@"src"];
     if ([logoSrc isEqualToString:@""]) {
-        NSString * imageLocalSrc = [NSString stringWithFormat:@"%@_logo", [logoItem valueForKey:@"broker"]];
+        NSString * imageLocalSrc = [NSString stringWithFormat:@"TradeItIosTicketSDK.bundle/%@_logo.png", [logoItem valueForKey:@"broker"]];
         img = [UIImage imageNamed: imageLocalSrc];
+
     } else {
         NSURL *url = [NSURL URLWithString: logoSrc];
         NSData * urlData = [NSData dataWithContentsOfURL:url];

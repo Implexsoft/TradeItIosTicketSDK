@@ -10,7 +10,7 @@
 
 @interface TTSDKBrokerCenterTableViewCell()
 
-@property NSDictionary * data;
+@property TradeItBrokerCenterBroker * data;
 
 @property (weak, nonatomic) IBOutlet UIImageView *logo;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
@@ -23,30 +23,38 @@
 @property (weak, nonatomic) IBOutlet UILabel *optionsTitle;
 @property (weak, nonatomic) IBOutlet UILabel *stocksEtfsTitle;
 @property (weak, nonatomic) IBOutlet UILabel *featuresTitle;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot1;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot2;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot3;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot4;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot5;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot6;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot7;
+@property (weak, nonatomic) IBOutlet UILabel *featureSlot8;
 
 @end
 
 @implementation TTSDKBrokerCenterTableViewCell
 
 
--(void) configureWithData:(NSDictionary *)data {
-    self.data = data;
+-(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker {
+    self.data = broker;
 
-    self.offerTitle.text = [data valueForKey: @"signupTitle"];
-    self.offerDescription.text = [data valueForKey: @"signupDescription"];
-    self.accountMinimum.text = [data valueForKey: @"accountMinimum"];
-    self.optionsOffer.text = [data valueForKey: @"optionsOffer"];
-    self.stocksEtfsOffer.text = [data valueForKey: @"stocksEtfsOffer"];
+    self.offerTitle.text = broker.signupTitle;
+    self.offerDescription.text = broker.signupDescription;
+    self.accountMinimum.text = broker.accountMinimum;
+    self.optionsOffer.text = broker.optionsOffer;
+    self.stocksEtfsOffer.text = broker.stocksEtfsOffer;
 
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
-    UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: [data valueForKey:@"backgroundColor"]];
+    UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.backgroundColor];
     UIView * selectedBackgroundView = [[UIView alloc] init];
     selectedBackgroundView.backgroundColor = backgroundColor;
     self.selectedBackgroundView = selectedBackgroundView;
     self.contentView.backgroundColor = backgroundColor;
 
-    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: [data valueForKey:@"textColor"]];
+    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.textColor];
     self.offerTitle.textColor = textColor;
     self.offerDescription.textColor = textColor;
     self.accountMinimum.textColor = textColor;
@@ -57,8 +65,17 @@
     [self.callToActionButton setTitleColor:textColor forState:UIControlStateNormal];
     self.detailsArrow.image = [self.detailsArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.detailsArrow.tintColor = textColor;
+    self.featuresTitle.textColor = textColor;
+    self.featureSlot1.textColor = textColor;
+    self.featureSlot2.textColor = textColor;
+    self.featureSlot3.textColor = textColor;
+    self.featureSlot4.textColor = textColor;
+    self.featureSlot5.textColor = textColor;
+    self.featureSlot6.textColor = textColor;
+    self.featureSlot7.textColor = textColor;
+    self.featureSlot8.textColor = textColor;
 
-    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"buttonBackgroundColor"]];
+    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.promptBackgroundColor];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
 }
@@ -81,7 +98,7 @@
 }
 
 -(void) setSelected:(BOOL)selected {
-    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[self.data valueForKey:@"backgroundColor"]];
+    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:self.data.backgroundColor];
 
     self.contentView.backgroundColor = bgColor;
 //    self.backgroundColor = bgColor;

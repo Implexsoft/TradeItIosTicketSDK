@@ -157,6 +157,8 @@
 		652D19871CB6AEAA0090CBBF /* TradeItStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 652D19851CB6AEAA0090CBBF /* TradeItStyles.m */; };
 		653666C21C0F7FCC00DB4D34 /* native_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* native_arrow.png */; };
 		653666C31C0F814400DB4D34 /* native_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 653666C11C0F7FCC00DB4D34 /* native_arrow.png */; };
+		6541E5451CE27C13009C8A30 /* etrade_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6541E5431CE27C13009C8A30 /* etrade_logo.png */; };
+		6541E5461CE27C13009C8A30 /* scottrade_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6541E5441CE27C13009C8A30 /* scottrade_logo.png */; };
 		654BE36A1C4EE2E100E8510F /* chevron_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 6557457B1C3AD5F9004BA180 /* chevron_right.png */; };
 		654C05841C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */; };
 		654C05851C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */; };
@@ -213,12 +215,10 @@
 		65DE13521CE0C99500674B0E /* TTSDKBrokerCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE13501CE0C99500674B0E /* TTSDKBrokerCenterTableViewCell.m */; };
 		65DE13531CE0D0E700674B0E /* TTSDKBrokerCenterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65DE134E1CE0BFBA00674B0E /* TTSDKBrokerCenterCell.xib */; };
 		65DE13551CE0FE6F00674B0E /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE13541CE0FE6F00674B0E /* arrow_down.png */; };
-		65DE13601CE1252A00674B0E /* etrade_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE13561CE1252A00674B0E /* etrade_logo.png */; };
 		65DE13611CE1252A00674B0E /* fidelity_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE13571CE1252A00674B0E /* fidelity_logo.png */; };
 		65DE13621CE1252A00674B0E /* ib_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE13581CE1252A00674B0E /* ib_logo.png */; };
 		65DE13631CE1252A00674B0E /* optionshouse_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE13591CE1252A00674B0E /* optionshouse_logo.png */; };
 		65DE13651CE1252A00674B0E /* schwab_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135B1CE1252A00674B0E /* schwab_logo.png */; };
-		65DE13661CE1252A00674B0E /* scottrade_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135C1CE1252A00674B0E /* scottrade_logo.png */; };
 		65DE13671CE1252A00674B0E /* td_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135D1CE1252A00674B0E /* td_logo.png */; };
 		65DE13681CE1252A00674B0E /* tradestation_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135E1CE1252A00674B0E /* tradestation_logo.png */; };
 		65DE13691CE1252A00674B0E /* tradier_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135F1CE1252A00674B0E /* tradier_logo.png */; };
@@ -465,6 +465,8 @@
 		652D19841CB6AEAA0090CBBF /* TradeItStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItStyles.h; sourceTree = "<group>"; };
 		652D19851CB6AEAA0090CBBF /* TradeItStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItStyles.m; sourceTree = "<group>"; };
 		653666C11C0F7FCC00DB4D34 /* native_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = native_arrow.png; sourceTree = "<group>"; };
+		6541E5431CE27C13009C8A30 /* etrade_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = etrade_logo.png; sourceTree = "<group>"; };
+		6541E5441CE27C13009C8A30 /* scottrade_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scottrade_logo.png; sourceTree = "<group>"; };
 		654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioAccountsTableViewCell.h; sourceTree = "<group>"; };
 		654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioAccountsTableViewCell.m; sourceTree = "<group>"; };
 		65554E501C49802100BBA6F6 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
@@ -521,12 +523,10 @@
 		65DE134F1CE0C99500674B0E /* TTSDKBrokerCenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKBrokerCenterTableViewCell.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKBrokerCenterTableViewCell.h; sourceTree = "<group>"; };
 		65DE13501CE0C99500674B0E /* TTSDKBrokerCenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKBrokerCenterTableViewCell.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKBrokerCenterTableViewCell.m; sourceTree = "<group>"; };
 		65DE13541CE0FE6F00674B0E /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
-		65DE13561CE1252A00674B0E /* etrade_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = etrade_logo.png; sourceTree = "<group>"; };
 		65DE13571CE1252A00674B0E /* fidelity_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fidelity_logo.png; sourceTree = "<group>"; };
 		65DE13581CE1252A00674B0E /* ib_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ib_logo.png; sourceTree = "<group>"; };
 		65DE13591CE1252A00674B0E /* optionshouse_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = optionshouse_logo.png; sourceTree = "<group>"; };
 		65DE135B1CE1252A00674B0E /* schwab_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schwab_logo.png; sourceTree = "<group>"; };
-		65DE135C1CE1252A00674B0E /* scottrade_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scottrade_logo.png; sourceTree = "<group>"; };
 		65DE135D1CE1252A00674B0E /* td_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = td_logo.png; sourceTree = "<group>"; };
 		65DE135E1CE1252A00674B0E /* tradestation_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tradestation_logo.png; sourceTree = "<group>"; };
 		65DE135F1CE1252A00674B0E /* tradier_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tradier_logo.png; sourceTree = "<group>"; };
@@ -1060,12 +1060,12 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				65DE13561CE1252A00674B0E /* etrade_logo.png */,
+				6541E5431CE27C13009C8A30 /* etrade_logo.png */,
+				6541E5441CE27C13009C8A30 /* scottrade_logo.png */,
 				65DE13571CE1252A00674B0E /* fidelity_logo.png */,
 				65DE13581CE1252A00674B0E /* ib_logo.png */,
 				65DE13591CE1252A00674B0E /* optionshouse_logo.png */,
 				65DE135B1CE1252A00674B0E /* schwab_logo.png */,
-				65DE135C1CE1252A00674B0E /* scottrade_logo.png */,
 				65DE135D1CE1252A00674B0E /* td_logo.png */,
 				65DE135E1CE1252A00674B0E /* tradestation_logo.png */,
 				65DE135F1CE1252A00674B0E /* tradier_logo.png */,
@@ -1370,8 +1370,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				656886401CDA31E70082D96E /* success_icon.png in Resources */,
+				6541E5451CE27C13009C8A30 /* etrade_logo.png in Resources */,
 				65DE13651CE1252A00674B0E /* schwab_logo.png in Resources */,
 				65F240CB1C45AA7000DD2309 /* Ticket.storyboard in Resources */,
+				6541E5461CE27C13009C8A30 /* scottrade_logo.png in Resources */,
 				65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */,
 				6510FBC01C3DBD1B009CAFF7 /* TTSDKPortfolioHoldingCell.xib in Resources */,
 				6568F3701C1607B30022D537 /* TTSDKcalc.xib in Resources */,
@@ -1383,14 +1385,12 @@
 				6508C4D21C7A254900612B62 /* TTSDKHoldingsHeader.xib in Resources */,
 				65DE13611CE1252A00674B0E /* fidelity_logo.png in Resources */,
 				65DE13671CE1252A00674B0E /* td_logo.png in Resources */,
-				65DE13601CE1252A00674B0E /* etrade_logo.png in Resources */,
 				6510FBBE1C3D8DDB009CAFF7 /* TTSDKPortfolioAccountCell.xib in Resources */,
 				65AF4DE71CC54FB500ACB3A4 /* chevron_down.png in Resources */,
 				650E2D401C45BE9700A3069E /* trade_icon@3x.png in Resources */,
 				65554E511C49802800BBA6F6 /* backspace.png in Resources */,
 				656886421CDA56400082D96E /* lock.png in Resources */,
 				6568863B1CDA25D70082D96E /* indicator.png in Resources */,
-				65DE13661CE1252A00674B0E /* scottrade_logo.png in Resources */,
 				654BE36A1C4EE2E100E8510F /* chevron_right.png in Resources */,
 				65DE13531CE0D0E700674B0E /* TTSDKBrokerCenterCell.xib in Resources */,
 				6508C4CC1C7A0BD800612B62 /* TTSDKAccountsHeader.xib in Resources */,

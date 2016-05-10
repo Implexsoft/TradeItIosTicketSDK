@@ -645,12 +645,12 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             self.brokerList = [self getDefaultBrokerList];
         } else {
             NSMutableArray * brokers = [[NSMutableArray alloc] init];
-            
+
             for (NSDictionary * broker in brokerList) {
                 NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
                 [brokers addObject:entry];
             }
-            
+
             self.brokerList = brokers;
         }
     }];

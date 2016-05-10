@@ -64,10 +64,10 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4.95/stock trade" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJF-Fz-tsz" userLabel="OptionsOffer">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4.95/stock trade" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJF-Fz-tsz" userLabel="OptionsOffer">
                         <rect key="frame" x="136" y="111" width="88" height="12"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="y4g-yl-dki"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="12" id="y4g-yl-dki"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -227,6 +227,14 @@
                 <outlet property="accountMinimum" destination="cBL-cA-ksj" id="swh-1C-GGt"/>
                 <outlet property="callToActionButton" destination="4L9-5P-eZi" id="s6U-gG-Fpu"/>
                 <outlet property="detailsArrow" destination="oTU-sw-M4t" id="Nun-PG-kfd"/>
+                <outlet property="featureSlot1" destination="jFp-Xy-oOz" id="CFI-1U-4sU"/>
+                <outlet property="featureSlot2" destination="EdW-E6-279" id="8xT-Sj-lq9"/>
+                <outlet property="featureSlot3" destination="Nyq-8B-ewx" id="3et-Oc-dgv"/>
+                <outlet property="featureSlot4" destination="FM8-X9-wcd" id="lha-ZZ-usf"/>
+                <outlet property="featureSlot5" destination="RWs-iR-IPY" id="0TY-ck-3c6"/>
+                <outlet property="featureSlot6" destination="GhH-1m-VDu" id="hkb-dx-DOA"/>
+                <outlet property="featureSlot7" destination="Pgx-nm-L2i" id="7ub-fp-48p"/>
+                <outlet property="featureSlot8" destination="gUn-Qq-N8b" id="fzh-0d-FAo"/>
                 <outlet property="featuresTitle" destination="ttA-bv-AIc" id="XhZ-PL-WkB"/>
                 <outlet property="logo" destination="ET7-eJ-Ecz" id="uPQ-wa-N0j"/>
                 <outlet property="offerDescription" destination="rcD-c0-UHG" id="Ree-fq-Tij"/>
