@@ -24,6 +24,7 @@
 #import "TradeItGetPositionsResult.h"
 #import "TTSDKTicketSession.h"
 #import "TTSDKPosition.h"
+#import "TTSDKAdService.h"
 
 @interface TTSDKTradeItTicket : NSObject
 
@@ -45,6 +46,7 @@
 @property TradeItPreviewTradeRequest * previewRequest;
 @property TradeItAuthControllerResult * authResultContainer;
 @property TradeItTicketControllerResult * resultContainer;
+@property TTSDKAdService * adService;
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 

@@ -31,124 +31,71 @@ static CGFloat kExpandedHeight = 330.0f;
 
     self.brokerCenterImages = [[NSArray alloc] init];
 
-    // used in place of real data
-    self.brokerCenterData = @[
-                              @{
-                                  @"broker":@"fidelity",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$7.95 + $.75/contract",
-                                  @"stocksEtfsOffer": @"$7.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:80.0f/255.0f green:185.0f/255.0f blue:72.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:255.0f/255.0f green:155.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"etrade",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$10,000",
-                                  @"optionsOffer": @"$9.99 + $.75/contract",
-                                  @"stocksEtfsOffer": @"$9.99 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:23.0f/255.0f green:34.0f/255.0f blue:61.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:170.0f/255.0f green:123.0f/255.0f blue:228.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"scottrade",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"50 Free Trades",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$7 + $1.25/contract",
-                                  @"stocksEtfsOffer": @"$7 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:66.0f/255.0f green:20.0f/255.0f blue:106.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor whiteColor]
-                                  },
-                              @{
-                                  @"broker":@"optionshouse",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$4.95 + $.50/contract",
-                                  @"stocksEtfsOffer": @"$4.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:224.0f/255.0f green:255.0f/255.0f blue:176.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor colorWithRed:128.0f/255.0f green:128.0f/255.0f blue:128.0f/255.0f alpha:1.0f],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:154.0f/255.0f green:159.0f/255.0f blue:153.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"tradeking",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"$100 in free trade commission, no minimum amount!",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"",
-                                  @"optionsOffer": @"$4.95 + $.65/contract",
-                                  @"stocksEtfsOffer": @"$4.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:100.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:58.0f/255.0f green:149.0f/255.0f blue:202.0f/255.0f alpha:1.0f]
-                                  }
-                              ];
-
+    if (self.ticket.adService.brokerCenterBrokers) {
+        self.brokerCenterData = self.ticket.adService.brokerCenterBrokers;
+    }
 
     // make sure to update this once real data is being used
-    UIColor * firstItemBackgroundColor = (UIColor *) [[self.brokerCenterData firstObject] valueForKey:@"backgroundColor"];
-    UIColor * lastItemBackgroundColor = (UIColor *) [[self.brokerCenterData lastObject] valueForKey:@"backgroundColor"];
+    UIColor * firstItemBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[[self.brokerCenterData firstObject] valueForKey:@"backgroundColor"]];
+    UIColor * lastItemBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[[self.brokerCenterData lastObject] valueForKey:@"backgroundColor"]];
     self.firstItemBackgroundColor = firstItemBackgroundColor;
     self.lastItemBackgroundColor = lastItemBackgroundColor;
 
     self.brokerCenterImagesLoadingQueue = [[NSMutableArray alloc] init];
     for (NSDictionary * brokerCenterData in self.brokerCenterData) {
         NSNumber * ind = [[NSNumber alloc] initWithInteger:[self.brokerCenterData indexOfObject:brokerCenterData]];
-        NSDictionary * queueItem = @{@"logo": [brokerCenterData valueForKey:@"logo"], @"index": ind};
+        NSDictionary * queueItem = @{@"broker":[brokerCenterData valueForKey:@"broker"], @"logo": [brokerCenterData valueForKey:@"logo"], @"index": ind};
         [self.brokerCenterImagesLoadingQueue addObject: queueItem];
     }
 
     self.selectedIndex = -1;
 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        [self loadImages];
-    });
-}
-
--(void) loadImages {
 //    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
 //    dispatch_async(queue, ^{
-
-    NSString * logoSrc = [self.brokerCenterImagesLoadingQueue firstObject];
-    [self.brokerCenterImagesLoadingQueue removeObjectAtIndex: 0];
-
-    UIImage *img;
-    if ([logoSrc isEqualToString:@""]) {
-
-    }
-
-    NSURL *url = [NSURL URLWithString: logoSrc];
-    NSData * urlData = [NSData dataWithContentsOfURL:url];
-    img = [[UIImage alloc] initWithData: urlData];
-
-    NSMutableArray * brokerCenterImages = [self.brokerCenterImages mutableCopy];
-    [brokerCenterImages addObject: img];
-
-
-    self.brokerCenterImages = [brokerCenterImages copy];
-
-    if (self.brokerCenterImagesLoadingQueue.count > 0) {
-        [self loadImages];
-    }
+//        [self loadImages];
 //    });
 }
+
+//-(void) loadImages {
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+//    dispatch_async(queue, ^{
+//        for (NSDictionary * queueItem in self.brokerCenterImagesLoadingQueue) {
+//            UIImage * img;
+//
+//            NSDictionary * logo = [queueItem valueForKey:@"logo"];
+//
+//            if ([[logo valueForKey:@"src"] isEqualToString:@""]) {
+//
+//                
+//
+//            } else {
+//
+//            }
+//        }
+//
+////    NSString * logoSrc = [self.brokerCenterImagesLoadingQueue firstObject];
+////    [self.brokerCenterImagesLoadingQueue removeObjectAtIndex: 0];
+////
+////    UIImage *img;
+////    if ([logoSrc isEqualToString:@""]) {
+////
+////    }
+////
+////    NSURL *url = [NSURL URLWithString: logoSrc];
+////    NSData * urlData = [NSData dataWithContentsOfURL:url];
+////    img = [[UIImage alloc] initWithData: urlData];
+////
+////    NSMutableArray * brokerCenterImages = [self.brokerCenterImages mutableCopy];
+////    [brokerCenterImages addObject: img];
+////
+////
+////    self.brokerCenterImages = [brokerCenterImages copy];
+////
+////    if (self.brokerCenterImagesLoadingQueue.count > 0) {
+////        [self loadImages];
+////    }
+//    });
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.brokerCenterData.count;
@@ -183,21 +130,24 @@ static CGFloat kExpandedHeight = 330.0f;
     cellIdentifier = @"BrokerCenterIdentifier";
     nibIdentifier = @"TTSDKBrokerCenterCell";
     TTSDKBrokerCenterTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
+
     if (cell == nil) {
         [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-        cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
 
+        cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
-    BOOL selected = self.selectedIndex == indexPath.row;
+    NSDictionary * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
+    [cell configureWithData: brokerCenterItem];
+    UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
 
-    [cell configureWithData: [self.brokerCenterData objectAtIndex: indexPath.row]];
-
-    if (self.brokerCenterImages.count && indexPath.row <= (self.brokerCenterImages.count-1)) {
-        [cell addImage: [self.brokerCenterImages objectAtIndex:indexPath.row]];
-        [cell configureSelectedState: selected];
+    if (img) {
+        [cell addImage:img];
     }
+
+    BOOL selected = self.selectedIndex == indexPath.row;
+    [cell configureSelectedState: selected];
 
     return cell;
 }
@@ -211,7 +161,7 @@ static CGFloat kExpandedHeight = 330.0f;
     //set your color whatever you want
     
     NSDictionary * data = (NSDictionary *)[self.brokerCenterData objectAtIndex:indexPath.row];
-    tempView.backgroundColor = (UIColor *)[data valueForKey:@"backgroundColor"];
+    tempView.backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
     tempView.opaque = YES;
 
     if (self.selectedIndex == -1) { // user taps row with none currently expanded

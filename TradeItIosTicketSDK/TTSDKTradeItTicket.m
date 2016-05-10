@@ -24,9 +24,9 @@
 #import "TradeItQuotesResult.h"
 #import "TTSDKPortfolioService.h"
 
+
 @interface TTSDKTradeItTicket() {
     TradeItTradeService * tradeService;
-
 }
 
 @property TTSDKUtils * utils;
@@ -114,6 +114,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
         if (self.currentSession) {
             [self retrieveQuote:^(void) {}];
+
+            self.adService = [[TTSDKAdService alloc] init];
+            [self.adService getBrokerCenter];
         }
 
         [self authenticateSessionsInBackground];

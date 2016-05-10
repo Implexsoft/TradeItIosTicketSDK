@@ -7,10 +7,17 @@
 //
 
 #import "TTSDKAdService.h"
+#import "TradeItBrokerCenterRequest.h"
+#import "TradeItPublisherService.h"
+#import "TTSDKTradeItTicket.h"
 
-@interface TTSDKAdService()
+@interface TTSDKAdService() {
+    TTSDKTradeItTicket * globalTicket;
+    NSMutableArray * imageLoadingQueue;
+}
 
 @property NSArray * data;
+@property NSArray * brokerCenterLogoImages;
 
 @end
 
@@ -18,85 +25,85 @@
 
 - (id)init {
     if (self = [super init]) {
-
+        globalTicket = [TTSDKTradeItTicket globalTicket];
+        self.brokerCenterLogoImages = [[NSArray alloc] init];
+        imageLoadingQueue = [[NSMutableArray alloc] init];
     }
-    
+
     return self;
 }
 
--(void) load {
+-(void) getBrokerCenter {
+    self.isRetrievingBrokerCenter = YES;
 
-    // used in place of real data
-    self.data = @[
-                              @{
-                                  @"broker":@"fidelity",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$7.95 + $.75/contract",
-                                  @"stocksEtfsOffer": @"$7.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:80.0f/255.0f green:185.0f/255.0f blue:72.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:255.0f/255.0f green:155.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"etrade",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$10,000",
-                                  @"optionsOffer": @"$9.99 + $.75/contract",
-                                  @"stocksEtfsOffer": @"$9.99 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:23.0f/255.0f green:34.0f/255.0f blue:61.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:170.0f/255.0f green:123.0f/255.0f blue:228.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"scottrade",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"50 Free Trades",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$7 + $1.25/contract",
-                                  @"stocksEtfsOffer": @"$7 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:66.0f/255.0f green:20.0f/255.0f blue:106.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor whiteColor]
-                                  },
-                              @{
-                                  @"broker":@"optionshouse",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"Free Trades for 60 days & Up to $600",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"$2,500",
-                                  @"optionsOffer": @"$4.95 + $.50/contract",
-                                  @"stocksEtfsOffer": @"$4.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:224.0f/255.0f green:255.0f/255.0f blue:176.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor colorWithRed:128.0f/255.0f green:128.0f/255.0f blue:128.0f/255.0f alpha:1.0f],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:154.0f/255.0f green:159.0f/255.0f blue:153.0f/255.0f alpha:1.0f]
-                                  },
-                              @{
-                                  @"broker":@"tradeking",
-                                  @"logo":@"",
-                                  @"logoActive": @"1",
-                                  @"offerTitle":@"$100 in free trade commission, no minimum amount!",
-                                  @"offerDescription": @"Open an Account",
-                                  @"accountMinimum": @"",
-                                  @"optionsOffer": @"$4.95 + $.65/contract",
-                                  @"stocksEtfsOffer": @"$4.95 Online Trades",
-                                  @"backgroundColor": [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:100.0f/255.0f alpha:1.0f],
-                                  @"textColor": [UIColor whiteColor],
-                                  @"buttonBackgroundColor": [UIColor colorWithRed:58.0f/255.0f green:149.0f/255.0f blue:202.0f/255.0f alpha:1.0f]
-                                  }
-                              ];
+    TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithSession:globalTicket.currentSession];
+    TradeItBrokerCenterRequest * brokerRequest = [[TradeItBrokerCenterRequest alloc] init];
 
-    
+    [publisherService getBrokerCenter:brokerRequest withCompletionBlock:^(TradeItResult *res) {
+        TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
+        self.brokerCenterBrokers = result.brokers;
 
+        for (NSDictionary * broker in result.brokers) {
+            NSMutableDictionary * logoItem = [[broker valueForKey:@"logo"] mutableCopy];
+            logoItem[@"broker"] = [broker valueForKey:@"broker"];
+
+            [imageLoadingQueue addObject:[logoItem copy]];
+        }
+
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^{
+            [self loadImages];
+        });
+
+        self.isRetrievingBrokerCenter = NO;
+    }];
+}
+
+-(UIImage *) logoImageByBoker:(NSString *)broker {
+    if (!self.brokerCenterLogoImages || !self.brokerCenterLogoImages.count) {
+        return nil;
+    }
+
+    NSDictionary * selectedLogoItem;
+
+    for (NSDictionary * logoItem in self.brokerCenterLogoImages) {
+        if (logoItem && [[logoItem valueForKey:@"broker"] isEqualToString:broker]) {
+            selectedLogoItem = logoItem;
+        }
+    }
+
+    if (selectedLogoItem) {
+        return [selectedLogoItem valueForKey:@"image"];
+    } else {
+        return nil;
+    }
+}
+
+-(void) loadImages {
+    NSDictionary * logoItem = [imageLoadingQueue firstObject];
+    [imageLoadingQueue removeObjectAtIndex:0];
+
+    UIImage * img;
+
+    NSString * logoSrc = [logoItem valueForKey:@"src"];
+    if ([logoSrc isEqualToString:@""]) {
+        NSString * imageLocalSrc = [NSString stringWithFormat:@"%@_logo", [logoItem valueForKey:@"broker"]];
+        img = [UIImage imageNamed: imageLocalSrc];
+    } else {
+        NSURL *url = [NSURL URLWithString: logoSrc];
+        NSData * urlData = [NSData dataWithContentsOfURL:url];
+        img = [[UIImage alloc] initWithData: urlData];
+    }
+
+    if (img) {
+        NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
+        [mutableImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
+        self.brokerCenterLogoImages = [mutableImages copy];
+    }
+
+    if (imageLoadingQueue.count) {
+        [self loadImages];
+    }
 }
 
 @end

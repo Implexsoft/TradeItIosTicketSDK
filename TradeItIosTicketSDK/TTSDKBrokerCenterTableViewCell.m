@@ -31,33 +31,22 @@
 
 -(void) configureWithData:(NSDictionary *)data {
     self.data = data;
-//    NSString * path = [data valueForKey: @"logo"];
-//    if (![path isEqualToString:@""]) {
-//        NSURL *url = [NSURL URLWithString:path];
-//        NSData * urlData = [NSData dataWithContentsOfURL:url];
-//        UIImage *img = [[UIImage alloc] initWithData: urlData];
-//        self.logo.image = img;
-//
-//        [self.logo.layer setMinificationFilter:kCAFilterTrilinear];
-//    }
 
-    self.offerTitle.text = [data valueForKey: @"offerTitle"];
-    self.offerDescription.text = [data valueForKey: @"offerDescription"];
+    self.offerTitle.text = [data valueForKey: @"signupTitle"];
+    self.offerDescription.text = [data valueForKey: @"signupDescription"];
     self.accountMinimum.text = [data valueForKey: @"accountMinimum"];
     self.optionsOffer.text = [data valueForKey: @"optionsOffer"];
     self.stocksEtfsOffer.text = [data valueForKey: @"stocksEtfsOffer"];
 
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
-    UIColor * selectedBackgroundColor = (UIColor *)[data valueForKey:@"backgroundColor"];
-
+    UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: [data valueForKey:@"backgroundColor"]];
     UIView * selectedBackgroundView = [[UIView alloc] init];
-    selectedBackgroundView.backgroundColor = selectedBackgroundColor;
+    selectedBackgroundView.backgroundColor = backgroundColor;
     self.selectedBackgroundView = selectedBackgroundView;
-    self.contentView.backgroundColor = selectedBackgroundColor;
+    self.contentView.backgroundColor = backgroundColor;
 
-    UIColor * textColor = (UIColor *)[data valueForKey:@"textColor"];
-
+    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: [data valueForKey:@"textColor"]];
     self.offerTitle.textColor = textColor;
     self.offerDescription.textColor = textColor;
     self.accountMinimum.textColor = textColor;
@@ -66,17 +55,33 @@
     self.stocksEtfsOffer.textColor = textColor;
     self.stocksEtfsTitle.textColor = textColor;
     [self.callToActionButton setTitleColor:textColor forState:UIControlStateNormal];
-
     self.detailsArrow.image = [self.detailsArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.detailsArrow.tintColor = textColor;
 
-    UIColor * buttonBackgroundColor = (UIColor *)[data valueForKey:@"buttonBackgroundColor"];
+    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"buttonBackgroundColor"]];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
 }
 
++(UIColor *) colorFromArray:(NSArray *)colorArray {
+    NSNumber * red = [colorArray objectAtIndex:0];
+    NSNumber * green = [colorArray objectAtIndex:1];
+    NSNumber * blue = [colorArray objectAtIndex:2];
+    NSNumber * alpha;
+
+    if (colorArray.count > 3) {
+        alpha = [colorArray objectAtIndex:3];
+    } else {
+        alpha = @1.0;
+    }
+
+    UIColor * color = [UIColor colorWithRed: [red floatValue]/255.0f  green:[green floatValue]/255.0f blue:[blue floatValue]/255.0f alpha:[alpha floatValue]];
+
+    return color;
+}
+
 -(void) setSelected:(BOOL)selected {
-    UIColor * bgColor = (UIColor *)[self.data valueForKey:@"backgroundColor"];
+    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[self.data valueForKey:@"backgroundColor"]];
 
     self.contentView.backgroundColor = bgColor;
 //    self.backgroundColor = bgColor;

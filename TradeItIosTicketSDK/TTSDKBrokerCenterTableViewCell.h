@@ -10,6 +10,7 @@
 
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
++(UIColor *) colorFromArray:(NSArray *)colorArray;
 -(void) configureWithData:(NSDictionary *)data;
 -(void) configureSelectedState:(BOOL)selected;
 -(void) addImage:(UIImage *)img;

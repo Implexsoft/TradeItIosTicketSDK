@@ -11,4 +11,10 @@
 
 @interface TTSDKAdService : NSObject
 
+@property BOOL isRetrievingBrokerCenter;
+@property NSArray * brokerCenterBrokers;
+
+-(void) getBrokerCenter;
+-(UIImage *) logoImageByBoker:(NSString *)broker;
+
 @end
