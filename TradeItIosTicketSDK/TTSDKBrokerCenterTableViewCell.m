@@ -15,7 +15,6 @@
 @property TradeItBrokerCenterBroker * data;
 @property TTSDKTradeItTicket * ticket;
 
-
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *offerDescription;
@@ -39,13 +38,39 @@
 @property (weak, nonatomic) IBOutlet UILabel *logoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *disclaimerButton;
+@property (weak, nonatomic) IBOutlet UIView *disclaimerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *disclaimerHeightConstraint;
 
 @end
 
 @implementation TTSDKBrokerCenterTableViewCell
 
+
+#pragma Mark Class methods
+
++(UIColor *) colorFromArray:(NSArray *)colorArray {
+    NSNumber * red = [colorArray objectAtIndex:0];
+    NSNumber * green = [colorArray objectAtIndex:1];
+    NSNumber * blue = [colorArray objectAtIndex:2];
+    NSNumber * alpha;
+    
+    if (colorArray.count > 3) {
+        alpha = [colorArray objectAtIndex:3];
+    } else {
+        alpha = @1.0;
+    }
+    
+    UIColor * color = [UIColor colorWithRed: [red floatValue]/255.0f  green:[green floatValue]/255.0f blue:[blue floatValue]/255.0f alpha:[alpha floatValue]];
+    
+    return color;
+}
+
+
+#pragma Mark Initialization
+
 -(void) awakeFromNib {
     self.ticket = [TTSDKTradeItTicket globalTicket];
+    self.disclaimerToggled = NO;
 }
 
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker {
@@ -59,20 +84,31 @@
 
     [self populateStocksEtfsOffer];
 
+    [self populateFeatures: broker.features];
+
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
-    UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.backgroundColor];
-    UIView * selectedBackgroundView = [[UIView alloc] init]; //
-    selectedBackgroundView.backgroundColor = backgroundColor;
-    self.selectedBackgroundView = selectedBackgroundView;
-    self.contentView.backgroundColor = backgroundColor; //backgroundColor
+//    [self populateDisclaimers];
+
+    [self populateStyles];
+}
+
+
+#pragma Mark Custom Styles
+
+-(void) populateStyles {
+    // SET COLORS
+    
+    UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.backgroundColor];
+    
+    self.contentView.backgroundColor = backgroundColor;
     self.backgroundColor = backgroundColor;
     self.bgView.backgroundColor = backgroundColor;
-
-    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.textColor];
+    
+    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
+    
     self.offerTitle.textColor = textColor;
     self.offerDescription.textColor = textColor;
-
     self.accountMinimum.textColor = textColor;
     self.optionsOffer.textColor = textColor;
     self.optionsTitle.textColor = textColor;
@@ -91,16 +127,45 @@
     self.featureSlot7.textColor = textColor;
     self.featureSlot8.textColor = textColor;
     self.logoLabel.textColor = textColor;
-
-    [self populateFeatures: broker.features];
-
-    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.promptBackgroundColor];
-    [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:broker.promptTextColor] forState:UIControlStateNormal];
+    [self.disclaimerButton setTitleColor:textColor forState:UIControlStateNormal];
+    
+    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.promptBackgroundColor];
+    [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:self.data.promptTextColor] forState:UIControlStateNormal];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
-
-
 }
+
+-(void) addImage:(UIImage *)img {
+    if (img) {
+        self.logoLabel.hidden = YES;
+        self.logoLabel.text = @"";
+        
+        self.logo.image = img;
+        [self.logo layoutSubviews];
+        
+        // we need to determine the actual scale factor the image will use and then set the height constraint appropriately
+        float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
+        float imageHeight = self.logo.image.size.height * scaleFactor;
+        
+        self.logoHeightConstraint.constant = imageHeight;
+        
+    } else {
+        self.logo.image = nil;
+        self.logoLabel.hidden = NO;
+        self.logoLabel.text = [self.ticket getBrokerDisplayString: self.data.broker];
+    }
+}
+
+-(void) configureSelectedState:(BOOL)selected {
+    if (selected) {
+        self.detailsArrow.hidden = YES;
+    } else {
+        self.detailsArrow.hidden = NO;
+    }
+}
+
+
+#pragma Mark Populate data
 
 -(void) populateSignupOffer {
     self.offerTitle.text = self.data.signupTitle;
@@ -213,104 +278,43 @@
     }
 }
 
-+(UIColor *) colorFromArray:(NSArray *)colorArray {
-    NSNumber * red = [colorArray objectAtIndex:0];
-    NSNumber * green = [colorArray objectAtIndex:1];
-    NSNumber * blue = [colorArray objectAtIndex:2];
-    NSNumber * alpha;
+-(void) populateDisclaimers {
+    if (self.data.disclaimers && self.data.disclaimers.count) {
+        self.disclaimerHeightConstraint.constant = 160.0f;
 
-    if (colorArray.count > 3) {
-        alpha = [colorArray objectAtIndex:3];
+        for (NSDictionary * disclaimerData in self.data.disclaimers) {
+            UILabel * disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40.0f)];
+            disclaimerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            disclaimerLabel.numberOfLines = 0; // allows multiple lines
+            disclaimerLabel.text = [disclaimerData valueForKey:@"content"];
+            [self.disclaimerView addSubview: disclaimerLabel];
+        }
+
     } else {
-        alpha = @1.0;
+        self.disclaimerHeightConstraint.constant = 0.0f;
     }
-
-    UIColor * color = [UIColor colorWithRed: [red floatValue]/255.0f  green:[green floatValue]/255.0f blue:[blue floatValue]/255.0f alpha:[alpha floatValue]];
-
-    return color;
 }
 
--(void) setSelected:(BOOL)selected animated:(BOOL)animated {
-    [CATransaction begin];
-    [CATransaction setDisableActions: YES];
-    [UIView setAnimationsEnabled:NO];
 
-    [super setSelected:NO animated:NO];
-    
-    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:self.data.backgroundColor];
+#pragma Mark Events
 
-    self.bgView.backgroundColor = bgColor;
-    self.bgView.alpha = 1.0f;
-
-    self.selectedBackgroundView.backgroundColor = bgColor;
-    self.selectedBackgroundView.alpha = 1.0f;
-
-    self.contentView.backgroundColor = bgColor;
-    self.contentView.alpha = 1.0f;
-
-    self.backgroundColor = bgColor;
-    self.alpha = 1.0f;
-
-    [UIView setAnimationsEnabled:YES];
-    [CATransaction commit];
-}
-
--(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [CATransaction begin];
-    [CATransaction setDisableActions: YES];
-    [UIView setAnimationsEnabled:NO];
-
-    [super setHighlighted:NO animated:NO];
-
-    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:self.data.backgroundColor];
-
-    self.bgView.backgroundColor = bgColor;
-    self.bgView.alpha = 1.0f;
-
-    self.selectedBackgroundView.backgroundColor = bgColor;
-    self.selectedBackgroundView.alpha = 1.0f;
-
-    self.contentView.backgroundColor = bgColor;
-    self.contentView.alpha = 1.0f;
-
-    self.backgroundColor = bgColor;
-    self.alpha = 1.0f;
-
-    [UIView setAnimationsEnabled:YES];
-    [CATransaction commit];
-}
 - (IBAction)promptPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(didSelectLink:withTitle:)]) {
-        [self.delegate didSelectLink:@"http://google.com" withTitle:@"GOOG"];
+    if ([self.delegate respondsToSelector:@selector(didSelectLink:withTitle:)] && ![self.data.promptUrl isEqualToString:@""]) {
+        [self.delegate didSelectLink: self.data.promptUrl withTitle: [self.ticket getBrokerDisplayString: self.data.broker]];
     }
 }
 
--(void) addImage:(UIImage *)img {
-    if (img) {
-        self.logoLabel.hidden = YES;
-        self.logoLabel.text = @"";
-
-        self.logo.image = img;
-        [self.logo layoutSubviews];
-
-        // we need to determine the actual scale factor the image will use and then set the height constraint appropriately
-        float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
-        float imageHeight = self.logo.image.size.height * scaleFactor;
-
-        self.logoHeightConstraint.constant = imageHeight;
-
-    } else {
-        self.logo.image = nil;
-        self.logoLabel.hidden = NO;
-        self.logoLabel.text = [self.ticket getBrokerDisplayString: self.data.broker];
-    }
-}
-
--(void) configureSelectedState:(BOOL)selected {
-    if (selected) {
-        self.detailsArrow.hidden = YES;
-    } else {
-        self.detailsArrow.hidden = NO;
+- (IBAction)disclaimerButtonPressed:(id)sender {
+    self.disclaimerToggled = !self.disclaimerToggled;
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectDisclaimer:)]) {
+        [self.delegate didSelectDisclaimer:self.disclaimerToggled];
+        
+        if (self.disclaimerToggled) {
+            [self.disclaimerButton setTitle:@"CLOSE" forState:UIControlStateNormal];
+        } else {
+            [self.disclaimerButton setTitle:@"DISCLAIMER" forState:UIControlStateNormal];
+        }
     }
 }
 

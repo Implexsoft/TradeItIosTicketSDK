@@ -19,6 +19,8 @@
 @property UIColor * firstItemBackgroundColor;
 @property UIColor * lastItemBackgroundColor;
 
+@property BOOL disclaimerOpen;
+
 @end
 
 @implementation TTSDKBrokerCenterViewController
@@ -29,6 +31,8 @@ static CGFloat kExpandedHeight = 330.0f;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+
+    self.disclaimerOpen = NO;
 
     if (self.isModal) {
         UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closePressed:)];
@@ -77,13 +81,23 @@ static CGFloat kExpandedHeight = 330.0f;
     [self showWebViewWithURL:link andTitle:title];
 }
 
+-(void) didSelectDisclaimer:(BOOL)selected {
+    self.disclaimerOpen = selected;
+
+    [self.tableView reloadData];
+}
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.brokerCenterData.count;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.selectedIndex == indexPath.row) {
-        return kExpandedHeight;
+        if (self.disclaimerOpen) {
+            return kExpandedHeight + 160.0f;
+        } else {
+            return kExpandedHeight;
+        }
     } else {
         return kDefaultHeight;
     }
@@ -127,6 +141,8 @@ static CGFloat kExpandedHeight = 330.0f;
     BOOL selected = self.selectedIndex == indexPath.row;
     [cell configureSelectedState: selected];
 
+    cell.delegate = self;
+
     return cell;
 }
 
@@ -155,7 +171,16 @@ static CGFloat kExpandedHeight = 330.0f;
         [tableView endUpdates];
 
     } else { // user must have selected a different row
+         // shut disclaimer
+        self.disclaimerOpen = NO;
+
+        // get the previous selection path
         NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedIndex inSection: 0];
+
+        // reset the disclaimer
+        TTSDKBrokerCenterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:prevPath];
+        cell.disclaimerToggled = NO;
+
         self.selectedIndex = indexPath.row;
 
         [CATransaction begin];

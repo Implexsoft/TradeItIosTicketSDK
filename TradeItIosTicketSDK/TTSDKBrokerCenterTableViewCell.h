@@ -15,13 +15,15 @@
 
 @required
 
--(void)didSelectLink:(NSString *)link withTitle:(NSString *)title;
+-(void) didSelectLink:(NSString *)link withTitle:(NSString *)title;
+-(void) didSelectDisclaimer:(BOOL)selected;
 
 @end
 
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id<TTSDKBrokerCenterDelegate> delegate;
+@property BOOL disclaimerToggled;
 
 +(UIColor *) colorFromArray:(NSArray *)colorArray;
 
