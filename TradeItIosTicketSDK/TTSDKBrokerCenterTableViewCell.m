@@ -15,7 +15,8 @@
 @property TradeItBrokerCenterBroker * data;
 @property TTSDKTradeItTicket * ticket;
 
-@property (weak, nonatomic) IBOutlet UIView *bgView;
+
+@property (weak, nonatomic) IBOutlet UIButton *toggleExpanded;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *offerDescription;
 @property (weak, nonatomic) IBOutlet UILabel *accountMinimum;
@@ -70,7 +71,6 @@
 
 -(void) awakeFromNib {
     self.ticket = [TTSDKTradeItTicket globalTicket];
-    self.disclaimerToggled = NO;
 }
 
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker {
@@ -88,6 +88,11 @@
 
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
+    if (self.disclaimerToggled) {
+        [self.disclaimerButton setTitle:@"CLOSE" forState:UIControlStateNormal];
+    } else {
+        [self.disclaimerButton setTitle:@"DISCLAIMER" forState:UIControlStateNormal];
+    }
 //    [self populateDisclaimers];
 
     [self populateStyles];
@@ -103,7 +108,6 @@
     
     self.contentView.backgroundColor = backgroundColor;
     self.backgroundColor = backgroundColor;
-    self.bgView.backgroundColor = backgroundColor;
     
     UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
     
@@ -144,11 +148,10 @@
         [self.logo layoutSubviews];
         
         // we need to determine the actual scale factor the image will use and then set the height constraint appropriately
-        float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
-        float imageHeight = self.logo.image.size.height * scaleFactor;
-        
-        self.logoHeightConstraint.constant = imageHeight;
-        
+        //float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
+        //float imageHeight = self.logo.image.size.height * scaleFactor;
+        //self.logoHeightConstraint.constant = imageHeight;
+
     } else {
         self.logo.image = nil;
         self.logoLabel.hidden = NO;
@@ -297,6 +300,12 @@
 
 
 #pragma Mark Events
+
+- (IBAction)toggleExpandedPressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didToggleExpandedView:atIndexPath:)]) {
+        [self.delegate didToggleExpandedView:!self.expandedViewToggled atIndexPath:self.indexPath];
+    }
+}
 
 - (IBAction)promptPressed:(id)sender {
     if ([self.delegate respondsToSelector:@selector(didSelectLink:withTitle:)] && ![self.data.promptUrl isEqualToString:@""]) {

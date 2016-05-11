@@ -16,6 +16,7 @@
 @required
 
 -(void) didSelectLink:(NSString *)link withTitle:(NSString *)title;
+-(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath;
 -(void) didSelectDisclaimer:(BOOL)selected;
 
 @end
@@ -23,6 +24,8 @@
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id<TTSDKBrokerCenterDelegate> delegate;
+@property NSIndexPath * indexPath;
+@property BOOL expandedViewToggled;
 @property BOOL disclaimerToggled;
 
 +(UIColor *) colorFromArray:(NSArray *)colorArray;

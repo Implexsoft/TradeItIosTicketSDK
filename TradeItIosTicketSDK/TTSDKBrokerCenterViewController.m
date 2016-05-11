@@ -34,6 +34,11 @@ static CGFloat kExpandedHeight = 330.0f;
 
     self.disclaimerOpen = NO;
 
+    self.tableView.allowsSelection = NO;
+    self.tableView.allowsMultipleSelection = NO;
+    self.tableView.allowsSelectionDuringEditing = NO;
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+
     if (self.isModal) {
         UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closePressed:)];
         self.navigationItem.rightBarButtonItem = closeButton;
@@ -75,6 +80,54 @@ static CGFloat kExpandedHeight = 330.0f;
 
 -(IBAction) closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath {
+    // reset the background color
+    TradeItBrokerCenterBroker * data = (TradeItBrokerCenterBroker *)[self.brokerCenterData objectAtIndex:indexPath.row];
+    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
+    self.tableView.backgroundColor = bgColor;
+
+    // shut disclaimer every time you toggle
+    self.disclaimerOpen = NO;
+
+    if (self.selectedIndex == -1) { // user taps row with none currently expanded
+        self.selectedIndex = indexPath.row;
+
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+    } else if (self.selectedIndex == indexPath.row) { // user taps the currenty expanded row
+        self.selectedIndex = -1; // reset index
+
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+    } else { // user must have selected a different row
+        // get the previous selection path
+        NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedIndex inSection: 0];
+        
+        // reset the disclaimer
+        TTSDKBrokerCenterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:prevPath];
+        cell.disclaimerToggled = NO;
+        
+        self.selectedIndex = indexPath.row;
+        
+        [CATransaction begin];
+        [self.tableView beginUpdates];
+
+        [CATransaction setCompletionBlock: ^{
+            [self.tableView reloadData];
+        }];
+        
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        [CATransaction commit];
+    }
+    
+    [self.tableView layoutIfNeeded];
 }
 
 -(void) didSelectLink:(NSString *)link withTitle:(NSString *)title {
@@ -132,6 +185,8 @@ static CGFloat kExpandedHeight = 330.0f;
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+    cell.disclaimerToggled = self.disclaimerOpen;
+
     TradeItBrokerCenterBroker * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
     [cell configureWithBroker: brokerCenterItem];
     UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
@@ -141,6 +196,7 @@ static CGFloat kExpandedHeight = 330.0f;
     BOOL selected = self.selectedIndex == indexPath.row;
     [cell configureSelectedState: selected];
 
+    cell.indexPath = indexPath;
     cell.delegate = self;
 
     return cell;
@@ -153,49 +209,6 @@ static CGFloat kExpandedHeight = 330.0f;
     self.tableView.backgroundColor = bgColor;
 
     return indexPath;
-}
-
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.selectedIndex == -1) { // user taps row with none currently expanded
-        self.selectedIndex = indexPath.row;
-
-        [tableView beginUpdates];
-        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
-
-    } else if (self.selectedIndex == indexPath.row) { // user taps the currenty expanded row
-        self.selectedIndex = -1; // reset index
-
-        [tableView beginUpdates];
-        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
-
-    } else { // user must have selected a different row
-         // shut disclaimer
-        self.disclaimerOpen = NO;
-
-        // get the previous selection path
-        NSIndexPath * prevPath = [NSIndexPath indexPathForRow: self.selectedIndex inSection: 0];
-
-        // reset the disclaimer
-        TTSDKBrokerCenterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:prevPath];
-        cell.disclaimerToggled = NO;
-
-        self.selectedIndex = indexPath.row;
-
-        [CATransaction begin];
-        [tableView beginUpdates];
-
-        [CATransaction setCompletionBlock: ^{
-            [tableView reloadData];
-        }];
-
-        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
-        [CATransaction commit];
-    }
-
-    [tableView layoutIfNeeded];
 }
 
 
