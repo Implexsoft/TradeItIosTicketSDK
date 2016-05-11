@@ -37,7 +37,7 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
 
     brokers = self.ticket.brokerList;
 
-    if([brokers count] < 1){
+    if([brokers count] < 1 || !self.ticket.adService.brokerCenterLoaded){
         [self showLoadingAndWait];
     } else {
         [self brokersLoaded];
@@ -64,9 +64,13 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
 -(void) brokersLoaded {
     NSMutableArray * mutableBrokers = [brokers mutableCopy];
 
-    [mutableBrokers addObject:@"Open an account"];
-    brokers = [mutableBrokers copy];
+    if (self.ticket.adService.brokerCenterActive) {
+        [mutableBrokers addObject:@"Open an account"];
+    } else {
+        [mutableBrokers removeObject:@"Open an account"];
+    }
 
+    brokers = [mutableBrokers copy];
     [self.tableView reloadData];
 }
 

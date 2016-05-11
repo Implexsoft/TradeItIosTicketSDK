@@ -69,8 +69,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         }
     }
 
-    if (!brokers) {
+    if (!brokers || !self.ticket.adService.brokerCenterLoaded) {
         [self showLoadingAndWait];
+    } else {
+        if (self.ticket.adService.brokerCenterActive) {
+            self.openAccountButton.hidden = NO;
+        } else {
+            self.openAccountButton.hidden = YES;
+        }
     }
 }
 
@@ -78,12 +84,22 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
-        
-        while([self.ticket.brokerList count] < 1 && cycles < 15) {
+
+        while(([self.ticket.brokerList count] < 1 || !self.ticket.adService.brokerCenterLoaded) && cycles < 15) {
             sleep(1);
             cycles++;
         }
-        
+
+        // We want to hide the broker center button if we either can't get the data or the broker center is disabled
+        //you can use any string instead "com.mycompany.myqueue"
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
+                self.openAccountButton.hidden = NO;
+            } else {
+                self.openAccountButton.hidden = YES;
+            }
+        });
+
         if([self.ticket.brokerList count] < 1) {
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];

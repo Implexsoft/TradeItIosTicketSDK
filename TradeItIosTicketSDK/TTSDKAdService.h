@@ -12,6 +12,8 @@
 @interface TTSDKAdService : NSObject
 
 @property BOOL isRetrievingBrokerCenter;
+@property BOOL brokerCenterLoaded;
+@property BOOL brokerCenterActive;
 @property NSArray * brokerCenterBrokers;
 
 -(void) getBrokerCenter;

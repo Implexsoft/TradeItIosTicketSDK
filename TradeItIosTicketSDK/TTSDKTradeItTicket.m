@@ -71,6 +71,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         [self retrieveBrokers];
     }
 
+    // Immediately fire off a request for broker center data
+    [self retrieveBrokerCenter];
+
     [self removeDuplicateLinkedLogins];
 
     BOOL elapsed = NO;
@@ -112,11 +115,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
         }
 
-        if (!self.adService) {
-            self.adService = [[TTSDKAdService alloc] init];
-            [self.adService getBrokerCenter];
-        }
-
         if (self.currentSession) {
             [self retrieveQuote:^(void) {}];
         }
@@ -133,7 +131,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow: auth
 
 -(void) launchAuthFlow {
+    // Immediately fire off a request for the publishers broker list
     [self retrieveBrokers];
+
+    // Immediately fire off a request for broker center data
+    [self retrieveBrokerCenter];
 
     [self presentAuthScreen];
 }
@@ -160,7 +162,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow: accounts
 
 -(void) launchAccountsFlow {
-    // Immediately fire off a request for the publishers broker list
     [self prepareInitialFlow];
 
     [self presentAccountLinkScreen];
@@ -640,6 +641,14 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 
 #pragma mark - Broker Utilities
+
+-(void) retrieveBrokerCenter {
+    if (!self.adService) {
+        self.adService = [[TTSDKAdService alloc] init];
+    }
+
+    [self.adService getBrokerCenter];
+}
 
 -(void) retrieveBrokers {
     [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){

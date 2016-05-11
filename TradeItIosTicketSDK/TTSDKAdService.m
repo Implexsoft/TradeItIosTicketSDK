@@ -35,28 +35,35 @@
 
 -(void) getBrokerCenter {
     self.isRetrievingBrokerCenter = YES;
+    self.brokerCenterLoaded = NO;
 
     TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithConnector:globalTicket.connector];
     TradeItBrokerCenterRequest * brokerRequest = [[TradeItBrokerCenterRequest alloc] init];
 
     [publisherService getBrokerCenter:brokerRequest withCompletionBlock:^(TradeItResult *res) {
-        TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
-
-        self.brokerCenterBrokers = result.brokers;
-
-        for (TradeItBrokerCenterBroker * broker in result.brokers) {
-            NSMutableDictionary * logoItem = [broker.logo mutableCopy];
-            logoItem[@"broker"] = [broker valueForKey:@"broker"];
-
-            [imageLoadingQueue addObject:[logoItem copy]];
-        }
-
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-        dispatch_async(queue, ^{
-            [self loadImages];
-        });
-
+        self.brokerCenterLoaded = YES;
         self.isRetrievingBrokerCenter = NO;
+
+        if ([res isKindOfClass:TradeItErrorResult.class]) {
+            self.brokerCenterActive = NO; // disable the broker center if we can't get the data
+        } else {
+            TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
+
+            self.brokerCenterActive = result.active;
+            self.brokerCenterBrokers = result.brokers;
+
+            for (TradeItBrokerCenterBroker * broker in result.brokers) {
+                NSMutableDictionary * logoItem = [broker.logo mutableCopy];
+                logoItem[@"broker"] = [broker valueForKey:@"broker"];
+                
+                [imageLoadingQueue addObject:[logoItem copy]];
+            }
+
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^{
+                [self loadImages];
+            });
+        }
     }];
 }
 
