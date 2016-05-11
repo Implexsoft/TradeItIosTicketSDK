@@ -102,9 +102,7 @@ static CGFloat kExpandedHeight = 330.0f;
     [cell configureWithBroker: brokerCenterItem];
     UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
 
-    if (img) {
-        [cell addImage:img];
-    }
+    [cell addImage:img];
 
     BOOL selected = self.selectedIndex == indexPath.row;
     [cell configureSelectedState: selected];

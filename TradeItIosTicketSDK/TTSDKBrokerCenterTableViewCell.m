@@ -7,13 +7,15 @@
 //
 
 #import "TTSDKBrokerCenterTableViewCell.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKBrokerCenterTableViewCell()
 
 @property TradeItBrokerCenterBroker * data;
+@property TTSDKTradeItTicket * ticket;
+
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIImageView *logo;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *offerDescription;
 @property (weak, nonatomic) IBOutlet UILabel *accountMinimum;
@@ -32,13 +34,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *featureSlot6;
 @property (weak, nonatomic) IBOutlet UILabel *featureSlot7;
 @property (weak, nonatomic) IBOutlet UILabel *featureSlot8;
-
+@property (weak, nonatomic) IBOutlet UIImageView *logo;
+@property (weak, nonatomic) IBOutlet UILabel *logoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
 
 @end
 
 @implementation TTSDKBrokerCenterTableViewCell
 
+-(void) awakeFromNib {
+    self.ticket = [TTSDKTradeItTicket globalTicket];
+}
 
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker {
     self.data = broker;
@@ -79,6 +85,7 @@
     self.featureSlot6.textColor = textColor;
     self.featureSlot7.textColor = textColor;
     self.featureSlot8.textColor = textColor;
+    self.logoLabel.textColor = textColor;
 
     UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.promptBackgroundColor];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
@@ -159,6 +166,9 @@
 
 -(void) addImage:(UIImage *)img {
     if (img) {
+        self.logoLabel.hidden = YES;
+        self.logoLabel.text = @"";
+
         self.logo.image = img;
         [self.logo layoutSubviews];
 
@@ -170,6 +180,8 @@
 
     } else {
         self.logo.image = nil;
+        self.logoLabel.hidden = NO;
+        self.logoLabel.text = [self.ticket getBrokerDisplayString: self.data.broker];
     }
 }
 
