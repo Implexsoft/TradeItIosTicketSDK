@@ -142,7 +142,7 @@ static CGFloat kExpandedHeight = 330.0f;
 
         [CATransaction begin];
         [tableView beginUpdates];
-        
+
         [CATransaction setCompletionBlock: ^{
             [tableView reloadData];
         }];

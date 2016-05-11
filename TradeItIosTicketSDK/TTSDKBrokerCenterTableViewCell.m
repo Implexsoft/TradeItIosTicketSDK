@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *featureSlot7;
 @property (weak, nonatomic) IBOutlet UILabel *featureSlot8;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
+
 @end
 
 @implementation TTSDKBrokerCenterTableViewCell
@@ -43,7 +45,7 @@
 
     self.offerTitle.text = broker.signupTitle;
     self.offerDescription.text = broker.signupDescription;
-    self.accountMinimum.text = broker.accountMinimum;
+    self.accountMinimum.text = [NSString stringWithFormat:@"Account Min: %@", broker.accountMinimum];
     self.optionsOffer.text = broker.optionsOffer;
     self.stocksEtfsOffer.text = broker.stocksEtfsOffer;
 
@@ -158,6 +160,16 @@
 -(void) addImage:(UIImage *)img {
     if (img) {
         self.logo.image = img;
+        [self.logo layoutSubviews];
+
+        // we need to determine the actual scale factor the image will use and then set the height constraint appropriately
+        float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
+        float imageHeight = self.logo.image.size.height * scaleFactor;
+
+        self.logoHeightConstraint.constant = imageHeight;
+
+    } else {
+        self.logo.image = nil;
     }
 }
 
