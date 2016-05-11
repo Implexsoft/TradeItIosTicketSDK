@@ -29,7 +29,10 @@ static CGFloat kExpandedHeight = 330.0f;
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    
+    if (self.isModal) {
+        UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closePressed:)];
+        self.navigationItem.rightBarButtonItem = closeButton;
+    }
 
     self.brokerCenterImages = [[NSArray alloc] init];
 
@@ -51,6 +54,10 @@ static CGFloat kExpandedHeight = 330.0f;
     }
 
     self.selectedIndex = -1;
+}
+
+-(IBAction)closePressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) didSelectLink:(NSString *)link withTitle:(NSString *)title {

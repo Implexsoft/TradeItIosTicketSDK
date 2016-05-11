@@ -11,4 +11,6 @@
 
 @interface TTSDKBrokerCenterViewController : TTSDKTableViewController <TTSDKBrokerCenterDelegate>
 
+@property BOOL isModal;
+
 @end

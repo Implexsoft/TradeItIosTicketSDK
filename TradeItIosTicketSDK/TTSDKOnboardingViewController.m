@@ -10,6 +10,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKPrimaryButton.h"
+#import "TTSDKBrokerCenterViewController.h"
 
 @interface TTSDKOnboardingViewController () {
     NSArray * brokers;
@@ -179,6 +180,15 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
 #pragma mark Navigation
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"onboardingToBrokerCenter"]) {
+        UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
+
+        TTSDKBrokerCenterViewController * dest = (TTSDKBrokerCenterViewController *)[nav.viewControllers objectAtIndex:0];
+        dest.isModal = YES;
+    }
+}
 
 - (IBAction)openAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
