@@ -29,6 +29,8 @@ static CGFloat kExpandedHeight = 330.0f;
 -(void) viewDidLoad {
     [super viewDidLoad];
 
+    
+
     self.brokerCenterImages = [[NSArray alloc] init];
 
     if (self.ticket.adService.brokerCenterBrokers) {
@@ -49,53 +51,7 @@ static CGFloat kExpandedHeight = 330.0f;
     }
 
     self.selectedIndex = -1;
-
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-//    dispatch_async(queue, ^{
-//        [self loadImages];
-//    });
 }
-
-//-(void) loadImages {
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-//    dispatch_async(queue, ^{
-//        for (NSDictionary * queueItem in self.brokerCenterImagesLoadingQueue) {
-//            UIImage * img;
-//
-//            NSDictionary * logo = [queueItem valueForKey:@"logo"];
-//
-//            if ([[logo valueForKey:@"src"] isEqualToString:@""]) {
-//
-//                
-//
-//            } else {
-//
-//            }
-//        }
-//
-////    NSString * logoSrc = [self.brokerCenterImagesLoadingQueue firstObject];
-////    [self.brokerCenterImagesLoadingQueue removeObjectAtIndex: 0];
-////
-////    UIImage *img;
-////    if ([logoSrc isEqualToString:@""]) {
-////
-////    }
-////
-////    NSURL *url = [NSURL URLWithString: logoSrc];
-////    NSData * urlData = [NSData dataWithContentsOfURL:url];
-////    img = [[UIImage alloc] initWithData: urlData];
-////
-////    NSMutableArray * brokerCenterImages = [self.brokerCenterImages mutableCopy];
-////    [brokerCenterImages addObject: img];
-////
-////
-////    self.brokerCenterImages = [brokerCenterImages copy];
-////
-////    if (self.brokerCenterImagesLoadingQueue.count > 0) {
-////        [self loadImages];
-////    }
-//    });
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.brokerCenterData.count;
@@ -117,11 +73,6 @@ static CGFloat kExpandedHeight = 330.0f;
     }
 }
 
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    TTSDKBrokerCenterTableViewCell * cell = (TTSDKBrokerCenterTableViewCell *)[tableView cellForRowAtIndexPath: indexPath];
-    cell.contentView.backgroundColor = cell.contentView.backgroundColor;
-}
-
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier;
     NSString * nibIdentifier;
@@ -135,8 +86,9 @@ static CGFloat kExpandedHeight = 330.0f;
         [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
 
         cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     TradeItBrokerCenterBroker * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
     [cell configureWithBroker: brokerCenterItem];
@@ -152,17 +104,16 @@ static CGFloat kExpandedHeight = 330.0f;
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //get the cell which is selected
-    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    //set tempView color of selected cell because when cell is selected, all view color is gone
-    UIView *tempView=[selectedCell viewWithTag:3];
-    NSDictionary * data = (NSDictionary *)[self.brokerCenterData objectAtIndex:indexPath.row];
-    tempView.backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
-    tempView.opaque = YES;
-    tempView.alpha = 1.0f;
+-(NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    TradeItBrokerCenterBroker * data = (TradeItBrokerCenterBroker *)[self.brokerCenterData objectAtIndex:indexPath.row];
+    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
 
+    self.tableView.backgroundColor = bgColor;
+
+    return indexPath;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.selectedIndex == -1) { // user taps row with none currently expanded
         self.selectedIndex = indexPath.row;
 

@@ -36,11 +36,12 @@
 -(void) getBrokerCenter {
     self.isRetrievingBrokerCenter = YES;
 
-    TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithSession:globalTicket.currentSession];
+    TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithConnector:globalTicket.connector];
     TradeItBrokerCenterRequest * brokerRequest = [[TradeItBrokerCenterRequest alloc] init];
 
     [publisherService getBrokerCenter:brokerRequest withCompletionBlock:^(TradeItResult *res) {
         TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
+
         self.brokerCenterBrokers = result.brokers;
 
         for (TradeItBrokerCenterBroker * broker in result.brokers) {

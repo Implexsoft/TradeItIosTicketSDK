@@ -112,11 +112,13 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             }
         }
 
-        if (self.currentSession) {
-            [self retrieveQuote:^(void) {}];
-
+        if (!self.adService) {
             self.adService = [[TTSDKAdService alloc] init];
             [self.adService getBrokerCenter];
+        }
+
+        if (self.currentSession) {
+            [self retrieveQuote:^(void) {}];
         }
 
         [self authenticateSessionsInBackground];

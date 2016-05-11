@@ -12,6 +12,7 @@
 
 @property TradeItBrokerCenterBroker * data;
 
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *logo;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *offerDescription;
@@ -49,10 +50,12 @@
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
     UIColor * backgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.backgroundColor];
-    UIView * selectedBackgroundView = [[UIView alloc] init];
+    UIView * selectedBackgroundView = [[UIView alloc] init]; //
     selectedBackgroundView.backgroundColor = backgroundColor;
     self.selectedBackgroundView = selectedBackgroundView;
-    self.contentView.backgroundColor = backgroundColor;
+    self.contentView.backgroundColor = backgroundColor; //backgroundColor
+    self.backgroundColor = backgroundColor;
+    self.bgView.backgroundColor = backgroundColor;
 
     UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.textColor];
     self.offerTitle.textColor = textColor;
@@ -97,11 +100,54 @@
     return color;
 }
 
--(void) setSelected:(BOOL)selected {
+-(void) setSelected:(BOOL)selected animated:(BOOL)animated {
+    [CATransaction begin];
+    [CATransaction setDisableActions: YES];
+    [UIView setAnimationsEnabled:NO];
+
+    [super setSelected:NO animated:NO];
+    
     UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:self.data.backgroundColor];
 
+    self.bgView.backgroundColor = bgColor;
+    self.bgView.alpha = 1.0f;
+
+    self.selectedBackgroundView.backgroundColor = bgColor;
+    self.selectedBackgroundView.alpha = 1.0f;
+
     self.contentView.backgroundColor = bgColor;
-//    self.backgroundColor = bgColor;
+    self.contentView.alpha = 1.0f;
+
+    self.backgroundColor = bgColor;
+    self.alpha = 1.0f;
+
+    [UIView setAnimationsEnabled:YES];
+    [CATransaction commit];
+}
+
+-(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [CATransaction begin];
+    [CATransaction setDisableActions: YES];
+    [UIView setAnimationsEnabled:NO];
+
+    [super setHighlighted:NO animated:NO];
+
+    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:self.data.backgroundColor];
+
+    self.bgView.backgroundColor = bgColor;
+    self.bgView.alpha = 1.0f;
+
+    self.selectedBackgroundView.backgroundColor = bgColor;
+    self.selectedBackgroundView.alpha = 1.0f;
+
+    self.contentView.backgroundColor = bgColor;
+    self.contentView.alpha = 1.0f;
+
+    self.backgroundColor = bgColor;
+    self.alpha = 1.0f;
+
+    [UIView setAnimationsEnabled:YES];
+    [CATransaction commit];
 }
 
 -(void) addImage:(UIImage *)img {

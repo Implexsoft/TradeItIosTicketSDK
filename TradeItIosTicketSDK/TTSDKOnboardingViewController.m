@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
+@property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
 
 @end
 
@@ -162,6 +163,10 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
 #pragma mark Navigation
+
+- (IBAction)openAccountPressed:(id)sender {
+    [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
+}
 
 -(IBAction) brokerSelectPressed:(id)sender {
     [self selectBroker: self.currentSelection];
