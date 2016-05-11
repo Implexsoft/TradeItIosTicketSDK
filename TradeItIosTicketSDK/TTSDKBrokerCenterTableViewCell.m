@@ -8,6 +8,7 @@
 
 #import "TTSDKBrokerCenterTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
+//#import "<CoreText/CTStringAttributes.h>"
 
 @interface TTSDKBrokerCenterTableViewCell()
 
@@ -37,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *logo;
 @property (weak, nonatomic) IBOutlet UILabel *logoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *disclaimerButton;
 
 @end
 
@@ -49,11 +51,13 @@
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker {
     self.data = broker;
 
-    self.offerTitle.text = broker.signupTitle;
-    self.offerDescription.text = broker.signupDescription;
-    self.accountMinimum.text = [NSString stringWithFormat:@"Account Min: %@", broker.accountMinimum];
-    self.optionsOffer.text = broker.optionsOffer;
-    self.stocksEtfsOffer.text = broker.stocksEtfsOffer;
+    [self populateSignupOffer];
+
+    [self populateAccountMinimum];
+
+    [self populateOptionsOffer];
+
+    [self populateStocksEtfsOffer];
 
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
@@ -68,6 +72,7 @@
     UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.textColor];
     self.offerTitle.textColor = textColor;
     self.offerDescription.textColor = textColor;
+
     self.accountMinimum.textColor = textColor;
     self.optionsOffer.textColor = textColor;
     self.optionsTitle.textColor = textColor;
@@ -93,6 +98,56 @@
     [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:broker.promptTextColor] forState:UIControlStateNormal];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
+
+
+}
+
+-(void) populateSignupOffer {
+    self.offerTitle.text = self.data.signupTitle;
+
+    NSString * offerPostscript;
+
+    if ([self.data.signupPostfix isEqualToString:@"asterisk"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x0000002A];
+    } else if ([self.data.signupPostfix isEqualToString:@"dagger"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x00002020];
+    } else {
+        offerPostscript = @"";
+    }
+
+    self.offerDescription.text = [NSString stringWithFormat:@"%@%@", self.data.signupDescription, offerPostscript];
+}
+
+-(void) populateAccountMinimum {
+    self.accountMinimum.text = [NSString stringWithFormat:@"Account Min: %@", self.data.accountMinimum];
+}
+
+-(void) populateOptionsOffer {
+    NSString * offerPostscript;
+    
+    if ([self.data.optionsPostfix isEqualToString:@"asterisk"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x0000002A];
+    } else if ([self.data.optionsPostfix isEqualToString:@"dagger"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x00002020];
+    } else {
+        offerPostscript = @"";
+    }
+
+    self.optionsOffer.text = [NSString stringWithFormat:@"%@%@", self.data.optionsOffer, offerPostscript];
+}
+
+-(void) populateStocksEtfsOffer {
+    NSString * offerPostscript;
+    
+    if ([self.data.stocksEtfsPostfix isEqualToString:@"asterisk"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x0000002A];
+    } else if ([self.data.stocksEtfsPostfix isEqualToString:@"dagger"]) {
+        offerPostscript = [NSString stringWithFormat:@"%C", 0x00002020];
+    } else {
+        offerPostscript = @"";
+    }
+
+    self.stocksEtfsOffer.text = [NSString stringWithFormat:@"%@%@", self.data.stocksEtfsOffer, offerPostscript];
 }
 
 -(void) populateFeatures:(NSArray *)features {
