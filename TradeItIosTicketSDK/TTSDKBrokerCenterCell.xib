@@ -220,10 +220,10 @@
                         </constraints>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zjz-Im-9v1" userLabel="DisclaimerView">
-                        <rect key="frame" x="8" y="301" width="304" height="20"/>
-                        <color key="backgroundColor" red="0.98039215690000003" green="0.2784313725" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="8" y="321" width="304" height="0.0"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="fpa-n3-gOv"/>
+                            <constraint firstAttribute="height" id="fpa-n3-gOv"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rcu-6t-b2C" userLabel="ToggleExpandedButton">

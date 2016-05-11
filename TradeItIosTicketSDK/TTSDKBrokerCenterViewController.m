@@ -92,7 +92,7 @@ static CGFloat kExpandedHeight = 330.0f;
         float totalLabelsHeight = 0.0f;
 
         UIView * containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
-        containerView.backgroundColor = [UIColor redColor];
+        containerView.backgroundColor = [UIColor clearColor];
 
         UILabel * keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 12.0f)];
         keyLabel.text = @"";
@@ -159,7 +159,6 @@ static CGFloat kExpandedHeight = 330.0f;
             label.translatesAutoresizingMaskIntoConstraints = NO;
             label.numberOfLines = 0;
             label.textColor = textColor;
-            label.backgroundColor = [UIColor yellowColor];
 
             if (isItalic) {
                 label.font = [UIFont italicSystemFontOfSize:10.0f];

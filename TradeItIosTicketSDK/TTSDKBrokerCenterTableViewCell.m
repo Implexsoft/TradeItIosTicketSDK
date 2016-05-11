@@ -95,13 +95,6 @@ static float kMessageSeparatorHeight = 10.0f;
 
     self.disclaimerLabels = [[NSArray alloc] init];
 
-    [self populateDisclaimers];
-
-    self.disclaimerLabelsTotalHeight = 0.0f;
-    for (UILabel *label in self.disclaimerLabels) {
-        self.disclaimerLabelsTotalHeight += label.frame.size.height;
-    }
-
     if (self.disclaimerToggled) {
         [self.disclaimerButton setTitle:@"CLOSE" forState:UIControlStateNormal];
         self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
@@ -183,14 +176,12 @@ static float kMessageSeparatorHeight = 10.0f;
 }
 
 -(void) configureDisclaimers:(UIView *)disclaimerView {
-    NSLog(@"CONFIGURING DISCLAIMER FOR %@", self.data.broker);
-
     for (UIView *subview in self.disclaimerView.subviews) {
         [subview removeFromSuperview];
     }
 
-    NSLog(@"SETTING CONTAINER HEIGHT CONSTANT: %f", self.disclaimerLabelsTotalHeight);
     self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
+    [self.disclaimerView setNeedsUpdateConstraints];
 
     [self.disclaimerView addSubview: disclaimerView];
 
@@ -246,128 +237,6 @@ static float kMessageSeparatorHeight = 10.0f;
     [self setNeedsLayout];
     [self setNeedsUpdateConstraints];
 }
-
-//-(void) addReviewMessage:(NSString *) message italic:(BOOL)italic prefix:(NSString *)prefix {
-//    UILabel * messageLabel = [self createAndSizeMessageUILabel:message italic:italic prefix:prefix];
-//    messageLabel.autoresizesSubviews = YES;
-//    [self.disclaimerView insertSubview:messageLabel atIndex:0];
-//
-//    [self addConstraintsToMessage:messageLabel];
-//
-//    NSMutableArray * mutableDisclaimers = [self.disclaimerLabels mutableCopy];
-//    [mutableDisclaimers addObject: messageLabel];
-//    self.disclaimerLabels = [mutableDisclaimers copy];
-//}
-
-//-(UILabel *) createAndSizeMessageUILabel:(NSString *) message italic:(BOOL)italic prefix:(NSString *)prefix {
-//    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
-//
-//    CGRect labelFrame = CGRectMake(self.disclaimerView.frame.origin.x, self.disclaimerView.frame.origin.y, self.disclaimerView.frame.size.width, 160.0f);
-//    labelFrame.size.width = self.frame.size.width;
-//    UILabel * label = [[UILabel alloc] initWithFrame: labelFrame];
-//
-//    NSString * prefixStr;
-//    if ([prefix isEqualToString:@"asterisk"]) {
-//        prefixStr = [NSString stringWithFormat:@"%C", 0x0000002A];
-//    } else if ([prefix isEqualToString:@"dagger"]) {
-//        prefixStr = [NSString stringWithFormat:@"%C", 0x00002020];
-//    } else {
-//        prefixStr = @"";
-//    }
-//
-//    [label setText: [NSString stringWithFormat:@"%@%@", prefixStr, message]];
-//    label.lineBreakMode = NSLineBreakByWordWrapping;
-//    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
-//    [label setNumberOfLines: 0];
-//    [label setTextColor: textColor];
-//    [label setAdjustsFontSizeToFitWidth: NO];
-//
-//    if (italic) {
-//        [label setFont: [UIFont italicSystemFontOfSize:10.0f]];
-//    } else {
-//        [label setFont: [UIFont systemFontOfSize:10.0f]];
-//    }
-//
-//    label.frame = labelFrame;
-//    [label sizeToFit];
-//
-//    NSLog(@"LABEL HEIGHT: %f", label.frame.size.height);
-//
-//    return label;
-//}
-
-/*
- NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"String with a link" attributes:nil];
- NSRange linkRange = NSMakeRange(14, 4);
- // for the word "link" in the string above  NSDictionary *linkAttributes = @{
- NSForegroundColorAttributeName : [UIColor colorWithRed:0.05 green:0.4 blue:0.65 alpha:1.0],                                   NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle) };
- [attributedString setAttributes:linkAttributes range:linkRange];
- // Assign attributedText to UILabel label.attributedText = attributedString;
-
- label.userInteractionEnabled = YES;
- [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnLabel:)]];
-
- // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
- NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:CGSizeZero];
- NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
- // Configure layoutManager and textStorage [layoutManager addTextContainer:textContainer];
- [textStorage addLayoutManager:layoutManager];
- // Configure textContainer textContainer.lineFragmentPadding = 0.0;
- textContainer.lineBreakMode = label.lineBreakMode;
- textContainer.maximumNumberOfLines = label.numberOfLines;
- 
- - (void)handleTapOnLabel:(UITapGestureRecognizer *)tapGesture {
- CGPoint locationOfTouchInLabel = [tapGesture locationInView:tapGesture.view];
- CGSize labelSize = tapGesture.view.bounds.size;
- CGRect textBoundingBox = [self.layoutManager usedRectForTextContainer:self.textContainer];
- CGPoint textContainerOffset = CGPointMake((labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x,                                               (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y);
- CGPoint locationOfTouchInTextContainer = CGPointMake(locationOfTouchInLabel.x - textContainerOffset.x,                                                          locationOfTouchInLabel.y - textContainerOffset.y);
- NSInteger indexOfCharacter = [self.layoutManager characterIndexForPoint:locationOfTouchInTextContainer                                                             inTextContainer:self.textContainer                                    fractionOfDistanceBetweenInsertionPoints:nil];
- NSRange linkRange = NSMakeRange(14, 4);
- // it's better to save the range somewhere when it was originally used for marking link in attributed string     if (NSLocationInRange(indexOfCharacter, linkRange) {
- // Open an URL, or handle the tap on the link in any other way         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://stackoverflow.com/"]];
- }
- }
- 
- */
-
-//-(void) addConstraintsToMessage:(UILabel *) label {
-//    NSLayoutConstraint * topConstraint = [NSLayoutConstraint
-//                                          constraintWithItem:label
-//                                          attribute:NSLayoutAttributeTop
-//                                          relatedBy:NSLayoutRelationEqual
-//                                          toItem:self.lastAttachedMessage
-//                                          attribute:NSLayoutAttributeBottom
-//                                          multiplier:1
-//                                          constant:kMessageSeparatorHeight];
-//    topConstraint.priority = 900;
-//    
-//    NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
-//                                           constraintWithItem:label
-//                                           attribute:NSLayoutAttributeLeading
-//                                           relatedBy:NSLayoutRelationEqual
-//                                           toItem:self.disclaimerView
-//                                           attribute:NSLayoutAttributeLeadingMargin
-//                                           multiplier:1
-//                                           constant:3];
-//    leftConstraint.priority = 900;
-//    
-//    NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
-//                                            constraintWithItem:label
-//                                            attribute:NSLayoutAttributeTrailing
-//                                            relatedBy:NSLayoutRelationEqual
-//                                            toItem:self.disclaimerView
-//                                            attribute:NSLayoutAttributeTrailingMargin
-//                                            multiplier:1
-//                                            constant:-3];
-//    rightConstraint.priority = 900;
-//    
-//    self.lastAttachedMessage = label;
-//    
-//    [self.disclaimerView addConstraint: topConstraint];
-//    [self.disclaimerView addConstraint: leftConstraint];
-//    [self.disclaimerView addConstraint: rightConstraint];
-//}
 
 
 #pragma Mark Populate data
@@ -480,25 +349,6 @@ static float kMessageSeparatorHeight = 10.0f;
         self.featureSlot8.text = [features objectAtIndex:7];
     } else {
         self.featureSlot8.text = @"";
-    }
-}
-
--(void) populateDisclaimers {
-    if (self.data.disclaimers && self.data.disclaimers.count) {
-//        self.disclaimerHeightConstraint.constant = 160.0f;
-
-//        for (NSDictionary * disclaimerData in self.data.disclaimers) {
-//            UILabel * disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40.0f)];
-//            disclaimerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-//            disclaimerLabel.numberOfLines = 0; // allows multiple lines
-//            disclaimerLabel.text = [disclaimerData valueForKey:@"content"];
-//            [self.disclaimerView addSubview: disclaimerLabel];
-
-//            [self addReviewMessage:[disclaimerData valueForKey:@"content"] italic:[[disclaimerData valueForKey:@"italic"] boolValue] prefix:[disclaimerData valueForKey:@"prefix"]];
-//        }
-
-    } else {
-        self.disclaimerHeightConstraint.constant = 0.0f;
     }
 }
 
