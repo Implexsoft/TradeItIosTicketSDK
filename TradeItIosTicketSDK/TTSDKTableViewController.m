@@ -7,6 +7,7 @@
 //
 
 #import "TTSDKTableViewController.h"
+#import "TTSDKWebViewController.h"
 
 @implementation TTSDKTableViewController
 
@@ -60,6 +61,20 @@
 }
 
 #pragma mark Navigation
+
+-(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
+    [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+    
+    webViewController.pageTitle = title;
+    
+    [self presentViewController:webViewController animated:YES completion:^(void) {
+        [webViewController.webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
+    }];
+}
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.ticket.lastUsed = [NSDate date];

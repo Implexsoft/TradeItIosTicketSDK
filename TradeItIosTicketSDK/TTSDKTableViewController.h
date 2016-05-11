@@ -19,5 +19,6 @@
 
 -(void) setViewStyles;
 -(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
+-(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title;
 
 @end

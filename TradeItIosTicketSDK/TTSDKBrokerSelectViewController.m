@@ -160,23 +160,6 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
     [self showWebViewWithURL:@"https://www.trade.it/terms" andTitle:@"Terms"];
 }
 
--(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
-    // Get storyboard
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
-    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
-    [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-
-    webViewController.pageTitle = title;
-
-    [self presentViewController:webViewController animated:YES completion:^(void) {
-        [webViewController.webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
-    }];
-}
-
-
-
-
 
 #pragma mark Custom UI
 

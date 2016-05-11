@@ -7,7 +7,8 @@
 //
 
 #import "TTSDKTableViewController.h"
+#import "TTSDKBrokerCenterTableViewCell.h"
 
-@interface TTSDKBrokerCenterViewController : TTSDKTableViewController
+@interface TTSDKBrokerCenterViewController : TTSDKTableViewController <TTSDKBrokerCenterDelegate>
 
 @end

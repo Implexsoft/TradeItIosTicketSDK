@@ -149,6 +149,11 @@
     [UIView setAnimationsEnabled:YES];
     [CATransaction commit];
 }
+- (IBAction)promptPressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(didSelectLink:withTitle:)]) {
+        [self.delegate didSelectLink:@"http://google.com" withTitle:@"GOOG"];
+    }
+}
 
 -(void) addImage:(UIImage *)img {
     if (img) {

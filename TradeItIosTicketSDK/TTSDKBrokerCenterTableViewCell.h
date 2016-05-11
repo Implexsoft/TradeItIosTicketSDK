@@ -9,9 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "TradeItBrokerCenterBroker.h"
 
+@protocol TTSDKBrokerCenterDelegate;
+
+@protocol TTSDKBrokerCenterDelegate <NSObject>
+
+@required
+
+-(void)didSelectLink:(NSString *)link withTitle:(NSString *)title;
+
+@end
+
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id<TTSDKBrokerCenterDelegate> delegate;
+
 +(UIColor *) colorFromArray:(NSArray *)colorArray;
+
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker;
 -(void) configureSelectedState:(BOOL)selected;
 -(void) addImage:(UIImage *)img;

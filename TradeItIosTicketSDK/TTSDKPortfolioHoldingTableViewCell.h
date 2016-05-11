@@ -15,6 +15,7 @@
 @protocol TTSDKPositionDelegate <NSObject>
 
 @required
+
 -(void)didSelectBuy:(TTSDKPosition *)position;
 -(void)didSelectSell:(TTSDKPosition *)position;
 

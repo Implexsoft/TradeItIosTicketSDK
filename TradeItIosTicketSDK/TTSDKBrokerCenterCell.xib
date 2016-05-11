@@ -192,6 +192,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="Open an Account"/>
+                        <connections>
+                            <action selector="promptPressed:" destination="OGm-Yw-MtB" eventType="touchUpInside" id="6ey-PL-DR0"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

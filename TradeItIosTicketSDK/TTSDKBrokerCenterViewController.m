@@ -53,6 +53,10 @@ static CGFloat kExpandedHeight = 330.0f;
     self.selectedIndex = -1;
 }
 
+-(void) didSelectLink:(NSString *)link withTitle:(NSString *)title {
+    [self showWebViewWithURL:link andTitle:title];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.brokerCenterData.count;
 }
@@ -71,6 +75,10 @@ static CGFloat kExpandedHeight = 330.0f;
     } else {
         scrollView.backgroundColor = self.firstItemBackgroundColor;
     }
+}
+
+-(void) promptButtonPressed:(id)sender {
+    [self showWebViewWithURL:@"https://www.trade.it/terms" andTitle:@"Terms"];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
