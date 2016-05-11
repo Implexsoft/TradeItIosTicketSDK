@@ -87,10 +87,75 @@
     self.featureSlot8.textColor = textColor;
     self.logoLabel.textColor = textColor;
 
+    [self populateFeatures: broker.features];
+
     UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.promptBackgroundColor];
     [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:broker.promptTextColor] forState:UIControlStateNormal];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
+}
+
+-(void) populateFeatures:(NSArray *)features {
+    // This is all very gross, but not sure of any other way to accomplish this
+
+    if (!features || !features.count) {
+        self.featureSlot1.text = @"";
+        self.featureSlot2.text = @"";
+        self.featureSlot3.text = @"";
+        self.featureSlot4.text = @"";
+        self.featureSlot5.text = @"";
+        self.featureSlot6.text = @"";
+        self.featureSlot7.text = @"";
+        self.featureSlot8.text = @"";
+
+        return;
+    }
+
+    int count = (int)features.count;
+
+    self.featureSlot1.text = [features objectAtIndex:0];
+
+    if (count > 1) {
+        self.featureSlot2.text = [features objectAtIndex:1];
+    } else {
+        self.featureSlot2.text = @"";
+    }
+
+    if (count > 2) {
+        self.featureSlot3.text = [features objectAtIndex:2];
+    } else {
+        self.featureSlot3.text = @"";
+    }
+    
+    if (count > 3) {
+        self.featureSlot4.text = [features objectAtIndex:3];
+    } else {
+        self.featureSlot4.text = @"";
+    }
+
+    if (count > 4) {
+        self.featureSlot5.text = [features objectAtIndex:4];
+    } else {
+        self.featureSlot5.text = @"";
+    }
+
+    if (count > 5) {
+        self.featureSlot6.text = [features objectAtIndex:5];
+    } else {
+        self.featureSlot6.text = @"";
+    }
+
+    if (count > 6) {
+        self.featureSlot7.text = [features objectAtIndex:6];
+    } else {
+        self.featureSlot7.text = @"";
+    }
+
+    if (count > 7) {
+        self.featureSlot8.text = [features objectAtIndex:7];
+    } else {
+        self.featureSlot8.text = @"";
+    }
 }
 
 +(UIColor *) colorFromArray:(NSArray *)colorArray {
