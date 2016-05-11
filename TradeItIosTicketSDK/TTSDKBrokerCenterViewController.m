@@ -26,6 +26,7 @@
 static CGFloat kDefaultHeight = 175.0f;
 static CGFloat kExpandedHeight = 330.0f;
 
+
 -(void) viewDidLoad {
     [super viewDidLoad];
 
@@ -37,7 +38,7 @@ static CGFloat kExpandedHeight = 330.0f;
     self.brokerCenterImages = [[NSArray alloc] init];
 
     if (self.ticket.adService.brokerCenterBrokers) {
-        self.brokerCenterData = self.ticket.adService.brokerCenterBrokers;
+        [self populateBrokerDataByActiveFilter];
     }
 
     // make sure to update this once real data is being used
@@ -56,7 +57,19 @@ static CGFloat kExpandedHeight = 330.0f;
     self.selectedIndex = -1;
 }
 
--(IBAction)closePressed:(id)sender {
+-(void) populateBrokerDataByActiveFilter {
+    NSMutableArray * brokerList = [[NSMutableArray alloc] init];
+
+    for (TradeItBrokerCenterBroker *broker in self.ticket.adService.brokerCenterBrokers) {
+        if (broker.active) {
+            [brokerList addObject: broker];
+        }
+    }
+
+    self.brokerCenterData = [brokerList copy];
+}
+
+-(IBAction) closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -64,7 +77,7 @@ static CGFloat kExpandedHeight = 330.0f;
     [self showWebViewWithURL:link andTitle:title];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.brokerCenterData.count;
 }
 
