@@ -88,6 +88,7 @@
     self.logoLabel.textColor = textColor;
 
     UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: broker.promptBackgroundColor];
+    [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:broker.promptTextColor] forState:UIControlStateNormal];
     self.callToActionButton.backgroundColor = buttonBackgroundColor;
     self.callToActionButton.layer.cornerRadius = 5.0f;
 }
