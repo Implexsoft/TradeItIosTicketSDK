@@ -108,26 +108,26 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-Ev-Woa" userLabel="LeftFeaturesView">
                         <rect key="frame" x="8" y="194" width="160" height="70"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
-                                <rect key="frame" x="60" y="0.0" width="41" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
-                                <rect key="frame" x="55" y="17" width="50" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
+                                <rect key="frame" x="0.0" y="17" width="50" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
-                                <rect key="frame" x="60" y="34" width="41" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
+                                <rect key="frame" x="0.0" y="34" width="41" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Seven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgx-nm-L2i" userLabel="Slot 7">
-                                <rect key="frame" x="55" y="51" width="51" height="12"/>
+                                <rect key="frame" x="0.0" y="51" width="51" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -135,56 +135,56 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RWs-iR-IPY" firstAttribute="centerX" secondItem="ay6-Ev-Woa" secondAttribute="centerX" id="4GY-9Q-vRK"/>
+                            <constraint firstItem="Pgx-nm-L2i" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="4da-gr-3nK"/>
+                            <constraint firstItem="RWs-iR-IPY" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="A1g-pm-KRO"/>
                             <constraint firstItem="Nyq-8B-ewx" firstAttribute="top" secondItem="jFp-Xy-oOz" secondAttribute="bottom" constant="5" id="CKd-9p-EIT"/>
                             <constraint firstItem="RWs-iR-IPY" firstAttribute="top" secondItem="Nyq-8B-ewx" secondAttribute="bottom" constant="5" id="Gl6-Fq-ciS"/>
-                            <constraint firstItem="Nyq-8B-ewx" firstAttribute="centerX" secondItem="ay6-Ev-Woa" secondAttribute="centerX" id="O4b-Ov-1gO"/>
+                            <constraint firstItem="Nyq-8B-ewx" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="ToU-wi-cry"/>
                             <constraint firstItem="Pgx-nm-L2i" firstAttribute="top" secondItem="RWs-iR-IPY" secondAttribute="bottom" constant="5" id="eZe-7K-zUs"/>
                             <constraint firstAttribute="height" constant="70" id="lyu-v0-xNz"/>
-                            <constraint firstItem="Pgx-nm-L2i" firstAttribute="centerX" secondItem="ay6-Ev-Woa" secondAttribute="centerX" id="mSO-dx-uDv"/>
                             <constraint firstItem="jFp-Xy-oOz" firstAttribute="top" secondItem="ay6-Ev-Woa" secondAttribute="top" id="y36-ih-m4f"/>
-                            <constraint firstItem="jFp-Xy-oOz" firstAttribute="centerX" secondItem="ay6-Ev-Woa" secondAttribute="centerX" id="yRr-nC-Zof"/>
+                            <constraint firstItem="jFp-Xy-oOz" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="z0S-eu-5id"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETz-vW-s2N" userLabel="RightFeaturesView">
                         <rect key="frame" x="152" y="194" width="160" height="70"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
-                                <rect key="frame" x="60" y="0.0" width="41" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
-                                <rect key="frame" x="59" y="17" width="43" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
+                                <rect key="frame" x="0.0" y="17" width="43" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
-                                <rect key="frame" x="62" y="34" width="36" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
+                                <rect key="frame" x="0.0" y="34" width="36" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
-                                <rect key="frame" x="57" y="51" width="46" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
+                                <rect key="frame" x="0.0" y="51" width="46" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FM8-X9-wcd" firstAttribute="top" secondItem="EdW-E6-279" secondAttribute="bottom" constant="5" id="1UG-Oe-LlJ"/>
+                            <constraint firstItem="gUn-Qq-N8b" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="4uR-Pf-1q6"/>
                             <constraint firstItem="EdW-E6-279" firstAttribute="top" secondItem="ETz-vW-s2N" secondAttribute="top" id="5kT-2p-qgL"/>
-                            <constraint firstItem="FM8-X9-wcd" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="VBd-H4-JXC"/>
+                            <constraint firstItem="EdW-E6-279" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="Ki1-C8-d3P"/>
+                            <constraint firstItem="GhH-1m-VDu" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="QHg-KX-oWP"/>
                             <constraint firstAttribute="height" constant="70" id="Vjo-2o-f9N"/>
                             <constraint firstItem="GhH-1m-VDu" firstAttribute="top" secondItem="FM8-X9-wcd" secondAttribute="bottom" constant="5" id="aIX-Do-bsF"/>
-                            <constraint firstItem="GhH-1m-VDu" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="f7M-aA-GBB"/>
+                            <constraint firstItem="FM8-X9-wcd" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="hjN-l6-MzW"/>
                             <constraint firstItem="gUn-Qq-N8b" firstAttribute="top" secondItem="GhH-1m-VDu" secondAttribute="bottom" constant="5" id="p1D-pm-4C6"/>
-                            <constraint firstItem="EdW-E6-279" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="x13-df-lfp"/>
-                            <constraint firstItem="gUn-Qq-N8b" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="ymG-YR-mpz"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L9-5P-eZi">
@@ -313,7 +313,7 @@
                 <outlet property="stocksEtfsTitle" destination="5sP-fW-h3U" id="XrM-ma-65S"/>
                 <outlet property="toggleExpanded" destination="Rcu-6t-b2C" id="wNM-01-7Mq"/>
             </connections>
-            <point key="canvasLocation" x="323" y="478"/>
+            <point key="canvasLocation" x="335" y="725"/>
         </tableViewCell>
     </objects>
     <resources>

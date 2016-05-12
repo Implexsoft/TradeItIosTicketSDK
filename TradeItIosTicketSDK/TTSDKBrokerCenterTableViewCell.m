@@ -309,6 +309,16 @@ static float kMessageSeparatorHeight = 10.0f;
 
     self.featureSlot1.text = [features objectAtIndex:0];
 
+//    float maxLeftFeatureWidth = 0.0f;
+//
+//    float widthIs =
+//    [self.yourLabel.text
+//     boundingRectWithSize:self.yourLabel.frame.size
+//     options:NSStringDrawingUsesLineFragmentOrigin
+//     attributes:@{ NSFontAttributeName:self.yourLabel.font }
+//     context:nil]
+//    .size.width;
+
     if (count > 1) {
         self.featureSlot2.text = [features objectAtIndex:1];
     } else {
@@ -350,6 +360,8 @@ static float kMessageSeparatorHeight = 10.0f;
     } else {
         self.featureSlot8.text = @"";
     }
+
+
 }
 
 
