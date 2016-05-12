@@ -118,7 +118,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 -(void) styleCustomDropdownButton: (UIButton *)button {
     button.backgroundColor = [UIColor clearColor];
-    button.layer.borderColor = self.styles.activeColor.CGColor;
+    button.layer.borderColor = self.styles.secondaryActiveColor.CGColor;
     button.layer.borderWidth = 1.5f;
     button.layer.cornerRadius = 5.0f;
     [button setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
@@ -151,8 +151,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     shapeLayer.path = path.CGPath;
 
-    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
-    shapeLayer.fillColor = self.styles.activeColor.CGColor;
+    shapeLayer.strokeColor = self.styles.secondaryActiveColor.CGColor;
+    shapeLayer.fillColor = self.styles.secondaryActiveColor.CGColor;
 
     [preferredBrokerLabel.layer addSublayer: shapeLayer];
 }

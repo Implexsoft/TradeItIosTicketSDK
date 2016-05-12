@@ -341,7 +341,7 @@
                 <outlet property="stocksEtfsTitle" destination="5sP-fW-h3U" id="XrM-ma-65S"/>
                 <outlet property="toggleExpanded" destination="Rcu-6t-b2C" id="wNM-01-7Mq"/>
             </connections>
-            <point key="canvasLocation" x="535" y="997"/>
+            <point key="canvasLocation" x="703" y="1041"/>
         </tableViewCell>
     </objects>
     <resources>
