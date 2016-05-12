@@ -96,7 +96,7 @@
     ticket.callback = nil;
 
     if (debug) {
-        ticket.connector.environment = TradeItEmsLocalEnv;
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     [ticket launchAccountsFlow];
@@ -118,7 +118,7 @@
     ticket.callback = callback;
 
     if (debug) {
-        ticket.connector.environment = TradeItEmsLocalEnv;
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     [ticket launchAuthFlow];
@@ -153,7 +153,7 @@
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
 
     if (debug) {
-        ticket.connector.environment = TradeItEmsLocalEnv;
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     [TradeItTicketController showTicket];
@@ -205,7 +205,7 @@
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
 
     if (debug) {
-        ticket.connector.environment = TradeItEmsLocalEnv;
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     [TradeItTicketController showTicket];
@@ -296,7 +296,7 @@
 
     if(self.debugMode) {
         [ticket setDebugMode: YES];
-        ticket.connector.environment = TradeItEmsLocalEnv;
+        ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     if(self.onCompletion != nil) {
