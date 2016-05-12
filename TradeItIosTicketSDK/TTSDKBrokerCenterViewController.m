@@ -313,11 +313,21 @@ static CGFloat kExpandedHeight = 330.0f;
 
         NSMutableArray * optionsArray = [[NSMutableArray alloc] init];
         for (NSDictionary *linkItem in selectedLinksList) {
-            [optionsArray addObject:@[[linkItem valueForKey:@"title"], [linkItem valueForKey:@"href"]]];
+            [optionsArray addObject:@{[linkItem valueForKey:@"title"]: [linkItem valueForKey:@"href"]}];
         }
 
         [self showPicker:@"Select a link" withSelection:[firstLinkItem valueForKey:@"href"] andOptions:[optionsArray copy] onSelection:^(void){
             dispatch_async(dispatch_get_main_queue(), ^{
+
+                for (NSDictionary * optionsItem in optionsArray) {
+                    for (id key in optionsItem) {
+                        NSString * val = (NSString *)[optionsItem valueForKey:key];
+                        if ([val isEqualToString:self.currentSelection]) {
+                            [self showWebViewWithURL:val andTitle:key];
+                            return;
+                        }
+                    }
+                }
             });
         }];
     }
