@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="330"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGm-Yw-MtB" id="pbT-rv-LFl">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="329.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="329"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3j-fi-bcP" userLabel="HeadlineView">
@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcD-c0-UHG">
-                                <rect key="frame" x="0.0" y="18" width="164" height="39.5"/>
+                                <rect key="frame" x="0.0" y="18" width="164" height="40"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -136,7 +136,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="RWs-iR-IPY" firstAttribute="top" secondItem="Nyq-8B-ewx" secondAttribute="bottom" id="1DK-TL-NL3"/>
                                     <constraint firstItem="Pgx-nm-L2i" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="2XF-23-wOd"/>
@@ -189,7 +189,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="GhH-1m-VDu" firstAttribute="top" secondItem="FM8-X9-wcd" secondAttribute="bottom" id="4xu-wI-k8P"/>
                                     <constraint firstAttribute="width" constant="70" id="7uq-ac-6IJ"/>
@@ -325,6 +325,7 @@
                 <outlet property="featureSlot7" destination="Pgx-nm-L2i" id="7ub-fp-48p"/>
                 <outlet property="featureSlot8" destination="gUn-Qq-N8b" id="fzh-0d-FAo"/>
                 <outlet property="featuresTitle" destination="ttA-bv-AIc" id="XhZ-PL-WkB"/>
+                <outlet property="leftFeatureWidthConstraint" destination="jFI-af-dbZ" id="ZlG-jo-dF8"/>
                 <outlet property="leftFeaturesContainer" destination="ay6-Ev-Woa" id="Fwh-yE-7M7"/>
                 <outlet property="logo" destination="ET7-eJ-Ecz" id="uPQ-wa-N0j"/>
                 <outlet property="logoHeightConstraint" destination="D9h-36-I4C" id="lm7-Cs-XQp"/>
@@ -334,12 +335,13 @@
                 <outlet property="offerTitle" destination="Jet-y7-JGg" id="rUq-VZ-C3K"/>
                 <outlet property="optionsOffer" destination="xJF-Fz-tsz" id="Xe4-kg-fUC"/>
                 <outlet property="optionsTitle" destination="ZQ4-TD-xbt" id="S4N-NN-vMd"/>
+                <outlet property="rightFeatureWidthConstraint" destination="7uq-ac-6IJ" id="IqP-jh-qCv"/>
                 <outlet property="rightFeaturesContainer" destination="ETz-vW-s2N" id="SCH-eL-Afs"/>
                 <outlet property="stocksEtfsOffer" destination="28h-EB-YOo" id="PnJ-K9-tNB"/>
                 <outlet property="stocksEtfsTitle" destination="5sP-fW-h3U" id="XrM-ma-65S"/>
                 <outlet property="toggleExpanded" destination="Rcu-6t-b2C" id="wNM-01-7Mq"/>
             </connections>
-            <point key="canvasLocation" x="669" y="846"/>
+            <point key="canvasLocation" x="535" y="997"/>
         </tableViewCell>
     </objects>
     <resources>
