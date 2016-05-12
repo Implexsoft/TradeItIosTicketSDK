@@ -8,8 +8,7 @@
 
 #import "TTSDKBrokerCenterTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
-#import "TTSDKAttributedLabel.h"
-//#import "<CoreText/CTStringAttributes.h>"
+
 
 @interface TTSDKBrokerCenterTableViewCell()
 
@@ -51,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightFeatureWidthConstraint;
 
 @end
+
 
 @implementation TTSDKBrokerCenterTableViewCell
 
