@@ -14,9 +14,7 @@
 
 @property TradeItBrokerCenterBroker * data;
 @property TTSDKTradeItTicket * ticket;
-
 @property NSArray * disclaimerLabels;
-
 @property UILabel * lastAttachedMessage;
 @property (weak, nonatomic) IBOutlet UIButton *toggleExpanded;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;

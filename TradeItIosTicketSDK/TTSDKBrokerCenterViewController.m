@@ -11,19 +11,18 @@
 
 @interface TTSDKBrokerCenterViewController ()
 
+@property NSLayoutManager * layoutManager;
 @property NSArray * brokerCenterData;
 @property NSArray * brokerCenterImages;
-@property NSMutableArray * brokerCenterImagesLoadingQueue; // loading by recursion
-@property NSInteger selectedIndex;
-
-@property UIColor * firstItemBackgroundColor;
-@property UIColor * lastItemBackgroundColor;
-
-@property BOOL disclaimerOpen;
-@property NSIndexPath * disclaimerIndexPath;
-@property CGFloat currentDisclaimerHeight;
 @property NSArray * disclaimers;
 @property NSMutableArray * links;
+@property NSMutableArray * brokerCenterImagesLoadingQueue;
+@property NSIndexPath * disclaimerIndexPath;
+@property NSInteger selectedIndex;
+@property CGFloat currentDisclaimerHeight;
+@property BOOL disclaimerOpen;
+@property UIColor * firstItemBackgroundColor;
+@property UIColor * lastItemBackgroundColor;
 
 @end
 
@@ -156,37 +155,54 @@ static CGFloat kExpandedHeight = 330.0f;
 
             NSString * message = [NSString stringWithFormat:@"%@%@", prefixStr, [disclaimer valueForKey:@"content"]];
 
+            NSArray * componentByBeginningString = [message componentsSeparatedByString:@"{{"];
 
-            NSRange linkStart = [message rangeOfString:@"{{"];
-            NSRange linkEnd = [message rangeOfString:@"}}"];
+            NSMutableAttributedString * attributedStringByComponent = [[NSMutableAttributedString alloc] init];
 
-            // TODO - handle multiple links
-            if (linkStart.location != NSNotFound) {
+            if (componentByBeginningString.count > 1) {
+                NSMutableArray * mutableComponentByEndingString = [[NSMutableArray alloc ] init];
                 NSDictionary *linkAttributes = @{
                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:label.font.pointSize],
                                                  NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle)
                                                  };
 
-                float r = linkEnd.location - (linkStart.location + 2);
+                for (NSString *component in componentByBeginningString) {
 
-                NSRange linkRange = NSMakeRange(linkStart.location, r);
+                    NSArray * endComponent = [component componentsSeparatedByString:@"}}"];
+                    [mutableComponentByEndingString addObject:endComponent];
+                }
 
-                NSString * replacedStr = [message stringByReplacingOccurrencesOfString:@"{{" withString:@""];
-                replacedStr = [replacedStr stringByReplacingOccurrencesOfString:@"}}" withString:@""];
+                NSArray * componentByEndingString = [mutableComponentByEndingString copy];
 
-                NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:replacedStr];
-                [attributedString addAttributes:linkAttributes range:linkRange];
+                NSMutableArray * hrefsHolder = [[NSMutableArray alloc] init];
+                NSArray * hrefs = (NSArray *)[disclaimer valueForKey:@"hrefs"];
+
+                int hrefCounter = 0;
+
+                for (NSArray * endingComponent in componentByEndingString) {
+
+                    if (endingComponent.count == 2) {
+
+                        NSAttributedString * attributedEndingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject] attributes:linkAttributes];
+
+                        [hrefsHolder addObject:@{@"href": (NSString *)[hrefs objectAtIndex: hrefCounter], @"title": [attributedEndingComponent string]}];
+                        hrefCounter++;
+
+                        [attributedStringByComponent appendAttributedString: attributedEndingComponent];
+
+                        NSAttributedString * attributedEndingHangingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent lastObject]];
+
+                        [attributedStringByComponent appendAttributedString: attributedEndingHangingComponent];
+                    } else {
+
+                        [attributedStringByComponent appendAttributedString:[[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject]]];
+                    }
+                }
+
+                [self.links addObject:@{@"broker": broker.broker, @"hrefs": [hrefsHolder copy]}];
 
                 label.userInteractionEnabled = YES;
-                label.attributedText = [attributedString copy];
-
-                NSString * href = [disclaimer valueForKey:@"href"];
-
-                NSNumber * tag = [NSNumber numberWithInt:100];
-
-                label.tag = [tag intValue];
-
-                [self.links addObject:@{ @"href": href, @"tag": tag, @"title": [[attributedString attributedSubstringFromRange:linkRange] string] }];
+                label.attributedText = [attributedStringByComponent copy];
 
                 UITapGestureRecognizer * linkTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(linkPressed:)];
                 [label addGestureRecognizer: linkTap];
@@ -251,20 +267,60 @@ static CGFloat kExpandedHeight = 330.0f;
             lastAttachedLabel = label;
         }
 
-        [disclaimersArray addObject:@{@"view": containerView, @"totalHeight": [NSNumber numberWithFloat: totalLabelsHeight]}];
+        [disclaimersArray addObject:@{@"view": containerView, @"totalHeight": [NSNumber numberWithFloat: totalLabelsHeight + 30.0f]}];
     }
 
     self.disclaimers = [disclaimersArray copy];
+}
+
+- (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str {
+    NSMutableArray *results = [NSMutableArray array];
+    NSRange searchRange = NSMakeRange(0, [str length]);
+    NSRange range;
+    while ((range = [str rangeOfString:searchString options:0 range:searchRange]).location != NSNotFound) {
+        [results addObject:[NSValue valueWithRange:range]];
+        searchRange = NSMakeRange(NSMaxRange(range), [str length] - NSMaxRange(range));
+    }
+    return results;
 }
 
 -(IBAction) closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction)linkPressed:(id)sender {
-    NSDictionary * selectedLink = [self.links firstObject];
+-(IBAction) linkPressed:(id)sender {
+    TradeItBrokerCenterBroker * selectedBroker = [self.brokerCenterData objectAtIndex: self.selectedIndex];
 
-    [self showWebViewWithURL: [selectedLink valueForKey:@"href"] andTitle:[selectedLink valueForKey:@"title"]];
+    NSArray * selectedLinksList;
+
+    for (NSDictionary * link in self.links) {
+        NSString * broker = [link valueForKey:@"broker"];
+
+        if ([selectedBroker.broker isEqualToString:broker]) {
+            selectedLinksList = (NSArray *)[link valueForKey:@"hrefs"];
+        }
+    }
+
+    if (!selectedLinksList || !selectedLinksList.count) {
+        return;
+    }
+
+    NSDictionary * firstLinkItem = (NSDictionary *)[selectedLinksList firstObject];
+
+    if (selectedLinksList.count == 1) {
+        [self showWebViewWithURL: [firstLinkItem valueForKey:@"href"] andTitle:[firstLinkItem valueForKey:@"title"]];
+    } else {
+
+        NSMutableArray * optionsArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *linkItem in selectedLinksList) {
+            [optionsArray addObject:@[[linkItem valueForKey:@"title"], [linkItem valueForKey:@"href"]]];
+        }
+
+        [self showPicker:@"Select a link" withSelection:[firstLinkItem valueForKey:@"href"] andOptions:[optionsArray copy] onSelection:^(void){
+            dispatch_async(dispatch_get_main_queue(), ^{
+            });
+        }];
+    }
 }
 
 -(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath {
