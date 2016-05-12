@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="330"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGm-Yw-MtB" id="pbT-rv-LFl">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="329"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="329.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3j-fi-bcP" userLabel="HeadlineView">
@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcD-c0-UHG">
-                                <rect key="frame" x="0.0" y="18" width="164" height="40"/>
+                                <rect key="frame" x="0.0" y="18" width="164" height="39.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -108,83 +108,107 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-Ev-Woa" userLabel="LeftFeaturesView">
                         <rect key="frame" x="8" y="194" width="152" height="70"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
-                                <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
-                                <rect key="frame" x="0.0" y="17" width="50" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
-                                <rect key="frame" x="0.0" y="34" width="41" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Seven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgx-nm-L2i" userLabel="Slot 7">
-                                <rect key="frame" x="0.0" y="51" width="51" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spN-oc-KI9">
+                                <rect key="frame" x="41" y="0.0" width="70" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
+                                        <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
+                                        <rect key="frame" x="0.0" y="12" width="50" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
+                                        <rect key="frame" x="0.0" y="24" width="41" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Seven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgx-nm-L2i" userLabel="Slot 7">
+                                        <rect key="frame" x="0.0" y="36" width="51" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="RWs-iR-IPY" firstAttribute="top" secondItem="Nyq-8B-ewx" secondAttribute="bottom" id="1DK-TL-NL3"/>
+                                    <constraint firstItem="Pgx-nm-L2i" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="2XF-23-wOd"/>
+                                    <constraint firstItem="Pgx-nm-L2i" firstAttribute="top" secondItem="RWs-iR-IPY" secondAttribute="bottom" id="3uf-U1-QIP"/>
+                                    <constraint firstItem="jFp-Xy-oOz" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="7ln-k1-XBM"/>
+                                    <constraint firstItem="Nyq-8B-ewx" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="Sz1-Wb-qOK"/>
+                                    <constraint firstItem="jFp-Xy-oOz" firstAttribute="top" secondItem="spN-oc-KI9" secondAttribute="top" id="VTg-Qx-hTb"/>
+                                    <constraint firstItem="Nyq-8B-ewx" firstAttribute="top" secondItem="jFp-Xy-oOz" secondAttribute="bottom" id="aBc-XX-jTn"/>
+                                    <constraint firstItem="RWs-iR-IPY" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="duj-Od-Ck2"/>
+                                    <constraint firstAttribute="width" priority="750" constant="70" id="jFI-af-dbZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pgx-nm-L2i" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="4da-gr-3nK"/>
-                            <constraint firstItem="RWs-iR-IPY" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="A1g-pm-KRO"/>
-                            <constraint firstItem="Nyq-8B-ewx" firstAttribute="top" secondItem="jFp-Xy-oOz" secondAttribute="bottom" constant="5" id="CKd-9p-EIT"/>
-                            <constraint firstItem="RWs-iR-IPY" firstAttribute="top" secondItem="Nyq-8B-ewx" secondAttribute="bottom" constant="5" id="Gl6-Fq-ciS"/>
-                            <constraint firstItem="Nyq-8B-ewx" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="ToU-wi-cry"/>
-                            <constraint firstItem="Pgx-nm-L2i" firstAttribute="top" secondItem="RWs-iR-IPY" secondAttribute="bottom" constant="5" id="eZe-7K-zUs"/>
+                            <constraint firstItem="spN-oc-KI9" firstAttribute="top" secondItem="ay6-Ev-Woa" secondAttribute="top" id="fV4-2j-E3w"/>
+                            <constraint firstAttribute="bottom" secondItem="spN-oc-KI9" secondAttribute="bottom" id="gju-H7-clT"/>
                             <constraint firstAttribute="height" constant="70" id="lyu-v0-xNz"/>
-                            <constraint firstItem="jFp-Xy-oOz" firstAttribute="top" secondItem="ay6-Ev-Woa" secondAttribute="top" id="y36-ih-m4f"/>
-                            <constraint firstItem="jFp-Xy-oOz" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="leading" id="z0S-eu-5id"/>
+                            <constraint firstItem="spN-oc-KI9" firstAttribute="centerX" secondItem="ay6-Ev-Woa" secondAttribute="centerX" id="r6c-Rb-MCf"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETz-vW-s2N" userLabel="RightFeaturesView">
                         <rect key="frame" x="160" y="194" width="152" height="70"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
-                                <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
-                                <rect key="frame" x="0.0" y="17" width="43" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
-                                <rect key="frame" x="0.0" y="34" width="36" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
-                                <rect key="frame" x="0.0" y="51" width="46" height="12"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnk-2V-xlc">
+                                <rect key="frame" x="41" y="0.0" width="70" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
+                                        <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
+                                        <rect key="frame" x="0.0" y="12" width="43" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
+                                        <rect key="frame" x="0.0" y="24" width="36" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
+                                        <rect key="frame" x="0.0" y="36" width="46" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="GhH-1m-VDu" firstAttribute="top" secondItem="FM8-X9-wcd" secondAttribute="bottom" id="4xu-wI-k8P"/>
+                                    <constraint firstAttribute="width" constant="70" id="7uq-ac-6IJ"/>
+                                    <constraint firstItem="gUn-Qq-N8b" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="BWu-Gh-3mU"/>
+                                    <constraint firstItem="GhH-1m-VDu" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="OKF-nR-qhA"/>
+                                    <constraint firstItem="EdW-E6-279" firstAttribute="top" secondItem="mnk-2V-xlc" secondAttribute="top" id="PCK-YU-Ucx"/>
+                                    <constraint firstItem="FM8-X9-wcd" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="WTF-8Y-lHv"/>
+                                    <constraint firstItem="gUn-Qq-N8b" firstAttribute="top" secondItem="GhH-1m-VDu" secondAttribute="bottom" id="m7J-Q2-GLR"/>
+                                    <constraint firstItem="FM8-X9-wcd" firstAttribute="top" secondItem="EdW-E6-279" secondAttribute="bottom" id="sUx-IZ-pCQ"/>
+                                    <constraint firstItem="EdW-E6-279" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="vvM-p5-Vbh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="FM8-X9-wcd" firstAttribute="top" secondItem="EdW-E6-279" secondAttribute="bottom" constant="5" id="1UG-Oe-LlJ"/>
-                            <constraint firstItem="gUn-Qq-N8b" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="4uR-Pf-1q6"/>
-                            <constraint firstItem="EdW-E6-279" firstAttribute="top" secondItem="ETz-vW-s2N" secondAttribute="top" id="5kT-2p-qgL"/>
-                            <constraint firstItem="EdW-E6-279" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="Ki1-C8-d3P"/>
-                            <constraint firstItem="GhH-1m-VDu" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="QHg-KX-oWP"/>
+                            <constraint firstItem="mnk-2V-xlc" firstAttribute="top" secondItem="ETz-vW-s2N" secondAttribute="top" id="Hd9-8K-xb5"/>
+                            <constraint firstAttribute="bottom" secondItem="mnk-2V-xlc" secondAttribute="bottom" id="JHt-GH-wel"/>
                             <constraint firstAttribute="height" constant="70" id="Vjo-2o-f9N"/>
-                            <constraint firstItem="GhH-1m-VDu" firstAttribute="top" secondItem="FM8-X9-wcd" secondAttribute="bottom" constant="5" id="aIX-Do-bsF"/>
-                            <constraint firstItem="FM8-X9-wcd" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="hjN-l6-MzW"/>
-                            <constraint firstItem="gUn-Qq-N8b" firstAttribute="top" secondItem="GhH-1m-VDu" secondAttribute="bottom" constant="5" id="p1D-pm-4C6"/>
+                            <constraint firstItem="mnk-2V-xlc" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="WdL-54-dgO"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L9-5P-eZi">
@@ -292,14 +316,6 @@
                 <outlet property="disclaimerButton" destination="3yw-Vh-hup" id="f9M-8l-jHP"/>
                 <outlet property="disclaimerHeightConstraint" destination="fpa-n3-gOv" id="V0G-B7-Vti"/>
                 <outlet property="disclaimerView" destination="Zjz-Im-9v1" id="aoo-N5-lSx"/>
-                <outlet property="feature1Leading" destination="z0S-eu-5id" id="Xdp-y1-0W2"/>
-                <outlet property="feature2Leading" destination="Ki1-C8-d3P" id="CAU-jq-Yag"/>
-                <outlet property="feature3Leading" destination="ToU-wi-cry" id="FYQ-PH-Thz"/>
-                <outlet property="feature4Leading" destination="hjN-l6-MzW" id="3ni-Oz-my6"/>
-                <outlet property="feature5Leading" destination="A1g-pm-KRO" id="Z1V-GA-Vd3"/>
-                <outlet property="feature6Leading" destination="QHg-KX-oWP" id="Sit-sS-Rrk"/>
-                <outlet property="feature7Leading" destination="4da-gr-3nK" id="Y3G-Mj-xzY"/>
-                <outlet property="feature8Leading" destination="4uR-Pf-1q6" id="bOu-nu-S4I"/>
                 <outlet property="featureSlot1" destination="jFp-Xy-oOz" id="CFI-1U-4sU"/>
                 <outlet property="featureSlot2" destination="EdW-E6-279" id="8xT-Sj-lq9"/>
                 <outlet property="featureSlot3" destination="Nyq-8B-ewx" id="3et-Oc-dgv"/>
