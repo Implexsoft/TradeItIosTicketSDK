@@ -23,6 +23,7 @@
 @property NSIndexPath * disclaimerIndexPath;
 @property CGFloat currentDisclaimerHeight;
 @property NSArray * disclaimers;
+@property NSMutableArray * links;
 
 @end
 
@@ -34,6 +35,8 @@ static CGFloat kExpandedHeight = 330.0f;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+
+    self.links = [[NSMutableArray alloc] init];
 
     self.disclaimerOpen = NO;
 
@@ -151,7 +154,45 @@ static CGFloat kExpandedHeight = 330.0f;
 
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
 
-            [label setText: [NSString stringWithFormat:@"%@%@", prefixStr, [disclaimer valueForKey:@"content"]]];
+            NSString * message = [NSString stringWithFormat:@"%@%@", prefixStr, [disclaimer valueForKey:@"content"]];
+
+
+            NSRange linkStart = [message rangeOfString:@"{{"];
+            NSRange linkEnd = [message rangeOfString:@"}}"];
+
+            // TODO - handle multiple links
+            if (linkStart.location != NSNotFound) {
+                NSDictionary *linkAttributes = @{
+                                                 NSFontAttributeName: [UIFont boldSystemFontOfSize:label.font.pointSize],
+                                                 NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle)
+                                                 };
+
+                float r = linkEnd.location - (linkStart.location + 2);
+
+                NSRange linkRange = NSMakeRange(linkStart.location, r);
+
+                NSString * replacedStr = [message stringByReplacingOccurrencesOfString:@"{{" withString:@""];
+                replacedStr = [replacedStr stringByReplacingOccurrencesOfString:@"}}" withString:@""];
+
+                NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:replacedStr];
+                [attributedString addAttributes:linkAttributes range:linkRange];
+
+                label.userInteractionEnabled = YES;
+                label.attributedText = [attributedString copy];
+
+                NSString * href = [disclaimer valueForKey:@"href"];
+
+                NSNumber * tag = [NSNumber numberWithInt:100];
+
+                label.tag = [tag intValue];
+
+                [self.links addObject:@{ @"href": href, @"tag": tag, @"title": [[attributedString attributedSubstringFromRange:linkRange] string] }];
+
+                UITapGestureRecognizer * linkTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(linkPressed:)];
+                [label addGestureRecognizer: linkTap];
+            } else {
+                label.text = message;
+            }
 
             label.lineBreakMode = NSLineBreakByWordWrapping;
             label.autoresizesSubviews = YES;
@@ -218,6 +259,12 @@ static CGFloat kExpandedHeight = 330.0f;
 
 -(IBAction) closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)linkPressed:(id)sender {
+    NSDictionary * selectedLink = [self.links firstObject];
+
+    [self showWebViewWithURL: [selectedLink valueForKey:@"href"] andTitle:[selectedLink valueForKey:@"title"]];
 }
 
 -(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath {
