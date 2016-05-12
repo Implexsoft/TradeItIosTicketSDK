@@ -45,6 +45,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *disclaimerButton;
 @property (weak, nonatomic) IBOutlet UIView *disclaimerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *disclaimerHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *leftFeaturesContainer;
+@property (weak, nonatomic) IBOutlet UIView *rightFeaturesContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftFeatureWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightFeatureWidthConstraint;
 
 @end
 
@@ -147,6 +151,13 @@ static float kMessageSeparatorHeight = 10.0f;
     self.callToActionButton.layer.cornerRadius = 5.0f;
 }
 
+-(void) addBulletToLabel:(UILabel *)label withColor:(UIColor *)color {
+    CAShapeLayer * circleLayer = [CAShapeLayer layer];
+    [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(-5.0f, (label.frame.size.height/2)-1.0f, 2.0f, 2.0f)] CGPath]];
+    [circleLayer setFillColor: color.CGColor];
+    [label.layer addSublayer: circleLayer];
+}
+
 -(void) addImage:(UIImage *)img {
     if (img) {
         self.logoLabel.hidden = YES;
@@ -238,6 +249,20 @@ static float kMessageSeparatorHeight = 10.0f;
     [self setNeedsUpdateConstraints];
 }
 
+-(float) getMaxTextWidth:(UILabel *)label max:(float)max {
+    float labelWidth = [label.text
+                        boundingRectWithSize:label.frame.size
+                        options:NSStringDrawingUsesLineFragmentOrigin
+                        attributes:@{ NSFontAttributeName:label.font }
+                        context:nil].size.width;
+    
+    if (labelWidth > max) {
+        return labelWidth;
+    } else {
+        return max;
+    }
+}
+
 
 #pragma Mark Populate data
 
@@ -307,61 +332,85 @@ static float kMessageSeparatorHeight = 10.0f;
 
     int count = (int)features.count;
 
-    self.featureSlot1.text = [features objectAtIndex:0];
+    float maxLeftFeatureWidth = 0.0f;
+    float maxRightFeatureWidth = 0.0f;
 
-//    float maxLeftFeatureWidth = 0.0f;
-//
-//    float widthIs =
-//    [self.yourLabel.text
-//     boundingRectWithSize:self.yourLabel.frame.size
-//     options:NSStringDrawingUsesLineFragmentOrigin
-//     attributes:@{ NSFontAttributeName:self.yourLabel.font }
-//     context:nil]
-//    .size.width;
+    UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
+
+    self.featureSlot1.text = [features objectAtIndex:0];
+    [self.featureSlot1 sizeToFit];
+    maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot1 max:maxLeftFeatureWidth];
+    [self addBulletToLabel:self.featureSlot1 withColor:textColor];
 
     if (count > 1) {
         self.featureSlot2.text = [features objectAtIndex:1];
+        [self.featureSlot2 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot2 max:maxRightFeatureWidth];
+        [self addBulletToLabel:self.featureSlot2 withColor:textColor];
     } else {
         self.featureSlot2.text = @"";
     }
 
     if (count > 2) {
         self.featureSlot3.text = [features objectAtIndex:2];
+        [self.featureSlot3 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot3 max:maxLeftFeatureWidth];
+        [self addBulletToLabel:self.featureSlot3 withColor:textColor];
     } else {
         self.featureSlot3.text = @"";
     }
     
     if (count > 3) {
         self.featureSlot4.text = [features objectAtIndex:3];
+        [self.featureSlot4 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot4 max:maxRightFeatureWidth];
+        [self addBulletToLabel:self.featureSlot4 withColor:textColor];
     } else {
         self.featureSlot4.text = @"";
     }
 
     if (count > 4) {
         self.featureSlot5.text = [features objectAtIndex:4];
+        [self.featureSlot5 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot5 max:maxLeftFeatureWidth];
+        [self addBulletToLabel:self.featureSlot5 withColor:textColor];
     } else {
         self.featureSlot5.text = @"";
     }
 
     if (count > 5) {
         self.featureSlot6.text = [features objectAtIndex:5];
+        [self.featureSlot6 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot6 max:maxRightFeatureWidth];
+        [self addBulletToLabel:self.featureSlot6 withColor:textColor];
     } else {
         self.featureSlot6.text = @"";
     }
 
     if (count > 6) {
         self.featureSlot7.text = [features objectAtIndex:6];
+        [self.featureSlot7 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot7 max:maxLeftFeatureWidth];
+        [self addBulletToLabel:self.featureSlot7 withColor:textColor];
     } else {
         self.featureSlot7.text = @"";
     }
 
     if (count > 7) {
         self.featureSlot8.text = [features objectAtIndex:7];
+        [self.featureSlot8 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot8 max:maxRightFeatureWidth];
+        [self addBulletToLabel:self.featureSlot8 withColor:textColor];
     } else {
         self.featureSlot8.text = @"";
     }
 
+    [self setNeedsUpdateConstraints];
+    [self setNeedsLayout];
+    [self layoutSubviews];
 
+    self.leftFeatureWidthConstraint.constant = maxLeftFeatureWidth;
+    self.rightFeatureWidthConstraint.constant = maxRightFeatureWidth;
 }
 
 

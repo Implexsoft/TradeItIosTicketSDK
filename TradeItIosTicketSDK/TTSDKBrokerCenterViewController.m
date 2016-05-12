@@ -347,7 +347,7 @@ static CGFloat kExpandedHeight = 330.0f;
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 50) {
+    if (scrollView.contentOffset.y > 0) {
         scrollView.backgroundColor = self.lastItemBackgroundColor;
     } else {
         scrollView.backgroundColor = self.firstItemBackgroundColor;
@@ -367,11 +367,8 @@ static CGFloat kExpandedHeight = 330.0f;
     nibIdentifier = @"TTSDKBrokerCenterCell";
     TTSDKBrokerCenterTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
 
-    if (cell == nil) {
-        [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-
-        cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
-    }
+    [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+    cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -403,15 +400,6 @@ static CGFloat kExpandedHeight = 330.0f;
     cell.delegate = self;
 
     return cell;
-}
-
--(NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    TradeItBrokerCenterBroker * data = (TradeItBrokerCenterBroker *)[self.brokerCenterData objectAtIndex:indexPath.row];
-    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
-
-    self.tableView.backgroundColor = bgColor;
-
-    return indexPath;
 }
 
 
