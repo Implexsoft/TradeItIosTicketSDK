@@ -38,6 +38,7 @@ static CGFloat kExpandedHeight = 330.0f;
     [super viewDidLoad];
 
     self.links = [[NSMutableArray alloc] init];
+    self.brokerCenterButtonsLoadingQueue = [[NSMutableArray alloc] init];
 
     self.disclaimerOpen = NO;
 
