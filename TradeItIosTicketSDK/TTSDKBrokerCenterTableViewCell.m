@@ -45,6 +45,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *disclaimerButton;
 @property (weak, nonatomic) IBOutlet UIView *disclaimerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *disclaimerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature1Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature2Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature3Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature4Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature5Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature6Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature7Leading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *feature8Leading;
+@property (weak, nonatomic) IBOutlet UIView *leftFeaturesContainer;
+@property (weak, nonatomic) IBOutlet UIView *rightFeaturesContainer;
 
 @end
 
@@ -307,61 +317,94 @@ static float kMessageSeparatorHeight = 10.0f;
 
     int count = (int)features.count;
 
-    self.featureSlot1.text = [features objectAtIndex:0];
+    float maxLeftFeatureWidth = 0.0f;
+    float maxRightFeatureWidth = 0.0f;
 
-//    float maxLeftFeatureWidth = 0.0f;
-//
-//    float widthIs =
-//    [self.yourLabel.text
-//     boundingRectWithSize:self.yourLabel.frame.size
-//     options:NSStringDrawingUsesLineFragmentOrigin
-//     attributes:@{ NSFontAttributeName:self.yourLabel.font }
-//     context:nil]
-//    .size.width;
+
+
+    self.featureSlot1.text = [features objectAtIndex:0];
+    [self.featureSlot1 sizeToFit];
+    maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot1 max:maxLeftFeatureWidth];
 
     if (count > 1) {
         self.featureSlot2.text = [features objectAtIndex:1];
+        [self.featureSlot2 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot2 max:maxRightFeatureWidth];
     } else {
         self.featureSlot2.text = @"";
     }
 
     if (count > 2) {
         self.featureSlot3.text = [features objectAtIndex:2];
+        [self.featureSlot3 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot3 max:maxLeftFeatureWidth];
     } else {
         self.featureSlot3.text = @"";
     }
     
     if (count > 3) {
         self.featureSlot4.text = [features objectAtIndex:3];
+        [self.featureSlot4 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot4 max:maxRightFeatureWidth];
     } else {
         self.featureSlot4.text = @"";
     }
 
     if (count > 4) {
         self.featureSlot5.text = [features objectAtIndex:4];
+        [self.featureSlot5 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot5 max:maxLeftFeatureWidth];
     } else {
         self.featureSlot5.text = @"";
     }
 
     if (count > 5) {
         self.featureSlot6.text = [features objectAtIndex:5];
+        [self.featureSlot6 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot6 max:maxRightFeatureWidth];
     } else {
         self.featureSlot6.text = @"";
     }
 
     if (count > 6) {
         self.featureSlot7.text = [features objectAtIndex:6];
+        [self.featureSlot7 sizeToFit];
+        maxLeftFeatureWidth = [self getMaxTextWidth:self.featureSlot7 max:maxLeftFeatureWidth];
     } else {
         self.featureSlot7.text = @"";
     }
 
     if (count > 7) {
         self.featureSlot8.text = [features objectAtIndex:7];
+        [self.featureSlot8 sizeToFit];
+        maxRightFeatureWidth = [self getMaxTextWidth:self.featureSlot8 max:maxRightFeatureWidth];
     } else {
         self.featureSlot8.text = @"";
     }
 
+    [self setNeedsUpdateConstraints];
+    [self setNeedsLayout];
+    [self layoutSubviews];
 
+    float leftContainerWidth = self.leftFeaturesContainer.frame.size.width;
+    float rightContainerWidth = self.rightFeaturesContainer.frame.size.width;
+
+    NSLog(@"top left: %f top right: %f max left: %f max right: %f", leftContainerWidth, rightContainerWidth, maxLeftFeatureWidth, maxRightFeatureWidth);
+}
+
+-(float) getMaxTextWidth:(UILabel *)label max:(float)max {
+    float labelWidth = [label.text
+                               boundingRectWithSize:label.frame.size
+                               options:NSStringDrawingUsesLineFragmentOrigin
+                               attributes:@{ NSFontAttributeName:label.font }
+                               context:nil]
+    .size.width;
+
+    if (labelWidth > max) {
+        return labelWidth;
+    } else {
+        return max;
+    }
 }
 
 

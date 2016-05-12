@@ -106,7 +106,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ay6-Ev-Woa" userLabel="LeftFeaturesView">
-                        <rect key="frame" x="8" y="194" width="160" height="70"/>
+                        <rect key="frame" x="8" y="194" width="152" height="70"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
@@ -147,7 +147,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETz-vW-s2N" userLabel="RightFeaturesView">
-                        <rect key="frame" x="152" y="194" width="160" height="70"/>
+                        <rect key="frame" x="160" y="194" width="152" height="70"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="12"/>
@@ -174,7 +174,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FM8-X9-wcd" firstAttribute="top" secondItem="EdW-E6-279" secondAttribute="bottom" constant="5" id="1UG-Oe-LlJ"/>
                             <constraint firstItem="gUn-Qq-N8b" firstAttribute="leading" secondItem="ETz-vW-s2N" secondAttribute="leading" id="4uR-Pf-1q6"/>
@@ -258,7 +258,6 @@
                     <constraint firstItem="ETz-vW-s2N" firstAttribute="trailing" secondItem="pbT-rv-LFl" secondAttribute="trailingMargin" id="Nss-Tt-AXL"/>
                     <constraint firstItem="ttA-bv-AIc" firstAttribute="top" secondItem="oTU-sw-M4t" secondAttribute="bottom" constant="10" id="Pa4-N5-4zL"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Rcu-6t-b2C" secondAttribute="trailing" id="QrQ-m9-alA"/>
-                    <constraint firstItem="ETz-vW-s2N" firstAttribute="width" secondItem="pbT-rv-LFl" secondAttribute="width" multiplier="0.5" id="Qt5-Mb-7rx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="x3j-fi-bcP" secondAttribute="trailing" id="Rae-hW-clK"/>
                     <constraint firstItem="zO8-d5-exM" firstAttribute="trailing" secondItem="ET7-eJ-Ecz" secondAttribute="trailing" id="TDS-TP-J9A"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Zjz-Im-9v1" secondAttribute="bottom" id="Tke-zC-jSz"/>
@@ -272,7 +271,9 @@
                     <constraint firstItem="28h-EB-YOo" firstAttribute="trailing" secondItem="x3j-fi-bcP" secondAttribute="trailing" id="gTq-dK-yJq"/>
                     <constraint firstItem="ETz-vW-s2N" firstAttribute="top" secondItem="ttA-bv-AIc" secondAttribute="bottom" constant="5" id="qWz-j9-7j2"/>
                     <constraint firstItem="4L9-5P-eZi" firstAttribute="centerX" secondItem="pbT-rv-LFl" secondAttribute="centerX" id="sAV-zu-g1q"/>
+                    <constraint firstItem="ETz-vW-s2N" firstAttribute="leading" secondItem="ay6-Ev-Woa" secondAttribute="trailing" id="snq-AF-93f"/>
                     <constraint firstItem="4L9-5P-eZi" firstAttribute="top" secondItem="ETz-vW-s2N" secondAttribute="bottom" constant="8" id="swe-x6-L8o"/>
+                    <constraint firstItem="ETz-vW-s2N" firstAttribute="width" secondItem="ay6-Ev-Woa" secondAttribute="width" id="tPp-b9-z9e"/>
                     <constraint firstItem="Rcu-6t-b2C" firstAttribute="top" secondItem="pbT-rv-LFl" secondAttribute="topMargin" id="u5T-18-nrQ"/>
                     <constraint firstItem="ET7-eJ-Ecz" firstAttribute="top" secondItem="pbT-rv-LFl" secondAttribute="topMargin" constant="12" id="utL-Uo-TbT"/>
                     <constraint firstItem="x3j-fi-bcP" firstAttribute="top" secondItem="pbT-rv-LFl" secondAttribute="topMargin" constant="12" id="uyw-cQ-BKq"/>
@@ -281,7 +282,6 @@
                     <constraint firstItem="Zjz-Im-9v1" firstAttribute="trailing" secondItem="pbT-rv-LFl" secondAttribute="trailingMargin" id="x58-X7-4RQ"/>
                     <constraint firstItem="cBL-cA-ksj" firstAttribute="centerX" secondItem="ET7-eJ-Ecz" secondAttribute="centerX" id="xwO-cN-dFp"/>
                     <constraint firstItem="Zjz-Im-9v1" firstAttribute="leading" secondItem="pbT-rv-LFl" secondAttribute="leadingMargin" id="xzZ-So-aXg"/>
-                    <constraint firstItem="ay6-Ev-Woa" firstAttribute="width" secondItem="pbT-rv-LFl" secondAttribute="width" multiplier="0.5" id="ygK-cP-cok"/>
                     <constraint firstItem="ET7-eJ-Ecz" firstAttribute="leading" secondItem="pbT-rv-LFl" secondAttribute="leadingMargin" constant="15" id="ymt-2Y-10B"/>
                 </constraints>
             </tableViewCellContentView>
@@ -292,6 +292,14 @@
                 <outlet property="disclaimerButton" destination="3yw-Vh-hup" id="f9M-8l-jHP"/>
                 <outlet property="disclaimerHeightConstraint" destination="fpa-n3-gOv" id="V0G-B7-Vti"/>
                 <outlet property="disclaimerView" destination="Zjz-Im-9v1" id="aoo-N5-lSx"/>
+                <outlet property="feature1Leading" destination="z0S-eu-5id" id="Xdp-y1-0W2"/>
+                <outlet property="feature2Leading" destination="Ki1-C8-d3P" id="CAU-jq-Yag"/>
+                <outlet property="feature3Leading" destination="ToU-wi-cry" id="FYQ-PH-Thz"/>
+                <outlet property="feature4Leading" destination="hjN-l6-MzW" id="3ni-Oz-my6"/>
+                <outlet property="feature5Leading" destination="A1g-pm-KRO" id="Z1V-GA-Vd3"/>
+                <outlet property="feature6Leading" destination="QHg-KX-oWP" id="Sit-sS-Rrk"/>
+                <outlet property="feature7Leading" destination="4da-gr-3nK" id="Y3G-Mj-xzY"/>
+                <outlet property="feature8Leading" destination="4uR-Pf-1q6" id="bOu-nu-S4I"/>
                 <outlet property="featureSlot1" destination="jFp-Xy-oOz" id="CFI-1U-4sU"/>
                 <outlet property="featureSlot2" destination="EdW-E6-279" id="8xT-Sj-lq9"/>
                 <outlet property="featureSlot3" destination="Nyq-8B-ewx" id="3et-Oc-dgv"/>
@@ -301,6 +309,7 @@
                 <outlet property="featureSlot7" destination="Pgx-nm-L2i" id="7ub-fp-48p"/>
                 <outlet property="featureSlot8" destination="gUn-Qq-N8b" id="fzh-0d-FAo"/>
                 <outlet property="featuresTitle" destination="ttA-bv-AIc" id="XhZ-PL-WkB"/>
+                <outlet property="leftFeaturesContainer" destination="ay6-Ev-Woa" id="Fwh-yE-7M7"/>
                 <outlet property="logo" destination="ET7-eJ-Ecz" id="uPQ-wa-N0j"/>
                 <outlet property="logoHeightConstraint" destination="D9h-36-I4C" id="lm7-Cs-XQp"/>
                 <outlet property="logoLabel" destination="zO8-d5-exM" id="Ocp-Pt-3vX"/>
@@ -309,11 +318,12 @@
                 <outlet property="offerTitle" destination="Jet-y7-JGg" id="rUq-VZ-C3K"/>
                 <outlet property="optionsOffer" destination="xJF-Fz-tsz" id="Xe4-kg-fUC"/>
                 <outlet property="optionsTitle" destination="ZQ4-TD-xbt" id="S4N-NN-vMd"/>
+                <outlet property="rightFeaturesContainer" destination="ETz-vW-s2N" id="SCH-eL-Afs"/>
                 <outlet property="stocksEtfsOffer" destination="28h-EB-YOo" id="PnJ-K9-tNB"/>
                 <outlet property="stocksEtfsTitle" destination="5sP-fW-h3U" id="XrM-ma-65S"/>
                 <outlet property="toggleExpanded" destination="Rcu-6t-b2C" id="wNM-01-7Mq"/>
             </connections>
-            <point key="canvasLocation" x="335" y="725"/>
+            <point key="canvasLocation" x="669" y="846"/>
         </tableViewCell>
     </objects>
     <resources>
