@@ -24,10 +24,13 @@
 @interface TTSDKBrokerCenterTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id<TTSDKBrokerCenterDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIView *promptButtonWebViewContainer;
 @property CGFloat disclaimerLabelsTotalHeight;
 @property NSIndexPath * indexPath;
 @property BOOL expandedViewToggled;
 @property BOOL disclaimerToggled;
+@property BOOL buttonWebviewLoaded;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 +(UIColor *) colorFromArray:(NSArray *)colorArray;
 -(void) configureWithBroker:(TradeItBrokerCenterBroker *)broker;

@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *accountMinimum;
 @property (weak, nonatomic) IBOutlet UILabel *optionsOffer;
 @property (weak, nonatomic) IBOutlet UILabel *stocksEtfsOffer;
-@property (weak, nonatomic) IBOutlet UIButton *callToActionButton;
 @property (weak, nonatomic) IBOutlet UIImageView *detailsArrow;
 @property (weak, nonatomic) IBOutlet UILabel *optionsTitle;
 @property (weak, nonatomic) IBOutlet UILabel *stocksEtfsTitle;
@@ -93,8 +92,6 @@ static float kMessageSeparatorHeight = 10.0f;
 
     [self populateFeatures: broker.features];
 
-    [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
-
     self.disclaimerLabels = [[NSArray alloc] init];
 
     if (self.disclaimerToggled) {
@@ -128,7 +125,6 @@ static float kMessageSeparatorHeight = 10.0f;
     self.optionsTitle.textColor = textColor;
     self.stocksEtfsOffer.textColor = textColor;
     self.stocksEtfsTitle.textColor = textColor;
-    [self.callToActionButton setTitleColor:textColor forState:UIControlStateNormal];
     self.detailsArrow.image = [self.detailsArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.detailsArrow.tintColor = textColor;
     self.featuresTitle.textColor = textColor;
@@ -142,11 +138,6 @@ static float kMessageSeparatorHeight = 10.0f;
     self.featureSlot8.textColor = textColor;
     self.logoLabel.textColor = textColor;
     [self.disclaimerButton setTitleColor:textColor forState:UIControlStateNormal];
-    
-    UIColor * buttonBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.promptBackgroundColor];
-    [self.callToActionButton setTitleColor:[TTSDKBrokerCenterTableViewCell colorFromArray:self.data.promptTextColor] forState:UIControlStateNormal];
-    self.callToActionButton.backgroundColor = buttonBackgroundColor;
-    self.callToActionButton.layer.cornerRadius = 5.0f;
 }
 
 -(void) addBulletToLabel:(UILabel *)label withColor:(UIColor *)color {

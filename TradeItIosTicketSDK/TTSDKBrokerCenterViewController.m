@@ -8,6 +8,7 @@
 
 #import "TTSDKBrokerCenterViewController.h"
 #import "TTSDKBrokerCenterTableViewCell.h"
+#import "TradeItEmsUtils.h"
 
 @interface TTSDKBrokerCenterViewController ()
 
@@ -17,6 +18,7 @@
 @property NSArray * disclaimers;
 @property NSMutableArray * links;
 @property NSMutableArray * brokerCenterImagesLoadingQueue;
+@property NSMutableArray * brokerCenterButtonsLoadingQueue;
 @property NSIndexPath * disclaimerIndexPath;
 @property NSInteger selectedIndex;
 @property CGFloat currentDisclaimerHeight;
@@ -53,6 +55,7 @@ static CGFloat kExpandedHeight = 330.0f;
 
     if (self.ticket.adService.brokerCenterBrokers) {
         [self populateBrokerDataByActiveFilter];
+        [self loadButtonWebviews];
     }
 
     // make sure to update this once real data is being used
@@ -83,6 +86,18 @@ static CGFloat kExpandedHeight = 330.0f;
     }
 
     self.brokerCenterData = [brokerList copy];
+}
+
+-(void) loadButtonWebviews {
+    for (TradeItBrokerCenterBroker *broker in self.ticket.adService.brokerCenterBrokers) {
+        UIWebView * buttonWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        buttonWebView.delegate = self;
+
+        NSString * urlStr = [NSString stringWithFormat:@"%@publisherad/brokerCenterPromptAdView?apiKey=%@-key&broker=%@", getEmsBaseUrl(self.ticket.connector.environment), self.ticket.connector.apiKey, broker.broker];
+        [buttonWebView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:urlStr]]];
+
+        [self.brokerCenterButtonsLoadingQueue addObject: @{@"broker": broker.broker, @"webView": buttonWebView}];
+    }
 }
 
 -(void) setDisclaimerLabelsAndSizes {
@@ -180,21 +195,15 @@ static CGFloat kExpandedHeight = 330.0f;
                 int hrefCounter = 0;
 
                 for (NSArray * endingComponent in componentByEndingString) {
-
                     if (endingComponent.count == 2) {
-
                         NSAttributedString * attributedEndingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject] attributes:linkAttributes];
 
                         [hrefsHolder addObject:@{@"href": (NSString *)[hrefs objectAtIndex: hrefCounter], @"title": [attributedEndingComponent string]}];
                         hrefCounter++;
-
                         [attributedStringByComponent appendAttributedString: attributedEndingComponent];
-
                         NSAttributedString * attributedEndingHangingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent lastObject]];
-
                         [attributedStringByComponent appendAttributedString: attributedEndingHangingComponent];
                     } else {
-
                         [attributedStringByComponent appendAttributedString:[[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject]]];
                     }
                 }
@@ -333,6 +342,26 @@ static CGFloat kExpandedHeight = 330.0f;
     }
 }
 
+-(void) addButtonWebViewWithBroker:(TradeItBrokerCenterBroker *)broker toView:(UIWebView *)webView {
+    webView.delegate = self;
+
+    NSString * urlStr = [NSString stringWithFormat:@"%@publisherad/brokerCenterPromptAdView?apiKey=%@-key&broker=%@", getEmsBaseUrl(self.ticket.connector.environment), self.ticket.connector.apiKey, broker.broker];
+    [webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:urlStr]]];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if(UIWebViewNavigationTypeLinkClicked == navigationType /*you can add some checking whether link should be opened in Safari */) {
+        
+
+
+        [[UIApplication sharedApplication] openURL:[request URL]];
+
+        return NO;
+    }
+    
+    return YES;
+}
+
 -(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath {
     // reset the background color
     TradeItBrokerCenterBroker * data = (TradeItBrokerCenterBroker *)[self.brokerCenterData objectAtIndex:indexPath.row];
@@ -433,8 +462,10 @@ static CGFloat kExpandedHeight = 330.0f;
     nibIdentifier = @"TTSDKBrokerCenterCell";
     TTSDKBrokerCenterTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
 
-    [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-    cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
+    if (cell == nil) {
+        [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
+    }
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -455,8 +486,17 @@ static CGFloat kExpandedHeight = 330.0f;
 
     TradeItBrokerCenterBroker * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
     [cell configureWithBroker: brokerCenterItem];
-    UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
 
+    NSDictionary * buttonQueueItem = [self.brokerCenterButtonsLoadingQueue objectAtIndex:indexPath.row];
+    if ([[buttonQueueItem valueForKey:@"broker"] isEqualToString:brokerCenterItem.broker]) {
+
+        UIWebView * buttonWebView = (UIWebView *)[buttonQueueItem valueForKey:@"webView"];
+        buttonWebView.frame = CGRectMake(0, 0, cell.promptButtonWebViewContainer.frame.size.width, cell.promptButtonWebViewContainer.frame.size.height);
+
+        [cell.promptButtonWebViewContainer addSubview:buttonWebView];
+    }
+
+    UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
     [cell addImage:img];
 
     BOOL selected = self.selectedIndex == indexPath.row;

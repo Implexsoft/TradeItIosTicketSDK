@@ -9,7 +9,7 @@
 #import "TTSDKTableViewController.h"
 #import "TTSDKBrokerCenterTableViewCell.h"
 
-@interface TTSDKBrokerCenterViewController : TTSDKTableViewController <TTSDKBrokerCenterDelegate>
+@interface TTSDKBrokerCenterViewController : TTSDKTableViewController <TTSDKBrokerCenterDelegate, UIWebViewDelegate>
 
 @property BOOL isModal;
 
