@@ -159,7 +159,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 
 - (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color {
     CAShapeLayer * circleLayer = [CAShapeLayer layer];
-    [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 1.5, diameter, diameter)] CGPath]];
+    [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 4.0f, 4.0f)] CGPath]];
     [circleLayer setFillColor: color.CGColor];
 
     return circleLayer;

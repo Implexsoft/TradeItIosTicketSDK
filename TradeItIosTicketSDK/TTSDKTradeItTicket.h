@@ -83,6 +83,7 @@
 -(void) unlinkAccounts;
 
 #pragma mark Broker
+-(NSArray *) getDefaultBrokerList;
 -(NSString *) getBrokerDisplayString:(NSString *) value;
 -(NSString *) getBrokerValueString:(NSString *) displayString;
 -(NSArray *) getBrokerByValueString:(NSString *) valueString;

@@ -333,11 +333,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your broker account to enable:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-vI-2sy" customClass="TTSDKLabel">
-                                <rect key="frame" x="60" y="95" width="201" height="44"/>
+                                <rect key="frame" x="57" y="95" width="206" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4oa-lL-Atj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-GL-pyU" userLabel="ListView">
@@ -348,14 +348,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="xRl-5o-FsF"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="6" width="4" height="4"/>
+                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
+                                        <rect key="frame" x="0.0" y="6" width="6" height="6"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="4" id="Hgd-uv-6Ts"/>
-                                            <constraint firstAttribute="width" constant="4" id="kxc-0f-Cip"/>
+                                            <constraint firstAttribute="height" constant="6" id="Hgd-uv-6Ts"/>
+                                            <constraint firstAttribute="width" constant="6" id="kxc-0f-Cip"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI" customClass="TTSDKLabel">
@@ -363,15 +364,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="3iZ-N2-EoY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="32" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
+                                        <rect key="frame" x="0.0" y="32" width="6" height="6"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="4" id="KmH-Ml-qR4"/>
-                                            <constraint firstAttribute="height" constant="4" id="cWR-nO-urz"/>
+                                            <constraint firstAttribute="width" constant="6" id="KmH-Ml-qR4"/>
+                                            <constraint firstAttribute="height" constant="6" id="cWR-nO-urz"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV" customClass="TTSDKLabel">
@@ -379,15 +380,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="9xP-gg-QUm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="58" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
+                                        <rect key="frame" x="0.0" y="58" width="6" height="6"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="4" id="JNN-Mr-8rU"/>
-                                            <constraint firstAttribute="height" constant="4" id="Jxt-Ma-G5I"/>
+                                            <constraint firstAttribute="width" constant="6" id="JNN-Mr-8rU"/>
+                                            <constraint firstAttribute="height" constant="6" id="Jxt-Ma-G5I"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT" customClass="TTSDKLabel">
@@ -395,15 +396,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="hld-ow-EQO"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="84" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
+                                        <rect key="frame" x="0.0" y="84" width="6" height="6"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="4" id="8ri-vL-WCW"/>
-                                            <constraint firstAttribute="width" constant="4" id="DyX-BV-VUb"/>
+                                            <constraint firstAttribute="height" constant="6" id="8ri-vL-WCW"/>
+                                            <constraint firstAttribute="width" constant="6" id="DyX-BV-VUb"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg" customClass="TTSDKLabel">
@@ -411,45 +412,45 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="UFU-e3-1Mg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="110" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
+                                        <rect key="frame" x="0.0" y="110" width="6" height="6"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="4" id="3QW-7Y-n0f"/>
-                                            <constraint firstAttribute="height" constant="4" id="Tzb-Df-hKs"/>
+                                            <constraint firstAttribute="width" constant="6" id="3QW-7Y-n0f"/>
+                                            <constraint firstAttribute="height" constant="6" id="Tzb-Df-hKs"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bEh-ol-Fgg" secondAttribute="trailing" id="0qI-3g-IAQ"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="1oQ-le-NWK"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="FMG-2V-Vzy"/>
                                     <constraint firstAttribute="width" constant="245" id="HSD-Ed-dtZ"/>
                                     <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="KUh-i7-4p1"/>
-                                    <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" id="M60-Nt-8fw"/>
+                                    <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" constant="1" id="M60-Nt-8fw"/>
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="top" id="N9r-O9-jyL"/>
                                     <constraint firstItem="a1A-PP-k3j" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="Ntz-mb-waP"/>
                                     <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="QcT-jL-2KY"/>
                                     <constraint firstItem="bEh-ol-Fgg" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="U9z-1G-QW3"/>
                                     <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="Ue8-YC-dN5"/>
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="b0D-EV-PrR"/>
-                                    <constraint firstItem="SwW-BQ-aXo" firstAttribute="centerY" secondItem="oif-bt-exT" secondAttribute="centerY" id="bg7-2l-6J7"/>
+                                    <constraint firstItem="SwW-BQ-aXo" firstAttribute="centerY" secondItem="oif-bt-exT" secondAttribute="centerY" constant="1" id="bg7-2l-6J7"/>
                                     <constraint firstAttribute="trailing" secondItem="Snw-Fa-ScV" secondAttribute="trailing" id="d1Q-KY-TyI"/>
                                     <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="10" id="fLI-Ka-Pty"/>
                                     <constraint firstItem="uXb-3D-lgI" firstAttribute="top" secondItem="dOw-uL-kzG" secondAttribute="bottom" constant="10" id="fzT-WK-b1Q"/>
                                     <constraint firstItem="SwW-BQ-aXo" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="iRD-N6-EJY"/>
-                                    <constraint firstItem="aHi-HP-SoW" firstAttribute="centerY" secondItem="bEh-ol-Fgg" secondAttribute="centerY" id="j0U-67-U49"/>
+                                    <constraint firstItem="aHi-HP-SoW" firstAttribute="centerY" secondItem="bEh-ol-Fgg" secondAttribute="centerY" constant="1" id="j0U-67-U49"/>
                                     <constraint firstAttribute="trailing" secondItem="oif-bt-exT" secondAttribute="trailing" id="jPU-l6-mmq"/>
                                     <constraint firstAttribute="height" constant="150" id="n0p-0E-eev"/>
                                     <constraint firstItem="bEh-ol-Fgg" firstAttribute="top" secondItem="oif-bt-exT" secondAttribute="bottom" constant="10" id="r1f-jQ-ByG"/>
                                     <constraint firstAttribute="trailing" secondItem="dOw-uL-kzG" secondAttribute="trailing" id="r3I-Lp-rah"/>
                                     <constraint firstItem="c6p-Kc-Q9q" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="rPG-61-1dx"/>
-                                    <constraint firstItem="c6p-Kc-Q9q" firstAttribute="centerY" secondItem="Snw-Fa-ScV" secondAttribute="centerY" id="v2X-XW-eqe"/>
-                                    <constraint firstItem="a1A-PP-k3j" firstAttribute="centerY" secondItem="uXb-3D-lgI" secondAttribute="centerY" id="wRM-10-90y"/>
+                                    <constraint firstItem="c6p-Kc-Q9q" firstAttribute="centerY" secondItem="Snw-Fa-ScV" secondAttribute="centerY" constant="1" id="v2X-XW-eqe"/>
+                                    <constraint firstItem="a1A-PP-k3j" firstAttribute="centerY" secondItem="uXb-3D-lgI" secondAttribute="centerY" constant="1" id="wRM-10-90y"/>
                                     <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="10" id="yHZ-FV-Ala"/>
                                     <constraint firstAttribute="trailing" secondItem="uXb-3D-lgI" secondAttribute="trailing" id="yyQ-DG-3Ay"/>
                                 </constraints>
@@ -485,8 +486,8 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edi-8K-lns">
-                                <rect key="frame" x="102" y="495" width="117" height="30"/>
-                                <state key="normal" title="Open an account"/>
+                                <rect key="frame" x="80" y="495" width="161" height="30"/>
+                                <state key="normal" title="Don't have an account?"/>
                                 <connections>
                                     <action selector="openAccountPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="kGq-om-Elv"/>
                                 </connections>

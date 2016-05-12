@@ -65,13 +65,19 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     for (UIView *view in self.view.subviews) {
         if (view.tag == kBulletContainerTag) {
-            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
-            [view.layer addSublayer:circleLayer];
+//            view.layer.cornerRadius = 6.0f;
+//            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
+//            circleLayer.zPosition = 1000.0f;
+//            [view.layer addSublayer: circleLayer];
+//            [view.layer insertSublayer:circleLayer above:[view.layer.sublayers lastObject]];
         }
     }
 
     if (!brokers || !self.ticket.adService.brokerCenterLoaded) {
-        [self showLoadingAndWait];
+        self.openAccountButton.hidden = YES;
+        brokers = [self.ticket getDefaultBrokerList];
+
+        [self wait];
     } else {
         if (self.ticket.adService.brokerCenterActive) {
             self.openAccountButton.hidden = NO;
@@ -81,8 +87,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     }
 }
 
--(void) showLoadingAndWait {
-    [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
+-(void) wait {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
@@ -101,33 +106,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
             }
         });
 
-        if([self.ticket.brokerList count] < 1) {
-            if(![UIAlertController class]) {
-                [self showOldErrorAlert:@"An Error Has Occurred" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
-                return;
-            }
-
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
-                                                                            message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            alert.modalPresentationStyle = UIModalPresentationPopover;
-            UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction * action) {
-                                                                       [self.ticket returnToParentApp];
-                                                                   }];
-            [alert addAction:defaultAction];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
-                [self presentViewController:alert animated:YES completion:nil];
-                
-                UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
-                alertPresentationController.sourceView = self.view;
-                alertPresentationController.permittedArrowDirections = 0;
-                alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
-            });
-            
-        } else {
+        if([self.ticket.brokerList count] >= 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 brokers = self.ticket.brokerList;
                 
