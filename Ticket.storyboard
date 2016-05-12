@@ -351,7 +351,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="6" width="6" height="6"/>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -367,7 +367,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="32" width="6" height="6"/>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -383,7 +383,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="58" width="6" height="6"/>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -399,7 +399,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="84" width="6" height="6"/>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -415,7 +415,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="110" width="6" height="6"/>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55686274509803924" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -550,6 +550,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="brokerSelectButton" destination="UKl-IC-miQ" id="dML-eS-jmM"/>
+                        <outlet property="bullet1" destination="4LW-hd-IFh" id="LOC-u6-7qg"/>
+                        <outlet property="bullet2" destination="a1A-PP-k3j" id="8NI-aJ-Ub4"/>
+                        <outlet property="bullet3" destination="c6p-Kc-Q9q" id="6aA-pw-Zf1"/>
+                        <outlet property="bullet4" destination="SwW-BQ-aXo" id="Gp8-SN-Bt0"/>
+                        <outlet property="bullet5" destination="aHi-HP-SoW" id="Kj2-cV-yiB"/>
                         <outlet property="openAccountButton" destination="Edi-8K-lns" id="Noh-s3-PsO"/>
                         <outlet property="preferredBrokerButton" destination="Tvo-Gu-GcY" id="ifH-Ek-tGY"/>
                         <outlet property="tradeItLabel" destination="a79-3h-B8T" id="Vb1-3T-IFA"/>

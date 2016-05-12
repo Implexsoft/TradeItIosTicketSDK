@@ -21,6 +21,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 @property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
+@property (weak, nonatomic) IBOutlet UIView *bullet1;
+@property (weak, nonatomic) IBOutlet UIView *bullet2;
+@property (weak, nonatomic) IBOutlet UIView *bullet3;
+@property (weak, nonatomic) IBOutlet UIView *bullet4;
+@property (weak, nonatomic) IBOutlet UIView *bullet5;
 
 @end
 
@@ -29,7 +34,6 @@
 
 #pragma mark Constants
 
-static int kBulletContainerTag = 2;
 static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
@@ -63,15 +67,11 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     self.currentSelection = @"Fidelity";
 
-    for (UIView *view in self.view.subviews) {
-        if (view.tag == kBulletContainerTag) {
-//            view.layer.cornerRadius = 6.0f;
-//            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
-//            circleLayer.zPosition = 1000.0f;
-//            [view.layer addSublayer: circleLayer];
-//            [view.layer insertSublayer:circleLayer above:[view.layer.sublayers lastObject]];
-        }
-    }
+    self.bullet1.layer.cornerRadius = 3.0f;
+    self.bullet2.layer.cornerRadius = 3.0f;
+    self.bullet3.layer.cornerRadius = 3.0f;
+    self.bullet4.layer.cornerRadius = 3.0f;
+    self.bullet5.layer.cornerRadius = 3.0f;
 
     if (!brokers || !self.ticket.adService.brokerCenterLoaded) {
         self.openAccountButton.hidden = YES;
