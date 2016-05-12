@@ -8,6 +8,7 @@
 
 #import "TTSDKBrokerCenterTableViewCell.h"
 #import "TTSDKTradeItTicket.h"
+#import "TTSDKAttributedLabel.h"
 //#import "<CoreText/CTStringAttributes.h>"
 
 @interface TTSDKBrokerCenterTableViewCell()
@@ -15,7 +16,9 @@
 @property TradeItBrokerCenterBroker * data;
 @property TTSDKTradeItTicket * ticket;
 
+@property NSArray * disclaimerLabels;
 
+@property UILabel * lastAttachedMessage;
 @property (weak, nonatomic) IBOutlet UIButton *toggleExpanded;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *offerDescription;
@@ -38,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *logo;
 @property (weak, nonatomic) IBOutlet UILabel *logoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoWidthConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *disclaimerButton;
 @property (weak, nonatomic) IBOutlet UIView *disclaimerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *disclaimerHeightConstraint;
@@ -46,6 +50,7 @@
 
 @implementation TTSDKBrokerCenterTableViewCell
 
+static float kMessageSeparatorHeight = 10.0f;
 
 #pragma Mark Class methods
 
@@ -88,12 +93,15 @@
 
     [self.callToActionButton setTitle:@"Open an Account" forState:UIControlStateNormal];
 
+    self.disclaimerLabels = [[NSArray alloc] init];
+
     if (self.disclaimerToggled) {
         [self.disclaimerButton setTitle:@"CLOSE" forState:UIControlStateNormal];
+        self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
     } else {
         [self.disclaimerButton setTitle:@"DISCLAIMER" forState:UIControlStateNormal];
+        self.disclaimerHeightConstraint.constant = 0.0f;
     }
-//    [self populateDisclaimers];
 
     [self populateStyles];
 }
@@ -143,14 +151,14 @@
     if (img) {
         self.logoLabel.hidden = YES;
         self.logoLabel.text = @"";
-        
+
         self.logo.image = img;
         [self.logo layoutSubviews];
         
         // we need to determine the actual scale factor the image will use and then set the height constraint appropriately
-        //float scaleFactor = self.logo.frame.size.width / self.logo.image.size.width;
-        //float imageHeight = self.logo.image.size.height * scaleFactor;
-        //self.logoHeightConstraint.constant = imageHeight;
+        float scaleFactor = self.logoWidthConstraint.constant / img.size.width;
+        float imageHeight = img.size.height * scaleFactor;
+        self.logoHeightConstraint.constant = imageHeight;
 
     } else {
         self.logo.image = nil;
@@ -165,6 +173,69 @@
     } else {
         self.detailsArrow.hidden = NO;
     }
+}
+
+-(void) configureDisclaimers:(UIView *)disclaimerView {
+    for (UIView *subview in self.disclaimerView.subviews) {
+        [subview removeFromSuperview];
+    }
+
+    self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
+    [self.disclaimerView setNeedsUpdateConstraints];
+
+    [self.disclaimerView addSubview: disclaimerView];
+
+    NSLayoutConstraint * topConstraint = [NSLayoutConstraint
+                                          constraintWithItem:disclaimerView
+                                          attribute:NSLayoutAttributeTop
+                                          relatedBy:NSLayoutRelationEqual
+                                          toItem:self.disclaimerView
+                                          attribute:NSLayoutAttributeTop
+                                          multiplier:1
+                                          constant:kMessageSeparatorHeight];
+    topConstraint.priority = 900;
+
+    NSLayoutConstraint * leftConstraint = [NSLayoutConstraint
+                                           constraintWithItem:disclaimerView
+                                           attribute:NSLayoutAttributeLeading
+                                           relatedBy:NSLayoutRelationEqual
+                                           toItem:self.disclaimerView
+                                           attribute:NSLayoutAttributeLeadingMargin
+                                           multiplier:1
+                                           constant:3];
+    leftConstraint.priority = 900;
+
+    NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
+                                            constraintWithItem:disclaimerView
+                                            attribute:NSLayoutAttributeTrailing
+                                            relatedBy:NSLayoutRelationEqual
+                                            toItem:self.disclaimerView
+                                            attribute:NSLayoutAttributeTrailingMargin
+                                            multiplier:1
+                                            constant:-3];
+    rightConstraint.priority = 900;
+
+    NSLayoutConstraint * bottomConstraint = [NSLayoutConstraint
+                                            constraintWithItem:disclaimerView
+                                            attribute:NSLayoutAttributeBottom
+                                            relatedBy:NSLayoutRelationEqual
+                                            toItem:self.disclaimerView
+                                            attribute:NSLayoutAttributeBottom
+                                            multiplier:1
+                                            constant:0];
+    bottomConstraint.priority = 900;
+
+    [self.disclaimerView addConstraint: topConstraint];
+    [self.disclaimerView addConstraint: leftConstraint];
+    [self.disclaimerView addConstraint: rightConstraint];
+    [self.disclaimerView addConstraint: bottomConstraint];
+
+    [self layoutSubviews];
+    [self layoutIfNeeded];
+    [self layoutMargins];
+    [self setNeedsDisplay];
+    [self setNeedsLayout];
+    [self setNeedsUpdateConstraints];
 }
 
 
@@ -281,23 +352,6 @@
     }
 }
 
--(void) populateDisclaimers {
-    if (self.data.disclaimers && self.data.disclaimers.count) {
-        self.disclaimerHeightConstraint.constant = 160.0f;
-
-        for (NSDictionary * disclaimerData in self.data.disclaimers) {
-            UILabel * disclaimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40.0f)];
-            disclaimerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            disclaimerLabel.numberOfLines = 0; // allows multiple lines
-            disclaimerLabel.text = [disclaimerData valueForKey:@"content"];
-            [self.disclaimerView addSubview: disclaimerLabel];
-        }
-
-    } else {
-        self.disclaimerHeightConstraint.constant = 0.0f;
-    }
-}
-
 
 #pragma Mark Events
 
@@ -316,9 +370,9 @@
 - (IBAction)disclaimerButtonPressed:(id)sender {
     self.disclaimerToggled = !self.disclaimerToggled;
     
-    if ([self.delegate respondsToSelector:@selector(didSelectDisclaimer:)]) {
-        [self.delegate didSelectDisclaimer:self.disclaimerToggled];
-        
+    if ([self.delegate respondsToSelector:@selector(didSelectDisclaimer:withHeight:atIndexPath:)]) {
+        [self.delegate didSelectDisclaimer:self.disclaimerToggled withHeight:self.disclaimerLabelsTotalHeight atIndexPath:self.indexPath];
+
         if (self.disclaimerToggled) {
             [self.disclaimerButton setTitle:@"CLOSE" forState:UIControlStateNormal];
         } else {

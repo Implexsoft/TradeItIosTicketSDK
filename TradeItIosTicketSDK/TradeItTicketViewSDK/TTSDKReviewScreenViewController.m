@@ -251,7 +251,6 @@ static float kMessageSeparatorHeight = -15.0f;
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message toggle:(BOOL)toggle {
     CGRect labelFrame = reviewLabel.frame;
     labelFrame.size.width = contentView.frame.size.width;
-
     UILabel * label = [[UILabel alloc] init];
     [label setText: message];
     label.lineBreakMode = NSLineBreakByWordWrapping;
@@ -260,9 +259,7 @@ static float kMessageSeparatorHeight = -15.0f;
     [label setTextColor: self.styles.warningColor];
     [label setFont: [UIFont systemFontOfSize:11]];
     [label setAdjustsFontSizeToFitWidth: NO];
-
     label.frame = labelFrame;
-
     [label sizeToFit];
 
     return label;
