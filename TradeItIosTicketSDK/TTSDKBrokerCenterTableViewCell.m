@@ -272,7 +272,7 @@ static NSString * kBulletLayerName = @"circle_layer";
 -(float) getMaxTextWidth:(UILabel *)label max:(float)max {
     float labelWidth = [label.text
                         boundingRectWithSize:label.frame.size
-                        options:NSStringDrawingUsesLineFragmentOrigin
+                        options:NSStringDrawingUsesDeviceMetrics
                         attributes:@{ NSFontAttributeName:label.font }
                         context:nil].size.width;
     
