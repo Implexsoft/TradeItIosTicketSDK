@@ -341,10 +341,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-GL-pyU" userLabel="ListView">
-                                <rect key="frame" x="38" y="164" width="245" height="150"/>
+                                <rect key="frame" x="40" y="164" width="240" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast and easy trading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-uL-kzG" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="0.0" width="231" height="16"/>
+                                        <rect key="frame" x="14" y="0.0" width="226" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="xRl-5o-FsF"/>
                                         </constraints>
@@ -360,7 +360,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="26" width="231" height="16"/>
+                                        <rect key="frame" x="14" y="26" width="226" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="3iZ-N2-EoY"/>
                                         </constraints>
@@ -376,7 +376,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="52" width="231" height="16"/>
+                                        <rect key="frame" x="14" y="52" width="226" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="9xP-gg-QUm"/>
                                         </constraints>
@@ -392,7 +392,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="78" width="231" height="16"/>
+                                        <rect key="frame" x="14" y="78" width="226" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="hld-ow-EQO"/>
                                         </constraints>
@@ -408,7 +408,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="104" width="231" height="16"/>
+                                        <rect key="frame" x="14" y="104" width="226" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="UFU-e3-1Mg"/>
                                         </constraints>
@@ -429,7 +429,7 @@
                                     <constraint firstAttribute="trailing" secondItem="bEh-ol-Fgg" secondAttribute="trailing" id="0qI-3g-IAQ"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="1oQ-le-NWK"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="FMG-2V-Vzy"/>
-                                    <constraint firstAttribute="width" constant="245" id="HSD-Ed-dtZ"/>
+                                    <constraint firstAttribute="width" constant="240" id="HSD-Ed-dtZ"/>
                                     <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="KUh-i7-4p1"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" constant="1" id="M60-Nt-8fw"/>
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="top" id="N9r-O9-jyL"/>
