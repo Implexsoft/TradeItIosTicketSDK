@@ -65,7 +65,7 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
     NSMutableArray * mutableBrokers = [brokers mutableCopy];
 
     if (self.ticket.adService.brokerCenterActive) {
-        [mutableBrokers addObject:@"Open an account"];
+        [mutableBrokers insertObject:@"Open an account" atIndex:0];
     } else {
         [mutableBrokers removeObject:@"Open an account"];
     }
