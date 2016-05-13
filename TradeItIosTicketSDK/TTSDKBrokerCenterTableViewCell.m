@@ -305,7 +305,11 @@ static NSString * kBulletLayerName = @"circle_layer";
 }
 
 -(void) populateAccountMinimum {
-    self.accountMinimum.text = [NSString stringWithFormat:@"Account Min: %@", self.data.accountMinimum];
+    if (self.data.accountMinimum != nil) {
+        self.accountMinimum.text = self.data.accountMinimum;
+    } else {
+        self.accountMinimum.text = @"";
+    }
 }
 
 -(void) populateOptionsOffer {
