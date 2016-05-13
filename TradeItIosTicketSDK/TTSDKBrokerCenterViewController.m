@@ -158,40 +158,70 @@ static CGFloat kExpandedHeight = 263.0f;
 
             NSString * message = [NSString stringWithFormat:@"%@%@", prefixStr, [disclaimer valueForKey:@"content"]];
 
-            NSArray * componentByBeginningString = [message componentsSeparatedByString:@"{{"];
+            /*
+             This is a complicated procedure. If attempting to modify, read the comments carefully.
 
+             We need to modify each disclaimer label to style links and add them to an array. The data uses a double-curly syntax: {{click-my-link}}
+             First, we split the string by occurrences of the opening curly braces:
+             */
+            
+            // This will be resulting string, with styled links
             NSMutableAttributedString * attributedStringByComponent = [[NSMutableAttributedString alloc] init];
 
-            if (componentByBeginningString.count > 1) {
-                NSMutableArray * mutableComponentByEndingString = [[NSMutableArray alloc ] init];
+            // Split by occurrences of opening curly braces
+            NSArray * componentByBeginningMatch = [message componentsSeparatedByString:@"{{"];
+
+            // If there are no links, the result will be an array with one item - the original string
+            if (componentByBeginningMatch.count > 1) {
+                // Go ahead and create the attributes we'll be adding to style the links
                 NSDictionary *linkAttributes = @{
                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:label.font.pointSize],
                                                  NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle)
                                                  };
 
-                for (NSString *component in componentByBeginningString) {
+                /*
+                 We have an array of strings that were split among the instances of "{{", so now we need to cycle through those
+                 and split the string at the instances of "}}".
+                 */
+                NSMutableArray * mutableComponentByEndingMatch = [[NSMutableArray alloc ] init];
 
+                for (NSString *component in componentByBeginningMatch) {
                     NSArray * endComponent = [component componentsSeparatedByString:@"}}"];
-                    [mutableComponentByEndingString addObject:endComponent];
+                    // Store these arrays in a separate array
+                    [mutableComponentByEndingMatch addObject:endComponent];
                 }
 
-                NSArray * componentByEndingString = [mutableComponentByEndingString copy];
+                // Create a static copy of the result, since we no longer need to mutate it
+                NSArray * componentByEndingMatch = [mutableComponentByEndingMatch copy];
 
+                // Each time we encounter a link, we need to add the title and href to an array that we'll store as a property on our view controller
                 NSMutableArray * hrefsHolder = [[NSMutableArray alloc] init];
                 NSArray * hrefs = (NSArray *)[disclaimer valueForKey:@"hrefs"];
-
                 int hrefCounter = 0;
 
-                for (NSArray * endingComponent in componentByEndingString) {
+                for (NSArray * endingComponent in componentByEndingMatch) {
+                    /*
+                     This is the tricky part. We're looping through a 2D array, and each looped array is a match of "}}". Therefore, it will always behave accordingly:
+                     1. The matched array will never contain more than two string.
+                     2. If the matched array only contains one string, then we know it is the beginning of the string.
+                     3. If the matched array contains 2 strings, then we know that the first string is the link text, and the second string is non-link text.
+                     */
                     if (endingComponent.count == 2) {
+                        // Turn the first string into a link, since we know it is linked text
                         NSAttributedString * attributedEndingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject] attributes:linkAttributes];
 
+                        // Add the href to our list of link urls and titles
                         [hrefsHolder addObject:@{@"href": (NSString *)[hrefs objectAtIndex: hrefCounter], @"title": [attributedEndingComponent string]}];
                         hrefCounter++;
+
+                        // Add the linked string to our final string
                         [attributedStringByComponent appendAttributedString: attributedEndingComponent];
+
+                        // Then convert the second string into an attributed string and append it. It's not a link so we don't need to add style attributes to it
                         NSAttributedString * attributedEndingHangingComponent = [[NSAttributedString alloc] initWithString:(NSString *)[endingComponent lastObject]];
                         [attributedStringByComponent appendAttributedString: attributedEndingHangingComponent];
                     } else {
+                        // If the array only has one string, just convert it into an attributed string and append it. It's not a link so we don't need to add style attributes to it
                         [attributedStringByComponent appendAttributedString:[[NSAttributedString alloc] initWithString:(NSString *)[endingComponent firstObject]]];
                     }
                 }
@@ -270,7 +300,7 @@ static CGFloat kExpandedHeight = 263.0f;
     self.disclaimers = [disclaimersArray copy];
 }
 
-- (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str {
+-(NSArray *) rangesOfString:(NSString *)searchString inString:(NSString *)str {
     NSMutableArray *results = [NSMutableArray array];
     NSRange searchRange = NSMakeRange(0, [str length]);
     NSRange range;
