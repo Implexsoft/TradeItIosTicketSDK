@@ -121,26 +121,26 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spN-oc-KI9">
                                         <rect key="frame" x="41" y="0.0" width="70" height="70"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
-                                                <rect key="frame" x="0.0" y="0.0" width="42" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot One" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-Xy-oOz" userLabel="Slot 1">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
-                                                <rect key="frame" x="0.0" y="17" width="50" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Three" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-8B-ewx" userLabel="Slot 3">
+                                                <rect key="frame" x="0.0" y="17" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
-                                                <rect key="frame" x="0.0" y="34" width="42" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Five" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-iR-IPY" userLabel="Slot 5">
+                                                <rect key="frame" x="0.0" y="34" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Seven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgx-nm-L2i" userLabel="Slot 7">
-                                                <rect key="frame" x="0.0" y="51" width="52" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Seven" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgx-nm-L2i" userLabel="Slot 7">
+                                                <rect key="frame" x="0.0" y="51" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -152,11 +152,15 @@
                                             <constraint firstItem="Pgx-nm-L2i" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="2XF-23-wOd"/>
                                             <constraint firstItem="Pgx-nm-L2i" firstAttribute="top" secondItem="RWs-iR-IPY" secondAttribute="bottom" constant="5" id="3uf-U1-QIP"/>
                                             <constraint firstItem="jFp-Xy-oOz" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="7ln-k1-XBM"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pgx-nm-L2i" secondAttribute="trailing" id="KyY-xP-Nef"/>
                                             <constraint firstItem="Nyq-8B-ewx" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="Sz1-Wb-qOK"/>
                                             <constraint firstItem="jFp-Xy-oOz" firstAttribute="top" secondItem="spN-oc-KI9" secondAttribute="top" id="VTg-Qx-hTb"/>
                                             <constraint firstItem="Nyq-8B-ewx" firstAttribute="top" secondItem="jFp-Xy-oOz" secondAttribute="bottom" constant="5" id="aBc-XX-jTn"/>
                                             <constraint firstItem="RWs-iR-IPY" firstAttribute="leading" secondItem="spN-oc-KI9" secondAttribute="leading" id="duj-Od-Ck2"/>
                                             <constraint firstAttribute="width" priority="750" constant="70" id="jFI-af-dbZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="RWs-iR-IPY" secondAttribute="trailing" id="jgn-RL-ZPY"/>
+                                            <constraint firstAttribute="trailing" secondItem="jFp-Xy-oOz" secondAttribute="trailing" id="kJK-sm-TLL"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nyq-8B-ewx" secondAttribute="trailing" id="weg-FY-VdE"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -174,26 +178,26 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnk-2V-xlc">
                                         <rect key="frame" x="41" y="0.0" width="70" height="70"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
-                                                <rect key="frame" x="0.0" y="0.0" width="42" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Two" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-E6-279" userLabel="Slot 2">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
-                                                <rect key="frame" x="0.0" y="17" width="44" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Four" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FM8-X9-wcd" userLabel="Slot 4">
+                                                <rect key="frame" x="0.0" y="17" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
-                                                <rect key="frame" x="0.0" y="34" width="37" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Six" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-1m-VDu" userLabel="Slot 6">
+                                                <rect key="frame" x="0.0" y="34" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
-                                                <rect key="frame" x="0.0" y="51" width="47" height="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slot Eight" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUn-Qq-N8b" userLabel="Slot 8">
+                                                <rect key="frame" x="0.0" y="51" width="70" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -203,13 +207,17 @@
                                         <constraints>
                                             <constraint firstItem="GhH-1m-VDu" firstAttribute="top" secondItem="FM8-X9-wcd" secondAttribute="bottom" constant="5" id="4xu-wI-k8P"/>
                                             <constraint firstAttribute="width" constant="70" id="7uq-ac-6IJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="EdW-E6-279" secondAttribute="trailing" id="9AT-Wu-s1H"/>
                                             <constraint firstItem="gUn-Qq-N8b" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="BWu-Gh-3mU"/>
+                                            <constraint firstAttribute="trailing" secondItem="gUn-Qq-N8b" secondAttribute="trailing" id="EgI-38-eV1"/>
                                             <constraint firstItem="GhH-1m-VDu" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="OKF-nR-qhA"/>
                                             <constraint firstItem="EdW-E6-279" firstAttribute="top" secondItem="mnk-2V-xlc" secondAttribute="top" id="PCK-YU-Ucx"/>
                                             <constraint firstItem="FM8-X9-wcd" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="WTF-8Y-lHv"/>
                                             <constraint firstItem="gUn-Qq-N8b" firstAttribute="top" secondItem="GhH-1m-VDu" secondAttribute="bottom" constant="5" id="m7J-Q2-GLR"/>
                                             <constraint firstItem="FM8-X9-wcd" firstAttribute="top" secondItem="EdW-E6-279" secondAttribute="bottom" constant="5" id="sUx-IZ-pCQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="FM8-X9-wcd" secondAttribute="trailing" id="vnX-kD-puF"/>
                                             <constraint firstItem="EdW-E6-279" firstAttribute="leading" secondItem="mnk-2V-xlc" secondAttribute="leading" id="vvM-p5-Vbh"/>
+                                            <constraint firstAttribute="trailing" secondItem="GhH-1m-VDu" secondAttribute="trailing" id="wdp-pl-8pw"/>
                                         </constraints>
                                     </view>
                                 </subviews>

@@ -151,7 +151,7 @@ static NSString * kBulletLayerName = @"circle_layer";
 
     if (!circleLayer) {
         circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(-5.0f, (label.frame.size.height/2)-1.0f, 2.0f, 2.0f)] CGPath]];
+        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(-5.0f, 5.0f, 2.0f, 2.0f)] CGPath]];
         [circleLayer setName: kBulletLayerName];
         [label.layer addSublayer: circleLayer];
     }
@@ -345,6 +345,15 @@ static NSString * kBulletLayerName = @"circle_layer";
         self.featureSlot7.text = @"";
         self.featureSlot8.text = @"";
 
+        [self hideBulletInLabel:self.featureSlot1];
+        [self hideBulletInLabel:self.featureSlot2];
+        [self hideBulletInLabel:self.featureSlot3];
+        [self hideBulletInLabel:self.featureSlot4];
+        [self hideBulletInLabel:self.featureSlot5];
+        [self hideBulletInLabel:self.featureSlot6];
+        [self hideBulletInLabel:self.featureSlot7];
+        [self hideBulletInLabel:self.featureSlot8];
+
         return;
     }
 
@@ -434,8 +443,46 @@ static NSString * kBulletLayerName = @"circle_layer";
     [self setNeedsLayout];
     [self layoutSubviews];
 
+    // To account for bullet point (5px) and margin (8px)
+    maxLeftFeatureWidth += 13.0f;
+    maxRightFeatureWidth += 13.0f;
+
+    float halfScreenWidth = self.bounds.size.width / 2;
+
+    if (maxLeftFeatureWidth > halfScreenWidth) {
+        maxLeftFeatureWidth = halfScreenWidth - 13.0f;
+        [self setLeftFeaturesToMultiLine:YES];
+    } else {
+        [self setLeftFeaturesToMultiLine:NO];
+    }
+
+    if (maxRightFeatureWidth > halfScreenWidth) {
+        maxRightFeatureWidth = halfScreenWidth - 13.0f;
+        [self setRightFeaturesToMultiLine:YES];
+    } else {
+        [self setRightFeaturesToMultiLine:NO];
+    }
+
     self.leftFeatureWidthConstraint.constant = maxLeftFeatureWidth;
     self.rightFeatureWidthConstraint.constant = maxRightFeatureWidth;
+}
+
+-(void) setLeftFeaturesToMultiLine:(BOOL)multiLine {
+    int lineNumber = multiLine ? 2 : 1;
+
+    self.featureSlot1.numberOfLines = lineNumber;
+    self.featureSlot3.numberOfLines = lineNumber;
+    self.featureSlot5.numberOfLines = lineNumber;
+    self.featureSlot7.numberOfLines = lineNumber;
+}
+
+-(void) setRightFeaturesToMultiLine:(BOOL)multiLine {
+    int lineNumber = multiLine ? 2 : 1;
+
+    self.featureSlot2.numberOfLines = lineNumber;
+    self.featureSlot4.numberOfLines = lineNumber;
+    self.featureSlot6.numberOfLines = lineNumber;
+    self.featureSlot8.numberOfLines = lineNumber;
 }
 
 
