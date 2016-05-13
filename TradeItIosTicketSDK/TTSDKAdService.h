@@ -15,6 +15,7 @@
 @property BOOL brokerCenterLoaded;
 @property BOOL brokerCenterActive;
 @property NSArray * brokerCenterBrokers;
+@property NSMutableArray * brokerCenterButtonViews;
 
 -(void) getBrokerCenter;
 -(UIImage *) logoImageByBoker:(NSString *)broker;

@@ -17,8 +17,6 @@
 @property NSArray * brokerCenterImages;
 @property NSArray * disclaimers;
 @property NSMutableArray * links;
-@property NSMutableArray * brokerCenterImagesLoadingQueue;
-@property NSMutableArray * brokerCenterButtonsLoadingQueue;
 @property NSIndexPath * disclaimerIndexPath;
 @property NSInteger selectedIndex;
 @property CGFloat currentDisclaimerHeight;
@@ -36,7 +34,6 @@ static CGFloat kExpandedHeight = 293.0f;
     [super viewDidLoad];
 
     self.links = [[NSMutableArray alloc] init];
-    self.brokerCenterButtonsLoadingQueue = [[NSMutableArray alloc] init];
 
     self.disclaimerOpen = NO;
 
@@ -47,17 +44,7 @@ static CGFloat kExpandedHeight = 293.0f;
 
     self.brokerCenterImages = [[NSArray alloc] init];
 
-    if (self.ticket.adService.brokerCenterBrokers) {
-        [self populateBrokerDataByActiveFilter];
-        [self loadButtonWebviews];
-    }
-
-    self.brokerCenterImagesLoadingQueue = [[NSMutableArray alloc] init];
-    for (NSDictionary * brokerCenterData in self.brokerCenterData) {
-        NSNumber * ind = [[NSNumber alloc] initWithInteger:[self.brokerCenterData indexOfObject:brokerCenterData]];
-        NSDictionary * queueItem = @{@"broker":[brokerCenterData valueForKey:@"broker"], @"logo": [brokerCenterData valueForKey:@"logo"], @"index": ind};
-        [self.brokerCenterImagesLoadingQueue addObject: queueItem];
-    }
+    [self populateBrokerDataByActiveFilter];
 
     self.selectedIndex = -1;
 
@@ -74,18 +61,6 @@ static CGFloat kExpandedHeight = 293.0f;
     }
 
     self.brokerCenterData = [brokerList copy];
-}
-
--(void) loadButtonWebviews {
-    for (TradeItBrokerCenterBroker *broker in self.ticket.adService.brokerCenterBrokers) {
-        UIWebView * buttonWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
-        buttonWebView.delegate = self;
-
-        NSString * urlStr = [NSString stringWithFormat:@"%@publisherad/brokerCenterPromptAdView?apiKey=%@-key&broker=%@", getEmsBaseUrl(self.ticket.connector.environment), self.ticket.connector.apiKey, broker.broker];
-        [buttonWebView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:urlStr]]];
-
-        [self.brokerCenterButtonsLoadingQueue addObject: @{@"broker": broker.broker, @"webView": buttonWebView}];
-    }
 }
 
 -(void) setDisclaimerLabelsAndSizes {
@@ -360,23 +335,13 @@ static CGFloat kExpandedHeight = 293.0f;
     }
 }
 
--(void) addButtonWebViewWithBroker:(TradeItBrokerCenterBroker *)broker toView:(UIWebView *)webView {
-    webView.delegate = self;
-
-    NSString * urlStr = [NSString stringWithFormat:@"%@publisherad/brokerCenterPromptAdView?apiKey=%@-key&broker=%@", getEmsBaseUrl(self.ticket.connector.environment), self.ticket.connector.apiKey, broker.broker];
-    [webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:urlStr]]];
-}
-
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if(UIWebViewNavigationTypeLinkClicked == navigationType /*you can add some checking whether link should be opened in Safari */) {
-        
-
-
         [[UIApplication sharedApplication] openURL:[request URL]];
 
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -495,12 +460,14 @@ static CGFloat kExpandedHeight = 293.0f;
     BOOL selected = self.selectedIndex == indexPath.row;
 
     if (selected) {
-        NSDictionary * buttonQueueItem = [self.brokerCenterButtonsLoadingQueue objectAtIndex:indexPath.row];
+        NSDictionary * buttonQueueItem = [self.ticket.adService.brokerCenterButtonViews objectAtIndex:indexPath.row];
+
         if ([[buttonQueueItem valueForKey:@"broker"] isEqualToString:brokerCenterItem.broker]) {
-            
             UIWebView * buttonWebView = (UIWebView *)[buttonQueueItem valueForKey:@"webView"];
+
+            buttonWebView.delegate = self;
             buttonWebView.frame = CGRectMake(0, 0, cell.promptButtonWebViewContainer.frame.size.width, cell.promptButtonWebViewContainer.frame.size.height);
-            
+
             [cell.promptButtonWebViewContainer addSubview:buttonWebView];
         }
     } else {

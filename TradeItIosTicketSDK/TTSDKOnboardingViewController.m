@@ -196,16 +196,32 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         [optionsArray addObject:brokerDict];
     }
 
+    if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
+        [optionsArray insertObject:@{@"Open an account": @"OPEN"} atIndex:0];
+    }
+
     [self showPicker:@"Select account to trade with" withSelection:@"Fidelity" andOptions:[optionsArray copy] onSelection:^(void){
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self populateBrokerButton];
+            if ([self.currentSelection isEqualToString:@"OPEN"]) {
+                [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
+            } else {
+                [self populateBrokerButton];
+                [self performSelector:@selector(brokerSelectPressed:) withObject:nil];
+            }
         });
     }];
 }
 
 -(void) populateBrokerButton {
     [UIView setAnimationsEnabled:NO];
+
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+
     [self.preferredBrokerButton setTitle:self.currentSelection forState:UIControlStateNormal];
+
+    [CATransaction commit];
+
     [UIView setAnimationsEnabled:YES];
 }
 
