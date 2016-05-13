@@ -30,8 +30,8 @@
 
 @implementation TTSDKBrokerCenterViewController
 
-static CGFloat kDefaultHeight = 175.0f;
-static CGFloat kExpandedHeight = 330.0f;
+static CGFloat kDefaultHeight = 128.0f;
+static CGFloat kExpandedHeight = 263.0f;
 
 
 -(void) viewDidLoad {
@@ -443,10 +443,10 @@ static CGFloat kExpandedHeight = 330.0f;
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y > 0) {
-        scrollView.backgroundColor = self.lastItemBackgroundColor;
-    } else {
+    if (scrollView.contentOffset.y < 0) {
         scrollView.backgroundColor = self.firstItemBackgroundColor;
+    } else {
+        scrollView.backgroundColor = self.lastItemBackgroundColor;
     }
 }
 

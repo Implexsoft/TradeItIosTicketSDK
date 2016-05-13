@@ -18,7 +18,6 @@
 @property UILabel * lastAttachedMessage;
 @property (weak, nonatomic) IBOutlet UIButton *toggleExpanded;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
-@property (weak, nonatomic) IBOutlet UILabel *offerDescription;
 @property (weak, nonatomic) IBOutlet UILabel *accountMinimum;
 @property (weak, nonatomic) IBOutlet UILabel *optionsOffer;
 @property (weak, nonatomic) IBOutlet UILabel *stocksEtfsOffer;
@@ -45,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIView *rightFeaturesContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftFeatureWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightFeatureWidthConstraint;
+@property (weak, nonatomic) IBOutlet UIView *expandedView;
 
 @end
 
@@ -52,6 +52,7 @@
 @implementation TTSDKBrokerCenterTableViewCell
 
 static float kMessageSeparatorHeight = 10.0f;
+static NSString * kBulletLayerName = @"circle_layer";
 
 #pragma Mark Class methods
 
@@ -119,7 +120,6 @@ static float kMessageSeparatorHeight = 10.0f;
     UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
     
     self.offerTitle.textColor = textColor;
-    self.offerDescription.textColor = textColor;
     self.accountMinimum.textColor = textColor;
     self.optionsOffer.textColor = textColor;
     self.optionsTitle.textColor = textColor;
@@ -141,10 +141,32 @@ static float kMessageSeparatorHeight = 10.0f;
 }
 
 -(void) addBulletToLabel:(UILabel *)label withColor:(UIColor *)color {
-    CAShapeLayer * circleLayer = [CAShapeLayer layer];
-    [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(-5.0f, (label.frame.size.height/2)-1.0f, 2.0f, 2.0f)] CGPath]];
+    CAShapeLayer * circleLayer;
+
+    for (CALayer * layer in label.layer.sublayers) {
+        if ([layer.name isEqualToString: kBulletLayerName] && [layer isKindOfClass:CAShapeLayer.class]) {
+            circleLayer = (CAShapeLayer *)layer;
+        }
+    }
+
+    if (!circleLayer) {
+        circleLayer = [CAShapeLayer layer];
+        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(-5.0f, (label.frame.size.height/2)-1.0f, 2.0f, 2.0f)] CGPath]];
+        [circleLayer setName: kBulletLayerName];
+        [label.layer addSublayer: circleLayer];
+    }
+
     [circleLayer setFillColor: color.CGColor];
-    [label.layer addSublayer: circleLayer];
+
+    circleLayer.hidden = NO;
+}
+
+-(void) hideBulletInLabel:(UILabel *)label {
+    for (CALayer * layer in label.layer.sublayers) {
+        if ([layer.name isEqualToString: kBulletLayerName] && [layer isKindOfClass:CAShapeLayer.class]) {
+            layer.hidden = YES;
+        }
+    }
 }
 
 -(void) addImage:(UIImage *)img {
@@ -170,8 +192,10 @@ static float kMessageSeparatorHeight = 10.0f;
 -(void) configureSelectedState:(BOOL)selected {
     if (selected) {
         self.detailsArrow.hidden = YES;
+        self.expandedView.hidden = NO;
     } else {
         self.detailsArrow.hidden = NO;
+        self.expandedView.hidden = YES;
     }
 }
 
@@ -267,8 +291,6 @@ static float kMessageSeparatorHeight = 10.0f;
     } else {
         offerPostscript = @"";
     }
-
-    self.offerDescription.text = [NSString stringWithFormat:@"%@%@", self.data.signupDescription, offerPostscript];
 }
 
 -(void) populateAccountMinimum {
@@ -338,6 +360,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot2 withColor:textColor];
     } else {
         self.featureSlot2.text = @"";
+        [self hideBulletInLabel:self.featureSlot2];
     }
 
     if (count > 2) {
@@ -347,8 +370,9 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot3 withColor:textColor];
     } else {
         self.featureSlot3.text = @"";
+        [self hideBulletInLabel:self.featureSlot3];
     }
-    
+
     if (count > 3) {
         self.featureSlot4.text = [features objectAtIndex:3];
         [self.featureSlot4 sizeToFit];
@@ -356,6 +380,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot4 withColor:textColor];
     } else {
         self.featureSlot4.text = @"";
+        [self hideBulletInLabel:self.featureSlot4];
     }
 
     if (count > 4) {
@@ -365,6 +390,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot5 withColor:textColor];
     } else {
         self.featureSlot5.text = @"";
+        [self hideBulletInLabel:self.featureSlot5];
     }
 
     if (count > 5) {
@@ -374,6 +400,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot6 withColor:textColor];
     } else {
         self.featureSlot6.text = @"";
+        [self hideBulletInLabel:self.featureSlot6];
     }
 
     if (count > 6) {
@@ -383,6 +410,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot7 withColor:textColor];
     } else {
         self.featureSlot7.text = @"";
+        [self hideBulletInLabel:self.featureSlot7];
     }
 
     if (count > 7) {
@@ -392,6 +420,7 @@ static float kMessageSeparatorHeight = 10.0f;
         [self addBulletToLabel:self.featureSlot8 withColor:textColor];
     } else {
         self.featureSlot8.text = @"";
+        [self hideBulletInLabel:self.featureSlot8];
     }
 
     [self setNeedsUpdateConstraints];

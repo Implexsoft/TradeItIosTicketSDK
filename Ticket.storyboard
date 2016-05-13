@@ -568,14 +568,14 @@
         <!--Broker Center View Controller-->
         <scene sceneID="Gja-p0-QBh">
             <objects>
-                <tableViewController id="p9a-Bu-SDP" userLabel="Broker Center View Controller" customClass="TTSDKBrokerCenterViewController" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="p9a-Bu-SDP" userLabel="Broker Center View Controller" customClass="TTSDKBrokerCenterViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tKG-9M-2Sn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="no_identifer" id="lVh-5A-FgF">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lVh-5A-FgF" id="2oQ-cW-50g">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -588,6 +588,7 @@
                             <outlet property="delegate" destination="p9a-Bu-SDP" id="gk4-WU-Qdi"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Open an account" id="Fdy-uA-p9g"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
