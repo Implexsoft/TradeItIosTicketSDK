@@ -193,9 +193,16 @@ static NSString * kBulletLayerName = @"circle_layer";
     if (selected) {
         self.detailsArrow.hidden = YES;
         self.expandedView.hidden = NO;
+        self.promptButtonWebViewContainer.hidden = NO;
+
     } else {
         self.detailsArrow.hidden = NO;
         self.expandedView.hidden = YES;
+
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.promptButtonWebViewContainer.hidden = YES;
+        [CATransaction commit];
     }
 }
 

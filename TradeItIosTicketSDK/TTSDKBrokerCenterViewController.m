@@ -462,19 +462,24 @@ static CGFloat kExpandedHeight = 263.0f;
     TradeItBrokerCenterBroker * brokerCenterItem = [self.brokerCenterData objectAtIndex: indexPath.row];
     [cell configureWithBroker: brokerCenterItem];
 
-    NSDictionary * buttonQueueItem = [self.brokerCenterButtonsLoadingQueue objectAtIndex:indexPath.row];
-    if ([[buttonQueueItem valueForKey:@"broker"] isEqualToString:brokerCenterItem.broker]) {
+    BOOL selected = self.selectedIndex == indexPath.row;
 
-        UIWebView * buttonWebView = (UIWebView *)[buttonQueueItem valueForKey:@"webView"];
-        buttonWebView.frame = CGRectMake(0, 0, cell.promptButtonWebViewContainer.frame.size.width, cell.promptButtonWebViewContainer.frame.size.height);
-
-        [cell.promptButtonWebViewContainer addSubview:buttonWebView];
+    if (selected) {
+        NSDictionary * buttonQueueItem = [self.brokerCenterButtonsLoadingQueue objectAtIndex:indexPath.row];
+        if ([[buttonQueueItem valueForKey:@"broker"] isEqualToString:brokerCenterItem.broker]) {
+            
+            UIWebView * buttonWebView = (UIWebView *)[buttonQueueItem valueForKey:@"webView"];
+            buttonWebView.frame = CGRectMake(0, 0, cell.promptButtonWebViewContainer.frame.size.width, cell.promptButtonWebViewContainer.frame.size.height);
+            
+            [cell.promptButtonWebViewContainer addSubview:buttonWebView];
+        }
+    } else {
+        [cell.promptButtonWebViewContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
 
     UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
     [cell addImage:img];
 
-    BOOL selected = self.selectedIndex == indexPath.row;
     [cell configureSelectedState: selected];
 
     cell.indexPath = indexPath;

@@ -221,22 +221,12 @@
                                     <constraint firstItem="mnk-2V-xlc" firstAttribute="centerX" secondItem="ETz-vW-s2N" secondAttribute="centerX" id="WdL-54-dgO"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVa-Pb-psP" userLabel="ButtonWebViewContainer">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVa-Pb-psP" userLabel="ButtonWebViewContainer">
                                 <rect key="frame" x="67" y="101" width="170" height="34"/>
-                                <subviews>
-                                    <webView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-Lm-Ub6">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="34"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </webView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="M3c-Lm-Ub6" firstAttribute="top" secondItem="rVa-Pb-psP" secondAttribute="top" id="GHN-0G-DNh"/>
                                     <constraint firstAttribute="width" constant="170" id="OpK-4K-hzH"/>
                                     <constraint firstAttribute="height" constant="34" id="QYZ-Y4-B6F"/>
-                                    <constraint firstAttribute="trailing" secondItem="M3c-Lm-Ub6" secondAttribute="trailing" id="gc2-I0-12z"/>
-                                    <constraint firstAttribute="bottom" secondItem="M3c-Lm-Ub6" secondAttribute="bottom" id="nV2-x0-DW2"/>
-                                    <constraint firstItem="M3c-Lm-Ub6" firstAttribute="leading" secondItem="rVa-Pb-psP" secondAttribute="leading" id="tr5-jU-fYJ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="757-q4-CAe" userLabel="DisclaimerButtonContainer">
@@ -351,7 +341,6 @@
                 <outlet property="stocksEtfsOffer" destination="28h-EB-YOo" id="PnJ-K9-tNB"/>
                 <outlet property="stocksEtfsTitle" destination="5sP-fW-h3U" id="XrM-ma-65S"/>
                 <outlet property="toggleExpanded" destination="Rcu-6t-b2C" id="wNM-01-7Mq"/>
-                <outlet property="webView" destination="M3c-Lm-Ub6" id="LgQ-Je-E8D"/>
             </connections>
             <point key="canvasLocation" x="343" y="1090.5"/>
         </tableViewCell>
