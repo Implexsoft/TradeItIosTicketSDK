@@ -23,8 +23,6 @@
 @property NSInteger selectedIndex;
 @property CGFloat currentDisclaimerHeight;
 @property BOOL disclaimerOpen;
-@property UIColor * firstItemBackgroundColor;
-@property UIColor * lastItemBackgroundColor;
 
 @end
 
@@ -42,11 +40,6 @@ static CGFloat kExpandedHeight = 263.0f;
 
     self.disclaimerOpen = NO;
 
-    self.tableView.allowsSelection = NO;
-    self.tableView.allowsMultipleSelection = NO;
-    self.tableView.allowsSelectionDuringEditing = NO;
-    self.tableView.allowsMultipleSelectionDuringEditing = NO;
-
     if (self.isModal) {
         UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closePressed:)];
         self.navigationItem.rightBarButtonItem = closeButton;
@@ -58,12 +51,6 @@ static CGFloat kExpandedHeight = 263.0f;
         [self populateBrokerDataByActiveFilter];
         [self loadButtonWebviews];
     }
-
-    // make sure to update this once real data is being used
-    UIColor * firstItemBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[[self.brokerCenterData firstObject] valueForKey:@"backgroundColor"]];
-    UIColor * lastItemBackgroundColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[[self.brokerCenterData lastObject] valueForKey:@"backgroundColor"]];
-    self.firstItemBackgroundColor = firstItemBackgroundColor;
-    self.lastItemBackgroundColor = lastItemBackgroundColor;
 
     self.brokerCenterImagesLoadingQueue = [[NSMutableArray alloc] init];
     for (NSDictionary * brokerCenterData in self.brokerCenterData) {
@@ -364,11 +351,6 @@ static CGFloat kExpandedHeight = 263.0f;
 }
 
 -(void) didToggleExpandedView:(BOOL)toggled atIndexPath:(NSIndexPath *)indexPath {
-    // reset the background color
-    TradeItBrokerCenterBroker * data = (TradeItBrokerCenterBroker *)[self.brokerCenterData objectAtIndex:indexPath.row];
-    UIColor * bgColor = [TTSDKBrokerCenterTableViewCell colorFromArray:[data valueForKey:@"backgroundColor"]];
-    self.tableView.backgroundColor = bgColor;
-
     // shut disclaimer every time you toggle
     self.disclaimerOpen = NO;
 
@@ -376,14 +358,14 @@ static CGFloat kExpandedHeight = 263.0f;
         self.selectedIndex = indexPath.row;
 
         [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         
     } else if (self.selectedIndex == indexPath.row) { // user taps the currenty expanded row
         self.selectedIndex = -1; // reset index
 
         [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         
     } else { // user must have selected a different row
@@ -393,7 +375,7 @@ static CGFloat kExpandedHeight = 263.0f;
         // reset the disclaimer
         TTSDKBrokerCenterTableViewCell * cell = [self.tableView cellForRowAtIndexPath:prevPath];
         cell.disclaimerToggled = NO;
-        
+
         self.selectedIndex = indexPath.row;
 
         [CATransaction begin];
@@ -403,11 +385,11 @@ static CGFloat kExpandedHeight = 263.0f;
             [self.tableView reloadData];
         }];
         
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:prevPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
         [CATransaction commit];
     }
-    
+
     [self.tableView layoutIfNeeded];
 }
 
@@ -439,14 +421,6 @@ static CGFloat kExpandedHeight = 263.0f;
         }
     } else {
         return kDefaultHeight;
-    }
-}
-
--(void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < 0) {
-        scrollView.backgroundColor = self.firstItemBackgroundColor;
-    } else {
-        scrollView.backgroundColor = self.lastItemBackgroundColor;
     }
 }
 
