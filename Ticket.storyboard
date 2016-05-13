@@ -589,7 +589,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Open an account" id="Fdy-uA-p9g"/>
+                    <navigationItem key="navigationItem" title="Open an Account" id="Fdy-uA-p9g"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dcj-eT-MWM" userLabel="First Responder" sceneMemberID="firstResponder"/>

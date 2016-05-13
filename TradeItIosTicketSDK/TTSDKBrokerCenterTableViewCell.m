@@ -18,6 +18,7 @@
 @property UILabel * lastAttachedMessage;
 @property (weak, nonatomic) IBOutlet UIButton *toggleExpanded;
 @property (weak, nonatomic) IBOutlet UILabel *offerTitle;
+@property (weak, nonatomic) IBOutlet UILabel *offerDescription;
 @property (weak, nonatomic) IBOutlet UILabel *accountMinimum;
 @property (weak, nonatomic) IBOutlet UILabel *optionsOffer;
 @property (weak, nonatomic) IBOutlet UILabel *stocksEtfsOffer;
@@ -120,6 +121,7 @@ static NSString * kBulletLayerName = @"circle_layer";
     UIColor * textColor = [TTSDKBrokerCenterTableViewCell colorFromArray: self.data.textColor];
     
     self.offerTitle.textColor = textColor;
+    self.offerDescription.textColor = textColor;
     self.accountMinimum.textColor = textColor;
     self.optionsOffer.textColor = textColor;
     self.optionsTitle.textColor = textColor;
@@ -298,6 +300,8 @@ static NSString * kBulletLayerName = @"circle_layer";
     } else {
         offerPostscript = @"";
     }
+
+    self.offerDescription.text = [NSString stringWithFormat:@"%@%@", self.data.signupDescription, offerPostscript];
 }
 
 -(void) populateAccountMinimum {

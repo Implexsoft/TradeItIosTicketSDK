@@ -28,8 +28,8 @@
 
 @implementation TTSDKBrokerCenterViewController
 
-static CGFloat kDefaultHeight = 128.0f;
-static CGFloat kExpandedHeight = 263.0f;
+static CGFloat kDefaultHeight = 158.0f;
+static CGFloat kExpandedHeight = 293.0f;
 
 
 -(void) viewDidLoad {
