@@ -67,11 +67,11 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     self.currentSelection = @"Fidelity";
 
-    self.bullet1.layer.cornerRadius = 3.0f;
-    self.bullet2.layer.cornerRadius = 3.0f;
-    self.bullet3.layer.cornerRadius = 3.0f;
-    self.bullet4.layer.cornerRadius = 3.0f;
-    self.bullet5.layer.cornerRadius = 3.0f;
+    self.bullet1.layer.cornerRadius = 2.0f;
+    self.bullet2.layer.cornerRadius = 2.0f;
+    self.bullet3.layer.cornerRadius = 2.0f;
+    self.bullet4.layer.cornerRadius = 2.0f;
+    self.bullet5.layer.cornerRadius = 2.0f;
 
     if (!brokers || !self.ticket.adService.brokerCenterLoaded) {
         self.openAccountButton.hidden = YES;

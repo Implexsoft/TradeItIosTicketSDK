@@ -96,7 +96,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                toItem:containerView
                                                attribute:NSLayoutAttributeLeadingMargin
                                                multiplier:1
-                                               constant:3];
+                                               constant:0];
         leftKeyConstraint.priority = 900;
 
         NSLayoutConstraint * rightKeyConstraint = [NSLayoutConstraint
@@ -106,7 +106,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                 toItem:containerView
                                                 attribute:NSLayoutAttributeTrailingMargin
                                                 multiplier:1
-                                                constant:-3];
+                                                constant:0];
         rightKeyConstraint.priority = 900;
 
         [containerView addConstraint:topKeyConstraint];
@@ -249,7 +249,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                    toItem:containerView
                                                    attribute:NSLayoutAttributeLeadingMargin
                                                    multiplier:1
-                                                   constant:3];
+                                                   constant:0];
             leftConstraint.priority = 900;
             
             NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
@@ -259,7 +259,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                     toItem:containerView
                                                     attribute:NSLayoutAttributeTrailingMargin
                                                     multiplier:1
-                                                    constant:-3];
+                                                    constant:0];
             rightConstraint.priority = 900;
 
             [containerView addConstraint: topConstraint];
@@ -432,11 +432,8 @@ static CGFloat kExpandedHeight = 293.0f;
     nibIdentifier = @"TTSDKBrokerCenterCell";
     TTSDKBrokerCenterTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
 
-    if (cell == nil) {
-        [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
-        cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
-    }
-
+    [tableView registerNib:[UINib nibWithNibName: nibIdentifier bundle:resourceBundle] forCellReuseIdentifier:cellIdentifier];
+    cell = [tableView dequeueReusableCellWithIdentifier: cellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     if (self.disclaimerOpen && self.disclaimerIndexPath.row == indexPath.row) {
