@@ -32,7 +32,6 @@
 
 #pragma mark Constants
 
-static int kBulletContainerTag = 2;
 static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 
