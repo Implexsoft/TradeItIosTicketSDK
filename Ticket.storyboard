@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -20,11 +20,11 @@
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VD5-sn-X2q">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -340,14 +340,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-GL-pyU" userLabel="ListView">
-                                <rect key="frame" x="38" y="164" width="245" height="150"/>
+                                <rect key="frame" x="48" y="164" width="225" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast and easy trading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-uL-kzG" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="0.0" width="231" height="16"/>
+                                        <rect key="frame" x="10" y="0.0" width="215" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="xRl-5o-FsF"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
@@ -358,11 +358,11 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="26" width="231" height="16"/>
+                                        <rect key="frame" x="10" y="26" width="215" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="3iZ-N2-EoY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
@@ -374,11 +374,11 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="52" width="231" height="16"/>
+                                        <rect key="frame" x="10" y="52" width="215" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="9xP-gg-QUm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
@@ -390,11 +390,11 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="78" width="231" height="16"/>
+                                        <rect key="frame" x="10" y="78" width="215" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="hld-ow-EQO"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
@@ -406,11 +406,11 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg" customClass="TTSDKLabel">
-                                        <rect key="frame" x="14" y="104" width="231" height="16"/>
+                                        <rect key="frame" x="10" y="104" width="215" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="UFU-e3-1Mg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
@@ -427,15 +427,15 @@
                                     <constraint firstAttribute="trailing" secondItem="bEh-ol-Fgg" secondAttribute="trailing" id="0qI-3g-IAQ"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="1oQ-le-NWK"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="FMG-2V-Vzy"/>
-                                    <constraint firstAttribute="width" constant="245" id="HSD-Ed-dtZ"/>
-                                    <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="KUh-i7-4p1"/>
+                                    <constraint firstAttribute="width" constant="225" id="HSD-Ed-dtZ"/>
+                                    <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="KUh-i7-4p1"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" id="M60-Nt-8fw"/>
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="top" id="N9r-O9-jyL"/>
                                     <constraint firstItem="a1A-PP-k3j" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="Ntz-mb-waP"/>
-                                    <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="QcT-jL-2KY"/>
-                                    <constraint firstItem="bEh-ol-Fgg" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="U9z-1G-QW3"/>
-                                    <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="Ue8-YC-dN5"/>
-                                    <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="14" id="b0D-EV-PrR"/>
+                                    <constraint firstItem="oif-bt-exT" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="QcT-jL-2KY"/>
+                                    <constraint firstItem="bEh-ol-Fgg" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="U9z-1G-QW3"/>
+                                    <constraint firstItem="Snw-Fa-ScV" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="Ue8-YC-dN5"/>
+                                    <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="b0D-EV-PrR"/>
                                     <constraint firstItem="SwW-BQ-aXo" firstAttribute="centerY" secondItem="oif-bt-exT" secondAttribute="centerY" id="bg7-2l-6J7"/>
                                     <constraint firstAttribute="trailing" secondItem="Snw-Fa-ScV" secondAttribute="trailing" id="d1Q-KY-TyI"/>
                                     <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="10" id="fLI-Ka-Pty"/>
@@ -539,6 +539,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="brokerSelectButton" destination="UKl-IC-miQ" id="dML-eS-jmM"/>
+                        <outlet property="bullet1" destination="4LW-hd-IFh" id="aTO-tM-Hdi"/>
+                        <outlet property="bullet2" destination="a1A-PP-k3j" id="jhT-yu-YMB"/>
+                        <outlet property="bullet3" destination="c6p-Kc-Q9q" id="WVB-We-jWO"/>
+                        <outlet property="bullet4" destination="SwW-BQ-aXo" id="zDy-7A-pj1"/>
+                        <outlet property="bullet5" destination="aHi-HP-SoW" id="BtO-Jw-yw1"/>
                         <outlet property="preferredBrokerButton" destination="Tvo-Gu-GcY" id="ifH-Ek-tGY"/>
                         <outlet property="tradeItLabel" destination="a79-3h-B8T" id="Vb1-3T-IFA"/>
                     </connections>
@@ -1437,18 +1442,18 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <rect key="frame" x="0.0" y="136" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OjU-Op-YRp" id="sM1-Ef-Dh3">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Pd-Ta-tgh">
-                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7c9-Xc-scH">
-                                            <rect key="frame" x="267" y="14" width="38" height="17"/>
+                                            <rect key="frame" x="267.5" y="14" width="37.5" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>

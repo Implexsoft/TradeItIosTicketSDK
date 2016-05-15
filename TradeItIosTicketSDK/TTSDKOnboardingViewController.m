@@ -14,6 +14,11 @@
 @interface TTSDKOnboardingViewController () {
     NSArray * brokers;
 }
+@property (weak, nonatomic) IBOutlet UIView *bullet1;
+@property (weak, nonatomic) IBOutlet UIView *bullet2;
+@property (weak, nonatomic) IBOutlet UIView *bullet3;
+@property (weak, nonatomic) IBOutlet UIView *bullet4;
+@property (weak, nonatomic) IBOutlet UIView *bullet5;
 
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
@@ -61,12 +66,16 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     self.currentSelection = @"Fidelity";
 
-    for (UIView *view in self.view.subviews) {
-        if (view.tag == kBulletContainerTag) {
-            CAShapeLayer * circleLayer = [self.utils retrieveCircleGraphicWithSize:view.frame.size.width andColor: self.styles.activeColor];
-            [view.layer addSublayer:circleLayer];
-        }
-    }
+    self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
+    self.bullet1.layer.cornerRadius = 2.0f;
+    self.bullet2.backgroundColor = self.styles.secondaryActiveColor;
+    self.bullet2.layer.cornerRadius = 2.0f;
+    self.bullet3.backgroundColor = self.styles.secondaryActiveColor;
+    self.bullet3.layer.cornerRadius = 2.0f;
+    self.bullet4.backgroundColor = self.styles.secondaryActiveColor;
+    self.bullet4.layer.cornerRadius = 2.0f;
+    self.bullet5.backgroundColor = self.styles.secondaryActiveColor;
+    self.bullet5.layer.cornerRadius = 2.0f;
 
     if (!brokers) {
         [self showLoadingAndWait];
@@ -121,7 +130,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
 -(void) styleCustomDropdownButton: (UIButton *)button {
     button.backgroundColor = [UIColor clearColor];
-    button.layer.borderColor = self.styles.activeColor.CGColor;
+    button.layer.borderColor = self.styles.secondaryActiveColor.CGColor;
     button.layer.borderWidth = 1.5f;
     button.layer.cornerRadius = 5.0f;
     [button setTitleColor:self.styles.primaryTextColor forState:UIControlStateNormal];
@@ -154,8 +163,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [path applyTransform:CGAffineTransformMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds))];
     shapeLayer.path = path.CGPath;
 
-    shapeLayer.strokeColor = self.styles.activeColor.CGColor;
-    shapeLayer.fillColor = self.styles.activeColor.CGColor;
+    shapeLayer.strokeColor = self.styles.secondaryActiveColor.CGColor;
+    shapeLayer.fillColor = self.styles.secondaryActiveColor.CGColor;
 
     [preferredBrokerLabel.layer addSublayer: shapeLayer];
 }
