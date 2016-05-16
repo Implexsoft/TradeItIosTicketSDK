@@ -23,5 +23,9 @@
     self.navBar.topItem.title = self.pageTitle;
 }
 
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 
 @end
