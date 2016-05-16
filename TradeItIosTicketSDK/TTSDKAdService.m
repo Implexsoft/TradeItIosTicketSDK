@@ -55,7 +55,6 @@
                 self.brokerCenterActive = NO; // disable the broker center if we can't get the data
             } else {
                 TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
-
                 self.brokerCenterActive = result.active;
                 self.brokerCenterBrokers = result.brokers;
 

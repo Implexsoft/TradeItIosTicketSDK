@@ -54,8 +54,6 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    brokers = self.ticket.brokerList;
-
     [self.brokerSelectButton activate];
 
     [self styleCustomDropdownButton: self.preferredBrokerButton];
@@ -78,17 +76,20 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     self.bullet5.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet5.layer.cornerRadius = 2.0f;
 
-    if (!brokers || !self.ticket.adService.brokerCenterLoaded) {
-        self.openAccountButton.hidden = YES;
-        brokers = [self.ticket getDefaultBrokerList];
+    [self showOrHideOpenAccountButton];
 
+    brokers = [self.ticket getDefaultBrokerList];
+
+    if (!self.ticket.brokerList || !self.ticket.adService.brokerCenterLoaded) {
         [self wait];
+    }
+}
+
+-(void) showOrHideOpenAccountButton {
+    if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
+        self.openAccountButton.hidden = NO;
     } else {
-        if (self.ticket.adService.brokerCenterActive) {
-            self.openAccountButton.hidden = NO;
-        } else {
-            self.openAccountButton.hidden = YES;
-        }
+        self.openAccountButton.hidden = YES;
     }
 }
 
@@ -96,26 +97,19 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while(([self.ticket.brokerList count] < 1 || !self.ticket.adService.brokerCenterLoaded) && cycles < 15) {
-            sleep(1);
+        while(([self.ticket.brokerList count] < 1 || !self.ticket.adService.brokerCenterLoaded) && cycles < 150) {
+            [NSThread sleepForTimeInterval:0.2f];
             cycles++;
         }
 
         // We want to hide the broker center button if we either can't get the data or the broker center is disabled
-        //you can use any string instead "com.mycompany.myqueue"
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
-                self.openAccountButton.hidden = NO;
-            } else {
-                self.openAccountButton.hidden = YES;
-            }
+            [self showOrHideOpenAccountButton];
         });
 
         if([self.ticket.brokerList count] >= 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 brokers = self.ticket.brokerList;
-                
-                [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }
     });
@@ -190,13 +184,17 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 }
 
 - (IBAction)preferredBrokerPressed:(id)sender {
-    if (!self.ticket.brokerList) {
-        return;
+    NSArray * brokerList;
+
+    if (!self.ticket.brokerList || !self.ticket.brokerList.count) {
+        brokerList = brokers;
+    } else {
+        brokerList = self.ticket.brokerList;
     }
 
     NSMutableArray * optionsArray = [[NSMutableArray alloc] init];
 
-    for (NSArray * broker in self.ticket.brokerList) {
+    for (NSArray * broker in brokerList) {
         NSDictionary * brokerDict = @{broker[0]: broker[1]};
         [optionsArray addObject:brokerDict];
     }
