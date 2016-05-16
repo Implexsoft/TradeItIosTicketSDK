@@ -14,7 +14,7 @@
 
 @interface TTSDKAdService() {
     TTSDKTradeItTicket * globalTicket;
-    NSMutableArray * imageLoadingQueue;
+    NSMutableArray * imagesToLoad;
 }
 
 @property NSArray * data;
@@ -31,7 +31,7 @@
         self.brokerCenterButtonViews = [[NSMutableArray alloc] init];
 
         globalTicket = [TTSDKTradeItTicket globalTicket];
-        imageLoadingQueue = [[NSMutableArray alloc] init];
+        imagesToLoad = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -63,11 +63,11 @@
                     NSMutableDictionary * logoItem = [broker.logo mutableCopy];
                     logoItem[@"broker"] = [broker valueForKey:@"broker"];
                     
-                    [imageLoadingQueue addObject:[logoItem copy]];
+                    [imagesToLoad addObject:[logoItem copy]];
                 }
 
                 [self loadWebViews];
-                [self loadImages];
+                [self dequeueImageDataAndLoad];
             }
         }];
     });
@@ -93,42 +93,53 @@
     }
 }
 
--(void) loadImages {
-    NSDictionary * logoItem = [imageLoadingQueue firstObject];
-    [imageLoadingQueue removeObjectAtIndex:0];
+-(void) dequeueImageDataAndLoad {
+    NSDictionary * logoItem = [imagesToLoad firstObject];
+    [imagesToLoad removeObjectAtIndex:0];
 
-    UIImage * img;
+    NSString * logoSrc = [logoItem valueForKey: @"src"];
 
-    NSString * logoSrc = [logoItem valueForKey:@"src"];
     if ([logoSrc isEqualToString:@""]) {
         NSString * imageLocalSrc = [NSString stringWithFormat:@"TradeItIosTicketSDK.bundle/%@_logo.png", [logoItem valueForKey:@"broker"]];
-        img = [UIImage imageNamed: imageLocalSrc];
-
-    } else {
-        NSURL *url = [NSURL URLWithString: logoSrc];
-        NSData * urlData = [NSData dataWithContentsOfURL:url];
-        img = [[UIImage alloc] initWithData: urlData];
-    }
-
-    if (img) {
+        UIImage * img = [UIImage imageNamed: imageLocalSrc];
         NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
         [mutableImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
+
         self.brokerCenterLogoImages = [mutableImages copy];
+
+    } else {
+        [self performSelectorInBackground:@selector(loadImageData:) withObject:logoItem];
     }
 
-    if (imageLoadingQueue.count) {
-        [self loadImages];
+    if (imagesToLoad.count) {
+        [self dequeueImageDataAndLoad];
     }
+}
+
+-(void) loadImageData:(NSDictionary *)logoItem {
+    NSString * logoSrc = [logoItem valueForKey: @"src"];
+    NSData * imageData = [NSData dataWithContentsOfURL: [NSURL URLWithString:logoSrc]];
+
+    NSDictionary * logoLoadItem = @{@"broker": [logoItem valueForKey:@"broker"], @"data": imageData};
+
+    [self performSelectorOnMainThread:@selector(appendLoadedImageData:) withObject:logoLoadItem waitUntilDone:YES];
+}
+
+-(void) appendLoadedImageData:(NSDictionary *)logoLoadItem {
+    NSData * imageData = [logoLoadItem valueForKey: @"data"];
+    UIImage * img = [UIImage imageWithData: imageData];
+
+    NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
+    [mutableImages addObject:@{@"image": img, @"broker": [logoLoadItem valueForKey:@"broker"]}];
+    self.brokerCenterLogoImages = [mutableImages copy];
 }
 
 -(void) loadWebViews {
     for (TradeItBrokerCenterBroker *broker in self.brokerCenterBrokers) {
-
         UIWebView * buttonWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
 
         NSString * urlStr = [NSString stringWithFormat:@"%@publisherad/brokerCenterPromptAdView?apiKey=%@-key&broker=%@", getEmsBaseUrl(globalTicket.connector.environment), globalTicket.connector.apiKey, broker.broker];
         [buttonWebView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:urlStr]]];
-
         [self.brokerCenterButtonViews addObject: @{@"broker": broker.broker, @"webView": buttonWebView}];
     }
 }
