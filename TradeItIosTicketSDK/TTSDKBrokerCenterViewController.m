@@ -73,6 +73,7 @@ static CGFloat kExpandedHeight = 293.0f;
 
         UIView * containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
         containerView.backgroundColor = [UIColor clearColor];
+        containerView.layoutMargins = UIEdgeInsetsZero;
 
         UILabel * keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 12.0f)];
         keyLabel.text = @"";
@@ -84,7 +85,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                               attribute:NSLayoutAttributeTop
                                               relatedBy:NSLayoutRelationEqual
                                               toItem:containerView
-                                              attribute:NSLayoutAttributeTop
+                                              attribute:NSLayoutAttributeTopMargin
                                               multiplier:1
                                               constant:0];
         topKeyConstraint.priority = 900;
@@ -106,7 +107,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                 toItem:containerView
                                                 attribute:NSLayoutAttributeTrailingMargin
                                                 multiplier:1
-                                                constant:0];
+                                                constant:-5];
         rightKeyConstraint.priority = 900;
 
         [containerView addConstraint:topKeyConstraint];
@@ -177,8 +178,8 @@ static CGFloat kExpandedHeight = 293.0f;
                 for (NSArray * endingComponent in componentByEndingMatch) {
                     /*
                      This is the tricky part. We're looping through a 2D array, and each looped array is a match of "}}". Therefore, it will always behave accordingly:
-                     1. The matched array will never contain more than two string.
-                     2. If the matched array only contains one string, then we know it is the beginning of the string.
+                     1. The matched array will never contain more than two strings.
+                     2. If the matched array only contains one string, then we know it is the beginning of the disclaimer.
                      3. If the matched array contains 2 strings, then we know that the first string is the link text, and the second string is non-link text.
                      */
                     if (endingComponent.count == 2) {
@@ -218,6 +219,7 @@ static CGFloat kExpandedHeight = 293.0f;
             label.translatesAutoresizingMaskIntoConstraints = NO;
             label.numberOfLines = 0;
             label.textColor = textColor;
+            label.backgroundColor = [UIColor clearColor];
 
             if (isItalic) {
                 label.font = [UIFont italicSystemFontOfSize:10.0f];
@@ -259,7 +261,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                     toItem:containerView
                                                     attribute:NSLayoutAttributeTrailingMargin
                                                     multiplier:1
-                                                    constant:0];
+                                                    constant:-5];
             rightConstraint.priority = 900;
 
             [containerView addConstraint: topConstraint];

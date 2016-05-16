@@ -209,12 +209,7 @@ static NSString * kBulletLayerName = @"circle_layer";
 }
 
 -(void) configureDisclaimers:(UIView *)disclaimerView {
-    for (UIView *subview in self.disclaimerView.subviews) {
-        [subview removeFromSuperview];
-    }
-
     self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
-    [self.disclaimerView setNeedsUpdateConstraints];
 
     [self.disclaimerView addSubview: disclaimerView];
 
@@ -223,7 +218,7 @@ static NSString * kBulletLayerName = @"circle_layer";
                                           attribute:NSLayoutAttributeTop
                                           relatedBy:NSLayoutRelationEqual
                                           toItem:self.disclaimerView
-                                          attribute:NSLayoutAttributeTop
+                                          attribute:NSLayoutAttributeTopMargin
                                           multiplier:1
                                           constant:kMessageSeparatorHeight];
     topConstraint.priority = 900;
@@ -235,7 +230,7 @@ static NSString * kBulletLayerName = @"circle_layer";
                                            toItem:self.disclaimerView
                                            attribute:NSLayoutAttributeLeadingMargin
                                            multiplier:1
-                                           constant:3];
+                                           constant:0];
     leftConstraint.priority = 900;
 
     NSLayoutConstraint * rightConstraint = [NSLayoutConstraint
@@ -245,7 +240,7 @@ static NSString * kBulletLayerName = @"circle_layer";
                                             toItem:self.disclaimerView
                                             attribute:NSLayoutAttributeTrailingMargin
                                             multiplier:1
-                                            constant:-3];
+                                            constant:0];
     rightConstraint.priority = 900;
 
     NSLayoutConstraint * bottomConstraint = [NSLayoutConstraint
@@ -253,7 +248,7 @@ static NSString * kBulletLayerName = @"circle_layer";
                                             attribute:NSLayoutAttributeBottom
                                             relatedBy:NSLayoutRelationEqual
                                             toItem:self.disclaimerView
-                                            attribute:NSLayoutAttributeBottom
+                                            attribute:NSLayoutAttributeBottomMargin
                                             multiplier:1
                                             constant:0];
     bottomConstraint.priority = 900;
@@ -262,6 +257,8 @@ static NSString * kBulletLayerName = @"circle_layer";
     [self.disclaimerView addConstraint: leftConstraint];
     [self.disclaimerView addConstraint: rightConstraint];
     [self.disclaimerView addConstraint: bottomConstraint];
+
+    [self.disclaimerView setNeedsUpdateConstraints];
 
     [self layoutSubviews];
     [self layoutIfNeeded];
@@ -342,7 +339,6 @@ static NSString * kBulletLayerName = @"circle_layer";
 
 -(void) populateFeatures:(NSArray *)features {
     // This is all very gross, but not sure of any other way to accomplish this
-
     if (!features || !features.count) {
         self.featureSlot1.text = @"";
         self.featureSlot2.text = @"";
@@ -455,7 +451,7 @@ static NSString * kBulletLayerName = @"circle_layer";
     maxLeftFeatureWidth += 13.0f;
     maxRightFeatureWidth += 13.0f;
 
-    float halfScreenWidth = self.bounds.size.width / 2;
+    float halfScreenWidth = [[UIScreen mainScreen] bounds].size.width / 2;
 
     if (maxLeftFeatureWidth > halfScreenWidth) {
         maxLeftFeatureWidth = halfScreenWidth - 13.0f;
