@@ -63,8 +63,6 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         self.brokerDetailsTopConstraint.constant = 10.0f;
     }
 
-    self.currentSelection = @"Fidelity";
-
     self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet1.layer.cornerRadius = 2.0f;
     self.bullet2.backgroundColor = self.styles.secondaryActiveColor;
@@ -83,6 +81,12 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     if (!self.ticket.brokerList || !self.ticket.adService.brokerCenterLoaded) {
         [self wait];
     }
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear: animated];
+
+    self.currentSelection = @"Fidelity";
 }
 
 -(void) showOrHideOpenAccountButton {
@@ -168,7 +172,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     }
 }
 
-- (IBAction)openAccountPressed:(id)sender {
+- (IBAction) openAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
 }
 
@@ -176,14 +180,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     [self selectBroker: self.currentSelection];
 }
 
--(void)selectBroker:(NSString *)broker {
+-(void) selectBroker:(NSString *)broker {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
     [loginViewController setAddBroker: broker];
     [self.navigationController pushViewController: loginViewController animated:YES];
 }
 
-- (IBAction)preferredBrokerPressed:(id)sender {
+-(IBAction) preferredBrokerPressed:(id)sender {
     NSArray * brokerList;
 
     if (!self.ticket.brokerList || !self.ticket.brokerList.count) {
