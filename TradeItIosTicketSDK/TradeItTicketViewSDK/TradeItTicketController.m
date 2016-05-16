@@ -53,6 +53,10 @@
     TTSDKUtils * utils;
 }
 
+static NSString * kDefaultOrderAction = @"buy";
+static NSString * kDefaultOrderType = @"market";
+static NSString * kDefaultOrderExpiration = @"day";
+static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time constants
 
 #pragma mark Class Initialization
 
@@ -89,16 +93,16 @@
 + (void)showAccountsWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeAccounts;
-
+    
     ticket.parentView = view;
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     ticket.debugMode = debug;
     ticket.callback = nil;
-
+    
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
-
+    
     [ticket launchAccountsFlow];
 }
 
@@ -116,11 +120,11 @@
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     ticket.debugMode = debug;
     ticket.callback = callback;
-
+    
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
-
+    
     [ticket launchAuthFlow];
 }
 
@@ -142,9 +146,10 @@
     ticket.quote = [[TradeItQuote alloc] init];
 
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-    ticket.previewRequest.orderAction = @"buy";
-    ticket.previewRequest.orderPriceType = @"market";
-    ticket.previewRequest.orderQuantity = @0;
+    ticket.previewRequest.orderAction = kDefaultOrderAction;
+    ticket.previewRequest.orderPriceType = kDefaultOrderType;
+    ticket.previewRequest.orderQuantity = [NSNumber numberWithInt: kDefaultOrderQuantity];
+    ticket.previewRequest.orderExpiration = kDefaultOrderExpiration;
 
     if (ticket.presentationMode == TradeItPresentationModeNone) {
         ticket.presentationMode = TradeItPresentationModePortfolio;
@@ -159,28 +164,28 @@
     [TradeItTicketController showTicket];
 }
 
-+ (void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
++(void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
-    
+
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
 }
 
-+ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
++(void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
-
+    
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:debug onCompletion:callback];
 }
 
 
 #pragma mark Ticket Initialization
 
-+ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
++(void) showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
 }
 
-+ (void)showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++(void) showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
@@ -194,16 +199,16 @@
 
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderSymbol = [symbol uppercaseString];
-    ticket.previewRequest.orderAction = action;
-    ticket.previewRequest.orderPriceType = @"market";
-    ticket.previewRequest.orderQuantity = quantity;
+    ticket.previewRequest.orderAction = [TradeItTicketController retrieveValidatedOrderAction: action];
+    ticket.previewRequest.orderPriceType = kDefaultOrderType;
+    ticket.previewRequest.orderQuantity = [TradeItTicketController retrieveValidatedOrderQuantity: quantity];
+    ticket.previewRequest.orderExpiration = kDefaultOrderExpiration;
 
     if (ticket.presentationMode == TradeItPresentationModeNone) {
         ticket.presentationMode = TradeItPresentationModeTrade;
     }
 
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
-
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
@@ -211,14 +216,14 @@
     [TradeItTicketController showTicket];
 }
 
-+ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
++(void) showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeTradeOnly;
-    
+
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol viewController:view];
 }
 
-+ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
++(void) showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeTradeOnly;
 
@@ -226,32 +231,120 @@
 }
 
 
+#pragma mark Order Validation
+
++(NSString *) retrieveValidatedOrderAction:(NSString *)action {
+    NSString * defaultAction = @"buy";
+
+    // protects against nil and empty values
+    if (!action || [action isEqualToString:@""]) {
+        return defaultAction;
+    }
+
+    action = [action stringByReplacingOccurrencesOfString:@" " withString:@""]; // protects against spaces like 'Buy To Cover'
+    action = [action lowercaseString]; // protects against incorrect capitalization like 'sEll'
+
+    if (![action isEqualToString:@"buy"]
+        && ![action isEqualToString:@"sell"]
+        && ![action isEqualToString:@"buytocover"]
+        && ![action isEqualToString:@"sellshort"]
+        ) {
+        return defaultAction;
+    }
+
+    if ([action isEqualToString:@"buytocover"]) {
+        return @"buyToCover"; // protects against values such as 'buytoCover'
+    } else if ([action isEqualToString:@"sellshort"]) {
+        return @"sellShort"; // protects against values such as 'Sellshort'
+    } else {
+        return action; // at this point we know the value is either 'buy' or 'sell'
+    }
+}
+
++(NSNumber *) retrieveValidatedOrderQuantity:(NSNumber *)quantity {
+    NSNumber * defaultOrderQuantity = @0;
+
+    // protects against null and negative values
+    if (!quantity || ([quantity intValue] < 0)) {
+        return defaultOrderQuantity;
+    }
+
+    int quantityInt = [quantity intValue]; // protects against floating point numbers
+
+    return [NSNumber numberWithInt: quantityInt];
+}
+
++(NSString *) retrieveValidatedOrderType:(NSString *)orderType {
+    NSString * defaultOrderType = @"market";
+
+    if (!orderType || [orderType isEqualToString:@""]) {
+        return defaultOrderType;
+    }
+
+    orderType = [orderType stringByReplacingOccurrencesOfString:@" " withString:@""]; // protects against spaces like 'stop limit'
+    orderType = [orderType lowercaseString]; // protects against capitalizations like 'Market'
+
+    if (![orderType isEqualToString:@"market"]
+        && ![orderType isEqualToString:@"limit"]
+        && ![orderType isEqualToString:@"stopmarket"]
+        && ![orderType isEqualToString:@"stoplimit"]) {
+        return defaultOrderType;
+    }
+
+    if ([orderType isEqualToString:@"stoplimit"]) {
+        return @"stopLimit";
+    } else if ([orderType isEqualToString:@"stopmarket"]) {
+        return @"stopMarket";
+    } else {
+        return orderType;
+    }
+}
+
++(NSString *) retrieveValidatedOrderExpiration:(NSString *)expiration {
+    NSString * defaultExpiration = @"day";
+
+    if (!expiration || [expiration isEqualToString:@""]) {
+        return defaultExpiration;
+    }
+
+    expiration = [expiration stringByReplacingOccurrencesOfString:@" " withString:@""]; // protects against spaces like 'g t c'
+    expiration = [expiration lowercaseString]; // protects against capitalizations like 'Day'
+
+    if (![expiration isEqualToString:@"day"]
+        && ![expiration isEqualToString:@"gtc"]) {
+        return defaultExpiration;
+    }
+
+    return expiration;
+}
+
+
 #pragma mark Ticket Utilities
 
-+ (void)clearSavedData {
++(void) clearSavedData {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
+    
     [ticket unlinkAccounts];
 }
 
-+ (NSArray *)getLinkedBrokers {
++(NSArray *) getLinkedBrokers {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
+    
     return [ticket.connector getLinkedLogins];
 }
 
-+ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
++(NSString *) getBrokerDisplayString:(NSString *) brokerIdentifier {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
+    
     return [ticket getBrokerDisplayString: brokerIdentifier];
 }
 
 
 #pragma mark Instance Initialization
 
-- (id)initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
+-(id) initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
     self = [super init];
-
+    
     if (self) {
         TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
@@ -259,72 +352,64 @@
         [ticket setParentView:view];
         self.styles = [TradeItStyles sharedStyles];
     }
-
+    
     return self;
 }
 
-- (void)showTicket {
+-(void) showTicket {
     utils = [TTSDKUtils sharedUtils];
-
+    
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
+    // initialize quote
     ticket.quote = [[TradeItQuote alloc] init];
+    if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
+        ticket.quote.companyName = self.companyName;
+    }
+
+    // initialize preview request
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-    ticket.previewRequest.orderAction = @"buy";
-    ticket.previewRequest.orderQuantity = @0;
-    ticket.previewRequest.orderPriceType = @"market";
+    ticket.previewRequest.orderQuantity = [TradeItTicketController retrieveValidatedOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+    ticket.previewRequest.orderAction = [TradeItTicketController retrieveValidatedOrderAction: self.action];
+    ticket.previewRequest.orderPriceType = [TradeItTicketController retrieveValidatedOrderType: self.orderType];
+    ticket.previewRequest.orderExpiration = [TradeItTicketController retrieveValidatedOrderExpiration: self.expiration];
 
-    if(self.quantity > 0) {
-        [ticket.previewRequest setOrderQuantity: [NSNumber numberWithInt: self.quantity]];
-    }
-
-    if (self.presentationMode) {
-        ticket.presentationMode = self.presentationMode;
-    }
-
-    if(self.action != nil && ![self.action isEqualToString:@""]) {
-        [ticket.previewRequest setOrderAction: self.action];
-    }
-
-    if (self.orderType != nil && ![self.orderType isEqualToString:@""]) {
-        [ticket.previewRequest setOrderPriceType: self.orderType];
-    }
-
-    if(self.expiration != nil && ![self.expiration isEqualToString:@""]) {
-        [ticket.previewRequest setOrderExpiration: self.expiration];
-    }
-
-    if(self.debugMode) {
-        [ticket setDebugMode: YES];
-        ticket.connector.environment = TradeItEmsTestEnv;
-    }
-
-    if(self.onCompletion != nil) {
-        [ticket setCallback: self.onCompletion];
-    }
-
+    // initialize symbol
     if (self.symbol != nil && ![self.symbol isEqualToString:@""]) {
         ticket.quote.symbol = [self.symbol uppercaseString];
         [ticket.previewRequest setOrderSymbol: [self.symbol uppercaseString]];
     }
 
-    if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
-        ticket.quote.companyName = self.companyName;
+    // initialize presentation mode
+    if (self.presentationMode) {
+        ticket.presentationMode = self.presentationMode;
     }
 
+    // initialize debug mode
+    if(self.debugMode) {
+        [ticket setDebugMode: YES];
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
+
+    // initialize completion block
+    if(self.onCompletion != nil) {
+        [ticket setCallback: self.onCompletion];
+    }
+
+    // show
     [TradeItTicketController showTicket];
 }
 
 
 /*
-    Storyboards in bundles are static, non-compiled resources.
-    Therefore when the linker goes through the library it doesn't
-    think any of the classes setup for the storyboard are in use,
-    so when we actually go to load up the storyboard, it explodes
-    because all those classes aren't loaded into the app. So,
-    we simply call a method on every view class which forces
-    the linker to load the classes :)
-*/
+ Storyboards in bundles are static, non-compiled resources.
+ Therefore when the linker goes through the library it doesn't
+ think any of the classes setup for the storyboard are in use,
+ so when we actually go to load up the storyboard, it explodes
+ because all those classes aren't loaded into the app. So,
+ we simply call a method on every view class which forces
+ the linker to load the classes :)
+ */
 + (void)forceClassesIntoLinker {
     [TTSDKTradeViewController class];
     [TTSDKCompanyDetails class];

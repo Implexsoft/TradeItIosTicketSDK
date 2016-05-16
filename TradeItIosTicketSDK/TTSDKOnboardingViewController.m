@@ -15,17 +15,17 @@
 @interface TTSDKOnboardingViewController () {
     NSArray * brokers;
 }
+@property (weak, nonatomic) IBOutlet UIView *bullet1;
+@property (weak, nonatomic) IBOutlet UIView *bullet2;
+@property (weak, nonatomic) IBOutlet UIView *bullet3;
+@property (weak, nonatomic) IBOutlet UIView *bullet4;
+@property (weak, nonatomic) IBOutlet UIView *bullet5;
 
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 @property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
-@property (weak, nonatomic) IBOutlet UIView *bullet1;
-@property (weak, nonatomic) IBOutlet UIView *bullet2;
-@property (weak, nonatomic) IBOutlet UIView *bullet3;
-@property (weak, nonatomic) IBOutlet UIView *bullet4;
-@property (weak, nonatomic) IBOutlet UIView *bullet5;
 
 @end
 
@@ -67,10 +67,15 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     self.currentSelection = @"Fidelity";
 
+    self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet1.layer.cornerRadius = 2.0f;
+    self.bullet2.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet2.layer.cornerRadius = 2.0f;
+    self.bullet3.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet3.layer.cornerRadius = 2.0f;
+    self.bullet4.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet4.layer.cornerRadius = 2.0f;
+    self.bullet5.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet5.layer.cornerRadius = 2.0f;
 
     if (!brokers || !self.ticket.adService.brokerCenterLoaded) {

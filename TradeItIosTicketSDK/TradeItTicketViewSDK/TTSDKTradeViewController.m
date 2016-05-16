@@ -201,7 +201,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    if (!self.ticket.previewRequest.orderSymbol) {
+    if (!self.ticket.previewRequest.orderSymbol || [self.ticket.previewRequest.orderSymbol isEqualToString:@""]) {
         [self performSegueWithIdentifier:kSearchSegueIdentifier sender:self];
     }
 }
