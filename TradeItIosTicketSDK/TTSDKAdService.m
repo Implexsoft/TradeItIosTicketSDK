@@ -121,7 +121,7 @@
 
     NSDictionary * logoLoadItem = @{@"broker": [logoItem valueForKey:@"broker"], @"data": imageData};
 
-    [self performSelectorOnMainThread:@selector(appendLoadedImageData:) withObject:logoLoadItem waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(appendLoadedImageData:) withObject:logoLoadItem waitUntilDone:NO];
 }
 
 -(void) appendLoadedImageData:(NSDictionary *)logoLoadItem {
