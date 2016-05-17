@@ -48,6 +48,10 @@
     self.tableView.separatorColor = self.styles.primarySeparatorColor;
 }
 
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 
 #pragma mark iOS7 fallbacks
 

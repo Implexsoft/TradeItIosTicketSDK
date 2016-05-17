@@ -43,4 +43,8 @@
     [[UIBarButtonItem appearanceWhenContainedIn:TTSDKNavigationController.class, nil] setTintColor: styles.activeColor];
 }
 
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 @end

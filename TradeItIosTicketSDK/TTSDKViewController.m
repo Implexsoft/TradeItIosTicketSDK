@@ -51,10 +51,15 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
     if (self.styles.navigationBarTitleColor) {
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : self.styles.navigationBarTitleColor}];
     }
+
     self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = self.styles.activeColor;
     self.navigationController.navigationItem.leftBarButtonItem.tintColor = self.styles.activeColor;
     self.navigationController.navigationItem.rightBarButtonItem.tintColor = self.styles.activeColor;
+}
+
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 
 -(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock {
