@@ -32,9 +32,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="NtF-Vh-6FT" kind="show" identifier="BrokerSelectToLogin" id="wuc-R0-2HR"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -53,6 +50,10 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="NtF-Vh-6FT" kind="show" identifier="BrokerSelectToLogin" id="yIw-Go-gdq"/>
+                        <segue destination="p9a-Bu-SDP" kind="show" identifier="BrokerSelectToBrokerCenter" id="mX5-hx-zdn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9o-OV-qEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -306,7 +307,7 @@
         <scene sceneID="Nt2-D7-bz0">
             <objects>
                 <navigationController storyboardIdentifier="ONBOARDING_NAV" id="0er-o9-Sfc" customClass="TTSDKNavigationController" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ptf-2y-DeW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -328,15 +329,15 @@
                         <viewControllerLayoutGuide type="bottom" id="PqO-0z-E9M"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mfJ-VT-lGT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your broker account to enable:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wui-vI-2sy" customClass="TTSDKLabel">
-                                <rect key="frame" x="60" y="95" width="201" height="44"/>
+                                <rect key="frame" x="57" y="95" width="206" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4oa-lL-Atj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-GL-pyU" userLabel="ListView">
@@ -347,11 +348,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="xRl-5o-FsF"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LW-hd-IFh" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="6" width="4" height="4"/>
+                                        <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="4" id="Hgd-uv-6Ts"/>
                                             <constraint firstAttribute="width" constant="4" id="kxc-0f-Cip"/>
@@ -362,12 +364,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="3iZ-N2-EoY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="32" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="KmH-Ml-qR4"/>
                                             <constraint firstAttribute="height" constant="4" id="cWR-nO-urz"/>
@@ -378,12 +380,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="9xP-gg-QUm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="58" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="JNN-Mr-8rU"/>
                                             <constraint firstAttribute="height" constant="4" id="Jxt-Ma-G5I"/>
@@ -394,12 +396,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="hld-ow-EQO"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="84" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="4" id="8ri-vL-WCW"/>
                                             <constraint firstAttribute="width" constant="4" id="DyX-BV-VUb"/>
@@ -410,19 +412,19 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="UFU-e3-1Mg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
                                         <rect key="frame" x="0.0" y="110" width="4" height="4"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="3QW-7Y-n0f"/>
                                             <constraint firstAttribute="height" constant="4" id="Tzb-Df-hKs"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bEh-ol-Fgg" secondAttribute="trailing" id="0qI-3g-IAQ"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="1oQ-le-NWK"/>
@@ -458,17 +460,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-IC-miQ" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="60" y="429" width="200" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="pOo-DT-eJI"/>
-                                    <constraint firstAttribute="height" constant="44" id="ya1-rB-NU4"/>
-                                </constraints>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="brokerSelectPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="VdB-c3-xL7"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvo-Gu-GcY" userLabel="Preferred Broker Button">
                                 <rect key="frame" x="60" y="363" width="200" height="44"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -483,8 +474,26 @@
                                     <action selector="preferredBrokerPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="Y35-cd-DXe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-IC-miQ" customClass="TTSDKPrimaryButton">
+                                <rect key="frame" x="60" y="429" width="200" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="pOo-DT-eJI"/>
+                                    <constraint firstAttribute="height" constant="44" id="ya1-rB-NU4"/>
+                                </constraints>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="brokerSelectPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="VdB-c3-xL7"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edi-8K-lns">
+                                <rect key="frame" x="80" y="495" width="161" height="30"/>
+                                <state key="normal" title="Don't have an account?"/>
+                                <connections>
+                                    <action selector="openAccountPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="kGq-om-Elv"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdr-ib-KGH">
-                                <rect key="frame" x="78" y="450" width="165" height="30"/>
+                                <rect key="frame" x="80" y="538" width="165" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="powered by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a79-3h-B8T">
                                         <rect key="frame" x="0.0" y="9" width="69" height="15"/>
@@ -517,12 +526,14 @@
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="DxX-aE-CNC"/>
                             <constraint firstItem="nGN-GL-pyU" firstAttribute="top" secondItem="Wui-vI-2sy" secondAttribute="bottom" constant="25" id="E9g-BX-tpE"/>
                             <constraint firstItem="dsE-Pz-vxy" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="bottom" constant="6" id="Eeg-c3-Tuv"/>
-                            <constraint firstItem="gdr-ib-KGH" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="ODd-JZ-G10"/>
+                            <constraint firstItem="gdr-ib-KGH" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" constant="2" id="ODd-JZ-G10"/>
                             <constraint firstItem="UKl-IC-miQ" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Opr-tk-JuY"/>
                             <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Uwo-r4-k0K"/>
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="95" id="VHj-Bx-vBm"/>
                             <constraint firstItem="nGN-GL-pyU" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="WBF-u3-5WG"/>
+                            <constraint firstItem="Edi-8K-lns" firstAttribute="top" secondItem="UKl-IC-miQ" secondAttribute="bottom" constant="22" id="c1R-68-iky"/>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="cDo-SQ-hgO"/>
+                            <constraint firstItem="Edi-8K-lns" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="q8B-tT-izg"/>
                             <constraint firstItem="UKl-IC-miQ" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="22" id="uSK-Lo-ZaR"/>
                         </constraints>
                     </view>
@@ -536,21 +547,71 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="brokerSelectButton" destination="UKl-IC-miQ" id="dML-eS-jmM"/>
-                        <outlet property="bullet1" destination="4LW-hd-IFh" id="aTO-tM-Hdi"/>
-                        <outlet property="bullet2" destination="a1A-PP-k3j" id="jhT-yu-YMB"/>
-                        <outlet property="bullet3" destination="c6p-Kc-Q9q" id="WVB-We-jWO"/>
-                        <outlet property="bullet4" destination="SwW-BQ-aXo" id="zDy-7A-pj1"/>
-                        <outlet property="bullet5" destination="aHi-HP-SoW" id="BtO-Jw-yw1"/>
+                        <outlet property="bullet1" destination="4LW-hd-IFh" id="LOC-u6-7qg"/>
+                        <outlet property="bullet2" destination="a1A-PP-k3j" id="8NI-aJ-Ub4"/>
+                        <outlet property="bullet3" destination="c6p-Kc-Q9q" id="6aA-pw-Zf1"/>
+                        <outlet property="bullet4" destination="SwW-BQ-aXo" id="Gp8-SN-Bt0"/>
+                        <outlet property="bullet5" destination="aHi-HP-SoW" id="Kj2-cV-yiB"/>
+                        <outlet property="openAccountButton" destination="Edi-8K-lns" id="Noh-s3-PsO"/>
                         <outlet property="preferredBrokerButton" destination="Tvo-Gu-GcY" id="ifH-Ek-tGY"/>
                         <outlet property="tradeItLabel" destination="a79-3h-B8T" id="Vb1-3T-IFA"/>
+                        <segue destination="fP8-Px-0VH" kind="presentation" identifier="onboardingToBrokerCenter" id="B9a-xj-U3Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJc-zt-7Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-420" y="1086"/>
+        </scene>
+        <!--Broker Center View Controller-->
+        <scene sceneID="Gja-p0-QBh">
+            <objects>
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" clearsSelectionOnViewWillAppear="NO" id="p9a-Bu-SDP" userLabel="Broker Center View Controller" customClass="TTSDKBrokerCenterViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tKG-9M-2Sn">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="no_identifer" id="lVh-5A-FgF">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lVh-5A-FgF" id="2oQ-cW-50g">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="p9a-Bu-SDP" id="kqg-Rx-BvQ"/>
+                            <outlet property="delegate" destination="p9a-Bu-SDP" id="gk4-WU-Qdi"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Open an Account" id="Fdy-uA-p9g"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dcj-eT-MWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-420" y="1696"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="l7S-IR-msb">
+            <objects>
+                <navigationController storyboardIdentifier="brokerCenterNav" id="fP8-Px-0VH" customClass="TTSDKNavigationController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yzd-i2-Hdb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="p9a-Bu-SDP" kind="relationship" relationship="rootViewController" id="dYF-7w-adj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L51-Sm-iCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-834" y="1696"/>
         </scene>
         <!--Authentication Navigation Controller-->
         <scene sceneID="ghK-lA-voB">
@@ -1788,7 +1849,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select account to trade with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8n-Df-4Rn" customClass="TTSDKLabel">
                                 <rect key="frame" x="52" y="92" width="216" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-uL-UE8">
@@ -1913,11 +1974,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cfc-P1-7W5"/>
-        <segue reference="kyf-iM-tIO"/>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="JZr-PV-7wY"/>
+        <segue reference="uWM-4J-KHQ"/>
+        <segue reference="kyf-iM-tIO"/>
+        <segue reference="cfc-P1-7W5"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
+        <segue reference="dYF-7w-adj"/>
     </inferredMetricsTieBreakers>
 </document>

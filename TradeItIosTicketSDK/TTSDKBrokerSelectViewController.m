@@ -16,6 +16,7 @@
 @implementation TTSDKBrokerSelectViewController {
     NSArray * brokers;
     NSArray * linkedBrokers;
+    NSString * selectedBroker;
     TTSDKBrokerSelectFooterView * footerView;
 }
 
@@ -24,6 +25,7 @@
 
 static NSString * kCellIdentifier = @"BrokerCell";
 static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
+static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerCenter";
 
 
 #pragma mark Initialization
@@ -35,8 +37,10 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 
     brokers = self.ticket.brokerList;
 
-    if([brokers count] < 1){
+    if(!self.ticket.publisherService || !self.ticket.publisherService.publisherDataLoaded){
         [self showLoadingAndWait];
+    } else {
+        [self brokersLoaded];
     }
 
     if (self.isModal) {
@@ -56,6 +60,20 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     [super viewDidAppear:animated];
 }
 
+// only call this when the brokers array is loaded
+-(void) brokersLoaded {
+    NSMutableArray * mutableBrokers = [self.ticket.brokerList mutableCopy];
+
+    if (self.ticket.publisherService.brokerCenterActive) {
+        [mutableBrokers insertObject:@"Open an account" atIndex:0];
+    } else {
+        [mutableBrokers removeObject:@"Open an account"];
+    }
+
+    brokers = [mutableBrokers copy];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark Table Delegate Methods
 
@@ -68,10 +86,17 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
-    
+    NSString * displayText;
+
     TTSDKBrokerSelectTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: kCellIdentifier];
-    [cell configureCellWithText:displayText];
+
+    if ([[brokers objectAtIndex: indexPath.row] isKindOfClass:NSString.class]) {
+        displayText = [brokers objectAtIndex: indexPath.row];
+        [cell configureCellWithText:displayText isOpenAccountCell:YES];
+    } else {
+        displayText = [[brokers objectAtIndex:indexPath.row] objectAtIndex:0];
+        [cell configureCellWithText:displayText isOpenAccountCell:NO];
+    }
 
     if ((indexPath.row + 1) == brokers.count) {
         [self performSelectorOnMainThread:@selector(showFooterView) withObject:nil waitUntilDone:NO];
@@ -118,6 +143,15 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     return footerView;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[brokers objectAtIndex:indexPath.row] isKindOfClass:NSString.class]) {
+        [self performSegueWithIdentifier:kBrokerToBrokerCenterSegueIdentifier sender:self];
+    } else {
+        selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
+        [self performSegueWithIdentifier:kBrokerToLoginSegueIdentifier sender:self];
+    }
+}
+
 -(void)helpTapped:(id)sender {
     [self showWebViewWithURL:@"https://www.trade.it/faq" andTitle:@"Help"];
 }
@@ -129,23 +163,6 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
 -(void)termsTapped:(id)sender {
     [self showWebViewWithURL:@"https://www.trade.it/terms" andTitle:@"Terms"];
 }
-
--(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
-    // Get storyboard
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
-    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
-    [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
-
-    webViewController.pageTitle = title;
-
-    [self presentViewController:webViewController animated:YES completion:^(void) {
-        [webViewController.webView loadRequest: [NSURLRequest requestWithURL: [NSURL URLWithString:url]]];
-    }];
-}
-
-
-
 
 
 #pragma mark Custom UI
@@ -193,7 +210,7 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 brokers = self.ticket.brokerList;
-                [self.tableView reloadData];
+                [self brokersLoaded];
 
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
             });
@@ -230,8 +247,6 @@ static NSString * kBrokerToLoginSegueIdentifier = @"BrokerSelectToLogin";
     [super prepareForSegue:segue sender:sender];
 
     if([segue.identifier isEqualToString:kBrokerToLoginSegueIdentifier]) {
-        NSString * selectedBroker = [brokers objectAtIndex:[[self.tableView indexPathForSelectedRow] row]][1];
-
         TTSDKLoginViewController * dest = (TTSDKLoginViewController *)[segue destinationViewController];
         [dest setIsModal: self.isModal];
         [dest setAddBroker: selectedBroker];

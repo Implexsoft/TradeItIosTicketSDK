@@ -24,6 +24,7 @@
 #import "TradeItGetPositionsResult.h"
 #import "TTSDKTicketSession.h"
 #import "TTSDKPosition.h"
+#import "TTSDKPublisherService.h"
 
 @interface TTSDKTradeItTicket : NSObject
 
@@ -45,6 +46,7 @@
 @property TradeItPreviewTradeRequest * previewRequest;
 @property TradeItAuthControllerResult * authResultContainer;
 @property TradeItTicketControllerResult * resultContainer;
+@property TTSDKPublisherService * publisherService;
 @property (copy) void (^callback)(TradeItTicketControllerResult * result);
 @property (copy) void (^brokerSignUpCallback)(TradeItAuthControllerResult * result);
 
@@ -81,6 +83,7 @@
 -(void) unlinkAccounts;
 
 #pragma mark Broker
+-(NSArray *) getDefaultBrokerList;
 -(NSString *) getBrokerDisplayString:(NSString *) value;
 -(NSString *) getBrokerValueString:(NSString *) displayString;
 -(NSArray *) getBrokerByValueString:(NSString *) valueString;

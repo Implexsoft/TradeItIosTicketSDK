@@ -50,27 +50,15 @@ static float kDisclosureWidth = 7.0f;
     customDisclosureView.frame = CGRectMake(self.contentView.frame.size.width - (kDisclosureWidth * 3), 0, kDisclosureWidth, self.contentView.frame.size.height);
 }
 
--(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    if (highlighted) {
-        self.textLabel.textColor = styles.primaryTextHighlightColor;
-    } else {
-        self.textLabel.textColor = styles.primaryTextColor;
-    }
-}
-
--(void) setSelected:(BOOL)selected animated:(BOOL)animated {
-    if (selected) {
-        self.textLabel.textColor = styles.primaryTextHighlightColor;
-    } else {
-        self.textLabel.textColor = styles.primaryTextColor;
-    }
-}
-
 
 #pragma mark Configuration
 
--(void) configureCellWithText:(NSString *)text {
+-(void) configureCellWithText:(NSString *)text isOpenAccountCell:(BOOL)isOpenAccountCell {
     self.textLabel.text = text;
+
+    if (isOpenAccountCell) {
+        self.textLabel.textColor = styles.activeColor;
+    }
 }
 
 
