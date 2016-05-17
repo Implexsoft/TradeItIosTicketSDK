@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TTSDKAdService : NSObject
+@interface TTSDKPublisherService : NSObject
 
-@property BOOL isRetrievingBrokerCenter;
-@property BOOL brokerCenterLoaded;
+@property BOOL isRetrievingPublisherData;
+@property BOOL publisherDataLoaded;
 @property BOOL brokerCenterActive;
 @property NSArray * brokerCenterBrokers;
 @property NSMutableArray * brokerCenterButtonViews;
 
--(void) getBrokerCenter;
+-(void) getPublisherData;
 -(UIImage *) logoImageByBoker:(NSString *)broker;
 
 @end

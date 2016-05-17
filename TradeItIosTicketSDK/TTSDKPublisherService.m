@@ -6,13 +6,13 @@
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TTSDKAdService.h"
-#import "TradeItBrokerCenterRequest.h"
+#import "TTSDKPublisherService.h"
+#import "TradeItPublisherDataRequest.h"
 #import "TradeItPublisherService.h"
 #import "TTSDKTradeItTicket.h"
 #import "TradeItEmsUtils.h"
 
-@interface TTSDKAdService() {
+@interface TTSDKPublisherService() {
     TTSDKTradeItTicket * globalTicket;
     NSMutableArray * imagesToLoad;
 }
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation TTSDKAdService
+@implementation TTSDKPublisherService
 
 
 - (id)init {
@@ -37,39 +37,57 @@
     return self;
 }
 
--(void) getBrokerCenter {
-    self.isRetrievingBrokerCenter = YES;
-    self.brokerCenterLoaded = NO;
+-(void) getPublisherData {
+    self.isRetrievingPublisherData = YES;
+    self.publisherDataLoaded = NO;
 
     TradeItPublisherService * publisherService = [[TradeItPublisherService alloc] initWithConnector:globalTicket.connector];
-    TradeItBrokerCenterRequest * brokerRequest = [[TradeItBrokerCenterRequest alloc] init];
+    TradeItPublisherDataRequest * publisherRequest = [[TradeItPublisherDataRequest alloc] init];
 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
 
     dispatch_async(queue, ^{
-        [publisherService getBrokerCenter:brokerRequest withCompletionBlock:^(TradeItResult *res) {
-            self.brokerCenterLoaded = YES;
-            self.isRetrievingBrokerCenter = NO;
+        [publisherService getPublisherData:publisherRequest withCompletionBlock:^(TradeItResult *res) {
+            self.publisherDataLoaded = YES;
+            self.isRetrievingPublisherData = NO;
 
             if ([res isKindOfClass:TradeItErrorResult.class]) {
                 self.brokerCenterActive = NO; // disable the broker center if we can't get the data
             } else {
-                TradeItBrokerCenterResult * result = (TradeItBrokerCenterResult *)res;
-                self.brokerCenterActive = result.active;
-                self.brokerCenterBrokers = result.brokers;
+                TradeItPublisherDataResult * result = (TradeItPublisherDataResult *)res;
 
-                for (TradeItBrokerCenterBroker * broker in result.brokers) {
-                    NSMutableDictionary * logoItem = [broker.logo mutableCopy];
-                    logoItem[@"broker"] = [broker valueForKey:@"broker"];
-                    
-                    [imagesToLoad addObject:[logoItem copy]];
-                }
-
-                [self loadWebViews];
-                [self dequeueImageDataAndLoad];
+                [self parsePublisherDataResultForBrokerList: result];
+                [self parsePublisherDataResultForBrokerCenter: result];
             }
         }];
     });
+}
+
+-(void) parsePublisherDataResultForBrokerList:(TradeItPublisherDataResult *)result {
+    NSMutableArray * brokers = [[NSMutableArray alloc] init];
+    NSArray * brokerList = result.brokerList;
+
+    for (NSDictionary * broker in brokerList) {
+        NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
+        [brokers addObject:entry];
+    }
+
+    globalTicket.brokerList = brokers;
+}
+
+-(void) parsePublisherDataResultForBrokerCenter:(TradeItPublisherDataResult *)result {
+    self.brokerCenterActive = result.brokerCenterActive;
+    self.brokerCenterBrokers = result.brokers;
+
+    for (TradeItBrokerCenterBroker * broker in result.brokers) {
+        NSMutableDictionary * logoItem = [broker.logo mutableCopy];
+        logoItem[@"broker"] = [broker valueForKey:@"broker"];
+        
+        [imagesToLoad addObject:[logoItem copy]];
+    }
+
+    [self loadWebViews];
+    [self dequeueImageDataAndLoad];
 }
 
 -(UIImage *) logoImageByBoker:(NSString *)broker {

@@ -13,7 +13,7 @@
 #import "TTSDKKeypad.h"
 #import "TTSDKBrokerCenterViewController.h"
 #import "TTSDKBrokerCenterTableViewCell.h"
-#import "TTSDKAdService.h"
+#import "TTSDKPublisherService.h"
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKAccountSelectTableViewCell.h"
 #import "TTSDKReviewScreenViewController.h"
@@ -124,7 +124,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
-    
+
     [ticket launchAuthFlow];
 }
 
@@ -418,7 +418,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TTSDKWebViewController class];
     [TTSDKBrokerCenterViewController class];
     [TTSDKBrokerCenterTableViewCell class];
-    [TTSDKAdService class];
+    [TTSDKPublisherService class];
     [TTSDKAccountSelectTableViewCell class];
     [TTSDKReviewScreenViewController class];
     [TTSDKSuccessViewController class];

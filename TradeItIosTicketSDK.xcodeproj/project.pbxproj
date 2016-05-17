@@ -203,10 +203,8 @@
 		65CD04FF1C6D2AC50090B2F2 /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */; };
 		65CD05001C6D2AC50090B2F2 /* TTSDKTicketSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */; };
 		65D9F8121CE23D47006977B0 /* TradeItBrokerCenterBroker.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D9F80F1CE23D47006977B0 /* TradeItBrokerCenterBroker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D9F8131CE23D47006977B0 /* TradeItBrokerCenterRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D9F8101CE23D47006977B0 /* TradeItBrokerCenterRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65D9F8141CE23D47006977B0 /* TradeItBrokerCenterResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D9F8111CE23D47006977B0 /* TradeItBrokerCenterResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65D9F81B1CE23D6D006977B0 /* TradeItBrokerCenterBroker.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F8181CE23D6D006977B0 /* TradeItBrokerCenterBroker.m */; };
-		65D9F81C1CE23D6D006977B0 /* TradeItBrokerCenterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F8191CE23D6D006977B0 /* TradeItBrokerCenterRequest.m */; };
 		65D9F81D1CE23D6D006977B0 /* TradeItBrokerCenterResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F81A1CE23D6D006977B0 /* TradeItBrokerCenterResult.m */; };
 		65DD1BD71C3C82F80032676A /* TTSDKPortfolioViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */; };
 		65DD1BD81C3C82F80032676A /* TTSDKPortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DD1BD61C3C82F80032676A /* TTSDKPortfolioViewController.m */; };
@@ -223,8 +221,8 @@
 		65DE13671CE1252A00674B0E /* td_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135D1CE1252A00674B0E /* td_logo.png */; };
 		65DE13681CE1252A00674B0E /* tradestation_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135E1CE1252A00674B0E /* tradestation_logo.png */; };
 		65DE13691CE1252A00674B0E /* tradier_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135F1CE1252A00674B0E /* tradier_logo.png */; };
-		65DE136D1CE1278000674B0E /* TTSDKAdService.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DE136B1CE1278000674B0E /* TTSDKAdService.h */; };
-		65DE136E1CE1278000674B0E /* TTSDKAdService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE136C1CE1278000674B0E /* TTSDKAdService.m */; };
+		65DE136D1CE1278000674B0E /* TTSDKPublisherService.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */; };
+		65DE136E1CE1278000674B0E /* TTSDKPublisherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */; };
 		65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */; };
 		65EC07C91CBD7B3300A6B72E /* TTSDKNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EC07C71CBD7B3300A6B72E /* TTSDKNavigationController.h */; };
 		65EC07CA1CBD7B3300A6B72E /* TTSDKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC07C81CBD7B3300A6B72E /* TTSDKNavigationController.m */; };
@@ -243,6 +241,10 @@
 		65F39CCF1CC9882500BDF077 /* TTSDKKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F39CCD1CC9882500BDF077 /* TTSDKKeypad.m */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
 		65F5BCC61C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */; };
+		65F77C1D1CEBAAAA0098D39A /* TradeItPublisherDataResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F77C1C1CEBAAAA0098D39A /* TradeItPublisherDataResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65F77C221CEBAAE70098D39A /* TradeItPublisherDataResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F77C211CEBAAE70098D39A /* TradeItPublisherDataResult.m */; };
+		65F77C321CEBACC60098D39A /* TradeItPublisherDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F77C311CEBACC60098D39A /* TradeItPublisherDataRequest.m */; };
+		65F77C341CEBACED0098D39A /* TradeItPublisherDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F77C331CEBACED0098D39A /* TradeItPublisherDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
@@ -509,10 +511,8 @@
 		65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKTicketSession.h; sourceTree = "<group>"; };
 		65CD04FE1C6D2AC50090B2F2 /* TTSDKTicketSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKTicketSession.m; sourceTree = "<group>"; };
 		65D9F80F1CE23D47006977B0 /* TradeItBrokerCenterBroker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItBrokerCenterBroker.h; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterBroker.h; sourceTree = "<group>"; };
-		65D9F8101CE23D47006977B0 /* TradeItBrokerCenterRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItBrokerCenterRequest.h; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterRequest.h; sourceTree = "<group>"; };
 		65D9F8111CE23D47006977B0 /* TradeItBrokerCenterResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TradeItBrokerCenterResult.h; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterResult.h; sourceTree = "<group>"; };
 		65D9F8181CE23D6D006977B0 /* TradeItBrokerCenterBroker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItBrokerCenterBroker.m; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterBroker.m; sourceTree = "<group>"; };
-		65D9F8191CE23D6D006977B0 /* TradeItBrokerCenterRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItBrokerCenterRequest.m; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterRequest.m; sourceTree = "<group>"; };
 		65D9F81A1CE23D6D006977B0 /* TradeItBrokerCenterResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TradeItBrokerCenterResult.m; path = ../../../../Code/TradeIt/TradeItIosEmsApi/TradeItIosEmsApi/TradeItBrokerCenterResult.m; sourceTree = "<group>"; };
 		65DD1BD51C3C82F80032676A /* TTSDKPortfolioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPortfolioViewController.h; sourceTree = "<group>"; };
 		65DD1BD61C3C82F80032676A /* TTSDKPortfolioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPortfolioViewController.m; sourceTree = "<group>"; };
@@ -530,8 +530,8 @@
 		65DE135D1CE1252A00674B0E /* td_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = td_logo.png; sourceTree = "<group>"; };
 		65DE135E1CE1252A00674B0E /* tradestation_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tradestation_logo.png; sourceTree = "<group>"; };
 		65DE135F1CE1252A00674B0E /* tradier_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tradier_logo.png; sourceTree = "<group>"; };
-		65DE136B1CE1278000674B0E /* TTSDKAdService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSDKAdService.h; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKAdService.h; sourceTree = "<group>"; };
-		65DE136C1CE1278000674B0E /* TTSDKAdService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKAdService.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKAdService.m; sourceTree = "<group>"; };
+		65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPublisherService.h; sourceTree = "<group>"; };
+		65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPublisherService.m; sourceTree = "<group>"; };
 		65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKCompanyDetailsView.xib; sourceTree = "<group>"; };
 		65E0C66A1C2B054600DE74CC /* TTSDKCompanyDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCompanyDetails.h; sourceTree = "<group>"; };
 		65E0C66B1C2B054600DE74CC /* TTSDKCompanyDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCompanyDetails.m; sourceTree = "<group>"; };
@@ -550,6 +550,10 @@
 		65F39CCD1CC9882500BDF077 /* TTSDKKeypad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSDKKeypad.m; path = ../../../../Code/TradeIt/TradeItIosTicketSDK/TradeItIosTicketSDK/TTSDKKeypad.m; sourceTree = "<group>"; };
 		65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectTableViewCell.h; sourceTree = "<group>"; };
 		65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKBrokerSelectTableViewCell.m; sourceTree = "<group>"; };
+		65F77C1C1CEBAAAA0098D39A /* TradeItPublisherDataResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItPublisherDataResult.h; sourceTree = "<group>"; };
+		65F77C211CEBAAE70098D39A /* TradeItPublisherDataResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItPublisherDataResult.m; sourceTree = "<group>"; };
+		65F77C311CEBACC60098D39A /* TradeItPublisherDataRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItPublisherDataRequest.m; sourceTree = "<group>"; };
+		65F77C331CEBACED0098D39A /* TradeItPublisherDataRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItPublisherDataRequest.h; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCustomIOSAlertView.m; sourceTree = "<group>"; };
 		A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Ticket.storyboard; path = ../Ticket.storyboard; sourceTree = "<group>"; };
@@ -687,11 +691,13 @@
 		650C9E2F1C76932100FCABEC /* TradeItIosEmsApi */ = {
 			isa = PBXGroup;
 			children = (
+				65F77C331CEBACED0098D39A /* TradeItPublisherDataRequest.h */,
+				65F77C311CEBACC60098D39A /* TradeItPublisherDataRequest.m */,
+				65F77C211CEBAAE70098D39A /* TradeItPublisherDataResult.m */,
+				65F77C1C1CEBAAAA0098D39A /* TradeItPublisherDataResult.h */,
 				65D9F8181CE23D6D006977B0 /* TradeItBrokerCenterBroker.m */,
-				65D9F8191CE23D6D006977B0 /* TradeItBrokerCenterRequest.m */,
 				65D9F81A1CE23D6D006977B0 /* TradeItBrokerCenterResult.m */,
 				65D9F80F1CE23D47006977B0 /* TradeItBrokerCenterBroker.h */,
-				65D9F8101CE23D47006977B0 /* TradeItBrokerCenterRequest.h */,
 				65D9F8111CE23D47006977B0 /* TradeItBrokerCenterResult.h */,
 				650A37B91CD82ABE008BE189 /* TradeItAdsResult.h */,
 				650A37BA1CD82ABE008BE189 /* TradeItAdsRequest.h */,
@@ -872,8 +878,8 @@
 		65DE136A1CE1276A00674B0E /* Ads */ = {
 			isa = PBXGroup;
 			children = (
-				65DE136B1CE1278000674B0E /* TTSDKAdService.h */,
-				65DE136C1CE1278000674B0E /* TTSDKAdService.m */,
+				65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */,
+				65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */,
 			);
 			name = Ads;
 			sourceTree = "<group>";
@@ -1146,7 +1152,7 @@
 				650C9EE11C76932200FCABEC /* TradeItSession.h in Headers */,
 				65DE13491CE0BEB400674B0E /* TTSDKBrokerCenterViewController.h in Headers */,
 				650C9ED31C76932200FCABEC /* TradeItQuote.h in Headers */,
-				65DE136D1CE1278000674B0E /* TTSDKAdService.h in Headers */,
+				65DE136D1CE1278000674B0E /* TTSDKPublisherService.h in Headers */,
 				650C9ECD1C76932200FCABEC /* TradeItPreviewTradeOrderDetails.h in Headers */,
 				650C9EAC1C76932200FCABEC /* TradeItBrokerListRequest.h in Headers */,
 				650C9EA01C76932200FCABEC /* TradeItAuthenticationInfo.h in Headers */,
@@ -1177,9 +1183,10 @@
 				650A37B41CD82A42008BE189 /* TradeItPublisherService.h in Headers */,
 				650C9E8E1C76932200FCABEC /* NSArray+TIEMSJSONModel.h in Headers */,
 				650C9EEB1C76932200FCABEC /* TradeItTypeDefs.h in Headers */,
+				65F77C1D1CEBAAAA0098D39A /* TradeItPublisherDataResult.h in Headers */,
 				65D9F8121CE23D47006977B0 /* TradeItBrokerCenterBroker.h in Headers */,
-				65D9F8131CE23D47006977B0 /* TradeItBrokerCenterRequest.h in Headers */,
 				65D9F8141CE23D47006977B0 /* TradeItBrokerCenterResult.h in Headers */,
+				65F77C341CEBACED0098D39A /* TradeItPublisherDataRequest.h in Headers */,
 				6574AA721CB811990003FFE9 /* TTSDKTextField.h in Headers */,
 				650C9E941C76932200FCABEC /* TIEMSJSONModel+networking.h in Headers */,
 				650A37BB1CD82ABE008BE189 /* TradeItAdsResult.h in Headers */,
@@ -1438,8 +1445,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F77C321CEBACC60098D39A /* TradeItPublisherDataRequest.m in Sources */,
+				65F77C221CEBAAE70098D39A /* TradeItPublisherDataResult.m in Sources */,
 				65D9F81B1CE23D6D006977B0 /* TradeItBrokerCenterBroker.m in Sources */,
-				65D9F81C1CE23D6D006977B0 /* TradeItBrokerCenterRequest.m in Sources */,
 				65D9F81D1CE23D6D006977B0 /* TradeItBrokerCenterResult.m in Sources */,
 				650A37B71CD82AA2008BE189 /* TradeItAdsResult.m in Sources */,
 				650A37B81CD82AA2008BE189 /* TradeItAdsRequest.m in Sources */,
@@ -1538,7 +1546,7 @@
 				650C9E9D1C76932200FCABEC /* TradeItAccountOverviewRequest.m in Sources */,
 				A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */,
 				650C32831C2B221500E97E8A /* TTSDKCompanyDetails.m in Sources */,
-				65DE136E1CE1278000674B0E /* TTSDKAdService.m in Sources */,
+				65DE136E1CE1278000674B0E /* TTSDKPublisherService.m in Sources */,
 				650C9EE61C76932200FCABEC /* TradeItSymbolLookupRequest.m in Sources */,
 				6510FBC41C3DD3EE009CAFF7 /* TTSDKPortfolioHoldingTableViewCell.m in Sources */,
 				650C9EDA1C76932200FCABEC /* TradeItRequest.m in Sources */,

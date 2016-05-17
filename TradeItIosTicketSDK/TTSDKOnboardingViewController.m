@@ -78,7 +78,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     brokers = [self.ticket getDefaultBrokerList];
 
-    if (!self.ticket.brokerList || !self.ticket.adService.brokerCenterLoaded) {
+    if (!self.ticket.publisherService.publisherDataLoaded) {
         [self wait];
     }
 }
@@ -90,7 +90,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 }
 
 -(void) showOrHideOpenAccountButton {
-    if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
+    if (self.ticket.publisherService.publisherDataLoaded && self.ticket.publisherService.brokerCenterActive) {
         self.openAccountButton.hidden = NO;
     } else {
         self.openAccountButton.hidden = YES;
@@ -101,7 +101,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         int cycles = 0;
 
-        while(([self.ticket.brokerList count] < 1 || !self.ticket.adService.brokerCenterLoaded) && cycles < 150) {
+        while(!self.ticket.publisherService.publisherDataLoaded && cycles < 75) {
             [NSThread sleepForTimeInterval:0.2f];
             cycles++;
         }
@@ -172,7 +172,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     }
 }
 
-- (IBAction) openAccountPressed:(id)sender {
+-(IBAction) openAccountPressed:(id)sender {
     [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
 }
 
@@ -203,7 +203,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         [optionsArray addObject:brokerDict];
     }
 
-    if (self.ticket.adService.brokerCenterLoaded && self.ticket.adService.brokerCenterActive) {
+    if (self.ticket.publisherService.publisherDataLoaded && self.ticket.publisherService.brokerCenterActive) {
         [optionsArray insertObject:@{@"Open an account": @"OPEN"} atIndex:0];
     }
 

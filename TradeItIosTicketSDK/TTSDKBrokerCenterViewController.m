@@ -54,7 +54,7 @@ static CGFloat kExpandedHeight = 293.0f;
 -(void) populateBrokerDataByActiveFilter {
     NSMutableArray * brokerList = [[NSMutableArray alloc] init];
 
-    for (TradeItBrokerCenterBroker *broker in self.ticket.adService.brokerCenterBrokers) {
+    for (TradeItBrokerCenterBroker *broker in self.ticket.publisherService.brokerCenterBrokers) {
         if (broker.active) {
             [brokerList addObject: broker];
         }
@@ -74,6 +74,7 @@ static CGFloat kExpandedHeight = 293.0f;
         UIView * containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100.0f)];
         containerView.backgroundColor = [UIColor clearColor];
         containerView.layoutMargins = UIEdgeInsetsZero;
+        containerView.clipsToBounds = NO;
 
         UILabel * keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 12.0f)];
         keyLabel.text = @"";
@@ -107,7 +108,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                 toItem:containerView
                                                 attribute:NSLayoutAttributeTrailingMargin
                                                 multiplier:1
-                                                constant:-5];
+                                                constant:0];
         rightKeyConstraint.priority = 900;
 
         [containerView addConstraint:topKeyConstraint];
@@ -220,6 +221,7 @@ static CGFloat kExpandedHeight = 293.0f;
             label.numberOfLines = 0;
             label.textColor = textColor;
             label.backgroundColor = [UIColor clearColor];
+            label.clipsToBounds = NO;
 
             if (isItalic) {
                 label.font = [UIFont italicSystemFontOfSize:10.0f];
@@ -261,7 +263,7 @@ static CGFloat kExpandedHeight = 293.0f;
                                                     toItem:containerView
                                                     attribute:NSLayoutAttributeTrailingMargin
                                                     multiplier:1
-                                                    constant:-5];
+                                                    constant:-8.0f];
             rightConstraint.priority = 900;
 
             [containerView addConstraint: topConstraint];
@@ -270,6 +272,8 @@ static CGFloat kExpandedHeight = 293.0f;
 
             lastAttachedLabel = label;
         }
+
+        [containerView layoutSubviews];
 
         [disclaimersArray addObject:@{@"view": containerView, @"totalHeight": [NSNumber numberWithFloat: totalLabelsHeight + 30.0f]}];
     }
@@ -459,7 +463,7 @@ static CGFloat kExpandedHeight = 293.0f;
     BOOL selected = self.selectedIndex == indexPath.row;
 
     if (selected) {
-        NSDictionary * buttonQueueItem = [self.ticket.adService.brokerCenterButtonViews objectAtIndex:indexPath.row];
+        NSDictionary * buttonQueueItem = [self.ticket.publisherService.brokerCenterButtonViews objectAtIndex:indexPath.row];
 
         if ([[buttonQueueItem valueForKey:@"broker"] isEqualToString:brokerCenterItem.broker]) {
             UIWebView * buttonWebView = (UIWebView *)[buttonQueueItem valueForKey:@"webView"];
@@ -473,7 +477,7 @@ static CGFloat kExpandedHeight = 293.0f;
         [cell.promptButtonWebViewContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
 
-    UIImage * img = [self.ticket.adService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
+    UIImage * img = [self.ticket.publisherService logoImageByBoker: [brokerCenterItem valueForKey:@"broker"]];
     [cell addImage:img];
 
     [cell configureSelectedState: selected];

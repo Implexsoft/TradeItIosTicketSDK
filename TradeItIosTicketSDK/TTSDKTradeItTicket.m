@@ -66,13 +66,10 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(void) prepareInitialFlow {
     self.loadingQuote = NO;
 
-    // Immediately fire off a request for the publishers broker list
-    if (!self.brokerList) {
-        [self retrieveBrokers];
+    // Immediately send a request for critical publisher data
+    if (!self.publisherService) {
+        [self retrievePublisherData];
     }
-
-    // Immediately fire off a request for broker center data
-    [self retrieveBrokerCenter];
 
     [self removeDuplicateLinkedLogins];
 
@@ -131,11 +128,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow: auth
 
 -(void) launchAuthFlow {
-    // Immediately fire off a request for the publishers broker list
-    [self retrieveBrokers];
-
-    // Immediately fire off a request for broker center data
-    [self retrieveBrokerCenter];
+    if (!self.publisherService) {
+        [self retrievePublisherData];
+    }
 
     [self presentAuthScreen];
 }
@@ -480,26 +475,22 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         return;
     }
 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
+    TradeItMarketDataService * quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
+    TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
 
-        TradeItQuotesRequest * quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
+    [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
+        self.loadingQuote = NO;
 
-        [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
-            self.loadingQuote = NO;
+        if ([res isKindOfClass:TradeItQuotesResult.class]) {
+            TradeItQuotesResult * result = (TradeItQuotesResult *)res;
+            TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
+            self.quote = resultQuote;
+        }
 
-            if ([res isKindOfClass:TradeItQuotesResult.class]) {
-                TradeItQuotesResult * result = (TradeItQuotesResult *)res;
-                TradeItQuote * resultQuote = [[TradeItQuote alloc] initWithQuoteData:(NSDictionary *)[result.quotes objectAtIndex:0]];
-                self.quote = resultQuote;
-            }
-
-            if (completionBlock) {
-                completionBlock();
-            }
-        }];
-    });
+        if (completionBlock) {
+            completionBlock();
+        }
+    }];
 }
 
 
@@ -642,29 +633,12 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 #pragma mark - Broker Utilities
 
--(void) retrieveBrokerCenter {
-    if (!self.adService) {
-        self.adService = [[TTSDKAdService alloc] init];
+-(void) retrievePublisherData {
+    if (!self.publisherService) {
+        self.publisherService = [[TTSDKPublisherService alloc] init];
     }
 
-    [self.adService getBrokerCenter];
-}
-
--(void) retrieveBrokers {
-    [self.connector getAvailableBrokersWithCompletionBlock:^(NSArray * brokerList){
-        if(brokerList == nil) {
-            self.brokerList = [self getDefaultBrokerList];
-        } else {
-            NSMutableArray * brokers = [[NSMutableArray alloc] init];
-
-            for (NSDictionary * broker in brokerList) {
-                NSArray * entry = @[broker[@"longName"], broker[@"shortName"]];
-                [brokers addObject:entry];
-            }
-
-            self.brokerList = brokers;
-        }
-    }];
+    [self.publisherService getPublisherData];
 }
 
 -(NSArray *) getDefaultBrokerList {
