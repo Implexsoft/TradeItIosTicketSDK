@@ -209,6 +209,10 @@ static NSString * kBulletLayerName = @"circle_layer";
 }
 
 -(void) configureDisclaimers:(UIView *)disclaimerView {
+    for (UIView * view in self.disclaimerView.subviews) {
+        [view removeFromSuperview];
+    }
+
     self.disclaimerHeightConstraint.constant = self.disclaimerLabelsTotalHeight;
 
     [self.disclaimerView addSubview: disclaimerView];
