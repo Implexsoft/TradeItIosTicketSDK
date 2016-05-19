@@ -125,39 +125,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     }
 }
 
-- (void)addGradientToButton: (UIButton *)button {
-//    [self removeGradientFromCurrentContainer];
-//    [self removeLoadingIndicatorFromContainer];
-//
-//    activeButtonGradient = [CAGradientLayer layer];
-//    activeButtonGradient.frame = button.bounds;
-//    activeButtonGradient.colors = [NSArray arrayWithObjects:
-//                                   (id)styles.activeColor.CGColor,
-//                                   (id)[UIColor colorWithRed:0 green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0].CGColor,
-//                                   nil];
-//    activeButtonGradient.startPoint = CGPointMake(0, 1);
-//    activeButtonGradient.endPoint = CGPointMake(1, 0);
-//    activeButtonGradient.cornerRadius = button.layer.cornerRadius;
-//
-//    if(button.layer.sublayers.count>0) {
-//        [button.layer insertSublayer:activeButtonGradient atIndex: 0];
-//    }else {
-//        [button.layer addSublayer:activeButtonGradient];
-//    }
-//
-//    currentGradientContainer = button;
-}
-
-- (void)removeGradientFromCurrentContainer {
-//    if (currentGradientContainer) {
-//        [activeButtonGradient removeFromSuperlayer];
-//    }
-//
-//    activeButtonGradient = nil;
-//    currentGradientContainer = nil;
-}
-
-- (CAShapeLayer *)retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color {
+-(CAShapeLayer *) retrieveCircleGraphicWithSize:(CGFloat)diameter andColor:(UIColor *)color {
     CAShapeLayer * circleLayer = [CAShapeLayer layer];
     [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 4.0f, 4.0f)] CGPath]];
     [circleLayer setFillColor: color.CGColor];
@@ -165,13 +133,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return circleLayer;
 }
 
-- (void)removeLoadingIndicatorFromContainer {
-//    if (currentIndicator) {
-//        [currentIndicator removeFromSuperview];
-//    }
-}
-
-- (NSString *)formatIntegerToReadablePrice: (NSString *)price {
+-(NSString *) formatIntegerToReadablePrice: (NSString *)price {
     unsigned int len = (int)[price length];
     unichar buffer[len];
 
@@ -335,17 +297,17 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
         }
         [str2 appendString:ch];
     }
-    
+
     return str2.capitalizedString;
 }
 
 -(NSMutableAttributedString *) logoStringLight {
     NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString: @"TRADEIT"];
-    
+
     [text addAttribute:NSForegroundColorAttributeName
                  value:[UIColor lightGrayColor]
                  range:NSMakeRange(0, 5)];
-    
+
     [text addAttribute:NSForegroundColorAttributeName
                  value:styles.activeColor
                  range:NSMakeRange(5, 2)];
@@ -356,7 +318,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style {
     UIColor * positiveColor = [UIColor colorWithRed:58.0f/255.0f green:153.0f/255.0f blue:69.0f/255.0f alpha:1.0f];
     UIColor * negativeColor = [UIColor colorWithRed:197.0f/255.0f green:81.0f/255.0f blue:75.0f/255.0f alpha:1.0f];
-    
+
     NSMutableAttributedString * attString;
     if([number doubleValue] > 0) {
         attString = [[NSMutableAttributedString alloc] initWithString:@"\u25B2"];

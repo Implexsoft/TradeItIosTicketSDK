@@ -53,6 +53,7 @@
 
             if ([res isKindOfClass:TradeItErrorResult.class]) {
                 self.brokerCenterActive = NO; // disable the broker center if we can't get the data
+                globalTicket.brokerList = [globalTicket getDefaultBrokerList];
             } else {
                 TradeItPublisherDataResult * result = (TradeItPublisherDataResult *)res;
 

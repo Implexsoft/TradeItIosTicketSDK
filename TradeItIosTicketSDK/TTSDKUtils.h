@@ -32,8 +32,6 @@
 -(double) numberFromPriceString: (NSString *)priceString;
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style;
 -(NSMutableAttributedString *) logoStringLight;
--(void) addGradientToButton: (UIButton *)button;
--(void) removeGradientFromCurrentContainer;
 -(void) styleFocusedInput: (UITextField *)textField withPlaceholder:(NSString *)placeholder;
 -(void) styleUnfocusedInput: (UITextField *)textField withPlaceholder: (NSString *)placeholder;
 -(void) styleBorderedFocusInput: (UIView *)input;

@@ -33,6 +33,7 @@
     __weak IBOutlet UIButton * orderExpirationButton;
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
     __weak IBOutlet TTSDKImageView * expirationDropdownArrow;
+    __weak IBOutlet NSLayoutConstraint *orderViewHeightConstraint;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
@@ -320,6 +321,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 -(void) configureUIForSmallScreens {
     uiConfigured = YES;
+
+    orderViewHeightConstraint.constant = 100.0f;
 }
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -337,9 +340,18 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     BOOL readyNow = YES;
 
     NSInteger shares = [sharesInput.text integerValue];
-
     double limitPrice = [self.ticket.previewRequest.orderLimitPrice doubleValue];
     double stopPrice = [self.ticket.previewRequest.orderStopPrice doubleValue];
+
+    if ([self.utils isSmallScreen]) {
+        if (![stopPriceInput.text isEqualToString:@""]) {
+            stopPrice = [stopPriceInput.text doubleValue];
+        }
+
+        if (![limitPriceInput.text isEqualToString:@""]) {
+            limitPrice = [limitPriceInput.text doubleValue];
+        }
+    }
 
     if(shares < 1) {
         readyNow = NO;
@@ -353,6 +365,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         if(!stopPrice) {
             readyNow = NO;
         }
+
     } else {
         if(!limitPrice) {
             readyNow = NO;
@@ -362,7 +375,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     if (!self.ticket.currentSession.isAuthenticated || !self.ticket.currentAccount) {
         readyNow = NO;
     }
-    
+
     if (!self.ticket.previewRequest.orderSymbol || [self.ticket.previewRequest.orderSymbol isEqualToString:@""]) {
         readyNow = NO;
     }
@@ -708,6 +721,17 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     // always do this to be sure
     if (self.ticket.currentAccount) {
         self.ticket.previewRequest.accountNumber = [self.ticket.currentAccount valueForKey:@"accountNumber"];
+    }
+
+    if ([self.utils isSmallScreen]) {
+        self.ticket.previewRequest.orderQuantity = [NSNumber numberWithInteger:[sharesInput.text integerValue]];
+        if ([self.ticket.previewRequest.orderPriceType isEqualToString:@"limit"] || [self.ticket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
+            self.ticket.previewRequest.orderLimitPrice = [NSNumber numberWithDouble:[limitPriceInput.text doubleValue]];
+        }
+
+        if ([self.ticket.previewRequest.orderPriceType isEqualToString:@"stopMarket"] || [self.ticket.previewRequest.orderPriceType isEqualToString:@"stopLimit"]) {
+            self.ticket.previewRequest.orderStopPrice = [NSNumber numberWithDouble:[stopPriceInput.text doubleValue]];
+        }
     }
 
     if(readyToTrade) {

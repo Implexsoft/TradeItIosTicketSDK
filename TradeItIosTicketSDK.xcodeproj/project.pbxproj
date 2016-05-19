@@ -875,13 +875,13 @@
 			name = PortfolioScreen;
 			sourceTree = "<group>";
 		};
-		65DE136A1CE1276A00674B0E /* Ads */ = {
+		65DE136A1CE1276A00674B0E /* Publisher */ = {
 			isa = PBXGroup;
 			children = (
 				65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */,
 				65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */,
 			);
-			name = Ads;
+			name = Publisher;
 			sourceTree = "<group>";
 		};
 		65FC2AD71C7A5550001FCB3E /* AccountCell */ = {
@@ -979,7 +979,7 @@
 		A9A8CF521B4EFACB000207B9 /* TradeItIosTicketSDK */ = {
 			isa = PBXGroup;
 			children = (
-				65DE136A1CE1276A00674B0E /* Ads */,
+				65DE136A1CE1276A00674B0E /* Publisher */,
 				6574AA641CB7FE7B0003FFE9 /* AbstractViews */,
 				A9B2D46C1B5D88ED008065E1 /* Authentication */,
 				65FC2ADC1C7A5611001FCB3E /* PortfolioService */,

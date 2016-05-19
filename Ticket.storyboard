@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -20,11 +20,11 @@
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VD5-sn-X2q">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -549,12 +549,16 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="brokerDetailsHeightConstraint" destination="n0p-0E-eev" id="YCu-gK-WAY"/>
+                        <outlet property="brokerDetailsTopConstraint" destination="E9g-BX-tpE" id="tWK-bo-1sI"/>
                         <outlet property="brokerSelectButton" destination="UKl-IC-miQ" id="dML-eS-jmM"/>
+                        <outlet property="brokerTitleTopConstraint" destination="VHj-Bx-vBm" id="7ww-Ta-z0y"/>
                         <outlet property="bullet1" destination="4LW-hd-IFh" id="LOC-u6-7qg"/>
                         <outlet property="bullet2" destination="a1A-PP-k3j" id="8NI-aJ-Ub4"/>
                         <outlet property="bullet3" destination="c6p-Kc-Q9q" id="6aA-pw-Zf1"/>
                         <outlet property="bullet4" destination="SwW-BQ-aXo" id="Gp8-SN-Bt0"/>
                         <outlet property="bullet5" destination="aHi-HP-SoW" id="Kj2-cV-yiB"/>
+                        <outlet property="dropdownButtonTopConstraint" destination="1PN-q9-vRO" id="ncS-7Y-Yzx"/>
                         <outlet property="openAccountButton" destination="Edi-8K-lns" id="Noh-s3-PsO"/>
                         <outlet property="preferredBrokerButton" destination="Tvo-Gu-GcY" id="ifH-Ek-tGY"/>
                         <outlet property="tradeItLabel" destination="a79-3h-B8T" id="Vb1-3T-IFA"/>
@@ -1503,18 +1507,18 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <rect key="frame" x="0.0" y="136" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OjU-Op-YRp" id="sM1-Ef-Dh3">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Pd-Ta-tgh">
-                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7c9-Xc-scH">
-                                            <rect key="frame" x="267.5" y="14" width="37.5" height="17"/>
+                                            <rect key="frame" x="267" y="14" width="38" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -1803,6 +1807,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="orderExpirationButton" destination="scy-hx-dPx" id="9gV-ZX-0uI"/>
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>
                         <outlet property="orderView" destination="DlU-2P-Iay" id="2gr-O0-gQI"/>
+                        <outlet property="orderViewHeightConstraint" destination="5Uy-ez-m2R" id="F9a-8S-Zl6"/>
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>

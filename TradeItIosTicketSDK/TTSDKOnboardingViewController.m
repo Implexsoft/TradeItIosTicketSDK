@@ -20,10 +20,13 @@
 @property (weak, nonatomic) IBOutlet UIView *bullet3;
 @property (weak, nonatomic) IBOutlet UIView *bullet4;
 @property (weak, nonatomic) IBOutlet UIView *bullet5;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerTitleTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dropdownButtonTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 @property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
 
@@ -60,7 +63,10 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     // iPhone 4s and earlier
     if ([self.utils isSmallScreen]) {
-        self.brokerDetailsTopConstraint.constant = 10.0f;
+        self.brokerTitleTopConstraint.constant = 75.0f;
+        self.brokerDetailsTopConstraint.constant = 5.0f;
+        self.brokerDetailsHeightConstraint.constant = 120.0f;
+        self.dropdownButtonTopConstraint.constant = 5.0f;
     }
 
     self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
