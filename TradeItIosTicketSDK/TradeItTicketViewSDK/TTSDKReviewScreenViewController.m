@@ -40,6 +40,12 @@
     __weak IBOutlet UIView *estimatedCostVV;
     __weak IBOutlet UIView *estimatedCostVL;
     __weak IBOutlet UIView *warningView;
+    __weak IBOutlet NSLayoutConstraint *buyingPowerHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *sharesShortHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *sharesLongHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *warningHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *brokerFeesHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *estimatedCostHeightConstraint;
 
     //Labels that change
     __weak IBOutlet UILabel *buyingPowerLabel;
@@ -63,6 +69,7 @@
     NSMutableArray * warningLabels; // used for sizing
 
     int ackLabelsToggled;
+    float totalRemovedCellHeight;
 
     TradeItPlaceTradeResult * placeTradeResult;
 }
@@ -90,6 +97,8 @@ static float kMessageSeparatorHeight = -15.0f;
 
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
+
+    totalRemovedCellHeight = 0.0f;
 
     // used for attaching constraints
     lastAttachedMessage = accountLabelContainer;
@@ -148,22 +157,28 @@ static float kMessageSeparatorHeight = -15.0f;
     [expirationValue setText:[[[self reviewTradeResult] orderDetails] valueForKey:@"orderExpiration"]];
 
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-        [self hideElement:sharesLongVL];
-        [self hideElement:sharesLongVV];
+        totalRemovedCellHeight += sharesLongHeightConstraint.constant;
+        sharesLongHeightConstraint.constant = 0.0f;
+        sharesLongVL.hidden = YES;
+        sharesLongVV.hidden = YES;
     } else {
         [sharesLongValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"longHoldings"]]];
     }
 
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] || [(NSNumber *)[[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"] isEqualToValue: [NSNumber numberWithDouble:-1]]) {
-        [self hideElement:sharesShortVL];
-        [self hideElement:sharesShortVV];
+        totalRemovedCellHeight += sharesShortHeightConstraint.constant;
+        sharesShortHeightConstraint.constant = 0.0f;
+        sharesShortVL.hidden = YES;
+        sharesShortVV.hidden = YES;
     } else {
         [sharesShortValue setText:[NSString stringWithFormat:@"%@", [[[self reviewTradeResult] orderDetails] valueForKey:@"shortHoldings"]]];
     }
 
     if(![[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] && ![[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]) {
-        [self hideElement:buyingPowerVL];
-        [self hideElement:buyingPowerVV];
+        totalRemovedCellHeight += buyingPowerHeightConstraint.constant;
+        buyingPowerHeightConstraint.constant = 0.0f;
+        buyingPowerVL.hidden = YES;
+        buyingPowerVV.hidden = YES;
     } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]) {
         [buyingPowerLabel setText:@"BUYING POWER"];
         [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]]];
@@ -175,8 +190,10 @@ static float kMessageSeparatorHeight = -15.0f;
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
         [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
     } else {
-        [self hideElement:estimatedFeesVL];
-        [self hideElement:estimatedFeesVV];
+        totalRemovedCellHeight += brokerFeesHeightConstraint.constant;
+        brokerFeesHeightConstraint.constant = 0.0f;
+        estimatedFeesVL.hidden = YES;
+        estimatedFeesVV.hidden = YES;
     }
 
     if([[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Sell"] || [[[[self reviewTradeResult] orderDetails] valueForKey:@"orderAction"] isEqualToString:@"Buy to Cover"]) {
@@ -187,8 +204,13 @@ static float kMessageSeparatorHeight = -15.0f;
 
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
-    } else {
+    } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]) {
         [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+    } else {
+        totalRemovedCellHeight += estimatedCostHeightConstraint.constant;
+        estimatedCostHeightConstraint.constant = 0.0f;
+        estimatedCostVL.hidden = YES;
+        estimatedCostVV.hidden = YES;
     }
 
     for(NSString * warning in [[self reviewTradeResult] ackWarningsList]) {
@@ -200,26 +222,17 @@ static float kMessageSeparatorHeight = -15.0f;
     }
 }
 
-- (void) hideElement:(UIView *) element {
-    NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
-                                            constraintWithItem:element
-                                            attribute:NSLayoutAttributeHeight
-                                            relatedBy:NSLayoutRelationEqual
-                                            toItem:NSLayoutAttributeNotAnAttribute
-                                            attribute:NSLayoutAttributeNotAnAttribute
-                                            multiplier:1
-                                            constant:1];
-    heightConstraint.priority = 900;
-
-    [self.view addConstraint:heightConstraint];
-}
-
 -(void) addReviewMessage:(NSString *) message {
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message toggle: NO];
-    messageLabel.autoresizesSubviews = YES;
-    [contentView insertSubview:messageLabel atIndex:0];
+
+    [warningView insertSubview:messageLabel atIndex:0];
+
+    [messageLabel sizeToFit];
 
     [self addConstraintsToMessage:messageLabel];
+
+    [messageLabel setNeedsUpdateConstraints];
+    [messageLabel layoutSubviews];
 
     [warningLabels addObject:messageLabel];
 }
@@ -232,16 +245,16 @@ static float kMessageSeparatorHeight = -15.0f;
     UILabel * messageLabel = [self createAndSizeMessageUILabel:message toggle: YES];
     toggle.autoresizesSubviews = YES;
     messageLabel.autoresizesSubviews = YES;
-
     toggle.userInteractionEnabled = YES;
-
     [toggle addTarget:self action:@selector(ackLabelToggled:) forControlEvents:UIControlEventValueChanged];
 
     [ackLabels addObject:messageLabel];
 
+    [messageLabel sizeToFit];
+
     [container addSubview:toggle];
     [container addSubview:messageLabel];
-    [contentView insertSubview:container atIndex:0];
+    [warningView insertSubview:container atIndex:0];
 
     [self constrainToggle:toggle andLabel:messageLabel toView:container];
 
@@ -249,17 +262,19 @@ static float kMessageSeparatorHeight = -15.0f;
 }
 
 -(UILabel *) createAndSizeMessageUILabel: (NSString *) message toggle:(BOOL)toggle {
-    CGRect labelFrame = reviewLabel.frame;
-    labelFrame.size.width = contentView.frame.size.width;
+    CGRect labelFrame = CGRectMake(0, 0, warningView.frame.size.width, 14.0f);
     UILabel * label = [[UILabel alloc] init];
+
     [label setText: message];
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    [label setTranslatesAutoresizingMaskIntoConstraints: NO];
+    label.autoresizesSubviews = YES;
+    label.adjustsFontSizeToFitWidth = NO;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     [label setNumberOfLines: 0]; // 0 allows unlimited lines
-    [label setTextColor: self.styles.warningColor];
-    [label setFont: [UIFont systemFontOfSize:11]];
-    [label setAdjustsFontSizeToFitWidth: NO];
+    label.textColor = self.styles.warningColor;
+    label.font = [UIFont systemFontOfSize:11];
     label.frame = labelFrame;
+
     [label sizeToFit];
 
     return label;
@@ -280,7 +295,7 @@ static float kMessageSeparatorHeight = -15.0f;
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeLeading
                                            relatedBy:NSLayoutRelationEqual
-                                           toItem:contentView
+                                           toItem:warningView
                                            attribute:NSLayoutAttributeLeadingMargin
                                            multiplier:1
                                            constant:3];
@@ -290,7 +305,7 @@ static float kMessageSeparatorHeight = -15.0f;
                                            constraintWithItem:label
                                            attribute:NSLayoutAttributeTrailing
                                            relatedBy:NSLayoutRelationEqual
-                                           toItem:contentView
+                                           toItem:warningView
                                            attribute:NSLayoutAttributeTrailingMargin
                                            multiplier:1
                                            constant:-3];
@@ -298,99 +313,60 @@ static float kMessageSeparatorHeight = -15.0f;
 
     lastAttachedMessage = label;
 
-    [self.view addConstraint: topConstraint];
-    [self.view addConstraint: leftConstraint];
-    [self.view addConstraint: rightConstraint];
-}
-
--(void) initContentViewHeight {
-    CGRect contentRect = CGRectZero;
-    for (UIView * view in [contentView subviews]) {
-        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + fabs(kMessageSeparatorHeight));
-        contentRect = CGRectUnion(contentRect, frame);
-    }
-
-    for(UIView * aLabel in ackLabels) {
-        contentRect.size.height += aLabel.frame.size.height;
-    }
-
-    for(UILabel * wLabel in warningLabels) {
-        contentRect.size.height += wLabel.frame.size.height;
-    }
-
-    if (ackLabels.count || warningLabels.count) { // extra padding
-        contentRect.size.height += 50;
-
-        if (ackLabels.count) {
-            contentRect.size.height += 40;
-        }
-    }
-
-    NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
-                                             constraintWithItem:contentView
-                                             attribute:NSLayoutAttributeHeight
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:NSLayoutAttributeNotAnAttribute
-                                             attribute:NSLayoutAttributeNotAnAttribute
-                                             multiplier:1
-                                             constant:contentRect.size.height];
-    heightConstraint.priority = 900;
-    [self.view addConstraint:heightConstraint];
-
-    [scrollView setContentSize:contentRect.size];
-    [scrollView layoutIfNeeded];
-    [scrollView setNeedsUpdateConstraints];
+    [contentView addConstraint: topConstraint];
+    [contentView addConstraint: leftConstraint];
+    [contentView addConstraint: rightConstraint];
 }
 
 -(void) constrainToggle:(UISwitch *) toggle andLabel:(UILabel *) label toView:(UIView *) view {
     NSLayoutConstraint * toggleLeftConstraint = [NSLayoutConstraint
-                                             constraintWithItem:toggle
-                                             attribute:NSLayoutAttributeLeading
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:view
-                                             attribute:NSLayoutAttributeLeading
-                                             multiplier:1
-                                             constant:3];
+                                                 constraintWithItem:toggle
+                                                 attribute:NSLayoutAttributeLeading
+                                                 relatedBy:NSLayoutRelationEqual
+                                                 toItem:view
+                                                 attribute:NSLayoutAttributeLeading
+                                                 multiplier:1
+                                                 constant:3];
     toggleLeftConstraint.priority = 900;
     
     NSLayoutConstraint * toggleTopConstraint = [NSLayoutConstraint
-                                                 constraintWithItem:toggle
-                                                 attribute:NSLayoutAttributeTop
-                                                 relatedBy:NSLayoutRelationEqual
-                                                 toItem:view
-                                                 attribute:NSLayoutAttributeTop
-                                                 multiplier:1
-                                                 constant:0];
-    toggleTopConstraint.priority = 900;
-
-    NSLayoutConstraint * toggleLabelConstraint = [NSLayoutConstraint
                                                 constraintWithItem:toggle
-                                                attribute:NSLayoutAttributeTrailing
+                                                attribute:NSLayoutAttributeTop
                                                 relatedBy:NSLayoutRelationEqual
-                                                toItem:label
-                                                attribute:NSLayoutAttributeLeading
+                                                toItem:view
+                                                attribute:NSLayoutAttributeTop
                                                 multiplier:1
-                                                constant:-10];
-    toggleLabelConstraint.priority = 900;
-
-    NSLayoutConstraint * labelTopConstraint = [NSLayoutConstraint
-                                                  constraintWithItem:label
-                                                  attribute:NSLayoutAttributeTop
+                                                constant:0];
+    toggleTopConstraint.priority = 900;
+    
+    NSLayoutConstraint * toggleLabelConstraint = [NSLayoutConstraint
+                                                  constraintWithItem:toggle
+                                                  attribute:NSLayoutAttributeTrailing
                                                   relatedBy:NSLayoutRelationEqual
-                                                  toItem:view
-                                                  attribute:NSLayoutAttributeTop
+                                                  toItem:label
+                                                  attribute:NSLayoutAttributeLeading
                                                   multiplier:1
-                                                  constant:0];
+                                                  constant:-10];
+    toggleLabelConstraint.priority = 900;
+    
+    NSLayoutConstraint * labelTopConstraint = [NSLayoutConstraint
+                                               constraintWithItem:label
+                                               attribute:NSLayoutAttributeTop
+                                               relatedBy:NSLayoutRelationEqual
+                                               toItem:view
+                                               attribute:NSLayoutAttributeTop
+                                               multiplier:1
+                                               constant:0];
     labelTopConstraint.priority = 900;
     
     NSLayoutConstraint * labelRightConstraint = [NSLayoutConstraint
-                                               constraintWithItem:label
-                                               attribute:NSLayoutAttributeTrailing
-                                               relatedBy:NSLayoutRelationEqual
-                                               toItem:view
-                                               attribute:NSLayoutAttributeTrailing
-                                               multiplier:1
-                                               constant:0];
+                                                 constraintWithItem:label
+                                                 attribute:NSLayoutAttributeTrailing
+                                                 relatedBy:NSLayoutRelationEqual
+                                                 toItem:view
+                                                 attribute:NSLayoutAttributeTrailing
+                                                 multiplier:1
+                                                 constant:0];
     labelRightConstraint.priority = 900;
     
     NSLayoutConstraint * labelBottomConstraint = [NSLayoutConstraint
@@ -410,6 +386,52 @@ static float kMessageSeparatorHeight = -15.0f;
     [self.view addConstraint:labelTopConstraint];
     [self.view addConstraint:labelRightConstraint];
     [self.view addConstraint:labelBottomConstraint];
+}
+
+-(void) initContentViewHeight {
+    CGRect contentRect = CGRectZero;
+    for (UIView * view in [contentView subviews]) {
+        CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height + fabs(kMessageSeparatorHeight));
+        contentRect = CGRectUnion(contentRect, frame);
+    }
+
+    CGRect warningRect = CGRectZero;
+
+    for(UIView * aLabel in ackLabels) {
+        contentRect.size.height += aLabel.frame.size.height + fabs(kMessageSeparatorHeight);
+        warningRect.size.height += aLabel.frame.size.height + fabs(kMessageSeparatorHeight);
+    }
+
+    for(UILabel * wLabel in warningLabels) {
+        contentRect.size.height += wLabel.frame.size.height + fabs(kMessageSeparatorHeight);
+        warningRect.size.height += wLabel.frame.size.height + fabs(kMessageSeparatorHeight);
+    }
+
+    if (ackLabels.count || warningLabels.count) { // extra padding
+        warningHeightConstraint.constant = warningRect.size.height;
+
+        if ([self.utils isMediumScreen]) {
+            warningHeightConstraint.constant += 20;
+            contentRect.size.height += 20;
+        }
+    }
+
+    contentRect.size.height -= totalRemovedCellHeight;
+
+    NSLayoutConstraint * heightConstraint = [NSLayoutConstraint
+                                             constraintWithItem:contentView
+                                             attribute:NSLayoutAttributeHeight
+                                             relatedBy:NSLayoutRelationEqual
+                                             toItem:NSLayoutAttributeNotAnAttribute
+                                             attribute:NSLayoutAttributeNotAnAttribute
+                                             multiplier:1
+                                             constant:contentRect.size.height];
+    heightConstraint.priority = 900;
+    [self.view addConstraint:heightConstraint];
+
+    [scrollView setContentSize:contentRect.size];
+    [scrollView layoutIfNeeded];
+    [scrollView setNeedsUpdateConstraints];
 }
 
 

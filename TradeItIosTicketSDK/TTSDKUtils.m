@@ -84,6 +84,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     return ([self retrieveScreenHeight] < 500);
 }
 
+-(BOOL) isMediumScreen {
+    return ([self retrieveScreenHeight] < 660);
+}
+
 -(BOOL) isLargeScreen {
     return ([self retrieveScreenHeight] > 735);
 }
