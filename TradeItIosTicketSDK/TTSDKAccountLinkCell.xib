@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -45,10 +45,20 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,325" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTK-wq-cNf" userLabel="Buying Power Value" customClass="TTSDKLabel">
                         <rect key="frame" x="0.0" y="26" width="208" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="DnO-PX-A2F"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ylg-vd-Svx">
+                        <rect key="frame" x="188" y="25" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Hgn-jW-jrE"/>
+                            <constraint firstAttribute="height" constant="20" id="YjA-H1-8sj"/>
+                        </constraints>
+                    </activityIndicatorView>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54U-6y-6zP">
                         <rect key="frame" x="263" y="14" width="51" height="31"/>
                         <connections>
@@ -75,11 +85,13 @@
                     <constraint firstItem="phr-cu-72X" firstAttribute="top" secondItem="tSI-QB-iLz" secondAttribute="bottom" constant="2" id="TdX-mX-4p8"/>
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="baseline" secondItem="tSI-QB-iLz" secondAttribute="baseline" id="Uri-SY-7lf"/>
                     <constraint firstItem="tSI-QB-iLz" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" id="YYE-iV-ZMe"/>
+                    <constraint firstItem="Ylg-vd-Svx" firstAttribute="trailing" secondItem="hTK-wq-cNf" secondAttribute="trailing" id="ZY1-MN-tjT"/>
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="trailing" secondItem="9ZX-9v-xKf" secondAttribute="trailing" id="e17-4t-JZG"/>
                     <constraint firstItem="hTK-wq-cNf" firstAttribute="trailing" secondItem="9ZX-9v-xKf" secondAttribute="trailing" id="eJU-eJ-BWe"/>
                     <constraint firstItem="hTK-wq-cNf" firstAttribute="centerY" secondItem="phr-cu-72X" secondAttribute="centerY" id="fH7-sy-C1J"/>
                     <constraint firstItem="9ZX-9v-xKf" firstAttribute="leading" secondItem="qBM-3a-jRU" secondAttribute="leadingMargin" constant="-8" id="koW-Dw-9tR"/>
                     <constraint firstItem="9ZX-9v-xKf" firstAttribute="width" secondItem="qBM-3a-jRU" secondAttribute="width" multiplier="0.65" id="mVf-qh-dlV"/>
+                    <constraint firstItem="Ylg-vd-Svx" firstAttribute="centerY" secondItem="hTK-wq-cNf" secondAttribute="centerY" id="mrX-0x-H6A"/>
                     <constraint firstAttribute="bottomMargin" secondItem="nVU-Ar-O39" secondAttribute="bottom" constant="-8" id="nQe-JV-9Dv"/>
                     <constraint firstItem="v1f-3C-i0H" firstAttribute="leading" secondItem="tSI-QB-iLz" secondAttribute="trailing" constant="5" id="rka-or-6E1"/>
                 </constraints>
@@ -89,6 +101,7 @@
                 <outlet property="accountNameLabel" destination="tSI-QB-iLz" id="HDx-Nb-tKu"/>
                 <outlet property="accountTypeLabel" destination="phr-cu-72X" id="4O0-k1-TPn"/>
                 <outlet property="buyingPowerLabel" destination="hTK-wq-cNf" id="j8t-tR-64D"/>
+                <outlet property="buyingPowerLoadingIndicator" destination="Ylg-vd-Svx" id="bwH-cH-j0d"/>
                 <outlet property="separator" destination="nVU-Ar-O39" id="t4f-Li-5Ko"/>
                 <outlet property="toggle" destination="54U-6y-6zP" id="Cvk-CC-kfd"/>
             </connections>

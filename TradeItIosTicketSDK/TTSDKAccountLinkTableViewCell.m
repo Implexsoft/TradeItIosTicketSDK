@@ -22,6 +22,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * buyingPowerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel * accountTypeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView * circleGraphic;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buyingPowerLoadingIndicator;
 
 @end
 
@@ -33,6 +34,10 @@
 -(void) awakeFromNib {
     utils = [TTSDKUtils sharedUtils];
     globalTicket = [TTSDKTradeItTicket globalTicket];
+
+    self.buyingPowerLoadingIndicator.transform = CGAffineTransformMakeScale(0.65, 0.65);
+    self.buyingPowerLoadingIndicator.hidden = YES;
+    [self.buyingPowerLoadingIndicator startAnimating];
 
     [self setViewStyles];
 }
@@ -54,7 +59,15 @@
     self.accountName = account.accountNumber;
     self.accountNameLabel.text = self.accountName;
 
-    self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+    if (account.balanceComplete) {
+        self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+        self.buyingPowerLoadingIndicator.hidden = YES;
+        [self.buyingPowerLoadingIndicator stopAnimating];
+    } else {
+        self.buyingPowerLabel.text = @"";
+        self.buyingPowerLoadingIndicator.hidden = NO;
+        [self.buyingPowerLoadingIndicator startAnimating];
+    }
 
     self.toggle.on = account.active;
 

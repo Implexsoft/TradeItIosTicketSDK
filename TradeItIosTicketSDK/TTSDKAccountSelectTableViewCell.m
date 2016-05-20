@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPower;
 @property (weak, nonatomic) IBOutlet UIView *selectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buyingPowerLoadingIndicator;
 
 @end
 
@@ -53,22 +54,13 @@
         self.accountTypeLabel.textColor = styles.primaryTextColor;
         self.selectionView.backgroundColor = [UIColor clearColor];
 
+        self.buyingPowerLoadingIndicator.transform = CGAffineTransformMakeScale(0.65, 0.65);
+        self.buyingPowerLoadingIndicator.hidden = YES;
+        [self.buyingPowerLoadingIndicator startAnimating];
+
         utils = [TTSDKUtils sharedUtils];
         globalTicket = [TTSDKTradeItTicket globalTicket];
     }
-}
-
--(void) configureCellWithAccountData:(NSDictionary *)data {
-    self.brokerLabel.text = [data valueForKey: @"accountNumber"];
-    self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
-
-    NSString * broker = [data valueForKey:@"broker"];
-
-    TradeItAccountOverviewResult * overview = (TradeItAccountOverviewResult *)[data valueForKey: @"overview"];
-
-    self.buyingPowerLabel.text = [utils formatPriceString:overview.buyingPower] ?: @"N/A";
-
-    self.accountTypeLabel.text = [globalTicket getBrokerDisplayString: broker];
 }
 
 -(void) configureSelectedState:(BOOL)selected {
@@ -79,11 +71,19 @@
     }
 }
 
--(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account {
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account loaded:(BOOL)loaded {
     self.brokerLabel.text = account.accountNumber;
     self.brokerLabel.frame = CGRectMake(self.textLabel.frame.origin.x + 40, self.textLabel.frame.origin.y, self.brokerLabel.frame.size.width, self.textLabel.frame.size.height);
 
-    self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+    if (loaded) {
+        self.buyingPowerLoadingIndicator.hidden = YES;
+        [self.buyingPowerLoadingIndicator stopAnimating];
+        self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+    } else {
+        self.buyingPowerLabel.text = @"";
+        self.buyingPowerLoadingIndicator.hidden = NO;
+        [self.buyingPowerLoadingIndicator startAnimating];
+    }
 
     NSString * symbol = globalTicket.quote.symbol;
     NSString * shares;

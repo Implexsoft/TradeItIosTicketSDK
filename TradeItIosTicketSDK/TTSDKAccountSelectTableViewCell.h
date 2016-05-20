@@ -11,8 +11,7 @@
 
 @interface TTSDKAccountSelectTableViewCell : UITableViewCell
 
--(void) configureCellWithAccountData:(NSDictionary *)data;
--(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account;
+-(void) configureCellWithAccount:(TTSDKPortfolioAccount *)account loaded:(BOOL)loaded;
 -(void) configureSelectedState:(BOOL)selected;
 
 @end
