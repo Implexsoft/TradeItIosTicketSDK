@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TradeItAccountOverviewResult.h"
 #import "TTSDKPosition.h"
+#import "TTSDKPortfolioAccount.h"
 
 @interface TTSDKCompanyDetails : UIView
 
@@ -26,6 +27,6 @@
 -(void) populateSymbol: (NSString *)symbol;
 -(void) populateLastPrice: (NSNumber *)lastPrice;
 -(void) populateBrokerButtonTitle:(NSString *)broker;
--(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned;
+-(void) populateAccountDetail:(TTSDKPortfolioAccount *)account sharesOwned:(NSNumber *)sharesOwned;
 
 @end

@@ -212,7 +212,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [companyNib populateBrokerButtonTitle: [self.ticket.currentAccount valueForKey: @"displayTitle"]];
 
     if ([self.ticket.previewRequest.orderAction isEqualToString: @"buy"]) {
-        [companyNib populateSymbolDetail:self.currentPortfolioAccount.balance.buyingPower andSharesOwned:nil];
+        [companyNib populateAccountDetail:self.currentPortfolioAccount sharesOwned:nil];
     } else {
         NSNumber * sharesOwned = @0;
 
@@ -222,7 +222,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             }
         }
 
-        [companyNib populateSymbolDetail:nil andSharesOwned: sharesOwned];
+        [companyNib populateAccountDetail:self.currentPortfolioAccount sharesOwned:sharesOwned];
     }
 
     [self checkIfReadyToTrade];

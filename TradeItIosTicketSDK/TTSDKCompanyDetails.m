@@ -136,27 +136,36 @@
     }
 }
 
--(void) populateSymbolDetail:(NSNumber *)buyingPower andSharesOwned:(NSNumber *)sharesOwned {
-    if (!buyingPower && !sharesOwned) {
-        if (globalTicket.loadingQuote || globalTicket.currentSession.authenticating) {
-            self.symbolDetailValue.hidden = YES;
-            self.buyingPowerLoadingIndicator.hidden = NO;
-        } else {
+-(void) populateAccountDetail:(TTSDKPortfolioAccount *)account sharesOwned:(NSNumber *)sharesOwned {
+    if (sharesOwned == nil) {
+
+        if (account.balanceComplete) {
             self.buyingPowerLoadingIndicator.hidden = YES;
             self.symbolDetailValue.hidden = NO;
-            self.symbolDetailValue.text = @"N/A";
+            self.symbolDetailLabel.text = @"BUYING POWER";
+
+            if (account.balance.buyingPower != nil) {
+                self.symbolDetailValue.text = [utils formatPriceString: account.balance.buyingPower];
+            } else {
+                self.symbolDetailValue.text = @"N/A";
+            }
+
+        } else {
+            self.symbolDetailValue.hidden = YES;
+            self.buyingPowerLoadingIndicator.hidden = NO;
         }
 
     } else {
-        self.symbolDetailValue.hidden = NO;
-        self.buyingPowerLoadingIndicator.hidden = YES;
 
-        if (buyingPower) {
-            self.symbolDetailLabel.text = @"BUYING POWER";
-            self.symbolDetailValue.text = [utils formatPriceString: buyingPower];
-        } else if (sharesOwned) {
+        if (account.positionsComplete) {
+            self.buyingPowerLoadingIndicator.hidden = YES;
+            self.symbolDetailValue.hidden = NO;
             self.symbolDetailLabel.text = @"SHARES OWNED";
+
             self.symbolDetailValue.text = [NSString stringWithFormat:@"%@", sharesOwned];
+        } else {
+            self.symbolDetailValue.hidden = YES;
+            self.buyingPowerLoadingIndicator.hidden = NO;
         }
     }
 }
