@@ -145,7 +145,12 @@ static CGFloat const kBounceValue = 20.0f;
     } else {
         quantityStr = [NSString stringWithFormat:@"%i", abs([position.quantity intValue])];
     }
-    self.symbolLabel.text = [NSString stringWithFormat:@"%@ (%@%@)", position.symbol, quantityStr, quantityPostfix];
+
+    if (!position.symbol) {
+        self.symbolLabel.text = @"N/A";
+    } else {
+        self.symbolLabel.text = [NSString stringWithFormat:@"%@ (%@%@)", position.symbol, quantityStr, quantityPostfix];
+    }
 
     // Bid and Ask
     NSString * bid;
