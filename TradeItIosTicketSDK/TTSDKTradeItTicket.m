@@ -643,15 +643,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 -(NSArray *) getDefaultBrokerList {
     NSArray * brokers = @[
-                          @[@"TD Ameritrade",@"TD"],
-                          @[@"Robinhood",@"Robinhood"],
-                          @[@"OptionsHouse",@"OptionsHouse"],
+                          @[@"Dummy",@"Dummy"],
+                          @[@"Maybank",@"Maybank"]
+                          //@[@"TD Ameritrade",@"TD"],
+                          //@[@"Robinhood",@"Robinhood"],
+                          //@[@"OptionsHouse",@"OptionsHouse"],
                           //@[@"Schwab",@"Schwabs"],
-                          @[@"TradeStation",@"TradeStation"],
-                          @[@"E*Trade",@"Etrade"],
-                          @[@"Fidelity",@"Fidelity"],
-                          @[@"Scottrade",@"Scottrade"],
-                          @[@"Tradier Brokerage",@"Tradier"]
+                          //@[@"TradeStation",@"TradeStation"],
+                          //@[@"E*Trade",@"Etrade"],
+                          //@[@"Fidelity",@"Fidelity"],
+                          //@[@"Scottrade",@"Scottrade"],
+                          //@[@"Tradier Brokerage",@"Tradier"]
                           //@[@"Interactive Brokers",@"IB"]
                           ];
     

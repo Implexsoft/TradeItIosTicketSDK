@@ -92,7 +92,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
 
-    self.currentSelection = @"Fidelity";
+    self.currentSelection = @"Dummy"; //@"Fidelity";
 }
 
 -(void) showOrHideOpenAccountButton {

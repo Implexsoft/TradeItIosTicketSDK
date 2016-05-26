@@ -57,9 +57,11 @@
             } else {
                 TradeItPublisherDataResult * result = (TradeItPublisherDataResult *)res;
 
-                [self parsePublisherDataResultForBrokerList: result];
+                //[self parsePublisherDataResultForBrokerList: result];
                 [self parsePublisherDataResultForBrokerCenter: result];
             }
+            
+            globalTicket.brokerList = [globalTicket getDefaultBrokerList];
         }];
     });
 }
