@@ -42,6 +42,8 @@
 
     self.textColor = styles.primaryTextColor;
 
+    self.tintColor = styles.primaryTextColor;
+
     UIView * leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 11, self.frame.size.height)];
     leftView.backgroundColor = [UIColor clearColor];
 
