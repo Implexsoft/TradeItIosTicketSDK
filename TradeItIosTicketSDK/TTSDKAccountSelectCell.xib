@@ -105,9 +105,10 @@
                 <outlet property="buyingPower" destination="5ng-Tu-kps" id="Hwl-c0-Kv1"/>
                 <outlet property="buyingPowerLabel" destination="Pnn-M4-uMZ" id="L5G-3B-o2P"/>
                 <outlet property="buyingPowerLoadingIndicator" destination="4nC-Xx-tYg" id="uHp-Q1-GQ9"/>
+                <outlet property="selectedImage" destination="BA9-uU-6XR" id="723-fw-zLO"/>
                 <outlet property="selectionView" destination="zG4-DC-8ku" id="EUL-GE-DLU"/>
             </connections>
-            <point key="canvasLocation" x="983" y="602"/>
+            <point key="canvasLocation" x="1077" y="613"/>
         </tableViewCell>
     </objects>
     <resources>

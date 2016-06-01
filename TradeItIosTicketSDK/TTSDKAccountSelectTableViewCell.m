@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *buyingPower;
 @property (weak, nonatomic) IBOutlet UIView *selectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buyingPowerLoadingIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
 
 @end
 
@@ -53,6 +54,9 @@
         self.buyingPower.textColor = styles.smallTextColor;
         self.accountTypeLabel.textColor = styles.primaryTextColor;
         self.selectionView.backgroundColor = [UIColor clearColor];
+
+        self.selectedImage.image = [self.selectedImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [self.selectedImage setTintColor: styles.secondaryActiveColor];
 
         self.buyingPowerLoadingIndicator.transform = CGAffineTransformMakeScale(0.65, 0.65);
         self.buyingPowerLoadingIndicator.hidden = YES;

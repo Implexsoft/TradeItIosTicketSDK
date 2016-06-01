@@ -17,6 +17,7 @@
     UITapGestureRecognizer * authTap;
 }
 
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buyingPowerLabel;
@@ -47,6 +48,10 @@
     self.defaultAccountFontSize = self.accountLabel.font.pointSize;
 
     self.selectedView.backgroundColor = [UIColor clearColor];
+
+    self.selectedImage.image = [self.selectedImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.selectedImage setTintColor: styles.secondaryActiveColor];
+
     self.separatorView.backgroundColor = styles.primarySeparatorColor;
     self.authenticateView.backgroundColor = styles.pageBackgroundColor;
 
