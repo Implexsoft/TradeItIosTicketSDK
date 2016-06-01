@@ -185,7 +185,8 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;
-        alert.view.tintColor = self.styles.activeColor;
+
+        [self.utils styleAlertController:alert.view];
 
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
@@ -281,7 +282,9 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         
         alert.modalPresentationStyle = UIModalPresentationPopover;
-        
+
+        [self.utils styleAlertController:alert.view];
+
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
                                                                    self.acceptanceBlock();

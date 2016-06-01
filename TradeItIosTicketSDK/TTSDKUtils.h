@@ -37,6 +37,7 @@
 -(void) styleBorderedFocusInput: (UIView *)input;
 -(void) styleBorderedUnfocusInput: (UIView *)input;
 -(void) styleDropdownButton:(UIButton *)button;
+-(void) styleAlertController:(UIView *)alertView;
 -(UIView *) retrieveLoadingOverlayForView:(UIView *)view withRadius:(NSInteger)radius;
 -(NSString *) splitCamelCase:(NSString *) str;
 -(BOOL) containsString: (NSString *) base searchString: (NSString *) searchString;

@@ -273,6 +273,13 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [button addSubview: arrow];
 }
 
+-(void) styleAlertController:(UIView *)alertView {
+    alertView.tintColor = styles.activeColor;
+    alertView.backgroundColor = [UIColor clearColor];
+    alertView.layer.cornerRadius = 8.0f;
+    alertView.layer.backgroundColor = styles.alertBackgroundColor.CGColor;
+}
+
 -(NSString *) formatPriceString: (NSNumber *)num {
     NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];

@@ -44,6 +44,7 @@
 #pragma mark Peripheral Colors
 @property UIColor * switchColor;
 @property UIColor * primarySeparatorColor;
+@property UIColor * alertBackgroundColor;
 
 #pragma mark Buttons
 @property UIButton * primaryInactiveButton;

@@ -118,8 +118,9 @@
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;
-        alert.view.tintColor = self.styles.activeColor;
-        
+
+        [self.utils styleAlertController:alert.view];
+
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
             NSString * v = optionContainer[k];
