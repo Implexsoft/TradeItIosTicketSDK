@@ -162,11 +162,13 @@
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
-                    
+
+                    [utils styleAlertController: alert.view];
+
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         [delegateViewController dismissViewControllerAnimated:YES completion:nil];
                     }];
-                    
+
                     UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
                                                                               [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
