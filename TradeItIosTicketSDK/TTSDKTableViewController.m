@@ -49,7 +49,9 @@
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    self.styles = [TradeItStyles sharedStyles];
+    
+    return self.styles.statusBarStyle;
 }
 
 

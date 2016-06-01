@@ -25,6 +25,7 @@
 @property UIColor * darkPageBackgroundColor;
 
 #pragma mark Navigation Colors
+@property UIStatusBarStyle statusBarStyle;
 @property UIColor * navigationBarBackgroundColor;
 @property UIColor * navigationBarItemColor;
 @property UIColor * navigationBarTitleColor;

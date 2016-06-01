@@ -9,6 +9,12 @@
 #import "TTSDKTabBarViewController.h"
 #import "TradeItStyles.h"
 
+@interface TTSDKTabBarViewController() {
+    TradeItStyles * styles;
+}
+
+@end
+
 @implementation TTSDKTabBarViewController
 
 
@@ -32,7 +38,7 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    TradeItStyles * styles = [TradeItStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
 
     self.navigationController.navigationBar.backgroundColor = styles.navigationBarBackgroundColor;
     self.navigationController.navigationBar.tintColor = styles.activeColor;
@@ -42,7 +48,9 @@
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    styles = [TradeItStyles sharedStyles];
+    
+    return styles.statusBarStyle;
 }
 
 

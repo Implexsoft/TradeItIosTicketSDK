@@ -59,7 +59,9 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    self.styles = [TradeItStyles sharedStyles];
+    
+    return self.styles.statusBarStyle;
 }
 
 -(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock {

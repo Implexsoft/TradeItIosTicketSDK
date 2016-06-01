@@ -7,6 +7,8 @@
 //
 
 #import "TTSDKWebViewController.h"
+#import "TradeItStyles.h"
+
 
 @implementation TTSDKWebViewController
 
@@ -24,7 +26,9 @@
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    TradeItStyles * styles = [TradeItStyles sharedStyles];
+
+    return styles.statusBarStyle;
 }
 
 

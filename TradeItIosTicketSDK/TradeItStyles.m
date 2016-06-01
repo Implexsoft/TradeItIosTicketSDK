@@ -49,6 +49,7 @@
         self.darkPageBackgroundColor = [UIColor colorWithRed:92.0f/255.0f green:92.0f/255.0f blue:92.0f/255.0f alpha:1.0f];
 
         // Navigation
+        self.statusBarStyle = UIStatusBarStyleDefault;
         self.navigationBarBackgroundColor = [UIColor colorWithRed:247.0f/255.0f green:247.0f/255.0f blue:247.0f/255.0f alpha:1.0];
         self.navigationBarItemColor = nil;
         self.navigationBarTitleColor = self.primaryTextColor;

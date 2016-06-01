@@ -9,6 +9,11 @@
 #import "TTSDKNavigationController.h"
 #import "TradeItStyles.h"
 
+@interface TTSDKNavigationController() {
+    TradeItStyles * styles;
+}
+
+@end
 
 @implementation TTSDKNavigationController
 
@@ -28,12 +33,13 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setViewStyles];
 }
 
 -(void) setViewStyles {
-    TradeItStyles * styles = [TradeItStyles sharedStyles];
+    styles = [TradeItStyles sharedStyles];
+
     self.view.backgroundColor = styles.pageBackgroundColor;
     if (styles.navigationBarTitleColor) {
         [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : styles.navigationBarTitleColor}];
@@ -44,7 +50,9 @@
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    styles = [TradeItStyles sharedStyles];
+
+    return styles.statusBarStyle;
 }
 
 @end
