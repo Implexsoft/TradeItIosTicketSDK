@@ -108,9 +108,12 @@
     emailInput.layer.borderColor = self.styles.inactiveColor.CGColor;
     emailInput.layer.borderWidth = 1.0f;
     emailInput.layer.shadowOpacity = 0.0f;
+    emailInput.tintColor = self.styles.primaryTextColor;
+
     passwordInput.layer.borderColor = self.styles.inactiveColor.CGColor;
     passwordInput.layer.borderWidth = 1.0f;
     passwordInput.layer.shadowOpacity = 0.0f;
+    passwordInput.tintColor = self.styles.primaryTextColor;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
