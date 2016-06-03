@@ -190,6 +190,9 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
 
         [self.utils styleAlertController:alert.view];
 
+        NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:pickerTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+        [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
             NSString * v = optionContainer[k];
@@ -286,6 +289,13 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
         alert.modalPresentationStyle = UIModalPresentationPopover;
 
         [self.utils styleAlertController:alert.view];
+
+
+        NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+        NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:error.shortMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+
+        [alert setValue:attributedMessage forKey:@"attributedMessage"];
+        [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {

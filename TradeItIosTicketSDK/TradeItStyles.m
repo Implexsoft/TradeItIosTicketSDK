@@ -70,6 +70,7 @@
         self.primarySeparatorColor = [UIColor colorWithRed:240.0f/255.0f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
         self.switchColor = self.gainColor;
         self.alertBackgroundColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:0.35f];
+        self.alertTextColor = self.primaryTextColor;
 
         // Default styles for primary active button
         self.primaryActiveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
