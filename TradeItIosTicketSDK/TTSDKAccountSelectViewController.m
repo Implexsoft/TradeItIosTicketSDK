@@ -142,8 +142,6 @@
 
         [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountSelectCell" bundle:resourceBundle] forCellReuseIdentifier:accountIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
-
-        cell.backgroundColor = self.styles.pageBackgroundColor;
     }
 
     TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];

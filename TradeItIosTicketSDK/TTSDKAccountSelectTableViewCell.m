@@ -55,6 +55,8 @@
         self.accountTypeLabel.textColor = styles.primaryTextColor;
         self.selectionView.backgroundColor = [UIColor clearColor];
 
+        self.backgroundColor = [UIColor clearColor];
+        
         self.selectedImage.image = [self.selectedImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [self.selectedImage setTintColor: styles.secondaryActiveColor];
 
