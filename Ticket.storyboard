@@ -144,6 +144,7 @@
                     <connections>
                         <outlet property="emailInput" destination="wbf-cv-Dik" id="kGc-lE-g43"/>
                         <outlet property="linkAccountButton" destination="tei-VX-tIR" id="pKe-yR-Urz"/>
+                        <outlet property="lock" destination="gMK-wJ-RVc" id="M48-rI-K5Y"/>
                         <outlet property="loginButtonBottomConstraint" destination="AxB-Uc-tiu" id="Whk-X4-q1X"/>
                         <outlet property="pageTitle" destination="lFr-FG-k7c" id="obw-e4-oD6"/>
                         <outlet property="passwordInput" destination="Osa-Gx-5fR" id="vLZ-SS-PjZ"/>
@@ -1991,6 +1992,6 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <segue reference="kyf-iM-tIO"/>
         <segue reference="mX5-hx-zdn"/>
         <segue reference="hO5-IP-sLI"/>
-        <segue reference="Iho-lP-LWh"/>
+        <segue reference="Vdw-ys-tjA"/>
     </inferredMetricsTieBreakers>
 </document>

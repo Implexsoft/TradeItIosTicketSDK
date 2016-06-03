@@ -25,6 +25,7 @@
     __weak IBOutlet TTSDKPrimaryButton *linkAccountButton;
     __weak IBOutlet NSLayoutConstraint *linkAccountCenterLineConstraint;
     __weak IBOutlet NSLayoutConstraint *loginButtonBottomConstraint;
+    __weak IBOutlet UIImageView *lock;
 
     UIPickerView * currentPicker;
     NSDictionary * currentAccount;
@@ -114,6 +115,10 @@
     passwordInput.layer.borderWidth = 1.0f;
     passwordInput.layer.shadowOpacity = 0.0f;
     passwordInput.tintColor = self.styles.primaryTextColor;
+
+    UIImage * lockImage = [lock.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [lock setTintColor:self.styles.primaryTextColor];
+    lock.image = lockImage;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
