@@ -225,6 +225,8 @@
 		65DE13691CE1252A00674B0E /* tradier_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 65DE135F1CE1252A00674B0E /* tradier_logo.png */; };
 		65DE136D1CE1278000674B0E /* TTSDKPublisherService.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */; };
 		65DE136E1CE1278000674B0E /* TTSDKPublisherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */; };
+		65E016441D0610C900A3B5A1 /* TTSDKAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E016421D0610C900A3B5A1 /* TTSDKAlertController.h */; };
+		65E016451D0610C900A3B5A1 /* TTSDKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E016431D0610C900A3B5A1 /* TTSDKAlertController.m */; };
 		65E0C6661C2B035000DE74CC /* TTSDKCompanyDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */; };
 		65EC07C91CBD7B3300A6B72E /* TTSDKNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EC07C71CBD7B3300A6B72E /* TTSDKNavigationController.h */; };
 		65EC07CA1CBD7B3300A6B72E /* TTSDKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC07C81CBD7B3300A6B72E /* TTSDKNavigationController.m */; };
@@ -536,6 +538,8 @@
 		65DE135F1CE1252A00674B0E /* tradier_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tradier_logo.png; sourceTree = "<group>"; };
 		65DE136B1CE1278000674B0E /* TTSDKPublisherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKPublisherService.h; sourceTree = "<group>"; };
 		65DE136C1CE1278000674B0E /* TTSDKPublisherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKPublisherService.m; sourceTree = "<group>"; };
+		65E016421D0610C900A3B5A1 /* TTSDKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKAlertController.h; sourceTree = "<group>"; };
+		65E016431D0610C900A3B5A1 /* TTSDKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKAlertController.m; sourceTree = "<group>"; };
 		65E0C6641C2B035000DE74CC /* TTSDKCompanyDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSDKCompanyDetailsView.xib; sourceTree = "<group>"; };
 		65E0C66A1C2B054600DE74CC /* TTSDKCompanyDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCompanyDetails.h; sourceTree = "<group>"; };
 		65E0C66B1C2B054600DE74CC /* TTSDKCompanyDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCompanyDetails.m; sourceTree = "<group>"; };
@@ -845,6 +849,8 @@
 				65F240C81C4570BD00DD2309 /* TTSDKTabBarViewController.m */,
 				658475AD1CFF625A00BA5692 /* TTSDKSeparator.h */,
 				658475AE1CFF625A00BA5692 /* TTSDKSeparator.m */,
+				65E016421D0610C900A3B5A1 /* TTSDKAlertController.h */,
+				65E016431D0610C900A3B5A1 /* TTSDKAlertController.m */,
 			);
 			name = AbstractViews;
 			sourceTree = "<group>";
@@ -1142,6 +1148,7 @@
 				652D19861CB6AEAA0090CBBF /* TradeItStyles.h in Headers */,
 				650C9EAA1C76932200FCABEC /* TradeItBalanceService.h in Headers */,
 				650C9E921C76932200FCABEC /* TIEMSJSONHTTPClient.h in Headers */,
+				65E016441D0610C900A3B5A1 /* TTSDKAlertController.h in Headers */,
 				650C9E9E1C76932200FCABEC /* TradeItAccountOverviewResult.h in Headers */,
 				650C9E961C76932200FCABEC /* TIEMSJSONKeyMapper.h in Headers */,
 				6508C4CA1C7A0AD800612B62 /* TTSDKAccountsHeaderView.h in Headers */,
@@ -1489,6 +1496,7 @@
 				650C9EE81C76932200FCABEC /* TradeItSymbolLookupResult.m in Sources */,
 				6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */,
 				A9C002BB1B6FC507007D15F5 /* TTSDKBaseTradeViewController.m in Sources */,
+				65E016451D0610C900A3B5A1 /* TTSDKAlertController.m in Sources */,
 				65EC07CA1CBD7B3300A6B72E /* TTSDKNavigationController.m in Sources */,
 				650C9EA71C76932200FCABEC /* TradeItAuthLinkRequest.m in Sources */,
 				65F5BCC61C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m in Sources */,

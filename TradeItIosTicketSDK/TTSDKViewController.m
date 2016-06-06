@@ -8,6 +8,7 @@
 
 #import "TTSDKViewController.h"
 #import "TTSDKLoginViewController.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKViewController()
     @property (copy) void (^acceptanceBlock)();
@@ -41,6 +42,8 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
     self.styles = [TradeItStyles sharedStyles];
 
     [super viewDidLoad];
+
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
     [self setViewStyles];
 }
@@ -91,10 +94,9 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
             } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+                TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:error.shortMessage
                                                                                 message:errorMessage
                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                
                 alert.modalPresentationStyle = UIModalPresentationPopover;
 
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
@@ -183,7 +185,7 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
             [alert show];
         });
     } else {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:pickerTitle
+        TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:pickerTitle
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;
@@ -282,7 +284,7 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
         [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
     } else {
         
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:error.shortMessage
+        TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:error.shortMessage
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         

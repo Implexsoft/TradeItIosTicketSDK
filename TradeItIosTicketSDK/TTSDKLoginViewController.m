@@ -16,6 +16,7 @@
 #import "TTSDKTradeViewController.h"
 #import "TTSDKNavigationController.h"
 #import "TTSDKPortfolioService.h"
+#import "TTSDKAlertController.h"
 
 
 @implementation TTSDKLoginViewController {
@@ -130,7 +131,7 @@
         if(![UIAlertController class]) {
             [self showOldErrorAlert:self.ticket.errorTitle withMessage:self.ticket.errorMessage];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:self.ticket.errorTitle
+             TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:self.ticket.errorTitle
                                                                             message:self.ticket.errorMessage
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;
@@ -184,7 +185,7 @@
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Credentials" withMessage:message];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Credentials"
+            TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Invalid Credentials"
                                                                             message:message
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;

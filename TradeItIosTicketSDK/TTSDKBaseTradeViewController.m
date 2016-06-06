@@ -10,6 +10,7 @@
 #import "TradeItTradeService.h"
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKBaseTradeViewController()
 
@@ -27,7 +28,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
 -(void) waitForQuotes {
@@ -122,7 +122,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:@"Could Not Complete Order" withMessage:errorMessage];
             } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                                 message:errorMessage
                                                                          preferredStyle:UIAlertControllerStyleAlert];
 
@@ -145,7 +145,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             if(![UIAlertController class]) {
                 [self showOldErrorAlert:@"Could Not Complete Order" withMessage:@"TradeIt is temporarily unavailable. Please try again in a few minutes."];
             } else {
-                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+                TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                                 message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                          preferredStyle:UIAlertControllerStyleAlert];
 

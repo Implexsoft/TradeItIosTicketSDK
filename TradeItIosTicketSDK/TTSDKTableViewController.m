@@ -8,6 +8,7 @@
 
 #import "TTSDKTableViewController.h"
 #import "TTSDKWebViewController.h"
+#import "TTSDKAlertController.h"
 
 @implementation TTSDKTableViewController
 
@@ -31,6 +32,8 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+
+    [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 
     self.ticket = [TTSDKTradeItTicket globalTicket];
     self.utils = [TTSDKUtils sharedUtils];
@@ -116,7 +119,7 @@
             [alert show];
         });
     } else {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:pickerTitle
+        TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:pickerTitle
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;

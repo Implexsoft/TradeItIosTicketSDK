@@ -11,6 +11,7 @@
 #import "TTSDKSuccessViewController.h"
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKSmallLabel.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKReviewScreenViewController () {
     
@@ -468,7 +469,7 @@ static float kMessageSeparatorHeight = -15.0f;
         self.ticket.resultContainer.status = EXECUTION_ERROR;
         self.ticket.resultContainer.errorResponse = error;
 
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could Not Complete Order"
+        TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Could Not Complete Order"
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
         alert.modalPresentationStyle = UIModalPresentationPopover;

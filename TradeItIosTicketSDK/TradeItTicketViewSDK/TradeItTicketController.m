@@ -49,6 +49,7 @@
 #import "TTSDKImageView.h"
 #import "TTSDKSearchBar.h"
 #import "TTSDKSeparator.h"
+#import "TTSDKAlertController.h"
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -489,6 +490,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TTSDKViewController class];
     [TTSDKNavigationController class];
     [TTSDKTableViewController class];
+    [TTSDKAlertController class];
     [TradeItStyles class];
 }
 

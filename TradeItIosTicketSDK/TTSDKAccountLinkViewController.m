@@ -11,6 +11,7 @@
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKBrokerSelectViewController.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -192,7 +193,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     if(![UIAlertController class]) {
         [self showOldErrorAlert: errorTitle withMessage:errorMessage];
     } else {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle: errorTitle
+         TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle: errorTitle
                                                                         message: errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
 

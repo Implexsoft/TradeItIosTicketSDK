@@ -15,6 +15,7 @@
 #import "TradeItQuotesResult.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTradeViewController.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKPortfolioViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -146,7 +147,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
                 return;
             }
             
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+            TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;

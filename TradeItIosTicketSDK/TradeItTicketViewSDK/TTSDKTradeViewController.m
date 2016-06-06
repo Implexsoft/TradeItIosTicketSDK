@@ -17,6 +17,7 @@
 #import "TTSDKImageView.h"
 #import "TTSDKKeypad.h"
 #import "TTSDKSearchViewController.h"
+#import "TTSDKAlertController.h"
 
 
 @interface TTSDKTradeViewController () {
@@ -503,7 +504,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         if(![UIAlertController class]) {
             [self showOldErrorAlert:@"Invalid Expiration" withMessage:@"Market orders are Good For The Day only."];
         } else {
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Invalid Expiration"
+            TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Invalid Expiration"
                                                                             message:@"Market orders are Good For The Day only."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
 

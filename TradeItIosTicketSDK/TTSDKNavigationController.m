@@ -20,12 +20,16 @@
 
 #pragma mark Rotation
 
--(UIInterfaceOrientationMask) supportedInterfaceOrientations {
-    return [self.topViewController supportedInterfaceOrientations];
+-(BOOL) shouldAutorotate {
+    return NO;
 }
 
--(BOOL) shouldAutorotate {
-    return [self.topViewController shouldAutorotate];
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+-(UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 

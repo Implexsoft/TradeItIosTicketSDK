@@ -12,6 +12,7 @@
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPortfolioViewController.h"
+#import "TTSDKAlertController.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -123,7 +124,7 @@
                 if (![UIAlertController class]) {
                     [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
                 } else {
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Verify Identity"
+                    TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Verify Identity"
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
@@ -158,7 +159,7 @@
                     [self showOldSecQuestion:result.securityQuestion];
                 } else {
                     NSString * title = [NSString stringWithFormat:@"%@ Security Question", self.broker];
-                    UIAlertController * alert = [UIAlertController alertControllerWithTitle: title
+                    TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle: title
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;

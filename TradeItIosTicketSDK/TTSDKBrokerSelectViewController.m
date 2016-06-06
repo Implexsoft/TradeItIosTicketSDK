@@ -11,6 +11,7 @@
 #import "TTSDKLabel.h"
 #import "TTSDKBrokerSelectFooterView.h"
 #import "TTSDKWebViewController.h"
+#import "TTSDKAlertController.h"
 
 
 @implementation TTSDKBrokerSelectViewController {
@@ -187,7 +188,7 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
                 return;
             }
 
-            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"An Error Has Occurred"
+            TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"An Error Has Occurred"
                                                                             message:@"TradeIt is temporarily unavailable. Please try again in a few minutes."
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;
