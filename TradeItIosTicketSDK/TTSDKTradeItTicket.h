@@ -58,6 +58,8 @@
 -(void) launchTradeFlow;
 -(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
+-(void) launchBrokerCenterFlow:(void (^)(BOOL))completionBlock;
+-(void) retrievePublisherData:(void (^)(BOOL))completionBlock;
 
 #pragma mark Quote
 -(void) retrieveQuote:(void (^)(void))completionBlock;

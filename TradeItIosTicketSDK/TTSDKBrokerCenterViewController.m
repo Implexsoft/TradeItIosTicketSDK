@@ -293,7 +293,11 @@ static CGFloat kExpandedHeight = 293.0f;
 }
 
 -(IBAction) closePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.ticket.presentationMode == TradeItPresentationModeBrokerCenter) {
+        [self.ticket returnToParentApp];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(IBAction) linkPressed:(id)sender {

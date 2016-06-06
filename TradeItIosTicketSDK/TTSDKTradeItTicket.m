@@ -23,6 +23,7 @@
 #import "TradeItMarketDataService.h"
 #import "TradeItQuotesResult.h"
 #import "TTSDKPortfolioService.h"
+#import "TTSDKBrokerCenterViewController.h"
 
 
 @interface TTSDKTradeItTicket() {
@@ -35,6 +36,7 @@
 
 @implementation TTSDKTradeItTicket
 
+static NSString * kBrokerCenterNavIdentifier = @"brokerCenterNav";
 static NSString * kBaseTabBarViewIdentifier = @"BASE_TAB_BAR";
 static NSString * kAccountNavViewIdentifier = @"accountSelect";
 static NSString * kAuthNavViewIdentifier = @"AUTH_NAV";
@@ -125,6 +127,35 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 
+#pragma mark - Flow: broker center
+
+-(void) launchBrokerCenterFlow:(void (^)(BOOL))completionBlock {
+    if (!self.publisherService) {
+        [self retrievePublisherData: completionBlock];
+    } else if (!self.publisherService.publisherDataLoaded) {
+        [self waitForBrokerCenter: completionBlock];
+    } else if (self.publisherService.brokerCenterActive) {
+        [self presentBrokerCenterScreen];
+    }
+}
+
+-(void) presentBrokerCenterScreen {
+    // Get storyboard
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    
+    // If onboarding, use onboarding nav controller
+    NSString * navIdentifier = kBrokerCenterNavIdentifier;
+
+    UINavigationController * nav = (UINavigationController *)[ticket instantiateViewControllerWithIdentifier: navIdentifier];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+
+    TTSDKBrokerCenterViewController * brokerCenter = (TTSDKBrokerCenterViewController *)[nav.viewControllers objectAtIndex:0];
+    brokerCenter.isModal = YES;
+
+    [self.parentView presentViewController:nav animated:YES completion:nil];
+}
+
+
 #pragma mark - Flow: auth
 
 -(void) launchAuthFlow {
@@ -138,7 +169,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 -(void) presentAuthScreen {
     // Get storyboard
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    
+
     // If onboarding, use onboarding nav controller
     NSString * navIdentifier;
     if ([self.utils isOnboarding]) {
@@ -567,17 +598,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     if ([accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]]) {
         return;
     }
-    
+
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
-    
+
     for (NSDictionary *account in linkedAccounts) {
         if ([accountNumber isEqualToString: [account valueForKey:@"accountNumber"]]) {
             self.currentAccount = account;
         }
     }
-    
+
     [self setLastSelected: accountNumber];
-    
+
     if (self.previewRequest) {
         self.previewRequest.accountNumber = accountNumber;
     }
@@ -639,6 +670,35 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
 
     [self.publisherService getPublisherData];
+}
+
+-(void) retrievePublisherData:(void (^)(BOOL))completionBlock {
+    self.publisherService = [[TTSDKPublisherService alloc] init];
+
+    [self.publisherService getPublisherData];
+
+    [self waitForBrokerCenter: completionBlock];
+}
+
+-(void) waitForBrokerCenter:(void (^)(BOOL))completionBlock {
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        int cycles = 0;
+
+        while(!self.publisherService.publisherDataLoaded && cycles < 75) {
+            [NSThread sleepForTimeInterval:0.2f];
+            cycles++;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completionBlock) {
+                completionBlock(self.publisherService.brokerCenterActive);
+            }
+
+            if (self.publisherService.brokerCenterActive) {
+                [self presentBrokerCenterScreen];
+            }
+        });
+    });
 }
 
 -(NSArray *) getDefaultBrokerList {

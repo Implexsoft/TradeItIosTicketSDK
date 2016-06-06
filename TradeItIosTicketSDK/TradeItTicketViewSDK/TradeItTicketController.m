@@ -87,6 +87,44 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 }
 
++ (void)initializePublisherData:(NSString *)apiKey onLoad:(void (^)(BOOL))load {
+    [TradeItTicketController initializePublisherData:apiKey withDebug:NO onLoad:load];
+}
+
++ (void)initializePublisherData:(NSString *) apiKey withDebug:(BOOL) debug onLoad:(void(^)(BOOL)) load {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeBrokerCenter;
+    
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.debugMode = debug;
+    
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
+    
+    [ticket retrievePublisherData: load];
+}
+
++ (void)showBrokerCenterWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
+    [TradeItTicketController showBrokerCenterWithApiKey:apiKey viewController:view withDebug:NO onLoad:nil onCompletion:nil];
+}
+
++ (void)showBrokerCenterWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onLoad:(void(^)(BOOL)) load onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.presentationMode = TradeItPresentationModeBrokerCenter;
+
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.parentView = view;
+    ticket.callback = callback;
+    ticket.debugMode = debug;
+
+    if (debug) {
+        ticket.connector.environment = TradeItEmsTestEnv;
+    }
+
+    [ticket launchBrokerCenterFlow: load];
+}
+
 + (void)showAccountsWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
     [self showAccountsWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
 }
