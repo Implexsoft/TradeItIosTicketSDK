@@ -27,5 +27,6 @@
 @property NSString * accountName;
 
 -(void) configureCellWithAccount:(TTSDKPortfolioAccount *)portfolioAccount;
+-(void) setBalanceNil;
 
 @end

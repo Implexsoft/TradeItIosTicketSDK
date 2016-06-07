@@ -80,6 +80,12 @@
     [self.circleGraphic.layer addSublayer:circleLayer];
 }
 
+-(void) setBalanceNil {
+    self.buyingPowerLabel.text = @"";
+    self.buyingPowerLoadingIndicator.hidden = YES;
+    [self.buyingPowerLoadingIndicator stopAnimating];
+}
+
 
 #pragma mark Custom Recognizers
 

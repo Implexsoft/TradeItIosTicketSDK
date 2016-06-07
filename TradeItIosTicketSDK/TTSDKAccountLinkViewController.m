@@ -73,14 +73,20 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
     [self.linkTableView reloadData];
 
-    if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
+    if (self.relinking) {
 
-        [self authenticate:^(TradeItResult * res) {
-            [self loadBalances];
-        }];
+        [self.linkTableView reloadData];
 
     } else {
-        [self loadBalances];
+        if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
+            
+            [self authenticate:^(TradeItResult * res) {
+                [self loadBalances];
+            }];
+            
+        } else {
+            [self loadBalances];
+        }
     }
 }
 
@@ -120,6 +126,10 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [cell setDelegate: self];
 
     [cell configureCellWithAccount: [portfolioService.accounts objectAtIndex: indexPath.row]];
+
+    if (self.relinking) {
+        [cell setBalanceNil];
+    }
 
     return cell;
 }
@@ -218,8 +228,8 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
 }
 
-- (IBAction)donePressed:(id)sender {
-    if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+-(IBAction) donePressed:(id)sender {
+    if (self.relinking || self.ticket.presentationMode == TradeItPresentationModeAccounts) {
         [self.ticket returnToParentApp];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -227,7 +237,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 }
 
 -(IBAction) doneBarButtonPressed:(id)sender {
-    if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+    if (self.relinking || self.ticket.presentationMode == TradeItPresentationModeAccounts) {
         [self.ticket returnToParentApp];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];

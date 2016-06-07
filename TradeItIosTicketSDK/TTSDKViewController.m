@@ -9,6 +9,7 @@
 #import "TTSDKViewController.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKAlertController.h"
+#import "TTSDKAccountLinkViewController.h"
 
 @interface TTSDKViewController()
     @property (copy) void (^acceptanceBlock)();
@@ -18,6 +19,7 @@
 @implementation TTSDKViewController
 
 static NSString * kLoginNavIdentifier = @"AUTH_NAV";
+static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
 #pragma mark Rotation
 
@@ -68,7 +70,7 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
 }
 
 -(void) authenticate:(void (^)(TradeItResult * resultToReturn)) completionBlock {
-    [self authenticateSession:self.ticket.currentSession cancelToParent:YES broker:NULL withCompletionBlock:completionBlock];
+    [self authenticateSession:self.ticket.currentSession cancelToParent:NO broker:NULL withCompletionBlock:completionBlock];
 }
 
 -(void) authenticateSession:(TTSDKTicketSession *) session cancelToParent:(BOOL) cancelToParent broker:(NSString *) broker withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
@@ -118,6 +120,10 @@ static NSString * kLoginNavIdentifier = @"AUTH_NAV";
                 UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     if (cancelToParent) {
                         [self.ticket returnToParentApp];
+                    } else {
+                        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+                        UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
+                        [self presentViewController:accountLinkNav animated:YES completion:nil];
                     }
                 }];
 
