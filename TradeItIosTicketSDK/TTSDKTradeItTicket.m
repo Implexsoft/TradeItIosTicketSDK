@@ -527,6 +527,22 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 #pragma mark - Accounts
 
+-(BOOL) isAccountCurrentAccount:(NSDictionary *)account {
+    if (!self.currentAccount) {
+        return NO;
+    }
+
+    return [[account valueForKey:@"accountNumber"] isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]];
+}
+
+-(BOOL) isPortfolioAccountCurrentAccount:(TTSDKPortfolioAccount *)account {
+    if (!self.currentAccount) {
+        return NO;
+    }
+
+    return [account.accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]];
+}
+
 -(void) replaceAccountsWithNewAccounts:(NSArray *)accounts {
     NSMutableArray * storedAccounts = [[TTSDKPortfolioService allAccounts] mutableCopy];
 
@@ -594,11 +610,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber {
-    // Is same account as current?
-    if ([accountNumber isEqualToString: [self.currentAccount valueForKey:@"accountNumber"]]) {
-        return;
-    }
-
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
     for (NSDictionary *account in linkedAccounts) {

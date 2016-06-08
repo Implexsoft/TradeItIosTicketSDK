@@ -26,6 +26,7 @@
 #import "TTSDKPosition.h"
 #import "TTSDKPublisherService.h"
 
+
 @interface TTSDKTradeItTicket : NSObject
 
 @property BOOL brokerSignUpComplete;
@@ -76,6 +77,7 @@
 -(TTSDKTicketSession *)retrieveSessionByAccount:(NSDictionary *)account;
 
 #pragma mark Accounts
+-(BOOL) isAccountCurrentAccount:(NSDictionary *)account;
 -(void) configureAccountLinkNavController:(UINavigationController *)nav;
 -(void) selectCurrentAccount:(NSDictionary *)account;
 -(void) selectCurrentAccountByAccountNumber:(NSString *)accountNumber;

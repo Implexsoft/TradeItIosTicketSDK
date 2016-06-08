@@ -63,10 +63,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewDidLoad {
     [super viewDidLoad];
 
-    if (!self.ticket.currentSession.isAuthenticated) {
-        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:NO];
-    }
-
     if([self.ticket.previewRequest.orderQuantity intValue] > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
@@ -178,6 +174,12 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    if (!self.ticket.currentSession.isAuthenticated) {
+        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:NO];
+    } else {
+        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES];
+    }
+
     if (self.ticket.loadingQuote) {
         [self waitForQuotes];
     } else {
@@ -185,8 +187,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     }
 
     if (!self.ticket.currentSession.isAuthenticated && !self.ticket.currentSession.authenticating) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-
         [self authenticate];
     } else {
         [self retrieveAccountSummaryData];
@@ -459,7 +459,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     NSString * newLimitString;
     
     if (key == 11) { // backspace
-        newLimitString = [currentLimitPrice substringToIndex:[currentLimitPrice length] - 1];
+        if ([currentLimitPrice isEqualToString:@""]) {
+            newLimitString = @"";
+        } else {
+            newLimitString = [currentLimitPrice substringToIndex:[currentLimitPrice length] - 1];
+        }
     } else if (key == 10) { // decimal point
         newLimitString = [NSString stringWithFormat:@"%@.", currentLimitPrice];
     } else {
@@ -476,11 +480,15 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     if (key == 10 && [currentStopPrice rangeOfString:@"."].location != NSNotFound) { // don't allow more than one decimal point
         return;
     }
-    
+
     NSString * newStopString;
-    
+
     if (key == 11) { // backspace
-        newStopString = [currentStopPrice substringToIndex:[currentStopPrice length] - 1];
+        if ([currentStopPrice isEqualToString:@""]) {
+            newStopString = @"";
+        } else {
+            newStopString = [currentStopPrice substringToIndex:[currentStopPrice length] - 1];
+        }
     } else if (key == 10) { // decimal point
         newStopString = [NSString stringWithFormat:@"%@.", currentStopPrice];
     } else {

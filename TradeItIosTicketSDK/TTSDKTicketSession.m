@@ -13,6 +13,7 @@
 #import "TTSDKTradeViewController.h"
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKAlertController.h"
+#import "TTSDKAccountLinkViewController.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -27,6 +28,7 @@
 
 @implementation TTSDKTicketSession
 
+static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
 - (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
     self = [super initWithConnector:connector];
@@ -108,6 +110,7 @@
         self.needsAuthentication = YES;
 
         if ([res isKindOfClass:TradeItErrorResult.class]) {
+
             TradeItErrorResult * error = (TradeItErrorResult *) res;
             if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
@@ -118,12 +121,15 @@
             }
 
         } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
+
             TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
 
             if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
+
                 if (![UIAlertController class]) {
                     [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
                 } else {
+
                     TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Verify Identity"
                                                                                     message: result.securityQuestion
                                                                              preferredStyle:UIAlertControllerStyleAlert];
@@ -141,7 +147,7 @@
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
-                                                                              [delegateViewController dismissViewControllerAnimated:YES completion:nil];
+                                                                              [self launchAccountLink:viewController];
                                                                           }];
                     [alert addAction:cancelAction];
 
@@ -167,7 +173,7 @@
                     [utils styleAlertController: alert.view];
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        [delegateViewController dismissViewControllerAnimated:YES completion:nil];
+                        [self launchAccountLink:viewController];
                     }];
 
                     UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
@@ -176,7 +182,7 @@
                                                                                   [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
                                                                               }];
                                                                           }];
-                    
+
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
                     [alert addAction:cancelAction];
                     [alert addAction:submitAction];
@@ -192,6 +198,16 @@
             }
         }
     }
+}
+
+-(void) launchAccountLink:(UIViewController *)viewController {
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
+    
+    TTSDKAccountLinkViewController * accountLinkVC = (TTSDKAccountLinkViewController *)[accountLinkNav.viewControllers objectAtIndex:0];
+    accountLinkVC.relinking = YES;
+    
+    [viewController presentViewController:accountLinkNav animated:YES completion:nil];
 }
 
 -(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {

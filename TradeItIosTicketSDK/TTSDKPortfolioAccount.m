@@ -137,7 +137,6 @@ static double kLoadInterval = -30.0f;
 
         [self.session getPositionsFromAccount: accountData withCompletionBlock:^(NSArray * positions) {
             self.positionsComplete = YES;
-            
             if (positions != nil) {
                 self.positions = positions;
             } else {
