@@ -121,9 +121,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     if (cancelToParent) {
                         [self.ticket returnToParentApp];
                     } else {
-                        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-                        UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
-                        [self presentViewController:accountLinkNav animated:YES completion:nil];
+                        [self launchAccountLink];
                     }
                 }];
 
@@ -141,6 +139,15 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     }];
 }
 
+-(void) launchAccountLink {
+    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
+
+    TTSDKAccountLinkViewController * accountLinkVC = (TTSDKAccountLinkViewController *)[accountLinkNav.viewControllers objectAtIndex:0];
+    accountLinkVC.relinking = YES;
+
+    [self presentViewController:accountLinkNav animated:YES completion:nil];
+}
 
 #pragma mark Picker
 

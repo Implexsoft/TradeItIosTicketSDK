@@ -49,7 +49,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 #pragma mark Authentication
 
 -(void) authenticate {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     [self authenticate:^(TradeItResult * res) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
         [self retrieveAccountSummaryData];
         [self checkIfReadyToTrade];
     }];

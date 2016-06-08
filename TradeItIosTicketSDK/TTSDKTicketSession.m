@@ -148,7 +148,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
                                                                               [self launchAccountLink:viewController];
-                                                                              //[delegateViewController dismissViewControllerAnimated:YES completion:nil];
                                                                           }];
                     [alert addAction:cancelAction];
 

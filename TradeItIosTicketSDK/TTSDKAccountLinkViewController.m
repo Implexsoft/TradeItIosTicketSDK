@@ -74,9 +74,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self.linkTableView reloadData];
 
     if (self.relinking) {
-
-        [self.linkTableView reloadData];
-
+        [self loadBalances];
     } else {
         if (self.ticket.currentSession && !self.ticket.currentSession.isAuthenticated) {
             
@@ -125,10 +123,13 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
     [cell setDelegate: self];
 
-    [cell configureCellWithAccount: [portfolioService.accounts objectAtIndex: indexPath.row]];
+    TTSDKPortfolioAccount * account = [portfolioService.accounts objectAtIndex: indexPath.row];
+    [cell configureCellWithAccount: account];
 
     if (self.relinking) {
-        [cell setBalanceNil];
+        if ([self.ticket isAccountCurrentAccount:[account accountData]] && !self.ticket.currentSession.isAuthenticated) {
+            [cell setBalanceNil];
+        }
     }
 
     return cell;
@@ -174,23 +175,35 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
                 self.ticket.sessions = [[NSArray alloc] init]; // reset the sessions
                 [self performSegueWithIdentifier:kLoginSegueIdentifier sender:self];
             }
+
+            // Check to see if we're unlinking the current account. If so, auto-select another account
+            if ([self.ticket isAccountCurrentAccount:[account accountData]]) {
+                [self autoSelectNewAccount];
+            }
+
         } onCancel:^(void) {
             toggle.on = YES;
         }];
     } else {
         [self toggleAccount: account];
-    }
 
-    // Check to see if we're unlinking the current account. If so, auto-select another account
-    if ([account.accountNumber isEqualToString:[self.ticket.currentAccount valueForKey: @"accountNumber"]]) {
-        TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
-
-        NSDictionary * newAcctData = [newSelectedAccount accountData];
-        if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
-            [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: newAcctData] andAccount:newAcctData];
-        } else {
-            [self.ticket selectCurrentAccount: newAcctData];
+        // Check to see if we're unlinking the current account. If so, auto-select another account
+        if ([self.ticket isAccountCurrentAccount:[account accountData]]) {
+            [self autoSelectNewAccount];
         }
+    }
+}
+
+-(void) autoSelectNewAccount {
+    self.relinking = NO;
+
+    TTSDKPortfolioAccount * newSelectedAccount = [portfolioService retrieveAutoSelectedAccount];
+
+    NSDictionary * newAcctData = [newSelectedAccount accountData];
+    if (![newSelectedAccount.userId isEqualToString:self.ticket.currentSession.login.userId]) {
+        [self.ticket selectCurrentSession:[self.ticket retrieveSessionByAccount: newAcctData] andAccount:newAcctData];
+    } else {
+        [self.ticket selectCurrentAccount: newAcctData];
     }
 }
 
@@ -230,6 +243,16 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
 -(IBAction) donePressed:(id)sender {
     if (self.relinking || self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+        
+        if (self.relinking) {
+            if (self.ticket.currentSession.isAuthenticated) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
+
+            self.ticket.sessions = nil;
+        }
+
         [self.ticket returnToParentApp];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -238,6 +261,16 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
 -(IBAction) doneBarButtonPressed:(id)sender {
     if (self.relinking || self.ticket.presentationMode == TradeItPresentationModeAccounts) {
+
+        if (self.relinking) {
+            if (self.ticket.currentSession.isAuthenticated) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
+
+            self.ticket.sessions = nil;
+        }
+
         [self.ticket returnToParentApp];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
