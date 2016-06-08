@@ -14,6 +14,7 @@
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKAlertController.h"
 #import "TTSDKAccountLinkViewController.h"
+#import "TTSDKLoginViewController.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -147,6 +148,12 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
+                                                                              if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
+                                                                                  if(completionBlock) {
+                                                                                      completionBlock(res);
+                                                                                  }
+                                                                                  return;
+                                                                              }
                                                                               [self launchAccountLink:viewController];
                                                                           }];
                     [alert addAction:cancelAction];
@@ -173,6 +180,13 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     [utils styleAlertController: alert.view];
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
+                            if(completionBlock) {
+                                completionBlock(res);
+                            }
+                            return;
+                        }
+
                         [self launchAccountLink:viewController];
                     }];
 
