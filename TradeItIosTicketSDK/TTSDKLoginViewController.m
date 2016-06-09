@@ -301,9 +301,7 @@
                         }];
 
                     } else {
-
                         [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
-
                     }
                 }
             }];
@@ -314,8 +312,10 @@
 -(void) completeAuthenticationAndClose:(TradeItAuthenticationResult *)result account:(NSArray *)accounts session:(TTSDKTicketSession *)session {
     // TODO - refactor to avoid duplication
     if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
+        // auto-select account. this does nothing but ensure the user always has a lastSelectedAccount
+        [self autoSelectAccount: [accounts lastObject] withSession:session];
         self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
-        
+
         if(self.ticket.brokerSignUpCallback) {
             TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
             self.ticket.brokerSignUpCallback(res);

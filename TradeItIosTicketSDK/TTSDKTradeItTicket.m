@@ -159,9 +159,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 #pragma mark - Flow: auth
 
 -(void) launchAuthFlow {
-    if (!self.publisherService) {
-        [self retrievePublisherData];
-    }
+    [self prepareInitialFlow];
 
     [self presentAuthScreen];
 }
