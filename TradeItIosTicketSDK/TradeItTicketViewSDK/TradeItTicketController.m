@@ -175,6 +175,13 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
 }
 
++ (void)showPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view accountNumber:(NSString *)accountNumber {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.initialHighlightedAccountNumber = accountNumber;
+
+    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
+}
+
 + (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
     [TradeItTicketController forceClassesIntoLinker];
 
@@ -209,6 +216,13 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
 
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
+}
+
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view accountNumber:(NSString *)accountNumber {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.initialHighlightedAccountNumber = accountNumber;
+
+    [TradeItTicketController showRestrictedPortfolioWithApiKey:apiKey viewController:view];
 }
 
 +(void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
@@ -365,6 +379,23 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     
     [ticket unlinkAccounts];
+}
+
++(NSArray *) getLinkedAccounts {
+    // If linkedAccounts fails, it will return an empty array
+    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
+
+    NSMutableArray * mutableLinkedAccounts = [[NSMutableArray alloc] init];
+
+    for (NSDictionary * account in linkedAccounts) {
+        NSMutableDictionary * mutableAccount = [[NSMutableDictionary alloc] initWithDictionary:account];
+        [mutableAccount removeObjectForKey:@"active"];
+        [mutableAccount removeObjectForKey:@"UserId"];
+
+        [mutableLinkedAccounts addObject:[mutableAccount copy]];
+    }
+
+    return [mutableLinkedAccounts copy];
 }
 
 +(NSArray *) getLinkedBrokers {

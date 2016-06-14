@@ -106,9 +106,10 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 -(TTSDKPortfolioAccount *) retrieveAutoSelectedAccount {
     /*
      Algorithm for auto account selection:
-     1. Check for last highlighted account
-     2. If it doesn't exist, check for last traded account
-     3. If that doesn't exist, find the first linked account
+     1. Check for initial selected account
+     2. Check for last highlighted account
+     3. If it doesn't exist, check for last traded account
+     4. If that doesn't exist, find the first linked account
      */
 
     TTSDKPortfolioAccount * selectedAccount = nil;
@@ -117,7 +118,16 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     NSString * lastHighlighted = [defaults objectForKey: kLastHighlightedAccountKey];
     NSString * lastSelected = [defaults objectForKey: kLastSelectedKey];
 
-    if (lastHighlighted) {
+    if (globalTicket.initialHighlightedAccountNumber) {
+        selectedAccount = [self accountByAccountNumber: globalTicket.initialHighlightedAccountNumber];
+        if (!selectedAccount || !selectedAccount.active) {
+            selectedAccount = nil;
+        } else {
+            globalTicket.initialHighlightedAccountNumber = nil;
+        }
+    }
+
+    if (!selectedAccount && lastHighlighted) {
         selectedAccount = [self accountByAccountNumber: lastHighlighted];
         if (!selectedAccount || !selectedAccount.active) {
             selectedAccount = nil;

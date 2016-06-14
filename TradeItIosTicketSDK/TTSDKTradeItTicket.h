@@ -37,6 +37,7 @@
 @property UIViewController * parentView;
 @property NSString * errorTitle;
 @property NSString * errorMessage;
+@property NSString * initialHighlightedAccountNumber; // override for initial account to highlight in portfolio view
 @property (nonatomic) NSArray * brokerList;
 @property NSArray * sessions;
 @property (nonatomic) NSDictionary * currentAccount;
