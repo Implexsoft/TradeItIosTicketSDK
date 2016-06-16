@@ -291,4 +291,11 @@ typedef NS_ENUM(NSInteger, TradeItPresentationMode) {
 +(NSString *) getBrokerDisplayString:(NSString *) brokerIdentifier;
 
 
+/**
+ *
+ *
+ *
+ */
++(void)getSessions: (UIViewController *) viewController withApiKey:(NSString *) apiKey onCompletion:(void(^)(NSArray * sessions)) callback;
+
 @end
