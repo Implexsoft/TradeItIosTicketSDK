@@ -1,4 +1,9 @@
-# Created by https://www.gitignore.io
+# OS X
+.DS_Store
+
+# vim
+*.swp
+*.un~
 
 ### Xcode ###
 build/
