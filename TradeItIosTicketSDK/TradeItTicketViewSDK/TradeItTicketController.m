@@ -480,14 +480,6 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
     
-    
-//TODO - REMOVE ME
-    ticket.connector.environment = TradeItEmsTestEnv;
-    
-    
-    
-    
-    
     if(!ticket.sessions || ![ticket.sessions count]) {
         [ticket createSessions: nil];
     }
@@ -532,24 +524,39 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
                     sessionToAuthCounter++;
                     [sessionsNeedingManualAuth addObject:session];
                 } else if(session.needsAuthentication) {
-                    
+                    sessionToAuthCounter++;
                     //TODO think about how to handle this
-                    
                 } else if(session.isAuthenticated) {
                     sessionToAuthCounter++;
                     [sessions addObject:session];
-                } else {
+                } else if(!session.authenticating){
+                    sessionToAuthCounter++;
                     //TODO think about how to handle this, this doesn't exist
                 }
             }
-            
-            NSLog(@"In the while loop");
             
             [NSThread sleepForTimeInterval:0.2f];
         }
         
         [TradeItTicketController handleManualLogin:viewController sessions:sessions sessionsToAuth:sessionsNeedingManualAuth ogCallback:callback];
     });
+}
+
++(void)getSessions: (UIViewController *) viewController withApiKey:(NSString *) apiKey updateInvalidSession:(NSDictionary *) invalidSession onCompletion:(void(^)(NSArray * sessions)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    
+    if(ticket.sessions && [ticket.sessions count]) {
+        for (TTSDKTicketSession * session in ticket.sessions) {
+            if([session.login.userId isEqualToString:invalidSession[@"UserId"]]) {
+                session.isAuthenticated = NO;
+                session.needsAuthentication = YES;
+                break;
+            }
+        }
+    }
+    
+    [self getSessions:viewController withApiKey:apiKey onCompletion:callback];
 }
 
 +(void) handleManualLogin: (UIViewController *) viewController sessions:(NSMutableArray *) sessions sessionsToAuth:(NSMutableArray *) sessionsToAuth ogCallback:(void(^)(NSArray * sessions)) ogCallback {
@@ -579,8 +586,28 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 
         [viewController presentViewController:loginNav animated:YES completion:nil];
     } else {
-        ogCallback(sessions);
+        ogCallback([self mapSessionsWithAccounts:sessions]);
     }
+}
+
++(NSMutableArray *) mapSessionsWithAccounts: (NSMutableArray *) sessions {
+    NSMutableArray * mappedSessions = [[NSMutableArray alloc] init];
+    NSArray * storedAccounts = [TTSDKPortfolioService allAccounts];
+    
+    for (NSDictionary * account in storedAccounts) {
+        if(account[@"active"]) {
+            for (TTSDKTicketSession * session in sessions) {
+                if([session.login.userId isEqualToString:account[@"UserId"]]) {
+                    NSMutableDictionary * mappedSession = [[NSMutableDictionary alloc] initWithDictionary:account];
+                    mappedSession[@"token"] = session.token;
+                    [mappedSessions addObject:mappedSession];
+                    break;
+                }
+            }
+        }
+    }
+    
+    return mappedSessions;
 }
 
 /*
