@@ -158,7 +158,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         // This is a bit weird, but prevents unnecessary complexity for showing alerts
         TradeItErrorResult * error = [[TradeItErrorResult alloc] init];
         error.shortMessage = [NSString stringWithFormat:@"Unlink %@", account.broker];
-        error.longMessages = @[ [NSString stringWithFormat:@"Deselecting all the accounts for %@ will automatically delete this broker and its associated data.", account.broker], @"Tap \"Add Broker\" to bring it back"];
+        error.longMessages = @[ [NSString stringWithFormat:@"Deselecting all the accounts for %@ will automatically delete this broker and its associated data. ", account.broker], @"Tap \"Add Broker\" to bring it back"];
 
         // Prompt the user to either login or cancel the unlink action
         [self showErrorAlert:error onAccept:^(void){
