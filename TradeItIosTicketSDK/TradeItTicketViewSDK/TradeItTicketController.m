@@ -60,7 +60,7 @@ static NSString * kDefaultOrderType = @"market";
 static NSString * kDefaultOrderExpiration = @"day";
 static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time constants
 
-#pragma mark Class Initialization
+#pragma mark - Class Initialization
 
 +(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
@@ -88,11 +88,16 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 }
 
-+ (void)initializePublisherData:(NSString *)apiKey onLoad:(void (^)(BOOL))load {
-    [TradeItTicketController initializePublisherData:apiKey withDebug:NO onLoad:load];
++ (void)initializePublisherData:(NSString *)apiKey
+                         onLoad:(void (^)(BOOL))load {
+    [TradeItTicketController initializePublisherData:apiKey
+                                           withDebug:NO
+                                              onLoad:load];
 }
 
-+ (void)initializePublisherData:(NSString *) apiKey withDebug:(BOOL) debug onLoad:(void(^)(BOOL)) load {
++ (void)initializePublisherData:(NSString *)apiKey
+                      withDebug:(BOOL)debug
+                         onLoad:(void(^)(BOOL))load {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeBrokerCenter;
     
@@ -106,11 +111,20 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [ticket retrievePublisherData: load];
 }
 
-+ (void)showBrokerCenterWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
-    [TradeItTicketController showBrokerCenterWithApiKey:apiKey viewController:view withDebug:NO onLoad:nil onCompletion:nil];
++ (void)showBrokerCenterWithApiKey:(NSString *)apiKey
+                    viewController:(UIViewController *)view {
+    [TradeItTicketController showBrokerCenterWithApiKey:apiKey
+                                         viewController:view
+                                              withDebug:NO
+                                                 onLoad:nil
+                                           onCompletion:nil];
 }
 
-+ (void)showBrokerCenterWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onLoad:(void(^)(BOOL)) load onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showBrokerCenterWithApiKey:(NSString *)apiKey
+                    viewController:(UIViewController *)view
+                         withDebug:(BOOL)debug
+                            onLoad:(void(^)(BOOL))load
+                      onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeBrokerCenter;
 
@@ -126,11 +140,18 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [ticket launchBrokerCenterFlow: load];
 }
 
-+ (void)showAccountsWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
-    [self showAccountsWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
++ (void)showAccountsWithApiKey:(NSString *)apiKey
+                viewController:(UIViewController *)view {
+    [self showAccountsWithApiKey:apiKey
+                  viewController:view
+                       withDebug:NO
+                    onCompletion:nil];
 }
 
-+ (void)showAccountsWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showAccountsWithApiKey:(NSString *)apiKey
+                viewController:(UIViewController *)view
+                     withDebug:(BOOL)debug
+                  onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeAccounts;
     
@@ -146,21 +167,27 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [ticket launchAccountsFlow];
 }
 
-#pragma mark Authentication Initialization
+#pragma mark - Authentication Initialization
 
-+ (void)showAuthenticationWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
-    [TradeItTicketController showAuthenticationWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
++ (void)showAuthenticationWithApiKey:(NSString *)apiKey
+                      viewController:(UIViewController *)view {
+    [TradeItTicketController showAuthenticationWithApiKey:apiKey
+                                           viewController:view
+                                                withDebug:NO
+                                             onCompletion:nil];
 }
 
-+ (void)showAuthenticationWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showAuthenticationWithApiKey:(NSString *)apiKey
+                      viewController:(UIViewController *)view
+                           withDebug:(BOOL)debug onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeAuth;
-    
+
     ticket.parentView = view;
-    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey:apiKey];
     ticket.debugMode = debug;
     ticket.callback = callback;
-    
+
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
@@ -169,20 +196,32 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 }
 
 
-#pragma mark Portfolio Initialization
+#pragma mark - Portfolio Initialization
 
-+ (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view {
-    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
++ (void)showPortfolioWithApiKey:(NSString *)apiKey
+                 viewController:(UIViewController *) view {
+    [TradeItTicketController showPortfolioWithApiKey:apiKey
+                                      viewController:view
+                                           withDebug:NO
+                                        onCompletion:nil];
 }
 
-+ (void)showPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view accountNumber:(NSString *)accountNumber {
++ (void)showPortfolioWithApiKey:(NSString *)apiKey
+                 viewController:(UIViewController *)view
+                  accountNumber:(NSString *)accountNumber {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.initialHighlightedAccountNumber = accountNumber;
 
-    [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view withDebug:NO onCompletion:nil];
+    [TradeItTicketController showPortfolioWithApiKey:apiKey
+                                      viewController:view
+                                           withDebug:NO
+                                        onCompletion:nil];
 }
 
-+ (void)showPortfolioWithApiKey:(NSString *) apiKey viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showPortfolioWithApiKey:(NSString *)apiKey
+                 viewController:(UIViewController *)view
+                      withDebug:(BOOL)debug
+                   onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     [TradeItTicketController forceClassesIntoLinker];
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
@@ -195,7 +234,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
     ticket.previewRequest.orderAction = kDefaultOrderAction;
     ticket.previewRequest.orderPriceType = kDefaultOrderType;
-    ticket.previewRequest.orderQuantity = [NSNumber numberWithInt: kDefaultOrderQuantity];
+    ticket.previewRequest.orderQuantity = [NSNumber numberWithInt:kDefaultOrderQuantity];
     ticket.previewRequest.orderExpiration = kDefaultOrderExpiration;
 
     if (ticket.presentationMode == TradeItPresentationModeNone) {
@@ -211,21 +250,27 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TradeItTicketController showTicket];
 }
 
-+(void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view {
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey
+                           viewController:(UIViewController *)view {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
 
     [TradeItTicketController showPortfolioWithApiKey:apiKey viewController:view];
 }
 
-+ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view accountNumber:(NSString *)accountNumber {
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey
+                           viewController:(UIViewController *)view
+                            accountNumber:(NSString *)accountNumber {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.initialHighlightedAccountNumber = accountNumber;
 
     [TradeItTicketController showRestrictedPortfolioWithApiKey:apiKey viewController:view];
 }
 
-+(void) showRestrictedPortfolioWithApiKey:(NSString *)apiKey viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
++ (void)showRestrictedPortfolioWithApiKey:(NSString *)apiKey
+                           viewController:(UIViewController *)view
+                                withDebug:(BOOL)debug
+                             onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModePortfolioOnly;
     
@@ -233,13 +278,21 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 }
 
 
-#pragma mark Ticket Initialization
+#pragma mark - Ticket Initialization
 
-+(void) showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
++ (void)showTicketWithApiKey:(NSString *)apiKey
+                      symbol:(NSString *)symbol
+              viewController:(UIViewController *)view {
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol orderAction:nil orderQuantity:nil viewController:view withDebug:NO onCompletion:nil];
 }
 
-+(void) showTicketWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol orderAction:(NSString *) action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *) view withDebug:(BOOL) debug onCompletion:(void(^)(TradeItTicketControllerResult * result)) callback {
++ (void)showTicketWithApiKey:(NSString *)apiKey
+                      symbol:(NSString *)symbol
+                 orderAction:(NSString *)action
+               orderQuantity:(NSNumber *)quantity
+              viewController:(UIViewController *)view
+                   withDebug:(BOOL)debug
+                onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     [TradeItTicketController forceClassesIntoLinker];
 
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
@@ -263,6 +316,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 
     ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
@@ -270,14 +324,22 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TradeItTicketController showTicket];
 }
 
-+(void) showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol viewController:(UIViewController *)view {
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey
+                                symbol:(NSString *)symbol
+                        viewController:(UIViewController *)view {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeTradeOnly;
 
     [TradeItTicketController showTicketWithApiKey:apiKey symbol:symbol viewController:view];
 }
 
-+(void) showRestrictedTicketWithApiKey:(NSString *)apiKey symbol:(NSString *)symbol orderAction:(NSString *)action orderQuantity:(NSNumber *)quantity viewController:(UIViewController *)view withDebug:(BOOL)debug onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
++ (void)showRestrictedTicketWithApiKey:(NSString *)apiKey
+                                symbol:(NSString *)symbol
+                           orderAction:(NSString *)action
+                         orderQuantity:(NSNumber *)quantity
+                        viewController:(UIViewController *)view
+                             withDebug:(BOOL)debug
+                          onCompletion:(void (^)(TradeItTicketControllerResult *))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     ticket.presentationMode = TradeItPresentationModeTradeOnly;
 
@@ -285,9 +347,9 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 }
 
 
-#pragma mark Order Validation
+#pragma mark - Order Validation
 
-+(NSString *) retrieveValidatedOrderAction:(NSString *)action {
++ (NSString *)retrieveValidatedOrderAction:(NSString *)action {
     NSString * defaultAction = @"buy";
 
     // protects against nil and empty values
@@ -315,7 +377,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 }
 
-+(NSNumber *) retrieveValidatedOrderQuantity:(NSNumber *)quantity {
++ (NSNumber *)retrieveValidatedOrderQuantity:(NSNumber *)quantity {
     NSNumber * defaultOrderQuantity = @0;
 
     // protects against null and negative values
@@ -328,7 +390,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     return [NSNumber numberWithInt: quantityInt];
 }
 
-+(NSString *) retrieveValidatedOrderType:(NSString *)orderType {
++ (NSString *)retrieveValidatedOrderType:(NSString *)orderType {
     NSString * defaultOrderType = @"market";
 
     if (!orderType || [orderType isEqualToString:@""]) {
@@ -354,7 +416,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 }
 
-+(NSString *) retrieveValidatedOrderExpiration:(NSString *)expiration {
++ (NSString *)retrieveValidatedOrderExpiration:(NSString *)expiration {
     NSString * defaultExpiration = @"day";
 
     if (!expiration || [expiration isEqualToString:@""]) {
@@ -373,15 +435,15 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 }
 
 
-#pragma mark Ticket Utilities
+#pragma mark - Ticket Utilities
 
-+(void) clearSavedData {
++ (void)clearSavedData {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     
     [ticket unlinkAccounts];
 }
 
-+(NSArray *) getLinkedAccounts {
++ (NSArray *)getLinkedAccounts {
     // If linkedAccounts fails, it will return an empty array
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
@@ -398,24 +460,25 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     return [mutableLinkedAccounts copy];
 }
 
-+(NSArray *) getLinkedBrokers {
++ (NSArray *)getLinkedBrokers {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     
     return [ticket.connector getLinkedLogins];
 }
 
-+(NSString *) getBrokerDisplayString:(NSString *) brokerIdentifier {
++ (NSString *)getBrokerDisplayString:(NSString *) brokerIdentifier {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     
     return [ticket getBrokerDisplayString: brokerIdentifier];
 }
 
-
 #pragma mark Instance Initialization
 
--(id) initWithApiKey: (NSString *) apiKey symbol:(NSString *) symbol viewController:(UIViewController *) view {
+- (id)initWithApiKey:(NSString *)apiKey
+              symbol:(NSString *)symbol
+      viewController:(UIViewController *)view {
     self = [super init];
-    
+
     if (self) {
         TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
         ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
@@ -427,20 +490,21 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     return self;
 }
 
--(void) showTicket {
+- (void)showTicket {
     utils = [TTSDKUtils sharedUtils];
     
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
     // initialize quote
     ticket.quote = [[TradeItQuote alloc] init];
+
     if(self.companyName != nil && ![self.companyName isEqualToString:@""]) {
         ticket.quote.companyName = self.companyName;
     }
 
     // initialize preview request
     ticket.previewRequest = [[TradeItPreviewTradeRequest alloc] init];
-    ticket.previewRequest.orderQuantity = [TradeItTicketController retrieveValidatedOrderQuantity: [NSNumber numberWithInt: self.quantity]];
+    ticket.previewRequest.orderQuantity = [TradeItTicketController retrieveValidatedOrderQuantity:[NSNumber numberWithInt: self.quantity]];
     ticket.previewRequest.orderAction = [TradeItTicketController retrieveValidatedOrderAction: self.action];
     ticket.previewRequest.orderPriceType = [TradeItTicketController retrieveValidatedOrderType: self.orderType];
     ticket.previewRequest.orderExpiration = [TradeItTicketController retrieveValidatedOrderExpiration: self.expiration];
@@ -457,13 +521,13 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 
     // initialize debug mode
-    if(self.debugMode) {
+    if (self.debugMode) {
         [ticket setDebugMode: YES];
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
     // initialize completion block
-    if(self.onCompletion != nil) {
+    if (self.onCompletion != nil) {
         [ticket setCallback: self.onCompletion];
     }
 

@@ -95,11 +95,12 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     }];
 }
 
--(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andResult:(TradeItResult *)res {
+-(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController
+                                    withCompletionBlock:(void (^)(TradeItResult *))completionBlock
+                                              andResult:(TradeItResult *)res {
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
         self.isAuthenticated = YES;
         self.broker = self.login.broker;
-
         self.needsAuthentication = NO;
         self.needsManualAuthentication = NO;
 
@@ -107,93 +108,110 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
             completionBlock(res);
         }
     } else {
-
         self.needsAuthentication = YES;
 
         if ([res isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult *error = (TradeItErrorResult *) res;
 
-            TradeItErrorResult * error = (TradeItErrorResult *) res;
             if ([error.code isEqualToNumber:@700]) {
                 self.needsManualAuthentication = YES;
             }
-            
-            if(completionBlock) {
+
+            if (completionBlock) {
                 completionBlock(res);
             }
-
-        } else if (viewController && [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
-
+        } else if (viewController &&
+                   [res isKindOfClass:TradeItSecurityQuestionResult.class]) {
             TradeItSecurityQuestionResult * result = (TradeItSecurityQuestionResult *)res;
 
-            if (result.securityQuestionOptions != nil && result.securityQuestionOptions.count > 0) {
+            if (result.securityQuestionOptions != nil &&
+                result.securityQuestionOptions.count > 0) {
 
                 if (![UIAlertController class]) {
-                    [self showOldMultiSelectWithViewController:viewController withCompletionBlock:completionBlock andSecurityQuestionResult:result];
+                    [self showOldMultiSelectWithViewController:viewController
+                                           withCompletionBlock:completionBlock
+                                     andSecurityQuestionResult:result];
                 } else {
-
-                    TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:@"Verify Identity"
-                                                                                    message: result.securityQuestion
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    TTSDKAlertController *alert = [TTSDKAlertController alertControllerWithTitle:@"Verify Identity"
+                                                                                         message:result.securityQuestion
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
 
-                    for(NSString * title in result.securityQuestionOptions){
-                        UIAlertAction * option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    for (NSString *title in result.securityQuestionOptions) {
+                        UIAlertAction *option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                             [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
                                 [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
                             }];
                         }];
-                        
+
                         [alert addAction:option];
                     }
 
-                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault
+                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
+                                                                            style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
                                                                               if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
-                                                                                  if(completionBlock) {
+                                                                                  if (completionBlock) {
                                                                                       completionBlock(res);
                                                                                   }
+
                                                                                   return;
                                                                               }
+
                                                                               [self launchAccountLink:viewController];
                                                                           }];
                     [alert addAction:cancelAction];
 
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                        [delegateViewController presentViewController:alert
+                                                             animated:YES
+                                                           completion:nil];
+
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+
                         alertPresentationController.sourceView = viewController.view;
                         alertPresentationController.permittedArrowDirections = 0;
-                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0, viewController.view.bounds.size.height / 2.0, 1.0, 1.0);
+                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0,
+                                                                            viewController.view.bounds.size.height / 2.0,
+                                                                            1.0,
+                                                                            1.0);
                     });
                 }
             } else if (result.securityQuestion != nil) {
-
                 if (![UIAlertController class]) {
                     [self showOldSecQuestion:result.securityQuestion];
                 } else {
-                    NSString * title = [NSString stringWithFormat:@"%@ Security Question", self.broker];
-                    TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle: title
-                                                                                    message: result.securityQuestion
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                    NSString *title = [NSString stringWithFormat:@"%@ Security Question", self.broker];
+                    TTSDKAlertController *alert = [TTSDKAlertController alertControllerWithTitle:title
+                                                                                         message:result.securityQuestion
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
 
                     [utils styleAlertController: alert.view];
 
-                    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
+                                                                           style:UIAlertActionStyleDefault
+                                                                         handler:^(UIAlertAction *action) {
                         if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
                             if(completionBlock) {
                                 completionBlock(res);
                             }
+
                             return;
                         }
 
                         [self launchAccountLink:viewController];
                     }];
 
-                    UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT" style:UIAlertActionStyleDefault
+                    UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT"
+                                                                            style:UIAlertActionStyleDefault
                                                                           handler:^(UIAlertAction * action) {
-                                                                              [self answerSecurityQuestion: [[alert textFields][0] text] withCompletionBlock:^(TradeItResult *result) {
-                                                                                  [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                                                                              NSString *securityQuestionAnswer = [[alert textFields][0] text];
+                                                                              [self answerSecurityQuestion:securityQuestionAnswer
+                                                                                       withCompletionBlock:^(TradeItResult *result) {
+                                                                                           [self authenticationRequestReceivedWithViewController:viewController
+                                                                                                                             withCompletionBlock:completionBlock
+                                                                                                                                       andResult:result];
                                                                               }];
                                                                           }];
 
@@ -202,11 +220,16 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     [alert addAction:submitAction];
 
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [delegateViewController presentViewController:alert animated:YES completion:nil];
+                        [delegateViewController presentViewController:alert
+                                                             animated:YES
+                                                           completion:nil];
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                         alertPresentationController.sourceView = viewController.view;
                         alertPresentationController.permittedArrowDirections = 0;
-                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0, viewController.view.bounds.size.height / 2.0, 1.0, 1.0);
+                        alertPresentationController.sourceRect = CGRectMake(viewController.view.bounds.size.width / 2.0,
+                                                                            viewController.view.bounds.size.height / 2.0,
+                                                                            1.0,
+                                                                            1.0);
                     });
                 }
             }
