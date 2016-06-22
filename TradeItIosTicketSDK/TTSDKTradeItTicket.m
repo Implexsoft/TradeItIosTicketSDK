@@ -622,7 +622,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         }
     }
 
-    [self setLastSelected: accountNumber];
+    [self setLastSelected:accountNumber];
 
     if (self.previewRequest) {
         self.previewRequest.accountNumber = accountNumber;
@@ -733,6 +733,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     return brokers;
 }
 
+
 - (NSString *)getBrokerDisplayString:(NSString *) value {
     NSArray *brokers;
     if (self.brokerList) {
@@ -766,6 +767,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     return displayString;
 }
+
 
 - (NSArray *)getBrokerByValueString:(NSString *) valueString {
     NSArray *selectedBroker;
