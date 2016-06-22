@@ -52,7 +52,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 #pragma mark Initialization
 
--(void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     accountsHolder = [[NSArray alloc] init];
@@ -66,7 +66,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     [self.accountsTable reloadData];
@@ -96,7 +96,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) loadPortfolioData {
+- (void)loadPortfolioData {
     TTSDKPortfolioAccount * initialAccount = [portfolioService retrieveAutoSelectedAccount];
     [portfolioService selectAccount: initialAccount.accountNumber];
 
@@ -122,7 +122,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }];
 }
 
--(void) showLoadingAndWait {
+- (void)showLoadingAndWait {
     TTSDKMBProgressHUD * hud = [TTSDKMBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (initialAuthenticationComplete) {
         hud.labelText = @"Retrieving Account Summary";
@@ -175,7 +175,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     });
 }
 
--(NSNumber *) retrieveTotalPortfolioValue {
+- (NSNumber *)retrieveTotalPortfolioValue {
     float totalPortfolioValue = 0.0f;
 
     for (TTSDKPortfolioAccount * portfolioAccount in accountsHolder) {
@@ -188,11 +188,11 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 #pragma mark Table Delegate Methods
 
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return accountsHolder.count;
     } else {
@@ -200,7 +200,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSBundle * resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]];
     NSArray * headerArray;
 
@@ -229,11 +229,11 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return kAccountsHeaderHeight;
     } else {
@@ -241,7 +241,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 0) {
         return kAccountsFooterHeight;
     } else {
@@ -249,7 +249,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdentifier;
     NSString * nibIdentifier;
     NSBundle * resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]];
@@ -308,7 +308,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) handleAccountSelection:(TTSDKPortfolioAccount *)selectedAccount {
+- (void)handleAccountSelection:(TTSDKPortfolioAccount *)selectedAccount {
     [portfolioService selectAccount: selectedAccount.accountNumber];
     positionsHolder = [portfolioService filterPositionsByAccount: selectedAccount];
     
@@ -322,7 +322,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     [self.accountsTable reloadData];
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row != self.selectedAccountIndex) {
             self.selectedAccountIndex = indexPath.row;
@@ -378,7 +378,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) retrieveQuoteDataForPosition:(TTSDKPosition *)position {
+- (void)retrieveQuoteDataForPosition:(TTSDKPosition *)position {
     [portfolioService getQuoteForPosition:position withCompletionBlock:^(TradeItResult * res) {
         if ([res isKindOfClass:TradeItQuotesResult.class]) {
             TradeItQuotesResult * result = (TradeItQuotesResult *)res;
@@ -388,7 +388,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }];
 }
 
--(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UITableViewRowAction.class) {
         if (indexPath.section == 0) {
             return NO;
@@ -439,11 +439,13 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     // nothing to do, but must be implemented
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return kAccountCellHeight;
     } else {
@@ -458,7 +460,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 #pragma mark Custom Delegate Methods
 
--(void) didSelectBuy:(TTSDKPosition *)position {
+- (void)didSelectBuy:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"buy";
     [self updateQuoteByPosition: position];
 
@@ -486,7 +488,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) didSelectSell:(TTSDKPosition *)position {
+- (void)didSelectSell:(TTSDKPosition *)position {
     self.ticket.previewRequest.orderAction = @"sell";
     [self updateQuoteByPosition: position];
 
@@ -514,7 +516,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 }
 
--(void) updateQuoteByPosition:(TTSDKPosition *)position {
+- (void)updateQuoteByPosition:(TTSDKPosition *)position {
     TradeItQuote * quote = [[TradeItQuote alloc] init];
     quote.symbol = position.symbol;
     quote.companyName = position.companyName;
@@ -522,23 +524,30 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     self.ticket.previewRequest.orderSymbol = position.symbol;
 }
 
--(void) didSelectAuth:(TTSDKPortfolioAccount *)account {
-    [self handleAccountSelection: account];
+- (void)didSelectAuth:(TTSDKPortfolioAccount *)account {
+    [self handleAccountSelection:account];
 
     NSDictionary * accountData = [account accountData];
-    TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount: accountData];
+    TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount:accountData];
 
     self.ticket.clearPortfolioCache = YES; // since it's a new authentication, we'll want to go ahead and clear the portfolio cache
 
     if (accountSession.needsManualAuthentication) {
         addBroker = [accountSession broker];
-        [self performSegueWithIdentifier:kPortfolioToLoginSegueIdentifier sender:self];
+        [self performSegueWithIdentifier:kPortfolioToLoginSegueIdentifier
+                                  sender:self];
     } else {
-        [self authenticateSession:accountSession cancelToParent:NO broker:[accountSession broker] withCompletionBlock:^(TradeItResult * res){
-            [portfolioService getSummaryForAccount: account withCompletionBlock:^(void) {
-                [self performSelectorOnMainThread:@selector(handleAccountSelection:) withObject:account waitUntilDone:NO];
-            }];
-        }];
+        [self authenticateSession:accountSession
+                   cancelToParent:NO
+                           broker:[accountSession broker]
+              withCompletionBlock:^(TradeItResult * res) {
+                  [portfolioService getSummaryForAccount:account
+                                     withCompletionBlock:^(void) {
+                      [self performSelectorOnMainThread:@selector(handleAccountSelection:)
+                                             withObject:account
+                                          waitUntilDone:NO];
+                  }];
+              }];
     }
 }
 
@@ -558,26 +567,33 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 #pragma mark Navigation
 
--(IBAction) closePressed:(id)sender {
+- (IBAction)closePressed:(id)sender {
     [self.ticket returnToParentApp];
 }
 
--(IBAction) editAccountsPressed:(id)sender {
+- (IBAction)editAccountsPressed:(id)sender {
     [self performSegueWithIdentifier:@"PortfolioToAccountLink" sender:self];
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
     if ([segue.identifier isEqualToString: kPortfolioToLoginSegueIdentifier]) {
-        UINavigationController * loginNav = (UINavigationController *)[segue destinationViewController];
+        UINavigationController *loginNav = (UINavigationController *)[segue destinationViewController];
 
-        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-        TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: @"LOGIN"];
-        [loginViewController setAddBroker: addBroker];
+        NSString *pathForTradeItIosTicketSDKBundle = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
+                                                                                     ofType:@"bundle"];
+
+        NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:pathForTradeItIosTicketSDKBundle];
+
+        UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
+                                                                    bundle:tradeItIosTicketSDKBundle];
+
+        TTSDKLoginViewController *loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier:@"LOGIN"];
+        [loginViewController setAddBroker:addBroker];
         loginViewController.reAuthenticate = YES;
         loginViewController.isModal = YES;
-        [loginNav pushViewController: loginViewController animated:YES];
+        [loginNav pushViewController:loginViewController animated:YES];
 
         addBroker = nil; // immediately reset
 
@@ -589,7 +605,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
             cancelToParent = NO;
         }
 
-        [self.ticket removeBrokerSelectFromNav: loginNav cancelToParent: cancelToParent];
+        [self.ticket removeBrokerSelectFromNav:loginNav cancelToParent:cancelToParent];
     }
 }
 

@@ -161,7 +161,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
         error.longMessages = @[ [NSString stringWithFormat:@"Deselecting all the accounts for %@ will automatically delete this broker and its associated data. ", account.broker], @"Tap \"Add Broker\" to bring it back"];
 
         // Prompt the user to either login or cancel the unlink action
-        [self showErrorAlert:error onAccept:^(void){
+        [self showErrorAlert:error onAccept:^(void) {
             [self toggleAccount: account];
 
             TTSDKTicketSession * sessionToDelete = [self.ticket retrieveSessionByAccount:[account accountData]];

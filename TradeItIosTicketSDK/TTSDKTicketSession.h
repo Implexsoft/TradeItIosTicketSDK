@@ -29,13 +29,22 @@
 @property TradeItPlaceTradeRequest * tradeRequest;
 @property TradeItGetPositionsRequest * positionsRequest;
 
-- (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker;
-- (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
+- (id)initWithConnector:(TradeItConnector *)connector
+         andLinkedLogin:(TradeItLinkedLogin *)linkedLogin
+              andBroker:(NSString *)broker;
 
-- (void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock;
-- (void) placeTrade:(void (^)(TradeItResult *)) completionBlock;
+- (void)authenticateFromViewController:(UIViewController *)viewController
+                   withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
 
-- (void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock;
-- (void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock;
+- (void)previewTrade:(TradeItPreviewTradeRequest *)previewRequest
+  withCompletionBlock:(void (^)(TradeItResult *))completionBlock;
+
+- (void)placeTrade:(void (^)(TradeItResult *))completionBlock;
+
+- (void)getPositionsFromAccount:(NSDictionary *)account
+            withCompletionBlock:(void (^)(NSArray *))completionBlock;
+
+- (void)getOverviewFromAccount:(NSDictionary *)account
+           withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock;
 
 @end

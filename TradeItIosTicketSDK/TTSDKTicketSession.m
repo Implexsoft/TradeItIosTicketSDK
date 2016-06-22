@@ -31,7 +31,7 @@
 
 static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
-- (id) initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
+- (id)initWithConnector: (TradeItConnector *) connector andLinkedLogin:(TradeItLinkedLogin *)linkedLogin andBroker:(NSString *)broker {
     self = [super initWithConnector:connector];
 
     if (self) {
@@ -43,7 +43,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     return self;
 }
 
--(void) previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
+- (void)previewTrade:(TradeItPreviewTradeRequest *)previewRequest withCompletionBlock:(void (^)(TradeItResult *)) completionBlock {
     if (!previewRequest) {
         return;
     }
@@ -51,7 +51,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     previewRequest.token = self.token;
 
     tradeService = [[TradeItTradeService alloc] initWithSession: self];
-    [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res){
+    [tradeService previewTrade:previewRequest withCompletionBlock:^(TradeItResult * res) {
         if ([res isKindOfClass:TradeItErrorResult.class]) {
             TradeItErrorResult * error = (TradeItErrorResult *)res;
 
@@ -71,7 +71,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     }];
 }
 
--(void) placeTrade:(void (^)(TradeItResult *)) completionBlock {
+- (void)placeTrade:(void (^)(TradeItResult *)) completionBlock {
     if (!self.tradeRequest) {
         return;
     }
@@ -79,7 +79,8 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     [tradeService placeTrade: self.tradeRequest withCompletionBlock: completionBlock];
 }
 
-- (void) authenticateFromViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
+- (void) authenticateFromViewController:(UIViewController *)viewController
+                    withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
     if (!self.login || self.authenticating) {
         return;
     }
@@ -91,11 +92,84 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     [self authenticate:self.login withCompletionBlock:^(TradeItResult * res) {
         self.authenticating = NO;
 
-        [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:res];
+        [self authenticationRequestReceivedWithViewController:viewController
+                                          withCompletionBlock:completionBlock
+                                                    andResult:res];
     }];
 }
 
--(void) authenticationRequestReceivedWithViewController:(UIViewController *)viewController
+- (void)getPositionsFromAccount:(NSDictionary *)account
+            withCompletionBlock:(void (^)(NSArray *))completionBlock {
+    TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+    positionsRequest.token = self.token;
+
+    TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
+
+    [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
+        if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
+            TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
+
+            NSMutableArray * ttsdkPositions = [[NSMutableArray alloc] init];
+
+            for (TradeItPosition * position in positionsResult.positions) {
+                TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
+                [ttsdkPositions addObject: subclassPosition];
+            }
+
+            completionBlock([ttsdkPositions copy]);
+        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *)result;
+
+            if ([error.code isEqualToNumber:@600]) {
+                self.needsAuthentication = YES;
+            } else if ([error.code isEqualToNumber:@700]) {
+                self.needsManualAuthentication = YES;
+            }
+
+            completionBlock(nil);
+        }
+    }];
+}
+
+- (void)getOverviewFromAccount:(NSDictionary *)account
+           withCompletionBlock:(void (^)(TradeItAccountOverviewResult *))completionBlock {
+    TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self];
+    TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
+
+    request.token = self.token;
+
+    [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
+        if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
+            TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;
+            completionBlock(overviewResult);
+        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
+            TradeItErrorResult * error = (TradeItErrorResult *)result;
+
+            if ([error.code isEqualToNumber:@600]) {
+                self.needsAuthentication = YES;
+            } else if ([error.code isEqualToNumber:@700]) {
+                self.needsManualAuthentication = YES;
+            }
+
+            completionBlock(nil);
+        }
+    }];
+}
+
+#pragma mark - UIPickerViewDataSource, UIPickerViewDelegate
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return questionOptions.count;
+}
+
+#pragma mark - private
+
+- (void)authenticationRequestReceivedWithViewController:(UIViewController *)viewController
                                     withCompletionBlock:(void (^)(TradeItResult *))completionBlock
                                               andResult:(TradeItResult *)res {
     if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
@@ -192,16 +266,16 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
                                                                            style:UIAlertActionStyleDefault
                                                                          handler:^(UIAlertAction *action) {
-                        if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
-                            if(completionBlock) {
-                                completionBlock(res);
-                            }
+                                                                             if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
+                                                                                 if(completionBlock) {
+                                                                                     completionBlock(res);
+                                                                                 }
 
-                            return;
-                        }
+                                                                                 return;
+                                                                             }
 
-                        [self launchAccountLink:viewController];
-                    }];
+                                                                             [self launchAccountLink:viewController];
+                                                                         }];
 
                     UIAlertAction * submitAction = [UIAlertAction actionWithTitle:@"SUBMIT"
                                                                             style:UIAlertActionStyleDefault
@@ -212,7 +286,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                                            [self authenticationRequestReceivedWithViewController:viewController
                                                                                                                              withCompletionBlock:completionBlock
                                                                                                                                        andResult:result];
-                                                                              }];
+                                                                                       }];
                                                                           }];
 
                     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {}];
@@ -237,76 +311,19 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     }
 }
 
--(void) launchAccountLink:(UIViewController *)viewController {
+- (void)launchAccountLink:(UIViewController *)viewController {
     UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
-    
+
     TTSDKAccountLinkViewController * accountLinkVC = (TTSDKAccountLinkViewController *)[accountLinkNav.viewControllers objectAtIndex:0];
     accountLinkVC.relinking = YES;
-    
+
     [viewController presentViewController:accountLinkNav animated:YES completion:nil];
 }
 
--(void) getPositionsFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(NSArray *))completionBlock {
-    TradeItGetPositionsRequest * positionsRequest = [[TradeItGetPositionsRequest alloc] initWithAccountNumber:[account valueForKey:@"accountNumber"]];
-
-    positionsRequest.token = self.token;
-
-    TradeItPositionService * positionService = [[TradeItPositionService alloc] initWithSession: self];
-
-    [positionService getAccountPositions: positionsRequest  withCompletionBlock:^(TradeItResult * result) {
-        if ([result isKindOfClass: TradeItGetPositionsResult.class]) {
-            TradeItGetPositionsResult * positionsResult = (TradeItGetPositionsResult *)result;
-
-            NSMutableArray * ttsdkPositions = [[NSMutableArray alloc] init];
-
-            for (TradeItPosition * position in positionsResult.positions) {
-                TTSDKPosition * subclassPosition = [[TTSDKPosition alloc] initWithPosition: position];
-                [ttsdkPositions addObject: subclassPosition];
-            }
-
-            completionBlock([ttsdkPositions copy]);
-        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
-            TradeItErrorResult * error = (TradeItErrorResult *)result;
-
-            if ([error.code isEqualToNumber:@600]) {
-                self.needsAuthentication = YES;
-            } else if ([error.code isEqualToNumber:@700]) {
-                self.needsManualAuthentication = YES;
-            }
-
-            completionBlock(nil);
-        }
-    }];
-}
-
--(void) getOverviewFromAccount:(NSDictionary *)account withCompletionBlock:(void (^)(TradeItAccountOverviewResult *)) completionBlock {
-    TradeItBalanceService * balanceService = [[TradeItBalanceService alloc] initWithSession: self];
-    TradeItAccountOverviewRequest * request = [[TradeItAccountOverviewRequest alloc] initWithAccountNumber: [account valueForKey:@"accountNumber"]];
-
-    request.token = self.token;
-
-    [balanceService getAccountOverview:request withCompletionBlock:^(TradeItResult * result) {
-        if ([result isKindOfClass:TradeItAccountOverviewResult.class]) {
-            TradeItAccountOverviewResult * overviewResult = (TradeItAccountOverviewResult *)result;
-            completionBlock(overviewResult);
-        } else if ([result isKindOfClass:TradeItErrorResult.class]) {
-            TradeItErrorResult * error = (TradeItErrorResult *)result;
-
-            if ([error.code isEqualToNumber:@600]) {
-                self.needsAuthentication = YES;
-            } else if ([error.code isEqualToNumber:@700]) {
-                self.needsManualAuthentication = YES;
-            }
-
-            completionBlock(nil);
-        }
-    }];
-}
-
--(UIView *) createPickerView: (NSString *) title {
+- (UIView *)createPickerView:(NSString *)title {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
-    
+
     UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
     [titleLabel setTextColor:[UIColor blackColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -314,13 +331,13 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     [titleLabel setNumberOfLines:0];
     [titleLabel setText: title];
     [contentView addSubview:titleLabel];
-    
+
     UIPickerView * picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 20, 270, 130)];
     currentPicker = picker;
 
-    [picker setDataSource: self];
-    [picker setDelegate: self];
-    [picker setShowsSelectionIndicator: YES];
+    [picker setDataSource:self];
+    [picker setDelegate:self];
+    [picker setShowsSelectionIndicator:YES];
 
     [contentView addSubview: picker];
     [contentView setNeedsDisplay];
@@ -328,15 +345,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     return contentView;
 }
 
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return questionOptions.count;
-}
-
--(void) showOldSecQuestion:(NSString *) question {
+- (void)showOldSecQuestion:(NSString *)question {
     UIAlertView * alert;
     alert = [[UIAlertView alloc] initWithTitle:@"Security Question" message:question delegate: delegateViewController cancelButtonTitle:@"CANCEL" otherButtonTitles: @"SUBMIT", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -346,7 +355,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     });
 }
 
--(void) showOldMultiSelectWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andSecurityQuestionResult:(TradeItSecurityQuestionResult *)securityQuestionResult {
+- (void)showOldMultiSelectWithViewController:(UIViewController *)viewController withCompletionBlock:(void (^)(TradeItResult *))completionBlock andSecurityQuestionResult:(TradeItSecurityQuestionResult *)securityQuestionResult {
     questionOptions = securityQuestionResult.securityQuestionOptions;
     currentSelection = questionOptions[0];
     
@@ -359,7 +368,9 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
             [delegateViewController dismissViewControllerAnimated:YES completion:nil];
         } else {
             [self answerSecurityQuestion: currentSelection withCompletionBlock:^(TradeItResult * result) {
-                [self authenticationRequestReceivedWithViewController:viewController withCompletionBlock:completionBlock andResult:result];
+                [self authenticationRequestReceivedWithViewController:viewController
+                                                  withCompletionBlock:completionBlock
+                                                            andResult:result];
             }];
         }
     }];
@@ -368,7 +379,5 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         [alert show];
     });
 }
-
-
 
 @end

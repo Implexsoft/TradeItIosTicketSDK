@@ -35,24 +35,24 @@
 }
 
 
-#pragma mark Rotation
+#pragma mark - Rotation
 
--(BOOL) shouldAutorotate {
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
--(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
--(UIInterfaceOrientationMask) supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
-#pragma mark Initialization
+#pragma mark - Initialization
 
--(void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     // Add a "textFieldDidChange" notification method to the text field control.
@@ -66,12 +66,15 @@
 
     selectedBroker = (self.addBroker == nil) ? self.ticket.currentSession.broker : self.addBroker;
 
-    if(self.cancelToParent || self.reAuthenticate) {
+    if (self.cancelToParent || self.reAuthenticate) {
         self.navigationItem.hidesBackButton = YES;
         self.navigationController.navigationItem.hidesBackButton = YES;
 
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(home:)];
-        self.navigationItem.rightBarButtonItem=closeButton;
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+                                                                        style:UIBarButtonItemStyleDone
+                                                                       target:self
+                                                                       action:@selector(home:)];
+        self.navigationItem.rightBarButtonItem = closeButton;
     }
 
     // Listen for keyboard appearances and disappearances
@@ -104,7 +107,7 @@
     [linkAccountButton deactivate];
 }
 
--(void) setViewStyles {
+- (void)setViewStyles {
     [super setViewStyles];
 
     emailInput.layer.borderColor = self.styles.inactiveColor.CGColor;
@@ -122,7 +125,7 @@
     lock.image = lockImage;
 }
 
--(void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     [self checkAuthState];
@@ -152,7 +155,7 @@
     [emailInput becomeFirstResponder];
 }
 
--(void) dismissKeyboard {
+- (void)dismissKeyboard {
     if (emailInput.isFirstResponder) {
         [emailInput resignFirstResponder];
     }
@@ -163,9 +166,9 @@
 }
 
 
-#pragma mark Authentication
+#pragma mark - Authentication
 
--(void) checkAuthState {
+- (void)checkAuthState {
     if(self.ticket.brokerSignUpComplete) {
         TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] init];
         res.success = true;
@@ -178,7 +181,7 @@
     }
 }
 
--(IBAction) linkAccountPressed:(id)sender {
+- (IBAction)linkAccountPressed:(id)sender {
     if(emailInput.text.length < 1 || passwordInput.text.length < 1) {
         NSString * message = [NSString stringWithFormat:@"Please enter a %@ and password.",  [self.utils getBrokerUsername: self.ticket.currentSession.broker]];
 
@@ -206,7 +209,7 @@
     }
 }
 
--(void) authenticate {
+- (void)authenticate {
     selectedBroker = self.addBroker == nil ? self.ticket.currentSession.broker : self.addBroker;
 
     self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:selectedBroker];
@@ -309,7 +312,9 @@
     }];
 }
 
--(void) completeAuthenticationAndClose:(TradeItAuthenticationResult *)result account:(NSArray *)accounts session:(TTSDKTicketSession *)session {
+- (void)completeAuthenticationAndClose:(TradeItAuthenticationResult *)result
+                               account:(NSArray *)accounts
+                               session:(TTSDKTicketSession *)session {
     // TODO - refactor to avoid duplication
     if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
         // auto-select account. this does nothing but ensure the user always has a lastSelectedAccount
@@ -347,7 +352,7 @@
     }
 }
 
--(void) autoSelectAccount:(NSDictionary *)account withSession:(TTSDKTicketSession *)session {
+- (void)autoSelectAccount:(NSDictionary *)account withSession:(TTSDKTicketSession *)session {
     NSDictionary * lastAccount = account;
     NSDictionary * selectedAccount;
 
@@ -361,7 +366,7 @@
     [self.ticket selectCurrentSession:session andAccount:selectedAccount];
 }
 
--(NSArray *) buildAccountOptions:(NSArray *)accounts {
+- (NSArray *)buildAccountOptions:(NSArray *)accounts {
     NSMutableArray * multiAccountsArray = [[NSMutableArray alloc] init];
 
     for (NSDictionary * acct in accounts) {
@@ -379,13 +384,13 @@
     return [multiAccountsArray copy];
 }
 
-#pragma mark Text Editing Delegates
+#pragma mark - Text Editing Delegates
 
--(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     return YES;
 }
 
--(BOOL) textFieldShouldEndEditing:(UITextField *)textField {
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
         [linkAccountButton activate];
     } else {
@@ -395,7 +400,7 @@
     return YES;
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if(emailInput.text.length < 1) {
         [emailInput becomeFirstResponder];
     } else if(passwordInput.text.length < 1) {
@@ -407,7 +412,7 @@
     return YES;
 }
 
--(void) keyboardDidShow: (NSNotification *) notification {
+- (void)keyboardDidShow: (NSNotification *) notification {
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
@@ -415,11 +420,11 @@
     loginButtonBottomConstraint.constant = keyboardFrameBeginRect.size.height + 20.0f;
 }
 
--(void) keyboardDidHide: (NSNotification *) notification {
+- (void)keyboardDidHide: (NSNotification *) notification {
     loginButtonBottomConstraint.constant = 20.0f;
 }
 
--(void) textFieldDidChange:(UITextField *)textField {
+- (void)textFieldDidChange:(UITextField *)textField {
     if(emailInput.text.length >= 1 && passwordInput.text.length >= 1) {
         [linkAccountButton activate];
     } else {
@@ -428,9 +433,9 @@
 }
 
 
-#pragma mark Navigation
+#pragma mark - Navigation
 
--(void) home:(UIBarButtonItem *)sender {
+- (void)home:(UIBarButtonItem *)sender {
     if (self.cancelToParent) {
         [self.ticket returnToParentApp];
     } else if (self.isModal) {
@@ -440,7 +445,7 @@
     }
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
     if ([segue.identifier isEqualToString:@"LoginToTab"]) {
@@ -458,9 +463,9 @@
 }
 
 
-#pragma mark iOS7 fallback
+#pragma mark - iOS7 fallback
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     // nothing to do
 }
 
