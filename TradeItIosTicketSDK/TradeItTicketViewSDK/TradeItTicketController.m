@@ -535,6 +535,144 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     [TradeItTicketController showTicket];
 }
 
++(void)getSessions: (UIViewController *) viewController withApiKey:(NSString *) apiKey onCompletion:(void(^)(NSArray * sessions)) callback {
+    NSMutableArray * sessions = [[NSMutableArray alloc] init];
+    NSMutableArray * sessionsInAuth = [[NSMutableArray alloc] init];
+    NSMutableArray * sessionsToAuth = [[NSMutableArray alloc] init];
+    NSMutableArray * sessionsNeedingManualAuth = [[NSMutableArray alloc] init];
+    
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    
+    if(!ticket.sessions || ![ticket.sessions count]) {
+        [ticket createSessions: nil];
+    }
+    
+    for (TTSDKTicketSession * session in ticket.sessions) {
+        if(session.isAuthenticated) {
+            [sessions addObject:session];
+        } else if(session.authenticating) {
+            [sessionsInAuth addObject:session];
+        } else if(session.needsAuthentication || session.needsManualAuthentication || !session.isAuthenticated) {
+            [sessionsToAuth addObject:session];
+        } else {
+            NSLog(@"WHAT?! Shouldn't be in this state");
+        }
+    }
+    
+    __block int sessionToAuthCounter = 0;
+    int totalSessionsToAuthCount = (int)[sessionsToAuth count] + (int)[sessionsInAuth count];
+    
+    for (TTSDKTicketSession * session in sessionsToAuth) {
+        
+        [session authenticateFromViewController:viewController withCompletionBlock:^(TradeItResult * result) {
+            sessionToAuthCounter++;
+            
+            if(![result isKindOfClass:[TradeItErrorResult class]]) {
+                [sessions addObject:session];
+            } else {
+                if(session.needsManualAuthentication) {
+                    [sessionsNeedingManualAuth addObject:session];
+                } else {
+                    //TODO think about how to handle this
+                }
+            }
+        }];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        while (sessionToAuthCounter < totalSessionsToAuthCount) {
+            
+            for(TTSDKTicketSession * session in sessionsInAuth) {
+                if(session.needsManualAuthentication) {
+                    sessionToAuthCounter++;
+                    [sessionsNeedingManualAuth addObject:session];
+                } else if(session.needsAuthentication) {
+                    sessionToAuthCounter++;
+                    //TODO think about how to handle this
+                } else if(session.isAuthenticated) {
+                    sessionToAuthCounter++;
+                    [sessions addObject:session];
+                } else if(!session.authenticating){
+                    sessionToAuthCounter++;
+                    //TODO think about how to handle this, this doesn't exist
+                }
+            }
+            
+            [NSThread sleepForTimeInterval:0.2f];
+        }
+        
+        [TradeItTicketController handleManualLogin:viewController sessions:sessions sessionsToAuth:sessionsNeedingManualAuth ogCallback:callback];
+    });
+}
+
++(void)getSessions: (UIViewController *) viewController withApiKey:(NSString *) apiKey updateInvalidSession:(NSDictionary *) invalidSession onCompletion:(void(^)(NSArray * sessions)) callback {
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    ticket.connector = [[TradeItConnector alloc] initWithApiKey: apiKey];
+    
+    if(ticket.sessions && [ticket.sessions count]) {
+        for (TTSDKTicketSession * session in ticket.sessions) {
+            if([session.login.userId isEqualToString:invalidSession[@"UserId"]]) {
+                session.isAuthenticated = NO;
+                session.needsAuthentication = YES;
+                break;
+            }
+        }
+    }
+    
+    [self getSessions:viewController withApiKey:apiKey onCompletion:callback];
+}
+
++(void) handleManualLogin: (UIViewController *) viewController sessions:(NSMutableArray *) sessions sessionsToAuth:(NSMutableArray *) sessionsToAuth ogCallback:(void(^)(NSArray * sessions)) ogCallback {
+    
+    if([sessionsToAuth count]) {
+        TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+        ticket.presentationMode = TradeItPresentationModeAuth;
+        
+        TTSDKTicketSession * session = sessionsToAuth[0];
+
+        UIStoryboard * ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+        UINavigationController * loginNav = (UINavigationController *)[ticketStoryboard instantiateViewControllerWithIdentifier: @"AUTH_NAV"];
+        TTSDKLoginViewController * loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier: @"LOGIN"];
+        [loginViewController setAddBroker: session.broker];
+        loginViewController.reAuthenticate = YES;
+        loginViewController.isModal = YES;
+        [loginNav pushViewController: loginViewController animated:YES];
+        [ticket removeBrokerSelectFromNav: loginNav cancelToParent: YES];
+        
+        ticket.brokerSignUpCallback = ^(TradeItAuthControllerResult * result) {
+            if(result.success) {
+                [sessions addObject:session];
+            }
+            [sessionsToAuth removeObjectAtIndex:0];
+            [self handleManualLogin:viewController sessions:sessions sessionsToAuth:sessionsToAuth ogCallback:ogCallback];
+        };
+
+        [viewController presentViewController:loginNav animated:YES completion:nil];
+    } else {
+        ogCallback([self mapSessionsWithAccounts:sessions]);
+    }
+}
+
++(NSMutableArray *) mapSessionsWithAccounts: (NSMutableArray *) sessions {
+    NSMutableArray * mappedSessions = [[NSMutableArray alloc] init];
+    NSArray * storedAccounts = [TTSDKPortfolioService allAccounts];
+    
+    for (NSDictionary * account in storedAccounts) {
+        if(account[@"active"]) {
+            for (TTSDKTicketSession * session in sessions) {
+                if([session.login.userId isEqualToString:account[@"UserId"]]) {
+                    NSMutableDictionary * mappedSession = [[NSMutableDictionary alloc] initWithDictionary:account];
+                    mappedSession[@"token"] = session.token;
+                    [mappedSessions addObject:mappedSession];
+                    break;
+                }
+            }
+        }
+    }
+    
+    return mappedSessions;
+}
 
 /*
  Storyboards in bundles are static, non-compiled resources.

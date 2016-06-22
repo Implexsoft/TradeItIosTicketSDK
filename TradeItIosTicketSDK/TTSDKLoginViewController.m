@@ -321,12 +321,12 @@
         [self autoSelectAccount: [accounts lastObject] withSession:session];
         self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
 
+        [self.ticket returnToParentApp];
+
         if(self.ticket.brokerSignUpCallback) {
             TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult:result];
             self.ticket.brokerSignUpCallback(res);
         }
-
-        [self.ticket returnToParentApp];
     } else if (self.isModal) {
         if (!multiAccounts) {
             [self autoSelectAccount: [accounts lastObject] withSession:session];

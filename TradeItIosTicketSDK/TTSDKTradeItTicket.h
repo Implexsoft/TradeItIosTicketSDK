@@ -71,6 +71,7 @@
 -(BOOL) checkIsAuthenticationDuplicate:(NSArray *)accounts;
 
 #pragma mark Sessions
+-(void) createSessions: (void (^)(NSString * userId, TTSDKTicketSession * session)) onInitialAccount;
 -(void) addSession:(TTSDKTicketSession *)session;
 -(void) removeSession:(TTSDKTicketSession *)session;
 -(void) selectCurrentSession:(TTSDKTicketSession *)session andAccount:(NSDictionary *)account;

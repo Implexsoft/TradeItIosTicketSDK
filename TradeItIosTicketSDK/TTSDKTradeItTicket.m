@@ -84,7 +84,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
     // If any sessions are in memory at this point, we know that we are simply reopening the ticket
     if ((!self.sessions || !self.sessions.count) || elapsed) {
-        self.sessions = [[NSArray alloc] init];
         self.currentSession = nil;
         self.currentAccount = nil;
         self.previewRequest.accountNumber = @"";
@@ -101,20 +100,12 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
             [self selectCurrentAccount: [linkedAccounts lastObject]];
         }
 
-        // Create a new, unauthenticated session for all stored logins
-        NSArray *linkedLogins = [self.connector getLinkedLogins];
-
-        for (TradeItLinkedLogin *login in linkedLogins) {
-            TTSDKTicketSession *newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector
-                                                                            andLinkedLogin:login
-                                                                                 andBroker:login.broker];
-            [self addSession: newSession];
-
+        [self createSessions: ^(NSString * userId, TTSDKTicketSession * newSession){
             // Attempt to set an initial session
-            if (self.currentAccount && [login.userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
+            if (self.currentAccount && [userId isEqualToString:[self.currentAccount valueForKey: @"UserId"]]) {
                 [self selectCurrentSession: newSession];
             }
-        }
+        }];
 
         if (self.currentSession) {
             [self retrieveQuote:^(void) {}];
@@ -126,6 +117,24 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
 
     self.lastUsed = [NSDate date];
+}
+
+-(void) createSessions: (void (^)(NSString * userId, TTSDKTicketSession * session)) onInitialAccount {
+    self.sessions = [[NSArray alloc] init];
+
+    // Create a new, unauthenticated session for all stored logins
+    NSArray * linkedLogins = [self.connector getLinkedLogins];
+    
+    for (TradeItLinkedLogin * login in linkedLogins) {
+        TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.connector andLinkedLogin:login andBroker: login.broker];
+        [self addSession: newSession];
+        
+        if(onInitialAccount) {
+            onInitialAccount(login.userId, newSession);
+        }
+    }
+    
+    NSLog(@"Created sessions (supposedly)");
 }
 
 
