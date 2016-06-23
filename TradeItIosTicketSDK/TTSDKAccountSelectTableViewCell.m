@@ -84,7 +84,7 @@
     if (loaded) {
         self.buyingPowerLoadingIndicator.hidden = YES;
         [self.buyingPowerLoadingIndicator stopAnimating];
-        self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+        self.buyingPowerLabel.text = account.balance.buyingPower != nil ? [utils formatPriceString:account.balance.buyingPower withLocaleId:account.balance.accountBaseCurrency] : @"N/A";
     } else {
         self.buyingPowerLabel.text = @"";
         self.buyingPowerLoadingIndicator.hidden = NO;

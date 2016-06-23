@@ -36,8 +36,8 @@
     [self.editAccountsButton setTitleColor:styles.activeColor forState:UIControlStateNormal];
 }
 
--(void) populateTotalPortfolioValue:(NSNumber *)value {
-    self.totalPortfolioValueLabel.text = [utils formatPriceString:value];
+-(void) populateTotalPortfolioValue:(NSString *)value {
+    self.totalPortfolioValueLabel.text = value;
 }
 
 

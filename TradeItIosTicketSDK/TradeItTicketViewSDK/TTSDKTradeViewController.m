@@ -38,6 +38,8 @@
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
+    
+    TTSDKUtils * utils;
 
     TTSDKCompanyDetails * companyNib;
 
@@ -173,6 +175,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    utils = [TTSDKUtils sharedUtils];
 
     if (!self.ticket.currentSession.isAuthenticated) {
         [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:NO];
@@ -402,12 +406,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     }
 
     double estimatedCost = shares * price;
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setLocale: US];
 
-    NSString * formattedNumber = [formatter stringFromNumber: [NSNumber numberWithDouble:estimatedCost]];
+    NSString * formattedNumber = [utils formatPriceString:[NSNumber numberWithDouble:estimatedCost] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]];
+    
     NSString * equalitySign = [self.ticket.previewRequest.orderPriceType containsString:@"arket"] ? @"\u2248" : @"=";
     NSString * actionPostfix = ([self.ticket.previewRequest.orderAction isEqualToString:@"buy"]) ? @"Cost" : @"Proceeds";
     NSString * formattedString = [NSString stringWithFormat:@"Est. %@ %@ %@", actionPostfix, equalitySign, formattedNumber];

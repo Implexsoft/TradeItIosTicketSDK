@@ -511,7 +511,13 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
 
     TradeItMarketDataService *quoteService = [[TradeItMarketDataService alloc] initWithSession: self.currentSession];
-    TradeItQuotesRequest *quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: self.quote.symbol];
+    NSString * symbol = self.quote.symbol;
+    
+    if([self.currentAccount[@"accountBaseCurrency"] isEqualToString:@"SGD"]) {
+        symbol = [NSString stringWithFormat:@"%@.SI", symbol];
+    }
+    
+    TradeItQuotesRequest *quotesRequest = [[TradeItQuotesRequest alloc] initWithSymbol: symbol];
 
     [quoteService getQuoteData:quotesRequest withCompletionBlock:^(TradeItResult * res){
         self.loadingQuote = NO;

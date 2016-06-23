@@ -12,6 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *editAccountsButton;
 
--(void) populateTotalPortfolioValue:(NSNumber *)value;
+-(void) populateTotalPortfolioValue:(NSString *)value;
 
 @end

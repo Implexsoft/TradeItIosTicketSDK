@@ -88,7 +88,7 @@
 -(void) populateLastPrice: (NSNumber *)lastPrice {
     NSNumber * theLastPrice = globalTicket.quote.lastPrice;
     if (theLastPrice && (theLastPrice > 0)) {
-        self.lastPriceLabel.text = [utils formatPriceString:theLastPrice];
+        self.lastPriceLabel.text = [utils formatPriceString:theLastPrice withLocaleId:globalTicket.currentAccount[@"accountBaseCurrency"]];
         self.lastPriceLabel.textColor = lastPriceLabelColor;
         self.lastPriceLoadingIndicator.hidden = YES;
     } else {
@@ -145,7 +145,7 @@
             self.symbolDetailLabel.text = @"BUYING POWER";
 
             if (account.balance.buyingPower != nil) {
-                self.symbolDetailValue.text = [utils formatPriceString: account.balance.buyingPower];
+                self.symbolDetailValue.text = [utils formatPriceString: account.balance.buyingPower withLocaleId:account.balance.accountBaseCurrency];
             } else {
                 self.symbolDetailValue.text = @"N/A";
             }
