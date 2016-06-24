@@ -304,8 +304,8 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         } else {
             [cell showSeparator];
         }
-
-        [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row]];
+        
+        [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row] withLocale: portfolioService.selectedAccount.balance.accountBaseCurrency];
 
         if (self.selectedHoldingIndex == indexPath.row) {
             cell.expandedView.hidden = NO;

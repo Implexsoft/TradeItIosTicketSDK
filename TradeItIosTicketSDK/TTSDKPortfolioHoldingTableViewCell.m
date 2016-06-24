@@ -113,12 +113,12 @@ static CGFloat const kBounceValue = 20.0f;
     self.separatorView.hidden = NO;
 }
 
--(void) configureCellWithPosition:(TTSDKPosition *)position {
+-(void) configureCellWithPosition:(TTSDKPosition *)position withLocale:(NSString *) locale {
     // Cost
-    NSString * cost = position.costbasis ? [utils formatPriceString: position.costbasis] : @"N/A";
+    NSString * cost = position.costbasis ? [utils formatPriceString: position.costbasis withLocaleId:locale] : @"N/A";
     self.costLabel.text = [cost isEqualToString:@"0"] ? @"N/A" : cost;
 
-    NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice] : @"N/A";
+    NSString * lastPrice = position.lastPrice != nil ? [utils formatPriceString: position.lastPrice withLocaleId:locale] : @"N/A";
     self.lastLabel.text = lastPrice;
 
     if ([position.symbolClass isEqualToString:@"EQUITY_OR_ETF"]) {
@@ -205,7 +205,7 @@ static CGFloat const kBounceValue = 20.0f;
         totalValue = [utils formatPriceString:position.totalValue];
     } else {
         if (position.quantity && position.quote.lastPrice) {
-            totalValue = [NSString stringWithFormat:@"%@", [utils formatPriceString: [NSNumber numberWithFloat:[position.quantity floatValue] * [position.quote.lastPrice floatValue]]]];
+            totalValue = [NSString stringWithFormat:@"%@", [utils formatPriceString: [NSNumber numberWithFloat:[position.quantity floatValue] * [position.quote.lastPrice floatValue]] withLocaleId:locale]];
         } else {
             totalValue = @"N/A";
         }

@@ -87,12 +87,12 @@
 
         self.authenticateView.hidden = YES;
         if (account.balance.totalValue) {
-            totalValue = [utils formatPriceString:account.balance.totalValue];
+            totalValue = [utils formatPriceString:account.balance.totalValue withLocaleId:account.balance.accountBaseCurrency];
         } else {
             totalValue = @"N/A";
         }
 
-        NSString * buyingPower = account.balance.buyingPower ? [utils formatPriceString:account.balance.buyingPower] : @"N/A";
+        NSString * buyingPower = account.balance.buyingPower ? [utils formatPriceString:account.balance.buyingPower withLocaleId:account.balance.accountBaseCurrency] : @"N/A";
 
         self.valueLabel.text = totalValue;
         self.buyingPowerLabel.text = buyingPower;
