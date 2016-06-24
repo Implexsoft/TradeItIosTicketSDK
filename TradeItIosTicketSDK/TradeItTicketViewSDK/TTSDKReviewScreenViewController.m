@@ -73,6 +73,8 @@
     float totalRemovedCellHeight;
 
     TradeItPlaceTradeResult * placeTradeResult;
+    
+    TTSDKUtils * utils;
 }
 
 @end
@@ -95,6 +97,8 @@ static float kMessageSeparatorHeight = -15.0f;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    
+    utils = [TTSDKUtils sharedUtils];
 
     ackLabels = [[NSMutableArray alloc] init];
     warningLabels = [[NSMutableArray alloc] init];
@@ -129,11 +133,6 @@ static float kMessageSeparatorHeight = -15.0f;
 }
 
 -(void) updateUIWithReviewResult {
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setLocale: US];
-
     accountNameLabel.text = [self.ticket.currentAccount valueForKey: @"displayTitle"];
 
     accountLabel.text = [[self.ticket.currentAccount valueForKey: @"broker"] uppercaseString];
@@ -182,14 +181,14 @@ static float kMessageSeparatorHeight = -15.0f;
         buyingPowerVV.hidden = YES;
     } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]) {
         [buyingPowerLabel setText:@"BUYING POWER"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"]]];
+        [buyingPowerValue setText:[utils formatPriceString:[[[self reviewTradeResult] orderDetails] valueForKey:@"buyingPower"] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]]];
     } else {
         [buyingPowerLabel setText:@"AVAIL. CASH"];
-        [buyingPowerValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"]]];
+        [buyingPowerValue setText:[utils formatPriceString:[[[self reviewTradeResult] orderDetails] valueForKey:@"availableCash"] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]]];
     }
 
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]) {
-        [estimatedFeesValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"]]];
+        [estimatedFeesValue setText:[utils formatPriceString:[[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderCommission"] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]]];
     } else {
         totalRemovedCellHeight += brokerFeesHeightConstraint.constant;
         brokerFeesHeightConstraint.constant = 0.0f;
@@ -204,9 +203,9 @@ static float kMessageSeparatorHeight = -15.0f;
     }
 
     if([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]) {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"]]];
+        [estimatedCostValue setText:[utils formatPriceString:[[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedOrderValue"] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]]];
     } else if ([[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]) {
-        [estimatedCostValue setText:[formatter stringFromNumber: [[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"]]];
+        [estimatedCostValue setText:[utils formatPriceString:[[[self reviewTradeResult] orderDetails] valueForKey:@"estimatedTotalValue"] withLocaleId:self.ticket.currentAccount[@"accountBaseCurrency"]]];
     } else {
         totalRemovedCellHeight += estimatedCostHeightConstraint.constant;
         estimatedCostHeightConstraint.constant = 0.0f;

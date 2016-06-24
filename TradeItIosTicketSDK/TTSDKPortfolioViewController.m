@@ -19,6 +19,7 @@
 
 @interface TTSDKPortfolioViewController () {
     TTSDKPortfolioService * portfolioService;
+    TTSDKUtils * utils;
     NSArray * accountsHolder;
     NSArray * positionsHolder;
     BOOL initialAuthenticationComplete;
@@ -69,6 +70,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    utils = [TTSDKUtils sharedUtils];
     [self.accountsTable reloadData];
 
     NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
@@ -175,14 +177,21 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     });
 }
 
-- (NSNumber *)retrieveTotalPortfolioValue {
+- (NSString *)retrieveTotalPortfolioValue {
     float totalPortfolioValue = 0.0f;
-
+    TTSDKPortfolioAccount * firstAccount = (TTSDKPortfolioAccount *)[accountsHolder firstObject];
+    NSString * baseCurrency = firstAccount.balance.accountBaseCurrency;
+    
     for (TTSDKPortfolioAccount * portfolioAccount in accountsHolder) {
         totalPortfolioValue += [portfolioAccount.balance.totalValue floatValue];
+        
+        if(![portfolioAccount.balance.accountBaseCurrency isEqualToString:baseCurrency]) {
+            NSLog(@"Base Currency Mismatch, Potentially Invalid Data");
+            //TODO - better handling should this ever happen
+        }
     }
 
-    return [NSNumber numberWithFloat:totalPortfolioValue];
+    return [utils formatPriceString:[[NSNumber alloc] initWithFloat: totalPortfolioValue] withLocaleId:baseCurrency];
 }
 
 
@@ -295,8 +304,8 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         } else {
             [cell showSeparator];
         }
-
-        [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row]];
+        
+        [cell configureCellWithPosition: [positionsHolder objectAtIndex: indexPath.row] withLocale: portfolioService.selectedAccount.balance.accountBaseCurrency];
 
         if (self.selectedHoldingIndex == indexPath.row) {
             cell.expandedView.hidden = NO;

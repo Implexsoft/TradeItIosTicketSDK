@@ -26,7 +26,7 @@
 
 @property (nonatomic, weak) id<TTSDKPositionDelegate> delegate;
 
--(void) configureCellWithPosition:(TradeItPosition *)position;
+-(void) configureCellWithPosition:(TradeItPosition *)position withLocale:(NSString *) locale;
 -(void) hideSeparator;
 -(void) showSeparator;
 

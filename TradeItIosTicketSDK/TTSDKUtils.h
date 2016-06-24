@@ -29,6 +29,7 @@
 -(BOOL) isOnboarding;
 -(NSString *) formatIntegerToReadablePrice: (NSString *)price;
 -(NSString *) formatPriceString: (NSNumber *)num;
+-(NSString *) formatPriceString: (NSNumber *)num withLocaleId: (NSString *) localeId;
 -(double) numberFromPriceString: (NSString *)priceString;
 -(NSAttributedString *) getColoredString: (NSNumber *) number withFormat: (int) style;
 -(NSMutableAttributedString *) logoStringLight;

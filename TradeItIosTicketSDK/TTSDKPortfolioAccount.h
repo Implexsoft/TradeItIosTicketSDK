@@ -22,6 +22,7 @@
 @property BOOL tradable;
 @property NSArray * positions;
 @property TradeItAccountOverviewResult * balance;
+@property NSString * locale;
 
 @property TTSDKTicketSession * session;
 

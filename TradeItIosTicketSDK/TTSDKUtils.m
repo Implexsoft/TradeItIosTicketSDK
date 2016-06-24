@@ -281,12 +281,24 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(NSString *) formatPriceString: (NSNumber *)num {
-    NSLocale * US = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    return [self formatPriceString:num withLocaleId:@"en_US"];
+}
+
+-(NSString *) formatPriceString: (NSNumber *)num withLocaleId: (NSString *) localeId {
+    localeId = [self mapLocaleString: localeId];
+    
+    NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:localeId];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setLocale: US];
-
-    return [formatter stringFromNumber: num];
+    [formatter setLocale: locale];
+    
+    NSString * formatedString = [formatter stringFromNumber: num];
+    
+    if([localeId isEqualToString:@"en_SG"]) {
+        formatedString = [NSString stringWithFormat:@"S%@", formatedString];
+    }
+    
+    return formatedString;
 }
 
 -(double) numberFromPriceString: (NSString *)priceString {
@@ -296,6 +308,14 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
     [formatter setLocale: US];
 
     return [formatter numberFromString:priceString].doubleValue;
+}
+
+-(NSString *) mapLocaleString:(NSString *) str {
+    if([str isEqualToString:@"SGD"]) {
+        return @"en_SG";
+    } else {
+        return @"en_US";
+    }
 }
 
 -(NSString *) splitCamelCase:(NSString *) str {
