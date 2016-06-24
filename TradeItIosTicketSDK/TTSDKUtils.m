@@ -281,7 +281,6 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(NSString *) formatPriceString: (NSNumber *)num {
-    NSLog(@"Using old format price string");
     return [self formatPriceString:num withLocaleId:@"en_US"];
 }
 
