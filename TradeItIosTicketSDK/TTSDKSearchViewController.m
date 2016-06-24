@@ -26,21 +26,21 @@
 @implementation TTSDKSearchViewController
 
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView setAnimationsEnabled:NO];
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [UIView setAnimationsEnabled:YES];
 }
 
--(void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.symbolSearchResults = [[NSArray alloc] init];
 
-    marketService = [[TradeItMarketDataService alloc] initWithSession: self.ticket.currentSession];
+    marketService = [[TradeItMarketDataService alloc] initWithSession:self.ticket.currentSession];
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
@@ -53,21 +53,25 @@
     searchController.searchResultsDelegate = self;
 }
 
--(void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear: animated];
 
     [self.searchBar becomeFirstResponder];
 }
 
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     return self.symbolSearchResults.count;
 }
 
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Company" forIndexPath:indexPath];
 
     TradeItSymbolLookupCompany * company = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
@@ -83,25 +87,27 @@
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.searchBar resignFirstResponder];
 
-    TradeItSymbolLookupCompany * selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
+    TradeItSymbolLookupCompany *selectedCompany = (TradeItSymbolLookupCompany *)[self.symbolSearchResults objectAtIndex:indexPath.row];
 
-    NSString * currentSymbol = self.ticket.previewRequest.orderSymbol;
+    TradeItQuote *quote = [[TradeItQuote alloc] init];
+    quote.symbol = selectedCompany.symbol;
+    quote.companyName = selectedCompany.name;
+    self.ticket.quote = quote;
+    self.ticket.previewRequest.orderSymbol = quote.symbol;
 
-    if (!currentSymbol || ![selectedCompany.symbol isEqualToString: currentSymbol]) {
-        TradeItQuote * quote = [[TradeItQuote alloc] init];
-        quote.symbol = selectedCompany.symbol;
-        quote.companyName = selectedCompany.name;
-        self.ticket.quote = quote;
-        self.ticket.previewRequest.orderSymbol = quote.symbol;
-
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
--(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+#pragma mark - private
+
+- (void)searchBar:(UISearchBar *)searchBar
+    textDidChange:(NSString *)searchText {
     if (![searchBar.text isEqualToString:@""]) {
         [self setResultsToLoading];
         TradeItSymbolLookupRequest * lookupRequest = [[TradeItSymbolLookupRequest alloc] initWithQuery:searchBar.text];
@@ -118,16 +124,16 @@
     }
 }
 
--(void) resultsDidReturn:(NSArray *)results {
+- (void)resultsDidReturn:(NSArray *)results {
     self.symbolSearchResults = results;
     [self.tableView reloadData];
 }
 
--(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
 }
 
--(void) setResultsToLoading {
+- (void)setResultsToLoading {
     UIActivityIndicatorView *loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     loadingIndicator.frame = CGRectMake(loadingIndicator.bounds.size.width, loadingIndicator.bounds.size.height, 20, 20);
     
@@ -159,7 +165,8 @@
         self.rootTabBar.selectedIndex = 1; // this sets the tab bar to the portfolio
     }
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

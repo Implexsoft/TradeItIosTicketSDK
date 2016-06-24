@@ -12,25 +12,24 @@
 
 @implementation TTSDKTableViewController
 
+#pragma mark - Rotation
 
-#pragma mark Rotation
-
--(BOOL) shouldAutorotate {
+- (BOOL)shouldAutorotate {
     return NO;
 }
 
--(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
--(UIInterfaceOrientationMask) supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 
-#pragma mark Initialization
+#pragma mark - Initialization
 
--(void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     [[UIDevice currentDevice] setValue:@1 forKey:@"orientation"];
@@ -42,7 +41,7 @@
     [self setViewStyles];
 }
 
--(void) setViewStyles {
+- (void)setViewStyles {
     self.view.backgroundColor = self.styles.pageBackgroundColor;
 
     self.navigationController.navigationBar.barTintColor = self.styles.navigationBarBackgroundColor;
@@ -51,16 +50,17 @@
     self.tableView.separatorColor = self.styles.primarySeparatorColor;
 }
 
--(UIStatusBarStyle) preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle {
     self.styles = [TradeItStyles sharedStyles];
     
     return self.styles.statusBarStyle;
 }
 
 
-#pragma mark iOS7 fallbacks
+#pragma mark - iOS7 fallbacks
 
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message {
+- (void)showOldErrorAlert:(NSString *)title
+             withMessage:(NSString *)message {
     UIAlertView * alert;
     alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     
@@ -70,25 +70,28 @@
 }
 
 
-#pragma mark Picker
+#pragma mark - Picker
 
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return self.pickerTitles.count;
 }
 
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
--(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return self.pickerTitles[row];
 }
 
--(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.currentSelection = self.pickerValues[row];
 }
 
--(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock {
+- (void)showPicker:(NSString *)pickerTitle
+    withSelection:(NSString *)selection
+       andOptions:(NSArray *)options
+      onSelection:(void (^)(void))selectionBlock {
     self.currentSelection = selection;
     
     if(![UIAlertController class]) {
@@ -155,7 +158,7 @@
     }
 }
 
--(UIView *) createPickerView: (NSString *) title {
+- (UIView *)createPickerView:(NSString *)title {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
     
     UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 270, 20)];
@@ -179,13 +182,13 @@
 }
 
 
-#pragma mark Navigation
+#pragma mark - Navigation
 
--(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
+- (void)showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
     // Get storyboard
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
     
-    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticket instantiateViewControllerWithIdentifier: @"WebView"];
+    TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticketStoryboard instantiateViewControllerWithIdentifier: @"WebView"];
     [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];
     
     webViewController.pageTitle = title;
@@ -195,9 +198,8 @@
     }];
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.ticket.lastUsed = [NSDate date];
 }
-
 
 @end

@@ -774,9 +774,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
-        UINavigationController * dest = (UINavigationController *)segue.destinationViewController;
-        [self.ticket removeBrokerSelectFromNav: dest cancelToParent: YES];
+    if ([segue.identifier isEqualToString:kLoginSegueIdentifier]) {
+        UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
+        [self.ticket removeBrokerSelectFromNav:dest cancelToParent: YES];
     } else if ([segue.identifier isEqualToString:kSearchSegueIdentifier]) {
         if (!self.ticket.previewRequest.orderSymbol) {
             UINavigationController * nav = (UINavigationController *)segue.destinationViewController;

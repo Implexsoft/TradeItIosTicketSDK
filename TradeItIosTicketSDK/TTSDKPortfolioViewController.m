@@ -511,7 +511,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         [self.navigationController pushViewController:tradeView animated:YES];
         
     } else {
-        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
+        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
         [self.tabBarController setSelectedIndex: 0];
     }
 }

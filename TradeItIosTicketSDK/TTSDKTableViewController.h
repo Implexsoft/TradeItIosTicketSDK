@@ -22,10 +22,19 @@
 @property UIPickerView * currentPicker;
 @property NSString * currentSelection;
 
--(void) setViewStyles;
--(void) showOldErrorAlert: (NSString *) title withMessage:(NSString *) message;
--(void) showPicker:(NSString *)pickerTitle withSelection:(NSString *)selection andOptions:(NSArray *)options onSelection:(void (^)(void))selectionBlock;
--(UIView *) createPickerView: (NSString *) title;
--(void) showWebViewWithURL:(NSString *)url andTitle:(NSString *)title;
+- (void)setViewStyles;
+
+- (void)showOldErrorAlert:(NSString *)title
+              withMessage:(NSString *) message;
+
+- (void)showPicker:(NSString *)pickerTitle
+     withSelection:(NSString *)selection
+        andOptions:(NSArray *)options
+       onSelection:(void (^)(void))selectionBlock;
+
+- (UIView *)createPickerView:(NSString *)title;
+
+- (void)showWebViewWithURL:(NSString *)url
+                  andTitle:(NSString *)title;
 
 @end
