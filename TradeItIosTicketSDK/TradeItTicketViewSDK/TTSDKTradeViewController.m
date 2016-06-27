@@ -780,10 +780,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         [self.ticket removeBrokerSelectFromNav:dest cancelToParent: YES];
     } else if ([segue.identifier isEqualToString:kSearchSegueIdentifier]) {
         if (!self.ticket.previewRequest.orderSymbol) {
-            UINavigationController * nav = (UINavigationController *)segue.destinationViewController;
-            TTSDKSearchViewController * search = (TTSDKSearchViewController *)[nav.viewControllers objectAtIndex:0];
-            search.noSymbol = YES;
-            search.rootTabBar = self.tabBarController;
+            TTSDKSearchViewController *searchViewController = (TTSDKSearchViewController *)segue.destinationViewController;
+            searchViewController.noSymbol = YES;
+            searchViewController.rootTabBar = self.tabBarController;
         }
     }
 }
