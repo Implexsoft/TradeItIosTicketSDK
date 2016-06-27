@@ -277,6 +277,10 @@
 		A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */; };
 		A9EFA5571BDABD0600B92489 /* TradeItAuthControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9EFA5581BDABD0600B92489 /* TradeItAuthControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */; };
+		FA69366E1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = FA69366C1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.h */; };
+		FA69366F1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FA69366D1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.m */; };
+		FA6936771D2EF1AB00F2E798 /* TradeItUpdateLinkResult.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6936751D2EF1AB00F2E798 /* TradeItUpdateLinkResult.h */; };
+		FA6936781D2EF1AB00F2E798 /* TradeItUpdateLinkResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6936761D2EF1AB00F2E798 /* TradeItUpdateLinkResult.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -595,6 +599,10 @@
 		A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKMBProgressHUD.m; sourceTree = "<group>"; };
 		A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItAuthControllerResult.h; sourceTree = "<group>"; };
 		A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItAuthControllerResult.m; sourceTree = "<group>"; };
+		FA69366C1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItUpdateLinkRequest.h; sourceTree = "<group>"; };
+		FA69366D1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItUpdateLinkRequest.m; sourceTree = "<group>"; };
+		FA6936751D2EF1AB00F2E798 /* TradeItUpdateLinkResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeItUpdateLinkResult.h; sourceTree = "<group>"; };
+		FA6936761D2EF1AB00F2E798 /* TradeItUpdateLinkResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeItUpdateLinkResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1080,6 +1088,8 @@
 				650C9E721C76932100FCABEC /* TradeItSecurityQuestionRequest.m */,
 				650C9E791C76932100FCABEC /* TradeItSymbolLookupRequest.h */,
 				650C9E7A1C76932100FCABEC /* TradeItSymbolLookupRequest.m */,
+				FA69366C1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.h */,
+				FA69366D1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.m */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -1117,6 +1127,8 @@
 				650C9E741C76932100FCABEC /* TradeItSecurityQuestionResult.m */,
 				650C9E7B1C76932100FCABEC /* TradeItSymbolLookupResult.h */,
 				650C9E7C1C76932100FCABEC /* TradeItSymbolLookupResult.m */,
+				FA6936751D2EF1AB00F2E798 /* TradeItUpdateLinkResult.h */,
+				FA6936761D2EF1AB00F2E798 /* TradeItUpdateLinkResult.m */,
 			);
 			name = Results;
 			sourceTree = "<group>";
@@ -1242,6 +1254,7 @@
 				650C9EE91C76932200FCABEC /* TradeItTradeService.h in Headers */,
 				650C9EBF1C76932200FCABEC /* TradeItMarketDataService.h in Headers */,
 				650C9E9A1C76932200FCABEC /* TIEMSJSONModelLib.h in Headers */,
+				FA6936771D2EF1AB00F2E798 /* TradeItUpdateLinkResult.h in Headers */,
 				650C9EA61C76932200FCABEC /* TradeItAuthLinkRequest.h in Headers */,
 				650C9EB81C76932200FCABEC /* TradeItGetPositionsResult.h in Headers */,
 				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
@@ -1276,6 +1289,7 @@
 				A9B2D4771B5EA92F008065E1 /* TTSDKLoginViewController.h in Headers */,
 				A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */,
 				A9C002BC1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h in Headers */,
+				FA69366E1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1492,6 +1506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65F77C321CEBACC60098D39A /* TradeItPublisherDataRequest.m in Sources */,
+				FA6936781D2EF1AB00F2E798 /* TradeItUpdateLinkResult.m in Sources */,
 				65F77C221CEBAAE70098D39A /* TradeItPublisherDataResult.m in Sources */,
 				65D9F81B1CE23D6D006977B0 /* TradeItBrokerCenterBroker.m in Sources */,
 				65D9F81D1CE23D6D006977B0 /* TradeItBrokerCenterResult.m in Sources */,
@@ -1519,6 +1534,7 @@
 				655E67081CB5ADDB00C3A201 /* TTSDKViewController.m in Sources */,
 				6508C4CB1C7A0AD800612B62 /* TTSDKAccountsHeaderView.m in Sources */,
 				650C9ED41C76932200FCABEC /* TradeItQuote.m in Sources */,
+				FA69366F1D2EAEB300F2E798 /* TradeItUpdateLinkRequest.m in Sources */,
 				65F39CCF1CC9882500BDF077 /* TTSDKKeypad.m in Sources */,
 				6574AA771CB833450003FFE9 /* TTSDKPrimaryButton.m in Sources */,
 				6510F4A21C46FC94009989BD /* TTSDKAccountLinkViewController.m in Sources */,

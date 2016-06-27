@@ -209,107 +209,136 @@
     }
 }
 
+- (void)handleAuthenticateError:(TradeItErrorResult *)errorResult {
+    NSMutableString *errorMessage = [[NSMutableString alloc] initWithString:@""];
+
+    for (NSString *longMessage in errorResult.longMessages) {
+        [errorMessage appendString:longMessage];
+    }
+
+    self.ticket.errorTitle = errorResult.shortMessage;
+    self.ticket.errorMessage = [errorMessage copy];
+
+    [self showErrorAlert:errorResult onAccept:^(void) {}];
+
+    self.ticket.errorTitle = nil;
+    self.ticket.errorMessage = nil;
+
+    [self dismissKeyboard];
+
+    [linkAccountButton exitLoadingState];
+    [linkAccountButton activate];
+}
+
 - (void)authenticate {
     selectedBroker = self.addBroker == nil ? self.ticket.currentSession.broker : self.addBroker;
 
     self.verifyCreds = [[TradeItAuthenticationInfo alloc] initWithId:emailInput.text andPassword:passwordInput.text andBroker:selectedBroker];
 
-    [self.ticket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds andCompletionBlock:^(TradeItResult * res){
-        if ([res isKindOfClass:TradeItErrorResult.class]) {
+    if (self.ticket.currentSession.needsManualAuthentication) {
+        [self.ticket.connector updateUserToken:self.ticket.currentSession.login withAuthenticationInfo:self.verifyCreds];
+    } else {
+        [self.ticket.connector linkBrokerWithAuthenticationInfo:self.verifyCreds
+                                             andCompletionBlock:^(TradeItResult *result) {
+            if ([linkResult isKindOfClass:TradeItErrorResult.class]) {
+                TradeItErrorResult *errorResult = (TradeItErrorResult *)result;
 
-            TradeItErrorResult * error = (TradeItErrorResult *)res;
+                NSMutableString *errorMessage = [[NSMutableString alloc] initWithString:@""];
 
-            NSMutableString * errorMessage = [[NSMutableString alloc] initWithString:@""];
+                for (NSString *message in errorResult.longMessages) {
+                    [errorMessage appendString: message];
+                }
 
-            for (NSString * message in error.longMessages) {
-                [errorMessage appendString: message];
-            }
+                self.ticket.errorTitle = errorResult.shortMessage;
+                self.ticket.errorMessage = [errorMessage copy];
 
-            self.ticket.errorTitle = error.shortMessage;
-            self.ticket.errorMessage = [errorMessage copy];
+                [self showErrorAlert:error onAccept:^(void) {
+                    // do nothing
+                }];
 
-            [self showErrorAlert:error onAccept:^(void) {
-                // do nothing
-            }];
+                self.ticket.errorMessage = nil;
+                self.ticket.errorTitle = nil;
 
-            self.ticket.errorMessage = nil;
-            self.ticket.errorTitle = nil;
-
-            [self dismissKeyboard];
-
-            [linkAccountButton exitLoadingState];
-            [linkAccountButton activate];
-        } else {
-            TradeItAuthLinkResult * result = (TradeItAuthLinkResult*)res;
-            TradeItLinkedLogin * newLinkedLogin = [self.ticket.connector saveLinkToKeychain: result withBroker:self.verifyCreds.broker];
-            TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.ticket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
-
-            [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
                 [self dismissKeyboard];
 
                 [linkAccountButton exitLoadingState];
                 [linkAccountButton activate];
+            } else {
+                TradeItAuthLinkResult * result = (TradeItAuthLinkResult *)res;
+                TradeItLinkedLogin * newLinkedLogin = [self.ticket.connector saveLinkToKeychain:result withBroker:self.verifyCreds.broker];
+                TTSDKTicketSession * newSession = [[TTSDKTicketSession alloc] initWithConnector:self.ticket.connector andLinkedLogin:newLinkedLogin andBroker:self.verifyCreds.broker];
 
-                if ([result isKindOfClass:TradeItErrorResult.class]) {
-                    self.ticket.resultContainer.status = AUTHENTICATION_ERROR;
+                [newSession authenticateFromViewController:self withCompletionBlock:^(TradeItResult * result) {
+                    [self dismissKeyboard];
 
-                    if(self.ticket.brokerSignUpCallback) {
-                        TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult: result];
-                        self.ticket.brokerSignUpCallback(res);
-                    }
+                    [linkAccountButton exitLoadingState];
+                    [linkAccountButton activate];
 
-                    TradeItErrorResult * error = (TradeItErrorResult *)result;
+                    if ([result isKindOfClass:TradeItErrorResult.class]) {
+                        self.ticket.resultContainer.status = AUTHENTICATION_ERROR;
 
-                    [self showErrorAlert:error onAccept:^(void) {
-                        if (self.cancelToParent) {
-                            [self.ticket returnToParentApp];
-                        } else if (self.isModal) {
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        } else if (self.navigationController) {
-                            [self.navigationController popViewControllerAnimated:YES];
-                        } else {
-                            [self.ticket returnToParentApp];
+                        if(self.ticket.brokerSignUpCallback) {
+                            TradeItAuthControllerResult * res = [[TradeItAuthControllerResult alloc] initWithResult: result];
+                            self.ticket.brokerSignUpCallback(res);
                         }
-                    }];
 
-                } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
+                        TradeItErrorResult * error = (TradeItErrorResult *)result;
 
-                    TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
-
-                    if ([self.ticket checkIsAuthenticationDuplicate: authResult.accounts]) {
-                        [self.ticket replaceAccountsWithNewAccounts: authResult.accounts];
-                    }
-
-                    [self.ticket addSession: newSession];
-                    [self.ticket addAccounts: authResult.accounts withSession: newSession];
-
-                    NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
-
-                    if (!self.reAuthenticate && newLinkedAccounts.count > 1 && (self.ticket.presentationMode != TradeItPresentationModeAuth && self.ticket.presentationMode != TradeItPresentationModeAccounts)) {
-
-                        multiAccounts = [self buildAccountOptions: newLinkedAccounts];
-                        [self showPicker:@"Select account to trade it" withSelection:nil andOptions:multiAccounts onSelection:^(void) {
-                            NSDictionary * selectedAccount;
-                            for (NSDictionary *newLinkedAccount in newLinkedAccounts) {
-                                if ([[newLinkedAccount valueForKey:@"accountNumber"] isEqualToString: self.currentSelection]) {
-                                    selectedAccount = newLinkedAccount;
-                                }
+                        [self showErrorAlert:error onAccept:^(void) {
+                            if (self.cancelToParent) {
+                                [self.ticket returnToParentApp];
+                            } else if (self.isModal) {
+                                [self dismissViewControllerAnimated:YES completion:nil];
+                            } else if (self.navigationController) {
+                                [self.navigationController popViewControllerAnimated:YES];
+                            } else {
+                                [self.ticket returnToParentApp];
                             }
-
-                            TTSDKTicketSession * selectedSession = [self.ticket retrieveSessionByAccount: selectedAccount];
-
-                            [self.ticket selectCurrentSession:selectedSession andAccount:selectedAccount];
-
-                            [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
                         }];
 
-                    } else {
-                        [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
+                    } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
+                        TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
+
+                        if ([self.ticket checkIsAuthenticationDuplicate: authResult.accounts]) {
+                            [self.ticket replaceAccountsWithNewAccounts: authResult.accounts];
+                        }
+
+                        [self.ticket addSession: newSession];
+                        [self.ticket addAccounts: authResult.accounts withSession: newSession];
+
+                        NSArray * newLinkedAccounts = [TTSDKPortfolioService linkedAccounts];
+
+                        if (!self.reAuthenticate && newLinkedAccounts.count > 1 && (self.ticket.presentationMode != TradeItPresentationModeAuth && self.ticket.presentationMode != TradeItPresentationModeAccounts)) {
+
+                            multiAccounts = [self buildAccountOptions: newLinkedAccounts];
+                            [self showPicker:@"Select account to trade it" withSelection:nil andOptions:multiAccounts onSelection:^(void) {
+                                NSDictionary * selectedAccount;
+                                for (NSDictionary *newLinkedAccount in newLinkedAccounts) {
+                                    if ([[newLinkedAccount valueForKey:@"accountNumber"] isEqualToString: self.currentSelection]) {
+                                        selectedAccount = newLinkedAccount;
+                                    }
+                                }
+
+                                TTSDKTicketSession *selectedSession = [self.ticket retrieveSessionByAccount:selectedAccount];
+
+                                [self.ticket selectCurrentSession:selectedSession
+                                                       andAccount:selectedAccount];
+
+                                [self completeAuthenticationAndClose:authResult
+                                                             account:authResult.accounts
+                                                             session:newSession];
+                            }];
+                            
+                        } else {
+                            [self completeAuthenticationAndClose:authResult
+                                                         account:authResult.accounts
+                                                         session:newSession];
+                        }
                     }
-                }
-            }];
-        }
-    }];
+                }];
+            }
+        }];
+    }
 }
 
 - (void)completeAuthenticationAndClose:(TradeItAuthenticationResult *)result

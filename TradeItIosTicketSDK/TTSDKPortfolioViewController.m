@@ -18,22 +18,24 @@
 #import "TTSDKAlertController.h"
 
 @interface TTSDKPortfolioViewController () {
-    TTSDKPortfolioService * portfolioService;
-    TTSDKUtils * utils;
-    NSArray * accountsHolder;
-    NSArray * positionsHolder;
+    TTSDKPortfolioService *portfolioService;
+    TTSDKUtils *utils;
+    NSArray *accountsHolder;
+    NSArray *positionsHolder;
     BOOL initialAuthenticationComplete;
     BOOL initialSummaryComplete;
-    NSString * addBroker;
+    NSString *addBroker;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *accountsTable;
 @property NSInteger selectedHoldingIndex;
 @property NSInteger selectedAccountIndex;
-@property TTSDKAccountsHeaderView * accountsHeaderNib;
-@property TTSDKHoldingsHeaderView * holdingsHeaderNib;
-@property NSString * holdingsHeaderTitle;
-@property UIView * accountsFooterView;
+@property TTSDKAccountsHeaderView *accountsHeaderNib;
+@property TTSDKHoldingsHeaderView *holdingsHeaderNib;
+@property NSString *holdingsHeaderTitle;
+@property UIView *accountsFooterView;
+@property (strong, nonatomic) TTSDKTicketSession *sessionToPassToLogin;
+
 
 @end
 
@@ -48,7 +50,7 @@ static float kAccountsFooterHeight = 15.0f;
 static float kHoldingCellDefaultHeight = 44.0f;
 static float kHoldingCellExpandedHeight = 164.0f;
 static float kAccountCellHeight = 44.0f;
-static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
+static NSString *kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 
 
 #pragma mark Initialization
@@ -73,10 +75,9 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     utils = [TTSDKUtils sharedUtils];
     [self.accountsTable reloadData];
 
-    NSArray * linkedAccounts = [TTSDKPortfolioService linkedAccounts];
+    NSArray *linkedAccounts = [TTSDKPortfolioService linkedAccounts];
 
     if (self.ticket.clearPortfolioCache || !portfolioService || (linkedAccounts.count != portfolioService.accounts.count)) {
-        portfolioService = nil;
         portfolioService = [[TTSDKPortfolioService alloc] initWithAccounts: linkedAccounts];
         self.ticket.clearPortfolioCache = NO;
     }
@@ -536,8 +537,9 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 - (void)didSelectAuth:(TTSDKPortfolioAccount *)account {
     [self handleAccountSelection:account];
 
-    NSDictionary * accountData = [account accountData];
-    TTSDKTicketSession * accountSession = [self.ticket retrieveSessionByAccount:accountData];
+    NSDictionary *accountData = [account accountData];
+    TTSDKTicketSession *accountSession = [self.ticket retrieveSessionByAccount:accountData];
+    self.sessionToPassToLogin = accountSession;
 
     self.ticket.clearPortfolioCache = YES; // since it's a new authentication, we'll want to go ahead and clear the portfolio cache
 
@@ -587,7 +589,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if ([segue.identifier isEqualToString: kPortfolioToLoginSegueIdentifier]) {
+    if ([segue.identifier isEqualToString:kPortfolioToLoginSegueIdentifier]) {
         UINavigationController *loginNav = (UINavigationController *)[segue destinationViewController];
 
         NSString *pathForTradeItIosTicketSDKBundle = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
@@ -596,7 +598,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:pathForTradeItIosTicketSDKBundle];
 
         UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
-                                                                    bundle:tradeItIosTicketSDKBundle];
+                                                                   bundle:tradeItIosTicketSDKBundle];
 
         TTSDKLoginViewController *loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier:@"LOGIN"];
         [loginViewController setAddBroker:addBroker];
@@ -614,6 +616,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
             cancelToParent = NO;
         }
 
+        // TODO: Why are we calling this?  It does the same thing as the code above...
         [self.ticket removeBrokerSelectFromNav:loginNav cancelToParent:cancelToParent];
     }
 }
