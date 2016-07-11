@@ -222,7 +222,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     }
 
                     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
-                                                                            style:UIAlertActionStyleDefault
+                                                                            style:UIAlertActionStyleCancel
                                                                           handler:^(UIAlertAction * action) {
                                                                               if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
                                                                                   if (completionBlock) {
@@ -264,7 +264,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                     [utils styleAlertController: alert.view];
 
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
-                                                                           style:UIAlertActionStyleDefault
+                                                                           style:UIAlertActionStyleCancel
                                                                          handler:^(UIAlertAction *action) {
                                                                              if ([viewController isKindOfClass:TTSDKLoginViewController.class]) {
                                                                                  if(completionBlock) {

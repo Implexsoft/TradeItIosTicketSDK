@@ -117,7 +117,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                            [self presentViewController:loginNav animated:YES completion:nil];
                                                                        }];
 
-                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
                     if (cancelToParent) {
                         [self.ticket returnToParentApp];
                     } else {
@@ -220,7 +220,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
             [alert addAction: action];
         }
 
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             // do nothing
         }];
         [alert addAction: cancelAction];
@@ -317,7 +317,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                    self.acceptanceBlock();
                                                                }];
 
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             if (self.cancellationBlock) {
                 self.cancellationBlock();
             }
