@@ -127,10 +127,10 @@
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;
 
-        [self.utils styleAlertController:alert.view];
-
         NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:pickerTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+        [self.utils styleAlertController:alert.view];
 
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];

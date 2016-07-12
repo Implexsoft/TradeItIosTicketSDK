@@ -519,6 +519,14 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
             alert.modalPresentationStyle = UIModalPresentationPopover;
 
+            NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString: @"Market orders are Good For The Day only." attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+            NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString: @"Invalid Expiration" attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+
+            [alert setValue:attributedMessage forKey:@"attributedMessage"];
+            [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+            [utils styleAlertController: alert.view];
+
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];

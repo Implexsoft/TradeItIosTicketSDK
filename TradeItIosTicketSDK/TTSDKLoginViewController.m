@@ -138,6 +138,15 @@
                                                                             message:self.ticket.errorMessage
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;
+
+            NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:self.ticket.errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+            NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:self.ticket.errorTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+            
+            [alert setValue:attributedMessage forKey:@"attributedMessage"];
+            [alert setValue:attributedTitle forKey:@"attributedTitle"];
+            
+            [self.utils styleAlertController: alert.view];
+
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];
@@ -192,6 +201,15 @@
                                                                             message:message
                                                                      preferredStyle:UIAlertControllerStyleAlert];
             alert.modalPresentationStyle = UIModalPresentationPopover;
+
+            NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString: message attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+            NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString: @"Invalid Credentials" attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+
+            [alert setValue:attributedMessage forKey:@"attributedMessage"];
+            [alert setValue:attributedTitle forKey:@"attributedTitle"];
+            
+            [self.utils styleAlertController: alert.view];
+
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];

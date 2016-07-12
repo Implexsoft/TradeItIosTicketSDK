@@ -101,6 +101,14 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                          preferredStyle:UIAlertControllerStyleAlert];
                 alert.modalPresentationStyle = UIModalPresentationPopover;
 
+                NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+                NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:error.shortMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+                
+                [alert setValue:attributedMessage forKey:@"attributedMessage"];
+                [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+                [self.utils styleAlertController:alert.view];
+
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
                                                                            UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
@@ -203,10 +211,10 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
         alert.modalPresentationStyle = UIModalPresentationPopover;
 
-        [self.utils styleAlertController:alert.view];
-
         NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:pickerTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+        [self.utils styleAlertController:alert.view];
 
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
@@ -303,14 +311,13 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         
         alert.modalPresentationStyle = UIModalPresentationPopover;
 
-        [self.utils styleAlertController:alert.view];
-
-
         NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
         NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:error.shortMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
 
         [alert setValue:attributedMessage forKey:@"attributedMessage"];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+        [self.utils styleAlertController:alert.view];
 
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {

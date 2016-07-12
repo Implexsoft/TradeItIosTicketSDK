@@ -130,6 +130,14 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
                 alert.modalPresentationStyle = UIModalPresentationPopover;
 
+                NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+                NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:@"Could Not Complete Order" attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+
+                [alert setValue:attributedMessage forKey:@"attributedMessage"];
+                [alert setValue:attributedTitle forKey:@"attributedTitle"];
+
+                [self.utils styleAlertController: alert.view];
+
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
                                                                            [self acknowledgeAlert];
@@ -152,6 +160,14 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                                                                          preferredStyle:UIAlertControllerStyleAlert];
 
                 alert.modalPresentationStyle = UIModalPresentationPopover;
+
+                NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:@"TradeIt is temporarily unavailable. Please try again in a few minutes." attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+                NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:@"Could Not Complete Order" attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
+
+                [alert setValue:attributedMessage forKey:@"attributedMessage"];
+                [alert setValue:attributedTitle forKey:@"attributedTitle"];
+                
+                [self.utils styleAlertController: alert.view];
 
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {

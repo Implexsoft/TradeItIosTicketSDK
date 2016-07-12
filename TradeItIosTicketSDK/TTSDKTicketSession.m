@@ -15,6 +15,7 @@
 #import "TTSDKAlertController.h"
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKLoginViewController.h"
+#import "TradeItStyles.h"
 
 @interface TTSDKTicketSession() {
     NSArray * questionOptions;
@@ -23,6 +24,7 @@
     NSString * currentSelection;
     TradeItTradeService * tradeService;
     TTSDKUtils * utils;
+    TradeItStyles * styles;
 }
 
 @end
@@ -38,6 +40,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         self.login = linkedLogin;
         self.broker = broker;
         utils = [TTSDKUtils sharedUtils];
+        styles = [TradeItStyles sharedStyles];
     }
 
     return self;
@@ -211,6 +214,14 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
 
+                    NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString: result.securityQuestion attributes: @{NSForegroundColorAttributeName: styles.alertTextColor}];
+                    NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString: @"Verify Identity" attributes: @{NSForegroundColorAttributeName: styles.alertTextColor}];
+
+                    [alert setValue:attributedMessage forKey:@"attributedMessage"];
+                    [alert setValue:attributedTitle forKey:@"attributedTitle"];
+                    
+                    [utils styleAlertController: alert.view];
+
                     for (NSString *title in result.securityQuestionOptions) {
                         UIAlertAction *option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                             [self answerSecurityQuestion:title withCompletionBlock:^(TradeItResult * result) {
@@ -260,6 +271,12 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                                          message:result.securityQuestion
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
                     alert.modalPresentationStyle = UIModalPresentationPopover;
+
+                    NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString: result.securityQuestion attributes: @{NSForegroundColorAttributeName: styles.alertTextColor}];
+                    NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString: title attributes: @{NSForegroundColorAttributeName: styles.alertTextColor}];
+
+                    [alert setValue:attributedMessage forKey:@"attributedMessage"];
+                    [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
                     [utils styleAlertController: alert.view];
 
