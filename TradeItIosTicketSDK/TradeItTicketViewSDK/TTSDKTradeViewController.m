@@ -65,6 +65,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 -(void) viewDidLoad {
     [super viewDidLoad];
 
+    NSAttributedString * attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Shares" attributes: @{NSForegroundColorAttributeName: self.styles.primaryPlaceholderColor}];
+    sharesInput.attributedPlaceholder = attributedPlaceholder;
+
     if([self.ticket.previewRequest.orderQuantity intValue] > 0) {
         [sharesInput setText:[NSString stringWithFormat:@"%i", [self.ticket.previewRequest.orderQuantity intValue]]];
     }
