@@ -215,6 +215,7 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
                 alertPresentationController.sourceView = self.view;
                 alertPresentationController.permittedArrowDirections = 0;
                 alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);
+                alert.view.tintColor = self.styles.alertButtonColor;
             });
 
         } else {

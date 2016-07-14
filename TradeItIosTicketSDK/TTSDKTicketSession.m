@@ -260,6 +260,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                             viewController.view.bounds.size.height / 2.0,
                                                                             1.0,
                                                                             1.0);
+                        alert.view.tintColor = self.styles.alertButtonColor;
                     });
                 }
             } else if (result.securityQuestion != nil) {
@@ -321,6 +322,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                                             viewController.view.bounds.size.height / 2.0,
                                                                             1.0,
                                                                             1.0);
+                        alert.view.tintColor = self.styles.alertButtonColor;
                     });
                 }
             }
