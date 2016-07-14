@@ -92,7 +92,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
 
-    self.currentSelection = @"Fidelity";
+    self.currentSelection = @"Maybank";
 }
 
 -(void) showOrHideOpenAccountButton {
@@ -213,7 +213,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         [optionsArray insertObject:@{@"Open an account": @"OPEN"} atIndex:0];
     }
 
-    [self showPicker:@"Select account to trade with" withSelection:@"Fidelity" andOptions:[optionsArray copy] onSelection:^(void){
+    [self showPicker:@"Select account to trade with" withSelection:@"Maybank" andOptions:[optionsArray copy] onSelection:^(void){
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.currentSelection isEqualToString:@"OPEN"]) {
                 [self performSegueWithIdentifier:@"onboardingToBrokerCenter" sender:self];
