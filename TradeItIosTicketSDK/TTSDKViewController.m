@@ -107,8 +107,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                 [alert setValue:attributedMessage forKey:@"attributedMessage"];
                 [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-                [self.utils styleAlertController:alert.view];
-
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
                                                                            UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
@@ -137,7 +135,9 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                 [alert addAction:cancelAction];
                 
                 [self presentViewController:alert animated:YES completion:nil];
-                
+
+                [self.utils styleAlertController:alert.view];
+
                 UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                 alertPresentationController.sourceView = self.view;
                 alertPresentationController.permittedArrowDirections = 0;
@@ -214,8 +214,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:pickerTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-        [self.utils styleAlertController:alert.view];
-
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
             NSString * v = optionContainer[k];
@@ -234,6 +232,8 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         [alert addAction: cancelAction];
 
         [self presentViewController:alert animated:YES completion:nil];
+
+        [self.utils styleAlertController:alert.view];
 
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
         alertPresentationController.sourceView = self.view;
@@ -317,8 +317,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
         [alert setValue:attributedMessage forKey:@"attributedMessage"];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-        [self.utils styleAlertController:alert.view];
-
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
                                                                    self.acceptanceBlock();
@@ -332,9 +330,11 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
         [alert addAction:defaultAction];
         [alert addAction:cancelAction];
-        
+
         [self presentViewController:alert animated:YES completion:nil];
-        
+
+        [self.utils styleAlertController:alert.view];
+
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
         alertPresentationController.sourceView = self.view;
         alertPresentationController.permittedArrowDirections = 0;

@@ -478,8 +478,6 @@ static float kMessageSeparatorHeight = -15.0f;
         
         [alert setValue:attributedMessage forKey:@"attributedMessage"];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
-        
-        [self.utils styleAlertController: alert.view];
 
         UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action) {
@@ -488,6 +486,9 @@ static float kMessageSeparatorHeight = -15.0f;
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
+
+        [self.utils styleAlertController: alert.view];
+
         alertPresentationController.sourceView = self.view;
         alertPresentationController.permittedArrowDirections = 0;
         alertPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0);

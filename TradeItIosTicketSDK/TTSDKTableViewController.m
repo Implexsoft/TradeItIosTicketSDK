@@ -130,12 +130,10 @@
         NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:pickerTitle attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];
         [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-        [self.utils styleAlertController:alert.view];
-
         for (NSDictionary *optionContainer in options) {
             NSString * k = [optionContainer.allKeys firstObject];
             NSString * v = optionContainer[k];
-            
+
             UIAlertAction * action = [UIAlertAction actionWithTitle:k style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
                 self.currentSelection = v;
                 selectionBlock();
@@ -150,7 +148,9 @@
         [alert addAction: cancelAction];
         
         [self presentViewController:alert animated:YES completion:nil];
-        
+
+        [self.utils styleAlertController:alert.view];
+
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
         alertPresentationController.sourceView = self.view;
         alertPresentationController.permittedArrowDirections = 0;

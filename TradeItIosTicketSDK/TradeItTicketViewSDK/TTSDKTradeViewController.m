@@ -528,12 +528,12 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             [alert setValue:attributedMessage forKey:@"attributedMessage"];
             [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-            [utils styleAlertController: alert.view];
-
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
+
+            [utils styleAlertController: alert.view];
 
             UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
             alertPresentationController.sourceView = self.view;

@@ -136,8 +136,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 [alert setValue:attributedMessage forKey:@"attributedMessage"];
                 [alert setValue:attributedTitle forKey:@"attributedTitle"];
 
-                [self.utils styleAlertController: alert.view];
-
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
                                                                            [self acknowledgeAlert];
@@ -145,6 +143,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 [alert addAction:defaultAction];
 
                 [self presentViewController:alert animated:YES completion:nil];
+
+                [self.utils styleAlertController: alert.view];
 
                 UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                 alertPresentationController.sourceView = self.view;
@@ -166,8 +166,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
                 [alert setValue:attributedMessage forKey:@"attributedMessage"];
                 [alert setValue:attributedTitle forKey:@"attributedTitle"];
-                
-                [self.utils styleAlertController: alert.view];
 
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
@@ -176,6 +174,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
                 [alert addAction:defaultAction];
 
                 [self presentViewController:alert animated:YES completion:nil];
+
+                [self.utils styleAlertController: alert.view];
 
                 UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                 alertPresentationController.sourceView = self.view;

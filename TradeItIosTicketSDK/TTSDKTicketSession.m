@@ -219,8 +219,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
                     [alert setValue:attributedMessage forKey:@"attributedMessage"];
                     [alert setValue:attributedTitle forKey:@"attributedTitle"];
-                    
-                    [utils styleAlertController: alert.view];
 
                     for (NSString *title in result.securityQuestionOptions) {
                         UIAlertAction *option = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -252,6 +250,8 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                              animated:YES
                                                            completion:nil];
 
+                        [utils styleAlertController: alert.view];
+
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
 
                         alertPresentationController.sourceView = viewController.view;
@@ -277,8 +277,6 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
                     [alert setValue:attributedMessage forKey:@"attributedMessage"];
                     [alert setValue:attributedTitle forKey:@"attributedTitle"];
-
-                    [utils styleAlertController: alert.view];
 
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
                                                                            style:UIAlertActionStyleCancel
@@ -314,6 +312,9 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                         [delegateViewController presentViewController:alert
                                                              animated:YES
                                                            completion:nil];
+
+                        [utils styleAlertController: alert.view];
+
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                         alertPresentationController.sourceView = viewController.view;
                         alertPresentationController.permittedArrowDirections = 0;

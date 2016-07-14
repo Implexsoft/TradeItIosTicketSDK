@@ -198,8 +198,6 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
 
             [alert setValue:attributedMessage forKey:@"attributedMessage"];
             [alert setValue:attributedTitle forKey:@"attributedTitle"];
-            
-            [self.utils styleAlertController: alert.view];
 
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                    handler:^(UIAlertAction * action) {
@@ -210,6 +208,8 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
             dispatch_async(dispatch_get_main_queue(), ^{
                 [TTSDKMBProgressHUD hideHUDForView:self.view animated:YES];
                 [self presentViewController:alert animated:YES completion:nil];
+
+                [self.utils styleAlertController: alert.view];
 
                 UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                 alertPresentationController.sourceView = self.view;
