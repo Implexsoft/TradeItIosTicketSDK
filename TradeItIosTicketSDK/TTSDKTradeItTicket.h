@@ -39,6 +39,7 @@
 @property NSString * errorMessage;
 @property NSString * initialHighlightedAccountNumber; // override for initial account to highlight in portfolio view
 @property (nonatomic) NSArray * brokerList;
+@property NSString * preferredBroker;
 @property NSArray * sessions;
 @property (nonatomic) NSDictionary * currentAccount;
 @property (nonatomic) TTSDKTicketSession * currentSession;

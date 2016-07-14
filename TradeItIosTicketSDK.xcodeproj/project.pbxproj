@@ -1006,6 +1006,7 @@
 				65B313FA1C23613600EBC30D /* SymbolSearch */,
 				A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */,
 				A9901A421B696C1900FCC83D /* Trade */,
+				A905D3231B629D83006B0B8C /* Utils */,
 				A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */,
 				A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */,
 				A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */,
@@ -1016,7 +1017,6 @@
 				A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */,
 				A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */,
 				A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */,
-				A905D3231B629D83006B0B8C /* Utils */,
 			);
 			path = TradeItIosTicketSDK;
 			sourceTree = "<group>";

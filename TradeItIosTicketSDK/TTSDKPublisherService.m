@@ -74,6 +74,10 @@
     }
 
     globalTicket.brokerList = brokers;
+
+    if (result.preferredBroker) {
+        globalTicket.preferredBroker = result.preferredBroker;
+    }
 }
 
 -(void) parsePublisherDataResultForBrokerCenter:(TradeItPublisherDataResult *)result {

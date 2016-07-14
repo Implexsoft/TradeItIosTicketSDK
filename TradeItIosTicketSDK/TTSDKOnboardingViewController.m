@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 @property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
+@property UIView * loadingView;
 
 @end
 
@@ -59,7 +60,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     [self.brokerSelectButton activate];
 
-    [self styleCustomDropdownButton: self.preferredBrokerButton];
+    [self styleDropdownButton: self.preferredBrokerButton];
 
     // iPhone 4s and earlier
     if ([self.utils isSmallScreen]) {
@@ -85,14 +86,21 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     brokers = [self.ticket getDefaultBrokerList];
 
     if (!self.ticket.publisherService.publisherDataLoaded) {
+        self.loadingView = [self.utils retrieveLoadingOverlayForView:self.view withRadius:10.0f];
+        [self.view addSubview: self.loadingView];
+
         [self wait];
+    } else {
+        if (self.ticket.preferredBroker) {
+            self.currentSelection = self.ticket.preferredBroker;
+            
+            [self.preferredBrokerButton setTitle:self.ticket.preferredBroker forState:UIControlStateNormal];
+        }
     }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-
-    self.currentSelection = @"Fidelity";
 }
 
 -(void) showOrHideOpenAccountButton {
@@ -120,12 +128,20 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
         if([self.ticket.brokerList count] >= 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 brokers = self.ticket.brokerList;
+
+                if (self.ticket.preferredBroker) {
+                    self.currentSelection = self.ticket.preferredBroker;
+                    [self.preferredBrokerButton setTitle:self.ticket.preferredBroker forState:UIControlStateNormal];
+                    self.preferredBrokerButton.hidden = NO;
+                }
+
+                [self.loadingView removeFromSuperview];
             });
         }
     });
 }
 
--(void) styleCustomDropdownButton: (UIButton *)button {
+-(void) styleDropdownButton: (UIButton *)button {
     button.backgroundColor = [UIColor clearColor];
     button.layer.borderColor = self.styles.secondaryActiveColor.CGColor;
     button.layer.borderWidth = 1.5f;
