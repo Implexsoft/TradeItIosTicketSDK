@@ -487,7 +487,7 @@ static float kMessageSeparatorHeight = -15.0f;
         [self presentViewController:alert animated:YES completion:nil];
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
 
-        [self.utils styleAlertController: alert.view];
+        alert.view.tintColor = self.styles.alertButtonColor;
 
         alertPresentationController.sourceView = self.view;
         alertPresentationController.permittedArrowDirections = 0;

@@ -149,7 +149,7 @@
         
         [self presentViewController:alert animated:YES completion:nil];
 
-        [self.utils styleAlertController:alert.view];
+        alert.view.tintColor = self.styles.alertButtonColor;
 
         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
         alertPresentationController.sourceView = self.view;

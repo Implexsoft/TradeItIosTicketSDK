@@ -531,9 +531,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];
+
             [self presentViewController:alert animated:YES completion:nil];
 
-            [utils styleAlertController: alert.view];
+            alert.view.tintColor = self.styles.alertButtonColor;
 
             UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
             alertPresentationController.sourceView = self.view;

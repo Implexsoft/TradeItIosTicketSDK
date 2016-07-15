@@ -250,7 +250,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                              animated:YES
                                                            completion:nil];
 
-                        [utils styleAlertController: alert.view];
+                        alert.view.tintColor = styles.alertButtonColor;
 
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
 
@@ -313,7 +313,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
                                                              animated:YES
                                                            completion:nil];
 
-                        [utils styleAlertController: alert.view];
+                        alert.view.tintColor = styles.alertButtonColor;
 
                         UIPopoverPresentationController * alertPresentationController = alert.popoverPresentationController;
                         alertPresentationController.sourceView = viewController.view;
