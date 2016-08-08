@@ -11,12 +11,15 @@
 #import "TradeItPlaceTradeResult.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKImageView.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKSuccessViewController() {
     __weak IBOutlet TTSDKPrimaryButton *tradeButton;
     __weak IBOutlet UILabel *successMessage;
     __weak IBOutlet TTSDKImageView * successImage;
     __weak IBOutlet UILabel *confirmTitle;
+    __weak IBOutlet TradeItAdView *adView;
+    __weak IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 }
 
 @end
@@ -45,6 +48,7 @@
     }
 
     [tradeButton activate];
+    [self initializeAd];
 
     NSMutableAttributedString * logoString = [[NSMutableAttributedString alloc] initWithAttributedString:[self.utils logoStringLight]];
     [logoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0f] range:NSMakeRange(0, 7)];
@@ -64,6 +68,12 @@
     [self.navigationItem setHidesBackButton:YES];
 }
 
+-(void) initializeAd {
+    [adView configureWithAdType:@"tradeConfirmation"
+                         broker:[self.ticket.currentSession broker]
+               heightConstraint:adViewHeightConstraint];
+}
+
 
 #pragma mark Navigation
 
@@ -78,6 +88,5 @@
 -(IBAction) tradeButtonPressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
 
 @end

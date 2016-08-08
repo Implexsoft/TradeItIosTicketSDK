@@ -654,14 +654,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl" customClass="TTSDKImageView">
-                                <rect key="frame" x="140" y="171" width="40" height="40"/>
+                                <rect key="frame" x="140" y="126" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
                                     <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
-                                <rect key="frame" x="16" y="218" width="288" height="130"/>
+                                <rect key="frame" x="16" y="174" width="288" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
                                     <constraint firstAttribute="width" constant="288" id="Z2x-SR-q2B"/>
@@ -679,7 +679,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1j-0F-nO9" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="50" y="445" width="220" height="44"/>
+                                <rect key="frame" x="50" y="434" width="220" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="CcK-YY-RIm"/>
                                     <constraint firstAttribute="height" constant="44" id="vEa-7G-s1D"/>
@@ -690,7 +690,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
-                                <rect key="frame" x="113" y="99" width="95" height="22"/>
+                                <rect key="frame" x="113" y="84" width="95" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
                                 </constraints>
@@ -698,24 +698,35 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j61-Eq-hW7" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6kU-4W-uX5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="30" id="1Ou-ey-1gP"/>
+                            <constraint firstItem="V1j-0F-nO9" firstAttribute="top" secondItem="9or-AK-Crt" secondAttribute="bottom" id="CEN-3O-MSm"/>
                             <constraint firstItem="V1j-0F-nO9" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="I90-0X-SNx"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
                             <constraint firstAttribute="centerX" secondItem="TLN-14-EPl" secondAttribute="centerX" id="OrX-r6-4AU"/>
+                            <constraint firstItem="psj-Ao-S59" firstAttribute="top" secondItem="j61-Eq-hW7" secondAttribute="bottom" id="Scp-cb-hVP"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leadingMargin" id="adU-sj-aSY"/>
                             <constraint firstAttribute="centerX" secondItem="9or-AK-Crt" secondAttribute="centerX" id="c1i-u6-mAf"/>
-                            <constraint firstItem="y4s-05-Ixc" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="35" id="xXA-iF-KGr"/>
-                            <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="y4s-05-Ixc" secondAttribute="bottom" constant="50" id="xl3-fP-vgE"/>
+                            <constraint firstItem="j61-Eq-hW7" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leading" id="c7O-jr-oXu"/>
+                            <constraint firstAttribute="trailing" secondItem="j61-Eq-hW7" secondAttribute="trailing" id="pXl-Cy-kkf"/>
+                            <constraint firstItem="j61-Eq-hW7" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="40" id="vxp-bR-GUx"/>
+                            <constraint firstItem="y4s-05-Ixc" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="20" id="xXA-iF-KGr"/>
+                            <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="y4s-05-Ixc" secondAttribute="bottom" constant="20" id="xl3-fP-vgE"/>
                             <constraint firstItem="y4s-05-Ixc" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="z81-hO-H6p"/>
-                            <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="7" id="zQn-9p-tnb"/>
+                            <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="8" id="zQn-9p-tnb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="JzJ-us-QaI"/>
                                 <exclude reference="adU-sj-aSY"/>
+                                <exclude reference="CEN-3O-MSm"/>
                             </mask>
                         </variation>
                     </view>
@@ -726,9 +737,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="adView" destination="j61-Eq-hW7" id="cdp-dg-EVa"/>
+                        <outlet property="adViewHeightConstraint" destination="6kU-4W-uX5" id="PfS-bU-7a9"/>
                         <outlet property="confirmTitle" destination="y4s-05-Ixc" id="8s5-Iq-J5V"/>
                         <outlet property="successImage" destination="TLN-14-EPl" id="rwK-oC-nZS"/>
                         <outlet property="successMessage" destination="9or-AK-Crt" id="yhW-R8-gC1"/>

@@ -326,6 +326,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
+    [TradeItTicketController initializeAdConfig];
     [TradeItTicketController showTicket];
 }
 
