@@ -666,6 +666,17 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 +(void) initializeAdConfig{
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
 
+    TradeItConnector * connector = [[TradeItConnector alloc] initWithApiKey:TradeItAdConfig.apiKey];
+    NSArray *linkedLogins = [connector getLinkedLogins];
+    
+    NSMutableArray *users = [[NSMutableArray alloc] init];
+    for (TradeItLinkedLogin *linkedLogin in linkedLogins) {
+        NSString *userToken = [connector userTokenFromKeychainId:linkedLogin.keychainId];
+        NSDictionary *user = @{ @"userId": linkedLogin.userId, @"userToken": userToken };
+        [users addObject:user];
+    }
+
+    TradeItAdConfig.users = users;
     TradeItAdConfig.apiKey = [ticket.connector apiKey];
     TradeItAdConfig.environment = TradeItAdEnvironmentQA;
     TradeItAdConfig.deviceInfoOverride = @"iphone8,2";
