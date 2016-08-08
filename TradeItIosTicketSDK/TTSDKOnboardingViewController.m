@@ -78,7 +78,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     brokers = [self.ticket getDefaultBrokerList];
 
-//    [self initializeAd];
+    [self initializeAd];
 
     if (!self.ticket.publisherService.publisherDataLoaded) {
         [self wait];
@@ -88,18 +88,11 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 -(void) setViewStyles {
     [super setViewStyles];
 
-    // iPhone 4s and earlier
-    if ([self.utils isSmallScreen]) {
+    if ([TradeItAdConfig enabled]) {
         self.brokerTitleTopConstraint.constant = 75.0f;
         self.brokerDetailsTopConstraint.constant = 5.0f;
         self.brokerDetailsHeightConstraint.constant = 120.0f;
         self.dropdownButtonTopConstraint.constant = 5.0f;
-    } else if ([self.utils isLargeScreen]) {
-        NSLog(@"style");
-        self.brokerTitleTopConstraint.constant = 50.0f;
-        self.brokerDetailsTopConstraint.constant = 0.0f;
-        self.brokerDetailsHeightConstraint.constant = 100.0f;
-        self.dropdownButtonTopConstraint.constant = 0.0f;
     }
 }
 
