@@ -996,16 +996,16 @@
 				655493121C21FCA9005D4270 /* AccountSelect */,
 				A9B2D46C1B5D88ED008065E1 /* Authentication */,
 				A9C002B41B6EE3E9007D15F5 /* BaseTrade */,
+				A9901A421B696C1900FCC83D /* Trade */,
 				A9A8D12B1B5042CE000207B9 /* Images */,
-				A9A8CF7B1B4EFDBB000207B9 /* Info.plist */,
 				65DD1BD11C3C80DA0032676A /* PortfolioScreen */,
 				65FC2ADC1C7A5611001FCB3E /* PortfolioService */,
 				65DE136A1CE1276A00674B0E /* PublisherService */,
 				A9A8D1291B50303A000207B9 /* ReviewScreen */,
 				A9A8D12A1B50304C000207B9 /* SuccessScreen */,
 				65B313FA1C23613600EBC30D /* SymbolSearch */,
+				A905D3231B629D83006B0B8C /* Utils */,
 				A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */,
-				A9901A421B696C1900FCC83D /* Trade */,
 				A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */,
 				A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */,
 				A9A8CF531B4EFACB000207B9 /* TradeItIosTicketSDK.h */,
@@ -1016,7 +1016,7 @@
 				A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */,
 				A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */,
 				A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */,
-				A905D3231B629D83006B0B8C /* Utils */,
+				A9A8CF7B1B4EFDBB000207B9 /* Info.plist */,
 			);
 			path = TradeItIosTicketSDK;
 			sourceTree = "<group>";

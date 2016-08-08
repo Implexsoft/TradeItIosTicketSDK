@@ -320,7 +320,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     } else {
         tabBarController.selectedIndex = 0;
     }
-    
+
     [self.parentView presentViewController:tabBarController animated:YES completion:nil];
 }
 

@@ -35,6 +35,7 @@
     __weak IBOutlet TTSDKPrimaryButton * previewOrderButton;
     __weak IBOutlet TTSDKImageView * expirationDropdownArrow;
     __weak IBOutlet NSLayoutConstraint *orderViewHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
