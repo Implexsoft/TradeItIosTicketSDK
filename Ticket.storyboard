@@ -268,20 +268,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="519"/>
+                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="QbV-2r-TI7" id="yPh-Ht-XTv"/>
                                     <outlet property="delegate" destination="QbV-2r-TI7" id="ZJk-kX-N0b"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xet-u8-7MX" userLabel="AdView">
+                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="ddL-35-xIa"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gFy-Qa-uXU" firstAttribute="leading" secondItem="VQr-T4-h2F" secondAttribute="leadingMargin" constant="-20" id="3GZ-tr-ZyL"/>
                             <constraint firstItem="gFy-Qa-uXU" firstAttribute="top" secondItem="5hL-0L-FlI" secondAttribute="bottom" constant="-64" id="3XZ-gf-alq"/>
+                            <constraint firstItem="Xet-u8-7MX" firstAttribute="top" secondItem="gFy-Qa-uXU" secondAttribute="bottom" id="GLq-7w-HsC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gFy-Qa-uXU" secondAttribute="trailing" constant="-20" id="LTp-Co-fuJ"/>
-                            <constraint firstItem="cTc-YF-FRb" firstAttribute="top" secondItem="gFy-Qa-uXU" secondAttribute="bottom" id="YxI-ZQ-eO3"/>
+                            <constraint firstItem="cTc-YF-FRb" firstAttribute="top" secondItem="Xet-u8-7MX" secondAttribute="bottom" id="V6H-Ly-W7U"/>
+                            <constraint firstAttribute="trailing" secondItem="Xet-u8-7MX" secondAttribute="trailing" id="bK5-EQ-RwQ"/>
+                            <constraint firstItem="Xet-u8-7MX" firstAttribute="leading" secondItem="VQr-T4-h2F" secondAttribute="leading" id="cT1-RU-YNv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
@@ -293,9 +302,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="accountsTable" destination="gFy-Qa-uXU" id="UoM-Ml-hSi"/>
+                        <outlet property="adViewHeightConstraint" destination="ddL-35-xIa" id="OhU-De-xDW"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="PortfolioToLogin" id="b0O-lu-Vmh"/>
                     </connections>
@@ -1976,10 +1987,10 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     <inferredMetricsTieBreakers>
         <segue reference="dYF-7w-adj"/>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="uWM-4J-KHQ"/>
-        <segue reference="kyf-iM-tIO"/>
+        <segue reference="b0O-lu-Vmh"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
         <segue reference="1qJ-sx-gox"/>
+        <segue reference="kyf-iM-tIO"/>
     </inferredMetricsTieBreakers>
 </document>

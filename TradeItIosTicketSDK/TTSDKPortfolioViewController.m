@@ -34,6 +34,7 @@
 @property TTSDKHoldingsHeaderView * holdingsHeaderNib;
 @property NSString * holdingsHeaderTitle;
 @property UIView * accountsFooterView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 
 @end
 
@@ -95,6 +96,17 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         initialAuthenticationComplete = YES;
         [self showLoadingAndWait];
         [self loadPortfolioData];
+    }
+}
+
+- (void)setViewStyles {
+    [super setViewStyles];
+
+    // TODO: implement
+    BOOL adEnabled = YES;
+
+    if (adEnabled) {
+        self.adViewHeightConstraint.constant = 50.0f;
     }
 }
 
