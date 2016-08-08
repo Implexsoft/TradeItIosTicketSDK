@@ -311,9 +311,9 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 - (void)presentTradeOrPortfolioScreen {
     if (self.presentationMode == TradeItPresentationModePortfolio || self.presentationMode == TradeItPresentationModePortfolioOnly) {
-        [self presentTradeScreen];
-    } else {
         [self presentPortfolioScreen];
+    } else {
+        [self presentTradeScreen];
     }
 }
 
