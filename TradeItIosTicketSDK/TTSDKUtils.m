@@ -89,7 +89,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(BOOL) isLargeScreen {
-    return ([self retrieveScreenHeight] > 735);
+    return ([self retrieveScreenHeight] >= 660);
 }
 
 -(UIColor *) retrieveBrokerColorByBrokerName:(NSString *)brokerName {

@@ -11,6 +11,7 @@
 #import "TTSDKLoginViewController.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKBrokerCenterViewController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKOnboardingViewController () {
     NSArray * brokers;
@@ -25,10 +26,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dropdownButtonTopConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brokerDetailsHeightConstraint;
 
-@property (weak, nonatomic) IBOutlet UILabel * tradeItLabel;
 @property (weak, nonatomic) IBOutlet TTSDKPrimaryButton *brokerSelectButton;
 @property (weak, nonatomic) IBOutlet UIButton *preferredBrokerButton;
 @property (weak, nonatomic) IBOutlet UIButton *openAccountButton;
+@property (weak, nonatomic) IBOutlet TradeItAdView *adView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 
 @end
 
@@ -61,14 +63,6 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     [self styleCustomDropdownButton: self.preferredBrokerButton];
 
-    // iPhone 4s and earlier
-    if ([self.utils isSmallScreen]) {
-        self.brokerTitleTopConstraint.constant = 75.0f;
-        self.brokerDetailsTopConstraint.constant = 5.0f;
-        self.brokerDetailsHeightConstraint.constant = 120.0f;
-        self.dropdownButtonTopConstraint.constant = 5.0f;
-    }
-
     self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet1.layer.cornerRadius = 2.0f;
     self.bullet2.backgroundColor = self.styles.secondaryActiveColor;
@@ -84,9 +78,34 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     brokers = [self.ticket getDefaultBrokerList];
 
+//    [self initializeAd];
+
     if (!self.ticket.publisherService.publisherDataLoaded) {
         [self wait];
     }
+}
+
+-(void) setViewStyles {
+    [super setViewStyles];
+
+    // iPhone 4s and earlier
+    if ([self.utils isSmallScreen]) {
+        self.brokerTitleTopConstraint.constant = 75.0f;
+        self.brokerDetailsTopConstraint.constant = 5.0f;
+        self.brokerDetailsHeightConstraint.constant = 120.0f;
+        self.dropdownButtonTopConstraint.constant = 5.0f;
+    } else if ([self.utils isLargeScreen]) {
+        NSLog(@"style");
+        self.brokerTitleTopConstraint.constant = 50.0f;
+        self.brokerDetailsTopConstraint.constant = 0.0f;
+        self.brokerDetailsHeightConstraint.constant = 100.0f;
+        self.dropdownButtonTopConstraint.constant = 0.0f;
+    }
+}
+
+-(void) initializeAd {
+    [self.adView configureWithAdType:@"account"
+                    heightConstraint:[self adViewHeightConstraint]];
 }
 
 -(void) viewWillAppear:(BOOL)animated {

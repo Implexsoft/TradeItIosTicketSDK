@@ -50,6 +50,7 @@
 #import "TTSDKSearchBar.h"
 #import "TTSDKSeparator.h"
 #import "TTSDKAlertController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @implementation TradeItTicketController {
     TTSDKUtils * utils;
@@ -137,6 +138,8 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
+    [TradeItTicketController initializeAdConfig];
+
     [ticket launchBrokerCenterFlow: load];
 }
 
@@ -163,7 +166,9 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     if (debug) {
         ticket.connector.environment = TradeItEmsTestEnv;
     }
-    
+
+    [TradeItTicketController initializeAdConfig];
+
     [ticket launchAccountsFlow];
 }
 
@@ -531,6 +536,9 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         [ticket setCallback: self.onCompletion];
     }
 
+
+    [TradeItTicketController initializeAdConfig];
+
     // show
     [TradeItTicketController showTicket];
 }
@@ -652,6 +660,15 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     } else {
         ogCallback([self mapSessionsWithAccounts:sessions]);
     }
+}
+
++(void) initializeAdConfig{
+    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+
+    TradeItAdConfig.apiKey = [ticket.connector apiKey];
+    TradeItAdConfig.environment = TradeItAdEnvironmentQA;
+    TradeItAdConfig.deviceInfoOverride = @"iphone8,2";
+    TradeItAdConfig.debug = true;
 }
 
 +(NSMutableArray *) mapSessionsWithAccounts: (NSMutableArray *) sessions {
