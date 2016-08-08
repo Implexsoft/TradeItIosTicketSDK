@@ -22,6 +22,7 @@
 @property BOOL authenticated;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 
 @end
 
@@ -66,6 +67,13 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.doneButton.backgroundColor = self.styles.secondaryDarkActiveColor;
     self.doneButton.layer.cornerRadius = 5.0f;
+
+    // TODO - implement
+    BOOL adEnabled = NO;
+
+    if (adEnabled) {
+        self.adViewHeightConstraint.constant = 220.0f;
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
