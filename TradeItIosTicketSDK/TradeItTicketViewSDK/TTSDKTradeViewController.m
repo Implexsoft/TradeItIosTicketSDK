@@ -152,6 +152,13 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [self deactivateDropdownButton: orderExpirationButton];
 
     previewOrderButton.clipsToBounds = YES;
+
+    // TODO - implement
+    BOOL adEnabled = YES;
+    
+    if (adEnabled) {
+        adViewHeightConstraint.constant = 50;
+    }
 }
 
 -(void) styleDropdownButton:(UIButton *)button {

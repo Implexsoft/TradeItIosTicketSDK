@@ -1745,13 +1745,13 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFw-bE-i5p" userLabel="Keypad">
-                                        <rect key="frame" x="0.0" y="302" width="320" height="152"/>
+                                        <rect key="frame" x="0.0" y="302" width="320" height="202"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-8n-sbz" userLabel="AdView">
-                                        <rect key="frame" x="0.0" y="454" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="504" width="320" height="0.0"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Yug-ra-Lj2"/>
+                                            <constraint firstAttribute="height" id="Yug-ra-Lj2"/>
                                         </constraints>
                                     </view>
                                 </subviews>
