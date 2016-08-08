@@ -18,6 +18,7 @@
 #import "TTSDKKeypad.h"
 #import "TTSDKSearchViewController.h"
 #import "TTSDKAlertController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 
 @interface TTSDKTradeViewController () {
@@ -36,6 +37,7 @@
     __weak IBOutlet TTSDKImageView * expirationDropdownArrow;
     __weak IBOutlet NSLayoutConstraint *orderViewHeightConstraint;
     __weak IBOutlet NSLayoutConstraint *adViewHeightConstraint;
+    __weak IBOutlet TradeItAdView *adView;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
@@ -106,8 +108,15 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
     [self.view setNeedsDisplay];
 
+    [self initializeAd];
+
     // Cache this so we don't have to hard-code the value
     initialStopPriceTopConstraintConstant = stopPriceTopConstraint.constant;
+}
+
+-(void) initializeAd {
+    [adView configureWithAdType:@"ticket"
+                    heightConstraint:adViewHeightConstraint];
 }
 
 -(IBAction) sharesPressed:(id)sender {
@@ -152,13 +161,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     [self deactivateDropdownButton: orderExpirationButton];
 
     previewOrderButton.clipsToBounds = YES;
-
-    // TODO - implement
-    BOOL adEnabled = YES;
-    
-    if (adEnabled) {
-        adViewHeightConstraint.constant = 50;
-    }
 }
 
 -(void) styleDropdownButton:(UIButton *)button {

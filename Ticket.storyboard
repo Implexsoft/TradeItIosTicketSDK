@@ -1784,7 +1784,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                         <rect key="frame" x="0.0" y="302" width="320" height="202"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-8n-sbz" userLabel="AdView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-8n-sbz" userLabel="AdView" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
                                         <rect key="frame" x="0.0" y="504" width="320" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="Yug-ra-Lj2"/>
@@ -1828,6 +1828,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="adView" destination="SYi-8n-sbz" id="eKe-Px-brS"/>
                         <outlet property="adViewHeightConstraint" destination="Yug-ra-Lj2" id="TtM-hF-nSd"/>
                         <outlet property="companyDetails" destination="OjD-iA-LDS" id="6NZ-fO-mnS"/>
                         <outlet property="containerView" destination="hYy-hm-yzr" id="Ocq-WX-TJk"/>
@@ -2010,12 +2011,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dYF-7w-adj"/>
-        <segue reference="alq-MR-2uv"/>
-        <segue reference="JZr-PV-7wY"/>
-        <segue reference="cfc-P1-7W5"/>
         <segue reference="kyf-iM-tIO"/>
+        <segue reference="alq-MR-2uv"/>
+        <segue reference="uWM-4J-KHQ"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
+        <segue reference="cfc-P1-7W5"/>
+        <segue reference="dYF-7w-adj"/>
     </inferredMetricsTieBreakers>
 </document>
