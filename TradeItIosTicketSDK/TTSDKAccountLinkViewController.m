@@ -12,6 +12,7 @@
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKAlertController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKAccountLinkViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet TradeItAdView *adView;
 
 @end
 
@@ -57,6 +59,11 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self.addBrokerButton addGestureRecognizer: addBrokerTap];
 }
 
+- (void)initializeAd {
+    [self.adView configureWithAdType:@"account"
+                    heightConstraint:self.adViewHeightConstraint];
+}
+
 -(void) setViewStyles {
     [super setViewStyles];
 
@@ -67,13 +74,6 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
     [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.doneButton.backgroundColor = self.styles.secondaryDarkActiveColor;
     self.doneButton.layer.cornerRadius = 5.0f;
-
-    // TODO - implement
-    BOOL adEnabled = NO;
-
-    if (adEnabled) {
-        self.adViewHeightConstraint.constant = 220.0f;
-    }
 }
 
 -(void) viewWillAppear:(BOOL)animated {
