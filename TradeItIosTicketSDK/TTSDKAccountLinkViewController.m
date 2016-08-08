@@ -61,6 +61,7 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
 - (void)initializeAd {
     [self.adView configureWithAdType:@"account"
+                    broker: self.ticket.currentSession.broker ?: nil
                     heightConstraint:self.adViewHeightConstraint];
 }
 
