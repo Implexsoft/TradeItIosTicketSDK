@@ -38,6 +38,7 @@
     __weak IBOutlet NSLayoutConstraint *orderViewHeightConstraint;
     __weak IBOutlet NSLayoutConstraint *adViewHeightConstraint;
     __weak IBOutlet TradeItAdView *adView;
+    __weak IBOutlet UIBarButtonItem *portfolioButton;
 
     TTSDKKeypad * keypad;
     UIView * loadingView;
@@ -794,6 +795,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
 #pragma mark Navigation
 
+- (IBAction)navigateToPortfolio:(id)sender {
+    [self performSegueWithIdentifier:@"TradeToPortfolio" sender:self];
+}
+
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
@@ -806,6 +811,8 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
             searchViewController.noSymbol = YES;
             searchViewController.rootTabBar = self.tabBarController;
         }
+    } else if ([segue.identifier isEqualToString:@"TradeToPortfolio"]) {
+        segue.destinationViewController.navigationItem.leftBarButtonItem = nil;
     }
 }
 

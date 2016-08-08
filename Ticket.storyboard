@@ -307,7 +307,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Portfolio" id="nMp-LT-HHh">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="CaW-D2-uZj"/>
+                        <barButtonItem key="backBarButtonItem" title="Portfolio" id="CaW-D2-uZj"/>
+                        <barButtonItem key="leftBarButtonItem" title="Trade" id="Xsl-D2-atG">
+                            <connections>
+                                <action selector="navigateToTrade:" destination="QbV-2r-TI7" id="dsc-0E-gux"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Close" id="jz8-Jg-IW6">
                             <connections>
                                 <action selector="closePressed:" destination="QbV-2r-TI7" id="eAi-r4-KY6"/>
@@ -323,6 +328,7 @@
                         <outlet property="adViewHeightConstraint" destination="ddL-35-xIa" id="OhU-De-xDW"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="PortfolioToLogin" id="b0O-lu-Vmh"/>
+                        <segue destination="VXZ-vQ-tdp" kind="show" identifier="PortfolioToTrade" id="kak-3q-tVP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXD-UY-D7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1819,7 +1825,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Trade" id="hHX-w2-81q">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="94o-Fr-Rfu"/>
+                        <barButtonItem key="backBarButtonItem" title="Trade" id="94o-Fr-Rfu"/>
+                        <barButtonItem key="leftBarButtonItem" title="Portfolio" id="FeM-pk-3eA">
+                            <connections>
+                                <action selector="navigateToPortfolio:" destination="VXZ-vQ-tdp" id="WOn-iv-AwV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Close" id="35P-gP-XDe">
                             <connections>
                                 <action selector="cancelPressed:" destination="VXZ-vQ-tdp" id="QGi-Io-fm1"/>
@@ -1843,6 +1854,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <outlet property="orderTypeButton" destination="cbn-kp-Nie" id="V8X-qz-xnQ"/>
                         <outlet property="orderView" destination="DlU-2P-Iay" id="2gr-O0-gQI"/>
                         <outlet property="orderViewHeightConstraint" destination="5Uy-ez-m2R" id="F9a-8S-Zl6"/>
+                        <outlet property="portfolioButton" destination="FeM-pk-3eA" id="D90-vF-nMk"/>
                         <outlet property="previewOrderButton" destination="HkT-XZ-XDB" id="bRl-TX-K8a"/>
                         <outlet property="sharesInput" destination="feE-8H-8e0" id="yrT-Md-Nah"/>
                         <outlet property="stopPriceInput" destination="91y-lh-fw2" id="htL-Ov-Sjv"/>
@@ -1851,6 +1863,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         <segue destination="bbK-hu-Twv" kind="show" identifier="TradeToAccountSelect" id="kyf-iM-tIO"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="TradeToLogin" id="uWM-4J-KHQ"/>
                         <segue destination="Kx2-Fj-r79" kind="show" identifier="TradeToSearch" id="q6I-1y-U0T"/>
+                        <segue destination="QbV-2r-TI7" kind="show" identifier="TradeToPortfolio" id="KYx-0F-xnL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Flb-hB-vMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2014,10 +2027,12 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kyf-iM-tIO"/>
-        <segue reference="alq-MR-2uv"/>
+        <segue reference="kak-3q-tVP"/>
+        <segue reference="KYx-0F-xnL"/>
         <segue reference="b0O-lu-Vmh"/>
-        <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
+        <segue reference="alq-MR-2uv"/>
+        <segue reference="hO5-IP-sLI"/>
         <segue reference="cfc-P1-7W5"/>
         <segue reference="dYF-7w-adj"/>
     </inferredMetricsTieBreakers>

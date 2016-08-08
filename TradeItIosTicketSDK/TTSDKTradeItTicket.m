@@ -310,18 +310,11 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 - (void)presentTradeOrPortfolioScreen {
-    UIStoryboard *ticketStoryboard = [self getTicketStoryboard];
-    
-    UITabBarController *tabBarController = (UITabBarController *)[ticketStoryboard instantiateViewControllerWithIdentifier: kBaseTabBarViewIdentifier];
-    [tabBarController setModalPresentationStyle:UIModalPresentationFullScreen];
-    
     if (self.presentationMode == TradeItPresentationModePortfolio || self.presentationMode == TradeItPresentationModePortfolioOnly) {
-        tabBarController.selectedIndex = 1;
+        [self presentTradeScreen];
     } else {
-        tabBarController.selectedIndex = 0;
+        [self presentPortfolioScreen];
     }
-
-    [self.parentView presentViewController:tabBarController animated:YES completion:nil];
 }
 
 

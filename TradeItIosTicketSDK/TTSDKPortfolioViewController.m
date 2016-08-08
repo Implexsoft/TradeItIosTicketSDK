@@ -499,20 +499,21 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         [self.ticket selectCurrentAccount: selectedAccountData];
     }
 
-    if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    UIViewController * rootVC = (UIViewController *)[self.navigationController.viewControllers objectAtIndex:0];
 
+    if ([rootVC isKindOfClass:TTSDKTradeViewController.class]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
         // Get storyboard
         UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-
+        
         TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
         [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
+        tradeView.navigationItem.leftBarButtonItem = nil;
 
         [self.navigationController pushViewController:tradeView animated:YES];
-
-    } else {
-        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled: YES];
-        [self.tabBarController setSelectedIndex: 0];
     }
 }
 
@@ -527,7 +528,11 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         [self.ticket selectCurrentAccount: selectedAccountData];
     }
 
-    if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+    UIViewController * rootVC = (UIViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+    
+    if ([rootVC isKindOfClass:TTSDKTradeViewController.class]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
         // Get storyboard
@@ -535,12 +540,9 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         
         TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
         [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
+        tradeView.navigationItem.leftBarButtonItem = nil;
         
         [self.navigationController pushViewController:tradeView animated:YES];
-        
-    } else {
-        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
-        [self.tabBarController setSelectedIndex: 0];
     }
 }
 
@@ -595,6 +597,10 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 
 #pragma mark Navigation
 
+- (IBAction)navigateToTrade:(id)sender {
+    [self performSegueWithIdentifier:@"PortfolioToTrade" sender:self];
+}
+
 - (IBAction)closePressed:(id)sender {
     [self.ticket returnToParentApp];
 }
@@ -634,6 +640,10 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         }
 
         [self.ticket removeBrokerSelectFromNav:loginNav cancelToParent:cancelToParent];
+    } else if ([segue.identifier isEqualToString:@"PortfolioToTrade"]) {
+
+        segue.destinationViewController.navigationItem.leftBarButtonItem = nil;
+
     }
 }
 
