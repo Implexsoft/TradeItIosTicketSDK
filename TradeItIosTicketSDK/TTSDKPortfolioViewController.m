@@ -16,6 +16,7 @@
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKAlertController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKPortfolioViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -35,6 +36,7 @@
 @property NSString * holdingsHeaderTitle;
 @property UIView * accountsFooterView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet TradeItAdView *adView;
 
 @end
 
@@ -97,17 +99,13 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         [self showLoadingAndWait];
         [self loadPortfolioData];
     }
+
+    [self initializeAd];
 }
 
-- (void)setViewStyles {
-    [super setViewStyles];
-
-    // TODO: implement
-    BOOL adEnabled = YES;
-
-    if (adEnabled) {
-        self.adViewHeightConstraint.constant = 50.0f;
-    }
+- (void)initializeAd {
+    [self.adView configureWithAdType:@"account"
+               heightConstraint:self.adViewHeightConstraint];
 }
 
 - (void)loadPortfolioData {

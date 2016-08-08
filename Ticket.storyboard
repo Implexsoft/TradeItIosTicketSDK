@@ -280,17 +280,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-Qa-uXU" userLabel="Accounts Table View">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
+                                <rect key="frame" x="-4" y="0.0" width="328" height="518"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="QbV-2r-TI7" id="yPh-Ht-XTv"/>
                                     <outlet property="delegate" destination="QbV-2r-TI7" id="ZJk-kX-N0b"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xet-u8-7MX" userLabel="AdView">
-                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xet-u8-7MX" userLabel="AdView" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="ddL-35-xIa"/>
+                                    <constraint firstAttribute="height" constant="50" id="ddL-35-xIa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -318,6 +318,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="accountsTable" destination="gFy-Qa-uXU" id="UoM-Ml-hSi"/>
+                        <outlet property="adView" destination="Xet-u8-7MX" id="wFn-Td-nMh"/>
                         <outlet property="adViewHeightConstraint" destination="ddL-35-xIa" id="OhU-De-xDW"/>
                         <segue destination="EOX-B4-DHL" kind="presentation" identifier="PortfolioToAccountLink" id="Iho-lP-LWh"/>
                         <segue destination="3Iv-K7-0hh" kind="presentation" identifier="PortfolioToLogin" id="b0O-lu-Vmh"/>
@@ -2013,7 +2014,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     <inferredMetricsTieBreakers>
         <segue reference="kyf-iM-tIO"/>
         <segue reference="alq-MR-2uv"/>
-        <segue reference="uWM-4J-KHQ"/>
+        <segue reference="b0O-lu-Vmh"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="Iho-lP-LWh"/>
         <segue reference="cfc-P1-7W5"/>
