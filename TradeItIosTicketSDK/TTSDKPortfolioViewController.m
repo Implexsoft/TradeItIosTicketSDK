@@ -100,6 +100,10 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
         [self loadPortfolioData];
     }
 
+    if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+
     [self initializeAd];
 }
 

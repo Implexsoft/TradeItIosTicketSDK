@@ -111,6 +111,10 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 
     [self initializeAd];
 
+    if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+
     // Cache this so we don't have to hard-code the value
     initialStopPriceTopConstraintConstant = stopPriceTopConstraint.constant;
 }
