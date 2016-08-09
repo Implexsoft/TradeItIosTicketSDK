@@ -1801,25 +1801,25 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="SYi-8n-sbz" secondAttribute="bottom" id="0Jm-OD-jE7"/>
                                     <constraint firstItem="WFw-bE-i5p" firstAttribute="top" secondItem="DlU-2P-Iay" secondAttribute="bottom" id="1Mc-O8-EpQ"/>
-                                    <constraint firstItem="SYi-8n-sbz" firstAttribute="leading" secondItem="hYy-hm-yzr" secondAttribute="leading" id="2pp-gG-aI9"/>
                                     <constraint firstItem="DlU-2P-Iay" firstAttribute="height" secondItem="hYy-hm-yzr" secondAttribute="height" multiplier="0.6" id="5Uy-ez-m2R"/>
-                                    <constraint firstAttribute="trailing" secondItem="SYi-8n-sbz" secondAttribute="trailing" id="603-p3-Epp"/>
+                                    <constraint firstItem="SYi-8n-sbz" firstAttribute="leading" secondItem="hYy-hm-yzr" secondAttribute="leading" id="75O-zL-d5v"/>
                                     <constraint firstItem="SYi-8n-sbz" firstAttribute="top" secondItem="WFw-bE-i5p" secondAttribute="bottom" id="8Az-6j-VgO"/>
                                     <constraint firstItem="DlU-2P-Iay" firstAttribute="leading" secondItem="hYy-hm-yzr" secondAttribute="leading" id="DSd-5Z-nAt"/>
                                     <constraint firstItem="DlU-2P-Iay" firstAttribute="top" secondItem="hYy-hm-yzr" secondAttribute="top" id="R59-6j-zuV"/>
                                     <constraint firstAttribute="trailing" secondItem="WFw-bE-i5p" secondAttribute="trailing" id="VMT-8D-bDv"/>
                                     <constraint firstItem="WFw-bE-i5p" firstAttribute="leading" secondItem="hYy-hm-yzr" secondAttribute="leading" id="XYh-Ci-bdZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="SYi-8n-sbz" secondAttribute="trailing" id="ctI-B7-bLR"/>
                                     <constraint firstAttribute="trailing" secondItem="DlU-2P-Iay" secondAttribute="trailing" id="fYS-vm-0fQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="SYi-8n-sbz" secondAttribute="bottom" id="gyK-gu-3CI"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6ni-aS-n4Y" firstAttribute="top" secondItem="hYy-hm-yzr" secondAttribute="bottom" id="1j8-Ua-GSc"/>
-                            <constraint firstItem="hYy-hm-yzr" firstAttribute="leading" secondItem="4II-y1-cKS" secondAttribute="leadingMargin" constant="-16" id="JwD-GF-Q1k"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hYy-hm-yzr" secondAttribute="trailing" constant="-16" id="qya-ip-xMm"/>
+                            <constraint firstItem="hYy-hm-yzr" firstAttribute="leading" secondItem="4II-y1-cKS" secondAttribute="leading" id="JwD-GF-Q1k"/>
+                            <constraint firstAttribute="trailing" secondItem="hYy-hm-yzr" secondAttribute="trailing" id="qya-ip-xMm"/>
                             <constraint firstItem="hYy-hm-yzr" firstAttribute="top" secondItem="1QG-Ea-qct" secondAttribute="bottom" id="ykc-za-Qli"/>
                         </constraints>
                     </view>
@@ -2026,11 +2026,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kyf-iM-tIO"/>
         <segue reference="kak-3q-tVP"/>
         <segue reference="KYx-0F-xnL"/>
-        <segue reference="b0O-lu-Vmh"/>
         <segue reference="Iho-lP-LWh"/>
+        <segue reference="uWM-4J-KHQ"/>
+        <segue reference="kyf-iM-tIO"/>
         <segue reference="alq-MR-2uv"/>
         <segue reference="hO5-IP-sLI"/>
         <segue reference="cfc-P1-7W5"/>
