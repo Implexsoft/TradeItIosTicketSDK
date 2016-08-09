@@ -120,7 +120,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) initializeAd {
-    [adView configureWithAdType:@"general"
+    [adView configureWithAdType:@"ticket"
                          broker: self.ticket.currentSession.broker ?: nil
                     heightConstraint:adViewHeightConstraint];
 }

@@ -108,9 +108,9 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 }
 
 - (void)initializeAd {
-    [self.adView configureWithAdType:@"account"
-            broker: self.ticket.currentSession.broker ?: nil
-            heightConstraint:self.adViewHeightConstraint];
+    [self.adView configureWithAdType:@"portfolio"
+                              broker: self.ticket.currentSession.broker
+                    heightConstraint:self.adViewHeightConstraint];
 }
 
 - (void)loadPortfolioData {

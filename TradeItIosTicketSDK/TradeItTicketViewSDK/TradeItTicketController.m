@@ -66,6 +66,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 +(void) showTicket {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
     [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
+    [self initializeAdConfig];
     
     switch (ticket.presentationMode) {
         case TradeItPresentationModePortfolioOnly:
@@ -138,7 +139,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
-    [TradeItTicketController initializeAdConfig];
+    [self initializeAdConfig];
 
     [ticket launchBrokerCenterFlow: load];
 }
@@ -167,7 +168,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
-    [TradeItTicketController initializeAdConfig];
+    [self initializeAdConfig];
 
     [ticket launchAccountsFlow];
 }
@@ -326,7 +327,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         ticket.connector.environment = TradeItEmsTestEnv;
     }
 
-    [TradeItTicketController initializeAdConfig];
+    [self initializeAdConfig];
     [TradeItTicketController showTicket];
 }
 
@@ -678,9 +679,6 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 
     TradeItAdConfig.users = users;
     TradeItAdConfig.apiKey = [ticket.connector apiKey];
-    TradeItAdConfig.environment = TradeItAdEnvironmentQA;
-    TradeItAdConfig.deviceInfoOverride = @"iphone8,2";
-    TradeItAdConfig.debug = true;
 }
 
 +(NSMutableArray *) mapSessionsWithAccounts: (NSMutableArray *) sessions {
