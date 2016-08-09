@@ -66,7 +66,7 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     self.selectedHoldingIndex = -1;
 
     if (!self.ticket.currentSession.isAuthenticated) {
-        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
     }
 }
 
@@ -85,12 +85,12 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
     }
 
     if ((!self.ticket.currentSession.isAuthenticated || self.ticket.currentSession.needsAuthentication) && !self.ticket.currentSession.authenticating) {
-        [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:NO];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
 
         [self showLoadingAndWait];
 
         [self authenticate:^(TradeItResult * res) {
-            [[self.tabBarController.tabBar.items objectAtIndex:0] setEnabled:YES];
+            self.navigationItem.leftBarButtonItem.enabled = YES;
             initialAuthenticationComplete = YES;
             [self loadPortfolioData];
         }];

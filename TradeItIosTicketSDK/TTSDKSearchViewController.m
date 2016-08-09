@@ -160,9 +160,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(IBAction) closePressed:(id)sender {
-    if (self.noSymbol && self.rootTabBar) {
+    if (self.noSymbol) {
         self.noSymbol = NO; // reset
-        self.rootTabBar.selectedIndex = 1; // this sets the tab bar to the portfolio
     }
 
 //    [self dismissViewControllerAnimated:YES completion:nil];

@@ -76,7 +76,8 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 -(void) authenticateSession:(TTSDKTicketSession *) session cancelToParent:(BOOL) cancelToParent broker:(NSString *) broker withCompletionBlock:(void (^)(TradeItResult *))completionBlock {
 
     [session authenticateFromViewController:self withCompletionBlock:^(TradeItResult * res) {
-        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES]; // sometimes we need to disable the portfolio link during authentication, so unset it
+        self.navigationItem.leftBarButtonItem.enabled = YES; // sometimes we need to disable the portfolio link during authentication, so unset it
+        
 
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
         if ([res isKindOfClass:TradeItAuthenticationResult.class]) {
@@ -304,11 +305,11 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
     if(![UIAlertController class]) {
         [self showOldErrorAlert:error.shortMessage withMessage:errorMessage];
     } else {
-        
+
         TTSDKAlertController * alert = [TTSDKAlertController alertControllerWithTitle:error.shortMessage
                                                                         message:errorMessage
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-        
+
         alert.modalPresentationStyle = UIModalPresentationPopover;
 
         NSAttributedString * attributedMessage = [[NSAttributedString alloc] initWithString:errorMessage attributes: @{NSForegroundColorAttributeName: self.styles.alertTextColor}];

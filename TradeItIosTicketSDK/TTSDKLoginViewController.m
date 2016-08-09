@@ -360,14 +360,14 @@
     } else {
         [self autoSelectAccount: [accounts lastObject] withSession:session];
 
-        if (self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
+        if (self.ticket.presentationMode == TradeItPresentationModePortfolio && self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
             [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
-        } else if (self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
+        } else if (self.ticket.presentationMode == TradeItPresentationModeTrade || self.ticket.presentationMode == TradeItPresentationModeTradeOnly) {
             [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
         } else if (self.ticket.presentationMode == TradeItPresentationModeAccounts) {
             [self performSegueWithIdentifier:@"LoginToAccountLink" sender:self];
         } else {
-            [self performSegueWithIdentifier: @"LoginToTab" sender: self];
+            [self performSegueWithIdentifier: @"LoginToTradeNav" sender: self];
         }
     }
 }
@@ -468,15 +468,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if ([segue.identifier isEqualToString:@"LoginToTab"]) {
-        UITabBarController * dest = (UITabBarController*)segue.destinationViewController;
-        if (self.ticket.presentationMode == TradeItPresentationModePortfolio || self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
-            dest.selectedIndex = 1;
-        } else {
-            dest.selectedIndex = 0;
-        }
-
-    } else if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
+    if ([segue.identifier isEqualToString:@"LoginToAccountSelect"]) {
         UINavigationController * nav = (UINavigationController *)[segue destinationViewController];
         [self.ticket configureAccountLinkNavController: nav];
     }

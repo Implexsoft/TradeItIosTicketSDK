@@ -194,9 +194,9 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
     utils = [TTSDKUtils sharedUtils];
 
     if (!self.ticket.currentSession.isAuthenticated) {
-        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:NO];
+        self.navigationItem.leftBarButtonItem.enabled = NO;
     } else {
-        [[self.tabBarController.tabBar.items objectAtIndex:1] setEnabled:YES];
+        self.navigationItem.leftBarButtonItem.enabled = YES;
     }
 
     if (self.ticket.loadingQuote) {
@@ -810,7 +810,6 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         if (!self.ticket.previewRequest.orderSymbol) {
             TTSDKSearchViewController *searchViewController = (TTSDKSearchViewController *)segue.destinationViewController;
             searchViewController.noSymbol = YES;
-            searchViewController.rootTabBar = self.tabBarController;
         }
     } else if ([segue.identifier isEqualToString:@"TradeToPortfolio"]) {
         segue.destinationViewController.navigationItem.leftBarButtonItem = nil;

@@ -13,6 +13,4 @@
 
 @property BOOL noSymbol;
 
-@property UITabBarController * rootTabBar;
-
 @end
