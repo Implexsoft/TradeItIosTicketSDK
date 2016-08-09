@@ -57,6 +57,8 @@ static NSString * kLoginSegueIdentifier = @"AccountLinkToLogin";
 
     UITapGestureRecognizer * addBrokerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addBrokerButtonPressed:)];
     [self.addBrokerButton addGestureRecognizer: addBrokerTap];
+
+    [self initializeAd];
 }
 
 - (void)initializeAd {
