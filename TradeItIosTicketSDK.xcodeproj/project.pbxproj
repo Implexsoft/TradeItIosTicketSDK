@@ -562,6 +562,7 @@
 		65F77C211CEBAAE70098D39A /* TradeItPublisherDataResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItPublisherDataResult.m; sourceTree = "<group>"; };
 		65F77C311CEBACC60098D39A /* TradeItPublisherDataRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeItPublisherDataRequest.m; sourceTree = "<group>"; };
 		65F77C331CEBACED0098D39A /* TradeItPublisherDataRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeItPublisherDataRequest.h; sourceTree = "<group>"; };
+		756A53641D5D1FDC0061A3A8 /* TradeItIosTicketSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TradeItIosTicketSDK.podspec; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCustomIOSAlertView.m; sourceTree = "<group>"; };
 		A94C7A7D1BB08A3800212EE7 /* Ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Ticket.storyboard; path = ../Ticket.storyboard; sourceTree = "<group>"; };
@@ -968,6 +969,7 @@
 		A9A8CF471B4EFACB000207B9 = {
 			isa = PBXGroup;
 			children = (
+				756A53641D5D1FDC0061A3A8 /* TradeItIosTicketSDK.podspec */,
 				A9A8D0C31B4F0F56000207B9 /* FullViewResources */,
 				A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */,
 				A9A8CF511B4EFACB000207B9 /* Products */,
