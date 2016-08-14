@@ -212,8 +212,7 @@ static NSString * kAccountsKey = @"TRADEIT_ACCOUNTS";
 }
 
 -(TTSDKCompanyDetails *) companyDetailsWithName: (NSString *)name intoContainer: (UIView *)container inController: (UIViewController *)vc {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
     NSArray * companyDetailsArray = [resourceBundle loadNibNamed:@"TTSDKCompanyDetailsView" owner:vc options:nil];
 
     TTSDKCompanyDetails * companyDetailsNib = [companyDetailsArray firstObject];

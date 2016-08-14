@@ -253,8 +253,7 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
 }
 
 -(void) initKeypad {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
     NSArray * keypadArray = [resourceBundle loadNibNamed:@"TTSDKcalc" owner:self options:nil];
 
     keypad = [keypadArray firstObject];

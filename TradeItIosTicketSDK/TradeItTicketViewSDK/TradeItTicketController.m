@@ -641,9 +641,9 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         
         TTSDKTicketSession * session = sessionsToAuth[0];
 
-        UIStoryboard * ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-        UINavigationController * loginNav = (UINavigationController *)[ticketStoryboard instantiateViewControllerWithIdentifier: @"AUTH_NAV"];
-        TTSDKLoginViewController * loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier: @"LOGIN"];
+        UIStoryboard *ticketStoryboard = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
+        UINavigationController *loginNav = (UINavigationController *)[ticketStoryboard instantiateViewControllerWithIdentifier: @"AUTH_NAV"];
+        TTSDKLoginViewController *loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier: @"LOGIN"];
         [loginViewController setAddBroker: session.broker];
         loginViewController.reAuthenticate = YES;
         loginViewController.isModal = YES;

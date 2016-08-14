@@ -199,8 +199,8 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 }
 
 -(void) selectBroker:(NSString *)broker {
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-    TTSDKLoginViewController * loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
+    UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
+    TTSDKLoginViewController *loginViewController = [ticket instantiateViewControllerWithIdentifier: kLoginViewControllerIdentifier];
     [loginViewController setAddBroker: broker];
     [self.navigationController pushViewController: loginViewController animated:YES];
 }

@@ -330,7 +330,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 }
 
 - (void)launchAccountLink:(UIViewController *)viewController {
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
     UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
 
     TTSDKAccountLinkViewController * accountLinkVC = (TTSDKAccountLinkViewController *)[accountLinkNav.viewControllers objectAtIndex:0];

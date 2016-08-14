@@ -126,8 +126,7 @@ static NSString * kBrokerToBrokerCenterSegueIdentifier = @"BrokerSelectToBrokerC
         return footerView;
     }
 
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
     NSArray * footerViewArray = [resourceBundle loadNibNamed:@"TTSDKBrokerSelectFooterView" owner:self options:nil];
     
     footerView = [footerViewArray firstObject];

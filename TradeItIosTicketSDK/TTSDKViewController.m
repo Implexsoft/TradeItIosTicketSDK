@@ -110,7 +110,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 
                 UIAlertAction * defaultAction = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault
                                                                        handler:^(UIAlertAction * action) {
-                                                                           UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+                                                                           UIStoryboard *ticket =[[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
 
                                                                            UINavigationController * loginNav = [ticket instantiateViewControllerWithIdentifier: kLoginNavIdentifier];
                                                                            [self.ticket removeBrokerSelectFromNav: loginNav cancelToParent:cancelToParent];
@@ -149,7 +149,7 @@ static NSString * kAccountLinkNavIdentifier = @"ACCOUNT_LINK_NAV";
 }
 
 -(void) launchAccountLink {
-    UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
     UINavigationController * accountLinkNav = [ticket instantiateViewControllerWithIdentifier: kAccountLinkNavIdentifier];
 
     TTSDKAccountLinkViewController * accountLinkVC = (TTSDKAccountLinkViewController *)[accountLinkNav.viewControllers objectAtIndex:0];

@@ -434,9 +434,9 @@ static CGFloat kExpandedHeight = 293.0f;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * cellIdentifier;
-    NSString * nibIdentifier;
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]];
+    NSString *cellIdentifier;
+    NSString *nibIdentifier;
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
 
     cellIdentifier = @"BrokerCenterIdentifier";
     nibIdentifier = @"TTSDKBrokerCenterCell";

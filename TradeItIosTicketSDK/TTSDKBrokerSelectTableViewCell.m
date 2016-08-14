@@ -8,6 +8,7 @@
 
 #import "TTSDKBrokerSelectTableViewCell.h"
 #import "TradeItStyles.h"
+#import "TTSDKTradeItTicket.h"
 
 @interface TTSDKBrokerSelectTableViewCell() {
     UIImageView * customDisclosureView;
@@ -34,7 +35,10 @@ static float kDisclosureWidth = 7.0f;
 
         self.backgroundColor = styles.pageBackgroundColor;
 
-        UIImage * disclosureImage = [UIImage imageNamed:@"TradeItIosTicketSDK.bundle/native_arrow.png"];
+        UIImage *disclosureImage = [UIImage imageNamed:@"native_arrow"
+                                              inBundle:[[TTSDKTradeItTicket globalTicket] getBundle]
+                         compatibleWithTraitCollection:nil];
+
         disclosureImage = [disclosureImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
         customDisclosureView = [[UIImageView alloc] initWithImage:disclosureImage];

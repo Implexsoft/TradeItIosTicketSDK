@@ -828,17 +828,20 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     [self launchTradeOrPortfolioFlow];
 }
 
-#pragma mark - private
 - (UIStoryboard *)getTicketStoryboard {
-    NSString *tradeItIosTicketSDKBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
-                                                                              ofType:@"bundle"];
-
-    NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKBundlePath];
+    NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
 
     UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
-                                                                bundle:tradeItIosTicketSDKBundle];
+                                                               bundle:tradeItIosTicketSDKBundle];
 
     return ticketStoryboard;
 }
+
+- (NSBundle *)getBundle {
+    NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+
+    return tradeItIosTicketSDKBundle;
+}
+
 
 @end

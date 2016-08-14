@@ -97,5 +97,8 @@
 #pragma mark Navigation
 -(void)returnToParentApp;
 
+#pragma mark Resources
+- (UIStoryboard *)getTicketStoryboard;
+- (NSBundle *)getBundle;
 
 @end

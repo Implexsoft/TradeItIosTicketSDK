@@ -186,7 +186,7 @@
 
 - (void)showWebViewWithURL:(NSString *)url andTitle:(NSString *)title {
     // Get storyboard
-    UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+    UIStoryboard *ticketStoryboard = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
     
     TTSDKWebViewController * webViewController = (TTSDKWebViewController *)[ticketStoryboard instantiateViewControllerWithIdentifier: @"WebView"];
     [webViewController setModalPresentationStyle:UIModalPresentationFullScreen];

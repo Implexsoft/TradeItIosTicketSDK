@@ -234,8 +234,8 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]];
-    NSArray * headerArray;
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
+    NSArray *headerArray;
 
     if (section == 0) {
         if (!self.accountsHeaderNib) {
@@ -283,9 +283,9 @@ static NSString * kPortfolioToLoginSegueIdentifier = @"PortfolioToLogin";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * cellIdentifier;
-    NSString * nibIdentifier;
-    NSBundle * resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]];
+    NSString *cellIdentifier;
+    NSString *nibIdentifier;
+    NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
 
     if (indexPath.section == 0) {
         cellIdentifier = @"PortfolioAccountIdentifier";
@@ -511,9 +511,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
-        // Get storyboard
-        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
-        
+        UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
         TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
         [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
         tradeView.navigationItem.leftBarButtonItem = nil;
@@ -541,7 +539,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         
         // Get storyboard
-        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+        UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
         
         TTSDKTradeViewController * tradeView = (TTSDKTradeViewController *)[ticket instantiateViewControllerWithIdentifier: @"tradeViewController"];
         [tradeView setModalPresentationStyle:UIModalPresentationFullScreen];
@@ -620,13 +618,7 @@ forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if ([segue.identifier isEqualToString: kPortfolioToLoginSegueIdentifier]) {
         UINavigationController *loginNav = (UINavigationController *)[segue destinationViewController];
 
-        NSString *pathForTradeItIosTicketSDKBundle = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
-                                                                                     ofType:@"bundle"];
-
-        NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:pathForTradeItIosTicketSDKBundle];
-
-        UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
-                                                                    bundle:tradeItIosTicketSDKBundle];
+        UIStoryboard *ticketStoryboard = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
 
         TTSDKLoginViewController *loginViewController = [ticketStoryboard instantiateViewControllerWithIdentifier:@"LOGIN"];
         [loginViewController setAddBroker:addBroker];

@@ -118,8 +118,11 @@
     NSString * logoSrc = [logoItem valueForKey: @"src"];
 
     if ([logoSrc isEqualToString:@""]) {
-        NSString * imageLocalSrc = [NSString stringWithFormat:@"TradeItIosTicketSDK.bundle/%@_logo.png", [logoItem valueForKey:@"broker"]];
-        UIImage * img = [UIImage imageNamed: imageLocalSrc];
+        NSString *imageName = [NSString stringWithFormat:@"%@_logo.png", [logoItem valueForKey:@"broker"]];
+        UIImage *img = [UIImage imageNamed:imageName
+                                  inBundle:[[TTSDKTradeItTicket globalTicket] getBundle]
+             compatibleWithTraitCollection:nil];
+
         NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
         [mutableImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
 

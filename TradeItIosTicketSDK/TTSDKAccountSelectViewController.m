@@ -137,8 +137,7 @@
     static NSString * accountIdentifier = @"AccountSelectIdentifier";
     TTSDKAccountSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
     if (cell == nil) {
-        NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
-        NSBundle * resourceBundle = [NSBundle bundleWithPath:bundlePath];
+        NSBundle *resourceBundle = [[TTSDKTradeItTicket globalTicket] getBundle];
 
         [tableView registerNib:[UINib nibWithNibName:@"TTSDKAccountSelectCell" bundle:resourceBundle] forCellReuseIdentifier:accountIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:accountIdentifier];
@@ -157,15 +156,15 @@
     return cell;
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
 
     if ([segue.identifier isEqualToString:@"AccountSelectToBrokerSelect"]) {
-        UINavigationController * dest = (UINavigationController *)[segue destinationViewController];
+        UINavigationController *dest = (UINavigationController *)[segue destinationViewController];
 
-        UIStoryboard * ticket = [UIStoryboard storyboardWithName:@"Ticket" bundle: [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"]]];
+        UIStoryboard *ticket = [[TTSDKTradeItTicket globalTicket] getTicketStoryboard];
 
-        TTSDKBrokerSelectViewController * brokerSelectController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
+        TTSDKBrokerSelectViewController *brokerSelectController = [ticket instantiateViewControllerWithIdentifier:@"BROKER_SELECT"];
         brokerSelectController.isModal = YES;
 
         [dest pushViewController:brokerSelectController animated:NO];
