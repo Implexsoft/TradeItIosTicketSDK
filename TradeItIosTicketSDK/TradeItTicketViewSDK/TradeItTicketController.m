@@ -673,6 +673,11 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     NSMutableArray *users = [[NSMutableArray alloc] init];
     for (TradeItLinkedLogin *linkedLogin in linkedLogins) {
         NSString *userToken = [connector userTokenFromKeychainId:linkedLogin.keychainId];
+
+        if (userToken == nil) {
+            userToken = [[NSBundle mainBundle] bundleIdentifier];
+        }
+
         NSDictionary *user = @{ @"userId": linkedLogin.userId, @"userToken": userToken };
         [users addObject:user];
     }
