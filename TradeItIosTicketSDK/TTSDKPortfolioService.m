@@ -8,8 +8,8 @@
 
 #import "TTSDKPortfolioService.h"
 #import "TTSDKTradeItTicket.h"
-#import "TradeItMarketDataService.h"
-#import "TradeItQuotesResult.h"
+#import <TradeItIosEmsApi/TradeItMarketDataService.h>
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
 
 typedef void(^DataCompletionBlock)(void);
 

@@ -12,16 +12,16 @@
 #import "TTSDKAccountSelectViewController.h"
 #import "TTSDKTabBarViewController.h"
 #import "TTSDKBrokerSelectViewController.h"
-#import "TradeItErrorResult.h"
-#import "TradeItSession.h"
-#import "TradeItAuthenticationResult.h"
-#import "TradeItTradeService.h"
-#import "TradeItPositionService.h"
-#import "TradeItGetPositionsRequest.h"
-#import "TradeItBalanceService.h"
-#import "TradeItAccountOverviewRequest.h"
-#import "TradeItMarketDataService.h"
-#import "TradeItQuotesResult.h"
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
+#import <TradeItIosEmsApi/TradeItSession.h>
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
+#import <TradeItIosEmsApi/TradeItTradeService.h>
+#import <TradeItIosEmsApi/TradeItPositionService.h>
+#import <TradeItIosEmsApi/TradeItGetPositionsRequest.h>
+#import <TradeItIosEmsApi/TradeItBalanceService.h>
+#import <TradeItIosEmsApi/TradeItAccountOverviewRequest.h>
+#import <TradeItIosEmsApi/TradeItMarketDataService.h>
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
 #import "TTSDKPortfolioService.h"
 #import "TTSDKBrokerCenterViewController.h"
 

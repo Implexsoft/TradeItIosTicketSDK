@@ -31,7 +31,7 @@
 #import "TTSDKUtils.h"
 #import "TTSDKAccountLinkViewController.h"
 #import "TTSDKAccountLinkTableViewCell.h"
-#import "TradeItConnector.h"
+#import <TradeItIosEmsApi/TradeItConnector.h>
 #import "TTSDKPosition.h"
 #import "TTSDKPortfolioService.h"
 #import "TTSDKAccountSummaryResult.h"

@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TradeItErrorResult.h"
-#import "TradeItPreviewTradeResult.h"
-#import "TradeItPlaceTradeResult.h"
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
+#import <TradeItIosEmsApi/TradeItPreviewTradeResult.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeResult.h>
 
 @interface TradeItTicketControllerResult : NSObject
 

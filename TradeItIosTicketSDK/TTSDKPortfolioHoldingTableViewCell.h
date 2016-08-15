@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItPosition.h"
+#import <TradeItIosEmsApi/TradeItPosition.h>
 #import "TTSDKPosition.h"
 
 @protocol TTSDKPositionDelegate;

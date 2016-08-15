@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItBrokerCenterBroker.h"
+#import <TradeItIosEmsApi/TradeItBrokerCenterBroker.h>
 
 @protocol TTSDKBrokerCenterDelegate;
 

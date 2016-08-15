@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItAuthenticationInfo.h"
-#import "TradeItErrorResult.h"
-#import "TradeItAuthLinkResult.h"
-#import "TradeItAuthenticationResult.h"
-#import "TradeItSecurityQuestionResult.h"
+#import <TradeItIosEmsApi/TradeItAuthenticationInfo.h>
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
+#import <TradeItIosEmsApi/TradeItAuthLinkResult.h>
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
+#import <TradeItIosEmsApi/TradeItSecurityQuestionResult.h>
 #import "TTSDKViewController.h"
 
 @interface TTSDKLoginViewController : TTSDKViewController <UITextFieldDelegate, UIAlertViewDelegate>

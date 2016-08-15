@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TradeItAccountOverviewResult.h"
+#import <TradeItIosEmsApi/TradeItAccountOverviewResult.h>
 #import "TTSDKTradeItTicket.h"
 
 @interface TTSDKPortfolioAccount : NSObject

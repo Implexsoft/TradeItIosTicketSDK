@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TTSDKPosition.h"
-#import "TradeItAccountOverviewResult.h"
+#import <TradeItIosEmsApi/TradeItAccountOverviewResult.h>
 
 @interface TTSDKAccountSummaryResult : NSObject
 

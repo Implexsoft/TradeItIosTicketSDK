@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKPublisherService.h"
-#import "TradeItPublisherDataRequest.h"
-#import "TradeItPublisherService.h"
+#import <TradeItIosEmsApi/TradeItPublisherDataRequest.h>
+#import <TradeItIosEmsApi/TradeItPublisherService.h>
 #import "TTSDKTradeItTicket.h"
-#import "TradeItEmsUtils.h"
+#import <TradeItIosEmsApi/TradeItEmsUtils.h>
 
 @interface TTSDKPublisherService() {
     TTSDKTradeItTicket * globalTicket;

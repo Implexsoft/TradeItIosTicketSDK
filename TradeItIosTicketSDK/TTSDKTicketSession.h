@@ -7,14 +7,14 @@
 //
 
 #import <TradeItIosTicketSDK/TradeItIosTicketSDK.h>
-#import "TradeItSession.h"
-#import "TradeItPreviewTradeRequest.h"
-#import "TradeItPlaceTradeRequest.h"
-#import "TradeItGetPositionsRequest.h"
-#import "TradeItTradeService.h"
-#import "TradeItPositionService.h"
-#import "TradeItBalanceService.h"
-#import "TradeItAccountOverviewResult.h"
+#import <TradeItIosEmsApi/TradeItSession.h>
+#import <TradeItIosEmsApi/TradeItPreviewTradeRequest.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeRequest.h>
+#import <TradeItIosEmsApi/TradeItGetPositionsRequest.h>
+#import <TradeItIosEmsApi/TradeItTradeService.h>
+#import <TradeItIosEmsApi/TradeItPositionService.h>
+#import <TradeItIosEmsApi/TradeItBalanceService.h>
+#import <TradeItIosEmsApi/TradeItAccountOverviewResult.h>
 
 @interface TTSDKTicketSession : TradeItSession <UIPickerViewDataSource, UIPickerViewDelegate>
 

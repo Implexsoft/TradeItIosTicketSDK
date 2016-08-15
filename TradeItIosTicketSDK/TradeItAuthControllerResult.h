@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TradeItAuthenticationResult.h"
-#import "TradeItErrorResult.h"
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
 
 @interface TradeItAuthControllerResult : NSObject
 

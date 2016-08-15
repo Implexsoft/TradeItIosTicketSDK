@@ -8,11 +8,11 @@
 
 #import "TTSDKPortfolioViewController.h"
 #import "TTSDKPortfolioService.h"
-#import "TradeItAuthenticationResult.h"
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
 #import "TTSDKAccountsHeaderView.h"
 #import "TTSDKHoldingsHeaderView.h"
 #import "TTSDKLoginViewController.h"
-#import "TradeItQuotesResult.h"
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
 #import "TTSDKBrokerSelectViewController.h"
 #import "TTSDKTradeViewController.h"
 #import "TTSDKAlertController.h"

@@ -8,7 +8,7 @@
 
 #import "TTSDKBrokerCenterViewController.h"
 #import "TTSDKBrokerCenterTableViewCell.h"
-#import "TradeItEmsUtils.h"
+#import <TradeItIosEmsApi/TradeItEmsUtils.h>
 
 @interface TTSDKBrokerCenterViewController ()
 

@@ -6,9 +6,9 @@
 //  Copyright © 2016 Antonio Reyes. All rights reserved.
 //
 
-#import "TradeItPosition.h"
-#import "TradeItResult.h"
-#import "TradeItQuote.h"
+#import <TradeItIosEmsApi/TradeItPosition.h>
+#import <TradeItIosEmsApi/TradeItResult.h>
+#import <TradeItIosEmsApi/TradeItQuote.h>
 
 @interface TTSDKPosition : TradeItPosition
 

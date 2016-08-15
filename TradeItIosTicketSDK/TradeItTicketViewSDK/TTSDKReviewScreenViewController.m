@@ -9,7 +9,7 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKPrimaryButton.h"
 #import "TTSDKSuccessViewController.h"
-#import "TradeItPlaceTradeResult.h"
+#import <TradeItIosEmsApi/TradeItPlaceTradeResult.h>
 #import "TTSDKSmallLabel.h"
 #import "TTSDKAlertController.h"
 

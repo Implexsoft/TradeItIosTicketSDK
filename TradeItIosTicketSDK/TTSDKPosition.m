@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKPosition.h"
-#import "TradeItMarketDataService.h"
+#import <TradeItIosEmsApi/TradeItMarketDataService.h>
 #import "TTSDKTradeItTicket.h"
-#import "TradeItQuotesResult.h"
-#import "TradeItQuote.h"
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
+#import <TradeItIosEmsApi/TradeItQuote.h>
 
 @implementation TTSDKPosition
 

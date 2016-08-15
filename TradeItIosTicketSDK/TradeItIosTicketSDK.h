@@ -11,79 +11,79 @@
 #import "TradeItTicketController.h"
 #import "TradeItTicketControllerResult.h"
 #import "TradeItAuthControllerResult.h"
-#import "TradeItAuthenticationInfo.h"
-#import "TradeItErrorResult.h"
-#import "TradeItRequest.h"
-#import "TradeItSecurityQuestionRequest.h"
-#import "TradeItSecurityQuestionResult.h"
-#import "TIEMSJSONModel.h"
-#import "TIEMSJSONAPI.h"
-#import "TIEMSJSONHTTPClient.h"
-#import "TIEMSJSONKeyMapper.h"
-#import "TIEMSJSONModel+networking.h"
-#import "TIEMSJSONModelArray.h"
-#import "TIEMSJSONModelClassProperty.h"
-#import "TIEMSJSONModelError.h"
-#import "TIEMSJSONModelLib.h"
-#import "TIEMSJSONValueTransformer.h"
-#import "NSArray+TIEMSJSONModel.h"
+#import <TradeItIosEmsApi/TradeItAuthenticationInfo.h>
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
+#import <TradeItIosEmsApi/TradeItRequest.h>
+#import <TradeItIosEmsApi/TradeItSecurityQuestionRequest.h>
+#import <TradeItIosEmsApi/TradeItSecurityQuestionResult.h>
+#import <TradeItIosEmsApi/TIEMSJSONModel.h>
+#import <TradeItIosEmsApi/TIEMSJSONAPI.h>
+#import <TradeItIosEmsApi/TIEMSJSONHTTPClient.h>
+#import <TradeItIosEmsApi/TIEMSJSONKeyMapper.h>
+#import <TradeItIosEmsApi/TIEMSJSONModel+networking.h>
+#import <TradeItIosEmsApi/TIEMSJSONModelArray.h>
+#import <TradeItIosEmsApi/TIEMSJSONModelClassProperty.h>
+#import <TradeItIosEmsApi/TIEMSJSONModelError.h>
+#import <TradeItIosEmsApi/TIEMSJSONModelLib.h>
+#import <TradeItIosEmsApi/TIEMSJSONValueTransformer.h>
+#import <TradeItIosEmsApi/NSArray+TIEMSJSONModel.h>
 
 
 // Imports to use the underlying TradeItIosEmsLib
 
 
 // Generic classes for the request/results sent the to EMS server
-#import "TradeItRequest.h"
-#import "TradeItResult.h"
-#import "TradeItErrorResult.h"
+#import <TradeItIosEmsApi/TradeItRequest.h>
+#import <TradeItIosEmsApi/TradeItResult.h>
+#import <TradeItIosEmsApi/TradeItErrorResult.h>
 
 // Start with the connector, you'll set your API key and the environment
 // Then link a user to their brokerage(s) account(s)
-#import "TradeItConnector.h"
-#import "TradeItLinkedLogin.h"
-#import "TradeItAuthenticationInfo.h"
-#import "TradeItAuthenticationRequest.h"
-#import "TradeItAuthenticationResult.h"
-#import "TradeItAuthLinkRequest.h"
-#import "TradeItAuthLinkResult.h"
+#import <TradeItIosEmsApi/TradeItConnector.h>
+#import <TradeItIosEmsApi/TradeItLinkedLogin.h>
+#import <TradeItIosEmsApi/TradeItAuthenticationInfo.h>
+#import <TradeItIosEmsApi/TradeItAuthenticationRequest.h>
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
+#import <TradeItIosEmsApi/TradeItAuthLinkRequest.h>
+#import <TradeItIosEmsApi/TradeItAuthLinkResult.h>
 
 // Once you have a link you'll establish a session using the linkedLogin
-#import "TradeItSession.h"
-#import "TradeItSecurityQuestionRequest.h"
-#import "TradeItSecurityQuestionResult.h"
+#import <TradeItIosEmsApi/TradeItSession.h>
+#import <TradeItIosEmsApi/TradeItSecurityQuestionRequest.h>
+#import <TradeItIosEmsApi/TradeItSecurityQuestionResult.h>
 
 // Use the PublisherService to retrieve ad sources
-#import "TradeItAdsRequest.h"
-#import "TradeitAdsResult.h"
+#import <TradeItIosEmsApi/TradeItAdsRequest.h>
+#import <TradeItIosEmsApi/TradeitAdsResult.h>
 
 // Use the TradeService to preview and place trades
-#import "TradeItTradeService.h"
-#import "TradeItPreviewTradeRequest.h"
-#import "TradeItPreviewTradeOrderDetails.h"
-#import "TradeItPreviewTradeResult.h"
-#import "TradeItPlaceTradeRequest.h"
-#import "TradeItPlaceTradeResult.h"
-#import "TradeItPlaceTradeOrderInfo.h"
-#import "TradeItPlaceTradeOrderInfoPrice.h"
+#import <TradeItIosEmsApi/TradeItTradeService.h>
+#import <TradeItIosEmsApi/TradeItPreviewTradeRequest.h>
+#import <TradeItIosEmsApi/TradeItPreviewTradeOrderDetails.h>
+#import <TradeItIosEmsApi/TradeItPreviewTradeResult.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeRequest.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeResult.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeOrderInfo.h>
+#import <TradeItIosEmsApi/TradeItPlaceTradeOrderInfoPrice.h>
 
 // Use the BalanceService to get account balance information
-#import "TradeItBalanceService.h"
-#import "TradeItAccountOverviewRequest.h"
-#import "TradeItAccountOverviewResult.h"
+#import <TradeItIosEmsApi/TradeItBalanceService.h>
+#import <TradeItIosEmsApi/TradeItAccountOverviewRequest.h>
+#import <TradeItIosEmsApi/TradeItAccountOverviewResult.h>
 
 // Use the PositionSerview to get account position information
-#import "TradeItPositionService.h"
-#import "TradeItGetPositionsRequest.h"
-#import "TradeItGetPositionsResult.h"
-#import "TradeItPosition.h"
+#import <TradeItIosEmsApi/TradeItPositionService.h>
+#import <TradeItIosEmsApi/TradeItGetPositionsRequest.h>
+#import <TradeItIosEmsApi/TradeItGetPositionsResult.h>
+#import <TradeItIosEmsApi/TradeItPosition.h>
 
 // Use the PublisherService to get publisher specific configurations/data
-#import "TradeItPublisherService.h"
-#import "TradeItAdsRequest.h"
-#import "TradeItAdsResult.h"
+#import <TradeItIosEmsApi/TradeItPublisherService.h>
+#import <TradeItIosEmsApi/TradeItAdsRequest.h>
+#import <TradeItIosEmsApi/TradeItAdsResult.h>
 
 // EMS API Util classes
-#import "TradeItTypeDefs.h"
+#import <TradeItIosEmsApi/TradeItTypeDefs.h>
 
 @interface TradeItIosTicketSDK : NSObject
 

@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKTicketSession.h"
-#import "TradeItAuthenticationResult.h"
+#import <TradeItIosEmsApi/TradeItAuthenticationResult.h>
 #import "TTSDKCustomIOSAlertView.h"
 #import "TTSDKLoginViewController.h"
 #import "TTSDKTradeViewController.h"

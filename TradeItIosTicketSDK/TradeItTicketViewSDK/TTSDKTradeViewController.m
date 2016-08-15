@@ -11,9 +11,9 @@
 #import "TTSDKReviewScreenViewController.h"
 #import "TTSDKCompanyDetails.h"
 #import "TTSDKLoginViewController.h"
-#import "TradeItBalanceService.h"
+#import <TradeItIosEmsApi/TradeItBalanceService.h>
 #import "TTSDKPosition.h"
-#import "TradeItQuotesResult.h"
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
 #import "TTSDKImageView.h"
 #import "TTSDKKeypad.h"
 #import "TTSDKSearchViewController.h"

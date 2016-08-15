@@ -7,9 +7,9 @@
 //
 
 #import "TTSDKBaseTradeViewController.h"
-#import "TradeItTradeService.h"
-#import "TradeItMarketDataService.h"
-#import "TradeItQuotesResult.h"
+#import <TradeItIosEmsApi/TradeItTradeService.h>
+#import <TradeItIosEmsApi/TradeItMarketDataService.h>
+#import <TradeItIosEmsApi/TradeItQuotesResult.h>
 #import "TTSDKAlertController.h"
 
 @interface TTSDKBaseTradeViewController()

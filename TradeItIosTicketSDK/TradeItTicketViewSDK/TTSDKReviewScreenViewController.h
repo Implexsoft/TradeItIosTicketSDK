@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TradeItPreviewTradeResult.h"
+#import <TradeItIosEmsApi/TradeItPreviewTradeResult.h>
 #import "TTSDKViewController.h"
 
 @interface TTSDKReviewScreenViewController : TTSDKViewController

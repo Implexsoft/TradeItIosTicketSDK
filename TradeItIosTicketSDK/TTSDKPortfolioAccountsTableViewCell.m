@@ -7,7 +7,7 @@
 //
 
 #import "TTSDKPortfolioAccountsTableViewCell.h"
-#import "TradeItAccountOverviewResult.h"
+#import <TradeItIosEmsApi/TradeItAccountOverviewResult.h>
 #import "TTSDKUtils.h"
 #import "TradeItStyles.h"
 
