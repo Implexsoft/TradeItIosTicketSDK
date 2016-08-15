@@ -675,7 +675,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
         NSString *userToken = [connector userTokenFromKeychainId:linkedLogin.keychainId];
 
         if (userToken == nil) {
-            userToken = [[NSBundle mainBundle] bundleIdentifier];
+            userToken = [NSString stringWithFormat:@"Missing userToken in Bundle Id: %@", [[NSBundle mainBundle] bundleIdentifier]];
         }
 
         NSDictionary *user = @{ @"userId": linkedLogin.userId, @"userToken": userToken };
