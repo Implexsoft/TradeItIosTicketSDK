@@ -2,7 +2,7 @@
 
 ## Cocoapods
 
-Follow the [Cocoapods: Getting started guide](https://guides.cocoapods.org/using/getting-started.html) if you've never used Cocoapods before.
+Follow the [Cocoapods: Getting started guide](https://guides.cocoapods.org/using/getting-started.html) and [Cocoapods: Using Cocoapods guide](https://guides.cocoapods.org/using/using-cocoapods.html) if you've never used Cocoapods before.
 
 Inside your `Podfile` you need to add the TradeIt spec repo as a source:
 
@@ -26,6 +26,14 @@ target 'YourProjectTargetName' do
   pod 'TradeItIosTicketSDK', '0.1.1'
 end
 ```
+
+Then run:
+
+```
+pod install
+```
+
+The Ticket SDK and Ad SDK should be installed for you.
 
 ## Deprecated framework build notes
 NOTE: To build select the framework target, and iOS Device and build (it will build for both iOS and Simulators)
