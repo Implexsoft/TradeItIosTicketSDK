@@ -1,7 +1,22 @@
 # TradeItIosTicketSDK
 
 ## Cocoapods
-To use the Ticket SDK with Cocoapods, you need to add the Trading Ticket Inc SpecRepo source and add the TicketSDK to your pod dependencies.
+
+Follow the [Cocoapods: Getting started guide](https://guides.cocoapods.org/using/getting-started.html) if you've never used Cocoapods before.
+
+Inside your `Podfile` you need to add the TradeIt spec repo as a source:
+
+```ruby
+source 'https://github.com/tradingticket/SpecRepo'
+```
+
+Under your project target add our Ticket SDK pod as a dependency:
+
+```ruby
+pod 'TradeItIosTicketSDK', '0.1.1'
+```
+
+This is a base example of what it should look like:
 
 ```ruby
 source 'https://github.com/tradingticket/SpecRepo'
