@@ -7,10 +7,10 @@
 //
 
 #import "TTSDKSearchViewController.h"
-#import "TradeItSymbolLookupRequest.h"
-#import "TradeItSymbolLookupCompany.h"
-#import "TradeItSymbolLookupResult.h"
-#import "TradeItMarketDataService.h"
+#import <TradeItIosEmsApi/TradeItSymbolLookupRequest.h>
+#import <TradeItIosEmsApi/TradeItSymbolLookupCompany.h>
+#import <TradeItIosEmsApi/TradeItSymbolLookupResult.h>
+#import <TradeItIosEmsApi/TradeItMarketDataService.h>
 #import "TTSDKSearchBar.h"
 
 @interface TTSDKSearchViewController() {

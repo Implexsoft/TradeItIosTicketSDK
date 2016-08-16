@@ -8,7 +8,7 @@
 
 #import "TTSDKSuccessViewController.h"
 #import "TTSDKPrimaryButton.h"
-#import "TradeItPlaceTradeResult.h"
+#import <TradeItIosEmsApi/TradeItPlaceTradeResult.h>
 #import "TTSDKTradeViewController.h"
 #import "TTSDKImageView.h"
 #import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
