@@ -838,20 +838,23 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 - (NSBundle *)getBundle {
-    NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+    NSBundle *tradeItIosTicketSDKFrameworkBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+    NSString *tradeItIosTicketSDKResourceBundlePath = [tradeItIosTicketSDKFrameworkBundle pathForResource:@"TradeItIosTicketSDK"
+                                                                                                   ofType:@"bundle"];
+    NSBundle *tradeItIosTicketSDKResourceBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKResourceBundlePath];
 
-    if (tradeItIosTicketSDKBundle == nil) {
-        NSString *tradeItIosTicketSDKBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
+    if (tradeItIosTicketSDKResourceBundle == nil) {
+        tradeItIosTicketSDKResourceBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
                                                                                   ofType:@"bundle"];
 
-        tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKBundlePath];
+        tradeItIosTicketSDKResourceBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKResourceBundlePath];
 
-        if (tradeItIosTicketSDKBundle == nil) {
+        if (tradeItIosTicketSDKResourceBundle == nil) {
             NSLog(@"=====> FATAL ERROR: Cannot load TradeItIosTicketSDK.bundle");
         }
     }
 
-    return tradeItIosTicketSDKBundle;
+    return tradeItIosTicketSDKResourceBundle;
 }
 
 
