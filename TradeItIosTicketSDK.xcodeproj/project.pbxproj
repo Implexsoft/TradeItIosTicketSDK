@@ -161,6 +161,7 @@
 		A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */; };
 		A9EFA5571BDABD0600B92489 /* TradeItAuthControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9EFA5581BDABD0600B92489 /* TradeItAuthControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */; };
+		FAD3FD2C1D63F2C800EC2CAE /* Ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D7B7141D63A0D900FC9DB8 /* Ticket.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -890,6 +891,7 @@
 				65DE13551CE0FE6F00674B0E /* arrow_down.png in Resources */,
 				65DE13691CE1252A00674B0E /* tradier_logo.png in Resources */,
 				65DE13681CE1252A00674B0E /* tradestation_logo.png in Resources */,
+				FAD3FD2C1D63F2C800EC2CAE /* Ticket.storyboard in Resources */,
 				6508C4D21C7A254900612B62 /* TTSDKHoldingsHeader.xib in Resources */,
 				65666CE81CE936D300CC65DA /* tradeking_logo.png in Resources */,
 				65DE13611CE1252A00674B0E /* fidelity_logo.png in Resources */,

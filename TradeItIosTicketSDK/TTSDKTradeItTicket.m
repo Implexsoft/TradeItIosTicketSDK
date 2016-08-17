@@ -829,16 +829,27 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 }
 
 - (UIStoryboard *)getTicketStoryboard {
-    NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+    NSBundle *bundle = [self getBundle];
 
     UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
-                                                               bundle:tradeItIosTicketSDKBundle];
+                                                               bundle:bundle];
 
     return ticketStoryboard;
 }
 
 - (NSBundle *)getBundle {
     NSBundle *tradeItIosTicketSDKBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+
+    if (tradeItIosTicketSDKBundle == nil) {
+        NSString *tradeItIosTicketSDKBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
+                                                                                  ofType:@"bundle"];
+
+        tradeItIosTicketSDKBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKBundlePath];
+
+        if (tradeItIosTicketSDKBundle == nil) {
+            NSLog(@"=====> FATAL ERROR: Cannot load TradeItIosTicketSDK.bundle");
+        }
+    }
 
     return tradeItIosTicketSDKBundle;
 }
