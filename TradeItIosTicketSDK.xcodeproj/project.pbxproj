@@ -56,7 +56,7 @@
 		654C05841C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 654C05821C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.h */; };
 		654C05851C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 654C05831C3ECD1C00E974F1 /* TTSDKPortfolioAccountsTableViewCell.m */; };
 		65554E511C49802800BBA6F6 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 65554E501C49802100BBA6F6 /* backspace.png */; };
-		655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655745671C3AB7BC004BA180 /* TTSDKOnboardingViewController.h */; };
 		6557456A1C3AB7BC004BA180 /* TTSDKOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655745681C3AB7BC004BA180 /* TTSDKOnboardingViewController.m */; };
 		655E67071CB5ADDB00C3A201 /* TTSDKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 655E67051CB5ADDB00C3A201 /* TTSDKViewController.h */; };
 		655E67081CB5ADDB00C3A201 /* TTSDKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E67061CB5ADDB00C3A201 /* TTSDKViewController.m */; };
@@ -92,7 +92,7 @@
 		659A71AA1C722D3900132CDE /* TTSDKPortfolioService.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A71A81C722D3900132CDE /* TTSDKPortfolioService.m */; };
 		659A71AD1C72359800132CDE /* TTSDKAccountSummaryResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 659A71AB1C72359800132CDE /* TTSDKAccountSummaryResult.h */; };
 		659A71AE1C72359800132CDE /* TTSDKAccountSummaryResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 659A71AC1C72359800132CDE /* TTSDKAccountSummaryResult.m */; };
-		65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 65A219A31C6268E300BDCF19 /* TTSDKTradeItTicket.h */; };
 		65A219A61C6268E300BDCF19 /* TTSDKTradeItTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A219A41C6268E300BDCF19 /* TTSDKTradeItTicket.m */; };
 		65AF4DE71CC54FB500ACB3A4 /* chevron_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 65AF4DE51CC54FA800ACB3A4 /* chevron_down.png */; };
 		65CD04FF1C6D2AC50090B2F2 /* TTSDKTicketSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CD04FD1C6D2AC50090B2F2 /* TTSDKTicketSession.h */; };
@@ -133,7 +133,7 @@
 		65F39CCF1CC9882500BDF077 /* TTSDKKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F39CCD1CC9882500BDF077 /* TTSDKKeypad.m */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
 		65F5BCC61C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */; };
-		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; };
 		A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
 		A9A8CF6B1B4EFC86000207B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF6A1B4EFC86000207B9 /* UIKit.framework */; };
@@ -146,18 +146,18 @@
 		A9A8D0FE1B4F19D5000207B9 /* TTSDKSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF851B4EFDBB000207B9 /* TTSDKSuccessViewController.m */; };
 		A9A8D1001B4F19D5000207B9 /* TradeItTicketController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CF891B4EFDBB000207B9 /* TradeItTicketController.m */; };
 		A9B2D4571B5D5973008065E1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B2D4561B5D5973008065E1 /* LocalAuthentication.framework */; };
-		A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D46D1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h */; };
 		A9B2D4701B5D8929008065E1 /* TTSDKBrokerSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B2D46E1B5D8929008065E1 /* TTSDKBrokerSelectViewController.m */; };
-		A9B2D4771B5EA92F008065E1 /* TTSDKLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D4751B5EA92F008065E1 /* TTSDKLoginViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9B2D4771B5EA92F008065E1 /* TTSDKLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B2D4751B5EA92F008065E1 /* TTSDKLoginViewController.h */; };
 		A9B2D4781B5EA92F008065E1 /* TTSDKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B2D4761B5EA92F008065E1 /* TTSDKLoginViewController.m */; };
 		A9C002B21B6ACD90007D15F5 /* TTSDKTradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002B01B6ACD90007D15F5 /* TTSDKTradeViewController.m */; };
-		A9C002B31B6ACD90007D15F5 /* TTSDKTradeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002B11B6ACD90007D15F5 /* TTSDKTradeViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9C002B31B6ACD90007D15F5 /* TTSDKTradeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002B11B6ACD90007D15F5 /* TTSDKTradeViewController.h */; };
 		A9C002BB1B6FC507007D15F5 /* TTSDKBaseTradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002B91B6FC507007D15F5 /* TTSDKBaseTradeViewController.m */; };
-		A9C002BC1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002BA1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9C002BC1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002BA1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h */; };
 		A9C002BF1B710853007D15F5 /* TradeItIosTicketSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002BD1B710853007D15F5 /* TradeItIosTicketSDK.m */; };
 		A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C002C11B7151AF007D15F5 /* TradeItTicketControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9C002C41B7151AF007D15F5 /* TradeItTicketControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C002C21B7151AF007D15F5 /* TradeItTicketControllerResult.m */; };
-		A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C003871B728552007D15F5 /* TTSDKMBProgressHUD.h */; };
 		A9C0038A1B728552007D15F5 /* TTSDKMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C003881B728552007D15F5 /* TTSDKMBProgressHUD.m */; };
 		A9EFA5571BDABD0600B92489 /* TradeItAuthControllerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = A9EFA5551BDABD0600B92489 /* TradeItAuthControllerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9EFA5581BDABD0600B92489 /* TradeItAuthControllerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EFA5561BDABD0600B92489 /* TradeItAuthControllerResult.m */; };
@@ -726,11 +726,18 @@
 				65EC07C91CBD7B3300A6B72E /* TTSDKNavigationController.h in Headers */,
 				A9C002C31B7151AF007D15F5 /* TradeItTicketControllerResult.h in Headers */,
 				A9EFA5571BDABD0600B92489 /* TradeItAuthControllerResult.h in Headers */,
+				65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */,
+				A9C002B31B6ACD90007D15F5 /* TTSDKTradeViewController.h in Headers */,
+				A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */,
+				655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */,
+				A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */,
+				A9B2D4771B5EA92F008065E1 /* TTSDKLoginViewController.h in Headers */,
+				A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */,
+				A9C002BC1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h in Headers */,
 				65826F961CC41DAC00B085F8 /* TTSDKSearchBar.h in Headers */,
 				6574AA721CB811990003FFE9 /* TTSDKTextField.h in Headers */,
 				A9A8CF6D1B4EFD4F000207B9 /* TradeItIosTicketSDK.h in Headers */,
 				6510F4A11C46FC94009989BD /* TTSDKAccountLinkViewController.h in Headers */,
-				65A219A51C6268E300BDCF19 /* TTSDKTradeItTicket.h in Headers */,
 				65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */,
 				65DD1BD71C3C82F80032676A /* TTSDKPortfolioViewController.h in Headers */,
 				6510F4A61C47010E009989BD /* TTSDKAccountLinkTableViewCell.h in Headers */,
@@ -751,15 +758,8 @@
 				6508C4C21C797D4600612B62 /* TTSDKPortfolioAccount.h in Headers */,
 				65ECCAF21C125403000CE86B /* TTSDKUtils.h in Headers */,
 				65DE13511CE0C99500674B0E /* TTSDKBrokerCenterTableViewCell.h in Headers */,
-				A9C002B31B6ACD90007D15F5 /* TTSDKTradeViewController.h in Headers */,
 				657ED25D1C21FDCF00217735 /* TTSDKAccountSelectViewController.h in Headers */,
-				A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */,
 				6570D23F1CBD3BF0004232AA /* TTSDKSmallLabel.h in Headers */,
-				655745691C3AB7BC004BA180 /* TTSDKOnboardingViewController.h in Headers */,
-				A9C003891B728552007D15F5 /* TTSDKMBProgressHUD.h in Headers */,
-				A9B2D4771B5EA92F008065E1 /* TTSDKLoginViewController.h in Headers */,
-				A9B2D46F1B5D8929008065E1 /* TTSDKBrokerSelectViewController.h in Headers */,
-				A9C002BC1B6FC507007D15F5 /* TTSDKBaseTradeViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
