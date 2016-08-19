@@ -13,12 +13,12 @@
 #import <TradeItIosEmsApi/TradeItEmsUtils.h>
 
 @interface TTSDKPublisherService() {
-    TTSDKTradeItTicket * globalTicket;
-    NSMutableArray * imagesToLoad;
+    TTSDKTradeItTicket *globalTicket;
+    NSMutableArray *imagesToLoad;
 }
 
-@property NSArray * data;
-@property NSArray * brokerCenterLogoImages;
+@property NSArray *data;
+@property NSMutableArray *brokerCenterLogoImages;
 
 @end
 
@@ -27,7 +27,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.brokerCenterLogoImages = [[NSArray alloc] init];
+        self.brokerCenterLogoImages = [[NSMutableArray alloc] init];
         self.brokerCenterButtonViews = [[NSMutableArray alloc] init];
 
         globalTicket = [TTSDKTradeItTicket globalTicket];
@@ -112,47 +112,13 @@
 }
 
 -(void) dequeueImageDataAndLoad {
-    NSDictionary * logoItem = [imagesToLoad firstObject];
-    [imagesToLoad removeObjectAtIndex:0];
+    NSBundle *bundle = [[TTSDKTradeItTicket globalTicket] getBundle];
 
-    NSString * logoSrc = [logoItem valueForKey: @"src"];
-
-    if ([logoSrc isEqualToString:@""]) {
+    for (NSDictionary *logoItem in imagesToLoad) {
         NSString *imageName = [NSString stringWithFormat:@"%@_logo.png", [logoItem valueForKey:@"broker"]];
-        UIImage *img = [UIImage imageNamed:imageName
-                                  inBundle:[[TTSDKTradeItTicket globalTicket] getBundle]
-             compatibleWithTraitCollection:nil];
-
-        NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
-        [mutableImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
-
-        self.brokerCenterLogoImages = [mutableImages copy];
-
-    } else {
-        [self performSelectorInBackground:@selector(loadImageData:) withObject:logoItem];
+        UIImage *img = [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+        [self.brokerCenterLogoImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
     }
-
-    if (imagesToLoad.count) {
-        [self dequeueImageDataAndLoad];
-    }
-}
-
--(void) loadImageData:(NSDictionary *)logoItem {
-    NSString * logoSrc = [logoItem valueForKey: @"src"];
-    NSData * imageData = [NSData dataWithContentsOfURL: [NSURL URLWithString:logoSrc]];
-
-    NSDictionary * logoLoadItem = @{@"broker": [logoItem valueForKey:@"broker"], @"data": imageData};
-
-    [self performSelectorOnMainThread:@selector(appendLoadedImageData:) withObject:logoLoadItem waitUntilDone:NO];
-}
-
--(void) appendLoadedImageData:(NSDictionary *)logoLoadItem {
-    NSData * imageData = [logoLoadItem valueForKey: @"data"];
-    UIImage * img = [UIImage imageWithData: imageData];
-
-    NSMutableArray * mutableImages = [self.brokerCenterLogoImages mutableCopy];
-    [mutableImages addObject:@{@"image": img, @"broker": [logoLoadItem valueForKey:@"broker"]}];
-    self.brokerCenterLogoImages = [mutableImages copy];
 }
 
 -(void) loadWebViews {
@@ -164,6 +130,5 @@
         [self.brokerCenterButtonViews addObject: @{@"broker": broker.broker, @"webView": buttonWebView}];
     }
 }
-
 
 @end
