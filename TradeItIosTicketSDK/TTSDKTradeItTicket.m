@@ -30,7 +30,8 @@
     TradeItTradeService * tradeService;
 }
 
-@property TTSDKUtils * utils;
+@property TTSDKUtils *utils;
+@property NSBundle *bundle;
 
 @end
 
@@ -831,31 +832,41 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 - (UIStoryboard *)getTicketStoryboard {
     NSBundle *bundle = [self getBundle];
 
-    UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket"
-                                                               bundle:bundle];
+    UIStoryboard *ticketStoryboard = [UIStoryboard storyboardWithName:@"Ticket" bundle:bundle];
 
     return ticketStoryboard;
 }
 
 - (NSBundle *)getBundle {
-    NSBundle *tradeItIosTicketSDKFrameworkBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
-    NSString *tradeItIosTicketSDKResourceBundlePath = [tradeItIosTicketSDKFrameworkBundle pathForResource:@"TradeItIosTicketSDK"
-                                                                                                   ofType:@"bundle"];
-    NSBundle *tradeItIosTicketSDKResourceBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKResourceBundlePath];
-
-    if (tradeItIosTicketSDKResourceBundle == nil) {
-        tradeItIosTicketSDKResourceBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK"
-                                                                                  ofType:@"bundle"];
-
-        tradeItIosTicketSDKResourceBundle = [NSBundle bundleWithPath:tradeItIosTicketSDKResourceBundlePath];
-
-        if (tradeItIosTicketSDKResourceBundle == nil) {
-            NSLog(@"=====> FATAL ERROR: Cannot load TradeItIosTicketSDK.bundle");
-        }
+    if (self.bundle == nil) {
+        self.bundle = self.calculateBundle;
     }
 
-    return tradeItIosTicketSDKResourceBundle;
+    return self.bundle;
 }
 
+- (NSBundle *)calculateBundle {
+    if (self.cocoapodsBundle) {
+        return self.cocoapodsBundle;
+    } else if(self.standardBundle) {
+        return self.standardBundle;
+    } else {
+        NSLog(@"=====> FATAL ERROR: Cannot load TradeItIosTicketSDK.bundle");
+        return nil;
+    }
+}
+
+- (NSBundle *)cocoapodsBundle {
+    NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:@"org.cocoapods.TradeItIosTicketSDK"];
+    if ([frameworkBundle.bundlePath hasSuffix:@".bundle"]) { return frameworkBundle; }
+
+    NSString *resourceBundlePath = [frameworkBundle pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    return [NSBundle bundleWithPath:resourceBundlePath];
+}
+
+- (NSBundle *)standardBundle {
+    NSString *resourceBundlePath = [[NSBundle mainBundle] pathForResource:@"TradeItIosTicketSDK" ofType:@"bundle"];
+    return [NSBundle bundleWithPath:resourceBundlePath];
+}
 
 @end
