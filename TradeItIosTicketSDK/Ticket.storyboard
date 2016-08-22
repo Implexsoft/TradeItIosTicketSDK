@@ -20,11 +20,11 @@
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" tableViewCell="cUq-xX-cQ5" id="eOf-mM-fmT">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VD5-sn-X2q">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -181,33 +181,39 @@
                                     <outlet property="delegate" destination="zTt-u9-UeG" id="5Pn-Bm-zJU"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-Dm-uUT" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="50" y="230" width="220" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xds-Dm-uUT" customClass="TTSDKPrimaryButton">
+                                <rect key="frame" x="50" y="464" width="220" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="L6T-gJ-edn"/>
-                                    <constraint firstAttribute="width" constant="220" id="Pcr-Hs-ZIy"/>
+                                    <constraint firstAttribute="height" constant="44" id="iLH-fI-Ey1"/>
                                 </constraints>
                                 <state key="normal" title="Add Broker"/>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gs4-xZ-kjl" userLabel="AdView" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
-                                <rect key="frame" x="0.0" y="284" width="320" height="220"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gs4-xZ-kjl" userLabel="AdView" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="220" id="yJ7-U7-tXj"/>
+                                    <constraint firstAttribute="height" constant="50" id="yJ7-U7-tXj"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="top" secondItem="4gp-IH-AgH" secondAttribute="bottom" constant="10" id="31z-nN-u2x"/>
+                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="centerX" secondItem="Gs4-xZ-kjl" secondAttribute="centerX" id="6ai-n2-KPu"/>
                             <constraint firstItem="tQF-xg-0Di" firstAttribute="top" secondItem="Gs4-xZ-kjl" secondAttribute="bottom" id="7fu-87-PSF"/>
                             <constraint firstAttribute="trailing" secondItem="Gs4-xZ-kjl" secondAttribute="trailing" id="CIj-DZ-SxI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="28t-JE-dnw" secondAttribute="trailing" constant="-8" id="CIv-ds-dU5"/>
+                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leadingMargin" constant="34" id="H0P-vm-F61"/>
                             <constraint firstItem="28t-JE-dnw" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leadingMargin" constant="-8" id="QPB-sr-rbj"/>
-                            <constraint firstItem="Gs4-xZ-kjl" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" constant="10" id="b1P-Wg-Qux"/>
-                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="top" secondItem="28t-JE-dnw" secondAttribute="bottom" constant="20" id="oew-hW-jRD"/>
+                            <constraint firstItem="Gs4-xZ-kjl" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" priority="950" constant="10" id="b1P-Wg-Qux"/>
+                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="top" secondItem="28t-JE-dnw" secondAttribute="bottom" constant="10" id="qCq-P9-gSr"/>
                             <constraint firstItem="Gs4-xZ-kjl" firstAttribute="leading" secondItem="Net-pZ-QXv" secondAttribute="leading" id="rcq-wg-0Nr"/>
-                            <constraint firstItem="Xds-Dm-uUT" firstAttribute="centerX" secondItem="Net-pZ-QXv" secondAttribute="centerX" id="xDR-5I-XXz"/>
+                            <constraint firstItem="Gs4-xZ-kjl" firstAttribute="top" secondItem="Xds-Dm-uUT" secondAttribute="bottom" priority="950" constant="10" id="riO-xX-Tqs"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="b1P-Wg-Qux"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Accounts" id="KeN-dP-HQo">
@@ -526,11 +532,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdr-ib-KGH" customClass="TradeItAdView" customModule="TradeItIosAdSdk">
-                                <rect key="frame" x="0.0" y="348" width="320" height="220"/>
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="165" id="GqZ-gs-0g1"/>
-                                    <constraint firstAttribute="height" constant="220" id="tqg-y4-msW"/>
+                                    <constraint firstAttribute="height" constant="50" id="tqg-y4-msW"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -673,15 +679,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl" customClass="TTSDKImageView">
-                                <rect key="frame" x="140" y="126" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TLN-14-EPl" customClass="TTSDKImageView">
+                                <rect key="frame" x="140" y="82" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="UJ0-TG-2Ek"/>
                                     <constraint firstAttribute="height" constant="40" id="tsP-zn-ce9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
-                                <rect key="frame" x="16" y="174" width="288" height="130"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="9or-AK-Crt">
+                                <rect key="frame" x="16" y="122" width="288" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Jyh-1n-n3E"/>
                                     <constraint firstAttribute="width" constant="288" id="Z2x-SR-q2B"/>
@@ -699,7 +705,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1j-0F-nO9" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="50" y="434" width="220" height="44"/>
+                                <rect key="frame" x="50" y="252" width="220" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="CcK-YY-RIm"/>
                                     <constraint firstAttribute="height" constant="44" id="vEa-7G-s1D"/>
@@ -709,8 +715,8 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                     <action selector="tradeButtonPressed:" destination="xhK-K9-cnI" eventType="touchUpInside" id="4NJ-DI-xZM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
-                                <rect key="frame" x="113" y="84" width="95" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4s-05-Ixc">
+                                <rect key="frame" x="113" y="40" width="95" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="A8M-n0-8Nm"/>
                                 </constraints>
@@ -727,6 +733,7 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="V1j-0F-nO9" firstAttribute="top" secondItem="9or-AK-Crt" secondAttribute="bottom" id="0OA-Ov-eui"/>
                             <constraint firstItem="V1j-0F-nO9" firstAttribute="top" secondItem="9or-AK-Crt" secondAttribute="bottom" id="CEN-3O-MSm"/>
                             <constraint firstItem="V1j-0F-nO9" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="I90-0X-SNx"/>
                             <constraint firstItem="9or-AK-Crt" firstAttribute="trailing" secondItem="ijX-Wv-ni7" secondAttribute="trailingMargin" id="JzJ-us-QaI"/>
@@ -736,11 +743,11 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                             <constraint firstAttribute="centerX" secondItem="9or-AK-Crt" secondAttribute="centerX" id="c1i-u6-mAf"/>
                             <constraint firstItem="j61-Eq-hW7" firstAttribute="leading" secondItem="ijX-Wv-ni7" secondAttribute="leading" id="c7O-jr-oXu"/>
                             <constraint firstAttribute="trailing" secondItem="j61-Eq-hW7" secondAttribute="trailing" id="pXl-Cy-kkf"/>
-                            <constraint firstItem="j61-Eq-hW7" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" constant="40" id="vxp-bR-GUx"/>
+                            <constraint firstItem="j61-Eq-hW7" firstAttribute="top" secondItem="V1j-0F-nO9" secondAttribute="bottom" priority="950" constant="40" id="vxp-bR-GUx"/>
                             <constraint firstItem="y4s-05-Ixc" firstAttribute="top" secondItem="irp-zN-1PF" secondAttribute="bottom" constant="20" id="xXA-iF-KGr"/>
                             <constraint firstItem="TLN-14-EPl" firstAttribute="top" secondItem="y4s-05-Ixc" secondAttribute="bottom" constant="20" id="xl3-fP-vgE"/>
                             <constraint firstItem="y4s-05-Ixc" firstAttribute="centerX" secondItem="ijX-Wv-ni7" secondAttribute="centerX" id="z81-hO-H6p"/>
-                            <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" constant="8" id="zQn-9p-tnb"/>
+                            <constraint firstItem="9or-AK-Crt" firstAttribute="top" secondItem="TLN-14-EPl" secondAttribute="bottom" id="zQn-9p-tnb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1536,18 +1543,18 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
                                 <rect key="frame" x="0.0" y="136" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OjU-Op-YRp" id="sM1-Ef-Dh3">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Pd-Ta-tgh">
-                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7c9-Xc-scH">
-                                            <rect key="frame" x="267" y="14" width="38" height="17"/>
+                                            <rect key="frame" x="267.5" y="14" width="37.5" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -2026,14 +2033,14 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
         <image name="trade_icon.png" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JZr-PV-7wY"/>
+        <segue reference="cfc-P1-7W5"/>
+        <segue reference="kyf-iM-tIO"/>
         <segue reference="kak-3q-tVP"/>
         <segue reference="KYx-0F-xnL"/>
         <segue reference="Iho-lP-LWh"/>
-        <segue reference="uWM-4J-KHQ"/>
-        <segue reference="kyf-iM-tIO"/>
         <segue reference="alq-MR-2uv"/>
         <segue reference="hO5-IP-sLI"/>
-        <segue reference="cfc-P1-7W5"/>
         <segue reference="dYF-7w-adj"/>
     </inferredMetricsTieBreakers>
 </document>
