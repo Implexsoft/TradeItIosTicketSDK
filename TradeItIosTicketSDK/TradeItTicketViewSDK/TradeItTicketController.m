@@ -187,6 +187,7 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
                       viewController:(UIViewController *)view
                            withDebug:(BOOL)debug onCompletion:(void(^)(TradeItTicketControllerResult * result))callback {
     TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
+    [ticket setResultContainer: [[TradeItTicketControllerResult alloc] initNoBrokerStatus]];
     ticket.presentationMode = TradeItPresentationModeAuth;
 
     ticket.parentView = view;

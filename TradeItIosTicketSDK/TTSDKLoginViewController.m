@@ -293,6 +293,7 @@
                     }];
 
                 } else if ([result isKindOfClass:TradeItAuthenticationResult.class]) {
+                    self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
 
                     TradeItAuthenticationResult * authResult = (TradeItAuthenticationResult *)result;
 
@@ -339,7 +340,6 @@
     if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
         // auto-select account. this does nothing but ensure the user always has a lastSelectedAccount
         [self autoSelectAccount: [accounts lastObject] withSession:session];
-        self.ticket.resultContainer.status = AUTHENTICATION_SUCCESS;
 
         [self.ticket returnToParentApp];
 
