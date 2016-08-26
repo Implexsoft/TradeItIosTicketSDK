@@ -321,11 +321,11 @@
 
                             [self.ticket selectCurrentSession:selectedSession andAccount:selectedAccount];
 
-                            [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
+                            [self completeAuthenticationAndClose: authResult selectedAccount: selectedAccount session: newSession];
                         }];
 
                     } else {
-                        [self completeAuthenticationAndClose: authResult account: authResult.accounts session: newSession];
+                        [self completeAuthenticationAndClose: authResult selectedAccount: [authResult.accounts lastObject] session: newSession];
                     }
                 }
             }];
@@ -334,12 +334,12 @@
 }
 
 - (void)completeAuthenticationAndClose:(TradeItAuthenticationResult *)result
-                               account:(NSArray *)accounts
+                       selectedAccount:(NSDictionary *)selectedAccount
                                session:(TTSDKTicketSession *)session {
     // TODO - refactor to avoid duplication
     if (self.ticket.presentationMode == TradeItPresentationModeAuth) {
         // auto-select account. this does nothing but ensure the user always has a lastSelectedAccount
-        [self autoSelectAccount: [accounts lastObject] withSession:session];
+        [self autoSelectAccount: selectedAccount withSession:session];
 
         [self.ticket returnToParentApp];
 
@@ -349,7 +349,7 @@
         }
     } else if (self.isModal) {
         if (!multiAccounts) {
-            [self autoSelectAccount: [accounts lastObject] withSession:session];
+            [self autoSelectAccount: selectedAccount withSession:session];
         }
 
         [self dismissViewControllerAnimated:YES completion:^(void){
@@ -358,7 +358,7 @@
             }
         }];
     } else {
-        [self autoSelectAccount: [accounts lastObject] withSession:session];
+        [self autoSelectAccount: selectedAccount withSession:session];
 
         if (self.ticket.presentationMode == TradeItPresentationModePortfolio && self.ticket.presentationMode == TradeItPresentationModePortfolioOnly) {
             [self performSegueWithIdentifier: @"LoginToPortfolioNav" sender: self];
