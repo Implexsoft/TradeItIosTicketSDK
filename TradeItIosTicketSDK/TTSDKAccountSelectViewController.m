@@ -13,6 +13,7 @@
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKAccountLinkViewController.h"
+#import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKAccountSelectViewController () {
     TTSDKPortfolioService * portfolioService;
@@ -20,6 +21,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet TradeItAdView *adView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
 
 @end
 
@@ -39,6 +42,13 @@
     [super viewDidLoad];
 
     accountResults = [[NSArray alloc] init];
+    [self initializeAd];
+}
+
+- (void)initializeAd {
+    [self.adView configureWithAdType:@"account"
+                              broker: self.ticket.currentSession.broker
+                    heightConstraint:self.adViewHeightConstraint];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
