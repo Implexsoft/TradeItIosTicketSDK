@@ -84,6 +84,11 @@ static NSString * kLoginSegueIdentifier = @"TradeToLogin";
         
         UIView * emptyKeypadFrame = [[UIView alloc] initWithFrame:CGRectZero]; // we need to set the input view of the text field so that the cursor shows up
         sharesInput.inputView = emptyKeypadFrame;
+        if ([sharesInput respondsToSelector:@selector(inputAssistantItem)]) {
+            UITextInputAssistantItem *inputAssistantItem = [sharesInput inputAssistantItem];
+            inputAssistantItem.leadingBarButtonGroups = @[];
+            inputAssistantItem.trailingBarButtonGroups = @[];
+        }
         limitPriceInput.inputView = emptyKeypadFrame;
         stopPriceInput.inputView = emptyKeypadFrame;
         [keypad hideDecimal];
