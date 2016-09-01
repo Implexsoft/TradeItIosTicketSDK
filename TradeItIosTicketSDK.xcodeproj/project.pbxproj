@@ -133,6 +133,8 @@
 		65F39CCF1CC9882500BDF077 /* TTSDKKeypad.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F39CCD1CC9882500BDF077 /* TTSDKKeypad.m */; };
 		65F5BCC51C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */; };
 		65F5BCC61C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */; };
+		75BA208F1D7886740043CD50 /* truste.png in Resources */ = {isa = PBXBuildFile; fileRef = 75BA208D1D78782F0043CD50 /* truste.png */; };
+		75BA20901D7886740043CD50 /* norton.png in Resources */ = {isa = PBXBuildFile; fileRef = 75BA208E1D78782F0043CD50 /* norton.png */; };
 		A93B3C4E1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */; };
 		A93B3C4F1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */; };
 		A9A8CF5C1B4EFACB000207B9 /* libTradeItIosTicketSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A8CF501B4EFACB000207B9 /* libTradeItIosTicketSDK.a */; };
@@ -318,6 +320,8 @@
 		65F5BCC31C0F524000299956 /* TTSDKBrokerSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKBrokerSelectTableViewCell.h; sourceTree = "<group>"; };
 		65F5BCC41C0F524000299956 /* TTSDKBrokerSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKBrokerSelectTableViewCell.m; sourceTree = "<group>"; };
 		756A53641D5D1FDC0061A3A8 /* TradeItIosTicketSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TradeItIosTicketSDK.podspec; sourceTree = "<group>"; };
+		75BA208D1D78782F0043CD50 /* truste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = truste.png; sourceTree = "<group>"; };
+		75BA208E1D78782F0043CD50 /* norton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = norton.png; sourceTree = "<group>"; };
 		75D7B7141D63A0D900FC9DB8 /* Ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Ticket.storyboard; sourceTree = "<group>"; };
 		A93B3C4C1B5464BC00373E1B /* TTSDKCustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSDKCustomIOSAlertView.h; sourceTree = "<group>"; };
 		A93B3C4D1B5464BC00373E1B /* TTSDKCustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSDKCustomIOSAlertView.m; sourceTree = "<group>"; };
@@ -649,6 +653,8 @@
 		A9A8D12B1B5042CE000207B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75BA208D1D78782F0043CD50 /* truste.png */,
+				75BA208E1D78782F0043CD50 /* norton.png */,
 				65DE13541CE0FE6F00674B0E /* arrow_down.png */,
 				65554E501C49802100BBA6F6 /* backspace.png */,
 				65AF4DE51CC54FA800ACB3A4 /* chevron_down.png */,
@@ -879,6 +885,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75BA208F1D7886740043CD50 /* truste.png in Resources */,
+				75BA20901D7886740043CD50 /* norton.png in Resources */,
 				656886401CDA31E70082D96E /* success_icon.png in Resources */,
 				6541E5451CE27C13009C8A30 /* etrade_logo.png in Resources */,
 				65DE13651CE1252A00674B0E /* schwab_logo.png in Resources */,

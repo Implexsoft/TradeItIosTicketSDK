@@ -379,10 +379,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGN-GL-pyU" userLabel="ListView">
-                                <rect key="frame" x="48" y="164" width="225" height="150"/>
+                                <rect key="frame" x="68" y="145" width="185" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast and easy trading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-uL-kzG" customClass="TTSDKLabel">
-                                        <rect key="frame" x="10" y="0.0" width="215" height="16"/>
+                                        <rect key="frame" x="10" y="0.0" width="175" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="xRl-5o-FsF"/>
                                         </constraints>
@@ -397,8 +397,8 @@
                                             <constraint firstAttribute="width" constant="4" id="kxc-0f-Cip"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts in one place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI" customClass="TTSDKLabel">
-                                        <rect key="frame" x="10" y="26" width="215" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all of your accounts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXb-3D-lgI" customClass="TTSDKLabel">
+                                        <rect key="frame" x="10" y="21" width="175" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="3iZ-N2-EoY"/>
                                         </constraints>
@@ -406,7 +406,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-PP-k3j" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="32" width="4" height="4"/>
+                                        <rect key="frame" x="0.0" y="27" width="4" height="4"/>
                                         <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="KmH-Ml-qR4"/>
@@ -414,7 +414,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comprehensive security" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-Fa-ScV" customClass="TTSDKLabel">
-                                        <rect key="frame" x="10" y="52" width="215" height="16"/>
+                                        <rect key="frame" x="10" y="42" width="175" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="9xP-gg-QUm"/>
                                         </constraints>
@@ -422,7 +422,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-Kc-Q9q" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="58" width="4" height="4"/>
+                                        <rect key="frame" x="0.0" y="48" width="4" height="4"/>
                                         <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="JNN-Mr-8rU"/>
@@ -430,7 +430,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convenient logins via TouchID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-bt-exT" customClass="TTSDKLabel">
-                                        <rect key="frame" x="10" y="78" width="215" height="16"/>
+                                        <rect key="frame" x="10" y="63" width="175" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="hld-ow-EQO"/>
                                         </constraints>
@@ -438,7 +438,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwW-BQ-aXo" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="84" width="4" height="4"/>
+                                        <rect key="frame" x="0.0" y="69" width="4" height="4"/>
                                         <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="4" id="8ri-vL-WCW"/>
@@ -446,7 +446,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All major US brokers supported" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-ol-Fgg" customClass="TTSDKLabel">
-                                        <rect key="frame" x="10" y="104" width="215" height="16"/>
+                                        <rect key="frame" x="10" y="84" width="175" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="UFU-e3-1Mg"/>
                                         </constraints>
@@ -454,7 +454,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-HP-SoW" userLabel="Bullet">
-                                        <rect key="frame" x="0.0" y="110" width="4" height="4"/>
+                                        <rect key="frame" x="0.0" y="90" width="4" height="4"/>
                                         <color key="backgroundColor" red="0.31764705882352939" green="0.53333333333333333" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="4" id="3QW-7Y-n0f"/>
@@ -467,7 +467,7 @@
                                     <constraint firstAttribute="trailing" secondItem="bEh-ol-Fgg" secondAttribute="trailing" id="0qI-3g-IAQ"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="1oQ-le-NWK"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="FMG-2V-Vzy"/>
-                                    <constraint firstAttribute="width" constant="225" id="HSD-Ed-dtZ"/>
+                                    <constraint firstAttribute="width" constant="185" id="HSD-Ed-dtZ"/>
                                     <constraint firstItem="uXb-3D-lgI" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="KUh-i7-4p1"/>
                                     <constraint firstItem="4LW-hd-IFh" firstAttribute="centerY" secondItem="dOw-uL-kzG" secondAttribute="centerY" id="M60-Nt-8fw"/>
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="top" id="N9r-O9-jyL"/>
@@ -478,28 +478,31 @@
                                     <constraint firstItem="dOw-uL-kzG" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" constant="10" id="b0D-EV-PrR"/>
                                     <constraint firstItem="SwW-BQ-aXo" firstAttribute="centerY" secondItem="oif-bt-exT" secondAttribute="centerY" id="bg7-2l-6J7"/>
                                     <constraint firstAttribute="trailing" secondItem="Snw-Fa-ScV" secondAttribute="trailing" id="d1Q-KY-TyI"/>
-                                    <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="10" id="fLI-Ka-Pty"/>
-                                    <constraint firstItem="uXb-3D-lgI" firstAttribute="top" secondItem="dOw-uL-kzG" secondAttribute="bottom" constant="10" id="fzT-WK-b1Q"/>
+                                    <constraint firstItem="Snw-Fa-ScV" firstAttribute="top" secondItem="uXb-3D-lgI" secondAttribute="bottom" constant="5" id="fLI-Ka-Pty"/>
+                                    <constraint firstItem="uXb-3D-lgI" firstAttribute="top" secondItem="dOw-uL-kzG" secondAttribute="bottom" constant="5" id="fzT-WK-b1Q"/>
                                     <constraint firstItem="SwW-BQ-aXo" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="iRD-N6-EJY"/>
                                     <constraint firstItem="aHi-HP-SoW" firstAttribute="centerY" secondItem="bEh-ol-Fgg" secondAttribute="centerY" id="j0U-67-U49"/>
                                     <constraint firstAttribute="trailing" secondItem="oif-bt-exT" secondAttribute="trailing" id="jPU-l6-mmq"/>
-                                    <constraint firstAttribute="height" constant="150" id="n0p-0E-eev"/>
-                                    <constraint firstItem="bEh-ol-Fgg" firstAttribute="top" secondItem="oif-bt-exT" secondAttribute="bottom" constant="10" id="r1f-jQ-ByG"/>
+                                    <constraint firstAttribute="height" constant="100" id="n0p-0E-eev"/>
+                                    <constraint firstItem="bEh-ol-Fgg" firstAttribute="top" secondItem="oif-bt-exT" secondAttribute="bottom" constant="5" id="r1f-jQ-ByG"/>
                                     <constraint firstAttribute="trailing" secondItem="dOw-uL-kzG" secondAttribute="trailing" id="r3I-Lp-rah"/>
                                     <constraint firstItem="c6p-Kc-Q9q" firstAttribute="leading" secondItem="nGN-GL-pyU" secondAttribute="leading" id="rPG-61-1dx"/>
                                     <constraint firstItem="c6p-Kc-Q9q" firstAttribute="centerY" secondItem="Snw-Fa-ScV" secondAttribute="centerY" id="v2X-XW-eqe"/>
                                     <constraint firstItem="a1A-PP-k3j" firstAttribute="centerY" secondItem="uXb-3D-lgI" secondAttribute="centerY" id="wRM-10-90y"/>
-                                    <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="10" id="yHZ-FV-Ala"/>
+                                    <constraint firstItem="oif-bt-exT" firstAttribute="top" secondItem="Snw-Fa-ScV" secondAttribute="bottom" constant="5" id="yHZ-FV-Ala"/>
                                     <constraint firstAttribute="trailing" secondItem="uXb-3D-lgI" secondAttribute="trailing" id="yyQ-DG-3Ay"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select your broker to begin:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsE-Pz-vxy" customClass="TTSDKLabel">
-                                <rect key="frame" x="55" y="320" width="212" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your broker to begin:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsE-Pz-vxy" customClass="TTSDKLabel">
+                                <rect key="frame" x="54" y="302" width="212" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="bGJ-5k-Kj1"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvo-Gu-GcY" userLabel="Preferred Broker Button">
-                                <rect key="frame" x="60" y="363" width="200" height="44"/>
+                                <rect key="frame" x="60" y="343" width="200" height="44"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="BrokerSelectionDropdownButton"/>
                                 <constraints>
@@ -513,19 +516,8 @@
                                     <action selector="preferredBrokerPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="Y35-cd-DXe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-IC-miQ" customClass="TTSDKPrimaryButton">
-                                <rect key="frame" x="60" y="429" width="200" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="pOo-DT-eJI"/>
-                                    <constraint firstAttribute="height" constant="44" id="ya1-rB-NU4"/>
-                                </constraints>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="brokerSelectPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="VdB-c3-xL7"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edi-8K-lns">
-                                <rect key="frame" x="80" y="485" width="161" height="30"/>
+                                <rect key="frame" x="80" y="453" width="161" height="30"/>
                                 <state key="normal" title="Don't have an account?"/>
                                 <connections>
                                     <action selector="openAccountPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="kGq-om-Elv"/>
@@ -544,24 +536,61 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zI-YG-w0M">
+                                <rect key="frame" x="67" y="250" width="185" height="32"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="truste.png" translatesAutoresizingMaskIntoConstraints="NO" id="iM2-XZ-2GM">
+                                        <rect key="frame" x="108" y="0.0" width="77" height="32"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="norton.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fgf-GT-xVA">
+                                        <rect key="frame" x="11" y="0.0" width="77" height="32"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Fgf-GT-xVA" firstAttribute="width" secondItem="iM2-XZ-2GM" secondAttribute="width" id="8Hf-tE-z2C"/>
+                                    <constraint firstAttribute="bottom" secondItem="Fgf-GT-xVA" secondAttribute="bottom" id="CEX-lH-w7I"/>
+                                    <constraint firstItem="Fgf-GT-xVA" firstAttribute="top" secondItem="9zI-YG-w0M" secondAttribute="top" id="Rd9-m0-ZeU"/>
+                                    <constraint firstItem="iM2-XZ-2GM" firstAttribute="leading" secondItem="Fgf-GT-xVA" secondAttribute="trailing" constant="20" id="aXX-lJ-T2W"/>
+                                    <constraint firstItem="iM2-XZ-2GM" firstAttribute="height" secondItem="Fgf-GT-xVA" secondAttribute="height" id="c5G-qG-4bb"/>
+                                    <constraint firstItem="iM2-XZ-2GM" firstAttribute="centerY" secondItem="Fgf-GT-xVA" secondAttribute="centerY" id="g5n-ll-inD"/>
+                                    <constraint firstAttribute="trailing" secondItem="iM2-XZ-2GM" secondAttribute="trailing" id="nEc-Jp-wz4"/>
+                                    <constraint firstAttribute="height" constant="32" id="r56-Qb-n3o"/>
+                                    <constraint firstItem="Fgf-GT-xVA" firstAttribute="leading" secondItem="9zI-YG-w0M" secondAttribute="leading" constant="11" id="yxa-Nh-ukU"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKl-IC-miQ" customClass="TTSDKPrimaryButton">
+                                <rect key="frame" x="60" y="397" width="200" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="pOo-DT-eJI"/>
+                                    <constraint firstAttribute="height" constant="44" id="ya1-rB-NU4"/>
+                                </constraints>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="brokerSelectPressed:" destination="r6z-Ew-5zU" eventType="touchUpInside" id="VdB-c3-xL7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="PqO-0z-E9M" firstAttribute="top" secondItem="gdr-ib-KGH" secondAttribute="bottom" id="097-4w-a43"/>
-                            <constraint firstItem="Tvo-Gu-GcY" firstAttribute="top" secondItem="dsE-Pz-vxy" secondAttribute="bottom" constant="22" id="1PN-q9-vRO"/>
+                            <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="Tvo-Gu-GcY" secondAttribute="centerX" id="5Ya-zY-UEW"/>
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="DxX-aE-CNC"/>
-                            <constraint firstItem="nGN-GL-pyU" firstAttribute="top" secondItem="Wui-vI-2sy" secondAttribute="bottom" constant="25" id="E9g-BX-tpE"/>
-                            <constraint firstItem="dsE-Pz-vxy" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="bottom" constant="6" id="Eeg-c3-Tuv"/>
+                            <constraint firstItem="nGN-GL-pyU" firstAttribute="top" secondItem="Wui-vI-2sy" secondAttribute="bottom" constant="6" id="E9g-BX-tpE"/>
+                            <constraint firstItem="9zI-YG-w0M" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="MuO-iT-Wj3"/>
                             <constraint firstItem="gdr-ib-KGH" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" constant="2" id="ODd-JZ-G10"/>
                             <constraint firstItem="UKl-IC-miQ" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Opr-tk-JuY"/>
-                            <constraint firstItem="dsE-Pz-vxy" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="Uwo-r4-k0K"/>
+                            <constraint firstItem="Tvo-Gu-GcY" firstAttribute="top" secondItem="dsE-Pz-vxy" secondAttribute="bottom" constant="20" id="Pf5-DK-v73"/>
                             <constraint firstItem="Wui-vI-2sy" firstAttribute="top" secondItem="mfJ-VT-lGT" secondAttribute="topMargin" constant="95" id="VHj-Bx-vBm"/>
                             <constraint firstItem="nGN-GL-pyU" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="WBF-u3-5WG"/>
                             <constraint firstAttribute="trailing" secondItem="gdr-ib-KGH" secondAttribute="trailing" id="Xx8-vP-JYN"/>
+                            <constraint firstItem="dsE-Pz-vxy" firstAttribute="top" secondItem="9zI-YG-w0M" secondAttribute="bottom" constant="20" id="b5W-Ke-7bI"/>
                             <constraint firstItem="Edi-8K-lns" firstAttribute="top" secondItem="UKl-IC-miQ" secondAttribute="bottom" constant="12" id="c1R-68-iky"/>
                             <constraint firstItem="Tvo-Gu-GcY" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="cDo-SQ-hgO"/>
                             <constraint firstItem="gdr-ib-KGH" firstAttribute="leading" secondItem="mfJ-VT-lGT" secondAttribute="leading" id="hDA-nt-gfI"/>
                             <constraint firstItem="Edi-8K-lns" firstAttribute="centerX" secondItem="mfJ-VT-lGT" secondAttribute="centerX" id="q8B-tT-izg"/>
-                            <constraint firstItem="UKl-IC-miQ" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="22" id="uSK-Lo-ZaR"/>
+                            <constraint firstItem="UKl-IC-miQ" firstAttribute="top" secondItem="Tvo-Gu-GcY" secondAttribute="bottom" constant="10" id="uSK-Lo-ZaR"/>
+                            <constraint firstItem="9zI-YG-w0M" firstAttribute="width" secondItem="nGN-GL-pyU" secondAttribute="width" id="wjV-dJ-IvH"/>
+                            <constraint firstItem="9zI-YG-w0M" firstAttribute="top" secondItem="nGN-GL-pyU" secondAttribute="bottom" constant="5" id="ybK-5W-ZCS"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -579,7 +608,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="adView" destination="gdr-ib-KGH" id="VeT-JE-hnA"/>
                         <outlet property="adViewHeightConstraint" destination="tqg-y4-msW" id="8Tu-2h-x55"/>
@@ -592,7 +620,6 @@
                         <outlet property="bullet3" destination="c6p-Kc-Q9q" id="6aA-pw-Zf1"/>
                         <outlet property="bullet4" destination="SwW-BQ-aXo" id="Gp8-SN-Bt0"/>
                         <outlet property="bullet5" destination="aHi-HP-SoW" id="Kj2-cV-yiB"/>
-                        <outlet property="dropdownButtonTopConstraint" destination="1PN-q9-vRO" id="ncS-7Y-Yzx"/>
                         <outlet property="openAccountButton" destination="Edi-8K-lns" id="Noh-s3-PsO"/>
                         <outlet property="preferredBrokerButton" destination="Tvo-Gu-GcY" id="ifH-Ek-tGY"/>
                         <segue destination="fP8-Px-0VH" kind="presentation" identifier="onboardingToBrokerCenter" id="B9a-xj-U3Y"/>
@@ -2046,18 +2073,20 @@ Your order message 2d466185c40726050eb0cd to buy 5 shares of GE at market price 
     <resources>
         <image name="chevron_down.png" width="128" height="87"/>
         <image name="lock.png" width="69" height="93"/>
+        <image name="norton.png" width="297" height="132"/>
         <image name="portfolio_icon.png" width="22" height="22"/>
         <image name="success_icon.png" width="101" height="101"/>
         <image name="trade_icon.png" width="22" height="22"/>
+        <image name="truste.png" width="405" height="102"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dYF-7w-adj"/>
         <segue reference="kak-3q-tVP"/>
         <segue reference="KYx-0F-xnL"/>
         <segue reference="Iho-lP-LWh"/>
         <segue reference="kyf-iM-tIO"/>
-        <segue reference="X2r-Bb-VCg"/>
         <segue reference="cfc-P1-7W5"/>
-        <segue reference="mX5-hx-zdn"/>
+        <segue reference="JZr-PV-7wY"/>
         <segue reference="alq-MR-2uv"/>
         <segue reference="hO5-IP-sLI"/>
     </inferredMetricsTieBreakers>
