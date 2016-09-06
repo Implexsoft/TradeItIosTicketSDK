@@ -19,6 +19,9 @@
     [self.terms setTintColor: styles.activeColor];
     [self.privacy setTintColor: styles.activeColor];
     [self.help setTintColor: styles.activeColor];
+
+    [self.adView configureWithAdType:@"account"
+                    heightConstraint:self.adViewHeightConstraint];
 }
 
 @end
