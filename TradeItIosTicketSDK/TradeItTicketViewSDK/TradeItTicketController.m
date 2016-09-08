@@ -665,10 +665,8 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 }
 
-+(void) initializeAdConfig{
-    TTSDKTradeItTicket * ticket = [TTSDKTradeItTicket globalTicket];
-
-    TradeItConnector * connector = [[TradeItConnector alloc] initWithApiKey:TradeItAdConfig.apiKey];
++(void) initializeAdConfig {
+    TradeItConnector *connector = [[TradeItConnector alloc] initWithApiKey:TradeItAdConfig.apiKey];
     NSArray *linkedLogins = [connector getLinkedLogins];
     
     NSMutableArray *users = [[NSMutableArray alloc] init];
@@ -684,7 +682,6 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
     }
 
     TradeItAdConfig.users = users;
-    TradeItAdConfig.apiKey = [ticket.connector apiKey];
 }
 
 +(NSMutableArray *) mapSessionsWithAccounts: (NSMutableArray *) sessions {

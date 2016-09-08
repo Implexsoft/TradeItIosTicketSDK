@@ -316,4 +316,6 @@ typedef NS_ENUM(NSInteger, TradeItPresentationMode) {
  */
 +(void)getSessions: (UIViewController *) viewController withApiKey:(NSString *) apiKey updateInvalidSession:(NSDictionary *) invalidSession onCompletion:(void(^)(NSArray * sessions)) callback;
 
++(void)initializeAdConfig;
+
 @end

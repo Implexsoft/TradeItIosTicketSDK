@@ -61,7 +61,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
 
     [self.brokerSelectButton activate];
 
-    [self styleCustomDropdownButton: self.preferredBrokerButton];
+    [self styleCustomDropdownButton:self.preferredBrokerButton];
 
     self.bullet1.backgroundColor = self.styles.secondaryActiveColor;
     self.bullet1.layer.cornerRadius = 2.0f;
@@ -137,7 +137,7 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     });
 }
 
--(void) styleCustomDropdownButton: (UIButton *)button {
+- (void)styleCustomDropdownButton:(UIButton *)button {
     button.backgroundColor = [UIColor clearColor];
     button.layer.borderColor = self.styles.secondaryActiveColor.CGColor;
     button.layer.borderWidth = 1.5f;
@@ -155,7 +155,14 @@ static NSString * kLoginViewControllerIdentifier = @"LOGIN";
     button.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     preferredBrokerLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem: button.titleLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel
+                                                          attribute:NSLayoutAttributeCenterY
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:button.titleLabel
+                                                          attribute:NSLayoutAttributeCenterY
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:preferredBrokerLabel attribute:NSLayoutAttributeTrailingMargin relatedBy:NSLayoutRelationEqual toItem: button attribute: NSLayoutAttributeTrailingMargin multiplier:1.0 constant:-30.0]];
 
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
