@@ -14,10 +14,10 @@
 @property BOOL isRetrievingPublisherData;
 @property BOOL publisherDataLoaded;
 @property BOOL brokerCenterActive;
-@property NSArray * brokerCenterBrokers;
-@property NSMutableArray * brokerCenterButtonViews;
+@property NSArray *brokerCenterBrokers;
+@property NSMutableArray *brokerCenterButtonViews;
 
--(void) getPublisherData;
--(UIImage *) logoImageByBoker:(NSString *)broker;
+- (void)getPublisherData;
+- (UIImage *)logoImageByBoker:(NSString *)broker;
 
 @end
