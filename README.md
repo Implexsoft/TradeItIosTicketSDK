@@ -44,7 +44,8 @@ Also, the frameworks are copied to this location:  ${HOME}/Code/TradeIt/TradeItI
 
 XCode7 - As of XCode7/iOS9 the submission process has changed, until we get a build script you'll need to manually edit the Info.plist file inside the generated .bundle  Open the file and remove the CFSupportedPlatforms and ExecutableFile lines.
 
-##Specifying parameters for the TradeIt ticket
+# Usage
+## Specifying parameters for the TradeIt ticket
 When setting order parameters in the ticket, follow the conventions listed in our API documentation:
 
 Order Quantity: only positive integers
@@ -55,9 +56,7 @@ Order Type: market, limit, stopMarket, stopLimit
 
 For more information, visit https://www.trade.it/documentation/api#PreviewTrade
 
-#Launch Methods
-
-##Launch the Trade screen
+## Launching the Trade screen
 <img src="https://www.trade.it/images/guide/trading-flow.png">
 
 ~~~~
@@ -73,7 +72,7 @@ For more information, visit https://www.trade.it/documentation/api#PreviewTrade
 }
 ~~~~
 
-##Launch the Portfolio screen
+## Launching the Portfolio screen
 <img src="https://www.trade.it/images/guide/portfolio-flow.png">
 
 ~~~~
@@ -89,7 +88,7 @@ For more information, visit https://www.trade.it/documentation/api#PreviewTrade
 }
 ~~~~
 
-#### Launch the Portfolio screen, with specific account selected: This is useful if you app displays a list of all the accounts that user can click on
+#### Launching the Portfolio screen, with specific account selected: This is useful if you app displays a list of all the accounts that user can click on
 
 ~~~~
 #import <TradeItIosTicketSDK/TradeItIosTicketSDK.h>
@@ -133,7 +132,7 @@ Note: that this code will launch the authentication flow and handle any security
 }];
 ~~~~
 
-##Launch the Account Setup screen
+## Launching the Account Setup screen
 <img src="https://www.trade.it/images/guide/login flow.png">
 ~~~~
 #import <TradeItIosTicketSDK/TradeItIosTicketSDK.h>
@@ -143,7 +142,7 @@ Note: that this code will launch the authentication flow and handle any security
 }
 ~~~~
 
-##Launch the Promotional Broker Center.
+## Launching the Promotional Broker Center.
 Any account opening revenues from the Broker Center will be shared with the app developper. Please contact TradeIt for more details
 
 <img src="https://www.trade.it/images/guide/broker_center.jpg" width="200">
@@ -171,7 +170,7 @@ To launch the Broker Center screen itself:
 [TradeItTicketController showBrokerCenterWithApiKey:@"tradeit-test-api-key" viewController:self];
 ~~~~
 
-##Launch via instantiation
+## Launching via instantiation
 
 Alternatively, if you instantiate the ticket, you can manually set the flow using presentationMode:
 
@@ -189,7 +188,7 @@ Alternatively, if you instantiate the ticket, you can manually set the flow usin
 }
 ~~~~
 
-##Debugging/Setup
+## Debugging/Setup
 Should you want to test the full flow of the app, you can use our dummy broker as documented in TradeItIosEmsApi. To enable the dummy broker on the ticket, use the full method call and set the 'withDebug' property. Keep in mind that you must use your QA api key when in debug mode. Also, you will need to reset your NSUserDefaults between debug and production sessions, as your saved authentication data is particular to the server environment:
 
 ~~~~
