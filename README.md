@@ -13,7 +13,7 @@ source 'https://github.com/tradingticket/SpecRepo'
 Under your project target add our Ticket SDK pod as a dependency:
 
 ```ruby
-pod 'TradeItIosTicketSDK', '0.1.1'
+pod 'TradeItIosTicketSDK', '0.1.13'
 ```
 
 This is a base example of what it should look like:
@@ -23,7 +23,7 @@ source 'https://github.com/tradingticket/SpecRepo'
 
 target 'YourProjectTargetName' do
   use_frameworks!
-  pod 'TradeItIosTicketSDK', '0.1.1'
+  pod 'TradeItIosTicketSDK', '0.1.13'
 end
 ```
 
