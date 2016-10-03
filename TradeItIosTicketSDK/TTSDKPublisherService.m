@@ -115,9 +115,13 @@
     NSBundle *bundle = [[TTSDKTradeItTicket globalTicket] getBundle];
 
     for (NSDictionary *logoItem in imagesToLoad) {
-        NSString *imageName = [NSString stringWithFormat:@"%@_logo.png", [logoItem valueForKey:@"broker"]];
+        NSString *broker = [logoItem valueForKey:@"broker"];
+        NSString *imageName = [NSString stringWithFormat:@"%@_logo.png", broker];
         UIImage *img = [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
-        [self.brokerCenterLogoImages addObject:@{@"image": img, @"broker": [logoItem valueForKey:@"broker"]}];
+        if (img) {
+            NSDictionary *object = @{@"image": img, @"broker": broker};
+            [self.brokerCenterLogoImages addObject:object];
+        }
     }
 }
 
