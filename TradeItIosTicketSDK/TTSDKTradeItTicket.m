@@ -195,10 +195,30 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 #pragma mark - Flow: accounts
 
+- (void)launchAccountsSelectionFlow:(UIViewController*) viewController completion:(void (^)(void))completion {
+    [self prepareInitialFlow];
+    
+    [self presentAccountSelectScreen:viewController completion:completion];
+}
+
 - (void)launchAccountsFlow {
     [self prepareInitialFlow];
 
     [self presentAccountLinkScreen];
+}
+
+- (void)presentAccountSelectScreen:(UIViewController*) viewController completion:(void (^)(void))completion {
+    NSArray *linkedAccounts = [TTSDKPortfolioService linkedAccounts];
+    
+    if (linkedAccounts && linkedAccounts.count) {
+        UIStoryboard *ticketStoryboard = [self getTicketStoryboard];
+        TTSDKAccountSelectViewController *accountSelectViewController = (TTSDKAccountSelectViewController*)[ticketStoryboard instantiateViewControllerWithIdentifier:@"accountSelect"];
+        accountSelectViewController.titleOfHeader = NSLocalizedString(@"Select account to sync with", @"");
+        [viewController.navigationController pushViewController:accountSelectViewController animated:YES];
+    }else{
+        self.parentView = viewController;
+        [self presentAuthScreen];
+    }
 }
 
 - (void)presentAccountLinkScreen {
@@ -619,6 +639,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     for (NSDictionary *account in linkedAccounts) {
         if ([accountNumber isEqualToString:[account valueForKey:@"accountNumber"]]) {
             self.currentAccount = account;
+            break;
         }
     }
 

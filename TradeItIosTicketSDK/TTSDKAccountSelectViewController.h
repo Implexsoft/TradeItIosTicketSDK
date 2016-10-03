@@ -12,5 +12,5 @@
 @interface TTSDKAccountSelectViewController : TTSDKViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property BOOL isModal;
-
+@property (strong , nonatomic) NSString *titleOfHeader; // optional title
 @end

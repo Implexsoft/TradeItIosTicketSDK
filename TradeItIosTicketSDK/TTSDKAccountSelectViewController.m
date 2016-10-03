@@ -13,6 +13,7 @@
 #import "TTSDKPortfolioService.h"
 #import "TTSDKPortfolioAccount.h"
 #import "TTSDKAccountLinkViewController.h"
+#import "TTSDKLabel.h"
 #import <TradeItIosAdSdk/TradeItIosAdSdk-Swift.h>
 
 @interface TTSDKAccountSelectViewController () {
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet TradeItAdView *adView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet TTSDKLabel *mainTitle;
 
 @end
 
@@ -43,6 +45,9 @@
 
     accountResults = [[NSArray alloc] init];
     [self initializeAd];
+    if (self.titleOfHeader) {
+        self.mainTitle.text = self.titleOfHeader;
+    }
 }
 
 - (void)initializeAd {

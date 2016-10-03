@@ -61,7 +61,9 @@
 -(void) launchPortfolioFlow;
 -(void) launchTradeOrPortfolioFlow;
 -(void) launchBrokerCenterFlow:(void (^)(BOOL))completionBlock;
+-(void) launchAccountsSelectionFlow:(UIViewController*) viewController completion:(void (^)(void))completion;
 -(void) retrievePublisherData:(void (^)(BOOL))completionBlock;
+-(void) presentAccountSelectScreen:(UIViewController*) viewController completion:(void (^)(void))completion;
 
 #pragma mark Quote
 -(void) retrieveQuote:(void (^)(void))completionBlock;
