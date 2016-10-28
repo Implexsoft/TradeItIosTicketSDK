@@ -1,3 +1,10 @@
+
+# DEPRECATED! UPDATE TO SDK2
+This SDK is DEPRECATED.  All development and support will be ceasing.
+Upgrade to the shiny new SDK: https://github.com/tradingticket/TradeItIosTicketSDK2/
+
+===
+
 # TradeItIosTicketSDK
 Framework to launch TradeIt trading ticket/portfolio.
 
