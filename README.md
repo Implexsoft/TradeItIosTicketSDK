@@ -1,5 +1,5 @@
 
-# DEPRECATED! UPDATE TO SDK2
+# ¡DEPRECATED! UPDATE TO SDK2
 This SDK is DEPRECATED.  All development and support will be ceasing.
 Upgrade to the shiny new SDK: https://github.com/tradingticket/TradeItIosTicketSDK2/
 
