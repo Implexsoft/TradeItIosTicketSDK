@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'TradeItIosTicketSDK'
-  s.version          = '0.1.14'
+  s.version          = '0.1.15'
   s.summary          = 'Trade It iOS Ticket SDK'
 
   s.description      = <<-DESC
@@ -23,6 +23,6 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'TradeItIosTicketSDK/**/*.h'
   s.frameworks = 'UIKit'
-  s.dependency 'TradeItIosAdSdk', '~> 0.1.3'
+  s.dependency 'TradeItIosAdSdk', '~> 0.2.0'
   s.dependency 'TradeItIosEmsApi', '~> 0.1.1'
 end

@@ -345,10 +345,6 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     // Before moving forward, authenticate through touch ID
     BOOL hasDeviceAuthentication = [self isDeviceAuthenticationAvailable];
     
-#if TARGET_IPHONE_SIMULATOR
-    hasDeviceAuthentication = NO;
-#endif
-    
     if (hasDeviceAuthentication) {
         [self promptDeviceAuthentication:^(BOOL success) {
             if (success) {
