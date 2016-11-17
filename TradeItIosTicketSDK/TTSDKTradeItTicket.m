@@ -249,7 +249,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
         
-        [self attemptTouchId:^(void) {
+        [self attemptDeviceAuthentication:^(void) {
                 [self performSelectorOnMainThread:@selector(presentPortfolioScreen) withObject:nil waitUntilDone:NO];
         } onFailure:^(void) {
                 [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
@@ -282,7 +282,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
 
-        [self attemptTouchId:^(void){
+        [self attemptDeviceAuthentication:^(void){
             [self performSelectorOnMainThread:@selector(presentTradeScreen) withObject:nil waitUntilDone:NO];
         } onFailure:^(void){
             [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
@@ -316,7 +316,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
         // Update ticket result
         self.resultContainer.status = USER_CANCELED;
 
-        [self attemptTouchId:^(void){
+        [self attemptDeviceAuthentication:^(void){
             [self performSelectorOnMainThread:@selector(presentTradeOrPortfolioScreen) withObject:nil waitUntilDone:NO];
         } onFailure:^(void){
             [self performSelectorOnMainThread:@selector(presentAuthScreen) withObject:nil waitUntilDone:NO];
@@ -341,16 +341,16 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
 
 #pragma mark - Authentication
 
-- (void)attemptTouchId:(void (^)(void)) successBlock onFailure:(void (^)(void)) failureBlock {
+- (void)attemptDeviceAuthentication:(void (^)(void)) successBlock onFailure:(void (^)(void)) failureBlock {
     // Before moving forward, authenticate through touch ID
-    BOOL hasTouchId = [self isTouchIDAvailable];
+    BOOL hasDeviceAuthentication = [self isDeviceAuthenticationAvailable];
     
 #if TARGET_IPHONE_SIMULATOR
-    hasTouchId = NO;
+    hasDeviceAuthentication = NO;
 #endif
     
-    if (hasTouchId) {
-        [self promptTouchId:^(BOOL success) {
+    if (hasDeviceAuthentication) {
+        [self promptDeviceAuthentication:^(BOOL success) {
             if (success) {
                 if (successBlock) {
                     successBlock();
@@ -368,7 +368,7 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     }
 }
 
-- (BOOL) isTouchIDAvailable {
+- (BOOL) isDeviceAuthenticationAvailable {
     if (![LAContext class]) {
         return NO;
     }
@@ -376,17 +376,17 @@ static NSString * kLastSelectedKey = @"TRADEIT_LAST_SELECTED";
     LAContext *myContext = [[LAContext alloc] init];
     NSError *authError = nil;
     
-    if (![myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+    if (![myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&authError]) {
         return NO;
     }
     return YES;
 }
 
-- (void)promptTouchId:(void (^)(BOOL)) completionBlock {
+- (void)promptDeviceAuthentication:(void (^)(BOOL)) completionBlock {
     LAContext *myContext = [[LAContext alloc] init];
     NSString *myLocalizedReasonString = @"Enable Broker Login to Continue";
 
-    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+    [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthentication
               localizedReason:myLocalizedReasonString
                         reply:^(BOOL success, NSError *error) {
                             if (success) {
