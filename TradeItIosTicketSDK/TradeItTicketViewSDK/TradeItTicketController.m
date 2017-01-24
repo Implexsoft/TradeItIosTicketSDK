@@ -661,7 +661,9 @@ static int kDefaultOrderQuantity = 0; // nsnumbers cannot be compile-time consta
 
         [viewController presentViewController:loginNav animated:YES completion:nil];
     } else {
-        ogCallback([self mapSessionsWithAccounts:sessions]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ogCallback([self mapSessionsWithAccounts:sessions]);
+        });
     }
 }
 
